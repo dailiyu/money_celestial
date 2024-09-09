@@ -3,12 +3,45 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "uni-app",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/merchant_intro",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/settle_notice",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家入驻须知",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/merchant_set_info",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家入驻",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/merchant_management",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家后台",
+				"navigationStyle": "custom"
 			}
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"

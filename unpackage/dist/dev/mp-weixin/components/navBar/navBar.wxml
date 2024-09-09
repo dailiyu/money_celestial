@@ -1,0 +1,1 @@
+<view style="{{'padding-top:' + e}}" class="nav_bar data-v-fba290dc"><view class="nav_item data-v-fba290dc"><uni-icons wx:if="{{a}}" class="data-v-fba290dc" bindclick="{{b}}" u-i="fba290dc-0" bind:__l="__l" u-p="{{c}}"></uni-icons><view class=" data-v-fba290dc">{{d}}</view></view></view>

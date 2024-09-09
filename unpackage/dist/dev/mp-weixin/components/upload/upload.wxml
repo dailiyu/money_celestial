@@ -1,0 +1,1 @@
+<view class="flex data-v-0917ae16"><image src="{{a}}" mode="widthFix" class="upload_btn data-v-0917ae16" bindtap="{{b}}"></image></view>
