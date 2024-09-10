@@ -98,6 +98,8 @@ const getLocation = ()=>{
 		}
 	})
 }
+
+const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }

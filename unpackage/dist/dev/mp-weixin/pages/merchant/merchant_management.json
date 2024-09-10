@@ -2,7 +2,6 @@
   "navigationBarTitleText": "商家后台",
   "navigationStyle": "custom",
   "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar",
-    "uni-rate": "../../uni_modules/uni-rate/components/uni-rate/uni-rate"
+    "nav-bar": "../../components/navBar/navBar"
   }
 }

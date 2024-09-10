@@ -22,10 +22,8 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "商家"
         }),
-        b: common_assets._imports_0$2,
-        c: common_assets._imports_1,
-        d: common_assets._imports_2,
-        e: common_vendor.o(toNotice)
+        b: common_assets._imports_0$1,
+        c: common_vendor.o(toNotice)
       };
     };
   }

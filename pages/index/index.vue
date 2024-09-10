@@ -26,7 +26,7 @@
 					商家
 				</view>
 			</view>
-			<view class="function_item">
+			<view class="function_item" @click="toAgent">
 				<view class="img_box flex_center">
 					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
 				</view>
@@ -34,7 +34,7 @@
 					代理
 				</view>
 			</view>
-			<view class="function_item">
+			<view class="function_item" @click="toRecommend">
 				<view class="img_box flex_center">
 					<image src="@/static/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
 				</view>
@@ -122,7 +122,7 @@
 							热门榜
 						</view>
 					</view>
-					<view class="settle">
+					<view class="settle" @click="toSettle">
 						我要入驻
 					</view>
 				</view>
@@ -144,7 +144,7 @@
 							271.51km
 						</view>
 					</view>
-					<view class="more">
+					<view class="more" @click="toAllMerchant">
 						点击查看更多
 					</view>
 				</view>
@@ -167,9 +167,9 @@
 			</swiper-item>
 		</swiper>
 		<view class="content">
-			<image src="@/static/home/shop.jpg" mode="widthFix" class="shop_img"></image>
-			<image src="@/static/home/benefit.jpg" mode="widthFix" class="shop_img"></image>
-			<image src="@/static/home/earn.jpg" mode="widthFix" class="shop_img"></image>
+			<image src="@/static/home/shop.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="@/static/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="@/static/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
 		</view>
 	</view>
 </template>
@@ -180,10 +180,30 @@ const keyword = ref('')
 const search = ()=>{
 	console.log(keyword.value)
 }
+const toSettle = ()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/merchant_intro'
+	})
+}
 const toMerchant = ()=>{
 	// 未入驻
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_intro'
+	})
+}
+const toAgent = ()=>{
+	uni.navigateTo({
+		url: '/pages/agent/agent_intro'
+	})
+}
+const toRecommend = ()=>{
+	uni.navigateTo({
+		url: '/pages/recommend/recommend_intro'
+	})
+}
+const toAllMerchant = ()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/all_merchant'
 	})
 }
 </script>
@@ -350,7 +370,7 @@ const toMerchant = ()=>{
 			}
 		}
 	}
-	.shop_img {
+	.shop_pic {
 		width: 100%;
 		margin-bottom: 30rpx;
 	}

@@ -13,27 +13,6 @@
           "query": "",
           "launchMode": "default",
           "scene": null
-        },
-        {
-          "name": "pages/merchant/merchant_set_info",
-          "pathName": "pages/merchant/merchant_set_info",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "pages/merchant/settle_notice",
-          "pathName": "pages/merchant/settle_notice",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "pages/merchant/merchant_intro",
-          "pathName": "pages/merchant/merchant_intro",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
         }
       ]
     }

@@ -5,8 +5,6 @@
     "include": []
   },
   "setting": {
-    "ignoreDevUnusedFiles": false,
-    "ignoreUploadUnusedFiles": false,
     "urlCheck": false,
     "es6": true,
     "postcss": false,
@@ -17,11 +15,13 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "ignoreUploadUnusedFiles": false,
+    "ignoreDevUnusedFiles": false
   },
   "compileType": "miniprogram",
   "libVersion": "3.5.5",
-  "appid": "touristappid",
+  "appid": "wx06423884fa78e5ba",
   "projectname": "money_celestial",
   "condition": {
     "search": {

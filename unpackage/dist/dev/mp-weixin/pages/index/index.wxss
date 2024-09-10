@@ -180,7 +180,7 @@
   text-align: center;
   padding: 30rpx 0;
 }
-.content .shop_img.data-v-1cf27b2a {
+.content .shop_pic.data-v-1cf27b2a {
   width: 100%;
   margin-bottom: 30rpx;
 }

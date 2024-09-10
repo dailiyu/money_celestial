@@ -36,6 +36,7 @@
 .merchant_info .name.data-v-a81a7219 {
   font-size: 26rpx;
   margin-bottom: 22rpx;
+  font-weight: 500;
 }
 .merchant_info .name .level.data-v-a81a7219 {
   padding: 6rpx 14rpx;
@@ -43,10 +44,31 @@
   margin-left: 12rpx;
   color: #fff;
   border-radius: 100px;
+  font-weight: bold;
+}
+.merchant_info .star_pic.data-v-a81a7219 {
+  width: 22rpx;
+  display: block;
 }
 .merchant_info .point.data-v-a81a7219 {
   font-size: 16rpx;
   color: #fc5908;
   margin-left: 20rpx;
   font-weight: 500;
+}
+.list_box.data-v-a81a7219 {
+  padding: 0 28rpx;
+  background-color: #fff;
+}
+.list_box .list_item.data-v-a81a7219 {
+  padding: 46rpx 14rpx;
+  font-weight: 500;
+  font-size: 27rpx;
+  border-bottom: 1px solid #ececec;
+}
+.list_box .list_item.data-v-a81a7219:last-child {
+  border-bottom: none;
+}
+.list_box .list_item .arrow_pic.data-v-a81a7219 {
+  width: 12rpx;
 }

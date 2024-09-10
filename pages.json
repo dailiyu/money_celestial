@@ -38,6 +38,142 @@
 				"navigationBarTitleText" : "商家后台",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/merchant/merchant_edit_info",
+			"style" : 
+			{
+				"navigationBarTitleText" : "资料编辑",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/point_gift",
+			"style" : 
+			{
+				"navigationBarTitleText" : "积分赠送",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/merchant_code_authentication",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家码认证",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/security_deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "保证金",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/deposit_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "保证金记录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/add_deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "增加保证金",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/remove_deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "解除保证金",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/upload_goods",
+			"style" : 
+			{
+				"navigationBarTitleText" : "发布商品",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/agent/agent_intro",
+			"style" : 
+			{
+				"navigationBarTitleText" : "代理",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/agent/agent_management",
+			"style" : 
+			{
+				"navigationBarTitleText" : "代理后台",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/recommend/recommend_intro",
+			"style" : 
+			{
+				"navigationBarTitleText" : "推荐官",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/recommend/recommend_management",
+			"style" : 
+			{
+				"navigationBarTitleText" : "推荐官后台",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/all_merchant",
+			"style" : 
+			{
+				"navigationBarTitleText" : "全部商家",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/agent/merchant_code_authentication",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家码认证",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/recommend/merchant_code_authentication",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家码认证",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/recommend/security_deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "保证金",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/agent/security_deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "保证金",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

@@ -1,28 +1,61 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const _sfc_main = {};
+const common_assets = require("../../common/assets.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
-  const _easycom_uni_rate2 = common_vendor.resolveComponent("uni-rate");
-  (_easycom_navBar2 + _easycom_uni_rate2)();
+  _easycom_navBar2();
 }
 const _easycom_navBar = () => "../../components/navBar/navBar.js";
-const _easycom_uni_rate = () => "../../uni_modules/uni-rate/components/uni-rate/uni-rate.js";
 if (!Math) {
-  (_easycom_navBar + _easycom_uni_rate)();
+  _easycom_navBar();
 }
-function _sfc_render(_ctx, _cache) {
-  return {
-    a: common_vendor.p({
-      title: "商家后台"
-    }),
-    b: common_vendor.p({
-      readonly: true,
-      value: 2,
-      ["active-color"]: "#fc5908",
-      size: "12"
-    })
-  };
-}
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a81a7219"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_management.vue"]]);
+const _sfc_main = {
+  __name: "merchant_management",
+  setup(__props) {
+    const toEdit = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/merchant/merchant_edit_info"
+      });
+    };
+    const toPoinGift = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/merchant/point_gift"
+      });
+    };
+    const toCode = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/merchant/merchant_code_authentication"
+      });
+    };
+    const toSecurityDeposit = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/merchant/security_deposit"
+      });
+    };
+    const toUploadGoods = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/merchant/upload_goods"
+      });
+    };
+    return (_ctx, _cache) => {
+      return {
+        a: common_vendor.p({
+          title: "商家后台"
+        }),
+        b: common_assets._imports_0$2,
+        c: common_assets._imports_0$3,
+        d: common_vendor.o(toEdit),
+        e: common_assets._imports_0$3,
+        f: common_vendor.o(toPoinGift),
+        g: common_assets._imports_0$3,
+        h: common_vendor.o(toCode),
+        i: common_assets._imports_0$3,
+        j: common_vendor.o(toSecurityDeposit),
+        k: common_assets._imports_0$3,
+        l: common_vendor.o(toUploadGoods)
+      };
+    };
+  }
+};
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-a81a7219"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_management.vue"]]);
 wx.createPage(MiniProgramPage);

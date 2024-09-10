@@ -18,9 +18,29 @@ const _sfc_main = {
     const search = () => {
       console.log(keyword.value);
     };
+    const toSettle = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/merchant/merchant_intro"
+      });
+    };
     const toMerchant = () => {
       common_vendor.index.navigateTo({
         url: "/pages/merchant/merchant_intro"
+      });
+    };
+    const toAgent = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/agent/agent_intro"
+      });
+    };
+    const toRecommend = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/recommend/recommend_intro"
+      });
+    };
+    const toAllMerchant = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/merchant/all_merchant"
       });
     };
     return (_ctx, _cache) => {
@@ -40,25 +60,29 @@ const _sfc_main = {
           clearButton: "always",
           modelValue: keyword.value
         }),
-        f: common_assets._imports_2,
+        f: common_assets._imports_1,
         g: common_vendor.o(toMerchant),
-        h: common_assets._imports_2$1,
-        i: common_assets._imports_3,
-        j: common_assets._imports_4,
-        k: common_assets._imports_5,
-        l: common_assets._imports_6,
-        m: common_assets._imports_7,
-        n: common_assets._imports_8,
-        o: common_assets._imports_9,
-        p: common_assets._imports_10,
-        q: common_assets._imports_11,
-        r: common_assets._imports_12,
-        s: common_assets._imports_13,
-        t: common_assets._imports_14,
-        v: common_assets._imports_0$1,
-        w: common_assets._imports_16,
-        x: common_assets._imports_17,
-        y: common_assets._imports_18
+        h: common_assets._imports_2,
+        i: common_vendor.o(toAgent),
+        j: common_assets._imports_3,
+        k: common_vendor.o(toRecommend),
+        l: common_assets._imports_4,
+        m: common_assets._imports_5,
+        n: common_assets._imports_6,
+        o: common_assets._imports_7,
+        p: common_assets._imports_8,
+        q: common_assets._imports_9,
+        r: common_assets._imports_10,
+        s: common_assets._imports_11,
+        t: common_assets._imports_12,
+        v: common_assets._imports_13,
+        w: common_assets._imports_14,
+        x: common_vendor.o(toSettle),
+        y: common_assets._imports_1$1,
+        z: common_vendor.o(toAllMerchant),
+        A: common_assets._imports_16,
+        B: common_assets._imports_17,
+        C: common_assets._imports_18
       };
     };
   }

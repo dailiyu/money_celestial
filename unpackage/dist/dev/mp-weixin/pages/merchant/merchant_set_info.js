@@ -26,6 +26,7 @@ const _sfc_main = {
         }
       });
     };
+    const isChecked = common_vendor.ref(false);
     const changeCheck = () => {
       isChecked.value = !isChecked.value;
     };
@@ -48,9 +49,9 @@ const _sfc_main = {
         h: common_vendor.o(($event) => code.value = $event.detail.value),
         i: address.value,
         j: common_vendor.o(($event) => address.value = $event.detail.value),
-        k: common_assets._imports_0$1,
+        k: common_assets._imports_1$1,
         l: common_vendor.o(getLocation),
-        m: _ctx.isChecked,
+        m: isChecked.value,
         n: common_vendor.o(changeCheck),
         o: common_vendor.o(toManagement)
       };
