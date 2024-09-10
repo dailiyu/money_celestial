@@ -21,7 +21,8 @@
     "pages/agent/merchant_code_authentication",
     "pages/recommend/merchant_code_authentication",
     "pages/recommend/security_deposit",
-    "pages/agent/security_deposit"
+    "pages/agent/security_deposit",
+    "pages/myAccount/myAccount"
   ],
   "window": {
     "navigationBarTextStyle": "white",

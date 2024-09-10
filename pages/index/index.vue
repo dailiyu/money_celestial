@@ -22,7 +22,7 @@
 				<view class="img_box flex_center">
 					<image src="@/static/home/cart.png" mode="widthFix" class="img_item"></image>
 				</view>
-				<view class="">
+				<view class="" >
 					商家
 				</view>
 			</view>
@@ -42,7 +42,7 @@
 					推荐官
 				</view>
 			</view>
-			<view class="function_item">
+			<view class="function_item" @click="toMyAccount">
 				<view class="img_box flex_center">
 					<image src="@/static/home/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
 				</view>
@@ -204,6 +204,12 @@ const toRecommend = ()=>{
 const toAllMerchant = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/all_merchant'
+	})
+}
+
+const toMyAccount = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/myAccount'
 	})
 }
 </script>

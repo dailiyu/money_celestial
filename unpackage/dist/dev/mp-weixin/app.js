@@ -24,6 +24,7 @@ if (!Math) {
   "./pages/recommend/merchant_code_authentication.js";
   "./pages/recommend/security_deposit.js";
   "./pages/agent/security_deposit.js";
+  "./pages/myAccount/myAccount.js";
 }
 const _sfc_main = {
   onLaunch: function() {

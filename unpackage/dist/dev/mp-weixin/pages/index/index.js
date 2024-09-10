@@ -43,6 +43,11 @@ const _sfc_main = {
         url: "/pages/merchant/all_merchant"
       });
     };
+    const toMyAccount = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/myAccount/myAccount"
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -67,22 +72,23 @@ const _sfc_main = {
         j: common_assets._imports_3,
         k: common_vendor.o(toRecommend),
         l: common_assets._imports_4,
-        m: common_assets._imports_5,
-        n: common_assets._imports_6,
-        o: common_assets._imports_7,
-        p: common_assets._imports_8,
-        q: common_assets._imports_9,
-        r: common_assets._imports_10,
-        s: common_assets._imports_11,
-        t: common_assets._imports_12,
-        v: common_assets._imports_13,
-        w: common_assets._imports_14,
-        x: common_vendor.o(toSettle),
-        y: common_assets._imports_1$1,
-        z: common_vendor.o(toAllMerchant),
-        A: common_assets._imports_16,
-        B: common_assets._imports_17,
-        C: common_assets._imports_18
+        m: common_vendor.o(toMyAccount),
+        n: common_assets._imports_5,
+        o: common_assets._imports_6,
+        p: common_assets._imports_7,
+        q: common_assets._imports_8,
+        r: common_assets._imports_9,
+        s: common_assets._imports_10,
+        t: common_assets._imports_11,
+        v: common_assets._imports_12,
+        w: common_assets._imports_13,
+        x: common_assets._imports_14,
+        y: common_vendor.o(toSettle),
+        z: common_assets._imports_1$1,
+        A: common_vendor.o(toAllMerchant),
+        B: common_assets._imports_16,
+        C: common_assets._imports_17,
+        D: common_assets._imports_18
       };
     };
   }
