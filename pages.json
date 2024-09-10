@@ -38,6 +38,14 @@
 				"navigationBarTitleText" : "商家后台",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/myAccount/myAccount",
+			"style" : 
+			{
+				"navigationBarTitleText" : "我的账户",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

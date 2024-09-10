@@ -215,8 +215,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.f($options.stars, (star, index, i0) => {
       return {
-        a: "244662b4-0-" + i0,
-        b: "244662b4-1-" + i0,
+        a: "158f8d82-0-" + i0,
+        b: "158f8d82-1-" + i0,
         c: star.activeWitch,
         d: index,
         e: common_vendor.o((...args) => $options.touchstart && $options.touchstart(...args), index),
@@ -240,5 +240,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     e: $options.marginNumber + "px"
   };
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/code/money_celestial/uni_modules/uni-rate/components/uni-rate/uni-rate.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
 wx.createComponent(Component);

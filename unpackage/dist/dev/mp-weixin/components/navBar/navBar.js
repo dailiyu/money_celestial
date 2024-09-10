@@ -48,5 +48,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     e: "calc(" + $data.statusBarHeight + " + 60rpx)"
   });
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-fba290dc"], ["__file", "D:/code/money_celestial/components/navBar/navBar.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-fba290dc"]]);
 wx.createComponent(Component);

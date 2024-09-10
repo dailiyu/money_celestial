@@ -23,6 +23,11 @@ const _sfc_main = {
         url: "/pages/merchant/merchant_intro"
       });
     };
+    const toMyAccount = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/myAccount/myAccount"
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -45,23 +50,24 @@ const _sfc_main = {
         h: common_assets._imports_2$1,
         i: common_assets._imports_3,
         j: common_assets._imports_4,
-        k: common_assets._imports_5,
-        l: common_assets._imports_6,
-        m: common_assets._imports_7,
-        n: common_assets._imports_8,
-        o: common_assets._imports_9,
-        p: common_assets._imports_10,
-        q: common_assets._imports_11,
-        r: common_assets._imports_12,
-        s: common_assets._imports_13,
-        t: common_assets._imports_14,
-        v: common_assets._imports_0$1,
-        w: common_assets._imports_16,
-        x: common_assets._imports_17,
-        y: common_assets._imports_18
+        k: common_vendor.o(toMyAccount),
+        l: common_assets._imports_5,
+        m: common_assets._imports_6,
+        n: common_assets._imports_7,
+        o: common_assets._imports_8,
+        p: common_assets._imports_9,
+        q: common_assets._imports_10,
+        r: common_assets._imports_11,
+        s: common_assets._imports_12,
+        t: common_assets._imports_13,
+        v: common_assets._imports_14,
+        w: common_assets._imports_0$1,
+        x: common_assets._imports_16,
+        y: common_assets._imports_17,
+        z: common_assets._imports_18
       };
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"], ["__file", "D:/code/money_celestial/pages/index/index.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
 wx.createPage(MiniProgramPage);
