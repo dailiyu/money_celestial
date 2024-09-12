@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const store_public = require("../../store/public.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_search_bar2 = common_vendor.resolveComponent("uni-search-bar");
@@ -14,7 +15,11 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    const publicStore = store_public.usePublicStore();
     const keyword = common_vendor.ref("");
+    common_vendor.onMounted(async () => {
+      await publicStore.fetchAllData();
+    });
     const search = () => {
       console.log(keyword.value);
     };
@@ -84,7 +89,7 @@ const _sfc_main = {
         w: common_assets._imports_13,
         x: common_assets._imports_14,
         y: common_vendor.o(toSettle),
-        z: common_assets._imports_1$1,
+        z: common_assets._imports_2$1,
         A: common_vendor.o(toAllMerchant),
         B: common_assets._imports_16,
         C: common_assets._imports_17,

@@ -91,3 +91,35 @@
   color: #888888;
   text-align: center;
 }
+.page .content .services {
+  background-color: #FFFFFF;
+  box-shadow: 1rpx 0rpx 15rpx 0rpx #f8f8f8;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin-top: 30rpx;
+}
+.page .content .services .service_title {
+  font-size: 27rpx;
+  padding-left: 7rpx;
+  border-bottom: 1px solid #DDDDDD;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+}
+.page .content .services .service_title .star_pic {
+  width: 40rpx;
+  margin-right: 20rpx;
+}
+.page .content .services .service_bottom {
+  padding-left: 26rpx;
+}
+.page .content .services .service_bottom .service_item {
+  font-size: 21rpx;
+  text-align: center;
+  margin-right: 60rpx;
+}
+.page .content .services .service_bottom .service_item .service_pic {
+  width: 84rpx;
+  height: 84rpx;
+  border-radius: 50%;
+  margin-bottom: 16rpx;
+}

@@ -1,0 +1,86 @@
+<template>
+	<view>
+		<navBar title="用户登录" bgc="#1B46CC"></navBar>
+		<view class="content">
+			<image src="@/static/my/logo.png" mode="widthFix" class="logo"></image>
+			<uni-easyinput v-model="moblie" placeholder="请输入手机号" :inputBorder="false" primaryColor="#1B46CC">
+				<template #left>
+					<image src="@/static/phone-grey.png" mode="widthFix" class="m_pic"></image>
+				</template>
+			</uni-easyinput>
+			<uni-easyinput v-model="password" placeholder="请输入密码" :inputBorder="false" type="password" primaryColor="#1B46CC">
+				<template #left>
+					<image src="@/static/lock-grey.png" mode="widthFix" class="m_pic"></image>
+				</template>
+			</uni-easyinput>
+			<view class="forget">
+				忘记密码
+			</view>
+			<view class="l_btn flex_center">
+				立即登录
+			</view>
+			<view class="r_btn flex_center" @click="toRegister">
+				注册新用户
+			</view>
+		</view>
+	</view>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+const moblie = ref('')
+const password = ref('')
+
+const toRegister = ()=>{
+	uni.navigateTo({
+		url: '/pages/login/register'
+	})
+}
+</script>
+
+<style lang="scss" scoped>
+.content {
+	padding: 156rpx 76rpx 0;
+}
+.logo {
+	width: 294rpx;
+	display: block;
+	margin: 0 auto 120rpx;
+}
+.m_pic {
+	width: 28rpx;
+}
+:deep(.uni-easyinput__content) {
+	padding-left: 40rpx;
+	border-radius: 100px;
+	margin-top: 70rpx;
+}
+:deep(.uni-easyinput__content-input) {
+	font-size: 24rpx;
+	color: #BABABA;
+}
+.forget {
+	font-size: 24rpx;
+	color: #1B46CC;
+	padding: 50rpx 0 144rpx;
+	text-align: center;
+	text-decoration: underline;
+}
+.l_btn {
+	width: 100%;
+	height: 94rpx;
+	background-color: #1B46CC;
+	border-radius: 17rpx;
+	font-size: 30rpx;
+	color: #FFFFFF;
+	margin-bottom: 50rpx;
+}
+.r_btn {
+	width: 100%;
+	height: 94rpx;
+	border-radius: 17rpx;
+	font-size: 30rpx;
+	color: #1B46CC;
+	border: 1px solid #1B46CC;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-	<view :style="{'padding-top': 'calc('+statusBarHeight+' + '+'60rpx)'}" class="nav_bar">
+	<view :style="{'padding-top': 'calc('+statusBarHeight+' + '+'60rpx)', 'backgroundColor': bgc}" class="nav_bar">
 		<view class="nav_item">
 			<uni-icons type="left" size="20" color="#fff" @click="back" v-if="iconShow"></uni-icons>
 			<view class="">
@@ -24,6 +24,10 @@
 			iconShow: {
 				type: Boolean,
 				default: true
+			},
+			bgc: {
+				type: String,
+				default: '#FC5908'
 			}
 		},
 		mounted() {

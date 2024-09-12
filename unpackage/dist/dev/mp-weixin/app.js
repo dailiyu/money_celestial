@@ -25,6 +25,10 @@ if (!Math) {
   "./pages/recommend/security_deposit.js";
   "./pages/agent/security_deposit.js";
   "./pages/myAccount/myAccount.js";
+  "./pages/merchant/merchant_detail.js";
+  "./pages/merchant/goods_detail.js";
+  "./pages/login/login.js";
+  "./pages/login/register.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -39,6 +43,8 @@ const _sfc_main = {
 };
 function createApp() {
   const app = common_vendor.createSSRApp(_sfc_main);
+  const pinia = common_vendor.createPinia();
+  app.use(pinia);
   return {
     app
   };
