@@ -17,6 +17,11 @@ const _sfc_main = {
     const code = common_vendor.ref("");
     const password = common_vendor.ref("");
     const password2 = common_vendor.ref("");
+    const toRegister = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/login/more_info"
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -53,7 +58,8 @@ const _sfc_main = {
           primaryColor: "#1B46CC",
           type: "password",
           modelValue: password2.value
-        })
+        }),
+        j: common_vendor.o(toRegister)
       };
     };
   }

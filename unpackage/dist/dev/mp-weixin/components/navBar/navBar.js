@@ -18,6 +18,10 @@ const _sfc_main = {
     bgc: {
       type: String,
       default: "#FC5908"
+    },
+    isSkip: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
@@ -26,6 +30,9 @@ const _sfc_main = {
   methods: {
     back() {
       common_vendor.index.navigateBack();
+    },
+    skip() {
+      this.$emit("skip");
     }
   }
 };
@@ -49,8 +56,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   } : {}, {
     d: common_vendor.t($props.title),
-    e: "calc(" + $data.statusBarHeight + " + 60rpx)",
-    f: $props.bgc
+    e: $props.isSkip
+  }, $props.isSkip ? {
+    f: common_vendor.o((...args) => $options.skip && $options.skip(...args))
+  } : {}, {
+    g: "calc(" + $data.statusBarHeight + " + 60rpx)",
+    h: $props.bgc
   });
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-fba290dc"]]);

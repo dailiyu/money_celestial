@@ -23,34 +23,45 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.nav_bar.data-v-fba290dc {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 990;
-  background-color: #FC5908;
-  color: #fff;
-  padding-left: 58rpx;
-  padding-right: 58rpx;
-  padding-bottom: 60rpx;
-  font-size: 36rpx;
-  text-align: center;
+.content.data-v-dc27228e {
+  padding: 40rpx 76rpx;
 }
-.nav_bar .nav_item.data-v-fba290dc {
-  position: relative;
+.content .info_item.data-v-dc27228e {
+  padding: 40rpx 0;
+  border-bottom: 1px solid #ededed;
 }
-.nav_bar .nav_item uni-icons.data-v-fba290dc {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.content .info_item.data-v-dc27228e:last-child {
+  border-bottom: none;
 }
-.nav_bar .nav_item .skip.data-v-fba290dc {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.content .info_item .title.data-v-dc27228e {
+  font-size: 27rpx;
+  margin-right: 20rpx;
+}
+.content .info_item .head.data-v-dc27228e {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+.content .info_item .arrow_pix.data-v-dc27228e {
+  width: 12rpx;
+  margin-left: 30rpx;
+  display: block;
+}
+.content .info_item .nickname.data-v-dc27228e {
   font-size: 24rpx;
+  color: #BABABA;
+}
+.content .info_item .email.data-v-dc27228e {
+  font-size: 24rpx;
+  color: #1B46CC;
+}
+.content .btn.data-v-dc27228e {
+  width: 100%;
+  height: 95rpx;
+  background-color: #1B46CC;
+  border-radius: 17rpx;
+  color: #fff;
+  margin-top: 200rpx;
+  font-size: 30rpx;
 }
