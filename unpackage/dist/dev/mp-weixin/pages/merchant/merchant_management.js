@@ -42,16 +42,16 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "商家后台"
         }),
-        b: common_assets._imports_0$2,
-        c: common_assets._imports_0$3,
+        b: common_assets._imports_0$3,
+        c: common_assets._imports_0$4,
         d: common_vendor.o(toEdit),
-        e: common_assets._imports_0$3,
+        e: common_assets._imports_0$4,
         f: common_vendor.o(toPoinGift),
-        g: common_assets._imports_0$3,
+        g: common_assets._imports_0$4,
         h: common_vendor.o(toCode),
-        i: common_assets._imports_0$3,
+        i: common_assets._imports_0$4,
         j: common_vendor.o(toSecurityDeposit),
-        k: common_assets._imports_0$3,
+        k: common_assets._imports_0$4,
         l: common_vendor.o(toUploadGoods)
       };
     };

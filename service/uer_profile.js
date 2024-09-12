@@ -17,8 +17,8 @@ export  const postRegister=async ()=>{
 }
 
 //登陆
-export  const postProfileLogin=async ()=>{
-	return http.post('/users_profile/register/',{
+export  const postProfileLogin=async (phone_number,password)=>{
+	return http.post('/users_profile/login/',{
 		phone_number,
 		password
 	})

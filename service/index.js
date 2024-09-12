@@ -19,15 +19,16 @@ class Request {
                     if (res.statusCode === 200) {
                         resolve(res.data);
                     } else if (res.statusCode === 401) {
-                        // Token 过期处理逻辑
-                        this.refreshToken().then(newAccessToken => {
-                            // Token 刷新成功，重新发起请求
-                            this.request(url, method, data).then(resolve).catch(reject);
-                        }).catch(err => {
-                            // 如果刷新 Token 也失败了，处理登出
-                            this.logout();
-                            reject(err);
-                        });
+						 this.logout();
+                        // // Token 过期处理逻辑
+                        // this.refreshToken().then(newAccessToken => {
+                        //     // Token 刷新成功，重新发起请求
+                        //     this.request(url, method, data).then(resolve).catch(reject);
+                        // }).catch(err => {
+                        //     // 如果刷新 Token 也失败了，处理登出
+                        //     this.logout();
+                        //     reject(err);
+                        // });
                     } else {
                         reject(res);
                     }

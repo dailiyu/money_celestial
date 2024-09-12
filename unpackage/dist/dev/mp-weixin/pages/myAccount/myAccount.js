@@ -22,20 +22,20 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "我的账户"
         }),
-        b: common_assets._imports_0$9,
+        b: common_assets._imports_0$10,
         c: common_vendor.o(toLogin),
-        d: common_assets._imports_1$2,
-        e: common_assets._imports_2$2,
+        d: common_assets._imports_1$3,
+        e: common_assets._imports_2$3,
         f: common_assets._imports_3$1,
-        g: common_assets._imports_0$2,
+        g: common_assets._imports_0$3,
         h: common_assets._imports_5$1,
         i: common_assets._imports_6$1,
         j: common_assets._imports_7$1,
-        k: common_assets._imports_0$2,
+        k: common_assets._imports_0$3,
         l: common_assets._imports_8$1,
         m: common_assets._imports_9$1,
         n: common_assets._imports_10$1,
-        o: common_assets._imports_0$2,
+        o: common_assets._imports_0$3,
         p: common_assets._imports_11$1,
         q: common_assets._imports_12$1
       };

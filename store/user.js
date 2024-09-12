@@ -1,28 +1,24 @@
 import { defineStore } from 'pinia';
-import { getProvincesList,getStreetsList,getAreasList,getCitiesList } from '../service/divisions'
+import { postProfileLogin } from '../service/uer_profile';
+import loginVue from '../pages/login/login.vue';
 
 
 
 
-export const  usePublicStore = defineStore('public', {
+
+export const  useUserStore = defineStore('user', {
 	state: () => {
 		return {
-			provinces_data:{},
-			cities_data:{},
-			areas_data:{},
-			streets_data:{}
+			
 		}
 	},
 	actions: {
-		async fetchAllPositionData(){
-		this.provinces_data=await getProvincesList()
-		this.cities_data=await getCitiesList()
-		this.areas_data=await getAreasList()
-		this.streets_data=await getStreetsList()
-			
-		},
-		async fetchAllData(){
-			this.fetchAllPositionData()
+		async loginAction(phone_number,password){
+		 const results=	await postProfileLogin(phone_number,password)
+			const { access, refresh } = results
+			 // 保存 Token
+			      uni.setStorageSync('accessToken', access);
+			      uni.setStorageSync('refreshToken', refresh);
 		}
 		
 	}

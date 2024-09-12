@@ -39,7 +39,7 @@ const _sfc_main = {
         c: common_vendor.o(($event) => goodsName.value = $event.detail.value),
         d: address.value,
         e: common_vendor.o(($event) => address.value = $event.detail.value),
-        f: common_assets._imports_0$3,
+        f: common_assets._imports_0$4,
         g: shopIntro.value,
         h: isChecked.value,
         i: common_vendor.o(changeCheck),

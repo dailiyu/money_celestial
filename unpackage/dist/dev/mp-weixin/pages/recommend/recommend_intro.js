@@ -22,7 +22,7 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "推荐官"
         }),
-        b: common_assets._imports_0$7,
+        b: common_assets._imports_0$8,
         c: common_vendor.o(toNext)
       };
     };

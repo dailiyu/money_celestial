@@ -22,7 +22,7 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "代理"
         }),
-        b: common_assets._imports_0$5,
+        b: common_assets._imports_0$6,
         c: common_vendor.o(toNext)
       };
     };

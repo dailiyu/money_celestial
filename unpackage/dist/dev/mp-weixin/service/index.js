@@ -19,12 +19,7 @@ class Request {
           if (res.statusCode === 200) {
             resolve(res.data);
           } else if (res.statusCode === 401) {
-            this.refreshToken().then((newAccessToken) => {
-              this.request(url, method, data).then(resolve).catch(reject);
-            }).catch((err) => {
-              this.logout();
-              reject(err);
-            });
+            this.logout();
           } else {
             reject(res);
           }

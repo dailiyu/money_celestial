@@ -8563,6 +8563,7 @@ This will fail in production.`);
 }
 exports._export_sfc = _export_sfc;
 exports.computed = computed;
+exports.createPinia = createPinia;
 exports.createSSRApp = createSSRApp;
 exports.defineStore = defineStore;
 exports.e = e;

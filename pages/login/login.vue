@@ -16,7 +16,7 @@
 			<view class="forget">
 				忘记密码
 			</view>
-			<view class="l_btn flex_center">
+			<view class="l_btn flex_center" @click="login">
 				立即登录
 			</view>
 			<view class="r_btn flex_center" @click="toRegister">
@@ -28,6 +28,8 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useUserStore } from '../../store/user';
+ const userStore=   useUserStore()
 const moblie = ref('')
 const password = ref('')
 
@@ -36,6 +38,28 @@ const toRegister = ()=>{
 		url: '/pages/login/register'
 	})
 }
+  
+  const login=async()=>{	
+	  userStore.loginAction(moblie.value,password.value).then((res)=>{
+		
+		  uni.navigateTo({
+		  	url: '/pages/index/index'
+		  })
+	  }).catch((err)=>{
+		
+		if(err?.data?.error){
+			uni.showToast({
+				duration:2000,
+						icon:'error',
+						title:"密码错误"
+			})
+		}
+		 
+	  })
+	  
+  }
+
+
 </script>
 
 <style lang="scss" scoped>

@@ -40,7 +40,7 @@ const _sfc_main = {
         }),
         b: address.value,
         c: common_vendor.o(($event) => address.value = $event.detail.value),
-        d: common_assets._imports_0$4,
+        d: common_assets._imports_0$5,
         e: common_vendor.o(scan),
         f: number.value,
         g: common_vendor.o(($event) => number.value = $event.detail.value),
