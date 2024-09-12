@@ -1,5 +1,5 @@
 const TIME_OUT = 60000
-const BASE_URL = ''
+const BASE_URL = 'https://max.q6z4kzhr.uk/api'
 
 
 class Request{
@@ -28,5 +28,10 @@ class Request{
 		return this.request(url, "POST", params)
 	}
 }
-export default new Request()
+
+const  http=new Request()
+
+export {
+	http
+}
 

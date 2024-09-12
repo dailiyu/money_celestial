@@ -37,9 +37,8 @@ const _sfc_main = {
     console.log("App Hide");
   }
 };
-const App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "D:/code/money_celestial/App.vue"]]);
 function createApp() {
-  const app = common_vendor.createSSRApp(App);
+  const app = common_vendor.createSSRApp(_sfc_main);
   return {
     app
   };
