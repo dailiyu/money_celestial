@@ -25,6 +25,11 @@ const _sfc_main = {
         url: "/pages/merchant/merchant_intro"
       });
     };
+    const toDetail = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/merchant/merchant_detail"
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -33,7 +38,8 @@ const _sfc_main = {
         b: common_vendor.o(getType),
         c: common_vendor.o(toSettle),
         d: common_assets._imports_0$2,
-        e: common_assets._imports_1$1
+        e: common_assets._imports_2$1,
+        f: common_vendor.o(toDetail)
       };
     };
   }

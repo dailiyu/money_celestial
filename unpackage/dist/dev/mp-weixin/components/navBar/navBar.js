@@ -14,6 +14,10 @@ const _sfc_main = {
     iconShow: {
       type: Boolean,
       default: true
+    },
+    bgc: {
+      type: String,
+      default: "#FC5908"
     }
   },
   mounted() {
@@ -45,7 +49,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   } : {}, {
     d: common_vendor.t($props.title),
-    e: "calc(" + $data.statusBarHeight + " + 60rpx)"
+    e: "calc(" + $data.statusBarHeight + " + 60rpx)",
+    f: $props.bgc
   });
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-fba290dc"], ["__file", "D:/code/money_celestial/components/navBar/navBar.vue"]]);

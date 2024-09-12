@@ -22,7 +22,11 @@
     "pages/recommend/merchant_code_authentication",
     "pages/recommend/security_deposit",
     "pages/agent/security_deposit",
-    "pages/myAccount/myAccount"
+    "pages/myAccount/myAccount",
+    "pages/merchant/merchant_detail",
+    "pages/merchant/goods_detail",
+    "pages/login/login",
+    "pages/login/register"
   ],
   "window": {
     "navigationBarTextStyle": "white",
