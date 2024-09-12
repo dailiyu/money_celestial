@@ -29,6 +29,8 @@ if (!Math) {
   "./pages/merchant/goods_detail.js";
   "./pages/login/login.js";
   "./pages/login/register.js";
+  "./pages/login/more_info.js";
+  "./pages/myAccount/my_point.js";
 }
 const _sfc_main = {
   onLaunch: function() {

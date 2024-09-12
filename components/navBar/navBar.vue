@@ -5,6 +5,9 @@
 			<view class="">
 				{{ title }}
 			</view>
+			<view class="skip" v-if="isSkip" @click="skip">
+				跳过
+			</view>
 		</view>
 	</view>
 </template>
@@ -28,6 +31,10 @@
 			bgc: {
 				type: String,
 				default: '#FC5908'
+			},
+			isSkip: {
+				type: Boolean,
+				default: false
 			}
 		},
 		mounted() {
@@ -36,6 +43,9 @@
 		methods: {
 			back(){
 				uni.navigateBack()
+			},
+			skip(){
+				this.$emit('skip')
 			}
 		}
 	}
@@ -62,6 +72,13 @@
 			left: 0;
 			top: 50%;
 			transform: translateY(-50%);
+		}
+		.skip {
+			position: absolute;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 24rpx;
 		}
 	}
 }

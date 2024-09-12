@@ -22,7 +22,7 @@
 			</view>
 			<uni-easyinput v-model="password2" placeholder="再次输入密码" :inputBorder="false" primaryColor="#1B46CC" type="password"/>
 			
-			<view class="btn flex_center">
+			<view class="btn flex_center" @click="toRegister">
 				立即注册
 			</view>
 		</view>
@@ -35,6 +35,11 @@ const moblie = ref('')
 const code = ref('')
 const password = ref('')
 const password2 = ref('')
+const toRegister = ()=>{
+	uni.navigateTo({
+		url: '/pages/login/more_info'
+	})
+}
 </script>
 
 <style lang="scss" scoped>
