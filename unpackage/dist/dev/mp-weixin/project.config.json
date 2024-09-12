@@ -18,7 +18,7 @@
     }
   },
   "compileType": "miniprogram",
-  "libVersion": "3.5.5",
+  "libVersion": "",
   "appid": "wx06423884fa78e5ba",
   "projectname": "money_celestial",
   "condition": {

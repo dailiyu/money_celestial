@@ -24,20 +24,22 @@ const _sfc_main = {
         }),
         b: common_assets._imports_0$9,
         c: common_vendor.o(toLogin),
-        d: common_assets._imports_0$2,
+        d: common_assets._imports_1$2,
         e: common_assets._imports_2$2,
         f: common_assets._imports_3$1,
-        g: common_assets._imports_4$1,
-        h: common_assets._imports_0$2,
-        i: common_assets._imports_5$1,
-        j: common_assets._imports_6$1,
-        k: common_assets._imports_7$1,
-        l: common_assets._imports_0$2,
-        m: common_assets._imports_8$1,
-        n: common_assets._imports_9$1
+        g: common_assets._imports_0$2,
+        h: common_assets._imports_5$1,
+        i: common_assets._imports_6$1,
+        j: common_assets._imports_7$1,
+        k: common_assets._imports_0$2,
+        l: common_assets._imports_8$1,
+        m: common_assets._imports_9$1,
+        n: common_assets._imports_10$1,
+        o: common_assets._imports_0$2,
+        p: common_assets._imports_11$1,
+        q: common_assets._imports_12$1
       };
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "D:/code/money_celestial/pages/myAccount/myAccount.vue"]]);
-wx.createPage(MiniProgramPage);
+wx.createPage(_sfc_main);
