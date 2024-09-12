@@ -27,12 +27,12 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "代理后台"
         }),
-        b: common_assets._imports_0$6,
-        c: common_assets._imports_0$3,
+        b: common_assets._imports_0$7,
+        c: common_assets._imports_0$4,
         d: common_vendor.o((...args) => _ctx.toEdit && _ctx.toEdit(...args)),
-        e: common_assets._imports_0$3,
+        e: common_assets._imports_0$4,
         f: common_vendor.o(toMerchantCode),
-        g: common_assets._imports_0$3,
+        g: common_assets._imports_0$4,
         h: common_vendor.o(toSecurityDeposit)
       };
     };

@@ -175,8 +175,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import {usePublicStore} from "@/store/public.js"
+const publicStore=usePublicStore()
 const keyword = ref('')
+
+
+onMounted(async()=>{
+	await publicStore.fetchAllData()
+	
+})
+
 const search = ()=>{
 	console.log(keyword.value)
 }

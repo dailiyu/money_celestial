@@ -27,9 +27,9 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "可用积分"
         }),
-        b: common_assets._imports_0$3,
+        b: common_assets._imports_0$4,
         c: common_vendor.o(toBindAccount),
-        d: common_assets._imports_0$3,
+        d: common_assets._imports_0$4,
         e: common_vendor.o(toUnbindAccount)
       };
     };

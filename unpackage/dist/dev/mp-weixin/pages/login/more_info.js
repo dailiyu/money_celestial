@@ -58,17 +58,17 @@ const _sfc_main = {
           bgc: "#1B46CC",
           isSkip: true
         }),
-        c: common_assets._imports_0$3,
-        d: common_assets._imports_0$3,
-        e: common_assets._imports_0$3,
+        c: common_assets._imports_0$4,
+        d: common_assets._imports_0$4,
+        e: common_assets._imports_0$4,
         f: common_vendor.t(gender.value ? gender.value : "选择"),
-        g: common_assets._imports_0$3,
+        g: common_assets._imports_0$4,
         h: common_vendor.o(getGender),
         i: common_vendor.t(birthday.value),
-        j: common_assets._imports_0$3,
+        j: common_assets._imports_0$4,
         k: common_vendor.o(openCalendar),
         l: common_vendor.t(address.value),
-        m: common_assets._imports_0$3,
+        m: common_assets._imports_0$4,
         n: common_vendor.o(getLocation),
         o: common_vendor.sr(calendar, "dc27228e-1", {
           "k": "calendar"
