@@ -17,24 +17,42 @@ const _sfc_main = {
         url: "/pages/login/login"
       });
     };
+    const toMyPoint = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/myAccount/my_point"
+      });
+    };
+    const toPointAvailable = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/myAccount/point_available"
+      });
+    };
+    const toPointAccount = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/myAccount/point_account"
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
           title: "我的账户"
         }),
-        b: common_assets._imports_0$9,
+        b: common_assets._imports_0$10,
         c: common_vendor.o(toLogin),
-        d: common_assets._imports_0$2,
-        e: common_assets._imports_2$2,
-        f: common_assets._imports_3$1,
-        g: common_assets._imports_4$1,
-        h: common_assets._imports_0$2,
-        i: common_assets._imports_5$1,
-        j: common_assets._imports_6$1,
-        k: common_assets._imports_7$1,
-        l: common_assets._imports_0$2,
-        m: common_assets._imports_8$1,
-        n: common_assets._imports_9$1
+        d: common_vendor.o(toMyPoint),
+        e: common_vendor.o(toPointAvailable),
+        f: common_vendor.o(toPointAccount),
+        g: common_assets._imports_0$2,
+        h: common_assets._imports_2$3,
+        i: common_assets._imports_3$1,
+        j: common_assets._imports_4$1,
+        k: common_assets._imports_0$2,
+        l: common_assets._imports_5$1,
+        m: common_assets._imports_6$1,
+        n: common_assets._imports_7$1,
+        o: common_assets._imports_0$2,
+        p: common_assets._imports_8$1,
+        q: common_assets._imports_9$1
       };
     };
   }

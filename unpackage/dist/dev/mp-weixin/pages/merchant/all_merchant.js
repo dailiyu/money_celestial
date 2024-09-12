@@ -30,17 +30,31 @@ const _sfc_main = {
         url: "/pages/merchant/merchant_detail"
       });
     };
+    const distance = common_vendor.ref("up");
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.p({
           title: "全部商家"
         }),
-        b: common_vendor.o(getType),
-        c: common_vendor.o(toSettle),
-        d: common_assets._imports_0$2,
-        e: common_assets._imports_2$1,
-        f: common_vendor.o(toDetail)
-      };
+        b: common_assets._imports_0$9,
+        c: common_vendor.o(getType),
+        d: distance.value == "up"
+      }, distance.value == "up" ? {
+        e: common_assets._imports_1$2,
+        f: common_assets._imports_2$2,
+        g: common_vendor.o(($event) => distance.value = "down")
+      } : {}, {
+        h: distance.value == "down"
+      }, distance.value == "down" ? {
+        i: common_assets._imports_2$2,
+        j: common_assets._imports_1$2,
+        k: common_vendor.o(($event) => distance.value = "up")
+      } : {}, {
+        l: common_vendor.o(toSettle),
+        m: common_assets._imports_0$2,
+        n: common_assets._imports_2$1,
+        o: common_vendor.o(toDetail)
+      });
     };
   }
 };

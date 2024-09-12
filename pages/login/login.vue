@@ -22,6 +22,12 @@
 			<view class="r_btn flex_center" @click="toRegister">
 				注册新用户
 			</view>
+			<view class="wx_btn flex_center">
+				<image src="@/static/wechat.png" mode="widthFix" class="wx_logo"></image>
+				<view class="">
+					微信一键登录
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -40,7 +46,7 @@ const toRegister = ()=>{
 
 <style lang="scss" scoped>
 .content {
-	padding: 156rpx 76rpx 0;
+	padding: 156rpx 76rpx 30px;
 }
 .logo {
 	width: 294rpx;
@@ -62,7 +68,7 @@ const toRegister = ()=>{
 .forget {
 	font-size: 24rpx;
 	color: #1B46CC;
-	padding: 50rpx 0 144rpx;
+	padding: 50rpx 0 80rpx;
 	text-align: center;
 	text-decoration: underline;
 }
@@ -82,5 +88,19 @@ const toRegister = ()=>{
 	font-size: 30rpx;
 	color: #1B46CC;
 	border: 1px solid #1B46CC;
+	margin-bottom: 50rpx;
+}
+.wx_btn {
+	width: 100%;
+	height: 94rpx;
+	border-radius: 17rpx;
+	font-size: 30rpx;
+	background-color: #44c25c;
+	color: #fff;
+	.wx_logo {
+		width: 50rpx;
+		display: block;
+		margin-right: 10rpx;
+	}
 }
 </style>

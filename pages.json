@@ -230,6 +230,102 @@
 				"navigationBarTitleText" : "我的积分",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/myAccount/withdraw_point",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取积分",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/withdraw_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取记录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/point_available",
+			"style" : 
+			{
+				"navigationBarTitleText" : "可用积分",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/point_account",
+			"style" : 
+			{
+				"navigationBarTitleText" : "积分账号",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/bind_account",
+			"style" : 
+			{
+				"navigationBarTitleText" : "积分账号",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/unbind_account",
+			"style" : 
+			{
+				"navigationBarTitleText" : "绑定账号",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/agent/add_deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "增加保证金",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/agent/remove_deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "解除保证金",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/agent/deposit_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "保证金记录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/recommend/add_deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "增加保证金",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/recommend/remove_deposit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "解除保证金",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/recommend/deposit_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "保证金记录",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

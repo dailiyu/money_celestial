@@ -31,17 +31,17 @@
 <script setup>
 const toRecord = ()=>{
 	uni.navigateTo({
-		url: '/pages/merchant/deposit_record'
+		url: '/pages/recommend/deposit_record'
 	})
 }
 const toAdd = ()=>{
 	uni.navigateTo({
-		url: '/pages/merchant/add_deposit'
+		url: '/pages/recommend/add_deposit'
 	})
 }
 const toRemove = ()=>{
 	uni.navigateTo({
-		url: '/pages/merchant/remove_deposit'
+		url: '/pages/recommend/remove_deposit'
 	})
 }
 </script>

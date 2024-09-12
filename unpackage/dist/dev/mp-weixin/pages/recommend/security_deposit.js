@@ -14,17 +14,17 @@ const _sfc_main = {
   setup(__props) {
     const toRecord = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/merchant/deposit_record"
+        url: "/pages/recommend/deposit_record"
       });
     };
     const toAdd = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/merchant/add_deposit"
+        url: "/pages/recommend/add_deposit"
       });
     };
     const toRemove = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/merchant/remove_deposit"
+        url: "/pages/recommend/remove_deposit"
       });
     };
     return (_ctx, _cache) => {

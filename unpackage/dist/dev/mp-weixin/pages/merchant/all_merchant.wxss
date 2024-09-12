@@ -30,9 +30,16 @@
 }
 .filter_list .type_pic.data-v-2d911691 {
   width: 26rpx;
+  margin-right: 20rpx;
 }
 .filter_list .arrow_fill.data-v-2d911691 {
-  width: 12rpx;
+  width: 20rpx;
+  height: 10rpx;
+  display: block;
+  margin-left: 10rpx;
+}
+.filter_list .arrow_fill.data-v-2d911691:last-child {
+  margin-top: 6rpx;
 }
 .settle_box.data-v-2d911691 {
   padding: 24rpx 32rpx 24rpx 46rpx;

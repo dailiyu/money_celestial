@@ -3,7 +3,7 @@
 		<navBar title="全部商家"></navBar>
 		<view class="filter_list flex_between">
 			<view class="flex_center" @click="getType">
-				<!-- <image src="" mode="widthFix" class="type_pic"></image> -->
+				<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
 				<view>
 					类目
 				</view>
@@ -18,10 +18,14 @@
 				<view class="">
 					距离
 				</view>
-				<!-- <view class="">
-					<image src="" mode="widthFix" class="arrow_fill"></image>
-					<image src="" mode="widthFix" class="arrow_fill"></image>
-				</view> -->
+				<view class="" @click="distance='down'" v-if="distance=='up'">
+					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill"></image>
+					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill"></image>
+				</view>
+				<view class="" @click="distance='up'" v-if="distance=='down'">
+					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
+					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
+				</view>
 			</view>
 		</view>
 		<view class="content">
@@ -65,6 +69,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 const getType = ()=>{
 	uni.showActionSheet({
 		itemList: ['美食', '服饰'],
@@ -83,6 +88,7 @@ const toDetail = ()=>{
 		url: '/pages/merchant/merchant_detail'
 	})
 }
+const distance = ref('up')
 </script>
 
 <style lang="scss" scoped>
@@ -92,9 +98,16 @@ const toDetail = ()=>{
 	background-color: #fff;
 	.type_pic {
 		width: 26rpx;
+		margin-right: 20rpx;
 	}
 	.arrow_fill {
-		width: 12rpx;
+		width: 20rpx;
+		height: 10rpx;
+		display: block;
+		margin-left: 10rpx;
+		&:last-child {
+			margin-top: 6rpx;
+		}
 	}
 }
 .settle_box {

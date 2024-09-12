@@ -14,17 +14,17 @@
 				</view>
 			</view>
 			<view class="points-box">
-				<view class="item">
+				<view class="item" @click="toMyPoint">
 					<image class="img" src="../../static/myAccount/my_credits.png"></image>
 					<text class="text">我的积分</text>
 					<div class="text number">39182</div>
 				</view>
-				<view class="item">
+				<view class="item" @click="toPointAvailable">
 					<image class="img" src="../../static/myAccount/available_credits.png"></image>
 					<text class="text">可用积分</text>
 					<div class=" number">100</div>
 				</view>
-				<view class="item">
+				<view class="item" @click="toPointAccount">
 					<image class="img" src="../../static/myAccount/credits_account.png"></image>
 					<text class="text">积分账号</text>
 					<div class="text number">DAUS*****3842</div>
@@ -117,6 +117,21 @@
 const toLogin = ()=>{
 	uni.navigateTo({
 		url: '/pages/login/login'
+	})
+}
+const toMyPoint = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/my_point'
+	})
+}
+const toPointAvailable = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/point_available'
+	})
+}
+const toPointAccount = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/point_account'
 	})
 }
 </script>

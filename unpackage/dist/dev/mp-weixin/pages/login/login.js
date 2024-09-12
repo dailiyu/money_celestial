@@ -27,8 +27,8 @@ const _sfc_main = {
           title: "用户登录",
           bgc: "#1B46CC"
         }),
-        b: common_assets._imports_0$10,
-        c: common_assets._imports_1$3,
+        b: common_assets._imports_0$11,
+        c: common_assets._imports_1$4,
         d: common_vendor.o(($event) => moblie.value = $event),
         e: common_vendor.p({
           placeholder: "请输入手机号",
@@ -36,7 +36,7 @@ const _sfc_main = {
           primaryColor: "#1B46CC",
           modelValue: moblie.value
         }),
-        f: common_assets._imports_2$3,
+        f: common_assets._imports_2$4,
         g: common_vendor.o(($event) => password.value = $event),
         h: common_vendor.p({
           placeholder: "请输入密码",
@@ -45,7 +45,8 @@ const _sfc_main = {
           primaryColor: "#1B46CC",
           modelValue: password.value
         }),
-        i: common_vendor.o(toRegister)
+        i: common_vendor.o(toRegister),
+        j: common_assets._imports_3$3
       };
     };
   }
