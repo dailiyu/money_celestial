@@ -182,6 +182,54 @@
 				"navigationBarTitleText" : "我的账户",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/merchant/merchant_detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "门店详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/goods_detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商品详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/login/login",
+			"style" : 
+			{
+				"navigationBarTitleText" : "用户登录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/login/register",
+			"style" : 
+			{
+				"navigationBarTitleText" : "注册",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/login/more_info",
+			"style" : 
+			{
+				"navigationBarTitleText" : "完善信息",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/my_point",
+			"style" : 
+			{
+				"navigationBarTitleText" : "我的积分",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

@@ -1,7 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
-const _sfc_main = {};
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -10,16 +9,35 @@ const _easycom_navBar = () => "../../components/navBar/navBar.js";
 if (!Math) {
   _easycom_navBar();
 }
-function _sfc_render(_ctx, _cache) {
-  return {
-    a: common_vendor.p({
-      title: "我的账户"
-    }),
-    b: common_assets._imports_0$9,
-    c: common_assets._imports_1$3,
-    d: common_assets._imports_2$1,
-    e: common_assets._imports_3$1
-  };
-}
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
+const _sfc_main = {
+  __name: "myAccount",
+  setup(__props) {
+    const toLogin = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/login/login"
+      });
+    };
+    return (_ctx, _cache) => {
+      return {
+        a: common_vendor.p({
+          title: "我的账户"
+        }),
+        b: common_assets._imports_0$9,
+        c: common_vendor.o(toLogin),
+        d: common_assets._imports_0$2,
+        e: common_assets._imports_2$2,
+        f: common_assets._imports_3$1,
+        g: common_assets._imports_4$1,
+        h: common_assets._imports_0$2,
+        i: common_assets._imports_5$1,
+        j: common_assets._imports_6$1,
+        k: common_assets._imports_7$1,
+        l: common_assets._imports_0$2,
+        m: common_assets._imports_8$1,
+        n: common_assets._imports_9$1
+      };
+    };
+  }
+};
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "D:/code/money_celestial/pages/myAccount/myAccount.vue"]]);
 wx.createPage(MiniProgramPage);

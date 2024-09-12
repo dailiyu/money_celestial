@@ -36,7 +36,7 @@
 				</view>
 			</view>
 			<view class="shop_list">
-				<view class="shop_item flex">
+				<view class="shop_item flex" @click="toDetail">
 					<image src="" mode="aspectFill" class="shop_pic"></image>
 					<view class="" style="flex: 1;">
 						<view class="shop_name">
@@ -76,6 +76,11 @@ const getType = ()=>{
 const toSettle = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_intro'
+	})
+}
+const toDetail = ()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/merchant_detail'
 	})
 }
 </script>

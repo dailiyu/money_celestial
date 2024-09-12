@@ -47,3 +47,10 @@
   top: 50%;
   transform: translateY(-50%);
 }
+.nav_bar .nav_item .skip.data-v-fba290dc {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24rpx;
+}
