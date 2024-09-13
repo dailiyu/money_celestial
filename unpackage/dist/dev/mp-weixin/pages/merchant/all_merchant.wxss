@@ -30,9 +30,16 @@
 }
 .filter_list .type_pic.data-v-2d911691 {
   width: 26rpx;
+  margin-right: 20rpx;
 }
 .filter_list .arrow_fill.data-v-2d911691 {
-  width: 12rpx;
+  width: 20rpx;
+  height: 10rpx;
+  display: block;
+  margin-left: 10rpx;
+}
+.filter_list .arrow_fill.data-v-2d911691:last-child {
+  margin-top: 6rpx;
 }
 .settle_box.data-v-2d911691 {
   padding: 24rpx 32rpx 24rpx 46rpx;
@@ -52,41 +59,4 @@
   font-size: 21rpx;
   color: #FFFFFF;
   border-radius: 100px;
-}
-.shop_list .shop_item.data-v-2d911691 {
-  padding: 20rpx 44rpx 20rpx 20rpx;
-  background-color: #fff;
-  align-items: flex-end;
-}
-.shop_list .shop_item .shop_pic.data-v-2d911691 {
-  width: 114rpx;
-  height: 114rpx;
-  margin-right: 20rpx;
-  background-color: #ccc;
-}
-.shop_list .shop_item .shop_name.data-v-2d911691 {
-  font-size: 26rpx;
-}
-.shop_list .shop_item .pic_box.data-v-2d911691 {
-  margin: 10rpx 0 20rpx;
-}
-.shop_list .shop_item .pic_box .star_pic.data-v-2d911691 {
-  width: 22rpx;
-}
-.shop_list .shop_item .pic_box .point.data-v-2d911691 {
-  font-size: 20rpx;
-  color: #FC5908;
-  margin-left: 20rpx;
-}
-.shop_list .shop_item .location_pic.data-v-2d911691 {
-  width: 22rpx;
-  margin-right: 20rpx;
-}
-.shop_list .shop_item .district.data-v-2d911691 {
-  font-size: 20rpx;
-  color: #1B46CC;
-}
-.shop_list .shop_item .distance.data-v-2d911691 {
-  font-size: 20rpx;
-  color: #FC5908;
 }

@@ -28,7 +28,21 @@
     "pages/merchant/goods_detail",
     "pages/login/register",
     "pages/login/more_info",
-    "pages/myAccount/my_point"
+    "pages/myAccount/my_point",
+    "pages/myAccount/withdraw_point",
+    "pages/myAccount/withdraw_record",
+    "pages/myAccount/point_available",
+    "pages/myAccount/point_account",
+    "pages/myAccount/bind_account",
+    "pages/myAccount/unbind_account",
+    "pages/agent/add_deposit",
+    "pages/agent/remove_deposit",
+    "pages/agent/deposit_record",
+    "pages/recommend/add_deposit",
+    "pages/recommend/remove_deposit",
+    "pages/recommend/deposit_record",
+    "pages/agent/merchant_list",
+    "pages/recommend/merchant_list"
   ],
   "window": {
     "navigationBarTextStyle": "white",

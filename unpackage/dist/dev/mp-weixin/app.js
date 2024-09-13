@@ -31,6 +31,20 @@ if (!Math) {
   "./pages/login/register.js";
   "./pages/login/more_info.js";
   "./pages/myAccount/my_point.js";
+  "./pages/myAccount/withdraw_point.js";
+  "./pages/myAccount/withdraw_record.js";
+  "./pages/myAccount/point_available.js";
+  "./pages/myAccount/point_account.js";
+  "./pages/myAccount/bind_account.js";
+  "./pages/myAccount/unbind_account.js";
+  "./pages/agent/add_deposit.js";
+  "./pages/agent/remove_deposit.js";
+  "./pages/agent/deposit_record.js";
+  "./pages/recommend/add_deposit.js";
+  "./pages/recommend/remove_deposit.js";
+  "./pages/recommend/deposit_record.js";
+  "./pages/agent/merchant_list.js";
+  "./pages/recommend/merchant_list.js";
 }
 const _sfc_main = {
   onLaunch: function() {

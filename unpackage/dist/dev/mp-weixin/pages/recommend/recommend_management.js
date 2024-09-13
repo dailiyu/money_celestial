@@ -12,6 +12,11 @@ if (!Math) {
 const _sfc_main = {
   __name: "recommend_management",
   setup(__props) {
+    const toMerchantList = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/recommend/merchant_list"
+      });
+    };
     const toMerchantCode = () => {
       common_vendor.index.navigateTo({
         url: "/pages/recommend/merchant_code_authentication"
@@ -28,9 +33,9 @@ const _sfc_main = {
           title: "推荐官后台"
         }),
         b: common_assets._imports_0$9,
-        c: common_assets._imports_1$2,
+        c: common_assets._imports_1$3,
         d: common_assets._imports_0$4,
-        e: common_vendor.o((...args) => _ctx.toEdit && _ctx.toEdit(...args)),
+        e: common_vendor.o(toMerchantList),
         f: common_assets._imports_0$4,
         g: common_vendor.o(toMerchantCode),
         h: common_assets._imports_0$4,

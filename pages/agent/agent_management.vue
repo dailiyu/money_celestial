@@ -38,7 +38,7 @@
 				</view>
 			</view>
 			<view class="list_box">
-				<view class="list_item flex_between" @click="toEdit">
+				<view class="list_item flex_between" @click="toMerchantList">
 					<view class="">
 						商家列表
 					</view>
@@ -62,6 +62,11 @@
 </template>
 
 <script setup>
+const toMerchantList = ()=>{
+	uni.navigateTo({
+		url: '/pages/agent/merchant_list'
+	})
+}
 const toMerchantCode = ()=>{
 	uni.navigateTo({
 		url: '/pages/agent/merchant_code_authentication'
