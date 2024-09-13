@@ -326,6 +326,22 @@
 				"navigationBarTitleText" : "保证金记录",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/agent/merchant_list",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家列表",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/recommend/merchant_list",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家列表",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {
