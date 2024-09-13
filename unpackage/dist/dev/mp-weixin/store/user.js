@@ -1,20 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-const common_assets = require("../common/assets.js");
 const service_uer_profile = require("../service/uer_profile.js");
-const useUserStore = common_vendor.defineStore("user", {
-  state: () => {
-    return {};
-  },
-  actions: {
-    async loginAction(phone_number, password) {
-      const results = await service_uer_profile.postProfileLogin(phone_number, password);
-      const { access, refresh } = results;
-      common_vendor.index.setStorageSync("accessToken", access);
-      common_vendor.index.setStorageSync("refreshToken", refresh);
-    }
-  }
-});
+const common_assets = require("../common/assets.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
@@ -38,16 +25,23 @@ const _sfc_main = {
     };
     const login = async () => {
       userStore.loginAction(moblie.value, password.value).then((res) => {
-        common_vendor.index.navigateTo({
-          url: "/pages/index/index"
+        common_vendor.index.showToast({
+          title: "登录成功",
+          icon: "success",
+          duration: 1e3
         });
+        setTimeout(() => {
+          common_vendor.index.navigateTo({
+            url: "/pages/index/index"
+          });
+        }, 1e3);
       }).catch((err) => {
         var _a;
         if ((_a = err == null ? void 0 : err.data) == null ? void 0 : _a.error) {
           common_vendor.index.showToast({
             duration: 2e3,
             icon: "error",
-            title: "密码错误"
+            title: "登录失败"
           });
         }
       });
@@ -83,4 +77,27 @@ const _sfc_main = {
   }
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-e4e4508d"]]);
+const useUserStore = common_vendor.defineStore("user", {
+  state: () => {
+    return {
+      userInfo: {}
+    };
+  },
+  actions: {
+    async loginAction(phone_number, password) {
+      const results = await service_uer_profile.postProfileLogin(phone_number, password);
+      const { access, refresh } = results;
+      common_vendor.index.setStorageSync("accessToken", access);
+      common_vendor.index.setStorageSync("refreshToken", refresh);
+      const res = await service_uer_profile.getUerAccountMessage();
+      const { id } = res.data;
+      common_vendor.index.setStorageSync("userId", id);
+    },
+    async getUserInfoAction() {
+      const res = await service_uer_profile.getUerAccountMessage();
+      this.userInfo = res.data;
+    }
+  }
+});
 exports.MiniProgramPage = MiniProgramPage;
+exports.useUserStore = useUserStore;

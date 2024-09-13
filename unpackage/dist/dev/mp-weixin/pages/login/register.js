@@ -1,5 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const store_user = require("../../store/user.js");
+const service_uer_profile = require("../../service/uer_profile.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
@@ -13,14 +15,39 @@ if (!Math) {
 const _sfc_main = {
   __name: "register",
   setup(__props) {
+    const userStore = store_user.useUserStore();
     const moblie = common_vendor.ref("");
     const code = common_vendor.ref("");
     const password = common_vendor.ref("");
     const password2 = common_vendor.ref("");
-    const toRegister = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/login/more_info"
-      });
+    const toRegister = async () => {
+      if (password.value == password2.value) {
+        service_uer_profile.postRegister(moblie.value, password.value).then((res) => {
+          common_vendor.index.showToast({
+            duration: 2e3,
+            icon: "success",
+            title: "注册成功"
+          });
+          userStore.loginAction(moblie.value, password.value);
+          setTimeout(() => {
+            common_vendor.index.navigateTo({
+              url: "/pages/login/more_info"
+            });
+          }, 2e3);
+        }).catch((err) => {
+          common_vendor.index.showToast({
+            duration: 2e3,
+            icon: "fail",
+            title: "注册失败"
+          });
+        });
+      } else {
+        common_vendor.index.showToast({
+          duration: 2e3,
+          icon: "fail",
+          title: "密码不一致"
+        });
+      }
     };
     return (_ctx, _cache) => {
       return {

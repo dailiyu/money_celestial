@@ -6,17 +6,19 @@ class Request {
   request(url, method, data) {
     return new Promise((resolve, reject) => {
       const accessToken = common_vendor.index.getStorageSync("accessToken");
+      const headers = {};
+      if (accessToken) {
+        headers["Authorization"] = `Bearer ${accessToken}`;
+      }
+      console.log("Authorization Header:", headers["Authorization"]);
       common_vendor.index.request({
         url: BASE_URL + url,
         method: method || "GET",
         timeout: TIME_OUT,
         data,
-        header: {
-          "Authorization": `Bearer ${accessToken}`
-          // 携带 accessToken
-        },
+        header: headers,
         success: (res) => {
-          if (res.statusCode === 200) {
+          if (res.statusCode === 200 || res.statusCode === 201) {
             resolve(res.data);
           } else if (res.statusCode === 401) {
             this.logout();

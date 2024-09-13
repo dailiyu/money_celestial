@@ -6,8 +6,8 @@
 				<view class="title">
 					头像
 				</view>
-				<view class="flex_center">
-					<image src="" mode="aspectFill" class="head"></image>
+				<view class="flex_center" @click="chooseImg">
+					<image :src="imagePath" mode="aspectFill" class="head" ></image>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
 				</view>
 			</view>
@@ -15,23 +15,13 @@
 				<view class="title">
 					昵称
 				</view>
-				<view class="flex_center">
-					<view class="nickname">
-						满小仓232203029
-					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
-				</view>
+				<uni-easyinput class="uni-mt-5" v-model="name" ></uni-easyinput>
 			</view>
 			<view class="info_item flex_between">
 				<view class="title">
 					邮箱
 				</view>
-				<view class="flex_center">
-					<view class="email">
-						添加
-					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
-				</view>
+				<uni-easyinput class="uni-mt-5" v-model="email" ></uni-easyinput>
 			</view>
 			<view class="info_item flex_between">
 				<view class="title">
@@ -39,7 +29,7 @@
 				</view>
 				<view class="flex_center" @click="getGender">
 					<view class="email">
-						{{gender?gender:'选择'}}
+						{{gender?(gender=='male'?'男':'女'):'选择'}}
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
 				</view>
@@ -67,7 +57,7 @@
 				</view>
 			</view>
 			
-			<view class="btn flex_center">
+			<view class="btn flex_center" @click="saveMessage">
 				保存信息
 			</view>
 		</view>
@@ -82,23 +72,106 @@
 
 <script setup>
 import { ref } from 'vue';
+import loginVue from './login.vue';
+import { updateUserProfile } from '../../service/uer_profile';
+
 const skip = ()=>{
 	console.log(111)
 }
 
+const name=ref('')
+const imagePath=ref('')
 const gender = ref('')
+const email=ref('')
+const uploadSuccessUrl=ref('')
 const getGender = ()=>{
 	uni.showActionSheet({
 		itemList: ['男', '女'],
 		success(res) {
 			if (res.tapIndex == 0) {
-				gender.value = '男'
+				gender.value = 'male'
 			} else {
-				gender.value = '女'
+				gender.value = 'female'
 			}
 		}
 	})
 }
+
+const chooseImg = async () => {
+  // 选择图片
+  uni.chooseImage({
+    count: 1, // 限制用户只能选择一张图片
+    success: (res) => {
+      const tempFilePaths = res.tempFilePaths;
+      // 将选择的图片路径赋值给 imagePath 用于页面显示
+      imagePath.value = tempFilePaths[0]; 
+      console.log('-----选择的图片路径：', tempFilePaths[0]);
+      // 调用上传图片方法
+      uploadImage(tempFilePaths[0]);
+    },
+    fail: (err) => {
+      console.log('选择图片失败：', err);
+    }
+  });
+};
+
+const token = uni.getStorageSync('accessToken'); // UniApp 中使用 uni.getStorageSync 代替 localStorage.getItem
+
+// 上传接口 URL
+const uploadUrl = 'https://max.q6z4kzhr.uk/api/image/upload/';  // 替换为你的实际 API URL
+
+// 上传图片
+function uploadImage(filePath) {
+  uni.uploadFile({
+    url: uploadUrl, // 上传接口 URL
+    filePath: filePath, // 需要上传的文件路径
+    name: 'image', // 后台接收文件的字段名 (根据实际需求)
+    header: {
+      'Authorization': `Bearer ${token}`, // 将 JWT Token 添加到 Authorization 请求头中
+      'Content-Type': 'multipart/form-data'
+    },
+    success: (uploadFileRes) => {
+      if (uploadFileRes.statusCode === 201) {
+        const data = JSON.parse(uploadFileRes.data); // 解析返回的数据
+        console.log('上传成功！');
+        console.log('上传的图片 URL:', data);
+		uploadSuccessUrl.value=data.image_url
+		
+      } else {
+        console.log('上传失败，状态码：', uploadFileRes.statusCode);
+      }
+    },
+    fail: (err) => {
+		console.log(err);
+      console.error('上传文件出错:', err);
+    }
+  });
+}
+
+const saveMessage=async()=>{
+	  updateUserProfile(uploadSuccessUrl.value,name.value,email.value,gender.value,birthday.value,address.value).then((res)=>{
+		  uni.showToast({
+		  	duration:1000,
+			icon:'success',
+			title:'保存成功'
+		  })
+		  setTimeout(()=>{
+			  uni.navigateTo({
+			  	url:'/pages/index/index'
+			  })
+		  },1000)
+	  }).catch((err)=>{
+		  uni.showToast({
+		  	duration:1000,
+			icon:'fail',
+			title:'保存失败'
+		  })
+	  })
+	  
+	  
+}
+
+
 const birthday = ref('')
 const calendar = ref()
 const openCalendar = ()=>{
@@ -120,6 +193,10 @@ const getLocation = ()=>{
 		}
 	})
 }
+
+
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -164,5 +241,8 @@ const getLocation = ()=>{
 		margin-top: 200rpx;
 		font-size: 30rpx;
 	}
+	
 }
+
+
 </style>

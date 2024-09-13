@@ -21,6 +21,15 @@ export const getMerchantList=()=>{
     ]
 }
 */
+
+//
+export const postMerchant=()=>{
+	return http.post('/merchant/',{
+		
+	})
+}
+
+
 //获取商家分类列表
 export const getMerchantCategoriesList=()=>{
 	return http.get('/merchant/categories/')

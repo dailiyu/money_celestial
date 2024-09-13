@@ -2,6 +2,7 @@
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const store_public = require("../../store/public.js");
+const store_user = require("../../store/user.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_search_bar2 = common_vendor.resolveComponent("uni-search-bar");
@@ -17,8 +18,9 @@ const _sfc_main = {
   setup(__props) {
     const publicStore = store_public.usePublicStore();
     const keyword = common_vendor.ref("");
+    const userStore = store_user.useUserStore();
     common_vendor.onMounted(async () => {
-      await publicStore.fetchAllData();
+      await publicStore.fetchAllData(), await userStore.getUserInfoAction();
     });
     const search = () => {
       console.log(keyword.value);

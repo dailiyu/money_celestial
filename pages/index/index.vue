@@ -177,13 +177,14 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import {usePublicStore} from "@/store/public.js"
+import { useUserStore } from '../../store/user';
 const publicStore=usePublicStore()
 const keyword = ref('')
-
+ const  userStore = useUserStore()
 
 onMounted(async()=>{
-	await publicStore.fetchAllData()
-	
+	await publicStore.fetchAllData(),
+	await userStore.getUserInfoAction()
 })
 
 const search = ()=>{

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { postProfileLogin } from '../service/uer_profile';
+import { postProfileLogin,getUerAccountMessage } from '../service/uer_profile';
 import loginVue from '../pages/login/login.vue';
 
 
@@ -9,7 +9,7 @@ import loginVue from '../pages/login/login.vue';
 export const  useUserStore = defineStore('user', {
 	state: () => {
 		return {
-			
+			userInfo:{}
 		}
 	},
 	actions: {
@@ -19,8 +19,17 @@ export const  useUserStore = defineStore('user', {
 			 // 保存 Token
 			      uni.setStorageSync('accessToken', access);
 			      uni.setStorageSync('refreshToken', refresh);
-		}
+				  
+				  const res=await getUerAccountMessage()
+				  const {id}=res.data
 		
+				  uni.setStorageSync('userId',id)
+		},
+		async getUserInfoAction(){
+			const res=await getUerAccountMessage()
+			this.userInfo=res.data
+			
+		}
 	}
 })
 
