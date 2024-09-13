@@ -3,32 +3,28 @@ const BASE_URL = 'https://max.q6z4kzhr.uk/api';
 
 class Request {
     
-    request(url, method, data) {
+request(url, method, data) {
         return new Promise((resolve, reject) => {
             const accessToken = uni.getStorageSync('accessToken');
-            
+
+            const headers = {};
+            if (accessToken) {
+                headers['Authorization'] = `Bearer ${accessToken}`;
+            }
+
+            console.log('Authorization Header:', headers['Authorization']);  // 输出 Authorization 头检查
+
             uni.request({
                 url: BASE_URL + url,
                 method: method || "GET",
                 timeout: TIME_OUT,
                 data: data,
-                header: {
-                    'Authorization': `Bearer ${accessToken}`  // 携带 accessToken
-                },
+                header: headers,
                 success: (res) => {
-                    if (res.statusCode === 200) {
+                    if (res.statusCode === 200||res.statusCode === 201) {
                         resolve(res.data);
                     } else if (res.statusCode === 401) {
-						 this.logout();
-                        // // Token 过期处理逻辑
-                        // this.refreshToken().then(newAccessToken => {
-                        //     // Token 刷新成功，重新发起请求
-                        //     this.request(url, method, data).then(resolve).catch(reject);
-                        // }).catch(err => {
-                        //     // 如果刷新 Token 也失败了，处理登出
-                        //     this.logout();
-                        //     reject(err);
-                        // });
+                        this.logout();
                     } else {
                         reject(res);
                     }
@@ -39,8 +35,8 @@ class Request {
             });
         });
     }
-    
-    get(url, params) {
+   
+	get(url, params) {
         return this.request(url, "GET", params);
     }
     

@@ -7,10 +7,10 @@
 		<view class="content">
 			<view class="profile" @click="toLogin">
 				<view class="avtar">
-
+				<image class="img" :src="userStore.userInfo.icon" mode=""></image>
 				</view>
 				<view class="name">
-					满小仓
+					{{userStore.userInfo.name}}
 				</view>
 			</view>
 			<view class="points-box">
@@ -114,6 +114,9 @@
 </template>
 
 <script setup>
+import { useUserStore } from '../../store/user'
+ const  userStore = useUserStore()
+	
 const toLogin = ()=>{
 	uni.navigateTo({
 		url: '/pages/login/login'
@@ -166,9 +169,14 @@ const toPointAccount = ()=>{
 					width: 110rpx;
 					height: 110rpx;
 					border-radius: 50%;
-					background-color: blue;
+					// background-color: blue;
 					margin-right: 40rpx;
 					margin-left: 20rpx;
+					overflow: hidden;
+					.img{
+						width: 100%;
+						height: 100%;
+					}
 				}
 
 				.name {

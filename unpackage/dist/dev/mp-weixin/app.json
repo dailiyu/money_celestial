@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/login/login",
     "pages/merchant/merchant_intro",
     "pages/merchant/settle_notice",
     "pages/merchant/merchant_set_info",
@@ -25,7 +26,6 @@
     "pages/myAccount/myAccount",
     "pages/merchant/merchant_detail",
     "pages/merchant/goods_detail",
-    "pages/login/login",
     "pages/login/register",
     "pages/login/more_info",
     "pages/myAccount/my_point",

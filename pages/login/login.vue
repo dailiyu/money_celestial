@@ -47,17 +47,24 @@ const toRegister = ()=>{
   
   const login=async()=>{	
 	  userStore.loginAction(moblie.value,password.value).then((res)=>{
+		 uni.showToast({
+		 	title:'登录成功',
+			icon:'success',
+			duration:1000
+		 })
+		 setTimeout(()=>{
+			uni.navigateTo({
+				url: '/pages/index/index'
+			})
+		 },1000)
 		
-		  uni.navigateTo({
-		  	url: '/pages/index/index'
-		  })
 	  }).catch((err)=>{
 		
 		if(err?.data?.error){
 			uni.showToast({
 				duration:2000,
 						icon:'error',
-						title:"密码错误"
+						title:"登录失败"
 			})
 		}
 		 

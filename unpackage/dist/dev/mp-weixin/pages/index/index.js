@@ -2,6 +2,7 @@
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const store_public = require("../../store/public.js");
+const store_user = require("../../store/user.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_search_bar2 = common_vendor.resolveComponent("uni-search-bar");
@@ -17,8 +18,9 @@ const _sfc_main = {
   setup(__props) {
     const publicStore = store_public.usePublicStore();
     const keyword = common_vendor.ref("");
+    const userStore = store_user.useUserStore();
     common_vendor.onMounted(async () => {
-      await publicStore.fetchAllData();
+      await publicStore.fetchAllData(), await userStore.getUserInfoAction();
     });
     const search = () => {
       console.log(keyword.value);
@@ -94,7 +96,7 @@ const _sfc_main = {
         w: common_assets._imports_13,
         x: common_assets._imports_14,
         y: common_vendor.o(toSettle),
-        z: common_assets._imports_1$2,
+        z: common_assets._imports_2$2,
         A: common_vendor.o(toDetail),
         B: common_vendor.o(toAllMerchant),
         C: common_assets._imports_16,
@@ -104,5 +106,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"], ["__file", "D:/code/money_celestial/pages/index/index.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
 wx.createPage(MiniProgramPage);
