@@ -40,7 +40,9 @@
     "pages/agent/deposit_record",
     "pages/recommend/add_deposit",
     "pages/recommend/remove_deposit",
-    "pages/recommend/deposit_record"
+    "pages/recommend/deposit_record",
+    "pages/agent/merchant_list",
+    "pages/recommend/merchant_list"
   ],
   "window": {
     "navigationBarTextStyle": "white",

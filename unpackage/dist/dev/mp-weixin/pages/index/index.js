@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const store_public = require("../../store/public.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_search_bar2 = common_vendor.resolveComponent("uni-search-bar");
@@ -14,7 +15,11 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    const publicStore = store_public.usePublicStore();
     const keyword = common_vendor.ref("");
+    common_vendor.onMounted(async () => {
+      await publicStore.fetchAllData();
+    });
     const search = () => {
       console.log(keyword.value);
     };
@@ -59,7 +64,7 @@ const _sfc_main = {
           iconShow: false,
           title: "满仓"
         }),
-        b: common_assets._imports_0,
+        b: common_assets._imports_0$1,
         c: common_vendor.o(search),
         d: common_vendor.o(($event) => keyword.value = $event),
         e: common_vendor.p({
@@ -70,11 +75,11 @@ const _sfc_main = {
           clearButton: "always",
           modelValue: keyword.value
         }),
-        f: common_assets._imports_1,
+        f: common_assets._imports_1$1,
         g: common_vendor.o(toMerchant),
-        h: common_assets._imports_2,
+        h: common_assets._imports_2$1,
         i: common_vendor.o(toAgent),
-        j: common_assets._imports_3,
+        j: common_assets._imports_3$1,
         k: common_vendor.o(toRecommend),
         l: common_assets._imports_4,
         m: common_vendor.o(toMyAccount),
@@ -89,7 +94,7 @@ const _sfc_main = {
         w: common_assets._imports_13,
         x: common_assets._imports_14,
         y: common_vendor.o(toSettle),
-        z: common_assets._imports_2$1,
+        z: common_assets._imports_1$2,
         A: common_vendor.o(toDetail),
         B: common_vendor.o(toAllMerchant),
         C: common_assets._imports_16,

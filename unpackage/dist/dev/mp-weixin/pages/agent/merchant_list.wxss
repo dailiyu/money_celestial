@@ -23,40 +23,24 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.filter_list.data-v-2d911691 {
+.filter_list.data-v-017395ae {
   font-size: 30rpx;
   padding: 35rpx;
   background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
-.filter_list .type_pic.data-v-2d911691 {
+.filter_list .type_pic.data-v-017395ae {
   width: 26rpx;
   margin-right: 20rpx;
 }
-.filter_list .arrow_fill.data-v-2d911691 {
+.filter_list .arrow_fill.data-v-017395ae {
   width: 20rpx;
   height: 10rpx;
   display: block;
   margin-left: 10rpx;
 }
-.filter_list .arrow_fill.data-v-2d911691:last-child {
+.filter_list .arrow_fill.data-v-017395ae:last-child {
   margin-top: 6rpx;
-}
-.settle_box.data-v-2d911691 {
-  padding: 24rpx 32rpx 24rpx 46rpx;
-  background-color: #fff;
-  margin-bottom: 20rpx;
-}
-.settle_box .c_text.data-v-2d911691 {
-  font-size: 24rpx;
-  font-weight: bold;
-}
-.settle_box .c_text .company.data-v-2d911691 {
-  color: #fc5908;
-}
-.settle_box .s_text.data-v-2d911691 {
-  padding: 10rpx 20rpx;
-  background-color: #fc5908;
-  font-size: 21rpx;
-  color: #FFFFFF;
-  border-radius: 100px;
 }

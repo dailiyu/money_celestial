@@ -12,7 +12,7 @@ if (!Math) {
   (_easycom_navBar + _easycom_shopList)();
 }
 const _sfc_main = {
-  __name: "all_merchant",
+  __name: "merchant_list",
   setup(__props) {
     const getType = () => {
       common_vendor.index.showActionSheet({
@@ -22,16 +22,11 @@ const _sfc_main = {
         }
       });
     };
-    const toSettle = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/merchant/merchant_intro"
-      });
-    };
     const distance = common_vendor.ref("up");
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.p({
-          title: "全部商家"
+          title: "商家列表"
         }),
         b: common_assets._imports_0$10,
         c: common_vendor.o(getType),
@@ -46,11 +41,9 @@ const _sfc_main = {
         i: common_assets._imports_2$2,
         j: common_assets._imports_1$4,
         k: common_vendor.o(($event) => distance.value = "up")
-      } : {}, {
-        l: common_vendor.o(toSettle)
-      });
+      } : {});
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-2d911691"], ["__file", "D:/code/money_celestial/pages/merchant/all_merchant.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-d3cd92c3"], ["__file", "D:/code/money_celestial/pages/recommend/merchant_list.vue"]]);
 wx.createPage(MiniProgramPage);

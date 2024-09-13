@@ -12,6 +12,11 @@ if (!Math) {
 const _sfc_main = {
   __name: "agent_management",
   setup(__props) {
+    const toMerchantList = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/agent/merchant_list"
+      });
+    };
     const toMerchantCode = () => {
       common_vendor.index.navigateTo({
         url: "/pages/agent/merchant_code_authentication"
@@ -29,7 +34,7 @@ const _sfc_main = {
         }),
         b: common_assets._imports_0$7,
         c: common_assets._imports_0$4,
-        d: common_vendor.o((...args) => _ctx.toEdit && _ctx.toEdit(...args)),
+        d: common_vendor.o(toMerchantList),
         e: common_assets._imports_0$4,
         f: common_vendor.o(toMerchantCode),
         g: common_assets._imports_0$4,

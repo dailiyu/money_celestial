@@ -45,7 +45,7 @@ const _sfc_main = {
         h: common_vendor.o(($event) => code.value = $event.detail.value),
         i: address.value,
         j: common_vendor.o(($event) => address.value = $event.detail.value),
-        k: common_assets._imports_2$2,
+        k: common_assets._imports_1$2,
         l: common_vendor.o(getLocation),
         m: common_vendor.o(toManagement)
       };

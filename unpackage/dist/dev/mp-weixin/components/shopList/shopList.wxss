@@ -23,40 +23,41 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.filter_list.data-v-2d911691 {
-  font-size: 30rpx;
-  padding: 35rpx;
+.shop_list .shop_item.data-v-69f4d838 {
+  padding: 20rpx 44rpx 20rpx 20rpx;
   background-color: #fff;
+  align-items: flex-end;
 }
-.filter_list .type_pic.data-v-2d911691 {
-  width: 26rpx;
+.shop_list .shop_item .shop_pic.data-v-69f4d838 {
+  width: 114rpx;
+  height: 114rpx;
+  margin-right: 20rpx;
+  background-color: #ccc;
+  border-radius: 6px;
+}
+.shop_list .shop_item .shop_name.data-v-69f4d838 {
+  font-size: 26rpx;
+}
+.shop_list .shop_item .pic_box.data-v-69f4d838 {
+  margin: 10rpx 0 20rpx;
+}
+.shop_list .shop_item .pic_box .star_pic.data-v-69f4d838 {
+  width: 22rpx;
+}
+.shop_list .shop_item .pic_box .point.data-v-69f4d838 {
+  font-size: 20rpx;
+  color: #FC5908;
+  margin-left: 20rpx;
+}
+.shop_list .shop_item .location_pic.data-v-69f4d838 {
+  width: 22rpx;
   margin-right: 20rpx;
 }
-.filter_list .arrow_fill.data-v-2d911691 {
-  width: 20rpx;
-  height: 10rpx;
-  display: block;
-  margin-left: 10rpx;
+.shop_list .shop_item .district.data-v-69f4d838 {
+  font-size: 20rpx;
+  color: #1B46CC;
 }
-.filter_list .arrow_fill.data-v-2d911691:last-child {
-  margin-top: 6rpx;
-}
-.settle_box.data-v-2d911691 {
-  padding: 24rpx 32rpx 24rpx 46rpx;
-  background-color: #fff;
-  margin-bottom: 20rpx;
-}
-.settle_box .c_text.data-v-2d911691 {
-  font-size: 24rpx;
-  font-weight: bold;
-}
-.settle_box .c_text .company.data-v-2d911691 {
-  color: #fc5908;
-}
-.settle_box .s_text.data-v-2d911691 {
-  padding: 10rpx 20rpx;
-  background-color: #fc5908;
-  font-size: 21rpx;
-  color: #FFFFFF;
-  border-radius: 100px;
+.shop_list .shop_item .distance.data-v-69f4d838 {
+  font-size: 20rpx;
+  color: #FC5908;
 }
