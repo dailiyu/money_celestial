@@ -24,7 +24,7 @@
 /* 透明度 */
 /* 文章场景相关 */
 .content.data-v-e4e4508d {
-  padding: 156rpx 76rpx 0;
+  padding: 156rpx 76rpx 30px;
 }
 .logo.data-v-e4e4508d {
   width: 294rpx;
@@ -46,7 +46,7 @@
 .forget.data-v-e4e4508d {
   font-size: 24rpx;
   color: #1B46CC;
-  padding: 50rpx 0 144rpx;
+  padding: 50rpx 0 80rpx;
   text-align: center;
   text-decoration: underline;
 }
@@ -66,4 +66,18 @@
   font-size: 30rpx;
   color: #1B46CC;
   border: 1px solid #1B46CC;
+  margin-bottom: 50rpx;
+}
+.wx_btn.data-v-e4e4508d {
+  width: 100%;
+  height: 94rpx;
+  border-radius: 17rpx;
+  font-size: 30rpx;
+  background-color: #44c25c;
+  color: #fff;
+}
+.wx_btn .wx_logo.data-v-e4e4508d {
+  width: 50rpx;
+  display: block;
+  margin-right: 10rpx;
 }

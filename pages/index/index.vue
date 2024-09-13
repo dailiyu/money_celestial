@@ -127,7 +127,7 @@
 					</view>
 				</view>
 				<view class="shop_list">
-					<view class="shop_item flex_between">
+					<view class="shop_item flex_between" @click="toDetail">
 						<image src="" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
 							<view class="shop_name">
@@ -220,6 +220,11 @@ const toAllMerchant = ()=>{
 const toMyAccount = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/myAccount'
+	})
+}
+const toDetail = ()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/merchant_detail'
 	})
 }
 </script>

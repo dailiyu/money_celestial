@@ -71,7 +71,8 @@ const _sfc_main = {
           modelValue: password.value
         }),
         i: common_vendor.o(login),
-        j: common_vendor.o(toRegister)
+        j: common_vendor.o(toRegister),
+        k: common_assets._imports_3
       };
     };
   }

@@ -8,13 +8,6 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/myAccount/myAccount",
-          "pathName": "pages/myAccount/myAccount",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
           "name": "pages/merchant/merchant_management",
           "pathName": "pages/merchant/merchant_management",
           "query": "",
