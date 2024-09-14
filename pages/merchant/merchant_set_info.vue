@@ -52,7 +52,14 @@
 					<view class="s_title">
 						经营范围
 					</view>
-					<input v-model="businessRange" class="uni-input" placeholder="请输入商家经营的产品或业务" placeholder-class="placeholder_class" />
+					<!-- <input v-model="businessRange" class="uni-input" placeholder="请输入商家经营的产品或业务" placeholder-class="placeholder_class" /> -->
+					  <uni-data-select
+						v-model="businessRange"
+						:localdata="range"
+						placeholder="请选择"
+						:clear="false"
+						@change="changeRange"
+					></uni-data-select>
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -87,7 +94,7 @@
 import { ref } from 'vue';
 const shopIntro = ref('')
 const shopName = ref('')
-const businessRange = ref('')
+
 const code = ref('')
 const address = ref('')
 const tempProfileFilePaths=ref('')
@@ -151,9 +158,15 @@ const chooseImg = async () => {
 };
 
 
-
-
-
+const businessRange = ref('')
+const range = ref([
+    { value: 0, text: "篮球" },
+    { value: 1, text: "足球" },
+    { value: 2, text: "游泳" },
+])
+const changeRange = (e)=>{
+	console.log(e)
+}
 
 
 </script>
@@ -208,6 +221,26 @@ const chooseImg = async () => {
 		}
 		.lo_pic {
 			width: 26rpx;
+		}
+		uni-data-select {
+			flex: 1;
+		}
+		:deep(.uni-select) {
+			padding: 0;
+			border: none;
+		}
+		:deep(.uni-select__input-box) {
+			height: fit-content;
+			justify-content: flex-start;
+		}
+		:deep(.uni-select__input-placeholder) {
+			font-size: 24rpx;
+			color: #999999;
+		}
+		:deep(.uni-select__input-text) {
+			width: fit-content;
+			font-size: 24rpx;
+			color: #999999;
 		}
 	}
 	
