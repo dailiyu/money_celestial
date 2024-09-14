@@ -11,7 +11,7 @@
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload  :amount="1"  @tempImgPaths="acceptTempImgPath"></upload>
+				<upload  :amount="1"  @tempImgPaths="acceptTempProfileImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
@@ -22,7 +22,7 @@
 						已选择1张
 					</view>
 				</view>
-				<upload amount="6"></upload>
+				<upload amount="6" @tempImgPaths="acceptTempBannerImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
@@ -39,7 +39,7 @@
 						已选择1张
 					</view>
 				</view>
-				<upload :amount="6"></upload>
+				<upload :amount="6" @tempImgPaths="acceptTempDetailImgPath"></upload>
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -52,14 +52,7 @@
 					<view class="s_title">
 						经营范围
 					</view>
-					<!-- <input v-model="businessRange" class="uni-input" placeholder="请输入商家经营的产品或业务" placeholder-class="placeholder_class" /> -->
-					  <uni-data-select
-						v-model="businessRange"
-						:localdata="range"
-						placeholder="请选择"
-						:clear="false"
-						@change="changeRange"
-					></uni-data-select>
+					<input v-model="businessRange" class="uni-input" placeholder="请输入商家经营的产品或业务" placeholder-class="placeholder_class" />
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -94,15 +87,17 @@
 import { ref } from 'vue';
 const shopIntro = ref('')
 const shopName = ref('')
-
+const businessRange = ref('')
 const code = ref('')
 const address = ref('')
 const tempProfileFilePaths=ref('')
 const temBannerImgPaths=ref([])
+const temProfileImgPaths=ref([])
+const temDetailImgPaths=ref([])
 const getLocation = ()=>{
-	uni.chooseLocation({
+	uni.getLocation({
 		success(res) {
-			address.value = res.address + res.name
+			console.log(res)
 		}
 	})
 }
@@ -131,6 +126,17 @@ const  acceptTempBannerImgPath=async (ImgPaths)=>{
 	console.log(temBannerImgPaths.value);
 }
 
+const acceptTempProfileImgPath= async (ImgPaths)=>{
+	temProfileImgPaths.value=ImgPaths
+	console.log(ImgPaths);
+}
+
+const acceptTempDetailImgPath= async (ImgPaths)=>{
+	temDetailImgPaths.value=ImgPaths
+	console.log(ImgPaths);
+}
+
+
 
 
 const upLoadBannerImg=async ()=>{
@@ -138,6 +144,8 @@ const upLoadBannerImg=async ()=>{
 		//逐个向服务器传图片
 	}
 }
+
+
 
 
 const chooseImg = async () => {
@@ -158,15 +166,9 @@ const chooseImg = async () => {
 };
 
 
-const businessRange = ref('')
-const range = ref([
-    { value: "篮球", text: "篮球" },
-    { value: "足球", text: "足球" },
-    { value: "游泳", text: "游泳" },
-])
-const changeRange = (e)=>{
-	console.log(e)
-}
+
+
+
 
 
 </script>
@@ -221,26 +223,6 @@ const changeRange = (e)=>{
 		}
 		.lo_pic {
 			width: 26rpx;
-		}
-		uni-data-select {
-			flex: 1;
-		}
-		:deep(.uni-select) {
-			padding: 0;
-			border: none;
-		}
-		:deep(.uni-select__input-box) {
-			height: fit-content;
-			justify-content: flex-start;
-		}
-		:deep(.uni-select__input-placeholder) {
-			font-size: 24rpx;
-			color: #999999;
-		}
-		:deep(.uni-select__input-text) {
-			width: fit-content;
-			font-size: 24rpx;
-			color: #999999;
 		}
 	}
 	

@@ -7,7 +7,7 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return {
       userInfo: {},
-      getMerchantInfo
+      merchantInfo:{}
     };
   },
   actions: {
@@ -18,13 +18,19 @@ export const useUserStore = defineStore('user', {
       uni.setStorageSync('accessToken', access);
       uni.setStorageSync('refreshToken', refresh);
 
-      const res = await getUerAccountMessage();
-      const { id } = res.data;
-
-      uni.setStorageSync('userId', id);
+     
     },
     async getUserInfoAction() {
-      // 在这里添加用户信息获取的逻辑
-    }
+     
+	  const res = await getUerAccountMessage();
+	  const { id } = res?.data;
+	  this.userInfo= res?.data||{};
+	  uni.setStorageSync('userId', id);
+    },
+	async getMerchantInfoAction(){
+		const res=await getMerchantInfo()
+		this.merchantInfo=res?.data||{}
+		 uni.setStorageSync('merchantId', res.data.id);
+	}
   }
 });

@@ -75,6 +75,28 @@
 .shop_info .info_item .lo_pic.data-v-aaffa612 {
   width: 26rpx;
 }
+.shop_info .info_item uni-data-select.data-v-aaffa612 {
+  flex: 1;
+}
+.shop_info .info_item.data-v-aaffa612 .uni-select {
+  padding: 0;
+  border: none;
+}
+.shop_info .info_item.data-v-aaffa612 .uni-select__input-box {
+  height: -webkit-fit-content;
+  height: fit-content;
+  justify-content: flex-start;
+}
+.shop_info .info_item.data-v-aaffa612 .uni-select__input-placeholder {
+  font-size: 24rpx;
+  color: #999999;
+}
+.shop_info .info_item.data-v-aaffa612 .uni-select__input-text {
+  width: -webkit-fit-content;
+  width: fit-content;
+  font-size: 24rpx;
+  color: #999999;
+}
 .btn_full.data-v-aaffa612 {
   margin-top: 66rpx;
 }

@@ -11,7 +11,7 @@
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload></upload>
+				<upload :amount="1" @tempImgPaths="acceptProfileImg"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
@@ -22,7 +22,7 @@
 						已选择1张
 					</view>
 				</view>
-				<upload></upload>
+				<upload :amount="6"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
@@ -39,7 +39,7 @@
 						已选择1张
 					</view>
 				</view>
-				<upload></upload>
+				<upload :amount="6"></upload>
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -91,7 +91,7 @@ const shopIntro = ref('')
 const shopName = ref('')
 const code = ref('')
 const address = ref('')
-
+const profileImgTemPath=ref([])
 const getLocation = ()=>{
 	uni.getLocation({
 		success(res) {
@@ -105,6 +105,10 @@ const toManagement = ()=>{
 	})
 }
 
+const  acceptProfileImg=(paths)=>{
+	console.log(paths);
+}
+
 const businessRange = ref('')
 const range = ref([
     { value: "篮球", text: "篮球" },
@@ -114,6 +118,14 @@ const range = ref([
 const changeRange = (e)=>{
 	console.log(e)
 }
+
+
+
+
+
+
+
+
 </script>
 
 <style lang="scss" scoped>

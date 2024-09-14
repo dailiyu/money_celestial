@@ -84,7 +84,7 @@ const useUserStore = common_vendor.defineStore("user", {
   state: () => {
     return {
       userInfo: {},
-      getMerchantInfo: service_merchant.getMerchantInfo
+      merchantInfo: {}
     };
   },
   actions: {
@@ -93,11 +93,17 @@ const useUserStore = common_vendor.defineStore("user", {
       const { access, refresh } = results;
       common_vendor.index.setStorageSync("accessToken", access);
       common_vendor.index.setStorageSync("refreshToken", refresh);
-      const res = await service_uer_profile.getUerAccountMessage();
-      const { id } = res.data;
-      common_vendor.index.setStorageSync("userId", id);
     },
     async getUserInfoAction() {
+      const res = await service_uer_profile.getUerAccountMessage();
+      const { id } = res == null ? void 0 : res.data;
+      this.userInfo = (res == null ? void 0 : res.data) || {};
+      common_vendor.index.setStorageSync("userId", id);
+    },
+    async getMerchantInfoAction() {
+      const res = await service_merchant.getMerchantInfo();
+      this.merchantInfo = (res == null ? void 0 : res.data) || {};
+      common_vendor.index.setStorageSync("merchantId", res.data.id);
     }
   }
 });
