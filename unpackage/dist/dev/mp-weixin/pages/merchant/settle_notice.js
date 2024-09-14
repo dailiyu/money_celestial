@@ -37,5 +37,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-37037ead"], ["__file", "D:/code/money_celestial/pages/merchant/settle_notice.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-37037ead"]]);
 wx.createPage(MiniProgramPage);

@@ -96,7 +96,7 @@ const _sfc_main = {
         w: common_assets._imports_13,
         x: common_assets._imports_14,
         y: common_vendor.o(toSettle),
-        z: common_assets._imports_2$2,
+        z: common_assets._imports_1$2,
         A: common_vendor.o(toDetail),
         B: common_vendor.o(toAllMerchant),
         C: common_assets._imports_16,

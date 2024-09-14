@@ -40,5 +40,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-3efa2ea6"], ["__file", "D:/code/money_celestial/pages/merchant/security_deposit.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-3efa2ea6"]]);
 wx.createPage(MiniProgramPage);
