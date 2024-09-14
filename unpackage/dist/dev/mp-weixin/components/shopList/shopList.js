@@ -16,5 +16,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: common_vendor.o((...args) => _ctx.toDetail && _ctx.toDetail(...args))
   };
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-69f4d838"], ["__file", "D:/code/money_celestial/components/shopList/shopList.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-69f4d838"]]);
 wx.createComponent(Component);

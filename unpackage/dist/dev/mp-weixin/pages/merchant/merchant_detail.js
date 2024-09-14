@@ -29,10 +29,10 @@ const _sfc_main = {
           title: "门店详情"
         }),
         b: common_assets._imports_0$3,
-        c: common_assets._imports_1$5,
+        c: common_assets._imports_1$6,
         d: common_assets._imports_1$2,
         e: common_assets._imports_3$3,
-        f: common_assets._imports_4$2,
+        f: common_assets._imports_4$1,
         g: common_vendor.o(onClickItem),
         h: common_vendor.p({
           current: current.value,
@@ -44,5 +44,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1771cf06"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_detail.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1771cf06"]]);
 wx.createPage(MiniProgramPage);

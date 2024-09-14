@@ -46,5 +46,5 @@ const _sfc_main = {
     };
   }
 };
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-0917ae16"], ["__file", "D:/code/money_celestial/components/upload/upload.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-0917ae16"]]);
 wx.createComponent(Component);
