@@ -1,5 +1,12 @@
 import  {http} from "./index"
 
+
+
+export const getMerchantInfo=async ()=>{
+	return http.get('/merchant/get/')
+}
+
+
 //商家列表
 export const getMerchantList=()=>{
 	return http.get('/merchant/')

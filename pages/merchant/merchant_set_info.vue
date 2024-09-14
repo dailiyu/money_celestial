@@ -11,7 +11,7 @@
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload></upload>
+				<upload  :amount="1"  @tempImgPaths="acceptTempImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
@@ -22,7 +22,7 @@
 						已选择1张
 					</view>
 				</view>
-				<upload></upload>
+				<upload amount="6"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
@@ -33,13 +33,13 @@
 				</view>
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						商家轮播图（750*340）
+						商家详情图（750*340）
 					</view>
 					<view class="h_text">
 						已选择1张
 					</view>
 				</view>
-				<upload></upload>
+				<upload :amount="6"></upload>
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -90,7 +90,8 @@ const shopName = ref('')
 const businessRange = ref('')
 const code = ref('')
 const address = ref('')
-
+const tempProfileFilePaths=ref('')
+const temBannerImgPaths=ref([])
 const getLocation = ()=>{
 	uni.chooseLocation({
 		success(res) {
@@ -117,6 +118,44 @@ const toManagement = ()=>{
 		url: '/pages/merchant/merchant_management'
 	})
 }
+
+const  acceptTempBannerImgPath=async (ImgPaths)=>{
+	temBannerImgPaths.value=ImgPaths
+	console.log(temBannerImgPaths.value);
+}
+
+
+
+const upLoadBannerImg=async ()=>{
+	for(let i=0;i<temBannerImgPaths.value.length;i++){
+		//逐个向服务器传图片
+	}
+}
+
+
+const chooseImg = async () => {
+	console.log(111);
+  // 选择图片
+  uni.chooseImage({
+    count: 1, // 限制用户只能选择一张图片
+    success: (res) => {
+      const tempFilePaths = res.tempFilePaths;
+      // 将选择的图片路径赋值给 imagePath 用于页面显示
+      tempProfileFilePaths.value = tempFilePaths[0]; 
+      console.log('-----选择的图片路径：', tempFilePaths[0]);
+    },
+    fail: (err) => {
+      console.log('选择图片失败：', err);
+    }
+  });
+};
+
+
+
+
+
+
+
 </script>
 
 <style lang="scss" scoped>

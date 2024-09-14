@@ -2,6 +2,7 @@
 const common_vendor = require("../common/vendor.js");
 const service_uer_profile = require("../service/uer_profile.js");
 const common_assets = require("../common/assets.js");
+const service_merchant = require("../service/merchant.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
@@ -82,7 +83,8 @@ const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["
 const useUserStore = common_vendor.defineStore("user", {
   state: () => {
     return {
-      userInfo: {}
+      userInfo: {},
+      getMerchantInfo: service_merchant.getMerchantInfo
     };
   },
   actions: {
@@ -96,8 +98,6 @@ const useUserStore = common_vendor.defineStore("user", {
       common_vendor.index.setStorageSync("userId", id);
     },
     async getUserInfoAction() {
-      const res = await service_uer_profile.getUerAccountMessage();
-      this.userInfo = res.data;
     }
   }
 });
