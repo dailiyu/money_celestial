@@ -190,6 +190,7 @@ const getLocation = ()=>{
 			lat.value = res.latitude
 			lon.value = res.longitude
 			address.value = res.address+res.name
+			
 		}
 	})
 }
