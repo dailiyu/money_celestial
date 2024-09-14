@@ -68,13 +68,19 @@ const toMerchantList = ()=>{
 	})
 }
 const toMerchantCode = ()=>{
+	// uni.navigateTo({
+	// 	url: '/pages/merchant/merchant_code_authentication'
+	// })
 	uni.navigateTo({
 		url: '/pages/agent/merchant_code_authentication'
 	})
 }
 const toSecurityDeposit = ()=>{
+	// uni.navigateTo({
+	// 	url: '/pages/agent/security_deposit'
+	// })
 	uni.navigateTo({
-		url: '/pages/agent/security_deposit'
+		url: '/pages/merchant/security_deposit'
 	})
 }
 </script>

@@ -92,9 +92,9 @@ const code = ref('')
 const address = ref('')
 
 const getLocation = ()=>{
-	uni.getLocation({
+	uni.chooseLocation({
 		success(res) {
-			console.log(res)
+			address.value = res.address + res.name
 		}
 	})
 }

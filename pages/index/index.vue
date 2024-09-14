@@ -4,7 +4,7 @@
 		<view class="search_bar flex_between">
 			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>
 			<view class="location">
-				湖州
+				{{city?city:'定位中'}}
 			</view>
 			<uni-search-bar v-model="keyword" placeholder="请输入你搜索的内容" :radius="100" cancel-text="cancel" cancelButton="none" clearButton="always">
 				<template v-slot:clearIcon>
@@ -178,13 +178,37 @@
 import { onMounted, ref } from 'vue';
 import {usePublicStore} from "@/store/public.js"
 import { useUserStore } from '../../store/user';
+var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
+
 const publicStore=usePublicStore()
 const keyword = ref('')
  const  userStore = useUserStore()
-
+const city = ref('')
 onMounted(async()=>{
 	await publicStore.fetchAllData(),
 	await userStore.getUserInfoAction()
+	uni.getLocation({
+		geocode: true,
+		success(res) {
+			var qqmapsdk = new QQMapWX({
+			    key: 'YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA' // 必填
+			});
+			qqmapsdk.reverseGeocoder({
+				location: {
+					latitude: res.latitude,
+					longitude: res.longitude
+				},
+				success(address){
+					const ad_info = address.result.ad_info
+					uni.setStorageSync('address_info', address.result.ad_info)
+					city.value = ad_info.city
+				},
+				fail(err){
+					console.log(err)
+				}
+			})
+		}
+	})
 })
 
 const search = ()=>{
@@ -200,6 +224,10 @@ const toMerchant = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_intro'
 	})
+	// 已入驻
+	// uni.navigateTo({
+	// 	url: '/pages/merchant/merchant_management'
+	// })
 }
 const toAgent = ()=>{
 	uni.navigateTo({

@@ -49,9 +49,16 @@ export const queryMerchantCategoriesById=(id)=>{
 	return http.get(`/merchant/categories/${id}/`)
 }
 
+// 获取保证金
+export const getDeposit=(id)=>{
+	return http.get(`/deposit/get/`)
+}
 
 
-
+// 获取保证金记录
+export const getDepositList=(id)=>{
+	return http.get(`/deposit/records/`)
+}
 
 
 

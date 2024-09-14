@@ -5,9 +5,8 @@
 			<view class="title">
 				手机号：
 			</view>
-			<uni-easyinput v-model="moblie" placeholder="请输入手机号" :inputBorder="false" primaryColor="#1B46CC" />
-			<uni-easyinput v-model="code" placeholder="请输入验证码" :inputBorder="false" type="password"
-				primaryColor="#1B46CC">
+			<uni-easyinput v-model="mobile" placeholder="请输入手机号" :inputBorder="false" primaryColor="#1B46CC" type="number" />
+			<uni-easyinput v-model="code" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
 				<template #right>
 					<view class="send_btn flex_center">
 						发送验证码
@@ -40,7 +39,7 @@
 	} from 'vue';
 import { postRegister } from '../../service/uer_profile';
 	
-	const moblie = ref('')
+	const mobile = ref('')
 	const code = ref('')
 	const password = ref('')
 	const password2 = ref('')
@@ -49,14 +48,22 @@ import { postRegister } from '../../service/uer_profile';
 	
 	
 const toRegister = async() => {
+	if (mobile.value.length !== 11) return uni.showToast({
+		icon: 'none',
+		title: '请输入正确手机号'
+	})
+	if (password.value < 6 || password2.value < 6) return uni.showToast({
+		icon:'none',
+		title: '密码长度最低6位'
+	})
   if(password.value == password2.value){
-    postRegister(moblie.value, password.value).then((res) => {
+    postRegister(mobile.value, password.value).then((res) => {
       uni.showToast({
         duration: 2000,
         icon: 'success',
         title: "注册成功"
       });
-      userStore.loginAction(moblie.value, password.value);
+      userStore.loginAction(mobile.value, password.value);
       setTimeout(() => {
         uni.navigateTo({
           url: '/pages/login/more_info'

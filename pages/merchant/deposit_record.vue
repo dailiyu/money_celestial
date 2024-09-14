@@ -35,7 +35,15 @@
 </template>
 
 <script setup>
-	
+import { onMounted, ref } from 'vue';
+import { getDepositList } from '@/service/merchant.js'
+
+const recordList = ref([])
+onMounted(async()=>{
+	const {results} = await getDepositList()
+	recordList.value =results
+	console.log(results)
+})
 </script>
 
 <style lang="scss" scoped>

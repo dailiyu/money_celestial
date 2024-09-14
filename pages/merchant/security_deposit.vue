@@ -6,7 +6,7 @@
 				我的保证金
 			</view>
 			<view class="number flex_center">
-				10,203.02
+				{{amount}}
 			</view>
 			<view class="list_box">
 				<view class="list_item flex_between" @click="toRecord">
@@ -29,6 +29,8 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+import {getDeposit} from '@/service/merchant.js'
 const toRecord = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/deposit_record'
@@ -44,6 +46,11 @@ const toRemove = ()=>{
 		url: '/pages/merchant/remove_deposit'
 	})
 }
+const amount = ref('')
+onMounted(async()=>{
+	const {data} = await getDeposit()
+	amount.value = data.amount
+})
 </script>
 
 <style lang="scss" scoped>
