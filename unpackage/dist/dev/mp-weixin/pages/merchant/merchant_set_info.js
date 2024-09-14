@@ -19,6 +19,8 @@ const _sfc_main = {
     const businessRange = common_vendor.ref("");
     const code = common_vendor.ref("");
     const address = common_vendor.ref("");
+    common_vendor.ref("");
+    common_vendor.ref([]);
     const getLocation = () => {
       common_vendor.index.getLocation({
         success(res) {
@@ -40,20 +42,30 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "商家入驻"
         }),
-        b: shopIntro.value,
-        c: shopName.value,
-        d: common_vendor.o(($event) => shopName.value = $event.detail.value),
-        e: businessRange.value,
-        f: common_vendor.o(($event) => businessRange.value = $event.detail.value),
-        g: code.value,
-        h: common_vendor.o(($event) => code.value = $event.detail.value),
-        i: address.value,
-        j: common_vendor.o(($event) => address.value = $event.detail.value),
-        k: common_assets._imports_1$2,
-        l: common_vendor.o(getLocation),
-        m: isChecked.value,
-        n: common_vendor.o(changeCheck),
-        o: common_vendor.o(toManagement)
+        b: common_vendor.o(_ctx.acceptTempImgPath),
+        c: common_vendor.p({
+          amount: 1
+        }),
+        d: common_vendor.p({
+          amount: "6"
+        }),
+        e: shopIntro.value,
+        f: common_vendor.p({
+          amount: 6
+        }),
+        g: shopName.value,
+        h: common_vendor.o(($event) => shopName.value = $event.detail.value),
+        i: businessRange.value,
+        j: common_vendor.o(($event) => businessRange.value = $event.detail.value),
+        k: code.value,
+        l: common_vendor.o(($event) => code.value = $event.detail.value),
+        m: address.value,
+        n: common_vendor.o(($event) => address.value = $event.detail.value),
+        o: common_assets._imports_1$2,
+        p: common_vendor.o(getLocation),
+        q: isChecked.value,
+        r: common_vendor.o(changeCheck),
+        s: common_vendor.o(toManagement)
       };
     };
   }
