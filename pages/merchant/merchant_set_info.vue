@@ -160,9 +160,9 @@ const chooseImg = async () => {
 
 const businessRange = ref('')
 const range = ref([
-    { value: 0, text: "篮球" },
-    { value: 1, text: "足球" },
-    { value: 2, text: "游泳" },
+    { value: "篮球", text: "篮球" },
+    { value: "足球", text: "足球" },
+    { value: "游泳", text: "游泳" },
 ])
 const changeRange = (e)=>{
 	console.log(e)

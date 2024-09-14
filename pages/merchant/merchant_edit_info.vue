@@ -89,7 +89,6 @@
 import { ref } from 'vue';
 const shopIntro = ref('')
 const shopName = ref('')
-const businessRange = ref('')
 const code = ref('')
 const address = ref('')
 
@@ -104,6 +103,16 @@ const toManagement = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_management'
 	})
+}
+
+const businessRange = ref('')
+const range = ref([
+    { value: "篮球", text: "篮球" },
+    { value: "足球", text: "足球" },
+    { value: "游泳", text: "游泳" },
+])
+const changeRange = (e)=>{
+	console.log(e)
 }
 </script>
 
