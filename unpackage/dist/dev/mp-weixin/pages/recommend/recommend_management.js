@@ -19,12 +19,12 @@ const _sfc_main = {
     };
     const toMerchantCode = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/recommend/merchant_code_authentication"
+        url: "/pages/merchant/merchant_code_authentication"
       });
     };
     const toSecurityDeposit = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/recommend/security_deposit"
+        url: "/pages/merchant/security_deposit"
       });
     };
     return (_ctx, _cache) => {

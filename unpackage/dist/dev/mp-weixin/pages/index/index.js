@@ -16,11 +16,36 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    var QQMapWX = require("../../static/qqmap/qqmap-wx-jssdk.min.js");
     const publicStore = store_public.usePublicStore();
     const keyword = common_vendor.ref("");
     const userStore = store_user.useUserStore();
+    const city = common_vendor.ref("");
     common_vendor.onMounted(async () => {
       await publicStore.fetchAllData(), await userStore.getUserInfoAction();
+      common_vendor.index.getLocation({
+        geocode: true,
+        success(res) {
+          var qqmapsdk = new QQMapWX({
+            key: "YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA"
+            // 必填
+          });
+          qqmapsdk.reverseGeocoder({
+            location: {
+              latitude: res.latitude,
+              longitude: res.longitude
+            },
+            success(address) {
+              const ad_info = address.result.ad_info;
+              common_vendor.index.setStorageSync("address_info", address.result.ad_info);
+              city.value = ad_info.city;
+            },
+            fail(err) {
+              console.log(err);
+            }
+          });
+        }
+      });
     });
     const search = () => {
       console.log(keyword.value);
@@ -67,9 +92,10 @@ const _sfc_main = {
           title: "满仓"
         }),
         b: common_assets._imports_0$1,
-        c: common_vendor.o(search),
-        d: common_vendor.o(($event) => keyword.value = $event),
-        e: common_vendor.p({
+        c: common_vendor.t(city.value ? city.value : "定位中"),
+        d: common_vendor.o(search),
+        e: common_vendor.o(($event) => keyword.value = $event),
+        f: common_vendor.p({
           placeholder: "请输入你搜索的内容",
           radius: 100,
           ["cancel-text"]: "cancel",
@@ -77,34 +103,34 @@ const _sfc_main = {
           clearButton: "always",
           modelValue: keyword.value
         }),
-        f: common_assets._imports_1$1,
-        g: common_vendor.o(toMerchant),
-        h: common_assets._imports_2$1,
-        i: common_vendor.o(toAgent),
-        j: common_assets._imports_3$1,
-        k: common_vendor.o(toRecommend),
-        l: common_assets._imports_4,
-        m: common_vendor.o(toMyAccount),
-        n: common_assets._imports_5,
-        o: common_assets._imports_6,
-        p: common_assets._imports_7,
-        q: common_assets._imports_8,
-        r: common_assets._imports_9,
-        s: common_assets._imports_10,
-        t: common_assets._imports_11,
-        v: common_assets._imports_12,
-        w: common_assets._imports_13,
-        x: common_assets._imports_14,
-        y: common_vendor.o(toSettle),
-        z: common_assets._imports_2$2,
-        A: common_vendor.o(toDetail),
-        B: common_vendor.o(toAllMerchant),
-        C: common_assets._imports_16,
-        D: common_assets._imports_17,
-        E: common_assets._imports_18
+        g: common_assets._imports_1$1,
+        h: common_vendor.o(toMerchant),
+        i: common_assets._imports_2$1,
+        j: common_vendor.o(toAgent),
+        k: common_assets._imports_3$1,
+        l: common_vendor.o(toRecommend),
+        m: common_assets._imports_4,
+        n: common_vendor.o(toMyAccount),
+        o: common_assets._imports_5,
+        p: common_assets._imports_6,
+        q: common_assets._imports_7,
+        r: common_assets._imports_8,
+        s: common_assets._imports_9,
+        t: common_assets._imports_10,
+        v: common_assets._imports_11,
+        w: common_assets._imports_12,
+        x: common_assets._imports_13,
+        y: common_assets._imports_14,
+        z: common_vendor.o(toSettle),
+        A: common_assets._imports_1$2,
+        B: common_vendor.o(toDetail),
+        C: common_vendor.o(toAllMerchant),
+        D: common_assets._imports_16,
+        E: common_assets._imports_17,
+        F: common_assets._imports_18
       };
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"], ["__file", "D:/code/money_celestial/pages/index/index.vue"]]);
 wx.createPage(MiniProgramPage);

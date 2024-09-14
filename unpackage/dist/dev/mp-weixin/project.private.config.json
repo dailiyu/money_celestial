@@ -8,8 +8,8 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/merchant/merchant_management",
-          "pathName": "pages/merchant/merchant_management",
+          "name": "pages/merchant/merchant_set_info",
+          "pathName": "pages/merchant/merchant_set_info",
           "query": "",
           "launchMode": "default",
           "scene": null

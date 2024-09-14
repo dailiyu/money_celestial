@@ -20,9 +20,9 @@ const _sfc_main = {
     const code = common_vendor.ref("");
     const address = common_vendor.ref("");
     const getLocation = () => {
-      common_vendor.index.getLocation({
+      common_vendor.index.chooseLocation({
         success(res) {
-          console.log(res);
+          address.value = res.address + res.name;
         }
       });
     };

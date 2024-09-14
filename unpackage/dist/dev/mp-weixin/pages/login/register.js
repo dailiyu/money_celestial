@@ -16,19 +16,29 @@ const _sfc_main = {
   __name: "register",
   setup(__props) {
     const userStore = store_user.useUserStore();
-    const moblie = common_vendor.ref("");
+    const mobile = common_vendor.ref("");
     const code = common_vendor.ref("");
     const password = common_vendor.ref("");
     const password2 = common_vendor.ref("");
     const toRegister = async () => {
+      if (mobile.value.length !== 11)
+        return common_vendor.index.showToast({
+          icon: "none",
+          title: "请输入正确手机号"
+        });
+      if (password.value < 6 || password2.value < 6)
+        return common_vendor.index.showToast({
+          icon: "none",
+          title: "密码长度最低6位"
+        });
       if (password.value == password2.value) {
-        service_uer_profile.postRegister(moblie.value, password.value).then((res) => {
+        service_uer_profile.postRegister(mobile.value, password.value).then((res) => {
           common_vendor.index.showToast({
             duration: 2e3,
             icon: "success",
             title: "注册成功"
           });
-          userStore.loginAction(moblie.value, password.value);
+          userStore.loginAction(mobile.value, password.value);
           setTimeout(() => {
             common_vendor.index.navigateTo({
               url: "/pages/login/more_info"
@@ -55,18 +65,19 @@ const _sfc_main = {
           title: "注册",
           bgc: "#1B46CC"
         }),
-        b: common_vendor.o(($event) => moblie.value = $event),
+        b: common_vendor.o(($event) => mobile.value = $event),
         c: common_vendor.p({
           placeholder: "请输入手机号",
           inputBorder: false,
           primaryColor: "#1B46CC",
-          modelValue: moblie.value
+          type: "number",
+          modelValue: mobile.value
         }),
         d: common_vendor.o(($event) => code.value = $event),
         e: common_vendor.p({
           placeholder: "请输入验证码",
           inputBorder: false,
-          type: "password",
+          type: "number",
           primaryColor: "#1B46CC",
           modelValue: code.value
         }),

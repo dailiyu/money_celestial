@@ -24,7 +24,7 @@ const _sfc_main = {
     };
     const toSecurityDeposit = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/agent/security_deposit"
+        url: "/pages/merchant/security_deposit"
       });
     };
     return (_ctx, _cache) => {

@@ -59,6 +59,7 @@ const _sfc_main = {
           placeholder: "请输入手机号",
           inputBorder: false,
           primaryColor: "#1B46CC",
+          type: "number",
           modelValue: moblie.value
         }),
         f: common_assets._imports_2,

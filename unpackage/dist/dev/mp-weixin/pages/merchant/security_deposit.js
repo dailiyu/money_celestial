@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const service_merchant = require("../../service/merchant.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -27,15 +28,21 @@ const _sfc_main = {
         url: "/pages/merchant/remove_deposit"
       });
     };
+    const amount = common_vendor.ref("");
+    common_vendor.onMounted(async () => {
+      const { data } = await service_merchant.getDeposit();
+      amount.value = data.amount;
+    });
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
           title: "保证金"
         }),
-        b: common_assets._imports_0$4,
-        c: common_vendor.o(toRecord),
-        d: common_vendor.o(toAdd),
-        e: common_vendor.o(toRemove)
+        b: common_vendor.t(amount.value),
+        c: common_assets._imports_0$4,
+        d: common_vendor.o(toRecord),
+        e: common_vendor.o(toAdd),
+        f: common_vendor.o(toRemove)
       };
     };
   }
