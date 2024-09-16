@@ -61,6 +61,40 @@ export const getMerchantList=(data)=>{
 	return http.get('/shops/', data)
 }
 
+export const uploadMerchantBanner=(url)=>{
+	return http.post('/merchant/stores/banner/',{url})
+}
+
+export const uploadMerchantDetail=(url)=>{
+	return http.post('/merchant/stores/detail/image/',{url})
+}
+
+
+export const postMerchantSettleIn=(icon,name,address,detail)=>{
+	return http.post('/merchant/stores/',{
+		icon,name,address,detail
+	})
+}
+
+export const postBindingStoreCategory=(store,category)=>{
+	return http.post('/merchant/stores/category/',{store,category})
+}
+
+
+export const getStoreInfo=()=>{
+	return http.get('/merchant/stores/get/')
+}
+
+export const updataStoreInfo=(icon,name,address,detail)=>{
+	const id= uni.getStorageSync('storeId')
+	return http.put(`/merchant/stores/update/${id}/`,{
+		icon,name,address,detail
+	})
+}
+
+export const getStoreList=()=>{
+	return http.get('/merchant/stores/list/')
+}
 
 
 
