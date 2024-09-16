@@ -32,14 +32,14 @@ const _sfc_main = {
         c: common_vendor.o(getType),
         d: distance.value == "up"
       }, distance.value == "up" ? {
-        e: common_assets._imports_1$4,
-        f: common_assets._imports_2$2,
+        e: common_assets._imports_1$3,
+        f: common_assets._imports_2$3,
         g: common_vendor.o(($event) => distance.value = "down")
       } : {}, {
         h: distance.value == "down"
       }, distance.value == "down" ? {
-        i: common_assets._imports_2$2,
-        j: common_assets._imports_1$4,
+        i: common_assets._imports_2$3,
+        j: common_assets._imports_1$3,
         k: common_vendor.o(($event) => distance.value = "up")
       } : {});
     };

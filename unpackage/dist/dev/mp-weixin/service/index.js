@@ -10,7 +10,6 @@ class Request {
       if (accessToken) {
         headers["Authorization"] = `Bearer ${accessToken}`;
       }
-      console.log("Authorization Header:", headers["Authorization"]);
       common_vendor.index.request({
         url: BASE_URL + url,
         method: method || "GET",
@@ -21,31 +20,41 @@ class Request {
           if (res.statusCode === 200 || res.statusCode === 201) {
             resolve(res.data);
           } else if (res.statusCode === 401) {
-            this.logout();
+            this.refreshToken().then((newAccessToken) => {
+              headers["Authorization"] = `Bearer ${newAccessToken}`;
+              common_vendor.index.request({
+                url: BASE_URL + url,
+                method: method || "GET",
+                timeout: TIME_OUT,
+                data,
+                header: headers,
+                success: (retryRes) => {
+                  if (retryRes.statusCode === 200 || retryRes.statusCode === 201) {
+                    resolve(retryRes.data);
+                  } else {
+                    reject(retryRes);
+                  }
+                },
+                fail: (retryErr) => {
+                  reject(retryErr);
+                }
+              });
+            }).catch((err) => {
+              this.logout();
+              reject(err);
+            });
           } else {
             reject(res);
           }
         },
         fail: (err) => {
+          common_vendor.index.navigateTo({
+            url: "/pages/login/login"
+          });
           reject(err);
         }
       });
     });
-  }
-  get(url, params) {
-    return this.request(url, "GET", params);
-  }
-  post(url, data) {
-    return this.request(url, "POST", data);
-  }
-  put(url, data) {
-    return this.request(url, "PUT", data);
-  }
-  patch(url, data) {
-    return this.request(url, "PATCH", data);
-  }
-  delete(url, params) {
-    return this.request(url, "DELETE", params);
   }
   // 刷新 Token
   refreshToken() {
@@ -56,7 +65,7 @@ class Request {
         return;
       }
       common_vendor.index.request({
-        url: `${BASE_URL}/refresh-token`,
+        url: `${BASE_URL}/users/token/refresh/`,
         // 刷新 Token 接口
         method: "POST",
         header: {
@@ -83,8 +92,22 @@ class Request {
     common_vendor.index.removeStorageSync("refreshToken");
     common_vendor.index.navigateTo({
       url: "/pages/login/login"
-      // 假设有一个登录页面
     });
+  }
+  get(url, params) {
+    return this.request(url, "GET", params);
+  }
+  post(url, data) {
+    return this.request(url, "POST", data);
+  }
+  put(url, data) {
+    return this.request(url, "PUT", data);
+  }
+  patch(url, data) {
+    return this.request(url, "PATCH", data);
+  }
+  delete(url, params) {
+    return this.request(url, "DELETE", params);
   }
 }
 const http = new Request();

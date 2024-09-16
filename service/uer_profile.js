@@ -3,7 +3,7 @@ import  {http} from "./index"
 
 //获取账号信息，请求头需要携带token
 export  const getUerAccountMessage=async ()=>{
-	return http.get('/users_profile/get/')
+	return http.get('/users/')
 }
 /*
 {
@@ -25,30 +25,29 @@ export  const getUerAccountMessage=async ()=>{
 */
 
 //注册账号
-export  const postRegister=async (phone_number,password)=>{
-	return http.post('/users_profile/register/',{
-		phone_number,
-		password
+export  const postRegister=async (username,password)=>{
+	return http.post('/users/register/',{
+		username,password
 	})
 }
+
+//部分修改用户信息
+export const changeUserInfo=async (name,icon,gander,birthdate,residence,email)=>{
+	return http.patch('/users/',{
+			name,icon,gander,birthdate,residence,email
+		})
+}
+
+
 
 //登陆
-export  const postProfileLogin=async (phone_number,password)=>{
-	return http.post('/users_profile/login/',{
-		phone_number,
-		password
+export  const postProfileLogin=async (username,password)=>{
+	return http.post('/users/login/',{
+		username,password
 	})
 }
 
-//更新用户信息
-export  const updateUserProfile=async (icon,name,email,gender,birthdate,residence)=>{
-	
-	const userId=await  uni.getStorageSync('userId')
 
-	return http.put(`/users_profile/update/${userId}/`,{
-		icon,name,email,gender,birthdate,residence
-	})
-}
 
 
 

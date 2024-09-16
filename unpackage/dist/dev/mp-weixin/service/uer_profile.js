@@ -1,33 +1,31 @@
 "use strict";
-const common_vendor = require("../common/vendor.js");
 const service_index = require("./index.js");
 const getUerAccountMessage = async () => {
-  return service_index.http.get("/users_profile/get/");
+  return service_index.http.get("/users/");
 };
-const postRegister = async (phone_number, password) => {
-  return service_index.http.post("/users_profile/register/", {
-    phone_number,
+const postRegister = async (username, password) => {
+  return service_index.http.post("/users/register/", {
+    username,
     password
   });
 };
-const postProfileLogin = async (phone_number, password) => {
-  return service_index.http.post("/users_profile/login/", {
-    phone_number,
-    password
-  });
-};
-const updateUserProfile = async (icon, name, email, gender, birthdate, residence) => {
-  const userId = await common_vendor.index.getStorageSync("userId");
-  return service_index.http.put(`/users_profile/update/${userId}/`, {
-    icon,
+const changeUserInfo = async (name, icon, gander, birthdate, residence, email) => {
+  return service_index.http.patch("/users/", {
     name,
-    email,
-    gender,
+    icon,
+    gander,
     birthdate,
-    residence
+    residence,
+    email
   });
 };
+const postProfileLogin = async (username, password) => {
+  return service_index.http.post("/users/login/", {
+    username,
+    password
+  });
+};
+exports.changeUserInfo = changeUserInfo;
 exports.getUerAccountMessage = getUerAccountMessage;
 exports.postProfileLogin = postProfileLogin;
 exports.postRegister = postRegister;
-exports.updateUserProfile = updateUserProfile;

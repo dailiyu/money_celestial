@@ -73,7 +73,8 @@
 <script setup>
 import { ref } from 'vue';
 import loginVue from './login.vue';
-import { updateUserProfile } from '../../service/uer_profile';
+import { changeUserInfo } from '../../service/uer_profile';
+import { uploadUrl } from '../../service/config';
 
 const skip = ()=>{
 	console.log(111)
@@ -117,9 +118,6 @@ const chooseImg = async () => {
 
 const token = uni.getStorageSync('accessToken'); // UniApp 中使用 uni.getStorageSync 代替 localStorage.getItem
 
-// 上传接口 URL
-const uploadUrl = 'https://max.q6z4kzhr.uk/api/image/upload/';  // 替换为你的实际 API URL
-
 // 上传图片
 function uploadImage(filePath) {
   uni.uploadFile({
@@ -148,8 +146,28 @@ function uploadImage(filePath) {
   });
 }
 
+
+
+	  
+const validateEmail=(email)=> {
+	    // 邮箱正则表达式
+	    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+	    // 测试邮箱是否匹配正则表达式
+	    return emailPattern.test(email);
+	  }
+	  
+	  
+	  
 const saveMessage=async()=>{
-	  updateUserProfile(uploadSuccessUrl.value,name.value,email.value,gender.value,birthday.value,address.value).then((res)=>{
+	console.log(validateEmail(email.value));
+	if(!validateEmail(email.value)){
+		return uni.showToast({
+			title:"请输入正确的邮箱",
+			icon:"fail",
+			duration:700
+		})
+	}
+	  changeUserInfo(name.value,uploadSuccessUrl.value,gender.value,birthday.value,address.value,email.value).then((res)=>{
 		  uni.showToast({
 		  	duration:1000,
 			icon:'success',

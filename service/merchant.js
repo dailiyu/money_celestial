@@ -9,7 +9,7 @@ export const getMerchantInfo=async ()=>{
 
 //商家列表
 export const getMerchantList=()=>{
-	return http.get('/merchant/')
+	return http.get('/merchant/list/')
 }
 /*
 {
@@ -29,12 +29,6 @@ export const getMerchantList=()=>{
 }
 */
 
-//
-export const postMerchant=()=>{
-	return http.post('/merchant/',{
-		
-	})
-}
 
 
 //获取商家分类列表
@@ -55,6 +49,43 @@ export const createMerchantCategoriesList=(store,name,description)=>{
 export const queryMerchantCategoriesById=(id)=>{
 	return http.get(`/merchant/categories/${id}/`)
 }
+
+export const uploadMerchantBanner=(url)=>{
+	return http.post('/merchant/stores/banner/',{url})
+}
+
+export const uploadMerchantDetail=(url)=>{
+	return http.post('/merchant/stores/detail/image/',{url})
+}
+
+
+export const postMerchantSettleIn=(icon,name,address,detail)=>{
+	return http.post('/merchant/stores/',{
+		icon,name,address,detail
+	})
+}
+
+export const postBindingStoreCategory=(store,category)=>{
+	return http.post('/merchant/stores/category/',{store,category})
+}
+
+
+export const getStoreInfo=()=>{
+	return http.get('/merchant/stores/get/')
+}
+
+export const updataStoreInfo=(icon,name,address,detail)=>{
+	const id= uni.getStorageSync('storeId')
+	return http.put(`/merchant/stores/update/${id}/`,{
+		icon,name,address,detail
+	})
+}
+
+export const getStoreList=()=>{
+	return http.get('/merchant/stores/list/')
+}
+
+
 
 // 获取保证金
 export const getDeposit=(id)=>{

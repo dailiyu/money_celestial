@@ -21,15 +21,10 @@ const _sfc_main = {
     const password = common_vendor.ref("");
     const password2 = common_vendor.ref("");
     const toRegister = async () => {
-      if (mobile.value.length !== 11)
+      if (password.value.length < 8 || password2.value.length < 8)
         return common_vendor.index.showToast({
           icon: "none",
-          title: "请输入正确手机号"
-        });
-      if (password.value < 6 || password2.value < 6)
-        return common_vendor.index.showToast({
-          icon: "none",
-          title: "密码长度最低6位"
+          title: "密码长度最低8位"
         });
       if (password.value == password2.value) {
         service_uer_profile.postRegister(mobile.value, password.value).then((res) => {
@@ -83,7 +78,7 @@ const _sfc_main = {
         }),
         f: common_vendor.o(($event) => password.value = $event),
         g: common_vendor.p({
-          placeholder: "密码长度最低6位",
+          placeholder: "密码长度最低8位",
           inputBorder: false,
           primaryColor: "#1B46CC",
           type: "password",

@@ -178,15 +178,18 @@
 import { onMounted, ref } from 'vue';
 import {usePublicStore} from "@/store/public.js"
 import { useUserStore } from '../../store/user';
+
 var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
-const publicStore=usePublicStore()
+
 const keyword = ref('')
- const  userStore = useUserStore()
+const publicStore=  usePublicStore()
+const userStore = useUserStore()
+
 const city = ref('')
 onMounted(async()=>{
-	await publicStore.fetchAllData(),
-	await userStore.getUserInfoAction()
+	// await publicStore.fetchAllDataAction(),
+	 await userStore.fetchAllDataAction()
 	uni.getLocation({
 		geocode: true,
 		success(res) {
@@ -219,16 +222,21 @@ const toSettle = ()=>{
 		url: '/pages/merchant/merchant_intro'
 	})
 }
-const toMerchant = ()=>{
-	// 未入驻
-	uni.navigateTo({
-		url: '/pages/merchant/merchant_intro'
-	})
-	// 已入驻
-	// uni.navigateTo({
-	// 	url: '/pages/merchant/merchant_management'
-	// })
-}
+const toMerchant = () => {
+    if (userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0) {
+        console.log(userStore.storeInfo);
+        // 已入驻
+        uni.navigateTo({
+            url: '/pages/merchant/merchant_management'
+        });
+    } else {
+        // 未入驻
+        uni.navigateTo({
+            url: '/pages/merchant/merchant_intro'
+        });
+    }
+};
+
 const toAgent = ()=>{
 	uni.navigateTo({
 		url: '/pages/agent/agent_intro'

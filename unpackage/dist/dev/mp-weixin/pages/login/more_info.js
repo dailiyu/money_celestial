@@ -2,6 +2,7 @@
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const service_uer_profile = require("../../service/uer_profile.js");
+const service_config = require("../../service/config.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
@@ -14,7 +15,6 @@ const _easycom_uni_calendar = () => "../../uni_modules/uni-calendar/components/u
 if (!Math) {
   (_easycom_navBar + _easycom_uni_easyinput + _easycom_uni_calendar)();
 }
-const uploadUrl = "https://max.q6z4kzhr.uk/api/image/upload/";
 const _sfc_main = {
   __name: "more_info",
   setup(__props) {
@@ -56,7 +56,7 @@ const _sfc_main = {
     const token = common_vendor.index.getStorageSync("accessToken");
     function uploadImage(filePath) {
       common_vendor.index.uploadFile({
-        url: uploadUrl,
+        url: service_config.uploadUrl,
         // 上传接口 URL
         filePath,
         // 需要上传的文件路径
@@ -83,8 +83,20 @@ const _sfc_main = {
         }
       });
     }
+    const validateEmail = (email2) => {
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      return emailPattern.test(email2);
+    };
     const saveMessage = async () => {
-      service_uer_profile.updateUserProfile(uploadSuccessUrl.value, name.value, email.value, gender.value, birthday.value, address.value).then((res) => {
+      console.log(validateEmail(email.value));
+      if (!validateEmail(email.value)) {
+        return common_vendor.index.showToast({
+          title: "请输入正确的邮箱",
+          icon: "fail",
+          duration: 700
+        });
+      }
+      service_uer_profile.changeUserInfo(name.value, uploadSuccessUrl.value, gender.value, birthday.value, address.value, email.value).then((res) => {
         common_vendor.index.showToast({
           duration: 1e3,
           icon: "success",

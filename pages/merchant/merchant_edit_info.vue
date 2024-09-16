@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="资料编辑"></navBar>
+		<navBar title="商家入驻"></navBar>
 		<view class="content">
 			<view class="head_box flex_between" style="align-items: flex-start;">
 				<view class="">
@@ -11,7 +11,7 @@
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload :amount="1" @tempImgPaths="acceptProfileImg"></upload>
+				<upload  :amount="1"  @tempImgPaths="acceptTempProfileImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
@@ -19,27 +19,27 @@
 						商家轮播图（750*340）
 					</view>
 					<view class="h_text">
-						已选择1张
+						已选择{{temBannerImgPaths.length}}张
 					</view>
 				</view>
-				<upload :amount="6"></upload>
+				<upload amount="6" @tempImgPaths="acceptTempBannerImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
 					<view class="h_title" style="margin-bottom: 34rpx;">
 						企业介绍
 					</view>
-					<textarea :value="shopIntro" placeholder="请输入商家介绍" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
+					<textarea   v-model="shopIntro" placeholder="请输入商家介绍" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
 				</view>
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						商家轮播图（750*340）
+						商家详情图（750*340）
 					</view>
 					<view class="h_text">
-						已选择1张
+						已选择{{temDetailImgPaths.length}}张
 					</view>
 				</view>
-				<upload :amount="6"></upload>
+				<upload :amount="6" @tempImgPaths="acceptTempDetailImgPath"></upload>
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -78,7 +78,12 @@
 					<image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image>
 				</view>
 			</view>
-			<view class="btn_full" @click="toManagement">
+		<!-- 	<view class="radio" @click="changeCheck">
+				<radio value="r1" :checked="isChecked" color="#FC5908" />
+				<text class="read">我已阅读并同意</text>
+				<text class="c_title">《商家入驻须知》</text>
+			</view> -->
+			<view class="btn_full" @click="saveStoreInfo">
 				保存
 			</view>
 		</view>
@@ -86,17 +91,59 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { postBindingStoreCategory, updataStoreInfo, uploadMerchantBanner,uploadMerchantDetail } from '../../service/merchant';
+import { useUserStore } from '../../store/user';
+import { uploadImage } from '../../utils';
+import {usePublicStore} from "@/store/public.js"
+const publicStore=  usePublicStore()
+const userStore = useUserStore()
 const shopIntro = ref('')
 const shopName = ref('')
+const businessRange = ref('')
 const code = ref('')
-const address = ref('')
-const profileImgTemPath=ref([])
-const getLocation = ()=>{
-	uni.getLocation({
-		success(res) {
-			console.log(res)
-		}
+const temBannerImgPaths=ref([])
+const temProfileImgPaths=ref([])
+const temDetailImgPaths=ref([])
+// const range = ref([
+//     { value: "篮球", text: "篮球" },
+//     { value: "足球", text: "足球" },
+//     { value: "游泳", text: "游泳" },
+// ])
+
+const range = computed(() => {
+  return publicStore.cateGoryList.map((item) => {
+	  console.log({
+      value: item.id, // value 为 id
+      text: item.name, // text 为 name
+    });
+    return {
+      value: item.id, // value 为 id
+      text: item.name, // text 为 name
+    };
+  });
+});
+
+
+
+const isChecked = ref(false)
+const changeCheck = ()=>{
+	isChecked.value = !isChecked.value
+}
+
+const changeRange = (e)=>{
+	businessRange.value=e
+	console.log(e)
+}
+
+
+const toSetInfo = ()=>{
+	if (!isChecked.value) return uni.showToast({
+		icon:'none',
+		title: '请阅读完须知后勾选同意'
+	})
+	uni.navigateTo({
+		url:'/pages/merchant/merchant_set_info'
 	})
 }
 const toManagement = ()=>{
@@ -105,29 +152,140 @@ const toManagement = ()=>{
 	})
 }
 
-const  acceptProfileImg=(paths)=>{
-	console.log(paths);
+const  acceptTempBannerImgPath=async (ImgPaths)=>{
+	temBannerImgPaths.value=ImgPaths
+	console.log(temBannerImgPaths.value);
 }
 
-const businessRange = ref('')
-const range = ref([
-    { value: "篮球", text: "篮球" },
-    { value: "足球", text: "足球" },
-    { value: "游泳", text: "游泳" },
-])
-const changeRange = (e)=>{
-	console.log(e)
+const acceptTempProfileImgPath= async (ImgPaths)=>{
+	temProfileImgPaths.value=ImgPaths
+	console.log('tem',temProfileImgPaths.value);
+}
+
+const acceptTempDetailImgPath= async (ImgPaths)=>{
+	temDetailImgPaths.value=ImgPaths
+	console.log(temDetailImgPaths.value);
+}
+
+
+//上传商家轮播图
+const bannerListUrl=ref([])
+const upLoadBannerImg=async ()=>{
+	for(let i=0;i<temBannerImgPaths.value.length;i++){
+		//逐个向服务器传图片
+		const url=await uploadImage(temBannerImgPaths.value[i])
+		await uploadMerchantBanner(url)
+		bannerListUrl.value.push(url)
+	}
+}
+
+//上传详情图
+const detailListUrl=ref([])
+const upLoadDetailImg=async ()=>{
+	for(let i=0;i<temDetailImgPaths.value.length;i++){
+		//逐个向服务器传图片
+		const url=await uploadImage(temDetailImgPaths.value[i])
+		await uploadMerchantDetail(url)
+		detailListUrl.value.push(url)
+	}
+}
+
+//上传店铺头像
+const  profileUrl=ref('')
+const uploadProfileImg=async ()=>{
+	console.log(temProfileImgPaths.value[0]);
+	const url=await uploadImage(temProfileImgPaths.value[0])
+	console.log('-------',url);
+	profileUrl.value=url
 }
 
 
 
+const lat = ref('')
+const lon = ref('')
+const address = ref('')
+const getLocation = ()=>{
+	uni.chooseLocation({
+		success(res) {
+			lat.value = res.latitude
+			lon.value = res.longitude
+			address.value = res.address+res.name
+			
+		}
+	})
+}
 
+
+const saveStoreInfo=async ()=>{
+	
+	console.log( 
+	    !shopName.value , 
+	    !address.value , 
+	    !shopIntro.value , 
+	    temDetailImgPaths.value.length === 0 , 
+		temProfileImgPaths.value.length===0 ,
+	    temBannerImgPaths.value.length === 0)
+		console.log( 
+		    shopIntro.value , 
+		    shopName.value , 
+		    address.value , 
+		    temDetailImgPaths.value.length  , 
+			temProfileImgPaths.value.length,
+		   temBannerImgPaths.value.length  )
+	//检查是否有任意一个值为空
+	  if (
+	    !shopName.value || 
+	    !address.value || 
+	    !shopIntro.value || 
+	    temDetailImgPaths.value.length.length  === 0 || 
+	    temBannerImgPaths.value.length === 0||
+		temProfileImgPaths.value.length===0 
+	  ) {
+	    return uni.showToast({
+	      icon: 'none',
+	      title: '请填入完整信息',
+	    });
+	  }
+	try{
+		uni.showLoading({
+			title:"正在保存中...",
+		})
+		await uploadProfileImg()
+		await upLoadBannerImg()
+		await upLoadDetailImg()
+	   const res= await updataStoreInfo(profileUrl.value,shopName.value,address.value,shopIntro.value)
+		// console.log('----11',businessRange.value,userStore.merchantInfo.id);
+		console.log(res);
+		 // await postBindingStoreCategory(res.data.id,businessRange.value)
+		uni.hideLoading()
+		uni.showToast({
+			title:"保存成功",
+			duration:600,
+			icon:'success'
+		})
+		await userStore.fetchAllDataAction()
+		setTimeout(()=>{
+			uni.navigateBack()
+		},700)
+		
+		
+	}catch(e){
+		uni.showToast({
+			title:"出现错误",
+			duration:1000,
+			icon:'fail'
+		})
+		//TODO handle the exception
+	}
+	
+		
+	
+}
 
 
 
 
 </script>
-
 <style lang="scss" scoped>
 .head_box {
 	background-color: #fff;

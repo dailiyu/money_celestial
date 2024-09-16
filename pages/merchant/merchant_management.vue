@@ -3,11 +3,11 @@
 		<navBar title="商家后台"></navBar>
 		<view class="content">
 			<view class="merchant_info flex">
-				<image src="" mode="aspectFill" class="head"></image>
+				<image :src="userStore.storeInfo.icon" mode="aspectFill" class="head"></image>
 				<view class="">
 					<view class="name flex">
 						<view class="">
-							佛山英朗达百货超市西城店
+							{{userStore.storeInfo.name}}
 						</view>
 						<view class="level">
 							Lv.5
@@ -67,6 +67,9 @@
 </template>
 
 <script setup>
+import { useUserStore } from '../../store/user';
+const userStore = useUserStore()
+	
 const toEdit = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_edit_info'

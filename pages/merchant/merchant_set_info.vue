@@ -19,7 +19,7 @@
 						商家轮播图（750*340）
 					</view>
 					<view class="h_text">
-						已选择1张
+						已选择{{temBannerImgPaths.length}}张
 					</view>
 				</view>
 				<upload amount="6" @tempImgPaths="acceptTempBannerImgPath"></upload>
@@ -29,14 +29,14 @@
 					<view class="h_title" style="margin-bottom: 34rpx;">
 						企业介绍
 					</view>
-					<textarea :value="shopIntro" placeholder="请输入商家介绍" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
+					<textarea   v-model="shopIntro" placeholder="请输入商家介绍" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
 				</view>
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
 						商家详情图（750*340）
 					</view>
 					<view class="h_text">
-						已选择1张
+						已选择{{temDetailImgPaths.length}}张
 					</view>
 				</view>
 				<upload :amount="6" @tempImgPaths="acceptTempDetailImgPath"></upload>
@@ -52,7 +52,14 @@
 					<view class="s_title">
 						经营范围
 					</view>
-					<input v-model="businessRange" class="uni-input" placeholder="请输入商家经营的产品或业务" placeholder-class="placeholder_class" />
+					<!-- <input v-model="businessRange" class="uni-input" placeholder="请输入商家经营的产品或业务" placeholder-class="placeholder_class" /> -->
+					<uni-data-select
+						v-model="businessRange"
+						:localdata="range"
+						placeholder="请选择"
+						:clear="false"
+						@change="changeRange"
+					></uni-data-select>
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -76,7 +83,7 @@
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title">《商家入驻须知》</text>
 			</view>
-			<view class="btn_full" @click="toManagement">
+			<view class="btn_full" @click="merchantSettleIn">
 				申请入驻
 			</view>
 		</view>
@@ -84,28 +91,54 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { postBindingStoreCategory, postMerchantSettleIn, uploadMerchantBanner,uploadMerchantDetail } from '../../service/merchant';
+import { useUserStore } from '../../store/user';
+import { uploadShopImg } from '../../service/shop';
+
+import { uploadImage } from '../../utils';
+import {usePublicStore} from "@/store/public.js"
+const publicStore=  usePublicStore()
+const userStore = useUserStore()
 const shopIntro = ref('')
 const shopName = ref('')
 const businessRange = ref('')
 const code = ref('')
-const address = ref('')
-const tempProfileFilePaths=ref('')
 const temBannerImgPaths=ref([])
 const temProfileImgPaths=ref([])
 const temDetailImgPaths=ref([])
-const getLocation = ()=>{
-	uni.getLocation({
-		success(res) {
-			console.log(res)
-		}
-	})
-}
+// const range = ref([
+//     { value: "篮球", text: "篮球" },
+//     { value: "足球", text: "足球" },
+//     { value: "游泳", text: "游泳" },
+// ])
+
+const range = computed(() => {
+  return publicStore.cateGoryList.map((item) => {
+	  console.log({
+      value: item.id, // value 为 id
+      text: item.name, // text 为 name
+    });
+    return {
+      value: item.id, // value 为 id
+      text: item.name, // text 为 name
+    };
+  });
+});
+
+
 
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
+
+const changeRange = (e)=>{
+	businessRange.value=e
+	console.log(e)
+}
+
+
 const toSetInfo = ()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
@@ -128,45 +161,138 @@ const  acceptTempBannerImgPath=async (ImgPaths)=>{
 
 const acceptTempProfileImgPath= async (ImgPaths)=>{
 	temProfileImgPaths.value=ImgPaths
-	console.log(ImgPaths);
+	console.log('tem',temProfileImgPaths.value);
 }
 
 const acceptTempDetailImgPath= async (ImgPaths)=>{
 	temDetailImgPaths.value=ImgPaths
-	console.log(ImgPaths);
+	console.log(temDetailImgPaths.value);
 }
 
 
-
-
+//上传商家轮播图
+const bannerListUrl=ref([])
 const upLoadBannerImg=async ()=>{
 	for(let i=0;i<temBannerImgPaths.value.length;i++){
 		//逐个向服务器传图片
+		const url=await uploadImage(temBannerImgPaths.value[i])
+		bannerListUrl.value.push(url)
 	}
 }
 
+//上传详情图
+const detailListUrl=ref([])
+const upLoadDetailImg=async ()=>{
+	for(let i=0;i<temDetailImgPaths.value.length;i++){
+		//逐个向服务器传图片
+		const url=await uploadImage(temDetailImgPaths.value[i])
+		detailListUrl.value.push(url)
+	}
+}
+
+//上传店铺头像
+const  profileUrl=ref('')
+const uploadProfileImg=async ()=>{
+	console.log(temProfileImgPaths.value[0]);
+	const url=await uploadImage(temProfileImgPaths.value[0])
+	profileUrl.value=url
+}
+
+ 
+  const  bindingImgAndShop=async ()=>{
+	  const detailListString=detailListUrl.join(',')
+	  const bannerListString=detailListUrl.join(',')
+	 
+	 await  uploadShopImg(detailListString,'detail')
+	 await  uploadShopImg(bannerListString,'carousel')
+  }
 
 
 
-const chooseImg = async () => {
-	console.log(111);
-  // 选择图片
-  uni.chooseImage({
-    count: 1, // 限制用户只能选择一张图片
-    success: (res) => {
-      const tempFilePaths = res.tempFilePaths;
-      // 将选择的图片路径赋值给 imagePath 用于页面显示
-      tempProfileFilePaths.value = tempFilePaths[0]; 
-      console.log('-----选择的图片路径：', tempFilePaths[0]);
-    },
-    fail: (err) => {
-      console.log('选择图片失败：', err);
-    }
-  });
-};
+const lat = ref('')
+const lon = ref('')
+const address = ref('')
+const getLocation = ()=>{
+	uni.chooseLocation({
+		success(res) {
+			lat.value = res.latitude
+			lon.value = res.longitude
+			address.value = res.address+res.name
+			
+		}
+	})
+}
 
 
-
+const merchantSettleIn=async ()=>{
+	if(!isChecked.value) return uni.showToast({
+		icon:'none',
+		title: '请阅读完须知后勾选同意'
+	})
+	console.log( 
+	    !shopName.value , 
+	    !address.value , 
+	    !shopIntro.value , 
+	    temDetailImgPaths.value.length === 0 , 
+		temProfileImgPaths.value.length===0 ,
+	    temBannerImgPaths.value.length === 0)
+		console.log( 
+		    shopIntro.value , 
+		    shopName.value , 
+		    address.value , 
+		    temDetailImgPaths.value.length  , 
+			temProfileImgPaths.value.length,
+		   temBannerImgPaths.value.length  )
+	//检查是否有任意一个值为空
+	  if (
+	    !shopName.value || 
+	    !address.value || 
+	    !shopIntro.value || 
+	    temDetailImgPaths.value.length.length  === 0 || 
+	    temBannerImgPaths.value.length === 0||
+		temProfileImgPaths.value.length===0 
+	  ) {
+	    return uni.showToast({
+	      icon: 'none',
+	      title: '请填入完整信息',
+	    });
+	  }
+	try{
+		uni.showLoading({
+			title:"正在入驻中...",
+		})
+		 await uploadProfileImg()
+		 await bindingImgAndShop()
+	   const res= await postMerchantSettleIn(shopName.value,shopIntro.value,businessRange.value,profileUrl.value,address.value,lat.value,lon.value )
+		// console.log('----11',businessRange.value,userStore.merchantInfo.id);
+		console.log(res);
+		
+		uni.hideLoading()
+		uni.showToast({
+			title:"入驻成功",
+			duration:600,
+			icon:'success'
+		})
+		// await userStore.fetchAllDataAction()
+		setTimeout(()=>{
+			uni.navigateTo({
+				url:'/pages/merchant/merchant_management'
+			})
+		},700)
+		
+		
+	}catch(e){
+		uni.showToast({
+			title:"出现错误",
+			duration:1000,
+			icon:'fail'
+		})
+		//TODO handle the exception
+	}
+	
+		
+	
+}
 
 
 
@@ -224,24 +350,28 @@ const chooseImg = async () => {
 		.lo_pic {
 			width: 26rpx;
 		}
+		uni-data-select {
+			flex: 1;
+		}
+		:deep(.uni-select) {
+			padding: 0;
+			border: none;
+		}
+		:deep(.uni-select__input-box) {
+			height: fit-content;
+			justify-content: flex-start;
+		}
+		:deep(.uni-select__input-placeholder) {
+			font-size: 24rpx;
+			color: #999999;
+		}
+		:deep(.uni-select__input-text) {
+			width: fit-content;
+			font-size: 24rpx;
+			color: #999999;
+		}
 	}
 	
-}
-.radio {
-	// text-align: center;
-	padding: 26rpx 0 38rpx;
-	radio {
-		transform:scale(0.6)
-	}
-	.read {
-		font-size: 27rpx;
-		color: #999999;
-	}
-	.c_title {
-		font-size: 27rpx;
-		color: #FC5908;
-		font-family: HarmonyOS_Sans_SC_Medium;
-	}
 }
 .btn_full {
 	margin-top: 66rpx;

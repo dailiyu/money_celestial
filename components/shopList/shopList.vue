@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<view class="shop_list">
-			<view class="shop_item flex" @click="toDetail">
+			<view  v-if="publicStore.storeList.length!==0" class="shop_item flex" @click="toDetail"  v-for="(item,index) in publicStore.storeList">
 				<image src="" mode="aspectFill" class="shop_pic"></image>
 				<view class="" style="flex: 1;">
 					<view class="shop_name">
-						味多美家庭烘焙
+						{{item.name}}
 					</view>
 					<view class="pic_box flex">
 						<image src="@/static/star.png" mode="widthFix" class="star_pic"></image>
@@ -14,9 +14,9 @@
 						</view>
 					</view>
 					<view class="flex">
-						<image src="@/static/locate_orange.png" mode="widthFix" class="location_pic"></image>
+						<image :src="item.icon" mode="widthFix" class="location_pic"></image>
 						<view class="district">
-							南海区
+							{{item.address}}
 						</view>
 					</view>
 				</view>
@@ -28,23 +28,17 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		name:"shopList",
-		data() {
-			return {
-				
-			};
-		},
-		methods(){
-			function toDetail(){
-				uni.navigateTo({
-					url: '/pages/merchant/merchant_detail'
-				})
-			}
-		}
-	}
+<script setup>
+import {usePublicStore} from "@/store/public.js"
+const publicStore=  usePublicStore()
+const toDetail = () => {
+  uni.navigateTo({
+    url: '/pages/merchant/merchant_detail'
+  });
+};
 </script>
+
+
 
 <style lang="scss" scoped>
 .shop_list {
