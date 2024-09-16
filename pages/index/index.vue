@@ -205,6 +205,10 @@ onMounted(async()=>{
 				},
 				fail(err){
 					console.log(err)
+					uni.showToast({
+						icon: 'none',
+						title: '定位失败'
+					})
 				}
 			})
 		}
@@ -290,6 +294,9 @@ const toDetail = ()=>{
 		color: #888888;
 		font-size: 21rpx;
 		margin-left: 0;
+	}
+	:deep(.uni-searchbar__box-icon-clear) {
+		line-height: 0;
 	}
 	.search_btn {
 		width: 85rpx;

@@ -7,8 +7,8 @@
 					<view class="s_title">
 						解除账号
 					</view>
-					<input v-model="address" class="uni-input" placeholder="请输入接收地址" placeholder-class="placeholder_class" />
-					<image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image>
+					<input v-model="address" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" />
+					<!-- <image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image> -->
 				</view>
 			</view>
 			<view class="shop_info">
@@ -23,7 +23,7 @@
 						可解除余额
 					</view>
 					<view class="s_num">
-						1100010
+						{{info.amount||0}}
 					</view>
 				</view>
 			</view>
@@ -40,7 +40,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getDepositBalance, removeDeposit } from '@/service/deposit.js'
+
+
+
+onMounted(()=>{
+	getDeposit()
+})
+const info = ref({})
+const getDeposit = async()=>{
+	const {data} = await getDepositBalance()
+	info.value = data
+}
 const address = ref('')
 const number = ref('')
 
@@ -56,12 +68,34 @@ const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = ()=>{
+const confirm = async()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
+	if (!address.value) return uni.showToast({
+		icon:'none',
+		title: '请输入地址'
+	})
+	if (!number.value) return uni.showToast({
+		icon:'none',
+		title: '请输入金额'
+	})
+	if (number.value > info.value.amount) return uni.showToast({
+		icon:'none',
+		title: '可解除余额不足'
+	})
+	uni.showLoading({
+		title: '解除中'
+	})
+	await removeDeposit({phone_number:address.value, amount: number.value})
+	uni.hideLoading()
+	uni.showToast({
+		icon: 'none',
+		title: '解除成功'
+	})
 }
+
 </script>
 
 <style lang="scss" scoped>

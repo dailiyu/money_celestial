@@ -72,7 +72,7 @@ const toMerchantCode = ()=>{
 	// 	url: '/pages/merchant/merchant_code_authentication'
 	// })
 	uni.navigateTo({
-		url: '/pages/agent/merchant_code_authentication'
+		url: '/pages/merchant/merchant_code_authentication'
 	})
 }
 const toSecurityDeposit = ()=>{

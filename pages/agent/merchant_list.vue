@@ -29,7 +29,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getCityAgent, getProvinceAgent } from '@/service/region.js'
+import { getMerchantList } from '@/service/merchant.js'
 const getType = ()=>{
 	uni.showActionSheet({
 		itemList: ['美食', '服饰'],
@@ -45,6 +47,23 @@ const toSettle = ()=>{
 }
 
 const distance = ref('up')
+
+onMounted(async()=>{
+	try{
+		const cityAgent = await getCityAgent()
+		const provinceAgent = await getProvinceAgent()
+		if (cityAgent.data&&cityAgent.data.id) {
+			getShopList({city_agent:cityAgent.data.id})
+		}
+	}catch(e){
+		//TODO handle the exception
+	}
+	
+})
+
+const getShopList = async(data)=>{
+	await getMerchantList(data)
+}
 </script>
 
 <style lang="scss" scoped>

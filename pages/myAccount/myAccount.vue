@@ -150,7 +150,8 @@ const toPointAccount = ()=>{
 
 			.img {
 				width: 100%;
-				transform: translateY(-180rpx);
+				height: 100%;
+				// transform: translateY(-180rpx);
 
 			}
 		}

@@ -7,8 +7,8 @@
 					<view class="s_title">
 						增加账号
 					</view>
-					<input v-model="address" class="uni-input" placeholder="请输入接收地址" placeholder-class="placeholder_class" />
-					<image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image>
+					<input v-model="address" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" />
+					<!-- <image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image> -->
 				</view>
 			</view>
 			<view class="shop_info">
@@ -23,7 +23,7 @@
 						保证金余额
 					</view>
 					<view class="s_num">
-						1100010
+						{{info.amount||0}}
 					</view>
 				</view>
 			</view>
@@ -40,7 +40,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getDepositBalance, addDeposit } from '@/service/deposit.js'
 const address = ref('')
 const number = ref('')
 
@@ -52,16 +53,45 @@ const scan = ()=>{
 		}
 	})
 }
+
+
+
+onMounted(()=>{
+	getDeposit()
+})
+const info = ref({})
+const getDeposit = async()=>{
+	const {data} = await getDepositBalance()
+	info.value = data
+}
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = ()=>{
+const confirm = async ()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
+	if (!address.value) return uni.showToast({
+		icon:'none',
+		title: '请输入账号'
+	})
+	if (!number.value) return uni.showToast({
+		icon:'none',
+		title: '请输入金额'
+	})
+	uni.showLoading({
+		title: '正在提交'
+	})
+	await addDeposit({amount:number.value, phone_number:address.value})
+	uni.hideLoading()
+	uni.showToast({
+		icon: 'none',
+		title: '增加成功'
+	})
 }
+
 </script>
 
 <style lang="scss" scoped>

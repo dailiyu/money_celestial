@@ -8,9 +8,9 @@ export const getMerchantInfo=async ()=>{
 
 
 //商家列表
-export const getMerchantList=()=>{
-	return http.get('/merchant/')
-}
+// export const getMerchantList=()=>{
+// 	return http.get('/merchant/')
+// }
 /*
 {
     "count": 1,
@@ -56,16 +56,11 @@ export const queryMerchantCategoriesById=(id)=>{
 	return http.get(`/merchant/categories/${id}/`)
 }
 
-// 获取保证金
-export const getDeposit=(id)=>{
-	return http.get(`/deposit/get/`)
+//获取商家列表
+export const getMerchantList=(data)=>{
+	return http.get('/shops/', data)
 }
 
-
-// 获取保证金记录
-export const getDepositList=(id)=>{
-	return http.get(`/deposit/records/`)
-}
 
 
 

@@ -16,38 +16,65 @@
 			</uni-col>
 		</uni-row>
 		
-		<uni-row>
+		<uni-row v-for="(item, index) in recordList" :key="item.id">
 			<uni-col :span="3">
-				<view>1</view>
+				<view>{{index+1}}</view>
 			</uni-col>
 			<uni-col :span="9">
-				<view>DAUS******SDF7A23G22</view>
+				<view>{{obscureString(item.user)}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view>189,312</view>
+				<view>{{item.points_used}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view>2024/08/24/18:00</view>
+				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
+		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
 	</view>
 </template>
 
 <script setup>
-	
+import { onMounted, ref } from 'vue';
+import { getWithdrawRecord } from '@/service/point.js'
+import { convertTime, obscureString } from '@/utils/index.js'
+
+onMounted(()=>{
+	getRecordList()
+})
+const recordList = ref([])
+const status = ref('loading')
+const page = ref(1)
+const getRecordList = async()=>{
+	status.value = 'loading'
+	const {results, count} = await getWithdrawRecord({page: page.value})
+	if (count == results.length) {
+		status.value = 'no-more'
+	} else {
+		status.value = 'more'
+	}
+	recordList.value = results
+}
+const loadMore = ()=>{
+	if (status.value == 'more') {
+		page.value++
+		getRecordList()
+	}
+}
 </script>
 
 <style lang="scss" scoped>
 :deep(.uni-row) {
-	background-color: #fff;
 	text-align: center;
 	padding: 32rpx 0;
-	font-size: 27rpx;
 	font-weight: bold;
-	&:last-child {
-		background-color: transparent;
-		color: #999;
-		font-size: 18rpx;
+	background-color: transparent;
+	color: #999;
+	font-size: 18rpx;
+	&:nth-child(2) {
+		background-color: #fff;
+		color: #333;
+		font-size: 27rpx;
 	}
 }
 .title_row {

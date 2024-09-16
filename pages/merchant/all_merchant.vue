@@ -45,7 +45,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getMerchantList } from '@/service/merchant.js'
+
+onMounted(async()=>{
+	await getMerchantList()
+})
 const getType = ()=>{
 	uni.showActionSheet({
 		itemList: ['美食', '服饰'],

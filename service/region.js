@@ -17,6 +17,16 @@ const updataCityAgent=async ()=>{
 }
 
 
+//获取市代
+export  const getCityAgent=()=>{
+	return http.get('/region/agent/city/get/')
+}
+
+//获取省代
+export  const getProvinceAgent=()=>{
+	return http.get('/region/agent/province/get/')
+}
+
 
 
 

@@ -12,7 +12,7 @@
 					<view class="name">
 						满小仓2323
 					</view>
-					<!-- <image src="" mode="widthFix" class="code_pic"></image> -->
+					<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic"></image>
 				</view>
 				<view class="total_item flex_between">
 					<view class="">
@@ -61,6 +61,13 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+import { getRecommendOfficerInfo } from '@/service/recommend.js'
+
+onMounted(async()=>{
+	await getRecommendOfficerInfo()
+})
+
 const toMerchantList = ()=>{
 	uni.navigateTo({
 		url: '/pages/recommend/merchant_list'
@@ -121,6 +128,7 @@ const toSecurityDeposit = ()=>{
 		}
 		.code_pic {
 			width: 34rpx;
+			margin-left: 32rpx;
 		}
 		.total_item {
 			padding-top: 40rpx;

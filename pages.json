@@ -343,6 +343,14 @@
 				"navigationBarTitleText" : "商家列表",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/recommend/recommend_test",
+			"style" : 
+			{
+				"navigationBarTitleText" : "推荐官考试",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

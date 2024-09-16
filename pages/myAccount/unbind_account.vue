@@ -8,7 +8,7 @@
 				</view>
 			</view>
 			<view class="account_box">
-				DAUS******SDF7A23G22
+				{{account}}
 			</view>
 			<view class="radio" @click="changeCheck">
 				<radio value="r1" :checked="isChecked" color="#FC5908" />
@@ -23,17 +23,43 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getPointAccount, unbindPointAccount } from '@/service/point.js'
+import { obscureString } from '@/utils/index.js'
+
+
+const account = ref('')
+const id = ref('')
+onMounted(async ()=>{
+	// 积分账号
+	const {data} = await getPointAccount()
+	account.value = obscureString(data.account_number)
+	id.value = data.id
+})
 
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = ()=>{
+const confirm = async ()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
+	if (!account.value) return uni.showToast({
+		icon:'none',
+		title: '未绑定积分账号，请先绑定'
+	})
+	uni.showLoading({
+		title: '解绑中'
+	})
+	await unbindPointAccount(id.value)
+	uni.hideLoading()
+	uni.showToast({
+		icon: 'none',
+		title: '解绑成功'
+	})
+	account.value = ''
 }
 </script>
 

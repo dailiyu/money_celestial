@@ -9,7 +9,7 @@
 				<image src="@/static/account.png" mode="widthFix" class="a_pic"></image>
 			</view>
 			<view class="account_box">
-				DAUS******SDF7A23G22
+				{{account}}
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -23,7 +23,7 @@
 						积分余额
 					</view>
 					<view class="s_num">
-						1100010
+						{{pointBalance}}
 					</view>
 				</view>
 				<view class="info_item flex">
@@ -31,7 +31,7 @@
 						到账数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						10000
+						{{number?number:0}}
 					</view>
 				</view>
 			</view>
@@ -48,8 +48,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getPointAccount, getAvailablePoint } from '@/service/point.js'
+import { obscureString } from '@/utils/index.js'
 const number = ref('')
+
+const account = ref('')
+const pointBalance = ref('')
+onMounted(async ()=>{
+	// 积分账号
+	const {data} = await getPointAccount()
+	account.value = obscureString(data.account_number)
+	
+	// 积分余额
+	const point = await getAvailablePoint()
+	pointBalance.value = point.data.available_points
+})
 
 const isChecked = ref(false)
 const changeCheck = ()=>{
@@ -60,6 +74,18 @@ const confirm = ()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
+	if (!account.value) return uni.showToast({
+		icon:'none',
+		title: '请先绑定积分账号'
+	})
+	if (!number.value) return uni.showToast({
+		icon: 'none',
+		title: '请输入提取数量'
+	})
+	if (number.value > pointBalance.value) return uni.showToast({
+		icon: 'none',
+		title: '积分余额不足'
+	})
 }
 </script>
 
@@ -69,6 +95,7 @@ const confirm = ()=>{
 	padding: 22rpx 35rpx;
 	.a_pic {
 		width: 32rpx;
+		height: 1rpx;
 		display: block;
 	}
 }

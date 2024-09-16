@@ -16,47 +16,68 @@
 			</uni-col>
 		</uni-row>
 		
-		<uni-row>
+		<uni-row v-for="(item, index) in recordList" :key="item.id">
 			<uni-col :span="3">
 				<view>1</view>
 			</uni-col>
 			<uni-col :span="9">
-				<view>DAUS******SDF7A23G22</view>
+				<view>{{obscureString(item.user)}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<!-- <view style="color: #4cbe61;">+100,289,312</view> -->
-				<view style="color: #fd8c31;">-189,312</view>
+				<view style="color: #4cbe61;" v-if="item.change_type == 'increase'">+{{item.change_amount}}</view>
+				<view style="color: #fd8c31;" v-if="item.change_type == 'decrease'">-{{item.change_amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view>2024/08/24/18:00</view>
+				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
+		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getDepositList } from '@/service/merchant.js'
+import { getDepositList } from '@/service/deposit.js'
+import { convertTime, obscureString } from '@/utils/index.js'
+
+
+onMounted(()=>{
+	getRecordList()
+})
 
 const recordList = ref([])
-onMounted(async()=>{
-	const {results} = await getDepositList()
-	recordList.value =results
-	console.log(results)
-})
+const status = ref('loading')
+const page = ref(1)
+const getRecordList = async ()=>{
+	status.value = 'loading'
+	const {results, count} = await getDepositList({page: page.value})
+	if (count == results.length) {
+		status.value = 'no-more'
+	} else {
+		status.value = 'more'
+	}
+	recordList.value = results
+}
+const loadMore = ()=>{
+	if (status.value == 'more') {
+		page.value++
+		getRecordList()
+	}
+}
 </script>
 
 <style lang="scss" scoped>
 :deep(.uni-row) {
-	background-color: #fff;
 	text-align: center;
 	padding: 32rpx 0;
-	font-size: 27rpx;
 	font-weight: bold;
-	&:last-child {
-		background-color: transparent;
-		color: #999;
-		font-size: 18rpx;
+	background-color: transparent;
+	color: #999;
+	font-size: 18rpx;
+	&:nth-child(2) {
+		background-color: #fff;
+		color: #333;
+		font-size: 27rpx;
 	}
 }
 .title_row {

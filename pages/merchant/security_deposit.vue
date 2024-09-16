@@ -30,7 +30,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import {getDeposit} from '@/service/merchant.js'
+import {getDeposit} from '@/service/deposit.js'
 const toRecord = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/deposit_record'
