@@ -1,10 +1,10 @@
 "use strict";
 const service_index = require("./index.js");
-const getDeposit = (id) => {
-  return service_index.http.get(`/deposit/get/`);
+const getMerchantInfo = async () => {
+  return service_index.http.get("/merchant/get/");
 };
-const getDepositList = (id) => {
-  return service_index.http.get(`/deposit/records/`);
+const getMerchantList = (data) => {
+  return service_index.http.get("/shops/", data);
 };
-exports.getDeposit = getDeposit;
-exports.getDepositList = getDepositList;
+exports.getMerchantInfo = getMerchantInfo;
+exports.getMerchantList = getMerchantList;

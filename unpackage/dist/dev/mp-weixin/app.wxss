@@ -60,6 +60,19 @@ page, view {
 	margin: 0 auto;
 	border-radius: 17rpx;
 }
+.btn_plain {
+	width: 600rpx;
+	height: 96rpx;
+	border: 1px solid #FC5908;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #FC5908;
+	font-size: 30rpx;
+	margin: 0 auto;
+	border-radius: 17rpx;
+	background-color: #fff;
+}
 page {
 	min-height: 100%;
 	background-color: #f8f8f8;
@@ -67,4 +80,7 @@ page {
 .uni-input {
 	font-size: 24rpx;
 	color: #999999;
+}
+image {
+	height: 1rpx;
 }page{--status-bar-height:25px;--top-window-height:0px;--window-top:0px;--window-bottom:0px;--window-left:0px;--window-right:0px;--window-magin:0px}[data-c-h="true"]{display: none !important;}

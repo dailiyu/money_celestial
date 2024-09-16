@@ -33,7 +33,7 @@
 }
 .page .img-box .img {
   width: 100%;
-  transform: translateY(-180rpx);
+  height: 100%;
 }
 .page .content {
   transform: translateY(-250rpx);

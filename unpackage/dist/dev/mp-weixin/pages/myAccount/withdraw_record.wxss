@@ -24,16 +24,17 @@
 /* 透明度 */
 /* 文章场景相关 */
 .data-v-ada4c0a1 .uni-row {
-  background-color: #fff;
   text-align: center;
   padding: 32rpx 0;
-  font-size: 27rpx;
   font-weight: bold;
-}
-.data-v-ada4c0a1 .uni-row:last-child {
   background-color: transparent;
   color: #999;
   font-size: 18rpx;
+}
+.data-v-ada4c0a1 .uni-row:nth-child(2) {
+  background-color: #fff;
+  color: #333;
+  font-size: 27rpx;
 }
 .title_row .title_text.data-v-ada4c0a1 {
   font-size: 27rpx;

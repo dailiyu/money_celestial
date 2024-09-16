@@ -59,6 +59,7 @@
 }
 .total_data .data_item .code_pic.data-v-6eb3b4f4 {
   width: 34rpx;
+  margin-left: 32rpx;
 }
 .total_data .data_item .total_item.data-v-6eb3b4f4 {
   padding-top: 40rpx;

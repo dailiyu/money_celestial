@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const service_recommend = require("../../service/recommend.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -12,6 +13,9 @@ if (!Math) {
 const _sfc_main = {
   __name: "recommend_management",
   setup(__props) {
+    common_vendor.onMounted(async () => {
+      await service_recommend.getRecommendOfficerInfo();
+    });
     const toMerchantList = () => {
       common_vendor.index.navigateTo({
         url: "/pages/recommend/merchant_list"
@@ -34,12 +38,13 @@ const _sfc_main = {
         }),
         b: common_assets._imports_0$9,
         c: common_assets._imports_1$3,
-        d: common_assets._imports_0$4,
-        e: common_vendor.o(toMerchantList),
-        f: common_assets._imports_0$4,
-        g: common_vendor.o(toMerchantCode),
-        h: common_assets._imports_0$4,
-        i: common_vendor.o(toSecurityDeposit)
+        d: common_assets._imports_2$2,
+        e: common_assets._imports_0$4,
+        f: common_vendor.o(toMerchantList),
+        g: common_assets._imports_0$4,
+        h: common_vendor.o(toMerchantCode),
+        i: common_assets._imports_0$4,
+        j: common_vendor.o(toSecurityDeposit)
       };
     };
   }

@@ -29,6 +29,7 @@
 }
 .a_title .a_pic.data-v-98f78df0 {
   width: 32rpx;
+  height: 1rpx;
   display: block;
 }
 .account_box.data-v-98f78df0 {

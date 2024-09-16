@@ -8,8 +8,15 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/merchant/merchant_set_info",
-          "pathName": "pages/merchant/merchant_set_info",
+          "name": "pages/merchant/all_merchant",
+          "pathName": "pages/merchant/all_merchant",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/recommend/recommend_test",
+          "pathName": "pages/recommend/recommend_test",
           "query": "",
           "launchMode": "default",
           "scene": null

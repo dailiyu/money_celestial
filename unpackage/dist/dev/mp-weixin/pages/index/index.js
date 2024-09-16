@@ -42,6 +42,10 @@ const _sfc_main = {
             },
             fail(err) {
               console.log(err);
+              common_vendor.index.showToast({
+                icon: "none",
+                title: "定位失败"
+              });
             }
           });
         }

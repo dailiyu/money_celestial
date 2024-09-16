@@ -1,6 +1,8 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const service_region = require("../../service/region.js");
+const service_merchant = require("../../service/merchant.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_shopList2 = common_vendor.resolveComponent("shopList");
@@ -23,6 +25,19 @@ const _sfc_main = {
       });
     };
     const distance = common_vendor.ref("up");
+    common_vendor.onMounted(async () => {
+      try {
+        const cityAgent = await service_region.getCityAgent();
+        const provinceAgent = await service_region.getProvinceAgent();
+        if (cityAgent.data && cityAgent.data.id) {
+          getShopList({ city_agent: cityAgent.data.id });
+        }
+      } catch (e) {
+      }
+    });
+    const getShopList = async (data) => {
+      await service_merchant.getMerchantList(data);
+    };
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.p({
@@ -33,12 +48,12 @@ const _sfc_main = {
         d: distance.value == "up"
       }, distance.value == "up" ? {
         e: common_assets._imports_1$4,
-        f: common_assets._imports_2$2,
+        f: common_assets._imports_2$3,
         g: common_vendor.o(($event) => distance.value = "down")
       } : {}, {
         h: distance.value == "down"
       }, distance.value == "down" ? {
-        i: common_assets._imports_2$2,
+        i: common_assets._imports_2$3,
         j: common_assets._imports_1$4,
         k: common_vendor.o(($event) => distance.value = "up")
       } : {});

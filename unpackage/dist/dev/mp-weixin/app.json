@@ -42,7 +42,8 @@
     "pages/recommend/remove_deposit",
     "pages/recommend/deposit_record",
     "pages/agent/merchant_list",
-    "pages/recommend/merchant_list"
+    "pages/recommend/merchant_list",
+    "pages/recommend/recommend_test"
   ],
   "window": {
     "navigationBarTextStyle": "white",

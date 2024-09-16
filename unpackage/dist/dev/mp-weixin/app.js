@@ -45,6 +45,7 @@ if (!Math) {
   "./pages/recommend/deposit_record.js";
   "./pages/agent/merchant_list.js";
   "./pages/recommend/merchant_list.js";
+  "./pages/recommend/recommend_test.js";
 }
 const _sfc_main = {
   onLaunch: function() {

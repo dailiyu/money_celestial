@@ -4,19 +4,20 @@ const common_assets = require("../../common/assets.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_upload2 = common_vendor.resolveComponent("upload");
-  (_easycom_navBar2 + _easycom_upload2)();
+  const _easycom_uni_data_select2 = common_vendor.resolveComponent("uni-data-select");
+  (_easycom_navBar2 + _easycom_upload2 + _easycom_uni_data_select2)();
 }
 const _easycom_navBar = () => "../../components/navBar/navBar.js";
 const _easycom_upload = () => "../../components/upload/upload.js";
+const _easycom_uni_data_select = () => "../../uni_modules/uni-data-select/components/uni-data-select/uni-data-select.js";
 if (!Math) {
-  (_easycom_navBar + _easycom_upload)();
+  (_easycom_navBar + _easycom_upload + _easycom_uni_data_select)();
 }
 const _sfc_main = {
   __name: "merchant_set_info",
   setup(__props) {
     const shopIntro = common_vendor.ref("");
     const shopName = common_vendor.ref("");
-    const businessRange = common_vendor.ref("");
     const code = common_vendor.ref("");
     const address = common_vendor.ref("");
     common_vendor.ref("");
@@ -37,6 +38,15 @@ const _sfc_main = {
         url: "/pages/merchant/merchant_management"
       });
     };
+    const businessRange = common_vendor.ref("");
+    const range = common_vendor.ref([
+      { value: "篮球", text: "篮球" },
+      { value: "足球", text: "足球" },
+      { value: "游泳", text: "游泳" }
+    ]);
+    const changeRange = (e) => {
+      console.log(e);
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -55,17 +65,23 @@ const _sfc_main = {
         }),
         g: shopName.value,
         h: common_vendor.o(($event) => shopName.value = $event.detail.value),
-        i: businessRange.value,
-        j: common_vendor.o(($event) => businessRange.value = $event.detail.value),
-        k: code.value,
-        l: common_vendor.o(($event) => code.value = $event.detail.value),
-        m: address.value,
-        n: common_vendor.o(($event) => address.value = $event.detail.value),
-        o: common_assets._imports_1$2,
-        p: common_vendor.o(getLocation),
-        q: isChecked.value,
-        r: common_vendor.o(changeCheck),
-        s: common_vendor.o(toManagement)
+        i: common_vendor.o(changeRange),
+        j: common_vendor.o(($event) => businessRange.value = $event),
+        k: common_vendor.p({
+          localdata: range.value,
+          placeholder: "请选择",
+          clear: false,
+          modelValue: businessRange.value
+        }),
+        l: code.value,
+        m: common_vendor.o(($event) => code.value = $event.detail.value),
+        n: address.value,
+        o: common_vendor.o(($event) => address.value = $event.detail.value),
+        p: common_assets._imports_1$2,
+        q: common_vendor.o(getLocation),
+        r: isChecked.value,
+        s: common_vendor.o(changeCheck),
+        t: common_vendor.o(toManagement)
       };
     };
   }

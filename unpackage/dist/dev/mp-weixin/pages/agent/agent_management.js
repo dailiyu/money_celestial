@@ -19,7 +19,7 @@ const _sfc_main = {
     };
     const toMerchantCode = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/agent/merchant_code_authentication"
+        url: "/pages/merchant/merchant_code_authentication"
       });
     };
     const toSecurityDeposit = () => {

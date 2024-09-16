@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const service_merchant = require("../../service/merchant.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_shopList2 = common_vendor.resolveComponent("shopList");
@@ -14,6 +15,9 @@ if (!Math) {
 const _sfc_main = {
   __name: "all_merchant",
   setup(__props) {
+    common_vendor.onMounted(async () => {
+      await service_merchant.getMerchantList();
+    });
     const getType = () => {
       common_vendor.index.showActionSheet({
         itemList: ["美食", "服饰"],
@@ -38,12 +42,12 @@ const _sfc_main = {
         d: distance.value == "up"
       }, distance.value == "up" ? {
         e: common_assets._imports_1$4,
-        f: common_assets._imports_2$2,
+        f: common_assets._imports_2$3,
         g: common_vendor.o(($event) => distance.value = "down")
       } : {}, {
         h: distance.value == "down"
       }, distance.value == "down" ? {
-        i: common_assets._imports_2$2,
+        i: common_assets._imports_2$3,
         j: common_assets._imports_1$4,
         k: common_vendor.o(($event) => distance.value = "up")
       } : {}, {

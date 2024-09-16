@@ -14,7 +14,8 @@ const _sfc_main = {
   setup(__props) {
     const toNext = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/recommend/recommend_management"
+        // url: '/pages/recommend/recommend_management'
+        url: "/pages/recommend/recommend_test"
       });
     };
     return (_ctx, _cache) => {

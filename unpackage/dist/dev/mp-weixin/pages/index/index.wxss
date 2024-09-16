@@ -57,6 +57,9 @@
   font-size: 21rpx;
   margin-left: 0;
 }
+.search_bar.data-v-1cf27b2a .uni-searchbar__box-icon-clear {
+  line-height: 0;
+}
 .search_bar .search_btn.data-v-1cf27b2a {
   width: 85rpx;
   height: 45rpx;

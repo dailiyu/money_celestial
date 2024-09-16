@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
-const service_merchant = require("../../service/merchant.js");
+const service_deposit = require("../../service/deposit.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -30,7 +30,7 @@ const _sfc_main = {
     };
     const amount = common_vendor.ref("");
     common_vendor.onMounted(async () => {
-      const { data } = await service_merchant.getDeposit();
+      const { data } = await service_deposit.getDeposit();
       amount.value = data.amount;
     });
     return (_ctx, _cache) => {

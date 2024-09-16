@@ -47,7 +47,7 @@ const _sfc_main = {
         g: common_vendor.o(toPointAvailable),
         h: common_vendor.o(toPointAccount),
         i: common_assets._imports_0$3,
-        j: common_assets._imports_2$3,
+        j: common_assets._imports_2$4,
         k: common_assets._imports_3$2,
         l: common_assets._imports_4$1,
         m: common_assets._imports_0$3,
