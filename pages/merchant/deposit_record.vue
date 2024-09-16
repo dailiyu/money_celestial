@@ -24,8 +24,8 @@
 				<view>{{obscureString(item.user)}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view style="color: #4cbe61;" v-if="item.change_type == 'increase'">+{{item.change_amount}}</view>
-				<view style="color: #fd8c31;" v-if="item.change_type == 'decrease'">-{{item.change_amount}}</view>
+				<view style="color: #4cbe61;" v-if="item.transaction_type == '增加'">+{{item.amount}}</view>
+				<view style="color: #fd8c31;" v-if="item.transaction_type == '减少'">-{{item.amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>

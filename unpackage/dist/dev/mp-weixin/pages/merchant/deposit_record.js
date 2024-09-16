@@ -67,13 +67,13 @@ const _sfc_main = {
             b: "d6fe0577-7-" + i0 + "," + ("d6fe0577-6-" + i0),
             c: common_vendor.t(common_vendor.unref(utils_index.obscureString)(item.user)),
             d: "d6fe0577-8-" + i0 + "," + ("d6fe0577-6-" + i0),
-            e: item.change_type == "increase"
-          }, item.change_type == "increase" ? {
-            f: common_vendor.t(item.change_amount)
+            e: item.transaction_type == "增加"
+          }, item.transaction_type == "增加" ? {
+            f: common_vendor.t(item.amount)
           } : {}, {
-            g: item.change_type == "decrease"
-          }, item.change_type == "decrease" ? {
-            h: common_vendor.t(item.change_amount)
+            g: item.transaction_type == "减少"
+          }, item.transaction_type == "减少" ? {
+            h: common_vendor.t(item.amount)
           } : {}, {
             i: "d6fe0577-9-" + i0 + "," + ("d6fe0577-6-" + i0),
             j: common_vendor.t(common_vendor.unref(utils_index.convertTime)(item.created_at, "yyyy-MM-dd hh:mm:ss")),
