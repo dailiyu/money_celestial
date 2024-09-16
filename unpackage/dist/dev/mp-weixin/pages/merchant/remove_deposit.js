@@ -13,12 +13,12 @@ const _sfc_main = {
   __name: "remove_deposit",
   setup(__props) {
     common_vendor.onMounted(() => {
-      getDeposit();
+      getDepositInfo();
     });
     const info = common_vendor.ref({});
-    const getDeposit = async () => {
-      const { data } = await service_deposit.getDepositBalance();
-      info.value = data;
+    const getDepositInfo = async () => {
+      const { results } = await service_deposit.getDeposit();
+      info.value = results[0];
     };
     const address = common_vendor.ref("");
     const number = common_vendor.ref("");
@@ -50,7 +50,8 @@ const _sfc_main = {
       common_vendor.index.showLoading({
         title: "解除中"
       });
-      await service_deposit.removeDeposit({ phone_number: address.value, amount: number.value });
+      await service_deposit.removeDeposit({ username: address.value, amount: number.value });
+      getDepositInfo();
       common_vendor.index.hideLoading();
       common_vendor.index.showToast({
         icon: "none",
@@ -74,5 +75,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-930acddc"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-930acddc"], ["__file", "D:/code/money_celestial/pages/merchant/remove_deposit.vue"]]);
 wx.createPage(MiniProgramPage);

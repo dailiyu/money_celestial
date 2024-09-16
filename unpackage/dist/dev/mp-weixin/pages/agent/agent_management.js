@@ -12,6 +12,8 @@ if (!Math) {
 const _sfc_main = {
   __name: "agent_management",
   setup(__props) {
+    common_vendor.onMounted(async () => {
+    });
     const toMerchantList = () => {
       common_vendor.index.navigateTo({
         url: "/pages/agent/merchant_list"
@@ -43,5 +45,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-aa1b4823"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-aa1b4823"], ["__file", "D:/code/money_celestial/pages/agent/agent_management.vue"]]);
 wx.createPage(MiniProgramPage);

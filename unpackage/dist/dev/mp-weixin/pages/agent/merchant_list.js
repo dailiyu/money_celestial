@@ -1,17 +1,16 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
-const service_region = require("../../service/region.js");
-const service_merchant = require("../../service/merchant.js");
+const service_agent = require("../../service/agent.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
-  const _easycom_shopList2 = common_vendor.resolveComponent("shopList");
-  (_easycom_navBar2 + _easycom_shopList2)();
+  const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
+  (_easycom_navBar2 + _easycom_uni_load_more2)();
 }
 const _easycom_navBar = () => "../../components/navBar/navBar.js";
-const _easycom_shopList = () => "../../components/shopList/shopList.js";
+const _easycom_uni_load_more = () => "../../uni_modules/uni-load-more/components/uni-load-more/uni-load-more.js";
 if (!Math) {
-  (_easycom_navBar + _easycom_shopList)();
+  (_easycom_navBar + common_vendor.unref(shopList) + _easycom_uni_load_more)();
 }
 const _sfc_main = {
   __name: "merchant_list",
@@ -24,19 +23,30 @@ const _sfc_main = {
         }
       });
     };
-    const distance = common_vendor.ref("up");
     common_vendor.onMounted(async () => {
-      try {
-        const cityAgent = await service_region.getCityAgent();
-        const provinceAgent = await service_region.getProvinceAgent();
-        if (cityAgent.data && cityAgent.data.id) {
-          getShopList({ city_agent: cityAgent.data.id });
-        }
-      } catch (e) {
-      }
+      getShopList();
     });
-    const getShopList = async (data) => {
-      await service_merchant.getMerchantList(data);
+    const page = common_vendor.ref(1);
+    const time = common_vendor.ref("");
+    const categoryId = common_vendor.ref("");
+    const shopList2 = common_vendor.ref([]);
+    const status = common_vendor.ref("loading");
+    const getShopList = async () => {
+      const params = common_vendor.ref({
+        page: page.value,
+        time: time.value,
+        categoryId: categoryId.value
+      });
+      status.value = "loading";
+      await service_agent.getAgentShopList(params.value);
+    };
+    const filterTime = (i) => {
+      page.value = 1;
+      time.value = i;
+      shopList2.value = [];
+      getShopList();
+    };
+    const getMoreList = () => {
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
@@ -45,18 +55,23 @@ const _sfc_main = {
         }),
         b: common_assets._imports_0$10,
         c: common_vendor.o(getType),
-        d: distance.value == "up"
-      }, distance.value == "up" ? {
-        e: common_assets._imports_1$4,
-        f: common_assets._imports_2$3,
-        g: common_vendor.o(($event) => distance.value = "down")
+        d: time.value == ""
+      }, time.value == "" ? {
+        e: common_assets._imports_1$3,
+        f: common_assets._imports_2$4,
+        g: common_vendor.o(($event) => filterTime("-"))
       } : {}, {
-        h: distance.value == "down"
-      }, distance.value == "down" ? {
-        i: common_assets._imports_2$3,
-        j: common_assets._imports_1$4,
-        k: common_vendor.o(($event) => distance.value = "up")
-      } : {});
+        h: time.value == "-"
+      }, time.value == "-" ? {
+        i: common_assets._imports_2$4,
+        j: common_assets._imports_1$3,
+        k: common_vendor.o(($event) => filterTime(""))
+      } : {}, {
+        l: common_vendor.o(getMoreList),
+        m: common_vendor.p({
+          status: status.value
+        })
+      });
     };
   }
 };

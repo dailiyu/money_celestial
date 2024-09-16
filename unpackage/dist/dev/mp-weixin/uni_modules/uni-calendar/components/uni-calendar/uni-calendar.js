@@ -333,5 +333,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     C: $data.aniMaskShow ? 1 : ""
   }) : {});
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-b6ab2cfb"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-b6ab2cfb"], ["__file", "D:/code/money_celestial/uni_modules/uni-calendar/components/uni-calendar/uni-calendar.vue"]]);
 wx.createComponent(Component);

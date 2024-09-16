@@ -29,16 +29,16 @@ const _sfc_main = {
       });
     };
     const amount = common_vendor.ref("");
-    common_vendor.onMounted(async () => {
-      const { data } = await service_deposit.getDeposit();
-      amount.value = data.amount;
+    common_vendor.onShow(async () => {
+      const { results } = await service_deposit.getDeposit();
+      amount.value = results[0].amount;
     });
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
           title: "保证金"
         }),
-        b: common_vendor.t(amount.value),
+        b: common_vendor.t(amount.value || 0),
         c: common_assets._imports_0$4,
         d: common_vendor.o(toRecord),
         e: common_vendor.o(toAdd),
@@ -47,5 +47,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-3efa2ea6"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-3efa2ea6"], ["__file", "D:/code/money_celestial/pages/merchant/security_deposit.vue"]]);
 wx.createPage(MiniProgramPage);

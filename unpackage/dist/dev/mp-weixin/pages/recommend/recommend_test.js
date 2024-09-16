@@ -450,7 +450,7 @@ const _sfc_main = {
     const allQuestions = common_vendor.ref([]);
     const currentQuestions = common_vendor.ref([]);
     const selectedAnswers = common_vendor.ref([]);
-    const incorrectQuestions = common_vendor.ref([]);
+    common_vendor.ref([]);
     const showAnswers = common_vendor.ref(false);
     const isSubmitted = common_vendor.ref(false);
     const initQuestions = () => {
@@ -473,27 +473,9 @@ const _sfc_main = {
       selectedAnswers.value[questionIndex] = selectedOption;
     };
     const submitAnswers = () => {
-      incorrectQuestions.value = [];
-      currentQuestions.value.forEach((question, index) => {
-        if (selectedAnswers.value[index] !== question.correct_answer) {
-          incorrectQuestions.value.push(question);
-        }
+      common_vendor.index.navigateTo({
+        url: "/pages/recommend/recommend_management"
       });
-      isSubmitted.value = true;
-      if (incorrectQuestions.value.length > 0) {
-        common_vendor.index.showToast({
-          title: "有答错的题目，点击查看答案！",
-          icon: "none"
-        });
-      } else {
-        common_vendor.index.showToast({
-          title: "恭喜，全部正确！",
-          icon: "success"
-        });
-        common_vendor.index.navigateTo({
-          url: "/pages/recommend/recommend_management"
-        });
-      }
     };
     const showCorrectAnswers = () => {
       showAnswers.value = true;

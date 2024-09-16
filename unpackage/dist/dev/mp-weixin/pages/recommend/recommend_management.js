@@ -37,8 +37,8 @@ const _sfc_main = {
           title: "推荐官后台"
         }),
         b: common_assets._imports_0$9,
-        c: common_assets._imports_1$3,
-        d: common_assets._imports_2$2,
+        c: common_assets._imports_1$2,
+        d: common_assets._imports_2$3,
         e: common_assets._imports_0$4,
         f: common_vendor.o(toMerchantList),
         g: common_assets._imports_0$4,

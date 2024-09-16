@@ -51,5 +51,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-976eb3a4"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-976eb3a4"], ["__file", "D:/code/money_celestial/pages/merchant/point_gift.vue"]]);
 wx.createPage(MiniProgramPage);

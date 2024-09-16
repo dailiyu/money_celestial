@@ -15,12 +15,12 @@ const _sfc_main = {
     const address = common_vendor.ref("");
     const number = common_vendor.ref("");
     common_vendor.onMounted(() => {
-      getDeposit();
+      getDepositInfo();
     });
     const info = common_vendor.ref({});
-    const getDeposit = async () => {
-      const { data } = await service_deposit.getDepositBalance();
-      info.value = data;
+    const getDepositInfo = async () => {
+      const { results } = await service_deposit.getDeposit();
+      info.value = results[0];
     };
     const isChecked = common_vendor.ref(false);
     const changeCheck = () => {
@@ -42,15 +42,23 @@ const _sfc_main = {
           icon: "none",
           title: "请输入金额"
         });
-      common_vendor.index.showLoading({
-        title: "正在提交"
-      });
-      await service_deposit.addDeposit({ amount: number.value, phone_number: address.value });
-      common_vendor.index.hideLoading();
-      common_vendor.index.showToast({
-        icon: "none",
-        title: "增加成功"
-      });
+      try {
+        common_vendor.index.showLoading({
+          title: "正在提交"
+        });
+        await service_deposit.addDeposit({ amount: number.value, username: address.value });
+        getDepositInfo();
+        common_vendor.index.hideLoading();
+        common_vendor.index.showToast({
+          icon: "none",
+          title: "增加成功"
+        });
+      } catch (e) {
+        common_vendor.index.showToast({
+          icon: "none",
+          title: "出错了"
+        });
+      }
     };
     return (_ctx, _cache) => {
       return {
@@ -69,5 +77,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-4a198a90"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-4a198a90"], ["__file", "D:/code/money_celestial/pages/merchant/add_deposit.vue"]]);
 wx.createPage(MiniProgramPage);

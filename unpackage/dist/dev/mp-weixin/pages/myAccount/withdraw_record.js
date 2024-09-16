@@ -26,14 +26,17 @@ const _sfc_main = {
     const status = common_vendor.ref("loading");
     const page = common_vendor.ref(1);
     const getRecordList = async () => {
+      const params = common_vendor.ref({
+        page: page.value
+      });
       status.value = "loading";
-      const { results, count } = await service_point.getWithdrawRecord({ page: page.value });
+      const { results, count } = await service_point.getWithdrawRecord(params.value);
       if (count == results.length) {
         status.value = "no-more";
       } else {
         status.value = "more";
       }
-      recordList.value = results;
+      recordList.value = recordList.value.push(...results);
     };
     const loadMore = () => {
       if (status.value == "more") {
@@ -64,9 +67,9 @@ const _sfc_main = {
             b: "ada4c0a1-7-" + i0 + "," + ("ada4c0a1-6-" + i0),
             c: common_vendor.t(common_vendor.unref(utils_index.obscureString)(item.user)),
             d: "ada4c0a1-8-" + i0 + "," + ("ada4c0a1-6-" + i0),
-            e: common_vendor.t(item.points_used),
+            e: common_vendor.t(item.transaction_amount),
             f: "ada4c0a1-9-" + i0 + "," + ("ada4c0a1-6-" + i0),
-            g: common_vendor.t(common_vendor.unref(utils_index.convertTime)(item.created_at, "yyyy-MM-dd hh:mm:ss")),
+            g: common_vendor.t(common_vendor.unref(utils_index.convertTime)(item.transaction_date, "yyyy-MM-dd hh:mm:ss")),
             h: "ada4c0a1-10-" + i0 + "," + ("ada4c0a1-6-" + i0),
             i: item.id,
             j: "ada4c0a1-6-" + i0
