@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const store_user = require("../../store/user.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -12,6 +13,7 @@ if (!Math) {
 const _sfc_main = {
   __name: "merchant_management",
   setup(__props) {
+    const userStore = store_user.useUserStore();
     const toEdit = () => {
       common_vendor.index.navigateTo({
         url: "/pages/merchant/merchant_edit_info"
@@ -42,20 +44,22 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "商家后台"
         }),
-        b: common_assets._imports_0$3,
-        c: common_assets._imports_0$4,
-        d: common_vendor.o(toEdit),
+        b: common_vendor.unref(userStore).storeInfo.icon,
+        c: common_vendor.t(common_vendor.unref(userStore).storeInfo.name),
+        d: common_assets._imports_0$3,
         e: common_assets._imports_0$4,
-        f: common_vendor.o(toPoinGift),
+        f: common_vendor.o(toEdit),
         g: common_assets._imports_0$4,
-        h: common_vendor.o(toCode),
+        h: common_vendor.o(toPoinGift),
         i: common_assets._imports_0$4,
-        j: common_vendor.o(toSecurityDeposit),
+        j: common_vendor.o(toCode),
         k: common_assets._imports_0$4,
-        l: common_vendor.o(toUploadGoods)
+        l: common_vendor.o(toSecurityDeposit),
+        m: common_assets._imports_0$4,
+        n: common_vendor.o(toUploadGoods)
       };
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-a81a7219"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_management.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-a81a7219"]]);
 wx.createPage(MiniProgramPage);

@@ -44,5 +44,5 @@ function _sfc_render(_ctx, _cache) {
     })
   };
 }
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-f3fe22dd"], ["__file", "D:/code/money_celestial/pages/recommend/deposit_record.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-f3fe22dd"]]);
 wx.createPage(MiniProgramPage);

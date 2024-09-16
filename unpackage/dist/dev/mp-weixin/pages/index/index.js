@@ -17,12 +17,12 @@ const _sfc_main = {
   __name: "index",
   setup(__props) {
     var QQMapWX = require("../../static/qqmap/qqmap-wx-jssdk.min.js");
-    const publicStore = store_public.usePublicStore();
     const keyword = common_vendor.ref("");
+    store_public.usePublicStore();
     const userStore = store_user.useUserStore();
     const city = common_vendor.ref("");
     common_vendor.onMounted(async () => {
-      await publicStore.fetchAllData(), await userStore.getUserInfoAction();
+      await userStore.fetchAllDataAction();
       common_vendor.index.getLocation({
         geocode: true,
         success(res) {
@@ -60,9 +60,16 @@ const _sfc_main = {
       });
     };
     const toMerchant = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/merchant/merchant_intro"
-      });
+      if (userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0) {
+        console.log(userStore.storeInfo);
+        common_vendor.index.navigateTo({
+          url: "/pages/merchant/merchant_management"
+        });
+      } else {
+        common_vendor.index.navigateTo({
+          url: "/pages/merchant/merchant_intro"
+        });
+      }
     };
     const toAgent = () => {
       common_vendor.index.navigateTo({
@@ -126,7 +133,7 @@ const _sfc_main = {
         x: common_assets._imports_13,
         y: common_assets._imports_14,
         z: common_vendor.o(toSettle),
-        A: common_assets._imports_1$2,
+        A: common_assets._imports_2$2,
         B: common_vendor.o(toDetail),
         C: common_vendor.o(toAllMerchant),
         D: common_assets._imports_16,
@@ -136,5 +143,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"], ["__file", "D:/code/money_celestial/pages/index/index.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
 wx.createPage(MiniProgramPage);

@@ -16,7 +16,7 @@
 			<view class="title">
 				密码：
 			</view>
-			<uni-easyinput v-model="password" placeholder="密码长度最低6位" :inputBorder="false" primaryColor="#1B46CC"
+			<uni-easyinput v-model="password" placeholder="密码长度最低8位" :inputBorder="false" primaryColor="#1B46CC"
 				type="password" />
 			<view class="title">
 				确认密码：
@@ -45,16 +45,17 @@ import { postRegister } from '../../service/uer_profile';
 	const password2 = ref('')
 	
 	
-	
+
 	
 const toRegister = async() => {
-	if (mobile.value.length !== 11) return uni.showToast({
-		icon: 'none',
-		title: '请输入正确手机号'
-	})
-	if (password.value < 6 || password2.value < 6) return uni.showToast({
+	// if (mobile.value.length !== 11) return uni.showToast({
+	// 	icon: 'none',
+	// 	title: '请输入正确手机号'
+	// })
+
+	if (password.value.length < 8 || password2.value.length < 8) return uni.showToast({
 		icon:'none',
-		title: '密码长度最低6位'
+		title: '密码长度最低8位'
 	})
   if(password.value == password2.value){
     postRegister(mobile.value, password.value).then((res) => {

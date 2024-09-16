@@ -19,7 +19,7 @@
     "ignoreUploadUnusedFiles": false
   },
   "compileType": "miniprogram",
-  "libVersion": "",
+  "libVersion": "2.22.1",
   "appid": "wx06423884fa78e5ba",
   "projectname": "money_celestial",
   "condition": {

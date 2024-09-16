@@ -1,32 +1,39 @@
 <template>
   <view class="flex">
-	<image  v-if="imageTempPaths.length!=0"  v-for="(image,index) in imageTempPaths"  :src="image" mode="widthFix" class="upload_btn"></image>
+	<image 
+	  v-if="imageTempPaths.length != 0" 
+	  v-for="(image, index) in imageTempPaths" 
+	  :key="index"  
+	  :src="image" 
+	  mode="widthFix" 
+	  class="upload_btn">
+	</image>
+
     <image v-if="imageTempPaths.length<props.amount" src="@/static/upload.png" mode="widthFix" class="upload_btn" @click="chooseImg"></image>
   </view>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-
-
+// import { defineProps, defineEmits } from 'vue';
 const emit = defineEmits(['tempImgPaths']); 
 const imageTempPaths=ref([])
 const props = defineProps({
   amount: {
-    type: Number,
-    default: 1
+    type: String,
+    default: '1'
   }
 });
 const chooseImg = async () => {
   // 选择图片
   uni.chooseImage({
-    count: props.amount, 
+    count: Number(props.amount), 
     success: (res) => {
       const tempFilePaths = res.tempFilePaths;
       // 将选择的图片路径赋值给 imagePath 用于页面显示
      imageTempPaths.value=tempFilePaths
-	 console.log(tempFilePaths);
-	 emit('tempImgPaths',tempFilePaths)
+	 // console.log(tempFilePaths);
+		emit('tempImgPaths',tempFilePaths)
     },
     fail: (err) => {
       console.log('选择图片失败：', err);

@@ -97,21 +97,6 @@
   font-size: 24rpx;
   color: #999999;
 }
-.radio.data-v-34ea46dc {
-  padding: 26rpx 0 38rpx;
-}
-.radio radio.data-v-34ea46dc {
-  transform: scale(0.6);
-}
-.radio .read.data-v-34ea46dc {
-  font-size: 27rpx;
-  color: #999999;
-}
-.radio .c_title.data-v-34ea46dc {
-  font-size: 27rpx;
-  color: #FC5908;
-  font-family: HarmonyOS_Sans_SC_Medium;
-}
 .btn_full.data-v-34ea46dc {
   margin-top: 66rpx;
 }

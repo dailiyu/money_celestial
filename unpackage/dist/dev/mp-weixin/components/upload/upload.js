@@ -5,8 +5,8 @@ const _sfc_main = {
   __name: "upload",
   props: {
     amount: {
-      type: Number,
-      default: 1
+      type: String,
+      default: "1"
     }
   },
   emits: ["tempImgPaths"],
@@ -16,11 +16,10 @@ const _sfc_main = {
     const props = __props;
     const chooseImg = async () => {
       common_vendor.index.chooseImage({
-        count: props.amount,
+        count: Number(props.amount),
         success: (res) => {
           const tempFilePaths = res.tempFilePaths;
           imageTempPaths.value = tempFilePaths;
-          console.log(tempFilePaths);
           emit("tempImgPaths", tempFilePaths);
         },
         fail: (err) => {
@@ -34,7 +33,8 @@ const _sfc_main = {
       }, imageTempPaths.value.length != 0 ? {
         b: common_vendor.f(imageTempPaths.value, (image, index, i0) => {
           return {
-            a: image
+            a: index,
+            b: image
           };
         })
       } : {}, {
@@ -46,5 +46,5 @@ const _sfc_main = {
     };
   }
 };
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-0917ae16"], ["__file", "D:/code/money_celestial/components/upload/upload.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-0917ae16"]]);
 wx.createComponent(Component);

@@ -79,12 +79,13 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-e4e4508d"], ["__file", "D:/code/money_celestial/pages/login/login.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-e4e4508d"]]);
 const useUserStore = common_vendor.defineStore("user", {
   state: () => {
     return {
       userInfo: {},
-      getMerchantInfo: service_merchant.getMerchantInfo
+      merchantInfo: {},
+      storeInfo: {}
     };
   },
   actions: {
@@ -93,11 +94,28 @@ const useUserStore = common_vendor.defineStore("user", {
       const { access, refresh } = results;
       common_vendor.index.setStorageSync("accessToken", access);
       common_vendor.index.setStorageSync("refreshToken", refresh);
-      const res = await service_uer_profile.getUerAccountMessage();
-      const { id } = res.data;
-      common_vendor.index.setStorageSync("userId", id);
     },
     async getUserInfoAction() {
+      const res = await service_uer_profile.getUerAccountMessage();
+      console.log(res);
+      const { id } = res || {};
+      this.userInfo = res;
+      common_vendor.index.setStorageSync("userId", id);
+    },
+    async getMerchantInfoAction() {
+      var _a;
+      const res = await service_merchant.getMerchantInfo();
+      this.merchantInfo = (res == null ? void 0 : res.data) || {};
+      common_vendor.index.setStorageSync("merchantId", (_a = res.data) == null ? void 0 : _a.id);
+    },
+    async getStoreInfoAction() {
+      var _a;
+      const res = await service_merchant.getStoreInfo();
+      this.storeInfo = (res == null ? void 0 : res.data) || {};
+      common_vendor.index.setStorageSync("storeId", (_a = res.data) == null ? void 0 : _a.id);
+    },
+    async fetchAllDataAction() {
+      this.getUserInfoAction();
     }
   }
 });

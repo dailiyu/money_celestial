@@ -13,8 +13,15 @@
 					<view class="s_title">
 						商品分类
 					</view>
-					<input v-model="address" class="uni-input" placeholder="选择商品分类" placeholder-class="placeholder_class" />
-					<image src="@/static/arrow-right.png" mode="widthFix" class="lo_pic"></image>
+					<uni-data-select
+						v-model="businessRange"
+						:localdata="range"
+						placeholder="请选择"
+						:clear="false"
+						@change="changeRange"
+					></uni-data-select>
+					<!-- <input v-model="address" class="uni-input" placeholder="选择商品分类" placeholder-class="placeholder_class" />
+					<image src="@/static/arrow-right.png" mode="widthFix" class="lo_pic"></image> -->
 				</view>
 			</view>
 			<view class="head_box">
@@ -23,10 +30,10 @@
 						商品主图 
 					</view>
 					<view class="h_text">
-						已选择1张
+						已选择{{temProductImgPaths.length}}张
 					</view>
 				</view>
-				<upload></upload>
+				<upload :amount="6" @tempImgPaths="acceptTempProductImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
@@ -35,12 +42,12 @@
 							详情描述 
 						</view>
 						<view class="h_text">
-							已选择1张
+							已选择{{temDetailImgPath.length}}张
 						</view>
 					</view>
-					<textarea :value="shopIntro" placeholder="请输入商品描述" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
+					<textarea v-model="shopIntro" placeholder="请输入商品描述" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
 				</view>
-				<upload></upload>
+				<upload :amount="6" @tempImgPaths="acceptTemDetailImgPath"  ></upload>
 			</view>
 			<view class="radio" @click="changeCheck">
 				<radio value="r1" :checked="isChecked" color="#FC5908" />
@@ -56,12 +63,22 @@
 
 <script setup>
 import { ref } from 'vue';
+import { uploadImage } from '../../utils';
 const shopIntro = ref('')
 const goodsName = ref('')
 const businessRange = ref('')
 const code = ref('')
 const address = ref('')
 
+const range = ref([
+    { value: "篮球", text: "篮球" },
+    { value: "足球", text: "足球" },
+    { value: "游泳", text: "游泳" },
+])
+const changeRange = (e)=>{
+	businessRange.value=e
+	console.log(e)
+}
 const toManagement = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_management'
@@ -77,6 +94,39 @@ const confirm = ()=>{
 		title: '请阅读完须知后勾选同意'
 	})
 }
+
+const temProductImgPaths=ref([])
+const acceptTempProductImgPath=async (ImgPaths)=>{
+	temProductImgPaths.value=ImgPaths
+}
+
+const temDetailImgPath=ref([])
+const acceptTemDetailImgPath=async (ImgPaths)=>{
+	temDetailImgPath.value=ImgPaths
+}
+
+
+const productListUrl=ref([])
+const upLoadProductImg=async ()=>{
+	for(let i=0;i<temProductImgPaths.value.length;i++){
+		//逐个向服务器传图片
+		const url=await uploadImage(temProductImgPaths.value[i])
+		//await uploadMerchantBanner(url)
+		productListUrl.value.push(url)
+	}
+}
+
+const detailListUrl=ref([])
+const upLoadDetailtImg=async ()=>{
+	for(let i=0;i<temDetailImgPath.value.length;i++){
+		//逐个向服务器传图片
+		const url=await uploadImage(temDetailImgPath.value[i])
+		//await uploadMerchantBanner(url)
+		detailListUrl.value.push(url)
+	}
+}
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -130,6 +180,26 @@ const confirm = ()=>{
 		}
 		.lo_pic {
 			width: 16rpx;
+		}
+		uni-data-select {
+			flex: 1;
+		}
+		:deep(.uni-select) {
+			padding: 0;
+			border: none;
+		}
+		:deep(.uni-select__input-box) {
+			height: fit-content;
+			justify-content: flex-start;
+		}
+		:deep(.uni-select__input-placeholder) {
+			font-size: 24rpx;
+			color: #999999;
+		}
+		:deep(.uni-select__input-text) {
+			width: fit-content;
+			font-size: 24rpx;
+			color: #999999;
 		}
 	}
 	

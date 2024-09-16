@@ -32,5 +32,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-c32e0b38"], ["__file", "D:/code/money_celestial/pages/recommend/merchant_code_authentication.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-c32e0b38"]]);
 wx.createPage(MiniProgramPage);

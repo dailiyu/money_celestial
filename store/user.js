@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia';
 import { postProfileLogin, getUerAccountMessage } from '../service/uer_profile';
 import loginVue from '../pages/login/login.vue';
-import { getMerchantInfo } from '../service/merchant';
+import { getMerchantInfo, getStoreInfo } from '../service/merchant';
 
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
       userInfo: {},
-      getMerchantInfo
+      merchantInfo:{},
+	  storeInfo:{}
     };
   },
   actions: {
@@ -17,14 +18,28 @@ export const useUserStore = defineStore('user', {
       // 保存 Token
       uni.setStorageSync('accessToken', access);
       uni.setStorageSync('refreshToken', refresh);
-
-      const res = await getUerAccountMessage();
-      const { id } = res.data;
-
-      uni.setStorageSync('userId', id);
     },
     async getUserInfoAction() {
-      // 在这里添加用户信息获取的逻辑
-    }
+	  const res = await getUerAccountMessage();
+	  console.log(res);
+	  const { id } = res||{}
+	  this.userInfo= res
+	  uni.setStorageSync('userId', id);
+    },
+	async getMerchantInfoAction(){
+		const res=await getMerchantInfo()
+		this.merchantInfo=res?.data||{}
+		 uni.setStorageSync('merchantId', res.data?.id);
+	},
+	async getStoreInfoAction(){
+			const res=await getStoreInfo()
+			this.storeInfo=res?.data||{}
+			uni.setStorageSync('storeId', res.data?.id);
+	},
+	async fetchAllDataAction(){
+		this.getUserInfoAction()
+		// this.getMerchantInfoAction()
+		// this.getStoreInfoAction()
+	}
   }
 });
