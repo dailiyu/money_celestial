@@ -1,7 +1,7 @@
 import  {http} from "./index"
 
 
-//获取推荐官心思
+//获取推荐官信息
 export  const getRecommendOfficerInfo=async ()=>{
-	return http.get('/recommended/officer/get/')
+	return http.get('/referral/officer/')
 }

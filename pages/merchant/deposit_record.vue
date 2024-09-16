@@ -18,7 +18,7 @@
 		
 		<uni-row v-for="(item, index) in recordList" :key="item.id">
 			<uni-col :span="3">
-				<view>1</view>
+				<view>{{index++}}</view>
 			</uni-col>
 			<uni-col :span="9">
 				<view>{{obscureString(item.user)}}</view>
@@ -49,14 +49,17 @@ const recordList = ref([])
 const status = ref('loading')
 const page = ref(1)
 const getRecordList = async ()=>{
+	const params = ref({
+		page: page.value
+	})
 	status.value = 'loading'
-	const {results, count} = await getDepositList({page: page.value})
+	const {results, count} = await getDepositList(params.value)
 	if (count == results.length) {
 		status.value = 'no-more'
 	} else {
 		status.value = 'more'
 	}
-	recordList.value = results
+	recordList.value = recordList.value.concat(results)
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {

@@ -69,28 +69,28 @@ export default {
 
     // 提交答案并检查是否答错
     const submitAnswers = () => {
-      incorrectQuestions.value = [];
-      currentQuestions.value.forEach((question, index) => {
-        if (selectedAnswers.value[index] !== question.correct_answer) {
-          incorrectQuestions.value.push(question);
-        }
-      });
-      isSubmitted.value = true;
-      if (incorrectQuestions.value.length > 0) {
-        // 有答错的题目
-        uni.showToast({
-          title: '有答错的题目，点击查看答案！',
-          icon: 'none'
-        });
-      } else {
-        uni.showToast({
-          title: '恭喜，全部正确！',
-          icon: 'success'
-        });
+      // incorrectQuestions.value = [];
+      // currentQuestions.value.forEach((question, index) => {
+      //   if (selectedAnswers.value[index] !== question.correct_answer) {
+      //     incorrectQuestions.value.push(question);
+      //   }
+      // });
+      // isSubmitted.value = true;
+      // if (incorrectQuestions.value.length > 0) {
+      //   // 有答错的题目
+      //   uni.showToast({
+      //     title: '有答错的题目，点击查看答案！',
+      //     icon: 'none'
+      //   });
+      // } else {
+      //   uni.showToast({
+      //     title: '恭喜，全部正确！',
+      //     icon: 'success'
+      //   });
 		uni.navigateTo({
 			url: '/pages/recommend/recommend_management'
 		})
-      }
+      // }
     };
 
     // 查看正确答案

@@ -6,7 +6,7 @@
 				我的保证金
 			</view>
 			<view class="number flex_center">
-				{{amount}}
+				{{amount||0}}
 			</view>
 			<view class="list_box">
 				<view class="list_item flex_between" @click="toRecord">
@@ -31,6 +31,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import {getDeposit} from '@/service/deposit.js'
+import { onShow } from '@dcloudio/uni-app'
 const toRecord = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/deposit_record'
@@ -47,9 +48,9 @@ const toRemove = ()=>{
 	})
 }
 const amount = ref('')
-onMounted(async()=>{
-	const {data} = await getDeposit()
-	amount.value = data.amount
+onShow(async()=>{
+	const {results} = await getDeposit()
+	amount.value = results[0].amount
 })
 </script>
 

@@ -41,17 +41,17 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getDepositBalance, removeDeposit } from '@/service/deposit.js'
+import { getDeposit, removeDeposit } from '@/service/deposit.js'
 
 
 
 onMounted(()=>{
-	getDeposit()
+	getDepositInfo()
 })
 const info = ref({})
-const getDeposit = async()=>{
-	const {data} = await getDepositBalance()
-	info.value = data
+const getDepositInfo = async()=>{
+	const {results} = await getDeposit()
+	info.value = results[0]
 }
 const address = ref('')
 const number = ref('')
@@ -88,7 +88,8 @@ const confirm = async()=>{
 	uni.showLoading({
 		title: '解除中'
 	})
-	await removeDeposit({phone_number:address.value, amount: number.value})
+	await removeDeposit({username:address.value, amount: number.value})
+	getDepositInfo()
 	uni.hideLoading()
 	uni.showToast({
 		icon: 'none',

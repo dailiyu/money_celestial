@@ -24,10 +24,10 @@
 				<view>{{obscureString(item.user)}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view>{{item.points_used}}</view>
+				<view>{{item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
+				<view>{{convertTime(item.transaction_date, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
 		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
@@ -46,14 +46,17 @@ const recordList = ref([])
 const status = ref('loading')
 const page = ref(1)
 const getRecordList = async()=>{
+	const params = ref({
+		page: page.value
+	})
 	status.value = 'loading'
-	const {results, count} = await getWithdrawRecord({page: page.value})
+	const {results, count} = await getWithdrawRecord(params.value)
 	if (count == results.length) {
 		status.value = 'no-more'
 	} else {
 		status.value = 'more'
 	}
-	recordList.value = results
+	recordList.value = recordList.value.push(...results)
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {
