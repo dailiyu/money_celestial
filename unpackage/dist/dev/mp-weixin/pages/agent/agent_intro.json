@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "代理",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar"
-  }
-}

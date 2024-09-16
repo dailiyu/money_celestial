@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "注册",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar",
-    "uni-easyinput": "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput"
-  }
-}

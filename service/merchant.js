@@ -70,11 +70,11 @@ export const uploadMerchantDetail=(url)=>{
 }
 
 
-export const postMerchantSettleIn=(icon,name,address,detail)=>{
-	return http.post('/merchant/stores/',{
-		icon,name,address,detail
-	})
-}
+// export const postMerchantSettleIn=(icon,name,address,detail)=>{
+// 	return http.post('/merchant/stores/',{
+// 		icon,name,address,detail
+// 	})
+// }
 
 export const postBindingStoreCategory=(store,category)=>{
 	return http.post('/merchant/stores/category/',{store,category})

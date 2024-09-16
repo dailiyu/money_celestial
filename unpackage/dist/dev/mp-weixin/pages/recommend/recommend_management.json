@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "推荐官后台",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar"
-  }
-}
