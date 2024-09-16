@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { postProfileLogin, getUerAccountMessage } from '../service/uer_profile';
 import loginVue from '../pages/login/login.vue';
-import { getMerchantInfo, getStoreInfo } from '../service/merchant';
+
+import { getShopInfo } from '../service/shop';
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -32,14 +33,15 @@ export const useUserStore = defineStore('user', {
 		 uni.setStorageSync('merchantId', res.data?.id);
 	},
 	async getStoreInfoAction(){
-			const res=await getStoreInfo()
-			this.storeInfo=res?.data||{}
-			uni.setStorageSync('storeId', res.data?.id);
+			const res=await getShopInfo()
+			this.storeInfo=res
+			console.log(res);
+			uni.setStorageSync('storeId', res.id);
 	},
 	async fetchAllDataAction(){
 		this.getUserInfoAction()
 		// this.getMerchantInfoAction()
-		// this.getStoreInfoAction()
+		 this.getStoreInfoAction()
 	}
   }
 });

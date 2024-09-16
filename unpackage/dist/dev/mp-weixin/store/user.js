@@ -2,7 +2,7 @@
 const common_vendor = require("../common/vendor.js");
 const service_uer_profile = require("../service/uer_profile.js");
 const common_assets = require("../common/assets.js");
-const service_merchant = require("../service/merchant.js");
+const service_shop = require("../service/shop.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
@@ -104,18 +104,19 @@ const useUserStore = common_vendor.defineStore("user", {
     },
     async getMerchantInfoAction() {
       var _a;
-      const res = await service_merchant.getMerchantInfo();
+      const res = await getMerchantInfo();
       this.merchantInfo = (res == null ? void 0 : res.data) || {};
       common_vendor.index.setStorageSync("merchantId", (_a = res.data) == null ? void 0 : _a.id);
     },
     async getStoreInfoAction() {
-      var _a;
-      const res = await service_merchant.getStoreInfo();
-      this.storeInfo = (res == null ? void 0 : res.data) || {};
-      common_vendor.index.setStorageSync("storeId", (_a = res.data) == null ? void 0 : _a.id);
+      const res = await service_shop.getShopInfo();
+      this.storeInfo = res;
+      console.log(res);
+      common_vendor.index.setStorageSync("storeId", res.id);
     },
     async fetchAllDataAction() {
       this.getUserInfoAction();
+      this.getStoreInfoAction();
     }
   }
 });

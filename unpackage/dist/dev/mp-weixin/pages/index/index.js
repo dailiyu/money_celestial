@@ -18,11 +18,11 @@ const _sfc_main = {
   setup(__props) {
     var QQMapWX = require("../../static/qqmap/qqmap-wx-jssdk.min.js");
     const keyword = common_vendor.ref("");
-    store_public.usePublicStore();
+    const publicStore = store_public.usePublicStore();
     const userStore = store_user.useUserStore();
     const city = common_vendor.ref("");
     common_vendor.onMounted(async () => {
-      await userStore.fetchAllDataAction();
+      await publicStore.fetchAllDataAction(), await userStore.fetchAllDataAction();
       common_vendor.index.getLocation({
         geocode: true,
         success(res) {

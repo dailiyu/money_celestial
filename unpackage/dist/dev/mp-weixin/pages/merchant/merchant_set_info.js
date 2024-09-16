@@ -1,9 +1,9 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
-const service_merchant = require("../../service/merchant.js");
 const store_user = require("../../store/user.js");
 const service_shop = require("../../service/shop.js");
+const service_divisions = require("../../service/divisions.js");
 const utils_index = require("../../utils/index.js");
 const store_public = require("../../store/public.js");
 if (!Array) {
@@ -66,19 +66,28 @@ const _sfc_main = {
       temDetailImgPaths.value = ImgPaths;
       console.log(temDetailImgPaths.value);
     };
-    common_vendor.ref([]);
+    const bannerListUrl = common_vendor.ref([]);
+    const upLoadBannerImg = async (shop) => {
+      for (let i = 0; i < temBannerImgPaths.value.length; i++) {
+        const url = await utils_index.uploadImage(temBannerImgPaths.value[i]);
+        await service_shop.uploadShopImg(url, "banner", shop);
+        bannerListUrl.value.push(url);
+      }
+    };
     const detailListUrl = common_vendor.ref([]);
+    const upLoadDetailImg = async (shop) => {
+      for (let i = 0; i < temDetailImgPaths.value.length; i++) {
+        const url = await utils_index.uploadImage(temDetailImgPaths.value[i]);
+        await service_shop.uploadShopImg(url, "avatar", shop);
+        detailListUrl.value.push(url);
+      }
+    };
     const profileUrl = common_vendor.ref("");
     const uploadProfileImg = async () => {
       console.log(temProfileImgPaths.value[0]);
       const url = await utils_index.uploadImage(temProfileImgPaths.value[0]);
+      console.log(url);
       profileUrl.value = url;
-    };
-    const bindingImgAndShop = async () => {
-      const detailListString = detailListUrl.join(",");
-      const bannerListString = detailListUrl.join(",");
-      await service_shop.uploadShopImg(detailListString, "detail");
-      await service_shop.uploadShopImg(bannerListString, "carousel");
     };
     const lat = common_vendor.ref("");
     const lon = common_vendor.ref("");
@@ -124,10 +133,15 @@ const _sfc_main = {
         common_vendor.index.showLoading({
           title: "正在入驻中..."
         });
+        const cityDetail = await service_divisions.getCitiesDetail();
+        const { location } = await common_vendor.index.getStorageSync("address_info");
         await uploadProfileImg();
-        await bindingImgAndShop();
-        const res = await service_merchant.postMerchantSettleIn(shopName.value, shopIntro.value, businessRange.value, profileUrl.value, address.value, lat.value, lon.value);
-        console.log(res);
+        console.log("-----");
+        console.log(shopName.value, shopIntro.value, [businessRange.value], profileUrl.value, address.value, location.lat, location.lng, cityDetail[0].id);
+        const res = await service_shop.postMerchantSettleIn(shopName.value, shopIntro.value, [businessRange.value], profileUrl.value, address.value, location.lat, location.lng, cityDetail[0].id);
+        console.log("-----!!!", res);
+        await upLoadDetailImg(res == null ? void 0 : res.id);
+        await upLoadBannerImg(res == null ? void 0 : res.id);
         common_vendor.index.hideLoading();
         common_vendor.index.showToast({
           title: "入驻成功",
@@ -140,6 +154,7 @@ const _sfc_main = {
           });
         }, 700);
       } catch (e) {
+        console.log(e);
         common_vendor.index.showToast({
           title: "出现错误",
           duration: 1e3,

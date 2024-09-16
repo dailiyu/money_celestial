@@ -1,1 +1,0 @@
-<view class="data-v-63c4abfc"><nav-bar wx:if="{{a}}" class="data-v-63c4abfc" u-i="63c4abfc-0" bind:__l="__l" u-p="{{a}}"></nav-bar><view class="content data-v-63c4abfc"><image src="{{b}}" mode="widthFix" class="merchant_intro data-v-63c4abfc"></image><view class="btn_full data-v-63c4abfc" bindtap="{{c}}"> 我要入驻 </view></view></view>
