@@ -188,7 +188,7 @@ const userStore = useUserStore()
 
 const city = ref('')
 onMounted(async()=>{
-	// await publicStore.fetchAllDataAction(),
+	 await publicStore.fetchAllDataAction(),
 	 await userStore.fetchAllDataAction()
 	uni.getLocation({
 		geocode: true,
@@ -204,6 +204,7 @@ onMounted(async()=>{
 				success(address){
 					const ad_info = address.result.ad_info
 					uni.setStorageSync('address_info', address.result.ad_info)
+				
 					city.value = ad_info.city
 				},
 				fail(err){

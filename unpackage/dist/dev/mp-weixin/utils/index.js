@@ -18,7 +18,7 @@ const uploadImage = async (filePath) => {
         "Content-Type": "multipart/form-data"
       },
       success: (uploadFileRes) => {
-        if (uploadFileRes.statusCode === 201) {
+        if (uploadFileRes.statusCode == 201) {
           const data = JSON.parse(uploadFileRes.data);
           console.log("上传成功！");
           console.log("上传的图片 URL:", data.image_url);

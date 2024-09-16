@@ -1,8 +1,9 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
-const service_merchant = require("../../service/merchant.js");
+const service_shop = require("../../service/shop.js");
 const store_user = require("../../store/user.js");
+const service_divisions = require("../../service/divisions.js");
 const utils_index = require("../../utils/index.js");
 const store_public = require("../../store/public.js");
 if (!Array) {
@@ -21,7 +22,7 @@ const _sfc_main = {
   __name: "merchant_edit_info",
   setup(__props) {
     const publicStore = store_public.usePublicStore();
-    const userStore = store_user.useUserStore();
+    store_user.useUserStore();
     const shopIntro = common_vendor.ref("");
     const shopName = common_vendor.ref("");
     const businessRange = common_vendor.ref("");
@@ -50,39 +51,17 @@ const _sfc_main = {
       businessRange.value = e;
       console.log(e);
     };
-    const acceptTempBannerImgPath = async (ImgPaths) => {
-      temBannerImgPaths.value = ImgPaths;
-      console.log(temBannerImgPaths.value);
-    };
     const acceptTempProfileImgPath = async (ImgPaths) => {
       temProfileImgPaths.value = ImgPaths;
       console.log("tem", temProfileImgPaths.value);
     };
-    const acceptTempDetailImgPath = async (ImgPaths) => {
-      temDetailImgPaths.value = ImgPaths;
-      console.log(temDetailImgPaths.value);
-    };
-    const bannerListUrl = common_vendor.ref([]);
-    const upLoadBannerImg = async () => {
-      for (let i = 0; i < temBannerImgPaths.value.length; i++) {
-        const url = await utils_index.uploadImage(temBannerImgPaths.value[i]);
-        await service_merchant.uploadMerchantBanner(url);
-        bannerListUrl.value.push(url);
-      }
-    };
-    const detailListUrl = common_vendor.ref([]);
-    const upLoadDetailImg = async () => {
-      for (let i = 0; i < temDetailImgPaths.value.length; i++) {
-        const url = await utils_index.uploadImage(temDetailImgPaths.value[i]);
-        await service_merchant.uploadMerchantDetail(url);
-        detailListUrl.value.push(url);
-      }
-    };
+    common_vendor.ref([]);
+    common_vendor.ref([]);
     const profileUrl = common_vendor.ref("");
     const uploadProfileImg = async () => {
       console.log(temProfileImgPaths.value[0]);
       const url = await utils_index.uploadImage(temProfileImgPaths.value[0]);
-      console.log("-------", url);
+      console.log(url);
       profileUrl.value = url;
     };
     const lat = common_vendor.ref("");
@@ -114,7 +93,7 @@ const _sfc_main = {
         temProfileImgPaths.value.length,
         temBannerImgPaths.value.length
       );
-      if (!shopName.value || !address.value || !shopIntro.value || temDetailImgPaths.value.length.length === 0 || temBannerImgPaths.value.length === 0 || temProfileImgPaths.value.length === 0) {
+      if (!shopName.value || !address.value || !shopIntro.value || temProfileImgPaths.value.length === 0) {
         return common_vendor.index.showToast({
           icon: "none",
           title: "请填入完整信息"
@@ -122,24 +101,28 @@ const _sfc_main = {
       }
       try {
         common_vendor.index.showLoading({
-          title: "正在保存中..."
+          title: "正在入驻中..."
         });
+        const cityDetail = await service_divisions.getCitiesDetail();
+        const { location } = await common_vendor.index.getStorageSync("address_info");
         await uploadProfileImg();
-        await upLoadBannerImg();
-        await upLoadDetailImg();
-        const res = await service_merchant.updataStoreInfo(profileUrl.value, shopName.value, address.value, shopIntro.value);
-        console.log(res);
+        console.log("-----");
+        console.log(shopName.value, shopIntro.value, [businessRange.value], profileUrl.value, address.value, location.lat, location.lng, cityDetail[0].id);
+        const res = await service_shop.updateShopInfo(shopName.value, shopIntro.value, [businessRange.value], profileUrl.value, address.value, location.lat, location.lng, cityDetail[0].id);
+        console.log("-----!!!", res);
         common_vendor.index.hideLoading();
         common_vendor.index.showToast({
-          title: "保存成功",
+          title: "入驻成功",
           duration: 600,
           icon: "success"
         });
-        await userStore.fetchAllDataAction();
         setTimeout(() => {
-          common_vendor.index.navigateBack();
+          common_vendor.index.navigateTo({
+            url: "/pages/merchant/merchant_management"
+          });
         }, 700);
       } catch (e) {
+        console.log(e);
         common_vendor.index.showToast({
           title: "出现错误",
           duration: 1e3,
@@ -156,35 +139,25 @@ const _sfc_main = {
         c: common_vendor.p({
           amount: 1
         }),
-        d: common_vendor.t(temBannerImgPaths.value.length),
-        e: common_vendor.o(acceptTempBannerImgPath),
-        f: common_vendor.p({
-          amount: "6"
-        }),
-        g: shopIntro.value,
-        h: common_vendor.o(($event) => shopIntro.value = $event.detail.value),
-        i: common_vendor.t(temDetailImgPaths.value.length),
-        j: common_vendor.o(acceptTempDetailImgPath),
-        k: common_vendor.p({
-          amount: 6
-        }),
-        l: shopName.value,
-        m: common_vendor.o(($event) => shopName.value = $event.detail.value),
-        n: common_vendor.o(changeRange),
-        o: common_vendor.o(($event) => businessRange.value = $event),
-        p: common_vendor.p({
+        d: shopIntro.value,
+        e: common_vendor.o(($event) => shopIntro.value = $event.detail.value),
+        f: shopName.value,
+        g: common_vendor.o(($event) => shopName.value = $event.detail.value),
+        h: common_vendor.o(changeRange),
+        i: common_vendor.o(($event) => businessRange.value = $event),
+        j: common_vendor.p({
           localdata: range.value,
           placeholder: "请选择",
           clear: false,
           modelValue: businessRange.value
         }),
-        q: code.value,
-        r: common_vendor.o(($event) => code.value = $event.detail.value),
-        s: address.value,
-        t: common_vendor.o(($event) => address.value = $event.detail.value),
-        v: common_assets._imports_2$2,
-        w: common_vendor.o(getLocation),
-        x: common_vendor.o(saveStoreInfo)
+        k: code.value,
+        l: common_vendor.o(($event) => code.value = $event.detail.value),
+        m: address.value,
+        n: common_vendor.o(($event) => address.value = $event.detail.value),
+        o: common_assets._imports_2$2,
+        p: common_vendor.o(getLocation),
+        q: common_vendor.o(saveStoreInfo)
       };
     };
   }

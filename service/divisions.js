@@ -30,9 +30,15 @@ export const getProvincesList=()=>{
 
 
 
-//获取城市列表
-export const getCitiesList=()=>{
-	return http.get('/divisions/provinces/')
+//根据城市名获取城市详情
+export const getCitiesDetail = async () => {
+    const { city } = await uni.getStorageSync('address_info');
+    console.log(city);
+    return http.post("/divisions/citys/wechat/",{
+		    filters: {
+		        name:city
+		    }
+	})
 }
 //获取区列表
 export const getAreasList=()=>{

@@ -13,7 +13,7 @@
 				</view>
 				<upload  :amount="1"  @tempImgPaths="acceptTempProfileImgPath"></upload>
 			</view>
-			<view class="head_box">
+		<!-- 	<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
 						商家轮播图（750*340）
@@ -23,7 +23,7 @@
 					</view>
 				</view>
 				<upload amount="6" @tempImgPaths="acceptTempBannerImgPath"></upload>
-			</view>
+			</view> -->
 			<view class="head_box">
 				<view class="shop_intro">
 					<view class="h_title" style="margin-bottom: 34rpx;">
@@ -31,7 +31,7 @@
 					</view>
 					<textarea   v-model="shopIntro" placeholder="请输入商家介绍" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
 				</view>
-				<view class="flex_between" style="margin-bottom: 54rpx;">
+		<!-- 		<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
 						商家详情图（750*340）
 					</view>
@@ -39,7 +39,7 @@
 						已选择{{temDetailImgPaths.length}}张
 					</view>
 				</view>
-				<upload :amount="6" @tempImgPaths="acceptTempDetailImgPath"></upload>
+				<upload :amount="6" @tempImgPaths="acceptTempDetailImgPath"></upload> -->
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -91,200 +91,230 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import { postBindingStoreCategory, updataStoreInfo, uploadMerchantBanner,uploadMerchantDetail } from '../../service/merchant';
-import { useUserStore } from '../../store/user';
-import { uploadImage } from '../../utils';
-import {usePublicStore} from "@/store/public.js"
-const publicStore=  usePublicStore()
-const userStore = useUserStore()
-const shopIntro = ref('')
-const shopName = ref('')
-const businessRange = ref('')
-const code = ref('')
-const temBannerImgPaths=ref([])
-const temProfileImgPaths=ref([])
-const temDetailImgPaths=ref([])
-// const range = ref([
-//     { value: "篮球", text: "篮球" },
-//     { value: "足球", text: "足球" },
-//     { value: "游泳", text: "游泳" },
-// ])
+	import {
+		computed,
+		ref
+	} from 'vue';
+import { updateShopInfo } from '../../service/shop';
 
-const range = computed(() => {
-  return publicStore.cateGoryList.map((item) => {
-	  console.log({
-      value: item.id, // value 为 id
-      text: item.name, // text 为 name
-    });
-    return {
-      value: item.id, // value 为 id
-      text: item.name, // text 为 name
-    };
-  });
-});
+	import {
+		postBindingStoreCategory,
+		
+		uploadMerchantBanner,
+		uploadMerchantDetail
+	} from '../../service/merchant';
+	import {
+		useUserStore
+	} from '../../store/user';
+	import {
+		postMerchantSettleIn,
+		uploadShopImg
+	} from '../../service/shop';
+	import {
+		getCitiesDetail
+	} from '../../service/divisions';
 
+	import {
+		uploadImage
+	} from '../../utils';
+	import {
+		usePublicStore
+	} from "@/store/public.js"
+	const publicStore = usePublicStore()
+	const userStore = useUserStore()
+	const shopIntro = ref('')
+	const shopName = ref('')
+	const businessRange = ref('')
+	const code = ref('')
+	const temBannerImgPaths = ref([])
+	const temProfileImgPaths = ref([])
+	const temDetailImgPaths = ref([])
+	// const range = ref([
+	//     { value: "篮球", text: "篮球" },
+	//     { value: "足球", text: "足球" },
+	//     { value: "游泳", text: "游泳" },
+	// ])
 
-
-const isChecked = ref(false)
-const changeCheck = ()=>{
-	isChecked.value = !isChecked.value
-}
-
-const changeRange = (e)=>{
-	businessRange.value=e
-	console.log(e)
-}
-
-
-const toSetInfo = ()=>{
-	if (!isChecked.value) return uni.showToast({
-		icon:'none',
-		title: '请阅读完须知后勾选同意'
-	})
-	uni.navigateTo({
-		url:'/pages/merchant/merchant_set_info'
-	})
-}
-const toManagement = ()=>{
-	uni.navigateTo({
-		url: '/pages/merchant/merchant_management'
-	})
-}
-
-const  acceptTempBannerImgPath=async (ImgPaths)=>{
-	temBannerImgPaths.value=ImgPaths
-	console.log(temBannerImgPaths.value);
-}
-
-const acceptTempProfileImgPath= async (ImgPaths)=>{
-	temProfileImgPaths.value=ImgPaths
-	console.log('tem',temProfileImgPaths.value);
-}
-
-const acceptTempDetailImgPath= async (ImgPaths)=>{
-	temDetailImgPaths.value=ImgPaths
-	console.log(temDetailImgPaths.value);
-}
+	const range = computed(() => {
+		return publicStore.cateGoryList.map((item) => {
+			console.log({
+				value: item.id, // value 为 id
+				text: item.name, // text 为 name
+			});
+			return {
+				value: item.id, // value 为 id
+				text: item.name, // text 为 name
+			};
+		});
+	});
 
 
-//上传商家轮播图
-const bannerListUrl=ref([])
-const upLoadBannerImg=async ()=>{
-	for(let i=0;i<temBannerImgPaths.value.length;i++){
-		//逐个向服务器传图片
-		const url=await uploadImage(temBannerImgPaths.value[i])
-		await uploadMerchantBanner(url)
-		bannerListUrl.value.push(url)
+
+	const isChecked = ref(false)
+	const changeCheck = () => {
+		isChecked.value = !isChecked.value
 	}
-}
 
-//上传详情图
-const detailListUrl=ref([])
-const upLoadDetailImg=async ()=>{
-	for(let i=0;i<temDetailImgPaths.value.length;i++){
-		//逐个向服务器传图片
-		const url=await uploadImage(temDetailImgPaths.value[i])
-		await uploadMerchantDetail(url)
-		detailListUrl.value.push(url)
+	const changeRange = (e) => {
+		businessRange.value = e
+		console.log(e)
 	}
-}
-
-//上传店铺头像
-const  profileUrl=ref('')
-const uploadProfileImg=async ()=>{
-	console.log(temProfileImgPaths.value[0]);
-	const url=await uploadImage(temProfileImgPaths.value[0])
-	console.log('-------',url);
-	profileUrl.value=url
-}
 
 
+	const toSetInfo = () => {
+		if (!isChecked.value) return uni.showToast({
+			icon: 'none',
+			title: '请阅读完须知后勾选同意'
+		})
+		uni.navigateTo({
+			url: '/pages/merchant/merchant_set_info'
+		})
+	}
+	const toManagement = () => {
+		uni.navigateTo({
+			url: '/pages/merchant/merchant_management'
+		})
+	}
 
-const lat = ref('')
-const lon = ref('')
-const address = ref('')
-const getLocation = ()=>{
-	uni.chooseLocation({
-		success(res) {
-			lat.value = res.latitude
-			lon.value = res.longitude
-			address.value = res.address+res.name
-			
+	const acceptTempBannerImgPath = async (ImgPaths) => {
+		temBannerImgPaths.value = ImgPaths
+		console.log(temBannerImgPaths.value);
+	}
+
+	const acceptTempProfileImgPath = async (ImgPaths) => {
+		temProfileImgPaths.value = ImgPaths
+		console.log('tem', temProfileImgPaths.value);
+	}
+
+	const acceptTempDetailImgPath = async (ImgPaths) => {
+		temDetailImgPaths.value = ImgPaths
+		console.log(temDetailImgPaths.value);
+	}
+
+
+	//上传商家轮播图
+	const bannerListUrl = ref([])
+	const upLoadBannerImg = async (shop) => {
+		for (let i = 0; i < temBannerImgPaths.value.length; i++) {
+			//逐个向服务器传图片
+			const url = await uploadImage(temBannerImgPaths.value[i])
+            await uploadShopImg(url, 'banner',shop)
+			bannerListUrl.value.push(url)
 		}
-	})
-}
-
-
-const saveStoreInfo=async ()=>{
-	
-	console.log( 
-	    !shopName.value , 
-	    !address.value , 
-	    !shopIntro.value , 
-	    temDetailImgPaths.value.length === 0 , 
-		temProfileImgPaths.value.length===0 ,
-	    temBannerImgPaths.value.length === 0)
-		console.log( 
-		    shopIntro.value , 
-		    shopName.value , 
-		    address.value , 
-		    temDetailImgPaths.value.length  , 
-			temProfileImgPaths.value.length,
-		   temBannerImgPaths.value.length  )
-	//检查是否有任意一个值为空
-	  if (
-	    !shopName.value || 
-	    !address.value || 
-	    !shopIntro.value || 
-	    temDetailImgPaths.value.length.length  === 0 || 
-	    temBannerImgPaths.value.length === 0||
-		temProfileImgPaths.value.length===0 
-	  ) {
-	    return uni.showToast({
-	      icon: 'none',
-	      title: '请填入完整信息',
-	    });
-	  }
-	try{
-		uni.showLoading({
-			title:"正在保存中...",
-		})
-		await uploadProfileImg()
-		await upLoadBannerImg()
-		await upLoadDetailImg()
-	   const res= await updataStoreInfo(profileUrl.value,shopName.value,address.value,shopIntro.value)
-		// console.log('----11',businessRange.value,userStore.merchantInfo.id);
-		console.log(res);
-		 // await postBindingStoreCategory(res.data.id,businessRange.value)
-		uni.hideLoading()
-		uni.showToast({
-			title:"保存成功",
-			duration:600,
-			icon:'success'
-		})
-		await userStore.fetchAllDataAction()
-		setTimeout(()=>{
-			uni.navigateBack()
-		},700)
-		
-		
-	}catch(e){
-		uni.showToast({
-			title:"出现错误",
-			duration:1000,
-			icon:'fail'
-		})
-		//TODO handle the exception
 	}
+
+	//上传详情图
+	const detailListUrl = ref([])
+	const upLoadDetailImg = async (shop) => {
+		for (let i = 0; i < temDetailImgPaths.value.length; i++) {
+			//逐个向服务器传图片
+			const url = await uploadImage(temDetailImgPaths.value[i])
+			await uploadShopImg(url, 'avatar',shop)
+			detailListUrl.value.push(url)
+		}
+	}
+
+	//上传店铺头像
+	const profileUrl = ref('')
+	const uploadProfileImg = async () => {
+		console.log(temProfileImgPaths.value[0]);
+		const url = await uploadImage(temProfileImgPaths.value[0])
+		console.log(url);
+		profileUrl.value = url
+	}
+
+
+
+
+
+	const lat = ref('')
+	const lon = ref('')
+	const address = ref('')
+	const getLocation = () => {
+		uni.chooseLocation({
+			success(res) {
+				lat.value = res.latitude
+				lon.value = res.longitude
+				address.value = res.address + res.name
+
+			}
+		})
+	}
+
+
+	const saveStoreInfo = async () => {
 	
+		console.log(
+			!shopName.value,
+			!address.value,
+			!shopIntro.value,
+			temDetailImgPaths.value.length === 0,
+			temProfileImgPaths.value.length === 0,
+			temBannerImgPaths.value.length === 0)
+		console.log(
+			shopIntro.value,
+			shopName.value,
+			address.value,
+			temDetailImgPaths.value.length,
+			temProfileImgPaths.value.length,
+			temBannerImgPaths.value.length)
+		//检查是否有任意一个值为空
+		if (
+			!shopName.value ||
+			!address.value ||
+			!shopIntro.value ||
+			
+			temProfileImgPaths.value.length === 0
+		) {
+			return uni.showToast({
+				icon: 'none',
+				title: '请填入完整信息',
+			});
+		}
+		try {
+			uni.showLoading({
+				title: "正在入驻中...",
+			})
+			 const cityDetail=await getCitiesDetail()
+			const {location}=await uni.getStorageSync('address_info')
+			await uploadProfileImg()
+			console.log('-----');
+			console.log(shopName.value,shopIntro.value,[businessRange.value],profileUrl.value,address.value,location.lat,location.lng,cityDetail[0].id);
+			 const res= await 	updateShopInfo(shopName.value,shopIntro.value,[businessRange.value],profileUrl.value,address.value,location.lat,location.lng,cityDetail[0].id )
+		console.log('-----!!!',res);
 		
-	
-}
+			// await upLoadDetailImg(res?.id)
+			// await upLoadBannerImg(res?.id)
+			// console.log('----11',businessRange.value,userStore.merchantInfo.id);
+			//console.log(res);
+			
+			uni.hideLoading()
+			uni.showToast({
+				title: "入驻成功",
+				duration: 600,
+				icon: 'success'
+			})
+			// await userStore.fetchAllDataAction()
+			setTimeout(() => {
+				uni.navigateTo({
+					url: '/pages/merchant/merchant_management'
+				})
+			}, 700)
+
+
+		} catch (e) {
+			console.log(e);
+			uni.showToast({
+				title: "出现错误",
+				duration: 1000,
+				icon: 'fail'
+			})
+			//TODO handle the exception
+		}
 
 
 
-
+	}
 </script>
 <style lang="scss" scoped>
 .head_box {

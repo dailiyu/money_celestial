@@ -44,7 +44,7 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "商家后台"
         }),
-        b: common_vendor.unref(userStore).storeInfo.icon,
+        b: common_vendor.unref(userStore).storeInfo.avatar,
         c: common_vendor.t(common_vendor.unref(userStore).storeInfo.name),
         d: common_assets._imports_0$3,
         e: common_assets._imports_0$4,

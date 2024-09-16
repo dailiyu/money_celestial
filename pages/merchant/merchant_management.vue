@@ -3,7 +3,7 @@
 		<navBar title="商家后台"></navBar>
 		<view class="content">
 			<view class="merchant_info flex">
-				<image :src="userStore.storeInfo.icon" mode="aspectFill" class="head"></image>
+				<image :src="userStore.storeInfo.avatar" mode="aspectFill" class="head"></image>
 				<view class="">
 					<view class="name flex">
 						<view class="">
