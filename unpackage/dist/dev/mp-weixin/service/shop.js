@@ -6,4 +6,8 @@ const uploadShopImg = (image_url, image_type) => {
     image_type
   });
 };
+const getShopCategories = async () => {
+  return service_index.http.get("/shops/categories/");
+};
+exports.getShopCategories = getShopCategories;
 exports.uploadShopImg = uploadShopImg;

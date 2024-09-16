@@ -37,8 +37,8 @@ const _sfc_main = {
           title: "推荐官后台"
         }),
         b: common_assets._imports_0$9,
-        c: common_assets._imports_1$3,
-        d: common_assets._imports_2$2,
+        c: common_assets._imports_1$2,
+        d: common_assets._imports_2$3,
         e: common_assets._imports_0$4,
         f: common_vendor.o(toMerchantList),
         g: common_assets._imports_0$4,
@@ -49,5 +49,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-6eb3b4f4"], ["__file", "D:/code/money_celestial/pages/recommend/recommend_management.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-6eb3b4f4"]]);
 wx.createPage(MiniProgramPage);

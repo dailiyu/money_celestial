@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-const service_category = require("../service/category.js");
 const service_merchant = require("../service/merchant.js");
+const service_shop = require("../service/shop.js");
 const usePublicStore = common_vendor.defineStore("public", {
   state: () => {
     return {
@@ -12,7 +12,7 @@ const usePublicStore = common_vendor.defineStore("public", {
   },
   actions: {
     async getCateGoryListAction() {
-      const res = await service_category.getCateGoryList();
+      const res = await service_shop.getShopCategories();
       console.log(res.results);
       this.cateGoryList = res.results;
     },
@@ -25,7 +25,7 @@ const usePublicStore = common_vendor.defineStore("public", {
       this.storeList = (res == null ? void 0 : res.results) || [];
     },
     async fetchAllDataAction() {
-      this.getCateGoryListAction(), this.getMerchantListAction(), this.getStoreListAction();
+      this.getCateGoryListAction();
     }
   }
 });

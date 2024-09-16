@@ -4,8 +4,8 @@ const service_index = require("./index.js");
 const getMerchantInfo = async () => {
   return service_index.http.get("/merchant/get/");
 };
-const getMerchantList = () => {
-  return service_index.http.get("/merchant/list/");
+const getMerchantList = (data) => {
+  return service_index.http.get("/shops/", data);
 };
 const uploadMerchantBanner = (url) => {
   return service_index.http.post("/merchant/stores/banner/", { url });
@@ -36,14 +36,6 @@ const updataStoreInfo = (icon, name, address, detail) => {
 const getStoreList = () => {
   return service_index.http.get("/merchant/stores/list/");
 };
-const getDeposit = (id) => {
-  return service_index.http.get(`/deposit/get/`);
-};
-const getDepositList = (id) => {
-  return service_index.http.get(`/deposit/records/`);
-};
-exports.getDeposit = getDeposit;
-exports.getDepositList = getDepositList;
 exports.getMerchantInfo = getMerchantInfo;
 exports.getMerchantList = getMerchantList;
 exports.getStoreInfo = getStoreInfo;

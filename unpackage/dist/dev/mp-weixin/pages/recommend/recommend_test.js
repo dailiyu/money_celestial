@@ -563,5 +563,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     j: common_vendor.o((...args) => $setup.resetQuiz && $setup.resetQuiz(...args))
   } : {});
 }
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-f9f250b0"], ["__file", "D:/code/money_celestial/pages/recommend/recommend_test.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-f9f250b0"]]);
 wx.createPage(MiniProgramPage);

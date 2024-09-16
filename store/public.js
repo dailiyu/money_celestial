@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
-import {getCateGoryList} from "../service/category"
+
 import { getMerchantList,getStoreList } from '../service/merchant';
+import { getShopCategories } from '../service/shop';
 
 
 
@@ -15,7 +16,7 @@ export const  usePublicStore = defineStore('public', {
 	},
 	actions: {
 		async getCateGoryListAction(){
-			const res=await getCateGoryList()
+			const res=await getShopCategories()
 			console.log(res.results);
 			this.cateGoryList=res.results
 		},
@@ -30,9 +31,8 @@ export const  usePublicStore = defineStore('public', {
 		},
 		
 		async fetchAllDataAction(){
-			this.getCateGoryListAction(),
-			this.getMerchantListAction(),
-			this.getStoreListAction()
+			this.getCateGoryListAction()
+			
 		}
 		
 	}

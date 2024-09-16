@@ -15,4 +15,13 @@ export const postMerchantSettleIn=(name,description,category_ids,avatar,address,
 }
 
 
+//获取商品分类列表
+export const getShopCategories=async ()=>{
+	return http.get('/shops/categories/')
+}
+
+
+
+
+
 
