@@ -1,0 +1,1 @@
+<view class="flex data-v-0917ae16"><block wx:if="{{a}}"><image wx:for="{{b}}" wx:for-item="image" wx:key="a" src="{{image.b}}" mode="widthFix" class="upload_btn data-v-0917ae16"></image></block><image wx:if="{{c}}" src="{{d}}" mode="widthFix" class="upload_btn data-v-0917ae16" bindtap="{{e}}"></image></view>
