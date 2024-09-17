@@ -46,6 +46,7 @@ const toRegister = ()=>{
 }
   
   const login=async()=>{	
+
 	  userStore.loginAction(moblie.value,password.value).then((res)=>{
 		 uni.showToast({
 		 	title:'登录成功',

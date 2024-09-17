@@ -122,7 +122,7 @@
 							热门榜
 						</view>
 					</view>
-					<view class="settle" @click="toSettle">
+					<view class="settle" @click="toSettle" v-if="!(userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0)" >
 						我要入驻
 					</view>
 				</view>
@@ -131,17 +131,17 @@
 						<image src="" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
 							<view class="shop_name">
-								商铺名称
+								{{publicStore.ascShopList[0]?.name}}
 							</view>
 							<view class="shop_address flex">
 								<image src="@/static/locate_orange.png" mode="widthFix" class="address_img"></image>
 								<view class="">
-									浙江省湖州市安吉县南昌路108号
+									{{publicStore.ascShopList[0]?.address}}
 								</view>
 							</view>
 						</view>
 						<view class="distance">
-							271.51km
+							{{publicStore.ascShopList[0]?.distance/1000}}km
 						</view>
 					</view>
 					<view class="more" @click="toAllMerchant">
