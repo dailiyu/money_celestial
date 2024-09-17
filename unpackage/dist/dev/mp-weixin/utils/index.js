@@ -4,18 +4,23 @@ const service_config = require("../service/config.js");
 const uploadImage = async (filePath) => {
   console.log(filePath);
   const token = common_vendor.index.getStorageSync("accessToken");
+  const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 1e4)}`;
   return new Promise((resolve, reject) => {
     common_vendor.index.uploadFile({
       url: service_config.uploadUrl,
       // 上传接口 URL
       filePath,
       // 需要上传的文件路径
-      name: "image",
+      name: "image_url",
       // 后台接收文件的字段名
       header: {
         "Authorization": `Bearer ${token}`,
         // JWT Token 添加到 Authorization 请求头
         "Content-Type": "multipart/form-data"
+      },
+      formData: {
+        "file_name": randomFileName
+        // 生成的随机文件名
       },
       success: (uploadFileRes) => {
         if (uploadFileRes.statusCode == 201) {

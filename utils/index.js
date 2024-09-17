@@ -5,17 +5,21 @@ import { uploadUrl } from "../service/config";
 export const uploadImage = async (filePath) => {
   console.log(filePath);
   const token = uni.getStorageSync('accessToken'); // 获取 token
-
+// 生成随机数作为文件名，可以结合当前时间戳确保唯一性
+  const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
   // 返回一个 Promise
   return new Promise((resolve, reject) => {
     uni.uploadFile({
       url: uploadUrl, // 上传接口 URL
       filePath: filePath, // 需要上传的文件路径
-      name: 'image', // 后台接收文件的字段名
+      name: 'image_url', // 后台接收文件的字段名
       header: {
         'Authorization': `Bearer ${token}`, // JWT Token 添加到 Authorization 请求头
         'Content-Type': 'multipart/form-data'
       },
+	  formData: {
+	    'file_name': randomFileName // 生成的随机文件名
+	  },
       success: (uploadFileRes) => {
         if (uploadFileRes.statusCode == 201) {
           const data = JSON.parse(uploadFileRes.data); // 解析返回的数据
