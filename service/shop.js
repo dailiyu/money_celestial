@@ -16,10 +16,9 @@ export const postMerchantSettleIn=(name,description,category_ids,avatar,address,
 	})
 }
 
-
-export const updateShopInfo=async ()=>{
-	const id=await uni.getStorageSync('storeId')
-	return http.put(`/shops/${id}/update/`,{
+//更新店铺信息
+export const updateShopInfo=async (name,description,category_ids,avatar,address,latitude,longitude,city)=>{
+	return http.put("/shops/update/",{
 		name,description,category_ids,avatar,address,latitude,longitude,city
 	})
 }
@@ -34,8 +33,14 @@ export const getShopCategories= ()=>{
 
 //获取店铺信息
 export const getShopInfo=()=>{
-	return http.get('/shops/retrieve/')
+	return http.get('/shops/mine/')
 }
+
+
+export const getShopList=()=>{
+	return http.get('/shops/')
+}
+
 
 
 

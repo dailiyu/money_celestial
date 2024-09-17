@@ -15,6 +15,7 @@ export const useUserStore = defineStore('user', {
   actions: {
     async loginAction(phone_number, password) {
       const results = await postProfileLogin(phone_number, password);
+	 
       const { access, refresh } = results;
       // 保存 Token
       uni.setStorageSync('accessToken', access);

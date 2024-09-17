@@ -1,5 +1,4 @@
 "use strict";
-const common_vendor = require("../common/vendor.js");
 const service_index = require("./index.js");
 const uploadShopImg = (image_url, image_type, shop) => {
   return service_index.http.post("/shops/images/create/", {
@@ -8,21 +7,20 @@ const uploadShopImg = (image_url, image_type, shop) => {
     shop
   });
 };
-const postMerchantSettleIn = (name2, description2, category_ids2, avatar2, address2, latitude2, longitude2, city2) => {
+const postMerchantSettleIn = (name, description, category_ids, avatar, address, latitude, longitude, city) => {
   return service_index.http.post("/shops/create/", {
-    name: name2,
-    description: description2,
-    category_ids: category_ids2,
-    avatar: avatar2,
-    address: address2,
-    latitude: latitude2,
-    longitude: longitude2,
-    city: city2
+    name,
+    description,
+    category_ids,
+    avatar,
+    address,
+    latitude,
+    longitude,
+    city
   });
 };
-const updateShopInfo = async () => {
-  const id = await common_vendor.index.getStorageSync("storeId");
-  return service_index.http.put(`/shops/${id}/update/`, {
+const updateShopInfo = async (name, description, category_ids, avatar, address, latitude, longitude, city) => {
+  return service_index.http.put("/shops/update/", {
     name,
     description,
     category_ids,
@@ -37,10 +35,14 @@ const getShopCategories = () => {
   return service_index.http.get("/shops/categories/");
 };
 const getShopInfo = () => {
-  return service_index.http.get("/shops/retrieve/");
+  return service_index.http.get("/shops/mine/");
+};
+const getShopList = () => {
+  return service_index.http.get("/shops/");
 };
 exports.getShopCategories = getShopCategories;
 exports.getShopInfo = getShopInfo;
+exports.getShopList = getShopList;
 exports.postMerchantSettleIn = postMerchantSettleIn;
 exports.updateShopInfo = updateShopInfo;
 exports.uploadShopImg = uploadShopImg;

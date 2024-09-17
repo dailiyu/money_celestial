@@ -22,7 +22,7 @@ const _sfc_main = {
   __name: "merchant_set_info",
   setup(__props) {
     const publicStore = store_public.usePublicStore();
-    store_user.useUserStore();
+    const userStore = store_user.useUserStore();
     const shopIntro = common_vendor.ref("");
     const shopName = common_vendor.ref("");
     const businessRange = common_vendor.ref("");
@@ -142,6 +142,7 @@ const _sfc_main = {
         console.log("-----!!!", res);
         await upLoadDetailImg(res == null ? void 0 : res.id);
         await upLoadBannerImg(res == null ? void 0 : res.id);
+        await userStore.fetchAllDataAction();
         common_vendor.index.hideLoading();
         common_vendor.index.showToast({
           title: "入驻成功",
@@ -197,7 +198,7 @@ const _sfc_main = {
         r: common_vendor.o(($event) => code.value = $event.detail.value),
         s: address.value,
         t: common_vendor.o(($event) => address.value = $event.detail.value),
-        v: common_assets._imports_2$2,
+        v: common_assets._imports_2$1,
         w: common_vendor.o(getLocation),
         x: isChecked.value,
         y: common_vendor.o(changeCheck),

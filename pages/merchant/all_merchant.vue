@@ -18,18 +18,18 @@
 				<view class="">
 					距离
 				</view>
-				<view class="" @click="distance='down'" v-if="distance=='up'">
+				<view class="" @click="distance='asc'" v-if="distance=='desc'">
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill"></image>
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill"></image>
 				</view>
-				<view class="" @click="distance='up'" v-if="distance=='down'">
+				<view class="" @click="distance='desc'" v-if="distance=='asc'">
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 				</view>
 			</view>
 		</view>
 		<view class="content">
-			<view class="settle_box flex_between">
+		<!-- 	<view class="settle_box flex_between">
 				<view class="c_text">
 					<text>
 						恭喜【<text class="company">佛山英朗电器有限公司</text>】成功入驻
@@ -38,24 +38,44 @@
 				<view class="s_text" @click="toSettle">
 					我要入驻
 				</view>
-			</view>
-			<shopList></shopList>
+			</view> -->
+			<shopList :sort='distance' :shopType="index==0?-1:range[index-1].value"></shopList>
 		</view>
 	</view>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import { getMerchantList } from '@/service/merchant.js'
+import { computed, ref } from 'vue';
+import {usePublicStore} from "@/store/public.js"
+const publicStore=  usePublicStore()
 
-onMounted(async()=>{
-	await getMerchantList()
-})
+const range = computed(() => {
+		return publicStore.cateGoryList.map((item) => {
+			console.log({
+				value: item.id, // value 为 id
+				text: item.name, // text 为 name
+			});
+			return {
+				value: item.id, // value 为 id
+				text: item.name, // text 为 name
+			};
+		});
+	});
+	
+	const categoryTextList = computed(() => {
+			return publicStore.cateGoryList.map((item) => {
+				return item.name
+			});
+		});
+	
+
+const index=ref(0)
 const getType = ()=>{
 	uni.showActionSheet({
-		itemList: ['美食', '服饰'],
+		itemList: ['全部',...categoryTextList.value],
 		success(res) {
-			console.log(res.tapIndex)
+			index.value=res.tapIndex
+			
 		}
 	})
 }
@@ -65,7 +85,12 @@ const toSettle = ()=>{
 	})
 }
 
-const distance = ref('up')
+const distance = ref('asc')
+
+
+
+
+
 </script>
 
 <style lang="scss" scoped>
