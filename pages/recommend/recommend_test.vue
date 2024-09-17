@@ -32,6 +32,10 @@
 <script>
 import { ref, onMounted } from 'vue';
 import questionsData from './question/index.json';
+import { createRecommendOfficer } from '@/service/recommend.js'
+import { getMerchantList } from '@/service/merchant.js'
+import { useUserStore } from '../../store/user'
+ const  userStore = useUserStore()
 
 export default {
   setup() {
@@ -68,29 +72,44 @@ export default {
     };
 
     // 提交答案并检查是否答错
-    const submitAnswers = () => {
-      // incorrectQuestions.value = [];
-      // currentQuestions.value.forEach((question, index) => {
-      //   if (selectedAnswers.value[index] !== question.correct_answer) {
-      //     incorrectQuestions.value.push(question);
-      //   }
-      // });
-      // isSubmitted.value = true;
-      // if (incorrectQuestions.value.length > 0) {
-      //   // 有答错的题目
-      //   uni.showToast({
-      //     title: '有答错的题目，点击查看答案！',
-      //     icon: 'none'
-      //   });
-      // } else {
-      //   uni.showToast({
-      //     title: '恭喜，全部正确！',
-      //     icon: 'success'
-      //   });
-		uni.navigateTo({
-			url: '/pages/recommend/recommend_management'
-		})
-      // }
+    const submitAnswers = async() => {
+      incorrectQuestions.value = [];
+      currentQuestions.value.forEach((question, index) => {
+        if (selectedAnswers.value[index] !== question.correct_answer) {
+          incorrectQuestions.value.push(question);
+        }
+      });
+      isSubmitted.value = true;
+      if (incorrectQuestions.value.length > 0) {
+        // 有答错的题目
+        uni.showToast({
+          title: '有答错的题目，点击查看答案！',
+          icon: 'none'
+        });
+      } else {
+        uni.showToast({
+          title: '恭喜，全部正确！',
+          icon: 'success'
+        });
+		
+		try{
+			uni.showLoading({
+				title: '提交中'
+			})
+			const username = userStore.userInfo.username
+			const {results} = await getMerchantList()
+			await createRecommendOfficer({shops:results, name:username})
+			uni.hideLoading()
+			uni.navigateTo({
+				url: '/pages/recommend/recommend_management'
+			})
+		}catch(e){
+			uni.showToast({
+				title: '出错啦',
+				icon: 'none'
+			})
+		}
+      }
     };
 
     // 查看正确答案
@@ -101,11 +120,13 @@ export default {
     // 重新生成5道题目并清空答案
     const resetQuiz = () => {
       initQuestions(); // 重新初始化题目
+	  
     };
 
     // 页面加载时初始化
     onMounted(() => {
       initQuestions();
+	  
     });
 
     return {

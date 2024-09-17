@@ -18,10 +18,10 @@ export const getDepositBalance=()=>{
 
 // 增加保证金
 export const addDeposit=(data)=>{
-	return http.post('/deposit/add/', data)
+	return http.post('/wallets/add/collateral/', data)
 }
 
 // 解除保证金
 export const removeDeposit=(data)=>{
-	return http.post('/deposit/remove/', data)
+	return http.post('/wallets/remove/collateral/', data)
 }

@@ -2,7 +2,7 @@
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const service_point = require("../../service/point.js");
-const utils_index = require("../../utils/index.js");
+const store_user = require("../../store/user.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -14,16 +14,15 @@ if (!Math) {
 const _sfc_main = {
   __name: "withdraw_point",
   setup(__props) {
+    const userStore = store_user.useUserStore();
     const number = common_vendor.ref("");
     const account = common_vendor.ref("");
     const pointBalance = common_vendor.ref("");
+    account.value = userStore.userInfo.username;
     common_vendor.onMounted(async () => {
       getPointInfo();
     });
     const getPointInfo = async () => {
-      const data = await service_point.getPointAccount();
-      account.value = utils_index.obscureString(data.user);
-      pointBalance.value = data.red_points;
     };
     const isChecked = common_vendor.ref(false);
     const changeCheck = () => {

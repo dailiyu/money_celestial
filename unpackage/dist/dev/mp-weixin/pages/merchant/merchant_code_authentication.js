@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const service_merchant = require("../../service/merchant.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -12,13 +13,21 @@ const _sfc_main = {
   __name: "merchant_code_authentication",
   setup(__props) {
     const address = common_vendor.ref("");
-    const isChecked = common_vendor.ref(false);
-    const confirm = () => {
-      if (!isChecked.value)
+    const confirm = async () => {
+      if (!address.value)
         return common_vendor.index.showToast({
           icon: "none",
-          title: "请阅读完须知后勾选同意"
+          title: "请输入商家码地址"
         });
+      common_vendor.index.showLoading({
+        title: "认证中"
+      });
+      await service_merchant.merchantCodeAuthentication({ username: address.value });
+      common_vendor.index.hideLoading();
+      common_vendor.index.showToast({
+        icon: "none",
+        title: "认证成功"
+      });
     };
     return (_ctx, _cache) => {
       return {

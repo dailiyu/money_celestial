@@ -50,7 +50,7 @@ const _sfc_main = {
       common_vendor.index.showLoading({
         title: "解除中"
       });
-      await service_deposit.removeDeposit({ username: address.value, amount: number.value });
+      await service_deposit.removeDeposit({ to_user: address.value, amount: number.value });
       getDepositInfo();
       common_vendor.index.hideLoading();
       common_vendor.index.showToast({

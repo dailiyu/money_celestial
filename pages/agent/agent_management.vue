@@ -6,7 +6,7 @@
 				<image src="@/static/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image>
 				<view class="data_item">
 					<view class="location">
-						<text class="city">广州市</text>
+						<text class="city">{{cityAgent}}</text>
 						<text>代理</text>
 					</view>
 					<view class="point_box flex">
@@ -23,7 +23,7 @@
 								商家数量
 							</view>
 							<view class="data_num">
-								753
+								{{merchantAmount}}
 							</view>
 						</view>
 						<view class="">
@@ -31,7 +31,7 @@
 								推荐官数量
 							</view>
 							<view class="data_num">
-								73
+								{{officerAmount}}
 							</view>
 						</view>
 					</view>
@@ -62,11 +62,18 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getAgentShopAmount, getRecommendOfficerAmount } from '@/service/agent.js'
 
-
+const merchantAmount = ref(0)
+const officerAmount = ref(0)
+const cityAgent = ref('')
 onMounted(async()=>{
-	
+	const {count, results} = await getAgentShopAmount()
+	merchantAmount.value = count
+	cityAgent.value = results[0].city
+	const result = await getRecommendOfficerAmount()
+	officerAmount.value = result.count
 })
 
 const toMerchantList = ()=>{

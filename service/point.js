@@ -1,9 +1,5 @@
 import  {http} from "./index"
 
-//获取积分账号、积分余额
-export  const getPointAccount=async (data={})=>{
-	return http.get('/points/account/', data)
-}
 
 //获取积分提取记录 
 export  const getWithdrawRecord=async (data={})=>{

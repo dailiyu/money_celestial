@@ -3,6 +3,6 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "nav-bar": "../../components/navBar/navBar",
-    "uni-load-more": "../../uni_modules/uni-load-more/components/uni-load-more/uni-load-more"
+    "uni-data-select": "../../uni_modules/uni-data-select/components/uni-data-select/uni-data-select"
   }
 }

@@ -24,17 +24,18 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getPointAccount, unbindPointAccount } from '@/service/point.js'
+import { unbindPointAccount } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
+import { useUserStore } from '../../store/user'
+const  userStore = useUserStore()
 
 
 const account = ref('')
 const id = ref('')
+// 积分账号
+account.value = userStore.userInfo.username
 onMounted(async ()=>{
-	// 积分账号
-	const {data} = await getPointAccount()
-	account.value = obscureString(data.account_number)
-	id.value = data.id
+	
 })
 
 const isChecked = ref(false)

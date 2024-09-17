@@ -5,9 +5,9 @@
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						商家码地址
+						积分账号
 					</view>
-					<input v-model="address" class="uni-input" placeholder="请输入商家码地址" placeholder-class="placeholder_class" />
+					<input v-model="address" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" />
 				</view>
 			</view>
 			<view class="btn_full" @click="confirm">
@@ -19,16 +19,22 @@
 
 <script setup>
 import { ref } from 'vue';
+import { merchantCodeAuthentication } from '@/service/merchant';
 const address = ref('')
 
-const isChecked = ref(false)
-const changeCheck = ()=>{
-	isChecked.value = !isChecked.value
-}
-const confirm = ()=>{
-	if (!isChecked.value) return uni.showToast({
+const confirm = async()=>{
+	if (!address.value) return uni.showToast({
 		icon:'none',
-		title: '请阅读完须知后勾选同意'
+		title: '请输入商家码地址'
+	})
+	uni.showLoading({
+		title: '认证中'
+	})
+	await merchantCodeAuthentication({username: address.value})
+	uni.hideLoading()
+	uni.showToast({
+		icon: 'none',
+		title: '认证成功'
 	})
 }
 </script>

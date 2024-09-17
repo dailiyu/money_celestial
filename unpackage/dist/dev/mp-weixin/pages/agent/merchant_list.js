@@ -2,51 +2,59 @@
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const service_agent = require("../../service/agent.js");
+const service_shop = require("../../service/shop.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
-  const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
-  (_easycom_navBar2 + _easycom_uni_load_more2)();
+  const _easycom_uni_data_select2 = common_vendor.resolveComponent("uni-data-select");
+  (_easycom_navBar2 + _easycom_uni_data_select2)();
 }
 const _easycom_navBar = () => "../../components/navBar/navBar.js";
-const _easycom_uni_load_more = () => "../../uni_modules/uni-load-more/components/uni-load-more/uni-load-more.js";
+const _easycom_uni_data_select = () => "../../uni_modules/uni-data-select/components/uni-data-select/uni-data-select.js";
 if (!Math) {
-  (_easycom_navBar + common_vendor.unref(shopList) + _easycom_uni_load_more)();
+  (_easycom_navBar + _easycom_uni_data_select + common_vendor.unref(shopList))();
 }
 const _sfc_main = {
   __name: "merchant_list",
   setup(__props) {
-    const getType = () => {
-      common_vendor.index.showActionSheet({
-        itemList: ["美食", "服饰"],
-        success(res) {
-          console.log(res.tapIndex);
-        }
-      });
-    };
+    const range = common_vendor.ref({});
     common_vendor.onMounted(async () => {
       getShopList();
+      const { results } = await service_shop.getShopCategories();
+      range.value = results.map((i) => {
+        return {
+          text: i.name,
+          value: i.id,
+          disable: false
+        };
+      });
     });
-    const page = common_vendor.ref(1);
-    const time = common_vendor.ref("");
+    const time = common_vendor.ref("created_at");
     const categoryId = common_vendor.ref("");
     const shopList2 = common_vendor.ref([]);
-    const status = common_vendor.ref("loading");
     const getShopList = async () => {
       const params = common_vendor.ref({
-        page: page.value,
-        time: time.value,
-        categoryId: categoryId.value
+        ordering: time.value
       });
-      status.value = "loading";
-      await service_agent.getAgentShopList(params.value);
+      if (categoryId.value) {
+        params.value.categories = categoryId.value;
+      }
+      common_vendor.index.showLoading({
+        title: "加载中"
+      });
+      const result = await service_agent.getAgentShopList(params.value);
+      common_vendor.index.hideLoading();
+      shopList2.value = result;
     };
     const filterTime = (i) => {
-      page.value = 1;
       time.value = i;
       shopList2.value = [];
       getShopList();
     };
-    const getMoreList = () => {
+    const category = common_vendor.ref("");
+    const changeRange = (e) => {
+      categoryId.value = e;
+      shopList2.value = [];
+      getShopList();
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
@@ -54,24 +62,26 @@ const _sfc_main = {
           title: "商家列表"
         }),
         b: common_assets._imports_0$10,
-        c: common_vendor.o(getType),
-        d: time.value == ""
-      }, time.value == "" ? {
-        e: common_assets._imports_1$3,
-        f: common_assets._imports_2$4,
-        g: common_vendor.o(($event) => filterTime("-"))
+        c: common_vendor.o(changeRange),
+        d: common_vendor.o(($event) => category.value = $event),
+        e: common_vendor.p({
+          localdata: range.value,
+          placeholder: "类目",
+          clear: false,
+          modelValue: category.value
+        }),
+        f: time.value == "created_at"
+      }, time.value == "created_at" ? {
+        g: common_assets._imports_1$3,
+        h: common_assets._imports_2$4,
+        i: common_vendor.o(($event) => filterTime("-created_at"))
       } : {}, {
-        h: time.value == "-"
-      }, time.value == "-" ? {
-        i: common_assets._imports_2$4,
-        j: common_assets._imports_1$3,
-        k: common_vendor.o(($event) => filterTime(""))
-      } : {}, {
-        l: common_vendor.o(getMoreList),
-        m: common_vendor.p({
-          status: status.value
-        })
-      });
+        j: time.value == "-created_at"
+      }, time.value == "-created_at" ? {
+        k: common_assets._imports_2$4,
+        l: common_assets._imports_1$3,
+        m: common_vendor.o(($event) => filterTime("created_at"))
+      } : {});
     };
   }
 };

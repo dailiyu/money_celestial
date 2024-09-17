@@ -1,8 +1,5 @@
 "use strict";
 const service_index = require("./index.js");
-const getPointAccount = async (data = {}) => {
-  return service_index.http.get("/points/account/", data);
-};
 const getWithdrawRecord = async (data = {}) => {
   return service_index.http.get("/points/transactions/", data);
 };
@@ -16,7 +13,6 @@ const withdrawPoint = async (data) => {
   return service_index.http.post("/points/add/red-point/", data);
 };
 exports.bindPointAccount = bindPointAccount;
-exports.getPointAccount = getPointAccount;
 exports.getWithdrawRecord = getWithdrawRecord;
 exports.unbindPointAccount = unbindPointAccount;
 exports.withdrawPoint = withdrawPoint;

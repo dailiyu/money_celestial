@@ -7,5 +7,9 @@ const getMerchantList = (data) => {
 const getStoreList = () => {
   return service_index.http.get("/merchant/stores/list/");
 };
+const merchantCodeAuthentication = (data) => {
+  return service_index.http.post("/users/merchant/code/verification/", data);
+};
 exports.getMerchantList = getMerchantList;
 exports.getStoreList = getStoreList;
+exports.merchantCodeAuthentication = merchantCodeAuthentication;

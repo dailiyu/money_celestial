@@ -2,21 +2,25 @@
 	<view>
 		<navBar title="商家列表"></navBar>
 		<view class="filter_list">
-			<view class="flex_center" @click="getType">
-				<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
-				<view>
-					类目
+			<view class="flex_center" style="flex: 1;">
+				<view class="" style="flex: 1;text-align: right;">
+					<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
 				</view>
+				<!-- <view>
+					类目
+				</view> -->
+				<uni-data-select v-model="category" :localdata="range" placeholder="类目" :clear="false"
+					@change="changeRange"></uni-data-select>
 			</view>
-			<view class="flex_center">
+			<view class="flex_center" style="flex: 1;">
 				<view class="">
 					入驻时间
 				</view>
-				<view class="" @click="filterTime('-')" v-if="time==''">
+				<view class="" @click="filterTime('-created_at')" v-if="time=='created_at'">
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill"></image>
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill"></image>
 				</view>
-				<view class="" @click="filterTime('')" v-if="time=='-'">
+				<view class="" @click="filterTime('created_at')" v-if="time=='-created_at'">
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 				</view>
@@ -25,21 +29,14 @@
 		<view class="content">
 			<shopList></shopList>
 		</view>
-		<uni-load-more :status="status" @clickLoadMor="getMoreList"></uni-load-more>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getAgentShopList } from '@/service/agent.js'
-const getType = ()=>{
-	uni.showActionSheet({
-		itemList: ['美食', '服饰'],
-		success(res) {
-			console.log(res.tapIndex)
-		}
-	})
-}
+import { getShopCategories } from '@/service/shop.js'
+
 const toSettle = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_intro'
@@ -47,43 +44,50 @@ const toSettle = ()=>{
 }
 
 
-
+const range = ref({})
 onMounted(async()=>{
 	getShopList()
+	// 类目
+	const {results} = await getShopCategories()
+	range.value = results.map(i=>{
+		return {
+			text: i.name,
+			value: i.id,
+			disable: false
+		}
+	})
+	
 	
 })
 
-const page = ref(1)
-const time = ref('')
+const time = ref('created_at')
 const categoryId = ref('')
 const shopList = ref([])
-const status = ref('loading')
 const getShopList = async()=>{
 	const params = ref({
-		page: page.value,
-		time: time.value,
-		categoryId: categoryId.value
+		ordering: time.value
 	})
-	status.value = 'loading'
-	await getAgentShopList(params.value)
-	// if () {
-	// 	status.value = 'more'
-	// } else {
-	// 	status.value = 'no-more'
-	// }
-	// shopList.value.push()
+	if (categoryId.value) {
+		params.value.categories = categoryId.value
+	} else {
+	} 
+	uni.showLoading({
+		title: '加载中'
+	})
+	const result = await getAgentShopList(params.value)
+	uni.hideLoading()
+	shopList.value = result
 }
 const filterTime = (i)=>{
-	page.value = 1
 	time.value = i
 	shopList.value = []
 	getShopList()
 }
-const getMoreList = ()=>{
-	// if () {
-	// 	page.value++
-	// 	getShopList()
-	// }
+const category = ref('')
+const changeRange = (e) => {
+	categoryId.value = e
+	shopList.value = []
+	getShopList()
 }
 </script>
 
@@ -107,6 +111,29 @@ const getMoreList = ()=>{
 		&:last-child {
 			margin-top: 6rpx;
 		}
+	}
+	uni-data-select {
+		flex: 1;
+	}
+	:deep(.uni-select) {
+		padding: 0;
+		border: none;
+	}
+	
+	:deep(.uni-select__input-box) {
+		height: fit-content;
+		justify-content: flex-start;
+	}
+	
+	:deep(.uni-select__input-placeholder) {
+		font-size: 30rpx;
+		color: #333;
+	}
+	
+	:deep(.uni-select__input-text) {
+		width: fit-content;
+		font-size: 30rpx;
+		color: #333;
 	}
 }
 
