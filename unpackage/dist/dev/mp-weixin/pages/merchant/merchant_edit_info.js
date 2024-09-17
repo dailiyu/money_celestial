@@ -22,7 +22,7 @@ const _sfc_main = {
   __name: "merchant_edit_info",
   setup(__props) {
     const publicStore = store_public.usePublicStore();
-    store_user.useUserStore();
+    const userStore = store_user.useUserStore();
     const shopIntro = common_vendor.ref("");
     const shopName = common_vendor.ref("");
     const businessRange = common_vendor.ref("");
@@ -101,7 +101,7 @@ const _sfc_main = {
       }
       try {
         common_vendor.index.showLoading({
-          title: "正在入驻中..."
+          title: "正在保存中..."
         });
         const cityDetail = await service_divisions.getCitiesDetail();
         const { location } = await common_vendor.index.getStorageSync("address_info");
@@ -112,14 +112,13 @@ const _sfc_main = {
         console.log("-----!!!", res);
         common_vendor.index.hideLoading();
         common_vendor.index.showToast({
-          title: "入驻成功",
+          title: "保存成功",
           duration: 600,
           icon: "success"
         });
+        await userStore.fetchAllDataAction();
         setTimeout(() => {
-          common_vendor.index.navigateTo({
-            url: "/pages/merchant/merchant_management"
-          });
+          common_vendor.index.navigateBack();
         }, 700);
       } catch (e) {
         console.log(e);
@@ -155,7 +154,7 @@ const _sfc_main = {
         l: common_vendor.o(($event) => code.value = $event.detail.value),
         m: address.value,
         n: common_vendor.o(($event) => address.value = $event.detail.value),
-        o: common_assets._imports_2$2,
+        o: common_assets._imports_2$1,
         p: common_vendor.o(getLocation),
         q: common_vendor.o(saveStoreInfo)
       };

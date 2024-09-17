@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 
-import { getMerchantList,getStoreList } from '../service/merchant';
-import { getShopCategories } from '../service/shop';
+
+import { getShopCategories, getShopList } from '../service/shop';
+import { sortShopsByDistance } from '../utils/distanceSorting';
 
 
 
@@ -11,7 +12,9 @@ export const  usePublicStore = defineStore('public', {
 		return {
 			cateGoryList:[],
 			merchantList:[],
-			storeList:[]
+			storeList:[],
+			ascShopList:[],
+			descShopList:[]
 		}
 	},
 	actions: {
@@ -26,13 +29,16 @@ export const  usePublicStore = defineStore('public', {
 			
 		},
 		async getStoreListAction(){
-			const res=await getStoreList()
+			const res=await getShopList()
+			const {location}=await uni.getStorageSync('address_info')
 			this.storeList=res?.results||[]
+			this.ascShopList=await sortShopsByDistance({latitude:location.lat,longitude:location.lng},this.storeList,'asc')
+			this.descShopList= await sortShopsByDistance({latitude:location.lat,longitude:location.lng},this.storeList,'desc')
 		},
 		
 		async fetchAllDataAction(){
 			this.getCateGoryListAction()
-			
+			this.getStoreListAction()
 		}
 		
 	}

@@ -288,7 +288,7 @@
 			await upLoadBannerImg(res?.id)
 			// console.log('----11',businessRange.value,userStore.merchantInfo.id);
 			//console.log(res);
-			
+			await userStore.fetchAllDataAction()
 			uni.hideLoading()
 			uni.showToast({
 				title: "入驻成功",

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="shop_list">
-			<view  v-if="publicStore.storeList.length!==0" class="shop_item flex" @click="toDetail"  v-for="(item,index) in publicStore.storeList">
+			<view  v-if="publicStore.storeList.length!==0" class="shop_item flex" @click="toDetail"  v-for="(item,index) in seletedShop">
 				<image src="" mode="aspectFill" class="shop_pic"></image>
 				<view class="" style="flex: 1;">
 					<view class="shop_name">
@@ -21,7 +21,7 @@
 					</view>
 				</view>
 				<view class="distance">
-					1.51km
+					{{item.distance/1000}}km
 				</view>
 			</view>
 		</view>
@@ -29,8 +29,53 @@
 </template>
 
 <script setup>
+import { computed, onMounted, ref, watch } from "vue";
+import { sortShopsByDistance } from "../../utils/distanceSorting";
 import {usePublicStore} from "@/store/public.js"
+const props = defineProps({
+  sort: {
+    type: String,
+    default: 'asc'
+  },
+  shopType:{
+	  type:Number,
+	  default:-1
+  }
+});
 const publicStore=  usePublicStore()
+
+
+onMounted(async()=>{
+	
+})
+
+
+
+const curShopList=computed(()=>{
+	if(props.sort=='desc'){
+		return publicStore.descShopList
+	}else{
+		return publicStore.ascShopList
+	}
+})
+
+
+const filterShopsByCategoryId=(shops, categoryId)=>{
+	 if (categoryId == -1) {
+	    return shops;
+	  }
+  return shops.filter(shop => {
+    // 检查每个商店的 categories 数组中是否有指定的 categoryId
+    return shop.categories.some(category => category.id ==  categoryId);
+  });
+}
+
+
+const seletedShop=computed(()=>{
+	return filterShopsByCategoryId(curShopList.value,props.shopType)
+})
+
+
 const toDetail = () => {
   uni.navigateTo({
     url: '/pages/merchant/merchant_detail'

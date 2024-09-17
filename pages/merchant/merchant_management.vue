@@ -49,12 +49,12 @@
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
-				<view class="list_item flex_between" @click="toUploadGoods">
+				<!-- <view class="list_item flex_between" @click="toUploadGoods">
 					<view class="">
 						上传产品
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
+				</view> -->
 				<!-- <view class="list_item flex_between">
 					<view class="">
 						编辑产品

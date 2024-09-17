@@ -30,7 +30,7 @@ const _sfc_main = {
         }),
         b: common_assets._imports_0$3,
         c: common_assets._imports_1$4,
-        d: common_assets._imports_2$2,
+        d: common_assets._imports_2$1,
         e: common_assets._imports_3$3,
         f: common_assets._imports_4$2,
         g: common_vendor.o(onClickItem),

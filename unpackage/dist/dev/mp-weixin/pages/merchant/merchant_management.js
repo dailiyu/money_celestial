@@ -34,11 +34,6 @@ const _sfc_main = {
         url: "/pages/merchant/security_deposit"
       });
     };
-    const toUploadGoods = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/merchant/upload_goods"
-      });
-    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
@@ -54,9 +49,7 @@ const _sfc_main = {
         i: common_assets._imports_0$4,
         j: common_vendor.o(toCode),
         k: common_assets._imports_0$4,
-        l: common_vendor.o(toSecurityDeposit),
-        m: common_assets._imports_0$4,
-        n: common_vendor.o(toUploadGoods)
+        l: common_vendor.o(toSecurityDeposit)
       };
     };
   }

@@ -97,7 +97,8 @@ const _sfc_main = {
       });
     };
     return (_ctx, _cache) => {
-      return {
+      var _a, _b, _c;
+      return common_vendor.e({
         a: common_vendor.p({
           iconShow: false,
           title: "满仓"
@@ -116,7 +117,7 @@ const _sfc_main = {
         }),
         g: common_assets._imports_1$1,
         h: common_vendor.o(toMerchant),
-        i: common_assets._imports_2$1,
+        i: common_assets._imports_2$2,
         j: common_vendor.o(toAgent),
         k: common_assets._imports_3$1,
         l: common_vendor.o(toRecommend),
@@ -132,14 +133,20 @@ const _sfc_main = {
         w: common_assets._imports_12,
         x: common_assets._imports_13,
         y: common_assets._imports_14,
-        z: common_vendor.o(toSettle),
-        A: common_assets._imports_2$2,
-        B: common_vendor.o(toDetail),
-        C: common_vendor.o(toAllMerchant),
-        D: common_assets._imports_16,
-        E: common_assets._imports_17,
-        F: common_assets._imports_18
-      };
+        z: !(common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0)
+      }, !(common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0) ? {
+        A: common_vendor.o(toSettle)
+      } : {}, {
+        B: common_vendor.t((_a = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _a.name),
+        C: common_assets._imports_2$1,
+        D: common_vendor.t((_b = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _b.address),
+        E: common_vendor.t(((_c = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _c.distance) / 1e3),
+        F: common_vendor.o(toDetail),
+        G: common_vendor.o(toAllMerchant),
+        H: common_assets._imports_16,
+        I: common_assets._imports_17,
+        J: common_assets._imports_18
+      });
     };
   }
 };

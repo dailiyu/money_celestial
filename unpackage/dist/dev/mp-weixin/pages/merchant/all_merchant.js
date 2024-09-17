@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
-const service_merchant = require("../../service/merchant.js");
+const store_public = require("../../store/public.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_shopList2 = common_vendor.resolveComponent("shopList");
@@ -15,23 +15,38 @@ if (!Math) {
 const _sfc_main = {
   __name: "all_merchant",
   setup(__props) {
-    common_vendor.onMounted(async () => {
-      await service_merchant.getMerchantList();
+    const publicStore = store_public.usePublicStore();
+    const range = common_vendor.computed(() => {
+      return publicStore.cateGoryList.map((item) => {
+        console.log({
+          value: item.id,
+          // value 为 id
+          text: item.name
+          // text 为 name
+        });
+        return {
+          value: item.id,
+          // value 为 id
+          text: item.name
+          // text 为 name
+        };
+      });
     });
+    const categoryTextList = common_vendor.computed(() => {
+      return publicStore.cateGoryList.map((item) => {
+        return item.name;
+      });
+    });
+    const index = common_vendor.ref(0);
     const getType = () => {
       common_vendor.index.showActionSheet({
-        itemList: ["美食", "服饰"],
+        itemList: ["全部", ...categoryTextList.value],
         success(res) {
-          console.log(res.tapIndex);
+          index.value = res.tapIndex;
         }
       });
     };
-    const toSettle = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/merchant/merchant_intro"
-      });
-    };
-    const distance = common_vendor.ref("up");
+    const distance = common_vendor.ref("asc");
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.p({
@@ -39,19 +54,22 @@ const _sfc_main = {
         }),
         b: common_assets._imports_0$10,
         c: common_vendor.o(getType),
-        d: distance.value == "up"
-      }, distance.value == "up" ? {
+        d: distance.value == "desc"
+      }, distance.value == "desc" ? {
         e: common_assets._imports_1$3,
         f: common_assets._imports_2$4,
-        g: common_vendor.o(($event) => distance.value = "down")
+        g: common_vendor.o(($event) => distance.value = "asc")
       } : {}, {
-        h: distance.value == "down"
-      }, distance.value == "down" ? {
+        h: distance.value == "asc"
+      }, distance.value == "asc" ? {
         i: common_assets._imports_2$4,
         j: common_assets._imports_1$3,
-        k: common_vendor.o(($event) => distance.value = "up")
+        k: common_vendor.o(($event) => distance.value = "desc")
       } : {}, {
-        l: common_vendor.o(toSettle)
+        l: common_vendor.p({
+          sort: distance.value,
+          shopType: index.value == 0 ? -1 : range.value[index.value - 1].value
+        })
       });
     };
   }

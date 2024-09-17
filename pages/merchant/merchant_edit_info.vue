@@ -273,14 +273,14 @@ import { updateShopInfo } from '../../service/shop';
 		}
 		try {
 			uni.showLoading({
-				title: "正在入驻中...",
+				title: "正在保存中...",
 			})
 			 const cityDetail=await getCitiesDetail()
 			const {location}=await uni.getStorageSync('address_info')
 			await uploadProfileImg()
 			console.log('-----');
 			console.log(shopName.value,shopIntro.value,[businessRange.value],profileUrl.value,address.value,location.lat,location.lng,cityDetail[0].id);
-			 const res= await 	updateShopInfo(shopName.value,shopIntro.value,[businessRange.value],profileUrl.value,address.value,location.lat,location.lng,cityDetail[0].id )
+			 const res= await updateShopInfo(shopName.value,shopIntro.value,[businessRange.value],profileUrl.value,address.value,location.lat,location.lng,cityDetail[0].id )
 		console.log('-----!!!',res);
 		
 			// await upLoadDetailImg(res?.id)
@@ -290,15 +290,13 @@ import { updateShopInfo } from '../../service/shop';
 			
 			uni.hideLoading()
 			uni.showToast({
-				title: "入驻成功",
+				title: "保存成功",
 				duration: 600,
 				icon: 'success'
 			})
-			// await userStore.fetchAllDataAction()
+			 await userStore.fetchAllDataAction()
 			setTimeout(() => {
-				uni.navigateTo({
-					url: '/pages/merchant/merchant_management'
-				})
+				uni.navigateBack()
 			}, 700)
 
 

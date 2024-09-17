@@ -39,7 +39,6 @@ export const changeUserInfo=async (name,icon,gander,birthdate,residence,email)=>
 }
 
 
-
 //登陆
 export  const postProfileLogin=async (username,password)=>{
 	return http.post('/users/login/',{
