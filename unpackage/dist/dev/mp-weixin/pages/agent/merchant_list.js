@@ -3,15 +3,18 @@ const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const service_agent = require("../../service/agent.js");
 const service_shop = require("../../service/shop.js");
+const utils_distanceSorting = require("../../utils/distanceSorting.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_data_select2 = common_vendor.resolveComponent("uni-data-select");
-  (_easycom_navBar2 + _easycom_uni_data_select2)();
+  const _easycom_publicShopList2 = common_vendor.resolveComponent("publicShopList");
+  (_easycom_navBar2 + _easycom_uni_data_select2 + _easycom_publicShopList2)();
 }
 const _easycom_navBar = () => "../../components/navBar/navBar.js";
 const _easycom_uni_data_select = () => "../../uni_modules/uni-data-select/components/uni-data-select/uni-data-select.js";
+const _easycom_publicShopList = () => "../../components/publicShopList/publicShopList.js";
 if (!Math) {
-  (_easycom_navBar + _easycom_uni_data_select + common_vendor.unref(shopList))();
+  (_easycom_navBar + _easycom_uni_data_select + _easycom_publicShopList)();
 }
 const _sfc_main = {
   __name: "merchant_list",
@@ -30,7 +33,8 @@ const _sfc_main = {
     });
     const time = common_vendor.ref("created_at");
     const categoryId = common_vendor.ref("");
-    const shopList2 = common_vendor.ref([]);
+    const shopList = common_vendor.ref([]);
+    const { location } = common_vendor.index.getStorageSync("address_info");
     const getShopList = async () => {
       const params = common_vendor.ref({
         ordering: time.value
@@ -41,19 +45,20 @@ const _sfc_main = {
       common_vendor.index.showLoading({
         title: "加载中"
       });
-      const result = await service_agent.getAgentShopList(params.value);
+      const { results } = await service_agent.getAgentShopList(params.value);
+      const locaList = results.map((shop) => ({ latitude: shop.latitude, longitude: shop.longitude }));
+      shopList.value = await utils_distanceSorting.calculateDistances({ latitude: location.lat, longitude: location.lng }, locaList);
       common_vendor.index.hideLoading();
-      shopList2.value = result;
     };
     const filterTime = (i) => {
       time.value = i;
-      shopList2.value = [];
+      shopList.value = [];
       getShopList();
     };
     const category = common_vendor.ref("");
     const changeRange = (e) => {
       categoryId.value = e;
-      shopList2.value = [];
+      shopList.value = [];
       getShopList();
     };
     return (_ctx, _cache) => {
@@ -61,7 +66,7 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "商家列表"
         }),
-        b: common_assets._imports_0$10,
+        b: common_assets._imports_0$4,
         c: common_vendor.o(changeRange),
         d: common_vendor.o(($event) => category.value = $event),
         e: common_vendor.p({
@@ -72,16 +77,20 @@ const _sfc_main = {
         }),
         f: time.value == "created_at"
       }, time.value == "created_at" ? {
-        g: common_assets._imports_1$3,
-        h: common_assets._imports_2$4,
+        g: common_assets._imports_1$2,
+        h: common_assets._imports_2$1,
         i: common_vendor.o(($event) => filterTime("-created_at"))
       } : {}, {
         j: time.value == "-created_at"
       }, time.value == "-created_at" ? {
-        k: common_assets._imports_2$4,
-        l: common_assets._imports_1$3,
+        k: common_assets._imports_2$1,
+        l: common_assets._imports_1$2,
         m: common_vendor.o(($event) => filterTime("created_at"))
-      } : {});
+      } : {}, {
+        n: common_vendor.p({
+          list: shopList.value
+        })
+      });
     };
   }
 };

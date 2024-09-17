@@ -32,7 +32,7 @@ const _sfc_main = {
           duration: 1e3
         });
         setTimeout(() => {
-          common_vendor.index.navigateTo({
+          common_vendor.index.reLaunch({
             url: "/pages/index/index"
           });
         }, 1e3);

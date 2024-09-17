@@ -77,7 +77,9 @@ import { changeUserInfo } from '../../service/uer_profile';
 import { uploadUrl } from '../../service/config';
 
 const skip = ()=>{
-	console.log(111)
+	uni.reLaunch({
+		url: '/pages/index/index'
+	})
 }
 
 const name=ref('')

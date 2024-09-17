@@ -14,12 +14,12 @@ const _sfc_main = {
   setup(__props) {
     const toWithdrawPoint = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/myAccount/withdraw_point"
+        url: "/pages/myAccount/green_point_withdraw"
       });
     };
     const toWithdrawRecord = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/myAccount/withdraw_record"
+        url: "/pages/myAccount/green_point_withdraw_record"
       });
     };
     return (_ctx, _cache) => {
@@ -27,9 +27,9 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "我的积分"
         }),
-        b: common_assets._imports_0$4,
+        b: common_assets._imports_0$3,
         c: common_vendor.o(toWithdrawPoint),
-        d: common_assets._imports_0$4,
+        d: common_assets._imports_0$3,
         e: common_vendor.o(toWithdrawRecord)
       };
     };

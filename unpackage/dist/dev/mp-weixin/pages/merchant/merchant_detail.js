@@ -28,11 +28,11 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "门店详情"
         }),
-        b: common_assets._imports_0$3,
-        c: common_assets._imports_1$4,
-        d: common_assets._imports_2$1,
-        e: common_assets._imports_3$3,
-        f: common_assets._imports_4$2,
+        b: common_assets._imports_0$2,
+        c: common_assets._imports_1$3,
+        d: common_assets._imports_1$1,
+        e: common_assets._imports_3$1,
+        f: common_assets._imports_4,
         g: common_vendor.o(onClickItem),
         h: common_vendor.p({
           current: current.value,

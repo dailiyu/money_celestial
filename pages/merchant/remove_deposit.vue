@@ -23,7 +23,7 @@
 						可解除余额
 					</view>
 					<view class="s_num">
-						{{info.amount||0}}
+						{{amount}}
 					</view>
 				</view>
 			</view>
@@ -41,17 +41,17 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getDeposit, removeDeposit } from '@/service/deposit.js'
-
+import { removeDeposit } from '@/service/deposit.js'
+import { getAllPoint } from '@/service/point';
 
 
 onMounted(()=>{
 	getDepositInfo()
 })
-const info = ref({})
+const amount = ref(0)
 const getDepositInfo = async()=>{
-	const {results} = await getDeposit()
-	info.value = results[0]
+	const {collateral} = await getAllPoint()
+	amount.value = collateral
 }
 const address = ref('')
 const number = ref('')

@@ -29,26 +29,28 @@ const _sfc_main = {
           icon: "none",
           title: "请阅读完须知后勾选同意"
         });
-      if (account.value)
-        return common_vendor.index.showToast({
-          icon: "none",
-          title: "已绑定积分账号，无法再绑定"
-        });
       if (!number.value)
         return common_vendor.index.showToast({
           icon: "none",
           title: "请输入绑定账号"
         });
-      common_vendor.index.showLoading({
-        title: "绑定中"
-      });
-      await service_point.bindPointAccount({ account_number: number.value });
-      account.value = number.value;
-      common_vendor.index.hideLoading();
-      common_vendor.index.showToast({
-        icon: "none",
-        title: "绑定成功"
-      });
+      try {
+        common_vendor.index.showLoading({
+          title: "绑定中"
+        });
+        await service_point.bindPointAccount({ points_account: number.value });
+        account.value = number.value;
+        common_vendor.index.hideLoading();
+        common_vendor.index.showToast({
+          icon: "none",
+          title: "绑定成功"
+        });
+      } catch (e) {
+        common_vendor.index.showToast({
+          icon: "none",
+          title: "绑定失败"
+        });
+      }
     };
     return (_ctx, _cache) => {
       return {

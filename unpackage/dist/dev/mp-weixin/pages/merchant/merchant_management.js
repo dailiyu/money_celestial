@@ -41,14 +41,14 @@ const _sfc_main = {
         }),
         b: common_vendor.unref(userStore).storeInfo.avatar,
         c: common_vendor.t(common_vendor.unref(userStore).storeInfo.name),
-        d: common_assets._imports_0$3,
-        e: common_assets._imports_0$4,
+        d: common_assets._imports_0$2,
+        e: common_assets._imports_0$3,
         f: common_vendor.o(toEdit),
-        g: common_assets._imports_0$4,
+        g: common_assets._imports_0$3,
         h: common_vendor.o(toPoinGift),
-        i: common_assets._imports_0$4,
+        i: common_assets._imports_0$3,
         j: common_vendor.o(toCode),
-        k: common_assets._imports_0$4,
+        k: common_assets._imports_0$3,
         l: common_vendor.o(toSecurityDeposit)
       };
     };

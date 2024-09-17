@@ -1,15 +1,15 @@
 <template>
 	<view>
-		<navBar title="保证金记录"></navBar>
+		<navBar title="提取记录"></navBar>
 		<uni-row class="title_row">
 			<uni-col :span="3">
 				<view class="title">序号</view>
 			</uni-col>
 			<uni-col :span="9">
-				<view class="title">地址</view>
+				<view class="title">提取地址</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view class="title">保证金</view>
+				<view class="title">提取数量</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view class="title">提取时间</view>
@@ -24,8 +24,7 @@
 				<view>{{item.from_user}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view style="color: #4cbe61;" v-if="item.static == 'add'">+{{item.amount}}</view>
-				<view style="color: #fd8c31;" v-if="item.static == 'remove'">-{{item.amount}}</view>
+				<view>{{item.amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
@@ -37,23 +36,22 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getRecords } from '@/service/deposit.js'
+import { getWithdrawRecord } from '@/service/point.js'
+import { getRecords } from '../../service/deposit';
 import { convertTime, obscureString } from '@/utils/index.js'
-
 
 onMounted(()=>{
 	getRecordList()
 })
-
 const recordList = ref([])
 const status = ref('loading')
 const page = ref(1)
-const getRecordList = async ()=>{
+const getRecordList = async()=>{
 	// const params = ref({
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {transactions, total_amount} = await getRecords({transaction_type: 'collateral'})
+	const {transactions, total_amount} = await getRecords({transaction_type:'green_point'})
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {

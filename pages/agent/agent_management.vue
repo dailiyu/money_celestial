@@ -3,7 +3,7 @@
 		<navBar title="代理后台" ></navBar>
 		<view class="content">
 			<view class="total_data">
-				<image src="@/static/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image>
+				<image src="https://max.q6z4kzhr.uk/media/category_icons/agent-bg.png" mode="widthFix" class="agent_pic"></image>
 				<view class="data_item">
 					<view class="location">
 						<text class="city">{{cityAgent}}</text>
@@ -14,7 +14,7 @@
 							获得积分
 						</view>
 						<view class="point_num">
-							15,328,872,819
+							{{agentPoint}}
 						</view>
 					</view>
 					<view class="flex">
@@ -64,17 +64,36 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getAgentShopAmount, getRecommendOfficerAmount } from '@/service/agent.js'
+import { getRecords } from '@/service/deposit';
+
+
+onMounted(()=>{
+	getShopAmount()
+	getOfficerAmount()
+	getAgentPoint()
+})
 
 const merchantAmount = ref(0)
-const officerAmount = ref(0)
 const cityAgent = ref('')
-onMounted(async()=>{
+
+const getShopAmount = async()=>{
 	const {count, results} = await getAgentShopAmount()
 	merchantAmount.value = count
 	cityAgent.value = results[0].city
+}
+
+const officerAmount = ref(0)
+const getOfficerAmount = async()=>{
 	const result = await getRecommendOfficerAmount()
 	officerAmount.value = result.count
-})
+}
+const agentPoint = ref(0)
+const getAgentPoint = async()=>{
+	const {total_amount} = await getRecords({transaction_type:'bonus'})
+	agentPoint.value = total_amount
+}
+
+
 
 const toMerchantList = ()=>{
 	uni.navigateTo({
@@ -125,6 +144,7 @@ const toSecurityDeposit = ()=>{
 			font-size: 21rpx;
 			font-weight: bold;
 			margin-bottom: 46rpx;
+			width: fit-content;
 			.point_text {
 				background-color: #AAAAAA;
 				color: #fff;

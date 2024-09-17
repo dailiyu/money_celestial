@@ -12,14 +12,9 @@ if (!Math) {
 const _sfc_main = {
   __name: "point_available",
   setup(__props) {
-    const toWithdrawPoint = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/myAccount/withdraw_point"
-      });
-    };
     const toWithdrawRecord = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/myAccount/withdraw_record"
+        url: "/pages/myAccount/red_point_withdraw_record"
       });
     };
     return (_ctx, _cache) => {
@@ -27,11 +22,8 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "可用积分"
         }),
-        b: common_assets._imports_0$4,
-        c: common_assets._imports_0$4,
-        d: common_vendor.o(toWithdrawPoint),
-        e: common_assets._imports_0$4,
-        f: common_vendor.o(toWithdrawRecord)
+        b: common_assets._imports_0$3,
+        c: common_vendor.o(toWithdrawRecord)
       };
     };
   }

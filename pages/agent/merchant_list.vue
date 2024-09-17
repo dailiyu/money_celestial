@@ -27,7 +27,7 @@
 			</view>
 		</view>
 		<view class="content">
-			<shopList></shopList>
+			<publicShopList :list="shopList"></publicShopList>
 		</view>
 	</view>
 </template>
@@ -36,6 +36,7 @@
 import { onMounted, ref } from 'vue';
 import { getAgentShopList } from '@/service/agent.js'
 import { getShopCategories } from '@/service/shop.js'
+import { calculateDistances } from "@/utils/distanceSorting.js"
 
 const toSettle = ()=>{
 	uni.navigateTo({
@@ -63,6 +64,7 @@ onMounted(async()=>{
 const time = ref('created_at')
 const categoryId = ref('')
 const shopList = ref([])
+const {location} = uni.getStorageSync('address_info')
 const getShopList = async()=>{
 	const params = ref({
 		ordering: time.value
@@ -74,9 +76,10 @@ const getShopList = async()=>{
 	uni.showLoading({
 		title: '加载中'
 	})
-	const result = await getAgentShopList(params.value)
+	const {results} = await getAgentShopList(params.value)
+	const locaList = results.map(shop => ({ latitude: shop.latitude, longitude: shop.longitude }))
+	shopList.value = await calculateDistances({latitude: location.lat, longitude: location.lng}, locaList)
 	uni.hideLoading()
-	shopList.value = result
 }
 const filterTime = (i)=>{
 	time.value = i

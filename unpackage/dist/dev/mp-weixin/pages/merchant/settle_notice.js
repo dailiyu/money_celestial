@@ -11,6 +11,10 @@ if (!Math) {
 const _sfc_main = {
   __name: "settle_notice",
   setup(__props) {
+    const referral_officer = common_vendor.ref("");
+    common_vendor.onLoad((options) => {
+      referral_officer.value = options.referral_officer;
+    });
     const isChecked = common_vendor.ref(false);
     const changeCheck = () => {
       isChecked.value = !isChecked.value;
@@ -22,7 +26,7 @@ const _sfc_main = {
           title: "请阅读完须知后勾选同意"
         });
       common_vendor.index.navigateTo({
-        url: "/pages/merchant/merchant_set_info"
+        url: "/pages/merchant/merchant_set_info?referral_officer=" + referral_officer
       });
     };
     return (_ctx, _cache) => {

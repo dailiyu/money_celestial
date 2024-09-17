@@ -2,35 +2,35 @@
 	<view>
 		<navBar title="推荐官后台" ></navBar>
 		<view class="total_data">
-			<image src="@/static/recommend/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
+			<image src="https://max.q6z4kzhr.uk/media/category_icons/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
 			<view class="data_item">
-				<image src="@/static/recommend/lv1.png" mode="widthFix" class="lv_pic"></image>
+				<image src="https://max.q6z4kzhr.uk/media/category_icons/lv1.png" mode="widthFix" class="lv_pic"></image>
 				<view class="lv_name">
 					荣耀推荐官
 				</view>
 				<view class="flex_center">
 					<view class="name">
-						满小仓2323
+						{{info?.results&&info?.results[0]?.owner?.username}}
 					</view>
-					<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic"></image>
+					<image src="https://max.q6z4kzhr.uk/media/category_icons/code.png" mode="widthFix" class="code_pic" @click="getQRCode"></image>
 				</view>
-				<view class="total_item flex_between">
+				<view class="total_item flex_center">
 					<view class="">
 						<view class="total_text">
 							已推荐商家数
 						</view>
 						<view class="total_num">
-							53
+							{{info.count||0}}
 						</view>
 					</view>
-					<view class="">
+					<!-- <view class="">
 						<view class="total_text">
 							已获得积分
 						</view>
 						<view class="total_num">
 							15,328,872,819
 						</view>
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</view>
@@ -57,15 +57,18 @@
 				</view>
 			</view>
 		</view>
+		
+		<canvas style="width: 200px; height: 200px;" canvas-id="myQrcode"></canvas>
 	</view>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import { getRecommendOfficerInfo } from '@/service/recommend.js'
-
+import { onMounted, ref } from 'vue';
+import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
+const info = ref({})
 onMounted(async()=>{
-	await getRecommendOfficerInfo()
+	info.value = await getRecommendOfficerInfo()
+	// getMPQRCode()
 })
 
 const toMerchantList = ()=>{
@@ -87,6 +90,17 @@ const toSecurityDeposit = ()=>{
 	// })
 	uni.navigateTo({
 		url: '/pages/merchant/security_deposit'
+	})
+}
+const qrcode = ref('')
+const getQRCode = async()=>{
+	if (!qrcode.value) {
+		const {image_url} = await getOfficerQRCode({path: '/pages/merchant/settle_notice'})
+		qrcode.value = image_url
+	}
+	uni.previewImage({
+		urls: [qrcode.value],
+		current: qrcode.value
 	})
 }
 </script>
@@ -134,6 +148,7 @@ const toSecurityDeposit = ()=>{
 			padding-top: 40rpx;
 			margin-top: 40rpx;
 			border-top: 1px solid #970606;
+			text-align: center;
 			.total_text {
 				font-size: 24rpx;
 				color: #FFFFFF;

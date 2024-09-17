@@ -2,8 +2,8 @@
 	<view>
 		<navBar title="代理" ></navBar>
 		<view class="content">
-			<image src="@/static/agent-intro.jpg" mode="widthFix" class="merchant_intro"></image>
-			<view class="btn_full" @click="toNext">
+			<image src="https://max.q6z4kzhr.uk/media/category_icons/agent-intro.jpg" mode="widthFix" class="merchant_intro"></image>
+			<view class="btn_full">
 				联系满仓
 			</view>
 		</view>
@@ -11,11 +11,7 @@
 </template>
 
 <script setup>
-const toNext = ()=>{
-	uni.navigateTo({
-		url: '/pages/agent/agent_management'
-	})
-}
+
 </script>
 
 <style lang="scss" scoped>

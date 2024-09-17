@@ -1,22 +1,47 @@
 <template>
 	<view>
-		<navBar title="解除绑定"></navBar>
+		<navBar title="提取积分"></navBar>
 		<view class="content">
 			<view class="a_title flex_between">
 				<view class="">
-					已绑定的积分账号
+					积分账号
 				</view>
+				<image src="@/static/account.png" mode="widthFix" class="a_pic"></image>
 			</view>
 			<view class="account_box">
 				{{account}}
 			</view>
+			<view class="shop_info">
+				<view class="info_item flex_between">
+					<view class="s_title">
+						提取数量
+					</view>
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" />
+				</view>
+				<view class="info_item flex">
+					<view class="s_text">
+						积分余额
+					</view>
+					<view class="s_num">
+						{{pointBalance||0}}
+					</view>
+				</view>
+				<view class="info_item flex">
+					<view class="s_text">
+						到账数量
+					</view>
+					<view class="s_num" style="color: #999999;">
+						{{number||0}}
+					</view>
+				</view>
+			</view>
 			<view class="radio" @click="changeCheck">
 				<radio value="r1" :checked="isChecked" color="#FC5908" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《解除绑定须知》</text>
+				<text class="c_title">《提取须知》</text>
 			</view>
 			<view class="btn_full" @click="confirm">
-				解除绑定
+				提取
 			</view>
 		</view>
 	</view>
@@ -24,50 +49,55 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { unbindPointAccount } from '@/service/point.js'
+import { getPointBindedAccount, withdrawPoint } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
-import { useUserStore } from '../../store/user'
-const  userStore = useUserStore()
 
+const number = ref('')
 
 const account = ref('')
-const id = ref('')
-// 积分账号
-account.value = userStore.userInfo.username
+const pointBalance = ref('')
 onMounted(async ()=>{
 	
+	getPointInfo()
+	
 })
-
+const getPointInfo = async()=>{
+	const {points_account, red_points} = await getPointBindedAccount()
+	account.value = points_account
+	// 可用积分
+	pointBalance.value = red_points
+}
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = async ()=>{
+const confirm = async()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
 	if (!account.value) return uni.showToast({
 		icon:'none',
-		title: '未绑定积分账号，请先绑定'
+		title: '请先绑定积分账号'
 	})
-	try{
-		uni.showLoading({
-			title: '解绑中'
-		})
-		await unbindPointAccount({confirm:true})
-		uni.hideLoading()
-		uni.showToast({
-			icon: 'none',
-			title: '解绑成功'
-		})
-		account.value = ''
-	}catch(e){
-		uni.showToast({
-			icon: 'none',
-			title: '解绑失败'
-		})
-	}
+	if (!number.value) return uni.showToast({
+		icon: 'none',
+		title: '请输入提取数量'
+	})
+	if (number.value > pointBalance.value) return uni.showToast({
+		icon: 'none',
+		title: '积分余额不足'
+	})
+	uni.showLoading({
+		title: '提取中'
+	})
+	await withdrawPoint({amount:number.value, to_user:account.value})
+	getPointInfo()
+	uni.hideLoading()
+	uni.showToast({
+		icon: 'none',
+		title: '提取成功'
+	})
 }
 </script>
 
@@ -77,6 +107,7 @@ const confirm = async ()=>{
 	padding: 22rpx 35rpx;
 	.a_pic {
 		width: 32rpx;
+		height: 1rpx;
 		display: block;
 	}
 }
@@ -87,7 +118,6 @@ const confirm = async ()=>{
 	background-color: #fff;
 	margin-bottom: 30rpx;
 	text-align: center;
-	background-color: #EAEAEA;
 }
 .shop_info {
 	padding: 0 26rpx;

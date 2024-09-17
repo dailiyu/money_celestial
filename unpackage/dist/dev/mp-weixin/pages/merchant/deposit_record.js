@@ -26,17 +26,10 @@ const _sfc_main = {
     const status = common_vendor.ref("loading");
     const page = common_vendor.ref(1);
     const getRecordList = async () => {
-      const params = common_vendor.ref({
-        page: page.value
-      });
       status.value = "loading";
-      const { results, count } = await service_deposit.getDepositList(params.value);
-      if (count == results.length) {
-        status.value = "no-more";
-      } else {
-        status.value = "more";
-      }
-      recordList.value = recordList.value.concat(results);
+      const { transactions, total_amount } = await service_deposit.getRecords({ transaction_type: "collateral" });
+      status.value = "no-more";
+      recordList.value.push(...transactions);
     };
     const loadMore = () => {
       if (status.value == "more") {
@@ -63,16 +56,16 @@ const _sfc_main = {
         }),
         f: common_vendor.f(recordList.value, (item, index, i0) => {
           return common_vendor.e({
-            a: common_vendor.t(index++),
+            a: common_vendor.t(index + 1),
             b: "d6fe0577-7-" + i0 + "," + ("d6fe0577-6-" + i0),
-            c: common_vendor.t(common_vendor.unref(utils_index.obscureString)(item.user)),
+            c: common_vendor.t(item.from_user),
             d: "d6fe0577-8-" + i0 + "," + ("d6fe0577-6-" + i0),
-            e: item.transaction_type == "增加"
-          }, item.transaction_type == "增加" ? {
+            e: item.static == "add"
+          }, item.static == "add" ? {
             f: common_vendor.t(item.amount)
           } : {}, {
-            g: item.transaction_type == "减少"
-          }, item.transaction_type == "减少" ? {
+            g: item.static == "remove"
+          }, item.static == "remove" ? {
             h: common_vendor.t(item.amount)
           } : {}, {
             i: "d6fe0577-9-" + i0 + "," + ("d6fe0577-6-" + i0),

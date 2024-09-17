@@ -233,22 +233,6 @@
 			}
 		},
 		{
-			"path" : "pages/myAccount/withdraw_point",
-			"style" : 
-			{
-				"navigationBarTitleText" : "提取积分",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path" : "pages/myAccount/withdraw_record",
-			"style" : 
-			{
-				"navigationBarTitleText" : "提取记录",
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path" : "pages/myAccount/point_available",
 			"style" : 
 			{
@@ -351,6 +335,38 @@
 				"navigationBarTitleText" : "推荐官考试",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/myAccount/red_point_withdraw",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取积分",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/red_point_withdraw_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取记录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/green_point_withdraw",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取积分",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/green_point_withdraw_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取记录",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {
@@ -359,5 +375,6 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {}
+	"uniIdRouter": {},
+	"lazyCodeLoading": "requiredComponents"
 }

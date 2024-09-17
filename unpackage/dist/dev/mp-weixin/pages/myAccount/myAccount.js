@@ -39,24 +39,15 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "我的账户"
         }),
-        b: common_assets._imports_0$11,
-        c: common_vendor.unref(userStore).userInfo.icon,
-        d: common_vendor.t(common_vendor.unref(userStore).userInfo.name),
-        e: common_vendor.o(toLogin),
-        f: common_vendor.o(toMyPoint),
-        g: common_vendor.o(toPointAvailable),
-        h: common_vendor.o(toPointAccount),
-        i: common_assets._imports_0$3,
-        j: common_assets._imports_2$5,
-        k: common_assets._imports_3$2,
-        l: common_assets._imports_4$1,
-        m: common_assets._imports_0$3,
-        n: common_assets._imports_5$1,
-        o: common_assets._imports_6$1,
-        p: common_assets._imports_7$1,
-        q: common_assets._imports_0$3,
-        r: common_assets._imports_8$1,
-        s: common_assets._imports_9$1
+        b: common_vendor.unref(userStore).userInfo.icon,
+        c: common_vendor.t(common_vendor.unref(userStore).userInfo.name),
+        d: common_vendor.o(toLogin),
+        e: common_vendor.o(toMyPoint),
+        f: common_vendor.o(toPointAvailable),
+        g: common_vendor.o(toPointAccount),
+        h: common_assets._imports_0$2,
+        i: common_assets._imports_0$2,
+        j: common_assets._imports_0$2
       };
     };
   }

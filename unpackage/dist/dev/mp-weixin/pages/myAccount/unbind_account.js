@@ -15,7 +15,7 @@ const _sfc_main = {
   setup(__props) {
     const userStore = store_user.useUserStore();
     const account = common_vendor.ref("");
-    const id = common_vendor.ref("");
+    common_vendor.ref("");
     account.value = userStore.userInfo.username;
     common_vendor.onMounted(async () => {
     });
@@ -34,16 +34,23 @@ const _sfc_main = {
           icon: "none",
           title: "未绑定积分账号，请先绑定"
         });
-      common_vendor.index.showLoading({
-        title: "解绑中"
-      });
-      await service_point.unbindPointAccount(id.value);
-      common_vendor.index.hideLoading();
-      common_vendor.index.showToast({
-        icon: "none",
-        title: "解绑成功"
-      });
-      account.value = "";
+      try {
+        common_vendor.index.showLoading({
+          title: "解绑中"
+        });
+        await service_point.unbindPointAccount({ confirm: true });
+        common_vendor.index.hideLoading();
+        common_vendor.index.showToast({
+          icon: "none",
+          title: "解绑成功"
+        });
+        account.value = "";
+      } catch (e) {
+        common_vendor.index.showToast({
+          icon: "none",
+          title: "解绑失败"
+        });
+      }
     };
     return (_ctx, _cache) => {
       return {

@@ -117,6 +117,11 @@
 	import {
 		usePublicStore
 	} from "@/store/public.js"
+	import { onLoad } from '@dcloudio/uni-app'
+	const referral_officer = ref('')
+	onLoad((options)=>{
+		referral_officer.value = options.referral_officer
+	})
 	const publicStore = usePublicStore()
 	const userStore = useUserStore()
 	const shopIntro = ref('')

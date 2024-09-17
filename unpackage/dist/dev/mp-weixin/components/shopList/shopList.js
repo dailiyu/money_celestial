@@ -48,14 +48,20 @@ const _sfc_main = {
       }, common_vendor.unref(publicStore).storeList.length !== 0 ? {
         b: common_vendor.f(seletedShop.value, (item, index, i0) => {
           return {
-            a: common_vendor.t(item.name),
-            b: item.icon,
-            c: common_vendor.t(item.address),
-            d: common_vendor.t(item.distance / 1e3)
+            a: item.avatar,
+            b: common_vendor.t(item.name),
+            c: common_vendor.f(5, (star, i, i1) => {
+              return {
+                a: i
+              };
+            }),
+            d: common_vendor.t(item.address),
+            e: common_vendor.t(item.distance / 1e3)
           };
         }),
-        c: common_assets._imports_0$3,
-        d: common_vendor.o(toDetail)
+        c: common_assets._imports_0$2,
+        d: common_assets._imports_1$1,
+        e: common_vendor.o(toDetail)
       } : {});
     };
   }

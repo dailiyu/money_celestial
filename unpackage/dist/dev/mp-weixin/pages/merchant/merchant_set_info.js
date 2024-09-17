@@ -21,6 +21,10 @@ if (!Math) {
 const _sfc_main = {
   __name: "merchant_set_info",
   setup(__props) {
+    const referral_officer = common_vendor.ref("");
+    common_vendor.onLoad((options) => {
+      referral_officer.value = options.referral_officer;
+    });
     const publicStore = store_public.usePublicStore();
     const userStore = store_user.useUserStore();
     const shopIntro = common_vendor.ref("");
@@ -198,7 +202,7 @@ const _sfc_main = {
         r: common_vendor.o(($event) => code.value = $event.detail.value),
         s: address.value,
         t: common_vendor.o(($event) => address.value = $event.detail.value),
-        v: common_assets._imports_2$1,
+        v: common_assets._imports_1$1,
         w: common_vendor.o(getLocation),
         x: isChecked.value,
         y: common_vendor.o(changeCheck),

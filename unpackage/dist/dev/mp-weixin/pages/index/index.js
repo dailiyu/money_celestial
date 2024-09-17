@@ -3,6 +3,8 @@ const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const store_public = require("../../store/public.js");
 const store_user = require("../../store/user.js");
+const service_shop = require("../../service/shop.js");
+const service_bannner = require("../../service/bannner.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_search_bar2 = common_vendor.resolveComponent("uni-search-bar");
@@ -50,14 +52,20 @@ const _sfc_main = {
           });
         }
       });
+      getCategory();
+      getBanner();
     });
+    const categoryList = common_vendor.ref([]);
+    const getCategory = async () => {
+      const { results } = await service_shop.getShopCategories();
+      categoryList.value = results;
+    };
+    const bannerList = common_vendor.ref();
+    const getBanner = async () => {
+      bannerList.value = await service_bannner.getBannerList();
+    };
     const search = () => {
       console.log(keyword.value);
-    };
-    const toSettle = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/merchant/merchant_intro"
-      });
     };
     const toMerchant = () => {
       if (userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0) {
@@ -72,14 +80,26 @@ const _sfc_main = {
       }
     };
     const toAgent = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/agent/agent_intro"
-      });
+      if (userStore.userInfo.is_province_agent || userStore.userInfo.is_city_agent) {
+        common_vendor.index.navigateTo({
+          url: "/pages/agent/agent_management"
+        });
+      } else {
+        common_vendor.index.navigateTo({
+          url: "/pages/agent/agent_intro"
+        });
+      }
     };
     const toRecommend = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/recommend/recommend_intro"
-      });
+      if (userStore.is_referral_officer) {
+        common_vendor.index.navigateTo({
+          url: "/pages/recommend/recommend_intro"
+        });
+      } else {
+        common_vendor.index.navigateTo({
+          url: "/pages/recommend/recommend_management"
+        });
+      }
     };
     const toAllMerchant = () => {
       common_vendor.index.navigateTo({
@@ -115,38 +135,35 @@ const _sfc_main = {
           clearButton: "always",
           modelValue: keyword.value
         }),
-        g: common_assets._imports_1$1,
+        g: common_vendor.f(bannerList.value, (item, k0, i0) => {
+          return {
+            a: item.image_url,
+            b: item.id
+          };
+        }),
         h: common_vendor.o(toMerchant),
-        i: common_assets._imports_2$2,
-        j: common_vendor.o(toAgent),
-        k: common_assets._imports_3$1,
-        l: common_vendor.o(toRecommend),
-        m: common_assets._imports_4,
-        n: common_vendor.o(toMyAccount),
-        o: common_assets._imports_5,
-        p: common_assets._imports_6,
-        q: common_assets._imports_7,
-        r: common_assets._imports_8,
-        s: common_assets._imports_9,
-        t: common_assets._imports_10,
-        v: common_assets._imports_11,
-        w: common_assets._imports_12,
-        x: common_assets._imports_13,
-        y: common_assets._imports_14,
-        z: !(common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0)
-      }, !(common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0) ? {
-        A: common_vendor.o(toSettle)
+        i: common_vendor.o(toAgent),
+        j: common_vendor.o(toRecommend),
+        k: common_vendor.o(toMyAccount),
+        l: categoryList.value.length
+      }, categoryList.value.length ? {
+        m: common_vendor.f(categoryList.value, (item, k0, i0) => {
+          return {
+            a: item.icon,
+            b: common_vendor.t(item.name),
+            c: item.id
+          };
+        })
       } : {}, {
-        B: common_vendor.t((_a = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _a.name),
-        C: common_assets._imports_2$1,
-        D: common_vendor.t((_b = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _b.address),
-        E: common_vendor.t(((_c = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _c.distance) / 1e3),
-        F: common_vendor.o(toDetail),
-        G: common_vendor.o(toAllMerchant),
-        H: common_assets._imports_16,
-        I: common_assets._imports_17,
-        J: common_assets._imports_18
-      });
+        n: common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0
+      }, common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0 ? {
+        o: common_vendor.t((_a = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _a.name),
+        p: common_assets._imports_1$1,
+        q: common_vendor.t((_b = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _b.address),
+        r: common_vendor.t(((_c = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _c.distance) / 1e3),
+        s: common_vendor.o(toDetail),
+        t: common_vendor.o(toAllMerchant)
+      } : {});
     };
   }
 };

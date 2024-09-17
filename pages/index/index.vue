@@ -13,14 +13,14 @@
 			</uni-search-bar>
 		</view>
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-color="#a4b8ab" indicator-active-color="#fc5908" :circular="true" class="swiper">
-			<swiper-item>
-				<image src="" mode="widthFix" class="swipe_img"></image>
+			<swiper-item v-for="item in bannerList" :key="item.id">
+				<image :src="item.image_url" mode="widthFix" class="swipe_img"></image>
 			</swiper-item>
 		</swiper>
 		<view class="function_list flex_between">
 			<view class="function_item" @click="toMerchant">
 				<view class="img_box flex_center">
-					<image src="@/static/home/cart.png" mode="widthFix" class="img_item"></image>
+					<image src="https://max.q6z4kzhr.uk/media/category_icons/cart.png" mode="widthFix" class="img_item"></image>
 				</view>
 				<view class="" >
 					商家
@@ -28,7 +28,7 @@
 			</view>
 			<view class="function_item" @click="toAgent">
 				<view class="img_box flex_center">
-					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
+					<image src="https://max.q6z4kzhr.uk/media/category_icons/bag_KK6aQAP.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
 				</view>
 				<view class="">
 					代理
@@ -36,7 +36,7 @@
 			</view>
 			<view class="function_item" @click="toRecommend">
 				<view class="img_box flex_center">
-					<image src="@/static/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
+					<image src="https://max.q6z4kzhr.uk/media/category_icons/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
 				</view>
 				<view class="">
 					推荐官
@@ -44,7 +44,7 @@
 			</view>
 			<view class="function_item" @click="toMyAccount">
 				<view class="img_box flex_center">
-					<image src="@/static/home/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
+					<image src="https://max.q6z4kzhr.uk/media/category_icons/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
 				</view>
 				<view class="">
 					我的账户
@@ -52,69 +52,15 @@
 			</view>
 		</view>
 		<view class="content">
-			<view class="cate_list flex_between">
-				<view class="cate_item">
-					<image src="@/static/home/cloth.png" mode="widthFix" class="cate_img"></image>
+			<view class="cate_list flex_between" v-if="categoryList.length">
+				<view class="cate_item" v-for="item in categoryList" :key="item.id">
+					<image :src="item.icon" mode="widthFix" class="cate_img"></image>
 					<view class="">
-						服装
-					</view>
-				</view>
-				<view class="cate_item">
-					<image src="@/static/home/makeup.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						美妆
-					</view>
-				</view>
-				<view class="cate_item">
-					<image src="@/static/home/goods.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						百货
-					</view>
-				</view>
-				<view class="cate_item">
-					<image src="@/static/home/drink.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						酒水
-					</view>
-				</view>
-				<view class="cate_item">
-					<image src="@/static/home/food.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						食品
-					</view>
-				</view>
-				<view class="cate_item">
-					<image src="@/static/home/appliances.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						电器
-					</view>
-				</view>
-				<view class="cate_item">
-					<image src="@/static/home/suitcase.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						箱包
-					</view>
-				</view>
-				<view class="cate_item">
-					<image src="@/static/home/jewelry.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						珠宝
-					</view>
-				</view>
-				<view class="cate_item">
-					<image src="@/static/home/home.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						家居
-					</view>
-				</view>
-				<view class="cate_item">
-					<image src="@/static/home/baby.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						母婴
+						{{item.name}}
 					</view>
 				</view>
 			</view>
-			<view class="merchant_box">
+			<view class="merchant_box" v-if="userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
 						<text class="nearby">附近商家</text>
@@ -122,9 +68,9 @@
 							热门榜
 						</view>
 					</view>
-					<view class="settle" @click="toSettle" v-if="!(userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0)" >
+					<!-- <view class="settle" @click="toSettle" v-if="!(userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0)" >
 						我要入驻
-					</view>
+					</view> -->
 				</view>
 				<view class="shop_list">
 					<view class="shop_item flex_between" @click="toDetail">
@@ -135,7 +81,7 @@
 							</view>
 							<view class="shop_address flex">
 								<image src="@/static/locate_orange.png" mode="widthFix" class="address_img"></image>
-								<view class="">
+								<view class="" style="flex: 1;">
 									{{publicStore.ascShopList[0]?.address}}
 								</view>
 							</view>
@@ -150,7 +96,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="headline flex_between">
+		<!-- <view class="headline flex_between">
 			<view class="head_title">
 				头条
 			</view>
@@ -160,16 +106,16 @@
 			<view class="news">
 				新闻内容
 			</view>
-		</view>
-		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-color="#a4b8ab" indicator-active-color="#fc5908" :circular="true" class="swiper" style="margin-bottom: 30rpx;">
+		</view> -->
+		<!-- <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-color="#a4b8ab" indicator-active-color="#fc5908" :circular="true" class="swiper" style="margin-bottom: 30rpx;">
 			<swiper-item>
 				<image src="" mode="widthFix" class="swipe_img"></image>
 			</swiper-item>
-		</swiper>
+		</swiper> -->
 		<view class="content">
-			<image src="@/static/home/shop.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="@/static/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="@/static/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="https://max.q6z4kzhr.uk/media/category_icons/shop.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="https://max.q6z4kzhr.uk/media/category_icons/benefit.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="https://max.q6z4kzhr.uk/media/category_icons/earn.jpg" mode="widthFix" class="shop_pic"></image>
 		</view>
 	</view>
 </template>
@@ -178,6 +124,8 @@
 import { onMounted, ref } from 'vue';
 import {usePublicStore} from "@/store/public.js"
 import { useUserStore } from '../../store/user';
+import { getShopCategories } from '@/service/shop';
+import { getBannerList } from '@/service/bannner.js'
 
 var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
@@ -217,8 +165,18 @@ onMounted(async()=>{
 			})
 		}
 	})
+	getCategory()
+	getBanner()
 })
-
+const categoryList = ref([])
+const getCategory = async()=>{
+	const {results} = await getShopCategories()
+	categoryList.value = results
+}
+const bannerList = ref()
+const getBanner = async()=>{
+	bannerList.value = await getBannerList()
+}
 const search = ()=>{
 	console.log(keyword.value)
 }
@@ -242,15 +200,29 @@ const toMerchant = () => {
     }
 };
 
+
 const toAgent = ()=>{
-	uni.navigateTo({
-		url: '/pages/agent/agent_intro'
-	})
+	if (userStore.userInfo.is_province_agent || userStore.userInfo.is_city_agent) {
+		uni.navigateTo({
+			url: '/pages/agent/agent_management'
+		})
+	} else {
+		uni.navigateTo({
+			url: '/pages/agent/agent_intro'
+		})
+	}
+	
 }
 const toRecommend = ()=>{
-	uni.navigateTo({
-		url: '/pages/recommend/recommend_intro'
-	})
+	if (userStore.is_referral_officer) {
+		uni.navigateTo({
+			url: '/pages/recommend/recommend_intro'
+		})
+	} else {
+		uni.navigateTo({
+			url: '/pages/recommend/recommend_management'
+		})
+	}
 }
 const toAllMerchant = ()=>{
 	uni.navigateTo({
@@ -322,7 +294,7 @@ const toDetail = ()=>{
 	.swipe_img {
 		width: 750rpx;
 		height: 300rpx;
-		background-color: #ccc;
+		// background-color: #ccc;
 	}
 }
 .function_list {
@@ -371,7 +343,7 @@ const toDetail = ()=>{
 		background-color: #fff;
 		border-radius: 38rpx;
 		padding: 50rpx 46rpx 0;
-		// margin-bottom: 34rpx;
+		margin-bottom: 34rpx;
 		.merchant_top {
 			padding-bottom: 20rpx;
 			border-bottom: 1px solid #e1e1e1;
@@ -403,7 +375,7 @@ const toDetail = ()=>{
 					width: 114rpx;
 					height: 114rpx;
 					margin-right: 22rpx;
-					background-color: #ccc;
+					// background-color: #ccc;
 					border-radius: 5px;
 				}
 				.shop_info {

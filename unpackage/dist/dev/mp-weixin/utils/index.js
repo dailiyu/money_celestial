@@ -45,15 +45,5 @@ const convertTime = (timeStamp, format = "yyyy/MM/dd hh:mm:ss") => {
   const seconds = ("0" + date.getSeconds()).slice(-2);
   return format.replace("yyyy", year).replace("MM", month).replace("dd", day).replace("hh", hours).replace("mm", minutes).replace("ss", seconds);
 };
-const obscureString = (input) => {
-  if (input.length <= 15) {
-    return input;
-  }
-  const start = input.slice(0, 8);
-  const end = input.slice(-7);
-  const obscured = start + "******" + end;
-  return obscured;
-};
 exports.convertTime = convertTime;
-exports.obscureString = obscureString;
 exports.uploadImage = uploadImage;

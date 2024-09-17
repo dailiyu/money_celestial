@@ -21,13 +21,13 @@
 				<view>{{index+1}}</view>
 			</uni-col>
 			<uni-col :span="9">
-				<view>{{obscureString(item.user)}}</view>
+				<view>{{item.from_user}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view>{{item.transaction_amount}}</view>
+				<view>{{item.amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view>{{convertTime(item.transaction_date, 'yyyy-MM-dd hh:mm:ss')}}</view>
+				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
 		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
@@ -37,6 +37,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getWithdrawRecord } from '@/service/point.js'
+import { getRecords } from '../../service/deposit';
 import { convertTime, obscureString } from '@/utils/index.js'
 
 onMounted(()=>{
@@ -46,17 +47,17 @@ const recordList = ref([])
 const status = ref('loading')
 const page = ref(1)
 const getRecordList = async()=>{
-	const params = ref({
-		page: page.value
-	})
+	// const params = ref({
+	// 	page: page.value
+	// })
 	status.value = 'loading'
-	const {results, count} = await getWithdrawRecord(params.value)
-	if (count == results.length) {
+	const {transactions, total_amount} = await getRecords({transaction_type:'red_point'})
+	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
-	} else {
-		status.value = 'more'
-	}
-	recordList.value = recordList.value.push(...results)
+	// } else {
+	// 	status.value = 'more'
+	// }
+	recordList.value.push(...transactions)
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {

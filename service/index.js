@@ -50,7 +50,7 @@ class Request {
                     }
                 },
                 fail: (err) => {
-                    uni.navigateTo({
+                    uni.reLaunch({
                         url: '/pages/login/login'
                     });
                     reject(err);
@@ -94,7 +94,7 @@ class Request {
     logout() {
         uni.removeStorageSync('accessToken');
         uni.removeStorageSync('refreshToken');
-        uni.navigateTo({
+        uni.reLaunch({
             url: '/pages/login/login'
         });
     }

@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="商家" ></navBar>
 		<view class="content">
-			<image src="@/static/merchant-intro.jpg" mode="widthFix" class="merchant_intro"></image>
+			<image src="https://max.q6z4kzhr.uk/media/category_icons/merchant-intro.jpg" mode="widthFix" class="merchant_intro"></image>
 			<view class="btn_full" @click="toNotice">
 				我要入驻
 			</view>
@@ -22,8 +22,6 @@ const toNotice = ()=>{
 .content {
 	position: relative;
 	padding-top: 60rpx;
-	// background: url('@/static/merchant-intro.jpg') no-repeat;
-	// background-size: 100% 100%;
 	padding: 0;
 	.merchant_intro {
 		width: 100%;

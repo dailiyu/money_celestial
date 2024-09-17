@@ -3,7 +3,7 @@
 		<navBar title="可用积分"></navBar>
 		<view class="content">
 			<view class="list_box">
-				<view class="list_item flex_between">
+				<!-- <view class="list_item flex_between">
 					<view class="">
 						兑换商品
 					</view>
@@ -14,7 +14,7 @@
 						提取积分
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
+				</view> -->
 				<view class="list_item flex_between" @click="toWithdrawRecord">
 					<view class="">
 						提取记录
@@ -30,12 +30,12 @@
 <script setup>
 const toWithdrawPoint = ()=>{
 	uni.navigateTo({
-		url: '/pages/myAccount/withdraw_point'
+		url: '/pages/myAccount/red_point_withdraw'
 	})
 }
 const toWithdrawRecord = ()=>{
 	uni.navigateTo({
-		url: '/pages/myAccount/withdraw_record'
+		url: '/pages/myAccount/red_point_withdraw_record'
 	})
 }
 </script>

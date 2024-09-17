@@ -19,7 +19,9 @@ const _sfc_main = {
   __name: "more_info",
   setup(__props) {
     const skip = () => {
-      console.log(111);
+      common_vendor.index.reLaunch({
+        url: "/pages/index/index"
+      });
     };
     const name = common_vendor.ref("");
     const imagePath = common_vendor.ref("");
@@ -144,7 +146,7 @@ const _sfc_main = {
           isSkip: true
         }),
         c: imagePath.value,
-        d: common_assets._imports_0$4,
+        d: common_assets._imports_0$3,
         e: common_vendor.o(chooseImg),
         f: common_vendor.o(($event) => name.value = $event),
         g: common_vendor.p({
@@ -155,13 +157,13 @@ const _sfc_main = {
           modelValue: email.value
         }),
         j: common_vendor.t(gender.value ? gender.value == "male" ? "男" : "女" : "选择"),
-        k: common_assets._imports_0$4,
+        k: common_assets._imports_0$3,
         l: common_vendor.o(getGender),
         m: common_vendor.t(birthday.value),
-        n: common_assets._imports_0$4,
+        n: common_assets._imports_0$3,
         o: common_vendor.o(openCalendar),
         p: common_vendor.t(address.value),
-        q: common_assets._imports_0$4,
+        q: common_assets._imports_0$3,
         r: common_vendor.o(getLocation),
         s: common_vendor.o(saveMessage),
         t: common_vendor.sr(calendar, "dc27228e-3", {

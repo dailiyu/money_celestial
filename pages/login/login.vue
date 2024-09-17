@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="用户登录" bgc="#1B46CC"></navBar>
 		<view class="content">
-			<image src="@/static/my/logo.png" mode="widthFix" class="logo"></image>
+			<image src="@/static/logo.png" mode="widthFix" class="logo"></image>
 			<uni-easyinput v-model="moblie" placeholder="请输入手机号" :inputBorder="false" primaryColor="#1B46CC" type="number">
 				<template #left>
 					<image src="@/static/phone-grey.png" mode="widthFix" class="m_pic"></image>
@@ -54,7 +54,7 @@ const toRegister = ()=>{
 			duration:1000
 		 })
 		 setTimeout(()=>{
-			uni.navigateTo({
+			uni.reLaunch({
 				url: '/pages/index/index'
 			})
 		 },1000)

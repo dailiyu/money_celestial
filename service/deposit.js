@@ -11,10 +11,6 @@ export const getDepositList=async(data)=>{
 	return http.get('/deposit/records/', data)
 }
 
-// 获取保证金余额
-export const getDepositBalance=()=>{
-	return http.get('/deposit/get/')
-}
 
 // 增加保证金
 export const addDeposit=(data)=>{
@@ -24,4 +20,10 @@ export const addDeposit=(data)=>{
 // 解除保证金
 export const removeDeposit=(data)=>{
 	return http.post('/wallets/remove/collateral/', data)
+}
+
+
+// 获取积分和保证金记录
+export const getRecords=(data)=>{
+	return http.get('/wallets/transactions/', data)
 }

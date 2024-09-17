@@ -2,49 +2,96 @@
 	<view>
 		<navBar title="商家列表"></navBar>
 		<view class="filter_list">
-			<view class="flex_center" @click="getType">
-				<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
-				<view>
-					类目
+			<view class="flex_center" style="flex: 1;">
+				<view class="" style="flex: 1;text-align: right;">
+					<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
 				</view>
+				<!-- <view>
+					类目
+				</view> -->
+				<uni-data-select v-model="category" :localdata="range" placeholder="类目" :clear="false"
+					@change="changeRange"></uni-data-select>
 			</view>
-			<view class="flex_center">
+			<view class="flex_center" style="flex: 1;">
 				<view class="">
 					入驻时间
 				</view>
-				<view class="" @click="distance='down'" v-if="distance=='up'">
+				<view class="" @click="filterTime('-created_at')" v-if="time=='created_at'">
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill"></image>
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill"></image>
 				</view>
-				<view class="" @click="distance='up'" v-if="distance=='down'">
+				<view class="" @click="filterTime('created_at')" v-if="time=='-created_at'">
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 				</view>
 			</view>
 		</view>
 		<view class="content">
-			<shopList></shopList>
+			<publicShopList :list="shopList"></publicShopList>
 		</view>
 	</view>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-const getType = ()=>{
-	uni.showActionSheet({
-		itemList: ['美食', '服饰'],
-		success(res) {
-			console.log(res.tapIndex)
-		}
-	})
-}
+import { onMounted, ref } from 'vue';
+import { getRecommendOfficerInfo } from '@/service/recommend.js'
+import { getShopCategories } from '@/service/shop.js'
+import { calculateDistances } from "@/utils/distanceSorting.js"
+
 const toSettle = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_intro'
 	})
 }
 
-const distance = ref('up')
+
+const range = ref({})
+onMounted(async()=>{
+	getShopList()
+	// 类目
+	const {results} = await getShopCategories()
+	range.value = results.map(i=>{
+		return {
+			text: i.name,
+			value: i.id,
+			disable: false
+		}
+	})
+	
+	
+})
+
+const time = ref('created_at')
+const categoryId = ref('')
+const shopList = ref([])
+const {location} = uni.getStorageSync('address_info')
+const getShopList = async()=>{
+	const params = ref({
+		ordering: time.value
+	})
+	if (categoryId.value) {
+		params.value.categories = categoryId.value
+	} else {
+	} 
+	uni.showLoading({
+		title: '加载中'
+	})
+	const {results} = await getRecommendOfficerInfo(params.value)
+	const locaList = results.map(shop => ({ latitude: shop.latitude, longitude: shop.longitude }))
+	shopList.value = await calculateDistances({latitude: location.lat, longitude: location.lng}, locaList)
+	uni.hideLoading()
+}
+const filterTime = (i)=>{
+	time.value = i
+	shopList.value = []
+	getShopList()
+}
+const category = ref('')
+const changeRange = (e) => {
+	categoryId.value = e
+	shopList.value = []
+	getShopList()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -67,6 +114,29 @@ const distance = ref('up')
 		&:last-child {
 			margin-top: 6rpx;
 		}
+	}
+	uni-data-select {
+		flex: 1;
+	}
+	:deep(.uni-select) {
+		padding: 0;
+		border: none;
+	}
+	
+	:deep(.uni-select__input-box) {
+		height: fit-content;
+		justify-content: flex-start;
+	}
+	
+	:deep(.uni-select__input-placeholder) {
+		font-size: 30rpx;
+		color: #333;
+	}
+	
+	:deep(.uni-select__input-text) {
+		width: fit-content;
+		font-size: 30rpx;
+		color: #333;
 	}
 }
 

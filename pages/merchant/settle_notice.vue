@@ -26,18 +26,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { onLoad } from '@dcloudio/uni-app'
+const referral_officer = ref('')
+onLoad((options)=>{
+	referral_officer.value = options.referral_officer
+})
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
+
+
 const toSetInfo = ()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
 	uni.navigateTo({
-		url:'/pages/merchant/merchant_set_info'
+		url:'/pages/merchant/merchant_set_info?referral_officer='+referral_officer
 	})
 }
 </script>

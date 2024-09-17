@@ -5,10 +5,10 @@
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						赠送地址
+						赠送账号
 					</view>
-					<input v-model="address" class="uni-input" placeholder="请输入接收地址" placeholder-class="placeholder_class" />
-					<image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image>
+					<input v-model="address" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" />
+					<!-- <image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image> -->
 				</view>
 			</view>
 			<view class="shop_info">
@@ -23,7 +23,7 @@
 						最多可赠送数量
 					</view>
 					<view class="s_num">
-						1100010
+						{{totalPoints}}
 					</view>
 				</view>
 				<view class="info_item flex_between">
@@ -31,7 +31,7 @@
 						保证金余额
 					</view>
 					<view class="s_num">
-						10000
+						{{balance}}
 					</view>
 				</view>
 			</view>
@@ -48,27 +48,55 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { giftPoint } from '@/service/point.js'
+import { getAllPoint } from '@/service/point';
+
+const totalPoints = ref(0)
+const balance = ref(0)
+onMounted(async()=>{
+	const data = await getAllPoint()
+	totalPoints.value = data.green_points + data.red_points
+	balance.value = data.collateral
+})
+
 const address = ref('')
 const number = ref('')
 
-const scan = ()=>{
-	uni.scanCode({
-		scanType: ['qrCode'],
-		success(res) {
-			console.log(res)
-		}
-	})
-}
+
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = ()=>{
+const confirm = async()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
+	if (!address.value) return uni.showToast({
+		icon:'none',
+		title: '请输入手机号'
+	})
+	if (!number.value) return uni.showToast({
+		icon:'none',
+		title: '请输入赠送数量'
+	})
+	try{
+		uni.showLoading({
+			title: '赠送中'
+		})
+		await giftPoint({to_user:address.value, amount: number.value})
+		uni.hideLoading()
+		uni.showToast({
+			icon: 'none',
+			title: '赠送成功'
+		})
+	}catch(e){
+		uni.showToast({
+			icon: 'none',
+			title: '赠送失败'
+		})
+	}
 }
 </script>
 

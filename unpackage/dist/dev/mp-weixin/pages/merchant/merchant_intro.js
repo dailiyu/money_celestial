@@ -1,6 +1,5 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const common_assets = require("../../common/assets.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -22,8 +21,7 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "商家"
         }),
-        b: common_assets._imports_0$2,
-        c: common_vendor.o(toNotice)
+        b: common_vendor.o(toNotice)
       };
     };
   }

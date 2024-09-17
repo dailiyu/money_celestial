@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const service_deposit = require("../../service/deposit.js");
+const service_point = require("../../service/point.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -15,10 +16,10 @@ const _sfc_main = {
     common_vendor.onMounted(() => {
       getDepositInfo();
     });
-    const info = common_vendor.ref({});
+    const amount = common_vendor.ref(0);
     const getDepositInfo = async () => {
-      const { results } = await service_deposit.getDeposit();
-      info.value = results[0];
+      const { collateral } = await service_point.getAllPoint();
+      amount.value = collateral;
     };
     const address = common_vendor.ref("");
     const number = common_vendor.ref("");
@@ -67,7 +68,7 @@ const _sfc_main = {
         c: common_vendor.o(($event) => address.value = $event.detail.value),
         d: number.value,
         e: common_vendor.o(($event) => number.value = $event.detail.value),
-        f: common_vendor.t(info.value.amount || 0),
+        f: common_vendor.t(amount.value),
         g: isChecked.value,
         h: common_vendor.o(changeCheck),
         i: common_vendor.o(confirm)

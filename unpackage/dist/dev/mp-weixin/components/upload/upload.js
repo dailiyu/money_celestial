@@ -40,7 +40,7 @@ const _sfc_main = {
       } : {}, {
         c: imageTempPaths.value.length < props.amount
       }, imageTempPaths.value.length < props.amount ? {
-        d: common_assets._imports_0$13,
+        d: common_assets._imports_0$7,
         e: common_vendor.o(chooseImg)
       } : {});
     };

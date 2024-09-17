@@ -1,5 +1,5 @@
 // 使用腾讯地图API计算距离并将距离插入原数组
-const calculateDistances = (origins, destinations) => {
+export const calculateDistances = (origins, destinations) => {
   return new Promise((resolve, reject) => {
     const url = `https://apis.map.qq.com/ws/distance/v1/matrix?mode=driving&from=${origins.latitude},${origins.longitude}&key=YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA`;
 

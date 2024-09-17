@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
-const service_deposit = require("../../service/deposit.js");
+const service_point = require("../../service/point.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -30,8 +30,8 @@ const _sfc_main = {
     };
     const amount = common_vendor.ref("");
     common_vendor.onShow(async () => {
-      const { results } = await service_deposit.getDeposit();
-      amount.value = results[0].amount;
+      const { collateral } = await service_point.getAllPoint();
+      amount.value = collateral;
     });
     return (_ctx, _cache) => {
       return {
@@ -39,7 +39,7 @@ const _sfc_main = {
           title: "保证金"
         }),
         b: common_vendor.t(amount.value || 0),
-        c: common_assets._imports_0$4,
+        c: common_assets._imports_0$3,
         d: common_vendor.o(toRecord),
         e: common_vendor.o(toAdd),
         f: common_vendor.o(toRemove)

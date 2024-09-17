@@ -49,7 +49,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { withdrawPoint } from '@/service/point.js'
+import { withdrawPoint, getAllPoint } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 import { useUserStore } from '../../store/user'
  const  userStore = useUserStore()
@@ -65,9 +65,9 @@ onMounted(async ()=>{
 	
 })
 const getPointInfo = async()=>{
-	
+	const {green_points} = await getAllPoint()
 	// 可用积分
-	// pointBalance.value = data.red_points
+	pointBalance.value = green_points
 }
 const isChecked = ref(false)
 const changeCheck = ()=>{

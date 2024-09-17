@@ -24,12 +24,12 @@
 <script setup>
 const toWithdrawPoint = ()=>{
 	uni.navigateTo({
-		url: '/pages/myAccount/withdraw_point'
+		url: '/pages/myAccount/green_point_withdraw'
 	})
 }
 const toWithdrawRecord = ()=>{
 	uni.navigateTo({
-		url: '/pages/myAccount/withdraw_record'
+		url: '/pages/myAccount/green_point_withdraw_record'
 	})
 }
 </script>

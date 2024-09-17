@@ -2,8 +2,8 @@ import  {http} from "./index"
 
 
 //获取轮播图列表
-const getBannerList=async ()=>{
-	return http.get('/banner/')
+export const getBannerList=async ()=>{
+	return http.get('/banners/')
 }
 /*
 {

@@ -8564,6 +8564,7 @@ const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
   !isInSSRComponentSetup && injectHook(lifecycle, hook, target);
 };
 const onShow = /* @__PURE__ */ createHook(ON_SHOW);
+const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
 const pages = [
   {
     path: "pages/index/index",
@@ -8769,20 +8770,6 @@ const pages = [
     }
   },
   {
-    path: "pages/myAccount/withdraw_point",
-    style: {
-      navigationBarTitleText: "提取积分",
-      navigationStyle: "custom"
-    }
-  },
-  {
-    path: "pages/myAccount/withdraw_record",
-    style: {
-      navigationBarTitleText: "提取记录",
-      navigationStyle: "custom"
-    }
-  },
-  {
     path: "pages/myAccount/point_available",
     style: {
       navigationBarTitleText: "可用积分",
@@ -8872,6 +8859,34 @@ const pages = [
       navigationBarTitleText: "推荐官考试",
       navigationStyle: "custom"
     }
+  },
+  {
+    path: "pages/myAccount/red_point_withdraw",
+    style: {
+      navigationBarTitleText: "提取积分",
+      navigationStyle: "custom"
+    }
+  },
+  {
+    path: "pages/myAccount/red_point_withdraw_record",
+    style: {
+      navigationBarTitleText: "提取记录",
+      navigationStyle: "custom"
+    }
+  },
+  {
+    path: "pages/myAccount/green_point_withdraw",
+    style: {
+      navigationBarTitleText: "提取积分",
+      navigationStyle: "custom"
+    }
+  },
+  {
+    path: "pages/myAccount/green_point_withdraw_record",
+    style: {
+      navigationBarTitleText: "提取记录",
+      navigationStyle: "custom"
+    }
   }
 ];
 const globalStyle = {
@@ -8881,10 +8896,12 @@ const globalStyle = {
   backgroundColor: "#F8F8F8"
 };
 const uniIdRouter = {};
+const lazyCodeLoading = "requiredComponents";
 const e = {
   pages,
   globalStyle,
-  uniIdRouter
+  uniIdRouter,
+  lazyCodeLoading
 };
 var define_process_env_UNI_SECURE_NETWORK_CONFIG_default = [];
 function t(e2) {
@@ -11593,6 +11610,7 @@ exports.index = index;
 exports.initVueI18n = initVueI18n;
 exports.n = n$1;
 exports.o = o$1;
+exports.onLoad = onLoad;
 exports.onMounted = onMounted;
 exports.onShow = onShow;
 exports.p = p$1;

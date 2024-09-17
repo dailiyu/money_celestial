@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="推荐官" ></navBar>
 		<view class="content">
-			<image src="@/static/recommend-intro.jpg" mode="widthFix" class="merchant_intro"></image>
+			<image src="https://max.q6z4kzhr.uk/media/category_icons/recommend-intro.jpg" mode="widthFix" class="merchant_intro"></image>
 			<view class="btn_full" @click="toNext">
 				我要成为推荐官
 			</view>
@@ -23,8 +23,6 @@ const toNext = ()=>{
 .content {
 	position: relative;
 	padding-top: 60rpx;
-	// background: url('@/static/merchant-intro.jpg') no-repeat;
-	// background-size: 100% 100%;
 	padding: 0;
 	.merchant_intro {
 		width: 100%;
