@@ -46,7 +46,7 @@ const _sfc_main = {
         common_vendor.index.showLoading({
           title: "正在提交"
         });
-        await service_deposit.addDeposit({ amount: number.value, username: address.value });
+        await service_deposit.addDeposit({ amount: number.value, to_user: address.value });
         getDepositInfo();
         common_vendor.index.hideLoading();
         common_vendor.index.showToast({

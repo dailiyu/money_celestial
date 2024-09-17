@@ -412,4 +412,20 @@
 	.btn_full {
 		margin-top: 66rpx;
 	}
+	.radio {
+		text-align: center;
+		padding: 26rpx 0 38rpx;
+		radio {
+			transform:scale(0.6)
+		}
+		.read {
+			font-size: 27rpx;
+			color: #999999;
+		}
+		.c_title {
+			font-size: 27rpx;
+			color: #FC5908;
+			font-family: HarmonyOS_Sans_SC_Medium;
+		}
+	}
 </style>

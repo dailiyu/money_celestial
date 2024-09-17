@@ -97,6 +97,11 @@ export const getStoreList=()=>{
 }
 
 
+// 商家码认证
+export const merchantCodeAuthentication=(data)=>{
+	return http.post('/users/merchant/code/verification/', data)
+}
+
 
 
 

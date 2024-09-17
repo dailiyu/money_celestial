@@ -49,23 +49,25 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getPointAccount, withdrawPoint } from '@/service/point.js'
+import { withdrawPoint } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
+import { useUserStore } from '../../store/user'
+ const  userStore = useUserStore()
+
 const number = ref('')
 
 const account = ref('')
 const pointBalance = ref('')
+account.value = userStore.userInfo.username
 onMounted(async ()=>{
 	
 	getPointInfo()
 	
 })
 const getPointInfo = async()=>{
-	const data = await getPointAccount()
-	// 积分账号
-	account.value = obscureString(data.user)
+	
 	// 可用积分
-	pointBalance.value = data.red_points
+	// pointBalance.value = data.red_points
 }
 const isChecked = ref(false)
 const changeCheck = ()=>{

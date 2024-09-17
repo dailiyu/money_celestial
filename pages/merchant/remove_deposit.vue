@@ -88,7 +88,7 @@ const confirm = async()=>{
 	uni.showLoading({
 		title: '解除中'
 	})
-	await removeDeposit({username:address.value, amount: number.value})
+	await removeDeposit({to_user:address.value, amount: number.value})
 	getDepositInfo()
 	uni.hideLoading()
 	uni.showToast({

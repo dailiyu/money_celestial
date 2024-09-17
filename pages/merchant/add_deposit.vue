@@ -85,7 +85,7 @@ const confirm = async ()=>{
 		uni.showLoading({
 			title: '正在提交'
 		})
-		await addDeposit({amount:number.value, username:address.value})
+		await addDeposit({amount:number.value, to_user:address.value})
 		getDepositInfo()
 		uni.hideLoading()
 		uni.showToast({

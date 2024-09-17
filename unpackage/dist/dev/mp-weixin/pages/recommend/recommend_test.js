@@ -1,5 +1,8 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const service_recommend = require("../../service/recommend.js");
+const service_merchant = require("../../service/merchant.js");
+const store_user = require("../../store/user.js");
 const questions = [
   {
     question: "满仓体系的核心逻辑是什么？",
@@ -445,12 +448,13 @@ const questions = [
 const questionsData = {
   questions
 };
+const userStore = store_user.useUserStore();
 const _sfc_main = {
   setup() {
     const allQuestions = common_vendor.ref([]);
     const currentQuestions = common_vendor.ref([]);
     const selectedAnswers = common_vendor.ref([]);
-    common_vendor.ref([]);
+    const incorrectQuestions = common_vendor.ref([]);
     const showAnswers = common_vendor.ref(false);
     const isSubmitted = common_vendor.ref(false);
     const initQuestions = () => {
@@ -472,10 +476,42 @@ const _sfc_main = {
     const selectAnswer = (questionIndex, selectedOption) => {
       selectedAnswers.value[questionIndex] = selectedOption;
     };
-    const submitAnswers = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/recommend/recommend_management"
+    const submitAnswers = async () => {
+      incorrectQuestions.value = [];
+      currentQuestions.value.forEach((question, index) => {
+        if (selectedAnswers.value[index] !== question.correct_answer) {
+          incorrectQuestions.value.push(question);
+        }
       });
+      isSubmitted.value = true;
+      if (incorrectQuestions.value.length > 0) {
+        common_vendor.index.showToast({
+          title: "有答错的题目，点击查看答案！",
+          icon: "none"
+        });
+      } else {
+        common_vendor.index.showToast({
+          title: "恭喜，全部正确！",
+          icon: "success"
+        });
+        try {
+          common_vendor.index.showLoading({
+            title: "提交中"
+          });
+          const username = userStore.userInfo.username;
+          const { results } = await service_merchant.getMerchantList();
+          await service_recommend.createRecommendOfficer({ shops: results, name: username });
+          common_vendor.index.hideLoading();
+          common_vendor.index.navigateTo({
+            url: "/pages/recommend/recommend_management"
+          });
+        } catch (e) {
+          common_vendor.index.showToast({
+            title: "出错啦",
+            icon: "none"
+          });
+        }
+      }
     };
     const showCorrectAnswers = () => {
       showAnswers.value = true;
