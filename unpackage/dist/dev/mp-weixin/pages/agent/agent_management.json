@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "代理后台",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar"
-  }
-}

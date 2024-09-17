@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "积分账号",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar"
-  }
-}
