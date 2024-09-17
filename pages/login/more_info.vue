@@ -120,31 +120,39 @@ const token = uni.getStorageSync('accessToken'); // UniApp 中使用 uni.getStor
 
 // 上传图片
 function uploadImage(filePath) {
+  console.log(filePath);
+  
+  // 生成随机数作为文件名，可以结合当前时间戳确保唯一性
+  const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+
   uni.uploadFile({
     url: uploadUrl, // 上传接口 URL
     filePath: filePath, // 需要上传的文件路径
-    name: 'image', // 后台接收文件的字段名 (根据实际需求)
+    name: 'image_url', // 后台接收文件的字段名 (根据实际需求)
     header: {
       'Authorization': `Bearer ${token}`, // 将 JWT Token 添加到 Authorization 请求头中
       'Content-Type': 'multipart/form-data'
+    },
+    formData: {
+      'file_name': randomFileName // 生成的随机文件名
     },
     success: (uploadFileRes) => {
       if (uploadFileRes.statusCode === 201) {
         const data = JSON.parse(uploadFileRes.data); // 解析返回的数据
         console.log('上传成功！');
         console.log('上传的图片 URL:', data);
-		uploadSuccessUrl.value=data.image_url
-		
+        uploadSuccessUrl.value = data.image_url;
       } else {
         console.log('上传失败，状态码：', uploadFileRes.statusCode);
       }
     },
     fail: (err) => {
-		console.log(err);
+      console.log(err);
       console.error('上传文件出错:', err);
     }
   });
 }
+
 
 
 
