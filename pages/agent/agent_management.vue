@@ -62,6 +62,13 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+
+
+onMounted(async()=>{
+	
+})
+
 const toMerchantList = ()=>{
 	uni.navigateTo({
 		url: '/pages/agent/merchant_list'
@@ -83,6 +90,7 @@ const toSecurityDeposit = ()=>{
 		url: '/pages/merchant/security_deposit'
 	})
 }
+
 </script>
 
 <style lang="scss" scoped>

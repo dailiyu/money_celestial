@@ -12,11 +12,11 @@
 				<view class="">
 					入驻时间
 				</view>
-				<view class="" @click="distance='down'" v-if="distance=='up'">
+				<view class="" @click="filterTime('-')" v-if="time==''">
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill"></image>
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill"></image>
 				</view>
-				<view class="" @click="distance='up'" v-if="distance=='down'">
+				<view class="" @click="filterTime('')" v-if="time=='-'">
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 				</view>
@@ -25,13 +25,13 @@
 		<view class="content">
 			<shopList></shopList>
 		</view>
+		<uni-load-more :status="status" @clickLoadMor="getMoreList"></uni-load-more>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getCityAgent, getProvinceAgent } from '@/service/region.js'
-import { getMerchantList } from '@/service/merchant.js'
+import { getAgentShopList } from '@/service/agent.js'
 const getType = ()=>{
 	uni.showActionSheet({
 		itemList: ['美食', '服饰'],
@@ -46,23 +46,44 @@ const toSettle = ()=>{
 	})
 }
 
-const distance = ref('up')
+
 
 onMounted(async()=>{
-	try{
-		const cityAgent = await getCityAgent()
-		const provinceAgent = await getProvinceAgent()
-		if (cityAgent.data&&cityAgent.data.id) {
-			getShopList({city_agent:cityAgent.data.id})
-		}
-	}catch(e){
-		//TODO handle the exception
-	}
+	getShopList()
 	
 })
 
-const getShopList = async(data)=>{
-	await getMerchantList(data)
+const page = ref(1)
+const time = ref('')
+const categoryId = ref('')
+const shopList = ref([])
+const status = ref('loading')
+const getShopList = async()=>{
+	const params = ref({
+		page: page.value,
+		time: time.value,
+		categoryId: categoryId.value
+	})
+	status.value = 'loading'
+	await getAgentShopList(params.value)
+	// if () {
+	// 	status.value = 'more'
+	// } else {
+	// 	status.value = 'no-more'
+	// }
+	// shopList.value.push()
+}
+const filterTime = (i)=>{
+	page.value = 1
+	time.value = i
+	shopList.value = []
+	getShopList()
+}
+const getMoreList = ()=>{
+	// if () {
+	// 	page.value++
+	// 	getShopList()
+	// }
 }
 </script>
 

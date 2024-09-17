@@ -23,7 +23,7 @@
 						积分余额
 					</view>
 					<view class="s_num">
-						{{pointBalance}}
+						{{pointBalance||0}}
 					</view>
 				</view>
 				<view class="info_item flex">
@@ -31,7 +31,7 @@
 						到账数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number?number:0}}
+						{{number||0}}
 					</view>
 				</view>
 			</view>
@@ -49,27 +49,29 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getPointAccount, getAvailablePoint } from '@/service/point.js'
+import { getPointAccount, withdrawPoint } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 const number = ref('')
 
 const account = ref('')
 const pointBalance = ref('')
 onMounted(async ()=>{
-	// 积分账号
-	const {data} = await getPointAccount()
-	account.value = obscureString(data.account_number)
 	
-	// 积分余额
-	const point = await getAvailablePoint()
-	pointBalance.value = point.data.available_points
+	getPointInfo()
+	
 })
-
+const getPointInfo = async()=>{
+	const data = await getPointAccount()
+	// 积分账号
+	account.value = obscureString(data.user)
+	// 可用积分
+	pointBalance.value = data.red_points
+}
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = ()=>{
+const confirm = async()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
@@ -85,6 +87,16 @@ const confirm = ()=>{
 	if (number.value > pointBalance.value) return uni.showToast({
 		icon: 'none',
 		title: '积分余额不足'
+	})
+	uni.showLoading({
+		title: '提取中'
+	})
+	await withdrawPoint({points:number.value})
+	getPointInfo()
+	uni.hideLoading()
+	uni.showToast({
+		icon: 'none',
+		title: '提取成功'
 	})
 }
 </script>

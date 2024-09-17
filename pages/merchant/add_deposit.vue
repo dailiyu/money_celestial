@@ -41,7 +41,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getDepositBalance, addDeposit } from '@/service/deposit.js'
+import { getDeposit, addDeposit } from '@/service/deposit.js'
 const address = ref('')
 const number = ref('')
 
@@ -57,12 +57,12 @@ const scan = ()=>{
 
 
 onMounted(()=>{
-	getDeposit()
+	getDepositInfo()
 })
 const info = ref({})
-const getDeposit = async()=>{
-	const {data} = await getDepositBalance()
-	info.value = data
+const getDepositInfo = async()=>{
+	const {results} = await getDeposit()
+	info.value = results[0]
 }
 const isChecked = ref(false)
 const changeCheck = ()=>{
@@ -81,15 +81,23 @@ const confirm = async ()=>{
 		icon:'none',
 		title: '请输入金额'
 	})
-	uni.showLoading({
-		title: '正在提交'
-	})
-	await addDeposit({amount:number.value, phone_number:address.value})
-	uni.hideLoading()
-	uni.showToast({
-		icon: 'none',
-		title: '增加成功'
-	})
+	try{
+		uni.showLoading({
+			title: '正在提交'
+		})
+		await addDeposit({amount:number.value, username:address.value})
+		getDepositInfo()
+		uni.hideLoading()
+		uni.showToast({
+			icon: 'none',
+			title: '增加成功'
+		})
+	}catch(e){
+		uni.showToast({
+			icon: 'none',
+			title: '出错了'
+		})
+	}
 }
 
 </script>
