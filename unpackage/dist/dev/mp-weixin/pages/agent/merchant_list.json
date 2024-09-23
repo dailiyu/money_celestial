@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "商家列表",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar",
-    "uni-data-select": "../../uni_modules/uni-data-select/components/uni-data-select/uni-data-select",
-    "public-shop-list": "../../components/publicShopList/publicShopList"
-  }
-}
