@@ -3584,7 +3584,7 @@ This will fail in production.`);
     );
   }
   const __easycom_1$4 = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["render", _sfc_render$b], ["__scopeId", "data-v-09fd5285"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue"]]);
-  const _imports_0$c = "/static/my/logo.png";
+  const _imports_0$c = "/static/logo.png";
   const _imports_1$4 = "/static/phone-grey.png";
   const _imports_2$3 = "/static/lock-grey.png";
   const _imports_3$2 = "/static/wechat.png";
