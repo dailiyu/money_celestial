@@ -47,7 +47,11 @@ const toRegister = ()=>{
   
   const login=async()=>{	
 
+	  uni.showLoading({
+	  	title: '登录中'
+	  })
 	  userStore.loginAction(moblie.value,password.value).then((res)=>{
+		  uni.hideLoading()
 		 uni.showToast({
 		 	title:'登录成功',
 			icon:'success',
@@ -60,7 +64,7 @@ const toRegister = ()=>{
 		 },1000)
 		
 	  }).catch((err)=>{
-		
+		uni.hideLoading()
 		if(err?.data?.error){
 			uni.showToast({
 				duration:2000,

@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const service_point = require("../../service/point.js");
 const store_user = require("../../store/user.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
@@ -14,6 +15,21 @@ const _sfc_main = {
   __name: "myAccount",
   setup(__props) {
     const userStore = store_user.useUserStore();
+    const accessToken = common_vendor.index.getStorageSync("accessToken");
+    common_vendor.onMounted(() => {
+      if (accessToken) {
+        getPointInfo();
+      }
+    });
+    const green_points = common_vendor.ref(0);
+    const red_points = common_vendor.ref(0);
+    const user = common_vendor.ref("");
+    const getPointInfo = async () => {
+      const res = await service_point.getAllPoint();
+      green_points.value = res.green_points;
+      red_points.value = res.red_points;
+      user.value = res.user;
+    };
     const toLogin = () => {
       common_vendor.index.navigateTo({
         url: "/pages/login/login"
@@ -40,14 +56,17 @@ const _sfc_main = {
           title: "我的账户"
         }),
         b: common_vendor.unref(userStore).userInfo.icon,
-        c: common_vendor.t(common_vendor.unref(userStore).userInfo.name),
+        c: common_vendor.t(common_vendor.unref(userStore).userInfo.username || "点击登录"),
         d: common_vendor.o(toLogin),
-        e: common_vendor.o(toMyPoint),
-        f: common_vendor.o(toPointAvailable),
-        g: common_vendor.o(toPointAccount),
-        h: common_assets._imports_0$2,
-        i: common_assets._imports_0$2,
-        j: common_assets._imports_0$2
+        e: common_vendor.t(green_points.value),
+        f: common_vendor.o(toMyPoint),
+        g: common_vendor.t(red_points.value),
+        h: common_vendor.o(toPointAvailable),
+        i: common_vendor.t(user.value),
+        j: common_vendor.o(toPointAccount),
+        k: common_assets._imports_0$2,
+        l: common_assets._imports_0$2,
+        m: common_assets._imports_0$2
       };
     };
   }

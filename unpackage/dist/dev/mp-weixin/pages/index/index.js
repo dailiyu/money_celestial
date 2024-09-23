@@ -24,7 +24,10 @@ const _sfc_main = {
     const userStore = store_user.useUserStore();
     const city = common_vendor.ref("");
     common_vendor.onMounted(async () => {
-      await publicStore.fetchAllDataAction(), await userStore.fetchAllDataAction();
+      const accessToken = common_vendor.index.getStorageSync("accessToken");
+      if (accessToken) {
+        await publicStore.fetchAllDataAction(), await userStore.fetchAllDataAction();
+      }
       common_vendor.index.getLocation({
         geocode: true,
         success(res) {
@@ -91,13 +94,13 @@ const _sfc_main = {
       }
     };
     const toRecommend = () => {
-      if (userStore.is_referral_officer) {
+      if (userStore.userInfo.is_referral_officer) {
         common_vendor.index.navigateTo({
-          url: "/pages/recommend/recommend_intro"
+          url: "/pages/recommend/recommend_management"
         });
       } else {
         common_vendor.index.navigateTo({
-          url: "/pages/recommend/recommend_management"
+          url: "/pages/recommend/recommend_intro"
         });
       }
     };
