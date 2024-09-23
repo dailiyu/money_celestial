@@ -1534,7 +1534,7 @@ function populateParameters(fromRes, toRes) {
   let _SDKVersion = SDKVersion;
   const hostLanguage = language.replace(/_/g, "-");
   const parameters = {
-    appId: "",
+    appId: "__UNI__4500079",
     appName: "money_celestial",
     appVersion: "1.0.0",
     appVersionCode: "100",
@@ -1678,7 +1678,7 @@ const getAppBaseInfo = {
       hostName: _hostName,
       hostSDKVersion: SDKVersion,
       hostTheme: theme,
-      appId: "",
+      appId: "__UNI__4500079",
       appName: "money_celestial",
       appVersion: "1.0.0",
       appVersionCode: "100",
@@ -8878,10 +8878,21 @@ const globalStyle = {
   backgroundColor: "#F8F8F8"
 };
 const uniIdRouter = {};
+const condition = {
+  current: 0,
+  list: [
+    {
+      name: "",
+      path: "",
+      query: ""
+    }
+  ]
+};
 const e = {
   pages,
   globalStyle,
-  uniIdRouter
+  uniIdRouter,
+  condition
 };
 var define_process_env_UNI_SECURE_NETWORK_CONFIG_default = [];
 function t(e2) {
@@ -9175,7 +9186,7 @@ function I(e2) {
 const S = true, b = "mp-weixin", A = I(define_process_env_UNI_SECURE_NETWORK_CONFIG_default), C = b, P = I(""), T = I("[]") || [];
 let O = "";
 try {
-  O = "";
+  O = "__UNI__4500079";
 } catch (e2) {
 }
 let E = {};

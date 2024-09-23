@@ -29,97 +29,82 @@
   </view>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue';
 import questionsData from './question/index.json';
 
-export default {
-  setup() {
-    const allQuestions = ref([]);  // 全部题目
-    const currentQuestions = ref([]);  // 当前5道题目
-    const selectedAnswers = ref([]);  // 用户选择的答案
-    const incorrectQuestions = ref([]);  // 答错的题目
-    const showAnswers = ref(false);  // 是否显示答案
-    const isSubmitted = ref(false);  // 是否已经提交过
+const allQuestions = ref([]);  // 全部题目
+const currentQuestions = ref([]);  // 当前5道题目
+const selectedAnswers = ref([]);  // 用户选择的答案
+const incorrectQuestions = ref([]);  // 答错的题目
+const showAnswers = ref(false);  // 是否显示答案
+const isSubmitted = ref(false);  // 是否已经提交过
 
-    // 初始化随机获取5道题目
-    const initQuestions = () => {
-      allQuestions.value = questionsData.questions;
-      currentQuestions.value = getRandomQuestions(5);
-      selectedAnswers.value = Array(5).fill(''); // 清空并重置选择答案
-      showAnswers.value = false; // 不显示答案
-      isSubmitted.value = false; // 还未提交
-    };
+// 初始化随机获取5道题目
+const initQuestions = () => {
+  allQuestions.value = questionsData.questions;
+  currentQuestions.value = getRandomQuestions(5);
+  selectedAnswers.value = Array(5).fill(''); // 清空并重置选择答案
+  showAnswers.value = false; // 不显示答案
+  isSubmitted.value = false; // 还未提交
+};
 
-    // 随机获取指定数量的题目
-    const getRandomQuestions = (count) => {
-      let questionsCopy = [...allQuestions.value];
-      let selected = [];
-      while (selected.length < count) {
-        const randomIndex = Math.floor(Math.random() * questionsCopy.length);
-        selected.push(questionsCopy.splice(randomIndex, 1)[0]);
-      }
-      return selected;
-    };
+// 随机获取指定数量的题目
+const getRandomQuestions = (count) => {
+  let questionsCopy = [...allQuestions.value];
+  let selected = [];
+  while (selected.length < count) {
+    const randomIndex = Math.floor(Math.random() * questionsCopy.length);
+    selected.push(questionsCopy.splice(randomIndex, 1)[0]);
+  }
+  return selected;
+};
 
-    // 用户选择答案
-    const selectAnswer = (questionIndex, selectedOption) => {
-      selectedAnswers.value[questionIndex] = selectedOption;
-    };
+// 用户选择答案
+const selectAnswer = (questionIndex, selectedOption) => {
+  selectedAnswers.value[questionIndex] = selectedOption;
+};
 
-    // 提交答案并检查是否答错
-    const submitAnswers = () => {
-      incorrectQuestions.value = [];
-      currentQuestions.value.forEach((question, index) => {
-        if (selectedAnswers.value[index] !== question.correct_answer) {
-          incorrectQuestions.value.push(question);
-        }
-      });
-      isSubmitted.value = true;
-      if (incorrectQuestions.value.length > 0) {
-        // 有答错的题目
-        uni.showToast({
-          title: '有答错的题目，点击查看答案！',
-          icon: 'none'
-        });
-      } else {
-        uni.showToast({
-          title: '恭喜，全部正确！',
-          icon: 'success'
-        });
-		uni.navigateTo({
-			url: '/pages/recommend/recommend_management'
-		})
-      }
-    };
-
-    // 查看正确答案
-    const showCorrectAnswers = () => {
-      showAnswers.value = true;
-    };
-
-    // 重新生成5道题目并清空答案
-    const resetQuiz = () => {
-      initQuestions(); // 重新初始化题目
-    };
-
-    // 页面加载时初始化
-    onMounted(() => {
-      initQuestions();
+// 提交答案并检查是否答错
+const submitAnswers = () => {
+  incorrectQuestions.value = [];
+  currentQuestions.value.forEach((question, index) => {
+    if (selectedAnswers.value[index] !== question.correct_answer) {
+      incorrectQuestions.value.push(question);
+    }
+  });
+  isSubmitted.value = true;
+  if (incorrectQuestions.value.length > 0) {
+    // 有答错的题目
+    uni.showToast({
+      title: '有答错的题目，点击查看答案！',
+      icon: 'none'
     });
-
-    return {
-      currentQuestions,
-      selectedAnswers,
-      showAnswers,
-      isSubmitted,
-      selectAnswer,
-      submitAnswers,
-      showCorrectAnswers,
-      resetQuiz
-    };
+  } else {
+    uni.showToast({
+      title: '恭喜，全部正确！',
+      icon: 'success'
+    });
+    uni.navigateTo({
+      url: '/pages/recommend/recommend_management'
+    });
   }
 };
+
+// 查看正确答案
+const showCorrectAnswers = () => {
+  showAnswers.value = true;
+};
+
+// 重新生成5道题目并清空答案
+const resetQuiz = () => {
+  initQuestions(); // 重新初始化题目
+};
+
+// 页面加载时初始化
+onMounted(() => {
+  initQuestions();
+});
 </script>
 
 <style lang="scss" scoped>

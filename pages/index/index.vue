@@ -179,7 +179,8 @@ import { onMounted, ref } from 'vue';
 import {usePublicStore} from "@/store/public.js"
 import { useUserStore } from '../../store/user';
 
-var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
+
+// var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
 
 const keyword = ref('')
@@ -190,33 +191,33 @@ const city = ref('')
 onMounted(async()=>{
 	 await publicStore.fetchAllDataAction(),
 	 await userStore.fetchAllDataAction()
-	uni.getLocation({
-		geocode: true,
-		success(res) {
-			var qqmapsdk = new QQMapWX({
-			    key: 'YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA' // 必填
-			});
-			qqmapsdk.reverseGeocoder({
-				location: {
-					latitude: res.latitude,
-					longitude: res.longitude
-				},
-				success(address){
-					const ad_info = address.result.ad_info
-					uni.setStorageSync('address_info', address.result.ad_info)
+	// uni.getLocation({
+	// 	geocode: true,
+	// 	success(res) {
+	// 		var qqmapsdk = new QQMapWX({
+	// 		    key: 'YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA' // 必填
+	// 		});
+	// 		qqmapsdk.reverseGeocoder({
+	// 			location: {
+	// 				latitude: res.latitude,
+	// 				longitude: res.longitude
+	// 			},
+	// 			success(address){
+	// 				const ad_info = address.result.ad_info
+	// 				uni.setStorageSync('address_info', address.result.ad_info)
 				
-					city.value = ad_info.city
-				},
-				fail(err){
-					console.log(err)
-					uni.showToast({
-						icon: 'none',
-						title: '定位失败'
-					})
-				}
-			})
-		}
-	})
+	// 				city.value = ad_info.city
+	// 			},
+	// 			fail(err){
+	// 				console.log(err)
+	// 				uni.showToast({
+	// 					icon: 'none',
+	// 					title: '定位失败'
+	// 				})
+	// 			}
+	// 		})
+	// 	}
+	// })
 })
 
 const search = ()=>{

@@ -58,8 +58,12 @@ const _sfc_main = {
     console.log("App Hide");
   }
 };
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return {};
+}
+const App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
 function createApp() {
-  const app = common_vendor.createSSRApp(_sfc_main);
+  const app = common_vendor.createSSRApp(App);
   const pinia = common_vendor.createPinia();
   app.use(pinia);
   return {
