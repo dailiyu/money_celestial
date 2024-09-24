@@ -1,0 +1,1 @@
+<view class="data-v-4d11c0d1"><nav-bar wx:if="{{a}}" class="data-v-4d11c0d1" u-i="4d11c0d1-0" bind:__l="__l" u-p="{{a}}"></nav-bar><view class="content data-v-4d11c0d1"><image src="{{b}}" mode="widthFix" class="merchant_intro data-v-4d11c0d1"></image><view class="btn_full data-v-4d11c0d1" bindtap="{{c}}"> 联系满仓 </view></view></view>
