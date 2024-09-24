@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="商家" ></navBar>
 		<view class="content">
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/merchant-intro.jpg" mode="widthFix" class="merchant_intro"></image>
+			<image src="@/static/merchant/merchant-intro.jpg" mode="widthFix" class="merchant_intro"></image>
 			<view class="btn_full" @click="toNotice">
 				我要入驻
 			</view>

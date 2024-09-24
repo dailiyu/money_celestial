@@ -930,11 +930,9 @@
   font-size: 0.75rem;
   margin-right: 0.9375rem;
 }
-.search_bar uni-search-bar[data-v-1cf27b2a] {
-  flex: 1;
-}
 .search_bar[data-v-1cf27b2a] .uni-searchbar {
   padding: 0;
+  flex: 1;
 }
 .search_bar[data-v-1cf27b2a] .uni-searchbar__box {
   height: 1.875rem;

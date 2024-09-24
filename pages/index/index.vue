@@ -20,7 +20,7 @@
 		<view class="function_list flex_between">
 			<view class="function_item" @click="toMerchant">
 				<view class="img_box flex_center">
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/cart.png" mode="widthFix" class="img_item"></image>
+					<image src="@/static/home/cart.png" mode="widthFix" class="img_item"></image>
 				</view>
 				<view class="" >
 					商家
@@ -28,7 +28,7 @@
 			</view>
 			<view class="function_item" @click="toAgent">
 				<view class="img_box flex_center">
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/bag_KK6aQAP.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
+					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
 				</view>
 				<view class="">
 					代理
@@ -36,7 +36,7 @@
 			</view>
 			<view class="function_item" @click="toRecommend">
 				<view class="img_box flex_center">
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
+					<image src="@/static/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
 				</view>
 				<view class="">
 					推荐官
@@ -44,7 +44,7 @@
 			</view>
 			<view class="function_item" @click="toMyAccount">
 				<view class="img_box flex_center">
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
+					<image src="@/static/home/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
 				</view>
 				<view class="">
 					我的账户
@@ -113,9 +113,9 @@
 			</swiper-item>
 		</swiper> -->
 		<view class="content">
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/shop.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/benefit.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/earn.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="@/static/home/shop.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="@/static/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="@/static/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
 		</view>
 	</view>
 </template>
@@ -268,11 +268,9 @@ const toDetail = ()=>{
 		font-size: 24rpx;
 		margin-right: 30rpx;
 	}
-	uni-search-bar {
-		flex: 1;
-	}
 	:deep(.uni-searchbar) {
 		padding: 0;
+		flex: 1;
 	}
 	:deep(.uni-searchbar__box) {
 		height: 60rpx;

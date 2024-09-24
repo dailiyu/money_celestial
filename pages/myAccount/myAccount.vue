@@ -2,7 +2,7 @@
 	<navBar title="我的账户"></navBar>
 	<view class="page">
 		<view class="img-box">
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/bg_my.png" class="img"></image>
+			<image src="@/static/my/bg_my.png" class="img"></image>
 		</view>
 		<view class="content">
 			<view class="profile" @click="toLogin">
@@ -15,17 +15,17 @@
 			</view>
 			<view class="points-box">
 				<view class="item" @click="toMyPoint">
-					<image class="img" src="https://max.q6z4kzhr.uk/media/category_icons/my_credits.png"></image>
+					<image class="img" src="@/static/my/my_credits.png"></image>
 					<text class="text">我的积分</text>
 					<div class="text number">{{green_points}}</div>
 				</view>
 				<view class="item" @click="toPointAvailable">
-					<image class="img" src="https://max.q6z4kzhr.uk/media/category_icons/available_credits.png"></image>
+					<image class="img" src="@/static/my/available_credits.png"></image>
 					<text class="text">可用积分</text>
-					<div class=" number">{{red_points}}</div>
+					<div class="text number">{{red_points}}</div>
 				</view>
 				<view class="item" @click="toPointAccount">
-					<image class="img" src="https://max.q6z4kzhr.uk/media/category_icons/credits_account.png"></image>
+					<image class="img" src="@/static/my/credits_account.png"></image>
 					<text class="text">积分账号</text>
 					<div class="text number">{{user}}</div>
 				</view>
@@ -39,19 +39,19 @@
 				</view>
 				<view class="service_bottom flex">
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/info.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/info.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							我的信息
 						</view>
 					</view>
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/record.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/record.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							我的记录
 						</view>
 					</view>
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/collect.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/collect.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							我的收藏
 						</view>
@@ -67,19 +67,19 @@
 				</view>
 				<view class="service_bottom flex">
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/help.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/help.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							帮助中心
 						</view>
 					</view>
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/us.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/us.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							关于我们
 						</view>
 					</view>
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/service.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/service.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							联系客服
 						</view>
@@ -95,13 +95,13 @@
 				</view>
 				<view class="service_bottom flex">
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/995bb45a9bf04bc43cdee130bc9efeb.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/settle.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							我要入驻
 						</view>
 					</view>
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/entrance.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/entrance.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							商家入口
 						</view>
@@ -214,7 +214,7 @@ const toPointAccount = ()=>{
 				width: 684rpx;
 				height: 270rpx;
 				margin-top: 15rpx;
-				background-image: url('https://max.q6z4kzhr.uk/media/category_icons/bg_credit.png');
+				background-image: url('@/static/my/bg_credit.png');
 				background-size: cover;
 
 				.item {
