@@ -1,8 +1,5 @@
 {
   "dependencies": {
     "pinia": "^2.2.2"
-  },
-  "devDependencies": {
-    "@types/node": "^22.5.5"
   }
 }
