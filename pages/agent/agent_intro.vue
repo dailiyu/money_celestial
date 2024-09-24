@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="代理" ></navBar>
 		<view class="content">
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/agent-intro.jpg" mode="widthFix" class="merchant_intro"></image>
+			<image src="@/static/agent/agent-intro.jpg" mode="widthFix" class="merchant_intro"></image>
 			<view class="btn_full">
 				联系满仓
 			</view>

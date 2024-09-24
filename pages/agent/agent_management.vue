@@ -3,7 +3,7 @@
 		<navBar title="代理后台" ></navBar>
 		<view class="content">
 			<view class="total_data">
-				<image src="https://max.q6z4kzhr.uk/media/category_icons/agent-bg.png" mode="widthFix" class="agent_pic"></image>
+				<image src="@/static/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image>
 				<view class="data_item">
 					<view class="location">
 						<text class="city">{{cityAgent}}</text>

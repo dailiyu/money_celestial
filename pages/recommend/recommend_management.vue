@@ -2,9 +2,9 @@
 	<view>
 		<navBar title="推荐官后台" ></navBar>
 		<view class="total_data">
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
+			<image src="@/static/recommend/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
 			<view class="data_item">
-				<image src="https://max.q6z4kzhr.uk/media/category_icons/lv1.png" mode="widthFix" class="lv_pic"></image>
+				<image src="@/static/recommend/lv1.png" mode="widthFix" class="lv_pic"></image>
 				<view class="lv_name">
 					荣耀推荐官
 				</view>
@@ -12,7 +12,7 @@
 					<view class="name">
 						{{info?.results&&info?.results[0]?.owner?.username}}
 					</view>
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/code.png" mode="widthFix" class="code_pic" @click="getQRCode"></image>
+					<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="getQRCode"></image>
 				</view>
 				<view class="total_item flex_center">
 					<view class="">
