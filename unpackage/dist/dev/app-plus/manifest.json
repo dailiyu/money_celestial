@@ -78,6 +78,7 @@
       "style": "light",
       "background": "#F8F8F8"
     },
+    "arguments": "{\"name\":\"\",\"path\":\"\",\"query\":\"\"}",
     "uniStatistics": {
       "enable": false
     },
