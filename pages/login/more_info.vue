@@ -177,7 +177,7 @@ const saveMessage=async()=>{
 			duration:700
 		})
 	}
-	  changeUserInfo(name.value,uploadSuccessUrl.value,gender.value,birthday.value,address.value,email.value).then((res)=>{
+	  changeUserInfo({name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'',birthdate:birthday.value||'',residence:address.value||'',email:email.value||''}).then((res)=>{
 		  uni.showToast({
 		  	duration:1000,
 			icon:'success',

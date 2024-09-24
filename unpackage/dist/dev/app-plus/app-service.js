@@ -774,7 +774,7 @@ if (uni.restoreGlobal) {
       /* CLASS, STYLE */
     );
   }
-  const __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["render", _sfc_render$g], ["__scopeId", "data-v-d31e1c47"], ["__file", "D:/code/money_celestial/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
+  const __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["render", _sfc_render$g], ["__scopeId", "data-v-d31e1c47"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
   const _sfc_main$U = {
     name: "navBar",
     data() {
@@ -846,7 +846,7 @@ if (uni.restoreGlobal) {
       /* STYLE */
     );
   }
-  const __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["render", _sfc_render$f], ["__scopeId", "data-v-fba290dc"], ["__file", "D:/code/money_celestial/components/navBar/navBar.vue"]]);
+  const __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["render", _sfc_render$f], ["__scopeId", "data-v-fba290dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/navBar/navBar.vue"]]);
   const isObject = (val) => val !== null && typeof val === "object";
   const defaultDelimiters = ["{", "}"];
   class BaseFormatter {
@@ -1071,10 +1071,12 @@ if (uni.restoreGlobal) {
   }
   function initVueI18n(locale, messages2 = {}, fallbackLocale, watcher) {
     if (typeof locale !== "string") {
-      [locale, messages2] = [
+      const options = [
         messages2,
         locale
       ];
+      locale = options[0];
+      messages2 = options[1];
     }
     if (typeof locale !== "string") {
       locale = getDefaultLocale();
@@ -1369,7 +1371,7 @@ if (uni.restoreGlobal) {
       )) : vue.createCommentVNode("v-if", true)
     ]);
   }
-  const __easycom_1$5 = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["render", _sfc_render$e], ["__scopeId", "data-v-f07ef577"], ["__file", "D:/code/money_celestial/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue"]]);
+  const __easycom_1$5 = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["render", _sfc_render$e], ["__scopeId", "data-v-f07ef577"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue"]]);
   const _imports_0$6 = "/static/locate.png";
   const _imports_1$3 = "/static/locate_orange.png";
   var isVue2 = false;
@@ -3056,15 +3058,8 @@ This will fail in production.`);
       username: phone_number
     });
   };
-  const changeUserInfo = async (name, icon, gander, birthdate, residence, email) => {
-    return http.patch("/users/", {
-      name,
-      icon,
-      gander,
-      birthdate,
-      residence,
-      email
-    });
+  const changeUserInfo = async (userInfo) => {
+    return http.put("/users/update/", userInfo);
   };
   const postProfileLogin = async (phone_number, password) => {
     return http.post("/users/login/", {
@@ -3572,7 +3567,7 @@ This will fail in production.`);
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1$4 = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["render", _sfc_render$d], ["__scopeId", "data-v-09fd5285"], ["__file", "D:/code/money_celestial/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue"]]);
+  const __easycom_1$4 = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["render", _sfc_render$d], ["__scopeId", "data-v-09fd5285"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue"]]);
   const _imports_0$5 = "/static/logo.png";
   const _imports_1$2 = "/static/phone-grey.png";
   const _imports_2$1 = "/static/lock-grey.png";
@@ -3685,13 +3680,13 @@ This will fail in production.`);
               class: "r_btn flex_center",
               onClick: toRegister
             }, " 注册新用户 "),
-            vue.createCommentVNode(' <view class="wx_btn flex_center">\r\n				<image src="@/static/wechat.png" mode="widthFix" class="wx_logo"></image>\r\n				<view class="">\r\n					微信一键登录\r\n				</view>\r\n			</view> ')
+            vue.createCommentVNode(' <view class="wx_btn flex_center">\n				<image src="@/static/wechat.png" mode="widthFix" class="wx_logo"></image>\n				<view class="">\n					微信一键登录\n				</view>\n			</view> ')
           ])
         ]);
       };
     }
   };
-  const PagesLoginLogin = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["__scopeId", "data-v-e4e4508d"], ["__file", "D:/code/money_celestial/pages/login/login.vue"]]);
+  const PagesLoginLogin = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["__scopeId", "data-v-e4e4508d"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/login/login.vue"]]);
   const useUserStore = defineStore("user", {
     state: () => {
       return {
@@ -4063,7 +4058,7 @@ This will fail in production.`);
       };
     }
   };
-  const PagesIndexIndex = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["__scopeId", "data-v-1cf27b2a"], ["__file", "D:/code/money_celestial/pages/index/index.vue"]]);
+  const PagesIndexIndex = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["__scopeId", "data-v-1cf27b2a"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/index/index.vue"]]);
   const _sfc_main$P = {
     __name: "merchant_intro",
     setup(__props) {
@@ -4091,7 +4086,7 @@ This will fail in production.`);
       };
     }
   };
-  const PagesMerchantMerchant_intro = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["__scopeId", "data-v-63c4abfc"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_intro.vue"]]);
+  const PagesMerchantMerchantIntro = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["__scopeId", "data-v-63c4abfc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_intro.vue"]]);
   const _sfc_main$O = {
     __name: "settle_notice",
     setup(__props) {
@@ -4144,7 +4139,7 @@ This will fail in production.`);
       };
     }
   };
-  const PagesMerchantSettle_notice = /* @__PURE__ */ _export_sfc(_sfc_main$O, [["__scopeId", "data-v-37037ead"], ["__file", "D:/code/money_celestial/pages/merchant/settle_notice.vue"]]);
+  const PagesMerchantSettleNotice = /* @__PURE__ */ _export_sfc(_sfc_main$O, [["__scopeId", "data-v-37037ead"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/settle_notice.vue"]]);
   const _imports_0$4 = "/static/upload.png";
   const _sfc_main$N = {
     __name: "upload",
@@ -4199,7 +4194,7 @@ This will fail in production.`);
       };
     }
   };
-  const __easycom_2$4 = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["__scopeId", "data-v-0917ae16"], ["__file", "D:/code/money_celestial/components/upload/upload.vue"]]);
+  const __easycom_2$4 = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["__scopeId", "data-v-0917ae16"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/upload/upload.vue"]]);
   const pages = [
     {
       path: "pages/index/index",
@@ -4669,8 +4664,8 @@ This will fail in production.`);
           var s3 = t4 + n3, r3 = e4[s3];
           e4[s3] = 16711935 & (r3 << 8 | r3 >>> 24) | 4278255360 & (r3 << 24 | r3 >>> 8);
         }
-        var i3 = this._hash.words, o3 = e4[t4 + 0], c3 = e4[t4 + 1], p2 = e4[t4 + 2], f2 = e4[t4 + 3], g2 = e4[t4 + 4], m2 = e4[t4 + 5], y2 = e4[t4 + 6], _2 = e4[t4 + 7], w2 = e4[t4 + 8], v2 = e4[t4 + 9], I2 = e4[t4 + 10], S2 = e4[t4 + 11], b2 = e4[t4 + 12], k2 = e4[t4 + 13], A2 = e4[t4 + 14], P2 = e4[t4 + 15], T2 = i3[0], C2 = i3[1], x2 = i3[2], O2 = i3[3];
-        T2 = u2(T2, C2, x2, O2, o3, 7, a2[0]), O2 = u2(O2, T2, C2, x2, c3, 12, a2[1]), x2 = u2(x2, O2, T2, C2, p2, 17, a2[2]), C2 = u2(C2, x2, O2, T2, f2, 22, a2[3]), T2 = u2(T2, C2, x2, O2, g2, 7, a2[4]), O2 = u2(O2, T2, C2, x2, m2, 12, a2[5]), x2 = u2(x2, O2, T2, C2, y2, 17, a2[6]), C2 = u2(C2, x2, O2, T2, _2, 22, a2[7]), T2 = u2(T2, C2, x2, O2, w2, 7, a2[8]), O2 = u2(O2, T2, C2, x2, v2, 12, a2[9]), x2 = u2(x2, O2, T2, C2, I2, 17, a2[10]), C2 = u2(C2, x2, O2, T2, S2, 22, a2[11]), T2 = u2(T2, C2, x2, O2, b2, 7, a2[12]), O2 = u2(O2, T2, C2, x2, k2, 12, a2[13]), x2 = u2(x2, O2, T2, C2, A2, 17, a2[14]), T2 = h2(T2, C2 = u2(C2, x2, O2, T2, P2, 22, a2[15]), x2, O2, c3, 5, a2[16]), O2 = h2(O2, T2, C2, x2, y2, 9, a2[17]), x2 = h2(x2, O2, T2, C2, S2, 14, a2[18]), C2 = h2(C2, x2, O2, T2, o3, 20, a2[19]), T2 = h2(T2, C2, x2, O2, m2, 5, a2[20]), O2 = h2(O2, T2, C2, x2, I2, 9, a2[21]), x2 = h2(x2, O2, T2, C2, P2, 14, a2[22]), C2 = h2(C2, x2, O2, T2, g2, 20, a2[23]), T2 = h2(T2, C2, x2, O2, v2, 5, a2[24]), O2 = h2(O2, T2, C2, x2, A2, 9, a2[25]), x2 = h2(x2, O2, T2, C2, f2, 14, a2[26]), C2 = h2(C2, x2, O2, T2, w2, 20, a2[27]), T2 = h2(T2, C2, x2, O2, k2, 5, a2[28]), O2 = h2(O2, T2, C2, x2, p2, 9, a2[29]), x2 = h2(x2, O2, T2, C2, _2, 14, a2[30]), T2 = l2(T2, C2 = h2(C2, x2, O2, T2, b2, 20, a2[31]), x2, O2, m2, 4, a2[32]), O2 = l2(O2, T2, C2, x2, w2, 11, a2[33]), x2 = l2(x2, O2, T2, C2, S2, 16, a2[34]), C2 = l2(C2, x2, O2, T2, A2, 23, a2[35]), T2 = l2(T2, C2, x2, O2, c3, 4, a2[36]), O2 = l2(O2, T2, C2, x2, g2, 11, a2[37]), x2 = l2(x2, O2, T2, C2, _2, 16, a2[38]), C2 = l2(C2, x2, O2, T2, I2, 23, a2[39]), T2 = l2(T2, C2, x2, O2, k2, 4, a2[40]), O2 = l2(O2, T2, C2, x2, o3, 11, a2[41]), x2 = l2(x2, O2, T2, C2, f2, 16, a2[42]), C2 = l2(C2, x2, O2, T2, y2, 23, a2[43]), T2 = l2(T2, C2, x2, O2, v2, 4, a2[44]), O2 = l2(O2, T2, C2, x2, b2, 11, a2[45]), x2 = l2(x2, O2, T2, C2, P2, 16, a2[46]), T2 = d2(T2, C2 = l2(C2, x2, O2, T2, p2, 23, a2[47]), x2, O2, o3, 6, a2[48]), O2 = d2(O2, T2, C2, x2, _2, 10, a2[49]), x2 = d2(x2, O2, T2, C2, A2, 15, a2[50]), C2 = d2(C2, x2, O2, T2, m2, 21, a2[51]), T2 = d2(T2, C2, x2, O2, b2, 6, a2[52]), O2 = d2(O2, T2, C2, x2, f2, 10, a2[53]), x2 = d2(x2, O2, T2, C2, I2, 15, a2[54]), C2 = d2(C2, x2, O2, T2, c3, 21, a2[55]), T2 = d2(T2, C2, x2, O2, w2, 6, a2[56]), O2 = d2(O2, T2, C2, x2, P2, 10, a2[57]), x2 = d2(x2, O2, T2, C2, y2, 15, a2[58]), C2 = d2(C2, x2, O2, T2, k2, 21, a2[59]), T2 = d2(T2, C2, x2, O2, g2, 6, a2[60]), O2 = d2(O2, T2, C2, x2, S2, 10, a2[61]), x2 = d2(x2, O2, T2, C2, p2, 15, a2[62]), C2 = d2(C2, x2, O2, T2, v2, 21, a2[63]), i3[0] = i3[0] + T2 | 0, i3[1] = i3[1] + C2 | 0, i3[2] = i3[2] + x2 | 0, i3[3] = i3[3] + O2 | 0;
+        var i3 = this._hash.words, o3 = e4[t4 + 0], c3 = e4[t4 + 1], p2 = e4[t4 + 2], f2 = e4[t4 + 3], g2 = e4[t4 + 4], m2 = e4[t4 + 5], y2 = e4[t4 + 6], _2 = e4[t4 + 7], w2 = e4[t4 + 8], v2 = e4[t4 + 9], I2 = e4[t4 + 10], S2 = e4[t4 + 11], b2 = e4[t4 + 12], k2 = e4[t4 + 13], A2 = e4[t4 + 14], C2 = e4[t4 + 15], P2 = i3[0], T2 = i3[1], x2 = i3[2], O2 = i3[3];
+        P2 = u2(P2, T2, x2, O2, o3, 7, a2[0]), O2 = u2(O2, P2, T2, x2, c3, 12, a2[1]), x2 = u2(x2, O2, P2, T2, p2, 17, a2[2]), T2 = u2(T2, x2, O2, P2, f2, 22, a2[3]), P2 = u2(P2, T2, x2, O2, g2, 7, a2[4]), O2 = u2(O2, P2, T2, x2, m2, 12, a2[5]), x2 = u2(x2, O2, P2, T2, y2, 17, a2[6]), T2 = u2(T2, x2, O2, P2, _2, 22, a2[7]), P2 = u2(P2, T2, x2, O2, w2, 7, a2[8]), O2 = u2(O2, P2, T2, x2, v2, 12, a2[9]), x2 = u2(x2, O2, P2, T2, I2, 17, a2[10]), T2 = u2(T2, x2, O2, P2, S2, 22, a2[11]), P2 = u2(P2, T2, x2, O2, b2, 7, a2[12]), O2 = u2(O2, P2, T2, x2, k2, 12, a2[13]), x2 = u2(x2, O2, P2, T2, A2, 17, a2[14]), P2 = h2(P2, T2 = u2(T2, x2, O2, P2, C2, 22, a2[15]), x2, O2, c3, 5, a2[16]), O2 = h2(O2, P2, T2, x2, y2, 9, a2[17]), x2 = h2(x2, O2, P2, T2, S2, 14, a2[18]), T2 = h2(T2, x2, O2, P2, o3, 20, a2[19]), P2 = h2(P2, T2, x2, O2, m2, 5, a2[20]), O2 = h2(O2, P2, T2, x2, I2, 9, a2[21]), x2 = h2(x2, O2, P2, T2, C2, 14, a2[22]), T2 = h2(T2, x2, O2, P2, g2, 20, a2[23]), P2 = h2(P2, T2, x2, O2, v2, 5, a2[24]), O2 = h2(O2, P2, T2, x2, A2, 9, a2[25]), x2 = h2(x2, O2, P2, T2, f2, 14, a2[26]), T2 = h2(T2, x2, O2, P2, w2, 20, a2[27]), P2 = h2(P2, T2, x2, O2, k2, 5, a2[28]), O2 = h2(O2, P2, T2, x2, p2, 9, a2[29]), x2 = h2(x2, O2, P2, T2, _2, 14, a2[30]), P2 = l2(P2, T2 = h2(T2, x2, O2, P2, b2, 20, a2[31]), x2, O2, m2, 4, a2[32]), O2 = l2(O2, P2, T2, x2, w2, 11, a2[33]), x2 = l2(x2, O2, P2, T2, S2, 16, a2[34]), T2 = l2(T2, x2, O2, P2, A2, 23, a2[35]), P2 = l2(P2, T2, x2, O2, c3, 4, a2[36]), O2 = l2(O2, P2, T2, x2, g2, 11, a2[37]), x2 = l2(x2, O2, P2, T2, _2, 16, a2[38]), T2 = l2(T2, x2, O2, P2, I2, 23, a2[39]), P2 = l2(P2, T2, x2, O2, k2, 4, a2[40]), O2 = l2(O2, P2, T2, x2, o3, 11, a2[41]), x2 = l2(x2, O2, P2, T2, f2, 16, a2[42]), T2 = l2(T2, x2, O2, P2, y2, 23, a2[43]), P2 = l2(P2, T2, x2, O2, v2, 4, a2[44]), O2 = l2(O2, P2, T2, x2, b2, 11, a2[45]), x2 = l2(x2, O2, P2, T2, C2, 16, a2[46]), P2 = d2(P2, T2 = l2(T2, x2, O2, P2, p2, 23, a2[47]), x2, O2, o3, 6, a2[48]), O2 = d2(O2, P2, T2, x2, _2, 10, a2[49]), x2 = d2(x2, O2, P2, T2, A2, 15, a2[50]), T2 = d2(T2, x2, O2, P2, m2, 21, a2[51]), P2 = d2(P2, T2, x2, O2, b2, 6, a2[52]), O2 = d2(O2, P2, T2, x2, f2, 10, a2[53]), x2 = d2(x2, O2, P2, T2, I2, 15, a2[54]), T2 = d2(T2, x2, O2, P2, c3, 21, a2[55]), P2 = d2(P2, T2, x2, O2, w2, 6, a2[56]), O2 = d2(O2, P2, T2, x2, C2, 10, a2[57]), x2 = d2(x2, O2, P2, T2, y2, 15, a2[58]), T2 = d2(T2, x2, O2, P2, k2, 21, a2[59]), P2 = d2(P2, T2, x2, O2, g2, 6, a2[60]), O2 = d2(O2, P2, T2, x2, S2, 10, a2[61]), x2 = d2(x2, O2, P2, T2, p2, 15, a2[62]), T2 = d2(T2, x2, O2, P2, v2, 21, a2[63]), i3[0] = i3[0] + P2 | 0, i3[1] = i3[1] + T2 | 0, i3[2] = i3[2] + x2 | 0, i3[3] = i3[3] + O2 | 0;
       }, _doFinalize: function() {
         var t4 = this._data, n3 = t4.words, s3 = 8 * this._nDataBytes, r3 = 8 * t4.sigBytes;
         n3[r3 >>> 5] |= 128 << 24 - r3 % 32;
@@ -4808,10 +4803,10 @@ This will fail in production.`);
   function I(e2) {
     return e2 && "string" == typeof e2 ? JSON.parse(e2) : e2;
   }
-  const S = true, b = "app", A = I(define_process_env_UNI_SECURE_NETWORK_CONFIG_default), P = b, T = I(""), C = I("[]") || [];
+  const S = true, b = "app", A = I(define_process_env_UNI_SECURE_NETWORK_CONFIG_default), C = b, P = I(""), T = I("[]") || [];
   let O = "";
   try {
-    O = "";
+    O = "__UNI__6FAB407";
   } catch (e2) {
   }
   let E = {};
@@ -4853,11 +4848,11 @@ This will fail in production.`);
   function J(e2) {
     return K[e2] || (K[e2] = []), K[e2];
   }
-  function G(e2, t2) {
+  function V(e2, t2) {
     const n2 = J(e2);
     n2.includes(t2) || n2.push(t2);
   }
-  function V(e2, t2) {
+  function G(e2, t2) {
     const n2 = J(e2), s2 = n2.indexOf(t2);
     -1 !== s2 && n2.splice(s2, 1);
   }
@@ -4898,7 +4893,7 @@ This will fail in production.`);
         return e2++, { errCode: this.errCode, errMsg: this.errMsg, errSubject: this.errSubject, cause: this.cause && this.cause.toJson ? this.cause.toJson(e2) : this.cause };
     }
   }
-  var ne = { request: (e2) => uni.request(e2), uploadFile: (e2) => uni.uploadFile(e2), setStorageSync: (e2, t2) => uni.setStorageSync(e2, t2), getStorageSync: (e2) => uni.getStorageSync(e2), removeStorageSync: (e2) => uni.removeStorageSync(e2), clearStorageSync: () => uni.clearStorageSync() };
+  var ne = { request: (e2) => uni.request(e2), uploadFile: (e2) => uni.uploadFile(e2), setStorageSync: (e2, t2) => uni.setStorageSync(e2, t2), getStorageSync: (e2) => uni.getStorageSync(e2), removeStorageSync: (e2) => uni.removeStorageSync(e2), clearStorageSync: () => uni.clearStorageSync(), connectSocket: (e2) => uni.connectSocket(e2) };
   function se(e2) {
     return e2 && se(e2.__v_raw) || e2;
   }
@@ -4925,17 +4920,17 @@ This will fail in production.`);
     }
     return { channel: e2, scene: t2 };
   }
-  function he() {
+  let he = {};
+  function le() {
     const e2 = uni.getLocale && uni.getLocale() || "en";
     if (ae)
-      return { ...ae, locale: e2, LOCALE: e2 };
-    const t2 = ce(), { deviceId: n2, osName: s2, uniPlatform: r2, appId: i2 } = t2, o2 = ["pixelRatio", "brand", "model", "system", "language", "version", "platform", "host", "SDKVersion", "swanNativeVersion", "app", "AppPlatform", "fontSizeSetting"];
-    for (let e3 = 0; e3 < o2.length; e3++) {
-      delete t2[o2[e3]];
-    }
-    return ae = { PLATFORM: r2, OS: s2, APPID: i2, DEVICEID: n2, ...ue(), ...t2 }, { ...ae, locale: e2, LOCALE: e2 };
+      return { ...he, ...ae, locale: e2, LOCALE: e2 };
+    const t2 = ce(), { deviceId: n2, osName: s2, uniPlatform: r2, appId: i2 } = t2, o2 = ["appId", "appLanguage", "appName", "appVersion", "appVersionCode", "appWgtVersion", "browserName", "browserVersion", "deviceBrand", "deviceId", "deviceModel", "deviceType", "osName", "osVersion", "romName", "romVersion", "ua", "hostName", "hostVersion", "uniPlatform", "uniRuntimeVersion", "uniRuntimeVersionCode", "uniCompilerVersion", "uniCompilerVersionCode"];
+    for (const e3 in t2)
+      Object.hasOwnProperty.call(t2, e3) && -1 === o2.indexOf(e3) && delete t2[e3];
+    return ae = { PLATFORM: r2, OS: s2, APPID: i2, DEVICEID: n2, ...ue(), ...t2 }, { ...he, ...ae, locale: e2, LOCALE: e2 };
   }
-  var le = { sign: function(e2, t2) {
+  var de = { sign: function(e2, t2) {
     let n2 = "";
     return Object.keys(e2).sort().forEach(function(t3) {
       e2[t3] && (n2 = n2 + "&" + t3 + "=" + e2[t3]);
@@ -4958,7 +4953,7 @@ This will fail in production.`);
   }, toBase64: function(e2) {
     return a.stringify(o.parse(e2));
   } };
-  var de = class {
+  var pe = class {
     constructor(e2) {
       ["spaceId", "clientSecret"].forEach((t2) => {
         if (!Object.prototype.hasOwnProperty.call(e2, t2))
@@ -4976,7 +4971,7 @@ This will fail in production.`);
       this.accessToken = e2;
     }
     requestWrapped(e2) {
-      return le.wrappedRequest(e2, this.adapter.request);
+      return de.wrappedRequest(e2, this.adapter.request);
     }
     requestAuth(e2) {
       return this.requestWrapped(e2);
@@ -4994,11 +4989,11 @@ This will fail in production.`);
     }
     rebuildRequest(e2) {
       const t2 = Object.assign({}, e2);
-      return t2.data.token = this.accessToken, t2.header["x-basement-token"] = this.accessToken, t2.header["x-serverless-sign"] = le.sign(t2.data, this.config.clientSecret), t2;
+      return t2.data.token = this.accessToken, t2.header["x-basement-token"] = this.accessToken, t2.header["x-serverless-sign"] = de.sign(t2.data, this.config.clientSecret), t2;
     }
     setupRequest(e2, t2) {
       const n2 = Object.assign({}, e2, { spaceId: this.config.spaceId, timestamp: Date.now() }), s2 = { "Content-Type": "application/json" };
-      return "auth" !== t2 && (n2.token = this.accessToken, s2["x-basement-token"] = this.accessToken), s2["x-serverless-sign"] = le.sign(n2, this.config.clientSecret), { url: this.config.requestUrl, method: "POST", data: n2, dataType: "json", header: s2 };
+      return "auth" !== t2 && (n2.token = this.accessToken, s2["x-basement-token"] = this.accessToken), s2["x-serverless-sign"] = de.sign(n2, this.config.clientSecret), { url: this.config.requestUrl, method: "POST", data: n2, dataType: "json", header: s2 };
     }
     getAccessToken() {
       return this._getAccessTokenPromiseHub.exec();
@@ -5043,7 +5038,7 @@ This will fail in production.`);
       const a2 = (await this.getOSSUploadOptionsFromPath({ env: o2, filename: s2 ? t2.split("/").pop() : t2, fileId: s2 ? t2 : void 0 })).result, c2 = "https://" + a2.cdnDomain + "/" + a2.ossPath, { securityToken: u2, accessKeyId: h2, signature: l2, host: d2, ossPath: p2, id: g2, policy: m2, ossCallbackUrl: y2 } = a2, _2 = { "Cache-Control": "max-age=2592000", "Content-Disposition": "attachment", OSSAccessKeyId: h2, Signature: l2, host: d2, id: g2, key: p2, policy: m2, success_action_status: 200 };
       if (u2 && (_2["x-oss-security-token"] = u2), y2) {
         const e3 = JSON.stringify({ callbackUrl: y2, callbackBody: JSON.stringify({ fileId: g2, spaceId: this.config.spaceId }), callbackBodyType: "application/json" });
-        _2.callback = le.toBase64(e3);
+        _2.callback = de.toBase64(e3);
       }
       const w2 = { url: "https://" + a2.host, formData: _2, fileName: "file", name: "file", filePath: e2, fileType: n2 };
       if (await this.uploadFileToOSS(Object.assign({}, w2, { onUploadProgress: r2 })), y2)
@@ -5064,8 +5059,8 @@ This will fail in production.`);
       return { fileList: (await this.request(this.setupRequest(t2))).result };
     }
   };
-  var pe = { init(e2) {
-    const t2 = new de(e2), n2 = { signInAnonymously: function() {
+  var fe = { init(e2) {
+    const t2 = new pe(e2), n2 = { signInAnonymously: function() {
       return t2.authorize();
     }, getLoginState: function() {
       return Promise.resolve(false);
@@ -5074,13 +5069,13 @@ This will fail in production.`);
       return n2;
     }, t2.customAuth = t2.auth, t2;
   } };
-  const fe = "undefined" != typeof location && "http:" === location.protocol ? "http:" : "https:";
-  var ge;
+  const ge = "undefined" != typeof location && "http:" === location.protocol ? "http:" : "https:";
+  var me;
   !function(e2) {
     e2.local = "local", e2.none = "none", e2.session = "session";
-  }(ge || (ge = {}));
-  var me = function() {
-  }, ye = n(function(e2, t2) {
+  }(me || (me = {}));
+  var ye = function() {
+  }, _e = n(function(e2, t2) {
     var n2;
     e2.exports = (n2 = r, function(e3) {
       var t3 = n2, s2 = t3.lib, r2 = s2.WordArray, i2 = s2.Hasher, o2 = t3.algo, a2 = [], c2 = [];
@@ -5120,10 +5115,10 @@ This will fail in production.`);
       } });
       t3.SHA256 = i2._createHelper(h2), t3.HmacSHA256 = i2._createHmacHelper(h2);
     }(Math), n2.SHA256);
-  }), _e = ye, we = n(function(e2, t2) {
+  }), we = _e, ve = n(function(e2, t2) {
     e2.exports = r.HmacSHA256;
   });
-  const ve = () => {
+  const Ie = () => {
     let e2;
     if (!Promise) {
       e2 = () => {
@@ -5138,14 +5133,14 @@ This will fail in production.`);
     });
     return e2.promise = t2, e2;
   };
-  function Ie(e2) {
+  function Se(e2) {
     return void 0 === e2;
   }
-  function Se(e2) {
+  function be(e2) {
     return "[object Null]" === Object.prototype.toString.call(e2);
   }
-  var be;
-  function ke(e2) {
+  var ke;
+  function Ae(e2) {
     const t2 = (n2 = e2, "[object Array]" === Object.prototype.toString.call(n2) ? e2 : [e2]);
     var n2;
     for (const e3 of t2) {
@@ -5156,26 +5151,26 @@ This will fail in production.`);
   }
   !function(e2) {
     e2.WEB = "web", e2.WX_MP = "wx_mp";
-  }(be || (be = {}));
-  const Ae = { adapter: null, runtime: void 0 }, Pe = ["anonymousUuidKey"];
-  class Te extends me {
+  }(ke || (ke = {}));
+  const Ce = { adapter: null, runtime: void 0 }, Pe = ["anonymousUuidKey"];
+  class Te extends ye {
     constructor() {
-      super(), Ae.adapter.root.tcbObject || (Ae.adapter.root.tcbObject = {});
+      super(), Ce.adapter.root.tcbObject || (Ce.adapter.root.tcbObject = {});
     }
     setItem(e2, t2) {
-      Ae.adapter.root.tcbObject[e2] = t2;
+      Ce.adapter.root.tcbObject[e2] = t2;
     }
     getItem(e2) {
-      return Ae.adapter.root.tcbObject[e2];
+      return Ce.adapter.root.tcbObject[e2];
     }
     removeItem(e2) {
-      delete Ae.adapter.root.tcbObject[e2];
+      delete Ce.adapter.root.tcbObject[e2];
     }
     clear() {
-      delete Ae.adapter.root.tcbObject;
+      delete Ce.adapter.root.tcbObject;
     }
   }
-  function Ce(e2, t2) {
+  function xe(e2, t2) {
     switch (e2) {
       case "local":
         return t2.localStorage || new Te();
@@ -5185,10 +5180,10 @@ This will fail in production.`);
         return t2.sessionStorage || new Te();
     }
   }
-  class xe {
+  class Oe {
     constructor(e2) {
       if (!this._storage) {
-        this._persistence = Ae.adapter.primaryStorage || e2.persistence, this._storage = Ce(this._persistence, Ae.adapter);
+        this._persistence = Ce.adapter.primaryStorage || e2.persistence, this._storage = xe(this._persistence, Ce.adapter);
         const t2 = `access_token_${e2.env}`, n2 = `access_token_expire_${e2.env}`, s2 = `refresh_token_${e2.env}`, r2 = `anonymous_uuid_${e2.env}`, i2 = `login_type_${e2.env}`, o2 = `user_info_${e2.env}`;
         this.keys = { accessTokenKey: t2, accessTokenExpireKey: n2, refreshTokenKey: s2, anonymousUuidKey: r2, loginTypeKey: i2, userInfoKey: o2 };
       }
@@ -5198,13 +5193,13 @@ This will fail in production.`);
         return;
       const t2 = "local" === this._persistence;
       this._persistence = e2;
-      const n2 = Ce(e2, Ae.adapter);
+      const n2 = xe(e2, Ce.adapter);
       for (const e3 in this.keys) {
         const s2 = this.keys[e3];
         if (t2 && Pe.includes(e3))
           continue;
         const r2 = this._storage.getItem(s2);
-        Ie(r2) || Se(r2) || (n2.setItem(s2, r2), this._storage.removeItem(s2));
+        Se(r2) || be(r2) || (n2.setItem(s2, r2), this._storage.removeItem(s2));
       }
       this._storage = n2;
     }
@@ -5238,21 +5233,21 @@ This will fail in production.`);
       this._storage.removeItem(e2);
     }
   }
-  const Oe = {}, Ee = {};
-  function Le(e2) {
-    return Oe[e2];
+  const Ee = {}, Le = {};
+  function Re(e2) {
+    return Ee[e2];
   }
-  class Re {
+  class Ue {
     constructor(e2, t2) {
       this.data = t2 || null, this.name = e2;
     }
   }
-  class Ue extends Re {
+  class Ne extends Ue {
     constructor(e2, t2) {
       super("error", { error: e2, data: t2 }), this.error = e2;
     }
   }
-  const Ne = new class {
+  const De = new class {
     constructor() {
       this._listeners = {};
     }
@@ -5270,9 +5265,9 @@ This will fail in production.`);
       }(e2, t2, this._listeners), this;
     }
     fire(e2, t2) {
-      if (e2 instanceof Ue)
+      if (e2 instanceof Ne)
         return console.error(e2.error), this;
-      const n2 = "string" == typeof e2 ? new Re(e2, t2 || {}) : e2;
+      const n2 = "string" == typeof e2 ? new Ue(e2, t2 || {}) : e2;
       const s2 = n2.name;
       if (this._listens(s2)) {
         n2.target = this;
@@ -5286,22 +5281,22 @@ This will fail in production.`);
       return this._listeners[e2] && this._listeners[e2].length > 0;
     }
   }();
-  function De(e2, t2) {
-    Ne.on(e2, t2);
+  function Me(e2, t2) {
+    De.on(e2, t2);
   }
-  function Me(e2, t2 = {}) {
-    Ne.fire(e2, t2);
+  function qe(e2, t2 = {}) {
+    De.fire(e2, t2);
   }
-  function qe(e2, t2) {
-    Ne.off(e2, t2);
+  function Fe(e2, t2) {
+    De.off(e2, t2);
   }
-  const Fe = "loginStateChanged", Ke = "loginStateExpire", je = "loginTypeChanged", $e = "anonymousConverted", Be = "refreshAccessToken";
-  var We;
+  const Ke = "loginStateChanged", je = "loginStateExpire", $e = "loginTypeChanged", Be = "anonymousConverted", We = "refreshAccessToken";
+  var He;
   !function(e2) {
     e2.ANONYMOUS = "ANONYMOUS", e2.WECHAT = "WECHAT", e2.WECHAT_PUBLIC = "WECHAT-PUBLIC", e2.WECHAT_OPEN = "WECHAT-OPEN", e2.CUSTOM = "CUSTOM", e2.EMAIL = "EMAIL", e2.USERNAME = "USERNAME", e2.NULL = "NULL";
-  }(We || (We = {}));
-  const He = ["auth.getJwt", "auth.logout", "auth.signInWithTicket", "auth.signInAnonymously", "auth.signIn", "auth.fetchAccessTokenWithRefreshToken", "auth.signUpWithEmailAndPassword", "auth.activateEndUserMail", "auth.sendPasswordResetEmail", "auth.resetPasswordWithToken", "auth.isUsernameRegistered"], ze = { "X-SDK-Version": "1.3.5" };
-  function Je(e2, t2, n2) {
+  }(He || (He = {}));
+  const ze = ["auth.getJwt", "auth.logout", "auth.signInWithTicket", "auth.signInAnonymously", "auth.signIn", "auth.fetchAccessTokenWithRefreshToken", "auth.signUpWithEmailAndPassword", "auth.activateEndUserMail", "auth.sendPasswordResetEmail", "auth.resetPasswordWithToken", "auth.isUsernameRegistered"], Je = { "X-SDK-Version": "1.3.5" };
+  function Ve(e2, t2, n2) {
     const s2 = e2[t2];
     e2[t2] = function(t3) {
       const r2 = {}, i2 = {};
@@ -5322,12 +5317,12 @@ This will fail in production.`);
   }
   function Ge() {
     const e2 = Math.random().toString(16).slice(2);
-    return { data: { seqId: e2 }, headers: { ...ze, "x-seqid": e2 } };
+    return { data: { seqId: e2 }, headers: { ...Je, "x-seqid": e2 } };
   }
-  class Ve {
+  class Ye {
     constructor(e2 = {}) {
       var t2;
-      this.config = e2, this._reqClass = new Ae.adapter.reqClass({ timeout: this.config.timeout, timeoutMsg: `请求在${this.config.timeout / 1e3}s内未完成，已中断`, restrictedMethods: ["post"] }), this._cache = Le(this.config.env), this._localCache = (t2 = this.config.env, Ee[t2]), Je(this._reqClass, "post", [Ge]), Je(this._reqClass, "upload", [Ge]), Je(this._reqClass, "download", [Ge]);
+      this.config = e2, this._reqClass = new Ce.adapter.reqClass({ timeout: this.config.timeout, timeoutMsg: `请求在${this.config.timeout / 1e3}s内未完成，已中断`, restrictedMethods: ["post"] }), this._cache = Re(this.config.env), this._localCache = (t2 = this.config.env, Le[t2]), Ve(this._reqClass, "post", [Ge]), Ve(this._reqClass, "upload", [Ge]), Ve(this._reqClass, "download", [Ge]);
     }
     async post(e2) {
       return await this._reqClass.post(e2);
@@ -5360,16 +5355,16 @@ This will fail in production.`);
       if (a2.data.code) {
         const { code: e3 } = a2.data;
         if ("SIGN_PARAM_INVALID" === e3 || "REFRESH_TOKEN_EXPIRED" === e3 || "INVALID_REFRESH_TOKEN" === e3) {
-          if (this._cache.getStore(s2) === We.ANONYMOUS && "INVALID_REFRESH_TOKEN" === e3) {
+          if (this._cache.getStore(s2) === He.ANONYMOUS && "INVALID_REFRESH_TOKEN" === e3) {
             const e4 = this._cache.getStore(r2), t3 = this._cache.getStore(n2), s3 = await this.send("auth.signInAnonymously", { anonymous_uuid: e4, refresh_token: t3 });
             return this.setRefreshToken(s3.refresh_token), this._refreshAccessToken();
           }
-          Me(Ke), this._cache.removeStore(n2);
+          qe(je), this._cache.removeStore(n2);
         }
         throw new te({ code: a2.data.code, message: `刷新access token失败：${a2.data.code}` });
       }
       if (a2.data.access_token)
-        return Me(Be), this._cache.setStore(e2, a2.data.access_token), this._cache.setStore(t2, a2.data.access_token_expire + Date.now()), { accessToken: a2.data.access_token, accessTokenExpire: a2.data.access_token_expire };
+        return qe(We), this._cache.setStore(e2, a2.data.access_token), this._cache.setStore(t2, a2.data.access_token_expire + Date.now()), { accessToken: a2.data.access_token, accessTokenExpire: a2.data.access_token_expire };
       a2.data.refresh_token && (this._cache.removeStore(n2), this._cache.setStore(n2, a2.data.refresh_token), this._refreshAccessToken());
     }
     async getAccessToken() {
@@ -5383,7 +5378,7 @@ This will fail in production.`);
       const s2 = `x-tcb-trace_${this.config.env}`;
       let r2 = "application/x-www-form-urlencoded";
       const i2 = { action: e2, env: this.config.env, dataVersion: "2019-08-16", ...t2 };
-      if (-1 === He.indexOf(e2)) {
+      if (-1 === ze.indexOf(e2)) {
         const { refreshTokenKey: e3 } = this._cache.keys;
         this._cache.getStore(e3) && (i2.access_token = (await this.getAccessToken()).accessToken);
       }
@@ -5411,7 +5406,7 @@ This will fail in production.`);
         for (let e4 in n3)
           "" === r3 ? !s3 && (t3 += "?") : r3 += "&", r3 += `${e4}=${encodeURIComponent(n3[e4])}`;
         return /^http(s)?\:\/\//.test(t3 += r3) ? t3 : `${e3}${t3}`;
-      }(fe, "//tcb-api.tencentcloudapi.com/web", d2);
+      }(ge, "//tcb-api.tencentcloudapi.com/web", d2);
       l2 && (p2 += l2);
       const f2 = await this.post({ url: p2, data: o2, ...a2 }), g2 = f2.header && f2.header["x-tcb-trace"];
       if (g2 && this._localCache.setStore(s2, g2), 200 !== Number(f2.status) && 200 !== Number(f2.statusCode) || !f2.data)
@@ -5420,7 +5415,7 @@ This will fail in production.`);
     }
     async send(e2, t2 = {}) {
       const n2 = await this.request(e2, t2, { onUploadProgress: t2.onUploadProgress });
-      if ("ACCESS_TOKEN_EXPIRED" === n2.data.code && -1 === He.indexOf(e2)) {
+      if ("ACCESS_TOKEN_EXPIRED" === n2.data.code && -1 === ze.indexOf(e2)) {
         await this.refreshAccessToken();
         const n3 = await this.request(e2, t2, { onUploadProgress: t2.onUploadProgress });
         if (n3.data.code)
@@ -5436,13 +5431,13 @@ This will fail in production.`);
       this._cache.removeStore(t2), this._cache.removeStore(n2), this._cache.setStore(s2, e2);
     }
   }
-  const Ye = {};
-  function Qe(e2) {
-    return Ye[e2];
+  const Qe = {};
+  function Xe(e2) {
+    return Qe[e2];
   }
-  class Xe {
+  class Ze {
     constructor(e2) {
-      this.config = e2, this._cache = Le(e2.env), this._request = Qe(e2.env);
+      this.config = e2, this._cache = Re(e2.env), this._request = Xe(e2.env);
     }
     setRefreshToken(e2) {
       const { accessTokenKey: t2, accessTokenExpireKey: n2, refreshTokenKey: s2 } = this._cache.keys;
@@ -5461,11 +5456,11 @@ This will fail in production.`);
       this._cache.setStore(t2, e2);
     }
   }
-  class Ze {
+  class et {
     constructor(e2) {
       if (!e2)
         throw new te({ code: "PARAM_ERROR", message: "envId is not defined" });
-      this._envId = e2, this._cache = Le(this._envId), this._request = Qe(this._envId), this.setUserInfo();
+      this._envId = e2, this._cache = Re(this._envId), this._request = Xe(this._envId), this.setUserInfo();
     }
     linkWithTicket(e2) {
       if ("string" != typeof e2)
@@ -5519,34 +5514,34 @@ This will fail in production.`);
       this._cache.setStore(t2, e2), this.setUserInfo();
     }
   }
-  class et {
+  class tt {
     constructor(e2) {
       if (!e2)
         throw new te({ code: "PARAM_ERROR", message: "envId is not defined" });
-      this._cache = Le(e2);
+      this._cache = Re(e2);
       const { refreshTokenKey: t2, accessTokenKey: n2, accessTokenExpireKey: s2 } = this._cache.keys, r2 = this._cache.getStore(t2), i2 = this._cache.getStore(n2), o2 = this._cache.getStore(s2);
-      this.credential = { refreshToken: r2, accessToken: i2, accessTokenExpire: o2 }, this.user = new Ze(e2);
+      this.credential = { refreshToken: r2, accessToken: i2, accessTokenExpire: o2 }, this.user = new et(e2);
     }
     get isAnonymousAuth() {
-      return this.loginType === We.ANONYMOUS;
+      return this.loginType === He.ANONYMOUS;
     }
     get isCustomAuth() {
-      return this.loginType === We.CUSTOM;
+      return this.loginType === He.CUSTOM;
     }
     get isWeixinAuth() {
-      return this.loginType === We.WECHAT || this.loginType === We.WECHAT_OPEN || this.loginType === We.WECHAT_PUBLIC;
+      return this.loginType === He.WECHAT || this.loginType === He.WECHAT_OPEN || this.loginType === He.WECHAT_PUBLIC;
     }
     get loginType() {
       return this._cache.getStore(this._cache.keys.loginTypeKey);
     }
   }
-  class tt extends Xe {
+  class nt extends Ze {
     async signIn() {
       this._cache.updatePersistence("local");
       const { anonymousUuidKey: e2, refreshTokenKey: t2 } = this._cache.keys, n2 = this._cache.getStore(e2) || void 0, s2 = this._cache.getStore(t2) || void 0, r2 = await this._request.send("auth.signInAnonymously", { anonymous_uuid: n2, refresh_token: s2 });
       if (r2.uuid && r2.refresh_token) {
-        this._setAnonymousUUID(r2.uuid), this.setRefreshToken(r2.refresh_token), await this._request.refreshAccessToken(), Me(Fe), Me(je, { env: this.config.env, loginType: We.ANONYMOUS, persistence: "local" });
-        const e3 = new et(this.config.env);
+        this._setAnonymousUUID(r2.uuid), this.setRefreshToken(r2.refresh_token), await this._request.refreshAccessToken(), qe(Ke), qe($e, { env: this.config.env, loginType: He.ANONYMOUS, persistence: "local" });
+        const e3 = new tt(this.config.env);
         return await e3.user.refresh(), e3;
       }
       throw new te({ message: "匿名登录失败" });
@@ -5554,34 +5549,34 @@ This will fail in production.`);
     async linkAndRetrieveDataWithTicket(e2) {
       const { anonymousUuidKey: t2, refreshTokenKey: n2 } = this._cache.keys, s2 = this._cache.getStore(t2), r2 = this._cache.getStore(n2), i2 = await this._request.send("auth.linkAndRetrieveDataWithTicket", { anonymous_uuid: s2, refresh_token: r2, ticket: e2 });
       if (i2.refresh_token)
-        return this._clearAnonymousUUID(), this.setRefreshToken(i2.refresh_token), await this._request.refreshAccessToken(), Me($e, { env: this.config.env }), Me(je, { loginType: We.CUSTOM, persistence: "local" }), { credential: { refreshToken: i2.refresh_token } };
+        return this._clearAnonymousUUID(), this.setRefreshToken(i2.refresh_token), await this._request.refreshAccessToken(), qe(Be, { env: this.config.env }), qe($e, { loginType: He.CUSTOM, persistence: "local" }), { credential: { refreshToken: i2.refresh_token } };
       throw new te({ message: "匿名转化失败" });
     }
     _setAnonymousUUID(e2) {
       const { anonymousUuidKey: t2, loginTypeKey: n2 } = this._cache.keys;
-      this._cache.removeStore(t2), this._cache.setStore(t2, e2), this._cache.setStore(n2, We.ANONYMOUS);
+      this._cache.removeStore(t2), this._cache.setStore(t2, e2), this._cache.setStore(n2, He.ANONYMOUS);
     }
     _clearAnonymousUUID() {
       this._cache.removeStore(this._cache.keys.anonymousUuidKey);
     }
   }
-  class nt extends Xe {
+  class st extends Ze {
     async signIn(e2) {
       if ("string" != typeof e2)
         throw new te({ code: "PARAM_ERROR", message: "ticket must be a string" });
       const { refreshTokenKey: t2 } = this._cache.keys, n2 = await this._request.send("auth.signInWithTicket", { ticket: e2, refresh_token: this._cache.getStore(t2) || "" });
       if (n2.refresh_token)
-        return this.setRefreshToken(n2.refresh_token), await this._request.refreshAccessToken(), Me(Fe), Me(je, { env: this.config.env, loginType: We.CUSTOM, persistence: this.config.persistence }), await this.refreshUserInfo(), new et(this.config.env);
+        return this.setRefreshToken(n2.refresh_token), await this._request.refreshAccessToken(), qe(Ke), qe($e, { env: this.config.env, loginType: He.CUSTOM, persistence: this.config.persistence }), await this.refreshUserInfo(), new tt(this.config.env);
       throw new te({ message: "自定义登录失败" });
     }
   }
-  class st extends Xe {
+  class rt extends Ze {
     async signIn(e2, t2) {
       if ("string" != typeof e2)
         throw new te({ code: "PARAM_ERROR", message: "email must be a string" });
       const { refreshTokenKey: n2 } = this._cache.keys, s2 = await this._request.send("auth.signIn", { loginType: "EMAIL", email: e2, password: t2, refresh_token: this._cache.getStore(n2) || "" }), { refresh_token: r2, access_token: i2, access_token_expire: o2 } = s2;
       if (r2)
-        return this.setRefreshToken(r2), i2 && o2 ? this.setAccessToken(i2, o2) : await this._request.refreshAccessToken(), await this.refreshUserInfo(), Me(Fe), Me(je, { env: this.config.env, loginType: We.EMAIL, persistence: this.config.persistence }), new et(this.config.env);
+        return this.setRefreshToken(r2), i2 && o2 ? this.setAccessToken(i2, o2) : await this._request.refreshAccessToken(), await this.refreshUserInfo(), qe(Ke), qe($e, { env: this.config.env, loginType: He.EMAIL, persistence: this.config.persistence }), new tt(this.config.env);
       throw s2.code ? new te({ code: s2.code, message: `邮箱登录失败: ${s2.message}` }) : new te({ message: "邮箱登录失败" });
     }
     async activate(e2) {
@@ -5591,20 +5586,20 @@ This will fail in production.`);
       return this._request.send("auth.resetPasswordWithToken", { token: e2, newPassword: t2 });
     }
   }
-  class rt extends Xe {
+  class it extends Ze {
     async signIn(e2, t2) {
       if ("string" != typeof e2)
         throw new te({ code: "PARAM_ERROR", message: "username must be a string" });
       "string" != typeof t2 && (t2 = "", console.warn("password is empty"));
-      const { refreshTokenKey: n2 } = this._cache.keys, s2 = await this._request.send("auth.signIn", { loginType: We.USERNAME, username: e2, password: t2, refresh_token: this._cache.getStore(n2) || "" }), { refresh_token: r2, access_token_expire: i2, access_token: o2 } = s2;
+      const { refreshTokenKey: n2 } = this._cache.keys, s2 = await this._request.send("auth.signIn", { loginType: He.USERNAME, username: e2, password: t2, refresh_token: this._cache.getStore(n2) || "" }), { refresh_token: r2, access_token_expire: i2, access_token: o2 } = s2;
       if (r2)
-        return this.setRefreshToken(r2), o2 && i2 ? this.setAccessToken(o2, i2) : await this._request.refreshAccessToken(), await this.refreshUserInfo(), Me(Fe), Me(je, { env: this.config.env, loginType: We.USERNAME, persistence: this.config.persistence }), new et(this.config.env);
+        return this.setRefreshToken(r2), o2 && i2 ? this.setAccessToken(o2, i2) : await this._request.refreshAccessToken(), await this.refreshUserInfo(), qe(Ke), qe($e, { env: this.config.env, loginType: He.USERNAME, persistence: this.config.persistence }), new tt(this.config.env);
       throw s2.code ? new te({ code: s2.code, message: `用户名密码登录失败: ${s2.message}` }) : new te({ message: "用户名密码登录失败" });
     }
   }
-  class it {
+  class ot {
     constructor(e2) {
-      this.config = e2, this._cache = Le(e2.env), this._request = Qe(e2.env), this._onAnonymousConverted = this._onAnonymousConverted.bind(this), this._onLoginTypeChanged = this._onLoginTypeChanged.bind(this), De(je, this._onLoginTypeChanged);
+      this.config = e2, this._cache = Re(e2.env), this._request = Xe(e2.env), this._onAnonymousConverted = this._onAnonymousConverted.bind(this), this._onLoginTypeChanged = this._onLoginTypeChanged.bind(this), Me($e, this._onLoginTypeChanged);
     }
     get currentUser() {
       const e2 = this.hasLoginState();
@@ -5614,38 +5609,38 @@ This will fail in production.`);
       return this._cache.getStore(this._cache.keys.loginTypeKey);
     }
     anonymousAuthProvider() {
-      return new tt(this.config);
-    }
-    customAuthProvider() {
       return new nt(this.config);
     }
-    emailAuthProvider() {
+    customAuthProvider() {
       return new st(this.config);
     }
-    usernameAuthProvider() {
+    emailAuthProvider() {
       return new rt(this.config);
     }
+    usernameAuthProvider() {
+      return new it(this.config);
+    }
     async signInAnonymously() {
-      return new tt(this.config).signIn();
+      return new nt(this.config).signIn();
     }
     async signInWithEmailAndPassword(e2, t2) {
-      return new st(this.config).signIn(e2, t2);
-    }
-    signInWithUsernameAndPassword(e2, t2) {
       return new rt(this.config).signIn(e2, t2);
     }
+    signInWithUsernameAndPassword(e2, t2) {
+      return new it(this.config).signIn(e2, t2);
+    }
     async linkAndRetrieveDataWithTicket(e2) {
-      this._anonymousAuthProvider || (this._anonymousAuthProvider = new tt(this.config)), De($e, this._onAnonymousConverted);
+      this._anonymousAuthProvider || (this._anonymousAuthProvider = new nt(this.config)), Me(Be, this._onAnonymousConverted);
       return await this._anonymousAuthProvider.linkAndRetrieveDataWithTicket(e2);
     }
     async signOut() {
-      if (this.loginType === We.ANONYMOUS)
+      if (this.loginType === He.ANONYMOUS)
         throw new te({ message: "匿名用户不支持登出操作" });
       const { refreshTokenKey: e2, accessTokenKey: t2, accessTokenExpireKey: n2 } = this._cache.keys, s2 = this._cache.getStore(e2);
       if (!s2)
         return;
       const r2 = await this._request.send("auth.logout", { refresh_token: s2 });
-      return this._cache.removeStore(e2), this._cache.removeStore(t2), this._cache.removeStore(n2), Me(Fe), Me(je, { env: this.config.env, loginType: We.NULL, persistence: this.config.persistence }), r2;
+      return this._cache.removeStore(e2), this._cache.removeStore(t2), this._cache.removeStore(n2), qe(Ke), qe($e, { env: this.config.env, loginType: He.NULL, persistence: this.config.persistence }), r2;
     }
     async signUpWithEmailAndPassword(e2, t2) {
       return this._request.send("auth.signUpWithEmailAndPassword", { email: e2, password: t2 });
@@ -5654,7 +5649,7 @@ This will fail in production.`);
       return this._request.send("auth.sendPasswordResetEmail", { email: e2 });
     }
     onLoginStateChanged(e2) {
-      De(Fe, () => {
+      Me(Ke, () => {
         const t3 = this.hasLoginState();
         e2.call(this, t3);
       });
@@ -5662,16 +5657,16 @@ This will fail in production.`);
       e2.call(this, t2);
     }
     onLoginStateExpired(e2) {
-      De(Ke, e2.bind(this));
+      Me(je, e2.bind(this));
     }
     onAccessTokenRefreshed(e2) {
-      De(Be, e2.bind(this));
+      Me(We, e2.bind(this));
     }
     onAnonymousConverted(e2) {
-      De($e, e2.bind(this));
+      Me(Be, e2.bind(this));
     }
     onLoginTypeChanged(e2) {
-      De(je, () => {
+      Me($e, () => {
         const t2 = this.hasLoginState();
         e2.call(this, t2);
       });
@@ -5681,7 +5676,7 @@ This will fail in production.`);
     }
     hasLoginState() {
       const { refreshTokenKey: e2 } = this._cache.keys;
-      return this._cache.getStore(e2) ? new et(this.config.env) : null;
+      return this._cache.getStore(e2) ? new tt(this.config.env) : null;
     }
     async isUsernameRegistered(e2) {
       if ("string" != typeof e2)
@@ -5693,7 +5688,7 @@ This will fail in production.`);
       return Promise.resolve(this.hasLoginState());
     }
     async signInWithTicket(e2) {
-      return new nt(this.config).signIn(e2);
+      return new st(this.config).signIn(e2);
     }
     shouldRefreshAccessToken(e2) {
       this._request._shouldRefreshAccessTokenHook = e2.bind(this);
@@ -5714,9 +5709,9 @@ This will fail in production.`);
       s2 === this.config.env && (this._cache.updatePersistence(n2), this._cache.setStore(this._cache.keys.loginTypeKey, t2));
     }
   }
-  const ot = function(e2, t2) {
-    t2 = t2 || ve();
-    const n2 = Qe(this.config.env), { cloudPath: s2, filePath: r2, onUploadProgress: i2, fileType: o2 = "image" } = e2;
+  const at = function(e2, t2) {
+    t2 = t2 || Ie();
+    const n2 = Xe(this.config.env), { cloudPath: s2, filePath: r2, onUploadProgress: i2, fileType: o2 = "image" } = e2;
     return n2.send("storage.getUploadMetadata", { path: s2 }).then((e3) => {
       const { data: { url: a2, authorization: c2, token: u2, fileId: h2, cosFileId: l2 }, requestId: d2 } = e3, p2 = { key: s2, signature: c2, "x-cos-meta-fileid": l2, success_action_status: "201", "x-cos-security-token": u2 };
       n2.upload({ url: a2, data: p2, file: r2, name: s2, fileType: o2, onUploadProgress: i2 }).then((e4) => {
@@ -5727,50 +5722,50 @@ This will fail in production.`);
     }).catch((e3) => {
       t2(e3);
     }), t2.promise;
-  }, at = function(e2, t2) {
-    t2 = t2 || ve();
-    const n2 = Qe(this.config.env), { cloudPath: s2 } = e2;
+  }, ct = function(e2, t2) {
+    t2 = t2 || Ie();
+    const n2 = Xe(this.config.env), { cloudPath: s2 } = e2;
     return n2.send("storage.getUploadMetadata", { path: s2 }).then((e3) => {
       t2(null, e3);
     }).catch((e3) => {
       t2(e3);
     }), t2.promise;
-  }, ct = function({ fileList: e2 }, t2) {
-    if (t2 = t2 || ve(), !e2 || !Array.isArray(e2))
+  }, ut = function({ fileList: e2 }, t2) {
+    if (t2 = t2 || Ie(), !e2 || !Array.isArray(e2))
       return { code: "INVALID_PARAM", message: "fileList必须是非空的数组" };
     for (let t3 of e2)
       if (!t3 || "string" != typeof t3)
         return { code: "INVALID_PARAM", message: "fileList的元素必须是非空的字符串" };
     const n2 = { fileid_list: e2 };
-    return Qe(this.config.env).send("storage.batchDeleteFile", n2).then((e3) => {
+    return Xe(this.config.env).send("storage.batchDeleteFile", n2).then((e3) => {
       e3.code ? t2(null, e3) : t2(null, { fileList: e3.data.delete_list, requestId: e3.requestId });
     }).catch((e3) => {
       t2(e3);
     }), t2.promise;
-  }, ut = function({ fileList: e2 }, t2) {
-    t2 = t2 || ve(), e2 && Array.isArray(e2) || t2(null, { code: "INVALID_PARAM", message: "fileList必须是非空的数组" });
+  }, ht = function({ fileList: e2 }, t2) {
+    t2 = t2 || Ie(), e2 && Array.isArray(e2) || t2(null, { code: "INVALID_PARAM", message: "fileList必须是非空的数组" });
     let n2 = [];
     for (let s3 of e2)
       "object" == typeof s3 ? (s3.hasOwnProperty("fileID") && s3.hasOwnProperty("maxAge") || t2(null, { code: "INVALID_PARAM", message: "fileList的元素必须是包含fileID和maxAge的对象" }), n2.push({ fileid: s3.fileID, max_age: s3.maxAge })) : "string" == typeof s3 ? n2.push({ fileid: s3 }) : t2(null, { code: "INVALID_PARAM", message: "fileList的元素必须是字符串" });
     const s2 = { file_list: n2 };
-    return Qe(this.config.env).send("storage.batchGetDownloadUrl", s2).then((e3) => {
+    return Xe(this.config.env).send("storage.batchGetDownloadUrl", s2).then((e3) => {
       e3.code ? t2(null, e3) : t2(null, { fileList: e3.data.download_list, requestId: e3.requestId });
     }).catch((e3) => {
       t2(e3);
     }), t2.promise;
-  }, ht = async function({ fileID: e2 }, t2) {
-    const n2 = (await ut.call(this, { fileList: [{ fileID: e2, maxAge: 600 }] })).fileList[0];
+  }, lt = async function({ fileID: e2 }, t2) {
+    const n2 = (await ht.call(this, { fileList: [{ fileID: e2, maxAge: 600 }] })).fileList[0];
     if ("SUCCESS" !== n2.code)
       return t2 ? t2(n2) : new Promise((e3) => {
         e3(n2);
       });
-    const s2 = Qe(this.config.env);
+    const s2 = Xe(this.config.env);
     let r2 = n2.download_url;
     if (r2 = encodeURI(r2), !t2)
       return s2.download({ url: r2 });
     t2(await s2.download({ url: r2 }));
-  }, lt = function({ name: e2, data: t2, query: n2, parse: s2, search: r2 }, i2) {
-    const o2 = i2 || ve();
+  }, dt = function({ name: e2, data: t2, query: n2, parse: s2, search: r2 }, i2) {
+    const o2 = i2 || Ie();
     let a2;
     try {
       a2 = t2 ? JSON.stringify(t2) : "";
@@ -5780,7 +5775,7 @@ This will fail in production.`);
     if (!e2)
       return Promise.reject(new te({ code: "PARAM_ERROR", message: "函数名不能为空" }));
     const c2 = { inQuery: n2, parse: s2, search: r2, function_name: e2, request_data: a2 };
-    return Qe(this.config.env).send("functions.invokeFunction", c2).then((e3) => {
+    return Xe(this.config.env).send("functions.invokeFunction", c2).then((e3) => {
       if (e3.code)
         o2(null, e3);
       else {
@@ -5798,82 +5793,82 @@ This will fail in production.`);
     }).catch((e3) => {
       o2(e3);
     }), o2.promise;
-  }, dt = { timeout: 15e3, persistence: "session" }, pt = {};
-  class ft {
+  }, pt = { timeout: 15e3, persistence: "session" }, ft = {};
+  class gt {
     constructor(e2) {
       this.config = e2 || this.config, this.authObj = void 0;
     }
     init(e2) {
-      switch (Ae.adapter || (this.requestClient = new Ae.adapter.reqClass({ timeout: e2.timeout || 5e3, timeoutMsg: `请求在${(e2.timeout || 5e3) / 1e3}s内未完成，已中断` })), this.config = { ...dt, ...e2 }, true) {
+      switch (Ce.adapter || (this.requestClient = new Ce.adapter.reqClass({ timeout: e2.timeout || 5e3, timeoutMsg: `请求在${(e2.timeout || 5e3) / 1e3}s内未完成，已中断` })), this.config = { ...pt, ...e2 }, true) {
         case this.config.timeout > 6e5:
           console.warn("timeout大于可配置上限[10分钟]，已重置为上限数值"), this.config.timeout = 6e5;
           break;
         case this.config.timeout < 100:
           console.warn("timeout小于可配置下限[100ms]，已重置为下限数值"), this.config.timeout = 100;
       }
-      return new ft(this.config);
+      return new gt(this.config);
     }
     auth({ persistence: e2 } = {}) {
       if (this.authObj)
         return this.authObj;
-      const t2 = e2 || Ae.adapter.primaryStorage || dt.persistence;
+      const t2 = e2 || Ce.adapter.primaryStorage || pt.persistence;
       var n2;
       return t2 !== this.config.persistence && (this.config.persistence = t2), function(e3) {
         const { env: t3 } = e3;
-        Oe[t3] = new xe(e3), Ee[t3] = new xe({ ...e3, persistence: "local" });
-      }(this.config), n2 = this.config, Ye[n2.env] = new Ve(n2), this.authObj = new it(this.config), this.authObj;
+        Ee[t3] = new Oe(e3), Le[t3] = new Oe({ ...e3, persistence: "local" });
+      }(this.config), n2 = this.config, Qe[n2.env] = new Ye(n2), this.authObj = new ot(this.config), this.authObj;
     }
     on(e2, t2) {
-      return De.apply(this, [e2, t2]);
+      return Me.apply(this, [e2, t2]);
     }
     off(e2, t2) {
-      return qe.apply(this, [e2, t2]);
+      return Fe.apply(this, [e2, t2]);
     }
     callFunction(e2, t2) {
-      return lt.apply(this, [e2, t2]);
+      return dt.apply(this, [e2, t2]);
     }
     deleteFile(e2, t2) {
-      return ct.apply(this, [e2, t2]);
-    }
-    getTempFileURL(e2, t2) {
       return ut.apply(this, [e2, t2]);
     }
-    downloadFile(e2, t2) {
+    getTempFileURL(e2, t2) {
       return ht.apply(this, [e2, t2]);
     }
-    uploadFile(e2, t2) {
-      return ot.apply(this, [e2, t2]);
+    downloadFile(e2, t2) {
+      return lt.apply(this, [e2, t2]);
     }
-    getUploadMetadata(e2, t2) {
+    uploadFile(e2, t2) {
       return at.apply(this, [e2, t2]);
     }
+    getUploadMetadata(e2, t2) {
+      return ct.apply(this, [e2, t2]);
+    }
     registerExtension(e2) {
-      pt[e2.name] = e2;
+      ft[e2.name] = e2;
     }
     async invokeExtension(e2, t2) {
-      const n2 = pt[e2];
+      const n2 = ft[e2];
       if (!n2)
         throw new te({ message: `扩展${e2} 必须先注册` });
       return await n2.invoke(t2, this);
     }
     useAdapters(e2) {
-      const { adapter: t2, runtime: n2 } = ke(e2) || {};
-      t2 && (Ae.adapter = t2), n2 && (Ae.runtime = n2);
+      const { adapter: t2, runtime: n2 } = Ae(e2) || {};
+      t2 && (Ce.adapter = t2), n2 && (Ce.runtime = n2);
     }
   }
-  var gt = new ft();
-  function mt(e2, t2, n2) {
+  var mt = new gt();
+  function yt(e2, t2, n2) {
     void 0 === n2 && (n2 = {});
     var s2 = /\?/.test(t2), r2 = "";
     for (var i2 in n2)
       "" === r2 ? !s2 && (t2 += "?") : r2 += "&", r2 += i2 + "=" + encodeURIComponent(n2[i2]);
     return /^http(s)?:\/\//.test(t2 += r2) ? t2 : "" + e2 + t2;
   }
-  class yt {
+  class _t {
     post(e2) {
       const { url: t2, data: n2, headers: s2 } = e2;
       return new Promise((e3, r2) => {
-        ne.request({ url: mt("https:", t2), data: n2, method: "POST", header: s2, success(t3) {
+        ne.request({ url: yt("https:", t2), data: n2, method: "POST", header: s2, success(t3) {
           e3(t3);
         }, fail(e4) {
           r2(e4);
@@ -5882,7 +5877,7 @@ This will fail in production.`);
     }
     upload(e2) {
       return new Promise((t2, n2) => {
-        const { url: s2, file: r2, data: i2, headers: o2, fileType: a2 } = e2, c2 = ne.uploadFile({ url: mt("https:", s2), name: "file", formData: Object.assign({}, i2), filePath: r2, fileType: a2, header: o2, success(e3) {
+        const { url: s2, file: r2, data: i2, headers: o2, fileType: a2 } = e2, c2 = ne.uploadFile({ url: yt("https:", s2), name: "file", formData: Object.assign({}, i2), filePath: r2, fileType: a2, header: o2, success(e3) {
           const n3 = { statusCode: e3.statusCode, data: e3.data || {} };
           200 === e3.statusCode && i2.success_action_status && (n3.statusCode = parseInt(i2.success_action_status, 10)), t2(n3);
         }, fail(e3) {
@@ -5894,23 +5889,23 @@ This will fail in production.`);
       });
     }
   }
-  const _t = { setItem(e2, t2) {
+  const wt = { setItem(e2, t2) {
     ne.setStorageSync(e2, t2);
   }, getItem: (e2) => ne.getStorageSync(e2), removeItem(e2) {
     ne.removeStorageSync(e2);
   }, clear() {
     ne.clearStorageSync();
   } };
-  var wt = { genAdapter: function() {
-    return { root: {}, reqClass: yt, localStorage: _t, primaryStorage: "local" };
+  var vt = { genAdapter: function() {
+    return { root: {}, reqClass: _t, localStorage: wt, primaryStorage: "local" };
   }, isMatch: function() {
     return true;
   }, runtime: "uni_app" };
-  gt.useAdapters(wt);
-  const vt = gt, It = vt.init;
-  vt.init = function(e2) {
+  mt.useAdapters(vt);
+  const It = mt, St = It.init;
+  It.init = function(e2) {
     e2.env = e2.spaceId;
-    const t2 = It.call(this, e2);
+    const t2 = St.call(this, e2);
     t2.config.provider = "tencent", t2.config.spaceId = e2.spaceId;
     const n2 = t2.auth;
     return t2.auth = function(e3) {
@@ -5931,8 +5926,8 @@ This will fail in production.`);
       }), t3;
     }, t2.customAuth = t2.auth, t2;
   };
-  var St = vt;
-  var bt = class extends de {
+  var bt = It;
+  var kt = class extends pe {
     getAccessToken() {
       return new Promise((e2, t2) => {
         const n2 = "Anonymous_Access_token";
@@ -5941,8 +5936,8 @@ This will fail in production.`);
     }
     setupRequest(e2, t2) {
       const n2 = Object.assign({}, e2, { spaceId: this.config.spaceId, timestamp: Date.now() }), s2 = { "Content-Type": "application/json" };
-      "auth" !== t2 && (n2.token = this.accessToken, s2["x-basement-token"] = this.accessToken), s2["x-serverless-sign"] = le.sign(n2, this.config.clientSecret);
-      const r2 = he();
+      "auth" !== t2 && (n2.token = this.accessToken, s2["x-basement-token"] = this.accessToken), s2["x-serverless-sign"] = de.sign(n2, this.config.clientSecret);
+      const r2 = le();
       s2["x-client-info"] = encodeURIComponent(JSON.stringify(r2));
       const { token: i2 } = re();
       return s2["x-client-token"] = i2, { url: this.config.requestUrl, method: "POST", data: n2, dataType: "json", header: JSON.parse(JSON.stringify(s2)) };
@@ -5991,8 +5986,8 @@ This will fail in production.`);
       });
     }
   };
-  var kt = { init(e2) {
-    const t2 = new bt(e2), n2 = { signInAnonymously: function() {
+  var At = { init(e2) {
+    const t2 = new kt(e2), n2 = { signInAnonymously: function() {
       return t2.authorize();
     }, getLoginState: function() {
       return Promise.resolve(false);
@@ -6000,32 +5995,35 @@ This will fail in production.`);
     return t2.auth = function() {
       return n2;
     }, t2.customAuth = t2.auth, t2;
-  } }, At = n(function(e2, t2) {
+  } }, Ct = n(function(e2, t2) {
     e2.exports = r.enc.Hex;
   });
-  function Pt(e2 = "", t2 = {}) {
-    const { data: n2, functionName: s2, method: r2, headers: i2, signHeaderKeys: o2 = [], config: a2 } = t2, c2 = Date.now(), u2 = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(e3) {
-      var t3 = 16 * Math.random() | 0;
-      return ("x" === e3 ? t3 : 3 & t3 | 8).toString(16);
-    }), h2 = Object.assign({}, i2, { "x-from-app-id": a2.spaceAppId, "x-from-env-id": a2.spaceId, "x-to-env-id": a2.spaceId, "x-from-instance-id": c2, "x-from-function-name": s2, "x-client-timestamp": c2, "x-alipay-source": "client", "x-request-id": u2, "x-alipay-callid": u2, "x-trace-id": u2 }), l2 = ["x-from-app-id", "x-from-env-id", "x-to-env-id", "x-from-instance-id", "x-from-function-name", "x-client-timestamp"].concat(o2), [d2 = "", p2 = ""] = e2.split("?") || [], f2 = function(e3) {
+  function Pt() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(e2) {
+      var t2 = 16 * Math.random() | 0;
+      return ("x" === e2 ? t2 : 3 & t2 | 8).toString(16);
+    });
+  }
+  function Tt(e2 = "", t2 = {}) {
+    const { data: n2, functionName: s2, method: r2, headers: i2, signHeaderKeys: o2 = [], config: a2 } = t2, c2 = Date.now(), u2 = Pt(), h2 = Object.assign({}, i2, { "x-from-app-id": a2.spaceAppId, "x-from-env-id": a2.spaceId, "x-to-env-id": a2.spaceId, "x-from-instance-id": c2, "x-from-function-name": s2, "x-client-timestamp": c2, "x-alipay-source": "client", "x-request-id": u2, "x-alipay-callid": u2, "x-trace-id": u2 }), l2 = ["x-from-app-id", "x-from-env-id", "x-to-env-id", "x-from-instance-id", "x-from-function-name", "x-client-timestamp"].concat(o2), [d2 = "", p2 = ""] = e2.split("?") || [], f2 = function(e3) {
       const t3 = e3.signedHeaders.join(";"), n3 = e3.signedHeaders.map((t4) => `${t4.toLowerCase()}:${e3.headers[t4]}
-`).join(""), s3 = _e(e3.body).toString(At), r3 = `${e3.method.toUpperCase()}
+`).join(""), s3 = we(e3.body).toString(Ct), r3 = `${e3.method.toUpperCase()}
 ${e3.path}
 ${e3.query}
 ${n3}
 ${t3}
 ${s3}
-`, i3 = _e(r3).toString(At), o3 = `HMAC-SHA256
+`, i3 = we(r3).toString(Ct), o3 = `HMAC-SHA256
 ${e3.timestamp}
 ${i3}
-`, a3 = we(o3, e3.secretKey).toString(At);
+`, a3 = ve(o3, e3.secretKey).toString(Ct);
       return `HMAC-SHA256 Credential=${e3.secretId}, SignedHeaders=${t3}, Signature=${a3}`;
     }({ path: d2, query: p2, method: r2, headers: h2, timestamp: c2, body: JSON.stringify(n2), secretId: a2.accessKey, secretKey: a2.secretKey, signedHeaders: l2.sort() });
     return { url: `${a2.endpoint}${e2}`, headers: Object.assign({}, h2, { Authorization: f2 }) };
   }
-  function Tt({ url: e2, data: t2, method: n2 = "POST", headers: s2 = {} }) {
+  function xt({ url: e2, data: t2, method: n2 = "POST", headers: s2 = {} }) {
     return new Promise((r2, i2) => {
-      ne.request({ url: e2, method: n2, data: t2, header: s2, dataType: "json", complete: (e3 = {}) => {
+      ne.request({ url: e2, method: n2, data: "object" == typeof t2 ? JSON.stringify(t2) : t2, header: s2, dataType: "json", complete: (e3 = {}) => {
         const t3 = s2["x-trace-id"] || "";
         if (!e3.statusCode || e3.statusCode >= 400) {
           const { message: n3, errMsg: s3, trace_id: r3 } = e3.data || {};
@@ -6035,9 +6033,9 @@ ${i3}
       } });
     });
   }
-  function Ct(e2, t2) {
-    const { path: n2, data: s2, method: r2 = "GET" } = e2, { url: i2, headers: o2 } = Pt(n2, { functionName: "", data: s2, method: r2, headers: { "x-alipay-cloud-mode": "oss", "x-data-api-type": "oss", "x-expire-timestamp": Date.now() + 6e4 }, signHeaderKeys: ["x-data-api-type", "x-expire-timestamp"], config: t2 });
-    return Tt({ url: i2, data: s2, method: r2, headers: o2 }).then((e3) => {
+  function Ot(e2, t2) {
+    const { path: n2, data: s2, method: r2 = "GET" } = e2, { url: i2, headers: o2 } = Tt(n2, { functionName: "", data: s2, method: r2, headers: { "x-alipay-cloud-mode": "oss", "x-data-api-type": "oss", "x-expire-timestamp": Date.now() + 6e4 }, signHeaderKeys: ["x-data-api-type", "x-expire-timestamp"], config: t2 });
+    return xt({ url: i2, data: s2, method: r2, headers: o2 }).then((e3) => {
       const t3 = e3.data || {};
       if (!t3.success)
         throw new te({ code: e3.errCode, message: e3.errMsg, requestId: e3.requestId });
@@ -6046,17 +6044,28 @@ ${i3}
       throw new te({ code: e3.errCode, message: e3.errMsg, requestId: e3.requestId });
     });
   }
-  function xt(e2 = "") {
+  function Et(e2 = "") {
     const t2 = e2.trim().replace(/^cloud:\/\//, ""), n2 = t2.indexOf("/");
     if (n2 <= 0)
       throw new te({ code: "INVALID_PARAM", message: "fileID不合法" });
     const s2 = t2.substring(0, n2), r2 = t2.substring(n2 + 1);
     return s2 !== this.config.spaceId && console.warn("file ".concat(e2, " does not belong to env ").concat(this.config.spaceId)), r2;
   }
-  function Ot(e2 = "") {
+  function Lt(e2 = "") {
     return "cloud://".concat(this.config.spaceId, "/").concat(e2.replace(/^\/+/, ""));
   }
-  var Et = class {
+  class Rt {
+    constructor(e2) {
+      this.config = e2;
+    }
+    signedURL(e2, t2 = {}) {
+      const n2 = `/ws/function/${e2}`, s2 = this.config.wsEndpoint.replace(/^ws(s)?:\/\//, ""), r2 = Object.assign({}, t2, { accessKeyId: this.config.accessKey, signatureNonce: Pt(), timestamp: "" + Date.now() }), i2 = [n2, ["accessKeyId", "authorization", "signatureNonce", "timestamp"].sort().map(function(e3) {
+        return r2[e3] ? "".concat(e3, "=").concat(r2[e3]) : null;
+      }).filter(Boolean).join("&"), `host:${s2}`].join("\n"), o2 = ["HMAC-SHA256", we(i2).toString(Ct)].join("\n"), a2 = ve(o2, this.config.secretKey).toString(Ct), c2 = Object.keys(r2).map((e3) => `${e3}=${encodeURIComponent(r2[e3])}`).join("&");
+      return `${this.config.wsEndpoint}${n2}?${c2}&signature=${a2}`;
+    }
+  }
+  var Ut = class {
     constructor(e2) {
       if (["spaceId", "spaceAppId", "accessKey", "secretKey"].forEach((t2) => {
         if (!Object.prototype.hasOwnProperty.call(e2, t2))
@@ -6068,12 +6077,23 @@ ${i3}
           throw new Error("endpoint must start with https://");
         e2.endpoint = e2.endpoint.replace(/\/$/, "");
       }
-      this.config = Object.assign({}, e2, { endpoint: e2.endpoint || `https://${e2.spaceId}.api-hz.cloudbasefunction.cn` });
+      this.config = Object.assign({}, e2, { endpoint: e2.endpoint || `https://${e2.spaceId}.api-hz.cloudbasefunction.cn`, wsEndpoint: e2.wsEndpoint || `wss://${e2.spaceId}.api-hz.cloudbasefunction.cn` }), this._websocket = new Rt(this.config);
     }
     callFunction(e2) {
       return function(e3, t2) {
-        const { name: n2, data: s2 } = e3, r2 = "POST", { url: i2, headers: o2 } = Pt("/functions/invokeFunction", { functionName: n2, data: s2, method: r2, headers: { "x-to-function-name": n2 }, signHeaderKeys: ["x-to-function-name"], config: t2 });
-        return Tt({ url: i2, data: s2, method: r2, headers: o2 }).then((e4) => ({ errCode: 0, success: true, requestId: e4.requestId, result: e4.data })).catch((e4) => {
+        const { name: n2, data: s2, async: r2 = false } = e3, i2 = "POST", o2 = { "x-to-function-name": n2 };
+        r2 && (o2["x-function-invoke-type"] = "async");
+        const { url: a2, headers: c2 } = Tt("/functions/invokeFunction", { functionName: n2, data: s2, method: i2, headers: o2, signHeaderKeys: ["x-to-function-name"], config: t2 });
+        return xt({ url: a2, data: s2, method: i2, headers: c2 }).then((e4) => {
+          let t3 = 0;
+          if (r2) {
+            const n3 = e4.data || {};
+            t3 = "200" === n3.errCode ? 0 : n3.errCode, e4.data = n3.data || {}, e4.errMsg = n3.errMsg;
+          }
+          if (0 !== t3)
+            throw new te({ code: t3, message: e4.errMsg, requestId: e4.requestId });
+          return { errCode: t3, success: 0 === t3, requestId: e4.requestId, result: e4.data };
+        }).catch((e4) => {
           throw new te({ code: e4.errCode, message: e4.errMsg, requestId: e4.requestId });
         });
       }(e2, this.config);
@@ -6097,7 +6117,7 @@ ${i3}
         throw new te({ code: "INVALID_PARAM", message: "cloudPath不可为空" });
       if (/:\/\//.test(t2))
         throw new te({ code: "INVALID_PARAM", message: "cloudPath不合法" });
-      const r2 = await Ct({ path: "/".concat(t2.replace(/^\//, ""), "?post_url") }, this.config), { file_id: i2, upload_url: o2, form_data: a2 } = r2, c2 = a2 && a2.reduce((e3, t3) => (e3[t3.key] = t3.value, e3), {});
+      const r2 = await Ot({ path: "/".concat(t2.replace(/^\//, ""), "?post_url") }, this.config), { file_id: i2, upload_url: o2, form_data: a2 } = r2, c2 = a2 && a2.reduce((e3, t3) => (e3[t3.key] = t3.value, e3), {});
       return this.uploadFileToOSS({ url: o2, filePath: e2, fileType: n2, formData: c2, onUploadProgress: s2 }).then(() => ({ fileID: i2 }));
     }
     async getTempFileURL({ fileList: e2 }) {
@@ -6106,19 +6126,24 @@ ${i3}
         const s2 = [];
         for (const t3 of e2) {
           "string" !== f(t3) && n2(new te({ errCode: "INVALID_PARAM", errMsg: "fileList的元素必须是非空的字符串" }));
-          const e3 = xt.call(this, t3);
+          const e3 = Et.call(this, t3);
           s2.push({ file_id: e3, expire: 600 });
         }
-        Ct({ path: "/?download_url", data: { file_list: s2 }, method: "POST" }, this.config).then((e3) => {
+        Ot({ path: "/?download_url", data: { file_list: s2 }, method: "POST" }, this.config).then((e3) => {
           const { file_list: n3 = [] } = e3;
-          t2({ fileList: n3.map((e4) => ({ fileID: Ot.call(this, e4.file_id), tempFileURL: e4.download_url })) });
+          t2({ fileList: n3.map((e4) => ({ fileID: Lt.call(this, e4.file_id), tempFileURL: e4.download_url })) });
         }).catch((e3) => n2(e3));
       });
     }
+    async connectWebSocket(e2) {
+      const { name: t2, query: n2 } = e2;
+      return ne.connectSocket({ url: this._websocket.signedURL(t2, n2), complete: () => {
+      } });
+    }
   };
-  var Lt = { init: (e2) => {
+  var Nt = { init: (e2) => {
     e2.provider = "alipay";
-    const t2 = new Et(e2);
+    const t2 = new Ut(e2);
     return t2.auth = function() {
       return { signInAnonymously: function() {
         return Promise.resolve();
@@ -6127,9 +6152,9 @@ ${i3}
       } };
     }, t2;
   } };
-  function Rt({ data: e2 }) {
+  function Dt({ data: e2 }) {
     let t2;
-    t2 = he();
+    t2 = le();
     const n2 = JSON.parse(JSON.stringify(e2 || {}));
     if (Object.assign(n2, { clientInfo: t2 }), !n2.uniIdToken) {
       const { token: e3 } = re();
@@ -6137,11 +6162,11 @@ ${i3}
     }
     return n2;
   }
-  async function Ut({ name: e2, data: t2 } = {}) {
+  async function Mt({ name: e2, data: t2 } = {}) {
     await this.__dev__.initLocalNetwork();
     const { localAddress: n2, localPort: s2 } = this.__dev__, r2 = { aliyun: "aliyun", tencent: "tcb", alipay: "alipay" }[this.config.provider], i2 = this.config.spaceId, o2 = `http://${n2}:${s2}/system/check-function`, a2 = `http://${n2}:${s2}/cloudfunctions/${e2}`;
     return new Promise((t3, n3) => {
-      ne.request({ method: "POST", url: o2, data: { name: e2, platform: P, provider: r2, spaceId: i2 }, timeout: 3e3, success(e3) {
+      ne.request({ method: "POST", url: o2, data: { name: e2, platform: C, provider: r2, spaceId: i2 }, timeout: 3e3, success(e3) {
         t3(e3);
       }, fail() {
         t3({ data: { code: "NETWORK_ERROR", message: "连接本地调试服务失败，请检查客户端是否和主机在同一局域网下，自动切换为已部署的云函数。" } });
@@ -6161,10 +6186,9 @@ ${i3}
           case "ACTION_ENCRYPTED":
             console.error(s3 || "需要访问加密的uni-clientDB-action，自动切换为云端环境");
             break;
-          case "NETWORK_ERROR": {
-            const e3 = "连接本地调试服务失败，请检查客户端是否和主机在同一局域网下";
-            throw console.error(e3), new Error(e3);
-          }
+          case "NETWORK_ERROR":
+            console.error(s3 || "连接本地调试服务失败，请检查客户端是否和主机在同一局域网下");
+            break;
           case "SWITCH_TO_CLOUD":
             break;
           default: {
@@ -6175,33 +6199,33 @@ ${i3}
         return this._callCloudFunction({ name: e2, data: t2 });
       }
       return new Promise((e3, n4) => {
-        const s4 = Rt.call(this, { data: t2 });
-        ne.request({ method: "POST", url: a2, data: { provider: r2, platform: P, param: s4 }, success: ({ statusCode: t3, data: s5 } = {}) => !t3 || t3 >= 400 ? n4(new te({ code: s5.code || "SYS_ERR", message: s5.message || "request:fail" })) : e3({ result: s5 }), fail(e4) {
+        const s4 = Dt.call(this, { data: t2 });
+        ne.request({ method: "POST", url: a2, data: { provider: r2, platform: C, param: s4 }, success: ({ statusCode: t3, data: s5 } = {}) => !t3 || t3 >= 400 ? n4(new te({ code: s5.code || "SYS_ERR", message: s5.message || "request:fail" })) : e3({ result: s5 }), fail(e4) {
           n4(new te({ code: e4.code || e4.errCode || "SYS_ERR", message: e4.message || e4.errMsg || "request:fail" }));
         } });
       });
     });
   }
-  const Nt = [{ rule: /fc_function_not_found|FUNCTION_NOT_FOUND/, content: "，云函数[{functionName}]在云端不存在，请检查此云函数名称是否正确以及该云函数是否已上传到服务空间", mode: "append" }];
-  var Dt = /[\\^$.*+?()[\]{}|]/g, Mt = RegExp(Dt.source);
-  function qt(e2, t2, n2) {
-    return e2.replace(new RegExp((s2 = t2) && Mt.test(s2) ? s2.replace(Dt, "\\$&") : s2, "g"), n2);
+  const qt = [{ rule: /fc_function_not_found|FUNCTION_NOT_FOUND/, content: "，云函数[{functionName}]在云端不存在，请检查此云函数名称是否正确以及该云函数是否已上传到服务空间", mode: "append" }];
+  var Ft = /[\\^$.*+?()[\]{}|]/g, Kt = RegExp(Ft.source);
+  function jt(e2, t2, n2) {
+    return e2.replace(new RegExp((s2 = t2) && Kt.test(s2) ? s2.replace(Ft, "\\$&") : s2, "g"), n2);
     var s2;
   }
-  const Kt = "request", jt = "response", $t = "both";
-  const An = { code: 2e4, message: "System error" }, Pn = { code: 20101, message: "Invalid client" };
-  function xn(e2) {
+  const Bt = "request", Wt = "response", Ht = "both";
+  const Tn = { code: 2e4, message: "System error" }, xn = { code: 20101, message: "Invalid client" };
+  function Ln(e2) {
     const { errSubject: t2, subject: n2, errCode: s2, errMsg: r2, code: i2, message: o2, cause: a2 } = e2 || {};
-    return new te({ subject: t2 || n2 || "uni-secure-network", code: s2 || i2 || An.code, message: r2 || o2, cause: a2 });
+    return new te({ subject: t2 || n2 || "uni-secure-network", code: s2 || i2 || Tn.code, message: r2 || o2, cause: a2 });
   }
-  let En;
-  function Dn({ secretType: e2 } = {}) {
-    return e2 === Kt || e2 === jt || e2 === $t;
+  let Un;
+  function Fn({ secretType: e2 } = {}) {
+    return e2 === Bt || e2 === Wt || e2 === Ht;
   }
-  function Mn({ name: e2, data: t2 = {} } = {}) {
+  function Kn({ name: e2, data: t2 = {} } = {}) {
     return "DCloud-clientDB" === e2 && "encryption" === t2.redirectTo && "getAppClientKey" === t2.action;
   }
-  function qn({ provider: e2, spaceId: t2, functionName: n2 } = {}) {
+  function jn({ provider: e2, spaceId: t2, functionName: n2 } = {}) {
     const { appId: s2, uniPlatform: r2, osName: i2 } = ce();
     let o2 = r2;
     "app" === r2 && (o2 = i2);
@@ -6232,56 +6256,56 @@ ${i3}
       return false;
     if ((c2[h2] || []).find((e3 = {}) => e3.appId === s2 && (e3.platform || "").toLowerCase() === o2.toLowerCase()))
       return true;
-    throw console.error(`此应用[appId: ${s2}, platform: ${o2}]不在云端配置的允许访问的应用列表内，参考：https://uniapp.dcloud.net.cn/uniCloud/secure-network.html#verify-client`), xn(Pn);
+    throw console.error(`此应用[appId: ${s2}, platform: ${o2}]不在云端配置的允许访问的应用列表内，参考：https://uniapp.dcloud.net.cn/uniCloud/secure-network.html#verify-client`), Ln(xn);
   }
-  function Fn({ functionName: e2, result: t2, logPvd: n2 }) {
+  function $n({ functionName: e2, result: t2, logPvd: n2 }) {
     if (this.__dev__.debugLog && t2 && t2.requestId) {
       const s2 = JSON.stringify({ spaceId: this.config.spaceId, functionName: e2, requestId: t2.requestId });
       console.log(`[${n2}-request]${s2}[/${n2}-request]`);
     }
   }
-  function Kn(e2) {
+  function Bn(e2) {
     const t2 = e2.callFunction, n2 = function(n3) {
       const s2 = n3.name;
-      n3.data = Rt.call(e2, { data: n3.data });
-      const r2 = { aliyun: "aliyun", tencent: "tcb", tcb: "tcb", alipay: "alipay" }[this.config.provider], i2 = Dn(n3), o2 = Mn(n3), a2 = i2 || o2;
-      return t2.call(this, n3).then((e3) => (e3.errCode = 0, !a2 && Fn.call(this, { functionName: s2, result: e3, logPvd: r2 }), Promise.resolve(e3)), (e3) => (!a2 && Fn.call(this, { functionName: s2, result: e3, logPvd: r2 }), e3 && e3.message && (e3.message = function({ message: e4 = "", extraInfo: t3 = {}, formatter: n4 = [] } = {}) {
+      n3.data = Dt.call(e2, { data: n3.data });
+      const r2 = { aliyun: "aliyun", tencent: "tcb", tcb: "tcb", alipay: "alipay" }[this.config.provider], i2 = Fn(n3), o2 = Kn(n3), a2 = i2 || o2;
+      return t2.call(this, n3).then((e3) => (e3.errCode = 0, !a2 && $n.call(this, { functionName: s2, result: e3, logPvd: r2 }), Promise.resolve(e3)), (e3) => (!a2 && $n.call(this, { functionName: s2, result: e3, logPvd: r2 }), e3 && e3.message && (e3.message = function({ message: e4 = "", extraInfo: t3 = {}, formatter: n4 = [] } = {}) {
         for (let s3 = 0; s3 < n4.length; s3++) {
           const { rule: r3, content: i3, mode: o3 } = n4[s3], a3 = e4.match(r3);
           if (!a3)
             continue;
           let c2 = i3;
           for (let e5 = 1; e5 < a3.length; e5++)
-            c2 = qt(c2, `{$${e5}}`, a3[e5]);
+            c2 = jt(c2, `{$${e5}}`, a3[e5]);
           for (const e5 in t3)
-            c2 = qt(c2, `{${e5}}`, t3[e5]);
+            c2 = jt(c2, `{${e5}}`, t3[e5]);
           return "replace" === o3 ? c2 : e4 + c2;
         }
         return e4;
-      }({ message: `[${n3.name}]: ${e3.message}`, formatter: Nt, extraInfo: { functionName: s2 } })), Promise.reject(e3)));
+      }({ message: `[${n3.name}]: ${e3.message}`, formatter: qt, extraInfo: { functionName: s2 } })), Promise.reject(e3)));
     };
     e2.callFunction = function(t3) {
       const { provider: s2, spaceId: r2 } = e2.config, i2 = t3.name;
       let o2, a2;
-      if (t3.data = t3.data || {}, e2.__dev__.debugInfo && !e2.__dev__.debugInfo.forceRemote && C ? (e2._callCloudFunction || (e2._callCloudFunction = n2, e2._callLocalFunction = Ut), o2 = Ut) : o2 = n2, o2 = o2.bind(e2), Mn(t3))
+      if (t3.data = t3.data || {}, e2.__dev__.debugInfo && !e2.__dev__.debugInfo.forceRemote && T ? (e2._callCloudFunction || (e2._callCloudFunction = n2, e2._callLocalFunction = Mt), o2 = Mt) : o2 = n2, o2 = o2.bind(e2), Kn(t3))
         a2 = n2.call(e2, t3);
-      else if (Dn(t3)) {
-        a2 = new En({ secretType: t3.secretType, uniCloudIns: e2 }).wrapEncryptDataCallFunction(n2.bind(e2))(t3);
-      } else if (qn({ provider: s2, spaceId: r2, functionName: i2 })) {
-        a2 = new En({ secretType: t3.secretType, uniCloudIns: e2 }).wrapVerifyClientCallFunction(n2.bind(e2))(t3);
+      else if (Fn(t3)) {
+        a2 = new Un({ secretType: t3.secretType, uniCloudIns: e2 }).wrapEncryptDataCallFunction(n2.bind(e2))(t3);
+      } else if (jn({ provider: s2, spaceId: r2, functionName: i2 })) {
+        a2 = new Un({ secretType: t3.secretType, uniCloudIns: e2 }).wrapVerifyClientCallFunction(n2.bind(e2))(t3);
       } else
         a2 = o2(t3);
       return Object.defineProperty(a2, "result", { get: () => (console.warn("当前返回结果为Promise类型，不可直接访问其result属性，详情请参考：https://uniapp.dcloud.net.cn/uniCloud/faq?id=promise"), {}) }), a2.then((e3) => ("undefined" != typeof UTSJSONObject && (e3.result = new UTSJSONObject(e3.result)), e3));
     };
   }
-  En = class {
+  Un = class {
     constructor() {
-      throw xn({ message: `Platform ${P} is not enabled, please check whether secure network module is enabled in your manifest.json` });
+      throw Ln({ message: `Platform ${C} is not enabled, please check whether secure network module is enabled in your manifest.json` });
     }
   };
-  const jn = Symbol("CLIENT_DB_INTERNAL");
-  function $n(e2, t2) {
-    return e2.then = "DoNotReturnProxyWithAFunctionNamedThen", e2._internalType = jn, e2.inspect = null, e2.__v_raw = void 0, new Proxy(e2, { get(e3, n2, s2) {
+  const Wn = Symbol("CLIENT_DB_INTERNAL");
+  function Hn(e2, t2) {
+    return e2.then = "DoNotReturnProxyWithAFunctionNamedThen", e2._internalType = Wn, e2.inspect = null, e2.__v_raw = void 0, new Proxy(e2, { get(e3, n2, s2) {
       if ("_uniClient" === n2)
         return null;
       if ("symbol" == typeof n2)
@@ -6293,7 +6317,7 @@ ${i3}
       return t2.get(e3, n2, s2);
     } });
   }
-  function Bn(e2) {
+  function zn(e2) {
     return { on: (t2, n2) => {
       e2[t2] = e2[t2] || [], e2[t2].indexOf(n2) > -1 || e2[t2].push(n2);
     }, off: (t2, n2) => {
@@ -6302,17 +6326,17 @@ ${i3}
       -1 !== s2 && e2[t2].splice(s2, 1);
     } };
   }
-  const Wn = ["db.Geo", "db.command", "command.aggregate"];
-  function Hn(e2, t2) {
-    return Wn.indexOf(`${e2}.${t2}`) > -1;
+  const Jn = ["db.Geo", "db.command", "command.aggregate"];
+  function Vn(e2, t2) {
+    return Jn.indexOf(`${e2}.${t2}`) > -1;
   }
-  function zn(e2) {
+  function Gn(e2) {
     switch (f(e2 = se(e2))) {
       case "array":
-        return e2.map((e3) => zn(e3));
+        return e2.map((e3) => Gn(e3));
       case "object":
-        return e2._internalType === jn || Object.keys(e2).forEach((t2) => {
-          e2[t2] = zn(e2[t2]);
+        return e2._internalType === Wn || Object.keys(e2).forEach((t2) => {
+          e2[t2] = Gn(e2[t2]);
         }), e2;
       case "regexp":
         return { $regexp: { source: e2.source, flags: e2.flags } };
@@ -6322,10 +6346,10 @@ ${i3}
         return e2;
     }
   }
-  function Jn(e2) {
+  function Yn(e2) {
     return e2 && e2.content && e2.content.$method;
   }
-  class Gn {
+  class Qn {
     constructor(e2, t2, n2) {
       this.content = e2, this.prevStage = t2 || null, this.udb = null, this._database = n2;
     }
@@ -6334,7 +6358,7 @@ ${i3}
       const t2 = [e2.content];
       for (; e2.prevStage; )
         e2 = e2.prevStage, t2.push(e2.content);
-      return { $db: t2.reverse().map((e3) => ({ $method: e3.$method, $param: zn(e3.$param) })) };
+      return { $db: t2.reverse().map((e3) => ({ $method: e3.$method, $param: Gn(e3.$param) })) };
     }
     toString() {
       return JSON.stringify(this.toJSON());
@@ -6349,7 +6373,7 @@ ${i3}
     get isAggregate() {
       let e2 = this;
       for (; e2; ) {
-        const t2 = Jn(e2), n2 = Jn(e2.prevStage);
+        const t2 = Yn(e2), n2 = Yn(e2.prevStage);
         if ("aggregate" === t2 && "collection" === n2 || "pipeline" === t2)
           return true;
         e2 = e2.prevStage;
@@ -6359,7 +6383,7 @@ ${i3}
     get isCommand() {
       let e2 = this;
       for (; e2; ) {
-        if ("command" === Jn(e2))
+        if ("command" === Yn(e2))
           return true;
         e2 = e2.prevStage;
       }
@@ -6368,7 +6392,7 @@ ${i3}
     get isAggregateCommand() {
       let e2 = this;
       for (; e2; ) {
-        const t2 = Jn(e2), n2 = Jn(e2.prevStage);
+        const t2 = Yn(e2), n2 = Yn(e2.prevStage);
         if ("aggregate" === t2 && "command" === n2)
           return true;
         e2 = e2.prevStage;
@@ -6378,7 +6402,7 @@ ${i3}
     getNextStageFn(e2) {
       const t2 = this;
       return function() {
-        return Vn({ $method: e2, $param: zn(Array.from(arguments)) }, t2, t2._database);
+        return Xn({ $method: e2, $param: Gn(Array.from(arguments)) }, t2, t2._database);
       };
     }
     get count() {
@@ -6412,22 +6436,22 @@ ${i3}
     }
     _send(e2, t2) {
       const n2 = this.getAction(), s2 = this.getCommand();
-      if (s2.$db.push({ $method: e2, $param: zn(t2) }), S) {
+      if (s2.$db.push({ $method: e2, $param: Gn(t2) }), S) {
         const e3 = s2.$db.find((e4) => "collection" === e4.$method), t3 = e3 && e3.$param;
         t3 && 1 === t3.length && "string" == typeof e3.$param[0] && e3.$param[0].indexOf(",") > -1 && console.warn("检测到使用JQL语法联表查询时，未使用getTemp先过滤主表数据，在主表数据量大的情况下可能会查询缓慢。\n- 如何优化请参考此文档：https://uniapp.dcloud.net.cn/uniCloud/jql?id=lookup-with-temp \n- 如果主表数据量很小请忽略此信息，项目发行时不会出现此提示。");
       }
       return this._database._callCloudFunction({ action: n2, command: s2 });
     }
   }
-  function Vn(e2, t2, n2) {
-    return $n(new Gn(e2, t2, n2), { get(e3, t3) {
+  function Xn(e2, t2, n2) {
+    return Hn(new Qn(e2, t2, n2), { get(e3, t3) {
       let s2 = "db";
-      return e3 && e3.content && (s2 = e3.content.$method), Hn(s2, t3) ? Vn({ $method: t3 }, e3, n2) : function() {
-        return Vn({ $method: t3, $param: zn(Array.from(arguments)) }, e3, n2);
+      return e3 && e3.content && (s2 = e3.content.$method), Vn(s2, t3) ? Xn({ $method: t3 }, e3, n2) : function() {
+        return Xn({ $method: t3, $param: Gn(Array.from(arguments)) }, e3, n2);
       };
     } });
   }
-  function Yn({ path: e2, method: t2 }) {
+  function Zn({ path: e2, method: t2 }) {
     return class {
       constructor() {
         this.param = Array.from(arguments);
@@ -6440,14 +6464,14 @@ ${i3}
       }
     };
   }
-  function Qn(e2, t2 = {}) {
-    return $n(new e2(t2), { get: (e3, t3) => Hn("db", t3) ? Vn({ $method: t3 }, null, e3) : function() {
-      return Vn({ $method: t3, $param: zn(Array.from(arguments)) }, null, e3);
+  function es(e2, t2 = {}) {
+    return Hn(new e2(t2), { get: (e3, t3) => Vn("db", t3) ? Xn({ $method: t3 }, null, e3) : function() {
+      return Xn({ $method: t3, $param: Gn(Array.from(arguments)) }, null, e3);
     } });
   }
-  class Xn extends class {
+  class ts extends class {
     constructor({ uniClient: e2 = {}, isJQL: t2 = false } = {}) {
-      this._uniClient = e2, this._authCallBacks = {}, this._dbCallBacks = {}, e2._isDefault && (this._dbCallBacks = L("_globalUniCloudDatabaseCallback")), t2 || (this.auth = Bn(this._authCallBacks)), this._isJQL = t2, Object.assign(this, Bn(this._dbCallBacks)), this.env = $n({}, { get: (e3, t3) => ({ $env: t3 }) }), this.Geo = $n({}, { get: (e3, t3) => Yn({ path: ["Geo"], method: t3 }) }), this.serverDate = Yn({ path: [], method: "serverDate" }), this.RegExp = Yn({ path: [], method: "RegExp" });
+      this._uniClient = e2, this._authCallBacks = {}, this._dbCallBacks = {}, e2._isDefault && (this._dbCallBacks = L("_globalUniCloudDatabaseCallback")), t2 || (this.auth = zn(this._authCallBacks)), this._isJQL = t2, Object.assign(this, zn(this._dbCallBacks)), this.env = Hn({}, { get: (e3, t3) => ({ $env: t3 }) }), this.Geo = Hn({}, { get: (e3, t3) => Zn({ path: ["Geo"], method: t3 }) }), this.serverDate = Zn({ path: [], method: "serverDate" }), this.RegExp = Zn({ path: [], method: "RegExp" });
     }
     getCloudEnv(e2) {
       if ("string" != typeof e2 || !e2.trim())
@@ -6526,21 +6550,21 @@ ${i3}
       });
     }
   }
-  const Zn = "token无效，跳转登录页面", es = "token过期，跳转登录页面", ts = { TOKEN_INVALID_TOKEN_EXPIRED: es, TOKEN_INVALID_INVALID_CLIENTID: Zn, TOKEN_INVALID: Zn, TOKEN_INVALID_WRONG_TOKEN: Zn, TOKEN_INVALID_ANONYMOUS_USER: Zn }, ns = { "uni-id-token-expired": es, "uni-id-check-token-failed": Zn, "uni-id-token-not-exist": Zn, "uni-id-check-device-feature-failed": Zn };
-  function ss(e2, t2) {
+  const ns = "token无效，跳转登录页面", ss = "token过期，跳转登录页面", rs = { TOKEN_INVALID_TOKEN_EXPIRED: ss, TOKEN_INVALID_INVALID_CLIENTID: ns, TOKEN_INVALID: ns, TOKEN_INVALID_WRONG_TOKEN: ns, TOKEN_INVALID_ANONYMOUS_USER: ns }, is = { "uni-id-token-expired": ss, "uni-id-check-token-failed": ns, "uni-id-token-not-exist": ns, "uni-id-check-device-feature-failed": ns };
+  function os(e2, t2) {
     let n2 = "";
     return n2 = e2 ? `${e2}/${t2}` : t2, n2.replace(/^\//, "");
   }
-  function rs(e2 = [], t2 = "") {
+  function as(e2 = [], t2 = "") {
     const n2 = [], s2 = [];
     return e2.forEach((e3) => {
-      true === e3.needLogin ? n2.push(ss(t2, e3.path)) : false === e3.needLogin && s2.push(ss(t2, e3.path));
+      true === e3.needLogin ? n2.push(os(t2, e3.path)) : false === e3.needLogin && s2.push(os(t2, e3.path));
     }), { needLoginPage: n2, notNeedLoginPage: s2 };
   }
-  function is(e2) {
+  function cs(e2) {
     return e2.split("?")[0].replace(/^\//, "");
   }
-  function os() {
+  function us() {
     return function(e2) {
       let t2 = e2 && e2.$page && e2.$page.fullPath || "";
       return t2 ? ("/" !== t2.charAt(0) && (t2 = "/" + t2), t2) : t2;
@@ -6549,32 +6573,32 @@ ${i3}
       return e2[e2.length - 1];
     }());
   }
-  function as() {
-    return is(os());
+  function hs() {
+    return cs(us());
   }
-  function cs(e2 = "", t2 = {}) {
+  function ls(e2 = "", t2 = {}) {
     if (!e2)
       return false;
     if (!(t2 && t2.list && t2.list.length))
       return false;
-    const n2 = t2.list, s2 = is(e2);
+    const n2 = t2.list, s2 = cs(e2);
     return n2.some((e3) => e3.pagePath === s2);
   }
-  const us = !!e.uniIdRouter;
-  const { loginPage: hs, routerNeedLogin: ls, resToLogin: ds, needLoginPage: ps, notNeedLoginPage: fs, loginPageInTabBar: gs } = function({ pages: t2 = [], subPackages: n2 = [], uniIdRouter: s2 = {}, tabBar: r2 = {} } = e) {
-    const { loginPage: i2, needLogin: o2 = [], resToLogin: a2 = true } = s2, { needLoginPage: c2, notNeedLoginPage: u2 } = rs(t2), { needLoginPage: h2, notNeedLoginPage: l2 } = function(e2 = []) {
+  const ds = !!e.uniIdRouter;
+  const { loginPage: ps, routerNeedLogin: fs, resToLogin: gs, needLoginPage: ms, notNeedLoginPage: ys, loginPageInTabBar: _s } = function({ pages: t2 = [], subPackages: n2 = [], uniIdRouter: s2 = {}, tabBar: r2 = {} } = e) {
+    const { loginPage: i2, needLogin: o2 = [], resToLogin: a2 = true } = s2, { needLoginPage: c2, notNeedLoginPage: u2 } = as(t2), { needLoginPage: h2, notNeedLoginPage: l2 } = function(e2 = []) {
       const t3 = [], n3 = [];
       return e2.forEach((e3) => {
-        const { root: s3, pages: r3 = [] } = e3, { needLoginPage: i3, notNeedLoginPage: o3 } = rs(r3, s3);
+        const { root: s3, pages: r3 = [] } = e3, { needLoginPage: i3, notNeedLoginPage: o3 } = as(r3, s3);
         t3.push(...i3), n3.push(...o3);
       }), { needLoginPage: t3, notNeedLoginPage: n3 };
     }(n2);
-    return { loginPage: i2, routerNeedLogin: o2, resToLogin: a2, needLoginPage: [...c2, ...h2], notNeedLoginPage: [...u2, ...l2], loginPageInTabBar: cs(i2, r2) };
+    return { loginPage: i2, routerNeedLogin: o2, resToLogin: a2, needLoginPage: [...c2, ...h2], notNeedLoginPage: [...u2, ...l2], loginPageInTabBar: ls(i2, r2) };
   }();
-  if (ps.indexOf(hs) > -1)
-    throw new Error(`Login page [${hs}] should not be "needLogin", please check your pages.json`);
-  function ms(e2) {
-    const t2 = as();
+  if (ms.indexOf(ps) > -1)
+    throw new Error(`Login page [${ps}] should not be "needLogin", please check your pages.json`);
+  function ws(e2) {
+    const t2 = hs();
     if ("/" === e2.charAt(0))
       return e2;
     const [n2, s2] = e2.split("?"), r2 = n2.replace(/^\//, "").split("/"), i2 = t2.split("/");
@@ -6585,44 +6609,44 @@ ${i3}
     }
     return "" === i2[0] && i2.shift(), "/" + i2.join("/") + (s2 ? "?" + s2 : "");
   }
-  function ys(e2) {
-    const t2 = is(ms(e2));
-    return !(fs.indexOf(t2) > -1) && (ps.indexOf(t2) > -1 || ls.some((t3) => function(e3, t4) {
+  function vs(e2) {
+    const t2 = cs(ws(e2));
+    return !(ys.indexOf(t2) > -1) && (ms.indexOf(t2) > -1 || fs.some((t3) => function(e3, t4) {
       return new RegExp(t4).test(e3);
     }(e2, t3)));
   }
-  function _s({ redirect: e2 }) {
-    const t2 = is(e2), n2 = is(hs);
-    return as() !== n2 && t2 !== n2;
+  function Is({ redirect: e2 }) {
+    const t2 = cs(e2), n2 = cs(ps);
+    return hs() !== n2 && t2 !== n2;
   }
-  function ws({ api: e2, redirect: t2 } = {}) {
-    if (!t2 || !_s({ redirect: t2 }))
+  function Ss({ api: e2, redirect: t2 } = {}) {
+    if (!t2 || !Is({ redirect: t2 }))
       return;
     const n2 = function(e3, t3) {
       return "/" !== e3.charAt(0) && (e3 = "/" + e3), t3 ? e3.indexOf("?") > -1 ? e3 + `&uniIdRedirectUrl=${encodeURIComponent(t3)}` : e3 + `?uniIdRedirectUrl=${encodeURIComponent(t3)}` : e3;
-    }(hs, t2);
-    gs ? "navigateTo" !== e2 && "redirectTo" !== e2 || (e2 = "switchTab") : "switchTab" === e2 && (e2 = "navigateTo");
+    }(ps, t2);
+    _s ? "navigateTo" !== e2 && "redirectTo" !== e2 || (e2 = "switchTab") : "switchTab" === e2 && (e2 = "navigateTo");
     const s2 = { navigateTo: uni.navigateTo, redirectTo: uni.redirectTo, switchTab: uni.switchTab, reLaunch: uni.reLaunch };
     setTimeout(() => {
       s2[e2]({ url: n2 });
     }, 0);
   }
-  function vs({ url: e2 } = {}) {
+  function bs({ url: e2 } = {}) {
     const t2 = { abortLoginPageJump: false, autoToLoginPage: false }, n2 = function() {
       const { token: e3, tokenExpired: t3 } = re();
       let n3;
       if (e3) {
         if (t3 < Date.now()) {
           const e4 = "uni-id-token-expired";
-          n3 = { errCode: e4, errMsg: ns[e4] };
+          n3 = { errCode: e4, errMsg: is[e4] };
         }
       } else {
         const e4 = "uni-id-check-token-failed";
-        n3 = { errCode: e4, errMsg: ns[e4] };
+        n3 = { errCode: e4, errMsg: is[e4] };
       }
       return n3;
     }();
-    if (ys(e2) && n2) {
+    if (vs(e2) && n2) {
       n2.uniIdRedirectUrl = e2;
       if (J($).length > 0)
         return setTimeout(() => {
@@ -6632,21 +6656,21 @@ ${i3}
     }
     return t2;
   }
-  function Is() {
+  function ks() {
     !function() {
-      const e3 = os(), { abortLoginPageJump: t2, autoToLoginPage: n2 } = vs({ url: e3 });
-      t2 || n2 && ws({ api: "redirectTo", redirect: e3 });
+      const e3 = us(), { abortLoginPageJump: t2, autoToLoginPage: n2 } = bs({ url: e3 });
+      t2 || n2 && Ss({ api: "redirectTo", redirect: e3 });
     }();
     const e2 = ["navigateTo", "redirectTo", "reLaunch", "switchTab"];
     for (let t2 = 0; t2 < e2.length; t2++) {
       const n2 = e2[t2];
       uni.addInterceptor(n2, { invoke(e3) {
-        const { abortLoginPageJump: t3, autoToLoginPage: s2 } = vs({ url: e3.url });
-        return t3 ? e3 : s2 ? (ws({ api: n2, redirect: ms(e3.url) }), false) : e3;
+        const { abortLoginPageJump: t3, autoToLoginPage: s2 } = bs({ url: e3.url });
+        return t3 ? e3 : s2 ? (Ss({ api: n2, redirect: ws(e3.url) }), false) : e3;
       } });
     }
   }
-  function Ss() {
+  function As() {
     this.onResponse((e2) => {
       const { type: t2, content: n2 } = e2;
       let s2 = false;
@@ -6656,7 +6680,7 @@ ${i3}
             if ("object" != typeof e3)
               return false;
             const { errCode: t3 } = e3 || {};
-            return t3 in ns;
+            return t3 in is;
           }(n2);
           break;
         case "clientdb":
@@ -6664,51 +6688,51 @@ ${i3}
             if ("object" != typeof e3)
               return false;
             const { errCode: t3 } = e3 || {};
-            return t3 in ts;
+            return t3 in rs;
           }(n2);
       }
       s2 && function(e3 = {}) {
         const t3 = J($);
         Z().then(() => {
-          const n3 = os();
-          if (n3 && _s({ redirect: n3 }))
-            return t3.length > 0 ? Y($, Object.assign({ uniIdRedirectUrl: n3 }, e3)) : void (hs && ws({ api: "navigateTo", redirect: n3 }));
+          const n3 = us();
+          if (n3 && Is({ redirect: n3 }))
+            return t3.length > 0 ? Y($, Object.assign({ uniIdRedirectUrl: n3 }, e3)) : void (ps && Ss({ api: "navigateTo", redirect: n3 }));
         });
       }(n2);
     });
   }
-  function bs(e2) {
+  function Cs(e2) {
     !function(e3) {
       e3.onResponse = function(e4) {
-        G(j, e4);
-      }, e3.offResponse = function(e4) {
         V(j, e4);
+      }, e3.offResponse = function(e4) {
+        G(j, e4);
       };
     }(e2), function(e3) {
       e3.onNeedLogin = function(e4) {
-        G($, e4);
-      }, e3.offNeedLogin = function(e4) {
         V($, e4);
-      }, us && (L("_globalUniCloudStatus").needLoginInit || (L("_globalUniCloudStatus").needLoginInit = true, Z().then(() => {
-        Is.call(e3);
-      }), ds && Ss.call(e3)));
+      }, e3.offNeedLogin = function(e4) {
+        G($, e4);
+      }, ds && (L("_globalUniCloudStatus").needLoginInit || (L("_globalUniCloudStatus").needLoginInit = true, Z().then(() => {
+        ks.call(e3);
+      }), gs && As.call(e3)));
     }(e2), function(e3) {
       e3.onRefreshToken = function(e4) {
-        G(B, e4);
-      }, e3.offRefreshToken = function(e4) {
         V(B, e4);
+      }, e3.offRefreshToken = function(e4) {
+        G(B, e4);
       };
     }(e2);
   }
-  let ks;
-  const As = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", Ps = /^(?:[A-Za-z\d+/]{4})*?(?:[A-Za-z\d+/]{2}(?:==)?|[A-Za-z\d+/]{3}=?)?$/;
-  function Ts() {
+  let Ps;
+  const Ts = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", xs = /^(?:[A-Za-z\d+/]{4})*?(?:[A-Za-z\d+/]{2}(?:==)?|[A-Za-z\d+/]{3}=?)?$/;
+  function Os() {
     const e2 = re().token || "", t2 = e2.split(".");
     if (!e2 || 3 !== t2.length)
       return { uid: null, role: [], permission: [], tokenExpired: 0 };
     let n2;
     try {
-      n2 = JSON.parse((s2 = t2[1], decodeURIComponent(ks(s2).split("").map(function(e3) {
+      n2 = JSON.parse((s2 = t2[1], decodeURIComponent(Ps(s2).split("").map(function(e3) {
         return "%" + ("00" + e3.charCodeAt(0).toString(16)).slice(-2);
       }).join(""))));
     } catch (e3) {
@@ -6717,16 +6741,16 @@ ${i3}
     var s2;
     return n2.tokenExpired = 1e3 * n2.exp, delete n2.exp, delete n2.iat, n2;
   }
-  ks = "function" != typeof atob ? function(e2) {
-    if (e2 = String(e2).replace(/[\t\n\f\r ]+/g, ""), !Ps.test(e2))
+  Ps = "function" != typeof atob ? function(e2) {
+    if (e2 = String(e2).replace(/[\t\n\f\r ]+/g, ""), !xs.test(e2))
       throw new Error("Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded.");
     var t2;
     e2 += "==".slice(2 - (3 & e2.length));
     for (var n2, s2, r2 = "", i2 = 0; i2 < e2.length; )
-      t2 = As.indexOf(e2.charAt(i2++)) << 18 | As.indexOf(e2.charAt(i2++)) << 12 | (n2 = As.indexOf(e2.charAt(i2++))) << 6 | (s2 = As.indexOf(e2.charAt(i2++))), r2 += 64 === n2 ? String.fromCharCode(t2 >> 16 & 255) : 64 === s2 ? String.fromCharCode(t2 >> 16 & 255, t2 >> 8 & 255) : String.fromCharCode(t2 >> 16 & 255, t2 >> 8 & 255, 255 & t2);
+      t2 = Ts.indexOf(e2.charAt(i2++)) << 18 | Ts.indexOf(e2.charAt(i2++)) << 12 | (n2 = Ts.indexOf(e2.charAt(i2++))) << 6 | (s2 = Ts.indexOf(e2.charAt(i2++))), r2 += 64 === n2 ? String.fromCharCode(t2 >> 16 & 255) : 64 === s2 ? String.fromCharCode(t2 >> 16 & 255, t2 >> 8 & 255) : String.fromCharCode(t2 >> 16 & 255, t2 >> 8 & 255, 255 & t2);
     return r2;
   } : atob;
-  var Cs = n(function(e2, t2) {
+  var Es = n(function(e2, t2) {
     Object.defineProperty(t2, "__esModule", { value: true });
     const n2 = "chooseAndUploadFile:ok", s2 = "chooseAndUploadFile:fail";
     function r2(e3, t3) {
@@ -6801,9 +6825,9 @@ ${i3}
         }(t3), t3);
       };
     };
-  }), xs = t$3(Cs);
-  const Os = "manual";
-  function Es(e2) {
+  }), Ls = t$3(Es);
+  const Rs = "manual";
+  function Us(e2) {
     return { props: { localdata: { type: Array, default: () => [] }, options: { type: [Object, Array], default: () => ({}) }, spaceInfo: { type: Object, default: () => ({}) }, collection: { type: [String, Array], default: "" }, action: { type: String, default: "" }, field: { type: String, default: "" }, orderby: { type: String, default: "" }, where: { type: [String, Object], default: "" }, pageData: { type: String, default: "add" }, pageCurrent: { type: Number, default: 1 }, pageSize: { type: Number, default: 20 }, getcount: { type: [Boolean, String], default: false }, gettree: { type: [Boolean, String], default: false }, gettreepath: { type: [Boolean, String], default: false }, startwith: { type: String, default: "" }, limitlevel: { type: Number, default: 10 }, groupby: { type: String, default: "" }, groupField: { type: String, default: "" }, distinct: { type: [Boolean, String], default: false }, foreignKey: { type: String, default: "" }, loadtime: { type: String, default: "auto" }, manual: { type: Boolean, default: false } }, data: () => ({ mixinDatacomLoading: false, mixinDatacomHasMore: false, mixinDatacomResData: [], mixinDatacomErrorMessage: "", mixinDatacomPage: {}, mixinDatacomError: null }), created() {
       this.mixinDatacomPage = { current: this.pageCurrent, size: this.pageSize, count: 0 }, this.$watch(() => {
         var e3 = [];
@@ -6811,7 +6835,7 @@ ${i3}
           e3.push(this[t2]);
         }), e3;
       }, (e3, t2) => {
-        if (this.loadtime === Os)
+        if (this.loadtime === Rs)
           return;
         let n2 = false;
         const s2 = [];
@@ -6854,7 +6878,7 @@ ${i3}
       return f2 && (m2.getTree = y2), g2 && (m2.getTreePath = y2), n2 = n2.skip(d2 * (l2 - 1)).limit(d2).get(m2), n2;
     } } };
   }
-  function Ls(e2) {
+  function Ns(e2) {
     return function(t2, n2 = {}) {
       n2 = function(e3, t3 = {}) {
         return e3.customUI = t3.customUI || e3.customUI, e3.parseSystemError = t3.parseSystemError || e3.parseSystemError, Object.assign(e3.loadingOptions, t3.loadingOptions), Object.assign(e3.errorOptions, t3.errorOptions), "object" == typeof t3.secretMethods && (e3.secretMethods = t3.secretMethods), e3;
@@ -6929,25 +6953,30 @@ ${i3}
       } });
     };
   }
-  function Rs(e2) {
+  function Ds(e2) {
     return L("_globalUniCloudSecureNetworkCache__{spaceId}".replace("{spaceId}", e2.config.spaceId));
   }
-  async function Us({ openid: e2, callLoginByWeixin: t2 = false } = {}) {
-    Rs(this);
-    throw new Error(`[SecureNetwork] API \`initSecureNetworkByWeixin\` is not supported on platform \`${P}\``);
+  async function Ms({ openid: e2, callLoginByWeixin: t2 = false } = {}) {
+    Ds(this);
+    throw new Error(`[SecureNetwork] API \`initSecureNetworkByWeixin\` is not supported on platform \`${C}\``);
   }
-  async function Ns(e2) {
-    const t2 = Rs(this);
-    return t2.initPromise || (t2.initPromise = Us.call(this, e2).then((e3) => e3).catch((e3) => {
+  async function qs(e2) {
+    const t2 = Ds(this);
+    return t2.initPromise || (t2.initPromise = Ms.call(this, e2).then((e3) => e3).catch((e3) => {
       throw delete t2.initPromise, e3;
     })), t2.initPromise;
   }
-  function Ds(e2) {
+  function Fs(e2) {
     return function({ openid: t2, callLoginByWeixin: n2 = false } = {}) {
-      return Ns.call(e2, { openid: t2, callLoginByWeixin: n2 });
+      return qs.call(e2, { openid: t2, callLoginByWeixin: n2 });
     };
   }
-  function Ms(e2) {
+  function Ks(e2) {
+    !function(e3) {
+      he = e3;
+    }(e2);
+  }
+  function js(e2) {
     const t2 = { getSystemInfo: uni.getSystemInfo, getPushClientId: uni.getPushClientId };
     return function(n2) {
       return new Promise((s2, r2) => {
@@ -6959,7 +6988,7 @@ ${i3}
       });
     };
   }
-  class qs extends class {
+  class $s extends class {
     constructor() {
       this._callback = {};
     }
@@ -7000,7 +7029,7 @@ ${i3}
       super(), this._uniPushMessageCallback = this._receivePushMessage.bind(this), this._currentMessageId = -1, this._payloadQueue = [];
     }
     init() {
-      return Promise.all([Ms("getSystemInfo")(), Ms("getPushClientId")()]).then(([{ appId: e2 } = {}, { cid: t2 } = {}] = []) => {
+      return Promise.all([js("getSystemInfo")(), js("getPushClientId")()]).then(([{ appId: e2 } = {}, { cid: t2 } = {}] = []) => {
         if (!e2)
           throw new Error("Invalid appId, please check the manifest.json file");
         if (!t2)
@@ -7056,7 +7085,7 @@ ${i3}
       this._destroy(), this.emit("close");
     }
   }
-  async function Fs(e2, t2) {
+  async function Bs(e2, t2) {
     const n2 = `http://${e2}:${t2}/system/ping`;
     try {
       const e3 = await (s2 = { url: n2, timeout: 500 }, new Promise((e4, t3) => {
@@ -7072,7 +7101,7 @@ ${i3}
     }
     var s2;
   }
-  async function Ks(e2) {
+  async function Ws(e2) {
     {
       const { osName: e3, osVersion: t3 } = ce();
       "ios" === e3 && function(e4) {
@@ -7089,7 +7118,7 @@ ${i3}
       let n3;
       for (let s3 = 0; s3 < e3.length; s3++) {
         const r3 = e3[s3];
-        if (await Fs(r3, t3)) {
+        if (await Bs(r3, t3)) {
           n3 = r3;
           break;
         }
@@ -7100,11 +7129,11 @@ ${i3}
       return t2.localAddress = r2, void (t2.localPort = s2);
     const i2 = console["error"];
     let o2 = "";
-    if ("remote" === t2.debugInfo.initialLaunchType ? (t2.debugInfo.forceRemote = true, o2 = "当前客户端和HBuilderX不在同一局域网下（或其他网络原因无法连接HBuilderX），uniCloud本地调试服务不对当前客户端生效。\n- 如果不使用uniCloud本地调试服务，请直接忽略此信息。\n- 如需使用uniCloud本地调试服务，请将客户端与主机连接到同一局域网下并重新运行到客户端。") : o2 = "无法连接uniCloud本地调试服务，请检查当前客户端是否与主机在同一局域网下。\n- 如需使用uniCloud本地调试服务，请将客户端与主机连接到同一局域网下并重新运行到客户端。", o2 += "\n- 如果在HBuilderX开启的状态下切换过网络环境，请重启HBuilderX后再试\n- 检查系统防火墙是否拦截了HBuilderX自带的nodejs\n- 检查是否错误的使用拦截器修改uni.request方法的参数", 0 === P.indexOf("mp-") && (o2 += "\n- 小程序中如何使用uniCloud，请参考：https://uniapp.dcloud.net.cn/uniCloud/publish.html#useinmp"), !t2.debugInfo.forceRemote)
+    if ("remote" === t2.debugInfo.initialLaunchType ? (t2.debugInfo.forceRemote = true, o2 = "当前客户端和HBuilderX不在同一局域网下（或其他网络原因无法连接HBuilderX），uniCloud本地调试服务不对当前客户端生效。\n- 如果不使用uniCloud本地调试服务，请直接忽略此信息。\n- 如需使用uniCloud本地调试服务，请将客户端与主机连接到同一局域网下并重新运行到客户端。") : o2 = "无法连接uniCloud本地调试服务，请检查当前客户端是否与主机在同一局域网下。\n- 如需使用uniCloud本地调试服务，请将客户端与主机连接到同一局域网下并重新运行到客户端。", o2 += "\n- 如果在HBuilderX开启的状态下切换过网络环境，请重启HBuilderX后再试\n- 检查系统防火墙是否拦截了HBuilderX自带的nodejs\n- 检查是否错误的使用拦截器修改uni.request方法的参数", 0 === C.indexOf("mp-") && (o2 += "\n- 小程序中如何使用uniCloud，请参考：https://uniapp.dcloud.net.cn/uniCloud/publish.html#useinmp"), !t2.debugInfo.forceRemote)
       throw new Error(o2);
     i2(o2);
   }
-  function js(e2) {
+  function Hs(e2) {
     e2._initPromiseHub || (e2._initPromiseHub = new v({ createPromise: function() {
       let t2 = Promise.resolve();
       var n2;
@@ -7117,25 +7146,25 @@ ${i3}
       return t2.then(() => s2.getLoginState()).then((e3) => e3 ? Promise.resolve() : s2.signInAnonymously());
     } }));
   }
-  const $s = { tcb: St, tencent: St, aliyun: pe, private: kt, alipay: Lt };
-  let Bs = new class {
+  const zs = { tcb: bt, tencent: bt, aliyun: fe, private: At, alipay: Nt };
+  let Js = new class {
     init(e2) {
       let t2 = {};
-      const n2 = $s[e2.provider];
+      const n2 = zs[e2.provider];
       if (!n2)
         throw new Error("未提供正确的provider参数");
       t2 = n2.init(e2), function(e3) {
         const t3 = {};
-        e3.__dev__ = t3, t3.debugLog = "app" === P;
-        const n3 = T;
+        e3.__dev__ = t3, t3.debugLog = "app" === C;
+        const n3 = P;
         n3 && !n3.code && (t3.debugInfo = n3);
         const s2 = new v({ createPromise: function() {
-          return Ks(e3);
+          return Ws(e3);
         } });
         t3.initLocalNetwork = function() {
           return s2.exec();
         };
-      }(t2), js(t2), Kn(t2), function(e3) {
+      }(t2), Hs(t2), Bn(t2), function(e3) {
         const t3 = e3.uploadFile;
         e3.uploadFile = function(e4) {
           return t3.call(this, e4);
@@ -7146,20 +7175,20 @@ ${i3}
             return e3.init(t3).database();
           if (this._database)
             return this._database;
-          const n3 = Qn(Xn, { uniClient: e3 });
+          const n3 = es(ts, { uniClient: e3 });
           return this._database = n3, n3;
         }, e3.databaseForJQL = function(t3) {
           if (t3 && Object.keys(t3).length > 0)
             return e3.init(t3).databaseForJQL();
           if (this._databaseForJQL)
             return this._databaseForJQL;
-          const n3 = Qn(Xn, { uniClient: e3, isJQL: true });
+          const n3 = es(ts, { uniClient: e3, isJQL: true });
           return this._databaseForJQL = n3, n3;
         };
       }(t2), function(e3) {
-        e3.getCurrentUserInfo = Ts, e3.chooseAndUploadFile = xs.initChooseAndUploadFile(e3), Object.assign(e3, { get mixinDatacom() {
-          return Es(e3);
-        } }), e3.SSEChannel = qs, e3.initSecureNetworkByWeixin = Ds(e3), e3.importObject = Ls(e3);
+        e3.getCurrentUserInfo = Os, e3.chooseAndUploadFile = Ls.initChooseAndUploadFile(e3), Object.assign(e3, { get mixinDatacom() {
+          return Us(e3);
+        } }), e3.SSEChannel = $s, e3.initSecureNetworkByWeixin = Fs(e3), e3.setCustomClientInfo = Ks, e3.importObject = Ns(e3);
       }(t2);
       return ["callFunction", "uploadFile", "deleteFile", "getTempFileURL", "downloadFile", "chooseAndUploadFile"].forEach((e3) => {
         if (!t2[e3])
@@ -7190,27 +7219,27 @@ ${i3}
     }
   }();
   (() => {
-    const e2 = C;
+    const e2 = T;
     let t2 = {};
     if (e2 && 1 === e2.length)
-      t2 = e2[0], Bs = Bs.init(t2), Bs._isDefault = true;
+      t2 = e2[0], Js = Js.init(t2), Js._isDefault = true;
     else {
       const t3 = ["auth", "callFunction", "uploadFile", "deleteFile", "getTempFileURL", "downloadFile", "database", "getCurrentUSerInfo", "importObject"];
       let n2;
       n2 = e2 && e2.length > 0 ? "应用有多个服务空间，请通过uniCloud.init方法指定要使用的服务空间" : "应用未关联服务空间，请在uniCloud目录右键关联服务空间", t3.forEach((e3) => {
-        Bs[e3] = function() {
+        Js[e3] = function() {
           return console.error(n2), Promise.reject(new te({ code: "SYS_ERR", message: n2 }));
         };
       });
     }
-    Object.assign(Bs, { get mixinDatacom() {
-      return Es(Bs);
-    } }), bs(Bs), Bs.addInterceptor = N, Bs.removeInterceptor = D, Bs.interceptObject = F;
+    Object.assign(Js, { get mixinDatacom() {
+      return Us(Js);
+    } }), Cs(Js), Js.addInterceptor = N, Js.removeInterceptor = D, Js.interceptObject = F;
   })();
-  var Ws = Bs;
+  var Vs = Js;
   const _sfc_main$M = {
     name: "uni-data-select",
-    mixins: [Ws.mixinDatacom || {}],
+    mixins: [Vs.mixinDatacom || {}],
     props: {
       localdata: {
         type: Array,
@@ -7600,7 +7629,7 @@ ${i3}
       )
     ]);
   }
-  const __easycom_1$3 = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["render", _sfc_render$c], ["__scopeId", "data-v-ddf9e0a2"], ["__file", "D:/code/money_celestial/uni_modules/uni-data-select/components/uni-data-select/uni-data-select.vue"]]);
+  const __easycom_1$3 = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["render", _sfc_render$c], ["__scopeId", "data-v-ddf9e0a2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-select/components/uni-data-select/uni-data-select.vue"]]);
   const getMerchantList$1 = (data) => {
     return http.get("/shops/", data);
   };
@@ -7993,7 +8022,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchant_set_info = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["__scopeId", "data-v-34ea46dc"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_set_info.vue"]]);
+  const PagesMerchantMerchantSetInfo = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["__scopeId", "data-v-34ea46dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_set_info.vue"]]);
   const _imports_0$3 = "/static/star.png";
   const _imports_0$2 = "/static/arrow-right.png";
   const _sfc_main$K = {
@@ -8109,15 +8138,15 @@ ${i3}
                   class: "arrow_pic"
                 })
               ]),
-              vue.createCommentVNode(' <view class="list_item flex_between" @click="toUploadGoods">\r\n					<view class="">\r\n						上传产品\r\n					</view>\r\n					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>\r\n				</view> '),
-              vue.createCommentVNode(' <view class="list_item flex_between">\r\n					<view class="">\r\n						编辑产品\r\n					</view>\r\n					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>\r\n				</view> ')
+              vue.createCommentVNode(' <view class="list_item flex_between" @click="toUploadGoods">\n					<view class="">\n						上传产品\n					</view>\n					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>\n				</view> '),
+              vue.createCommentVNode(' <view class="list_item flex_between">\n					<view class="">\n						编辑产品\n					</view>\n					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>\n				</view> ')
             ])
           ])
         ]);
       };
     }
   };
-  const PagesMerchantMerchant_management = /* @__PURE__ */ _export_sfc(_sfc_main$K, [["__scopeId", "data-v-a81a7219"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_management.vue"]]);
+  const PagesMerchantMerchantManagement = /* @__PURE__ */ _export_sfc(_sfc_main$K, [["__scopeId", "data-v-a81a7219"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_management.vue"]]);
   const _sfc_main$J = {
     __name: "merchant_edit_info",
     setup(__props) {
@@ -8362,7 +8391,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchant_edit_info = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["__scopeId", "data-v-aaffa612"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_edit_info.vue"]]);
+  const PagesMerchantMerchantEditInfo = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["__scopeId", "data-v-aaffa612"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_edit_info.vue"]]);
   const bindPointAccount = async (data) => {
     return http.post("/wallets/wallet/bind/points/account/", data);
   };
@@ -8510,7 +8539,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantPoint_gift = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["__scopeId", "data-v-976eb3a4"], ["__file", "D:/code/money_celestial/pages/merchant/point_gift.vue"]]);
+  const PagesMerchantPointGift = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["__scopeId", "data-v-976eb3a4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/point_gift.vue"]]);
   const _sfc_main$H = {
     __name: "merchant_code_authentication",
     setup(__props) {
@@ -8564,7 +8593,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchant_code_authentication = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["__scopeId", "data-v-0f661089"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_code_authentication.vue"]]);
+  const PagesMerchantMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["__scopeId", "data-v-0f661089"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_code_authentication.vue"]]);
   const _sfc_main$G = {
     __name: "security_deposit",
     setup(__props) {
@@ -8629,7 +8658,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantSecurity_deposit = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["__scopeId", "data-v-3efa2ea6"], ["__file", "D:/code/money_celestial/pages/merchant/security_deposit.vue"]]);
+  const PagesMerchantSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["__scopeId", "data-v-3efa2ea6"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/security_deposit.vue"]]);
   const ComponentClass$1 = "uni-col";
   const _sfc_main$F = {
     name: "uniCol",
@@ -8752,7 +8781,7 @@ ${i3}
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1$2 = /* @__PURE__ */ _export_sfc(_sfc_main$F, [["render", _sfc_render$b], ["__scopeId", "data-v-28ff6624"], ["__file", "D:/code/money_celestial/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
+  const __easycom_1$2 = /* @__PURE__ */ _export_sfc(_sfc_main$F, [["render", _sfc_render$b], ["__scopeId", "data-v-28ff6624"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
   const ComponentClass = "uni-row";
   const modifierSeparator = "--";
   const _sfc_main$E = {
@@ -8812,7 +8841,7 @@ ${i3}
       /* CLASS, STYLE */
     );
   }
-  const __easycom_2$3 = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["render", _sfc_render$a], ["__scopeId", "data-v-097353af"], ["__file", "D:/code/money_celestial/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
+  const __easycom_2$3 = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["render", _sfc_render$a], ["__scopeId", "data-v-097353af"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
   const en$1 = {
     "uni-load-more.contentdown": "Pull up to show more",
     "uni-load-more.contentrefresh": "loading...",
@@ -8997,7 +9026,7 @@ ${i3}
       )) : vue.createCommentVNode("v-if", true)
     ]);
   }
-  const __easycom_3 = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["render", _sfc_render$9], ["__scopeId", "data-v-9245e42c"], ["__file", "D:/code/money_celestial/uni_modules/uni-load-more/components/uni-load-more/uni-load-more.vue"]]);
+  const __easycom_3 = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["render", _sfc_render$9], ["__scopeId", "data-v-9245e42c"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-load-more/components/uni-load-more/uni-load-more.vue"]]);
   const addDeposit = (data) => {
     return http.post("/wallets/add/collateral/", data);
   };
@@ -9188,7 +9217,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantDeposit_record = /* @__PURE__ */ _export_sfc(_sfc_main$C, [["__scopeId", "data-v-d6fe0577"], ["__file", "D:/code/money_celestial/pages/merchant/deposit_record.vue"]]);
+  const PagesMerchantDepositRecord = /* @__PURE__ */ _export_sfc(_sfc_main$C, [["__scopeId", "data-v-d6fe0577"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/deposit_record.vue"]]);
   const _sfc_main$B = {
     __name: "add_deposit",
     setup(__props) {
@@ -9316,7 +9345,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantAdd_deposit = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["__scopeId", "data-v-4a198a90"], ["__file", "D:/code/money_celestial/pages/merchant/add_deposit.vue"]]);
+  const PagesMerchantAddDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["__scopeId", "data-v-4a198a90"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/add_deposit.vue"]]);
   const _sfc_main$A = {
     __name: "remove_deposit",
     setup(__props) {
@@ -9442,7 +9471,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantRemove_deposit = /* @__PURE__ */ _export_sfc(_sfc_main$A, [["__scopeId", "data-v-930acddc"], ["__file", "D:/code/money_celestial/pages/merchant/remove_deposit.vue"]]);
+  const PagesMerchantRemoveDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$A, [["__scopeId", "data-v-930acddc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/remove_deposit.vue"]]);
   const _sfc_main$z = {
     __name: "upload_goods",
     setup(__props) {
@@ -9516,7 +9545,7 @@ ${i3}
                   clear: false,
                   onChange: changeRange
                 }, null, 8, ["modelValue", "localdata"]),
-                vue.createCommentVNode(' <input v-model="address" class="uni-input" placeholder="选择商品分类" placeholder-class="placeholder_class" />\r\n					<image src="@/static/arrow-right.png" mode="widthFix" class="lo_pic"></image> ')
+                vue.createCommentVNode(' <input v-model="address" class="uni-input" placeholder="选择商品分类" placeholder-class="placeholder_class" />\n					<image src="@/static/arrow-right.png" mode="widthFix" class="lo_pic"></image> ')
               ])
             ]),
             vue.createElementVNode("view", { class: "head_box" }, [
@@ -9594,7 +9623,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantUpload_goods = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["__scopeId", "data-v-452b451b"], ["__file", "D:/code/money_celestial/pages/merchant/upload_goods.vue"]]);
+  const PagesMerchantUploadGoods = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["__scopeId", "data-v-452b451b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/upload_goods.vue"]]);
   const _sfc_main$y = {};
   function _sfc_render$8(_ctx, _cache) {
     const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
@@ -9610,7 +9639,7 @@ ${i3}
       ])
     ]);
   }
-  const PagesAgentAgent_intro = /* @__PURE__ */ _export_sfc(_sfc_main$y, [["render", _sfc_render$8], ["__scopeId", "data-v-4d11c0d1"], ["__file", "D:/code/money_celestial/pages/agent/agent_intro.vue"]]);
+  const PagesAgentAgentIntro = /* @__PURE__ */ _export_sfc(_sfc_main$y, [["render", _sfc_render$8], ["__scopeId", "data-v-4d11c0d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_intro.vue"]]);
   const getAgentShopList = async (data) => {
     return http.get("/agent/province/shops/", data);
   };
@@ -9759,7 +9788,7 @@ ${i3}
       };
     }
   };
-  const PagesAgentAgent_management = /* @__PURE__ */ _export_sfc(_sfc_main$x, [["__scopeId", "data-v-aa1b4823"], ["__file", "D:/code/money_celestial/pages/agent/agent_management.vue"]]);
+  const PagesAgentAgentManagement = /* @__PURE__ */ _export_sfc(_sfc_main$x, [["__scopeId", "data-v-aa1b4823"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_management.vue"]]);
   const _sfc_main$w = {
     __name: "recommend_intro",
     setup(__props) {
@@ -9788,7 +9817,7 @@ ${i3}
       };
     }
   };
-  const PagesRecommendRecommend_intro = /* @__PURE__ */ _export_sfc(_sfc_main$w, [["__scopeId", "data-v-87fd30d1"], ["__file", "D:/code/money_celestial/pages/recommend/recommend_intro.vue"]]);
+  const PagesRecommendRecommendIntro = /* @__PURE__ */ _export_sfc(_sfc_main$w, [["__scopeId", "data-v-87fd30d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_intro.vue"]]);
   const getRecommendOfficerInfo = async () => {
     return http.get("/referral/officer/shops/");
   };
@@ -9875,7 +9904,7 @@ ${i3}
                     /* TEXT */
                   )
                 ]),
-                vue.createCommentVNode(' <view class="">\r\n						<view class="total_text">\r\n							已获得积分\r\n						</view>\r\n						<view class="total_num">\r\n							15,328,872,819\r\n						</view>\r\n					</view> ')
+                vue.createCommentVNode(' <view class="">\n						<view class="total_text">\n							已获得积分\n						</view>\n						<view class="total_num">\n							15,328,872,819\n						</view>\n					</view> ')
               ])
             ])
           ]),
@@ -9924,7 +9953,7 @@ ${i3}
       };
     }
   };
-  const PagesRecommendRecommend_management = /* @__PURE__ */ _export_sfc(_sfc_main$v, [["__scopeId", "data-v-6eb3b4f4"], ["__file", "D:/code/money_celestial/pages/recommend/recommend_management.vue"]]);
+  const PagesRecommendRecommendManagement = /* @__PURE__ */ _export_sfc(_sfc_main$v, [["__scopeId", "data-v-6eb3b4f4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_management.vue"]]);
   const _sfc_main$u = {
     __name: "shopList",
     props: {
@@ -10041,7 +10070,7 @@ ${i3}
       };
     }
   };
-  const __easycom_1$1 = /* @__PURE__ */ _export_sfc(_sfc_main$u, [["__scopeId", "data-v-69f4d838"], ["__file", "D:/code/money_celestial/components/shopList/shopList.vue"]]);
+  const __easycom_1$1 = /* @__PURE__ */ _export_sfc(_sfc_main$u, [["__scopeId", "data-v-69f4d838"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/shopList/shopList.vue"]]);
   const _imports_0$1 = "/static/category.png";
   const _imports_1$1 = "/static/arrow-active.png";
   const _imports_2 = "/static/arrow-inactive.png";
@@ -10148,7 +10177,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantAll_merchant = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["__scopeId", "data-v-2d911691"], ["__file", "D:/code/money_celestial/pages/merchant/all_merchant.vue"]]);
+  const PagesMerchantAllMerchant = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["__scopeId", "data-v-2d911691"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/all_merchant.vue"]]);
   const _sfc_main$s = {
     __name: "merchant_code_authentication",
     setup(__props) {
@@ -10194,7 +10223,7 @@ ${i3}
       };
     }
   };
-  const PagesAgentMerchant_code_authentication = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["__scopeId", "data-v-954048b2"], ["__file", "D:/code/money_celestial/pages/agent/merchant_code_authentication.vue"]]);
+  const PagesAgentMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["__scopeId", "data-v-954048b2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/merchant_code_authentication.vue"]]);
   const _sfc_main$r = {
     __name: "merchant_code_authentication",
     setup(__props) {
@@ -10240,7 +10269,7 @@ ${i3}
       };
     }
   };
-  const PagesRecommendMerchant_code_authentication = /* @__PURE__ */ _export_sfc(_sfc_main$r, [["__scopeId", "data-v-c32e0b38"], ["__file", "D:/code/money_celestial/pages/recommend/merchant_code_authentication.vue"]]);
+  const PagesRecommendMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$r, [["__scopeId", "data-v-c32e0b38"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/merchant_code_authentication.vue"]]);
   const _sfc_main$q = {
     __name: "security_deposit",
     setup(__props) {
@@ -10294,7 +10323,7 @@ ${i3}
       };
     }
   };
-  const PagesRecommendSecurity_deposit = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["__scopeId", "data-v-f039c67b"], ["__file", "D:/code/money_celestial/pages/recommend/security_deposit.vue"]]);
+  const PagesRecommendSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["__scopeId", "data-v-f039c67b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/security_deposit.vue"]]);
   const _sfc_main$p = {
     __name: "security_deposit",
     setup(__props) {
@@ -10348,7 +10377,7 @@ ${i3}
       };
     }
   };
-  const PagesAgentSecurity_deposit = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["__scopeId", "data-v-151545ee"], ["__file", "D:/code/money_celestial/pages/agent/security_deposit.vue"]]);
+  const PagesAgentSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["__scopeId", "data-v-151545ee"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/security_deposit.vue"]]);
   const _sfc_main$o = {
     __name: "myAccount",
     setup(__props) {
@@ -10584,7 +10613,7 @@ ${i3}
       };
     }
   };
-  const PagesMyAccountMyAccount = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["__file", "D:/code/money_celestial/pages/myAccount/myAccount.vue"]]);
+  const PagesMyAccountMyAccount = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/myAccount.vue"]]);
   const _sfc_main$n = {
     name: "UniSegmentedControl",
     emits: ["clickItem"],
@@ -10683,7 +10712,7 @@ ${i3}
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$7], ["__scopeId", "data-v-86aa1171"], ["__file", "D:/code/money_celestial/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue"]]);
+  const __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$7], ["__scopeId", "data-v-86aa1171"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue"]]);
   const _sfc_main$m = {
     __name: "goodsList",
     setup(__props) {
@@ -10852,7 +10881,7 @@ ${i3}
       };
     }
   };
-  const __easycom_2$2 = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["__scopeId", "data-v-feddcdaa"], ["__file", "D:/code/money_celestial/components/goodsList/goodsList.vue"]]);
+  const __easycom_2$2 = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["__scopeId", "data-v-feddcdaa"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/goodsList/goodsList.vue"]]);
   const _imports_1 = "/static/star-plain.png";
   const _imports_3 = "/static/time.png";
   const _imports_4 = "/static/phone.png";
@@ -10949,7 +10978,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchant_detail = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["__scopeId", "data-v-1771cf06"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_detail.vue"]]);
+  const PagesMerchantMerchantDetail = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["__scopeId", "data-v-1771cf06"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_detail.vue"]]);
   const _sfc_main$k = {};
   function _sfc_render$6(_ctx, _cache) {
     const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
@@ -10994,7 +11023,7 @@ ${i3}
       ])
     ]);
   }
-  const PagesMerchantGoods_detail = /* @__PURE__ */ _export_sfc(_sfc_main$k, [["render", _sfc_render$6], ["__scopeId", "data-v-2276b552"], ["__file", "D:/code/money_celestial/pages/merchant/goods_detail.vue"]]);
+  const PagesMerchantGoodsDetail = /* @__PURE__ */ _export_sfc(_sfc_main$k, [["render", _sfc_render$6], ["__scopeId", "data-v-2276b552"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/goods_detail.vue"]]);
   const _sfc_main$j = {
     __name: "register",
     setup(__props) {
@@ -11011,6 +11040,7 @@ ${i3}
           });
         if (password.value == password2.value) {
           postRegister(mobile.value, password.value).then((res) => {
+            formatAppLog("log", "at pages/login/register.vue:62", res);
             uni.showToast({
               duration: 2e3,
               icon: "success",
@@ -11084,7 +11114,7 @@ ${i3}
       };
     }
   };
-  const PagesLoginRegister = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__scopeId", "data-v-838b72c9"], ["__file", "D:/code/money_celestial/pages/login/register.vue"]]);
+  const PagesLoginRegister = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__scopeId", "data-v-838b72c9"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/login/register.vue"]]);
   var calendar = {
     /**
         * 农历1900-2100的润大小信息表
@@ -12415,7 +12445,7 @@ ${i3}
       /* CLASS */
     );
   }
-  const CalendarItem = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["render", _sfc_render$5], ["__scopeId", "data-v-65626c58"], ["__file", "D:/code/money_celestial/uni_modules/uni-calendar/components/uni-calendar/uni-calendar-item.vue"]]);
+  const CalendarItem = /* @__PURE__ */ _export_sfc(_sfc_main$i, [["render", _sfc_render$5], ["__scopeId", "data-v-65626c58"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-calendar/components/uni-calendar/uni-calendar-item.vue"]]);
   const { t } = initVueI18n(i18nMessages);
   const _sfc_main$h = {
     components: {
@@ -12893,7 +12923,7 @@ ${i3}
       )) : vue.createCommentVNode("v-if", true)
     ]);
   }
-  const __easycom_2$1 = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$4], ["__scopeId", "data-v-b6ab2cfb"], ["__file", "D:/code/money_celestial/uni_modules/uni-calendar/components/uni-calendar/uni-calendar.vue"]]);
+  const __easycom_2$1 = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$4], ["__scopeId", "data-v-b6ab2cfb"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-calendar/components/uni-calendar/uni-calendar.vue"]]);
   const _sfc_main$g = {
     __name: "more_info",
     setup(__props) {
@@ -12983,7 +13013,7 @@ ${i3}
             duration: 700
           });
         }
-        changeUserInfo(name.value, uploadSuccessUrl.value, gender.value, birthday.value, address.value, email.value).then((res) => {
+        changeUserInfo({ name: name.value || "", icon: uploadSuccessUrl.value || "", gender: gender.value || "", birthdate: birthday.value || "", residence: address.value || "", email: email.value || "" }).then((res) => {
           uni.showToast({
             duration: 1e3,
             icon: "success",
@@ -13156,7 +13186,7 @@ ${i3}
       };
     }
   };
-  const PagesLoginMore_info = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-dc27228e"], ["__file", "D:/code/money_celestial/pages/login/more_info.vue"]]);
+  const PagesLoginMoreInfo = /* @__PURE__ */ _export_sfc(_sfc_main$g, [["__scopeId", "data-v-dc27228e"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/login/more_info.vue"]]);
   const _sfc_main$f = {
     __name: "my_point",
     setup(__props) {
@@ -13204,7 +13234,7 @@ ${i3}
       };
     }
   };
-  const PagesMyAccountMy_point = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["__scopeId", "data-v-c4092873"], ["__file", "D:/code/money_celestial/pages/myAccount/my_point.vue"]]);
+  const PagesMyAccountMyPoint = /* @__PURE__ */ _export_sfc(_sfc_main$f, [["__scopeId", "data-v-c4092873"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/my_point.vue"]]);
   const _sfc_main$e = {
     __name: "point_available",
     setup(__props) {
@@ -13219,7 +13249,7 @@ ${i3}
           vue.createVNode(_component_navBar, { title: "可用积分" }),
           vue.createElementVNode("view", { class: "content" }, [
             vue.createElementVNode("view", { class: "list_box" }, [
-              vue.createCommentVNode(' <view class="list_item flex_between">\r\n					<view class="">\r\n						兑换商品\r\n					</view>\r\n					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>\r\n				</view>\r\n				<view class="list_item flex_between" @click="toWithdrawPoint">\r\n					<view class="">\r\n						提取积分\r\n					</view>\r\n					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>\r\n				</view> '),
+              vue.createCommentVNode(' <view class="list_item flex_between">\n					<view class="">\n						兑换商品\n					</view>\n					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>\n				</view>\n				<view class="list_item flex_between" @click="toWithdrawPoint">\n					<view class="">\n						提取积分\n					</view>\n					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>\n				</view> '),
               vue.createElementVNode("view", {
                 class: "list_item flex_between",
                 onClick: toWithdrawRecord
@@ -13237,7 +13267,7 @@ ${i3}
       };
     }
   };
-  const PagesMyAccountPoint_available = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["__scopeId", "data-v-98cb4a56"], ["__file", "D:/code/money_celestial/pages/myAccount/point_available.vue"]]);
+  const PagesMyAccountPointAvailable = /* @__PURE__ */ _export_sfc(_sfc_main$e, [["__scopeId", "data-v-98cb4a56"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/point_available.vue"]]);
   const _sfc_main$d = {
     __name: "point_account",
     setup(__props) {
@@ -13285,7 +13315,7 @@ ${i3}
       };
     }
   };
-  const PagesMyAccountPoint_account = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["__scopeId", "data-v-9711af29"], ["__file", "D:/code/money_celestial/pages/myAccount/point_account.vue"]]);
+  const PagesMyAccountPointAccount = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["__scopeId", "data-v-9711af29"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/point_account.vue"]]);
   const _sfc_main$c = {
     __name: "bind_account",
     setup(__props) {
@@ -13374,7 +13404,7 @@ ${i3}
       };
     }
   };
-  const PagesMyAccountBind_account = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-bbd33f9d"], ["__file", "D:/code/money_celestial/pages/myAccount/bind_account.vue"]]);
+  const PagesMyAccountBindAccount = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["__scopeId", "data-v-bbd33f9d"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/bind_account.vue"]]);
   const _sfc_main$b = {
     __name: "unbind_account",
     setup(__props) {
@@ -13453,7 +13483,7 @@ ${i3}
       };
     }
   };
-  const PagesMyAccountUnbind_account = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-05706c93"], ["__file", "D:/code/money_celestial/pages/myAccount/unbind_account.vue"]]);
+  const PagesMyAccountUnbindAccount = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["__scopeId", "data-v-05706c93"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/unbind_account.vue"]]);
   const _imports_0 = "/static/scan.png";
   const _sfc_main$a = {
     __name: "add_deposit",
@@ -13554,7 +13584,7 @@ ${i3}
       };
     }
   };
-  const PagesAgentAdd_deposit = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-a9b824e0"], ["__file", "D:/code/money_celestial/pages/agent/add_deposit.vue"]]);
+  const PagesAgentAddDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["__scopeId", "data-v-a9b824e0"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/add_deposit.vue"]]);
   const _sfc_main$9 = {
     __name: "remove_deposit",
     setup(__props) {
@@ -13654,7 +13684,7 @@ ${i3}
       };
     }
   };
-  const PagesAgentRemove_deposit = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-f9cb8c94"], ["__file", "D:/code/money_celestial/pages/agent/remove_deposit.vue"]]);
+  const PagesAgentRemoveDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-f9cb8c94"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/remove_deposit.vue"]]);
   const _sfc_main$8 = {};
   function _sfc_render$3(_ctx, _cache) {
     const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
@@ -13733,7 +13763,7 @@ ${i3}
       })
     ]);
   }
-  const PagesAgentDeposit_record = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$3], ["__scopeId", "data-v-a1272888"], ["__file", "D:/code/money_celestial/pages/agent/deposit_record.vue"]]);
+  const PagesAgentDepositRecord = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$3], ["__scopeId", "data-v-a1272888"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/deposit_record.vue"]]);
   const _sfc_main$7 = {
     __name: "add_deposit",
     setup(__props) {
@@ -13833,7 +13863,7 @@ ${i3}
       };
     }
   };
-  const PagesRecommendAdd_deposit = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-4fd6a1b1"], ["__file", "D:/code/money_celestial/pages/recommend/add_deposit.vue"]]);
+  const PagesRecommendAddDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-4fd6a1b1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/add_deposit.vue"]]);
   const _sfc_main$6 = {
     __name: "remove_deposit",
     setup(__props) {
@@ -13933,7 +13963,7 @@ ${i3}
       };
     }
   };
-  const PagesRecommendRemove_deposit = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-620816bd"], ["__file", "D:/code/money_celestial/pages/recommend/remove_deposit.vue"]]);
+  const PagesRecommendRemoveDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-620816bd"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/remove_deposit.vue"]]);
   const _sfc_main$5 = {};
   function _sfc_render$2(_ctx, _cache) {
     const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
@@ -14012,7 +14042,7 @@ ${i3}
       })
     ]);
   }
-  const PagesRecommendDeposit_record = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$2], ["__scopeId", "data-v-f3fe22dd"], ["__file", "D:/code/money_celestial/pages/recommend/deposit_record.vue"]]);
+  const PagesRecommendDepositRecord = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$2], ["__scopeId", "data-v-f3fe22dd"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/deposit_record.vue"]]);
   const _sfc_main$4 = {
     __name: "publicShopList",
     props: {
@@ -14105,7 +14135,7 @@ ${i3}
       };
     }
   };
-  const __easycom_2 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-ad76e2db"], ["__file", "D:/code/money_celestial/components/publicShopList/publicShopList.vue"]]);
+  const __easycom_2 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-ad76e2db"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/publicShopList/publicShopList.vue"]]);
   const _sfc_main$3 = {
     __name: "merchant_list",
     setup(__props) {
@@ -14172,7 +14202,7 @@ ${i3}
                   class: "type_pic"
                 })
               ]),
-              vue.createCommentVNode(" <view>\r\n					类目\r\n				</view> "),
+              vue.createCommentVNode(" <view>\n					类目\n				</view> "),
               vue.createVNode(_component_uni_data_select, {
                 modelValue: category.value,
                 "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => category.value = $event),
@@ -14230,7 +14260,7 @@ ${i3}
       };
     }
   };
-  const PagesAgentMerchant_list = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-017395ae"], ["__file", "D:/code/money_celestial/pages/agent/merchant_list.vue"]]);
+  const PagesAgentMerchantList = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-017395ae"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/merchant_list.vue"]]);
   const _sfc_main$2 = {
     __name: "merchant_list",
     setup(__props) {
@@ -14297,7 +14327,7 @@ ${i3}
                   class: "type_pic"
                 })
               ]),
-              vue.createCommentVNode(" <view>\r\n					类目\r\n				</view> "),
+              vue.createCommentVNode(" <view>\n					类目\n				</view> "),
               vue.createVNode(_component_uni_data_select, {
                 modelValue: category.value,
                 "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => category.value = $event),
@@ -14355,7 +14385,7 @@ ${i3}
       };
     }
   };
-  const PagesRecommendMerchant_list = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-d3cd92c3"], ["__file", "D:/code/money_celestial/pages/recommend/merchant_list.vue"]]);
+  const PagesRecommendMerchantList = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-d3cd92c3"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/merchant_list.vue"]]);
   const questions = [
     {
       question: "满仓体系的核心逻辑是什么？",
@@ -14968,49 +14998,49 @@ ${i3}
       ])
     ]);
   }
-  const PagesRecommendRecommend_test = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-f9f250b0"], ["__file", "D:/code/money_celestial/pages/recommend/recommend_test.vue"]]);
+  const PagesRecommendRecommendTest = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-f9f250b0"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_test.vue"]]);
   __definePage("pages/index/index", PagesIndexIndex);
   __definePage("pages/login/login", PagesLoginLogin);
-  __definePage("pages/merchant/merchant_intro", PagesMerchantMerchant_intro);
-  __definePage("pages/merchant/settle_notice", PagesMerchantSettle_notice);
-  __definePage("pages/merchant/merchant_set_info", PagesMerchantMerchant_set_info);
-  __definePage("pages/merchant/merchant_management", PagesMerchantMerchant_management);
-  __definePage("pages/merchant/merchant_edit_info", PagesMerchantMerchant_edit_info);
-  __definePage("pages/merchant/point_gift", PagesMerchantPoint_gift);
-  __definePage("pages/merchant/merchant_code_authentication", PagesMerchantMerchant_code_authentication);
-  __definePage("pages/merchant/security_deposit", PagesMerchantSecurity_deposit);
-  __definePage("pages/merchant/deposit_record", PagesMerchantDeposit_record);
-  __definePage("pages/merchant/add_deposit", PagesMerchantAdd_deposit);
-  __definePage("pages/merchant/remove_deposit", PagesMerchantRemove_deposit);
-  __definePage("pages/merchant/upload_goods", PagesMerchantUpload_goods);
-  __definePage("pages/agent/agent_intro", PagesAgentAgent_intro);
-  __definePage("pages/agent/agent_management", PagesAgentAgent_management);
-  __definePage("pages/recommend/recommend_intro", PagesRecommendRecommend_intro);
-  __definePage("pages/recommend/recommend_management", PagesRecommendRecommend_management);
-  __definePage("pages/merchant/all_merchant", PagesMerchantAll_merchant);
-  __definePage("pages/agent/merchant_code_authentication", PagesAgentMerchant_code_authentication);
-  __definePage("pages/recommend/merchant_code_authentication", PagesRecommendMerchant_code_authentication);
-  __definePage("pages/recommend/security_deposit", PagesRecommendSecurity_deposit);
-  __definePage("pages/agent/security_deposit", PagesAgentSecurity_deposit);
+  __definePage("pages/merchant/merchant_intro", PagesMerchantMerchantIntro);
+  __definePage("pages/merchant/settle_notice", PagesMerchantSettleNotice);
+  __definePage("pages/merchant/merchant_set_info", PagesMerchantMerchantSetInfo);
+  __definePage("pages/merchant/merchant_management", PagesMerchantMerchantManagement);
+  __definePage("pages/merchant/merchant_edit_info", PagesMerchantMerchantEditInfo);
+  __definePage("pages/merchant/point_gift", PagesMerchantPointGift);
+  __definePage("pages/merchant/merchant_code_authentication", PagesMerchantMerchantCodeAuthentication);
+  __definePage("pages/merchant/security_deposit", PagesMerchantSecurityDeposit);
+  __definePage("pages/merchant/deposit_record", PagesMerchantDepositRecord);
+  __definePage("pages/merchant/add_deposit", PagesMerchantAddDeposit);
+  __definePage("pages/merchant/remove_deposit", PagesMerchantRemoveDeposit);
+  __definePage("pages/merchant/upload_goods", PagesMerchantUploadGoods);
+  __definePage("pages/agent/agent_intro", PagesAgentAgentIntro);
+  __definePage("pages/agent/agent_management", PagesAgentAgentManagement);
+  __definePage("pages/recommend/recommend_intro", PagesRecommendRecommendIntro);
+  __definePage("pages/recommend/recommend_management", PagesRecommendRecommendManagement);
+  __definePage("pages/merchant/all_merchant", PagesMerchantAllMerchant);
+  __definePage("pages/agent/merchant_code_authentication", PagesAgentMerchantCodeAuthentication);
+  __definePage("pages/recommend/merchant_code_authentication", PagesRecommendMerchantCodeAuthentication);
+  __definePage("pages/recommend/security_deposit", PagesRecommendSecurityDeposit);
+  __definePage("pages/agent/security_deposit", PagesAgentSecurityDeposit);
   __definePage("pages/myAccount/myAccount", PagesMyAccountMyAccount);
-  __definePage("pages/merchant/merchant_detail", PagesMerchantMerchant_detail);
-  __definePage("pages/merchant/goods_detail", PagesMerchantGoods_detail);
+  __definePage("pages/merchant/merchant_detail", PagesMerchantMerchantDetail);
+  __definePage("pages/merchant/goods_detail", PagesMerchantGoodsDetail);
   __definePage("pages/login/register", PagesLoginRegister);
-  __definePage("pages/login/more_info", PagesLoginMore_info);
-  __definePage("pages/myAccount/my_point", PagesMyAccountMy_point);
-  __definePage("pages/myAccount/point_available", PagesMyAccountPoint_available);
-  __definePage("pages/myAccount/point_account", PagesMyAccountPoint_account);
-  __definePage("pages/myAccount/bind_account", PagesMyAccountBind_account);
-  __definePage("pages/myAccount/unbind_account", PagesMyAccountUnbind_account);
-  __definePage("pages/agent/add_deposit", PagesAgentAdd_deposit);
-  __definePage("pages/agent/remove_deposit", PagesAgentRemove_deposit);
-  __definePage("pages/agent/deposit_record", PagesAgentDeposit_record);
-  __definePage("pages/recommend/add_deposit", PagesRecommendAdd_deposit);
-  __definePage("pages/recommend/remove_deposit", PagesRecommendRemove_deposit);
-  __definePage("pages/recommend/deposit_record", PagesRecommendDeposit_record);
-  __definePage("pages/agent/merchant_list", PagesAgentMerchant_list);
-  __definePage("pages/recommend/merchant_list", PagesRecommendMerchant_list);
-  __definePage("pages/recommend/recommend_test", PagesRecommendRecommend_test);
+  __definePage("pages/login/more_info", PagesLoginMoreInfo);
+  __definePage("pages/myAccount/my_point", PagesMyAccountMyPoint);
+  __definePage("pages/myAccount/point_available", PagesMyAccountPointAvailable);
+  __definePage("pages/myAccount/point_account", PagesMyAccountPointAccount);
+  __definePage("pages/myAccount/bind_account", PagesMyAccountBindAccount);
+  __definePage("pages/myAccount/unbind_account", PagesMyAccountUnbindAccount);
+  __definePage("pages/agent/add_deposit", PagesAgentAddDeposit);
+  __definePage("pages/agent/remove_deposit", PagesAgentRemoveDeposit);
+  __definePage("pages/agent/deposit_record", PagesAgentDepositRecord);
+  __definePage("pages/recommend/add_deposit", PagesRecommendAddDeposit);
+  __definePage("pages/recommend/remove_deposit", PagesRecommendRemoveDeposit);
+  __definePage("pages/recommend/deposit_record", PagesRecommendDepositRecord);
+  __definePage("pages/agent/merchant_list", PagesAgentMerchantList);
+  __definePage("pages/recommend/merchant_list", PagesRecommendMerchantList);
+  __definePage("pages/recommend/recommend_test", PagesRecommendRecommendTest);
   const _sfc_main = {
     onLaunch: function() {
       formatAppLog("log", "at App.vue:8", "App Launch");
@@ -15025,7 +15055,7 @@ ${i3}
   function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     return null;
   }
-  const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:/code/money_celestial/App.vue"]]);
+  const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/daily/Desktop/d9/money_celestial/App.vue"]]);
   function createApp() {
     const app = vue.createVueApp(App);
     const pinia = createPinia();

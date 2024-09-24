@@ -59,6 +59,7 @@ const toRegister = async() => {
 	})
   if(password.value == password2.value){
     postRegister(mobile.value, password.value).then((res) => {
+		console.log(res);
       uni.showToast({
         duration: 2000,
         icon: 'success',
