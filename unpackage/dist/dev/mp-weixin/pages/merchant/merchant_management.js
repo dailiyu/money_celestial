@@ -41,18 +41,23 @@ const _sfc_main = {
         }),
         b: common_vendor.unref(userStore).storeInfo.avatar,
         c: common_vendor.t(common_vendor.unref(userStore).storeInfo.name),
-        d: common_assets._imports_0$3,
-        e: common_assets._imports_0$4,
-        f: common_vendor.o(toEdit),
-        g: common_assets._imports_0$4,
-        h: common_vendor.o(toPoinGift),
-        i: common_assets._imports_0$4,
-        j: common_vendor.o(toCode),
-        k: common_assets._imports_0$4,
-        l: common_vendor.o(toSecurityDeposit)
+        d: common_vendor.f(5, (item, index, i0) => {
+          return {
+            a: index
+          };
+        }),
+        e: common_assets._imports_0$2,
+        f: common_assets._imports_0$3,
+        g: common_vendor.o(toEdit),
+        h: common_assets._imports_0$3,
+        i: common_vendor.o(toPoinGift),
+        j: common_assets._imports_0$3,
+        k: common_vendor.o(toCode),
+        l: common_assets._imports_0$3,
+        m: common_vendor.o(toSecurityDeposit)
       };
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-a81a7219"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-a81a7219"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_management.vue"]]);
 wx.createPage(MiniProgramPage);

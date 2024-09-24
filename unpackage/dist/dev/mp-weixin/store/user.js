@@ -25,7 +25,11 @@ const _sfc_main = {
       });
     };
     const login = async () => {
+      common_vendor.index.showLoading({
+        title: "登录中"
+      });
       userStore.loginAction(moblie.value, password.value).then((res) => {
+        common_vendor.index.hideLoading();
         common_vendor.index.showToast({
           title: "登录成功",
           icon: "success",
@@ -38,6 +42,7 @@ const _sfc_main = {
         }, 1e3);
       }).catch((err) => {
         var _a;
+        common_vendor.index.hideLoading();
         if ((_a = err == null ? void 0 : err.data) == null ? void 0 : _a.error) {
           common_vendor.index.showToast({
             duration: 2e3,

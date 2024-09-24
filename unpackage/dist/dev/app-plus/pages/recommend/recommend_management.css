@@ -573,7 +573,7 @@
 .nav_bar .nav_item[data-v-fba290dc] {
   position: relative;
 }
-.nav_bar .nav_item uni-icons[data-v-fba290dc] {
+.nav_bar .nav_item .uni-icons[data-v-fba290dc] {
   position: absolute;
   left: 0;
   top: 50%;

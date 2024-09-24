@@ -10,24 +10,24 @@
 				<image class="img" :src="userStore.userInfo.icon" mode=""></image>
 				</view>
 				<view class="name">
-					{{userStore.userInfo.name}}
+					{{userStore.userInfo.username||'点击登录'}}
 				</view>
 			</view>
 			<view class="points-box">
 				<view class="item" @click="toMyPoint">
 					<image class="img" src="https://max.q6z4kzhr.uk/media/category_icons/my_credits.png"></image>
 					<text class="text">我的积分</text>
-					<div class="text number">39182</div>
+					<div class="text number">{{green_points}}</div>
 				</view>
 				<view class="item" @click="toPointAvailable">
 					<image class="img" src="https://max.q6z4kzhr.uk/media/category_icons/available_credits.png"></image>
 					<text class="text">可用积分</text>
-					<div class=" number">100</div>
+					<div class=" number">{{red_points}}</div>
 				</view>
 				<view class="item" @click="toPointAccount">
 					<image class="img" src="https://max.q6z4kzhr.uk/media/category_icons/credits_account.png"></image>
 					<text class="text">积分账号</text>
-					<div class="text number">DAUS*****3842</div>
+					<div class="text number">{{user}}</div>
 				</view>
 			</view>
 			<view class="services">
@@ -114,9 +114,29 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+import { getAllPoint } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
  const  userStore = useUserStore()
+
+const accessToken = uni.getStorageSync('accessToken')
+onMounted(()=>{
 	
+	if (accessToken) {
+		getPointInfo()
+	}
+})
+const green_points = ref(0)
+const red_points = ref(0)
+const user = ref('')
+const getPointInfo = async()=>{
+	const res = await getAllPoint()
+	// 我的积分
+	green_points.value = res.green_points
+	// 可用积分
+	red_points.value = res.red_points
+	user.value = res.user
+}
 const toLogin = ()=>{
 	uni.navigateTo({
 		url: '/pages/login/login'
@@ -209,7 +229,7 @@ const toPointAccount = ()=>{
 					}
 
 					.text {
-						ont-family: HarmonyOS_Sans_SC;
+						font-family: HarmonyOS_Sans_SC;
 						margin-top: 15rpx;
 						font-size: 24rpx;
 						color: #333333;

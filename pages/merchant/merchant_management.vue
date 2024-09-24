@@ -16,10 +16,10 @@
 					<view class="flex">
 						<!-- <uni-rate :readonly="true" :value="2" active-color="#fc5908" size="12" /> -->
 						<view class="flex">
-							<image src="@/static/star.png" mode="widthFix" class="star_pic"></image>
+							<image src="@/static/star.png" mode="widthFix" class="star_pic" v-for="(item, index) in 5" :key="index"></image>
 						</view>
 						<view class="point">
-							4.9
+							5
 						</view>
 					</view>
 				</view>

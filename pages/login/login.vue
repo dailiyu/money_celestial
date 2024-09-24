@@ -3,7 +3,7 @@
 		<navBar title="用户登录" bgc="#1B46CC"></navBar>
 		<view class="content">
 			<image src="@/static/logo.png" mode="widthFix" class="logo"></image>
-			<uni-easyinput v-model="moblie" placeholder="请输入手机号" :inputBorder="false" primaryColor="#1B46CC" type="number">
+			<uni-easyinput v-model="moblie" placeholder="请输入手机号" maxlength="11" :inputBorder="false" primaryColor="#1B46CC" type="number">
 				<template #left>
 					<image src="@/static/phone-grey.png" mode="widthFix" class="m_pic"></image>
 				</template>
@@ -22,12 +22,12 @@
 			<view class="r_btn flex_center" @click="toRegister">
 				注册新用户
 			</view>
-			<view class="wx_btn flex_center">
+			<!-- <view class="wx_btn flex_center">
 				<image src="@/static/wechat.png" mode="widthFix" class="wx_logo"></image>
 				<view class="">
 					微信一键登录
 				</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -46,8 +46,20 @@ const toRegister = ()=>{
 }
   
   const login=async()=>{	
+	  if (!moblie.value) return uni.showToast({
+	  	icon: 'none',
+		title: '请输入手机号'
+	  })
+	  if (!password.value) return uni.showToast({
+	  	icon: 'none',
+	  	title: '请输入密码'
+	  })
 
+	  uni.showLoading({
+	  	title: '登录中'
+	  })
 	  userStore.loginAction(moblie.value,password.value).then((res)=>{
+		  uni.hideLoading()
 		 uni.showToast({
 		 	title:'登录成功',
 			icon:'success',
@@ -60,7 +72,7 @@ const toRegister = ()=>{
 		 },1000)
 		
 	  }).catch((err)=>{
-		
+		uni.hideLoading()
 		if(err?.data?.error){
 			uni.showToast({
 				duration:2000,

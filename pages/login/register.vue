@@ -5,14 +5,14 @@
 			<view class="title">
 				手机号：
 			</view>
-			<uni-easyinput v-model="mobile" placeholder="请输入手机号" :inputBorder="false" primaryColor="#1B46CC" type="number" />
-			<uni-easyinput v-model="code" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
+			<uni-easyinput v-model="mobile" maxlength="11" placeholder="请输入手机号" :inputBorder="false" primaryColor="#1B46CC" type="number" />
+			<!-- <uni-easyinput v-model="code" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
 				<template #right>
 					<view class="send_btn flex_center">
 						发送验证码
 					</view>
 				</template>
-			</uni-easyinput>
+			</uni-easyinput> -->
 			<view class="title">
 				密码：
 			</view>

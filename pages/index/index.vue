@@ -136,11 +136,21 @@ const userStore = useUserStore()
 
 const city = ref('')
 onMounted(async()=>{
-	 // await publicStore.fetchAllDataAction(),
-	 // await userStore.fetchAllDataAction()
+	const accessToken = uni.getStorageSync('accessToken')
+	if (accessToken) {
+		await publicStore.fetchAllDataAction(),
+		await userStore.fetchAllDataAction()
+	}
+	
 	uni.getLocation({
 		geocode: true,
 		success(res) {
+			console.log(res)
+			if (res.address) {
+				uni.setStorageSync('address_info', res.address)
+				city.value = res.address.city
+			}
+			
 			// var qqmapsdk = new QQMapWX({
 			//     key: 'YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA' // 必填
 			// });
@@ -214,13 +224,13 @@ const toAgent = ()=>{
 	
 }
 const toRecommend = ()=>{
-	if (userStore.is_referral_officer) {
+	if (userStore.userInfo.is_referral_officer) {
 		uni.navigateTo({
-			url: '/pages/recommend/recommend_intro'
+			url: '/pages/recommend/recommend_management'
 		})
 	} else {
 		uni.navigateTo({
-			url: '/pages/recommend/recommend_management'
+			url: '/pages/recommend/recommend_intro'
 		})
 	}
 }

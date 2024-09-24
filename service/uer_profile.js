@@ -25,9 +25,9 @@ export  const getUerAccountMessage=async ()=>{
 */
 
 //注册账号
-export  const postRegister=async (username,password)=>{
+export  const postRegister=async (phone_number,password,username)=>{
 	return http.post('/users/register/',{
-		username,password
+		phone_number,password,username:phone_number
 	})
 }
 
@@ -40,9 +40,9 @@ export const changeUserInfo=async (name,icon,gander,birthdate,residence,email)=>
 
 
 //登陆
-export  const postProfileLogin=async (username,password)=>{
+export  const postProfileLogin=async (phone_number,password)=>{
 	return http.post('/users/login/',{
-		username,password
+		phone_number,password
 	})
 }
 

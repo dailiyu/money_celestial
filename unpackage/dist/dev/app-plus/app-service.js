@@ -3049,10 +3049,11 @@ This will fail in production.`);
   const getUerAccountMessage = async () => {
     return http.get("/users/");
   };
-  const postRegister = async (username, password) => {
+  const postRegister = async (phone_number, password, username) => {
     return http.post("/users/register/", {
-      username,
-      password
+      phone_number,
+      password,
+      username: phone_number
     });
   };
   const changeUserInfo = async (name, icon, gander, birthdate, residence, email) => {
@@ -3065,9 +3066,9 @@ This will fail in production.`);
       email
     });
   };
-  const postProfileLogin = async (username, password) => {
+  const postProfileLogin = async (phone_number, password) => {
     return http.post("/users/login/", {
-      username,
+      phone_number,
       password
     });
   };
@@ -3575,7 +3576,6 @@ This will fail in production.`);
   const _imports_0$5 = "/static/logo.png";
   const _imports_1$2 = "/static/phone-grey.png";
   const _imports_2$1 = "/static/lock-grey.png";
-  const _imports_3$1 = "/static/wechat.png";
   const _sfc_main$R = {
     __name: "login",
     setup(__props) {
@@ -3588,7 +3588,21 @@ This will fail in production.`);
         });
       };
       const login = async () => {
+        if (!moblie.value)
+          return uni.showToast({
+            icon: "none",
+            title: "请输入手机号"
+          });
+        if (!password.value)
+          return uni.showToast({
+            icon: "none",
+            title: "请输入密码"
+          });
+        uni.showLoading({
+          title: "登录中"
+        });
         userStore.loginAction(moblie.value, password.value).then((res) => {
+          uni.hideLoading();
           uni.showToast({
             title: "登录成功",
             icon: "success",
@@ -3601,6 +3615,7 @@ This will fail in production.`);
           }, 1e3);
         }).catch((err) => {
           var _a;
+          uni.hideLoading();
           if ((_a = err == null ? void 0 : err.data) == null ? void 0 : _a.error) {
             uni.showToast({
               duration: 2e3,
@@ -3628,6 +3643,7 @@ This will fail in production.`);
               modelValue: moblie.value,
               "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => moblie.value = $event),
               placeholder: "请输入手机号",
+              maxlength: "11",
               inputBorder: false,
               primaryColor: "#1B46CC",
               type: "number"
@@ -3669,14 +3685,7 @@ This will fail in production.`);
               class: "r_btn flex_center",
               onClick: toRegister
             }, " 注册新用户 "),
-            vue.createElementVNode("view", { class: "wx_btn flex_center" }, [
-              vue.createElementVNode("image", {
-                src: _imports_3$1,
-                mode: "widthFix",
-                class: "wx_logo"
-              }),
-              vue.createElementVNode("view", { class: "" }, " 微信一键登录 ")
-            ])
+            vue.createCommentVNode(' <view class="wx_btn flex_center">\r\n				<image src="@/static/wechat.png" mode="widthFix" class="wx_logo"></image>\r\n				<view class="">\r\n					微信一键登录\r\n				</view>\r\n			</view> ')
           ])
         ]);
       };
@@ -3734,9 +3743,18 @@ This will fail in production.`);
       const userStore = useUserStore();
       const city = vue.ref("");
       vue.onMounted(async () => {
+        const accessToken = uni.getStorageSync("accessToken");
+        if (accessToken) {
+          await publicStore.fetchAllDataAction(), await userStore.fetchAllDataAction();
+        }
         uni.getLocation({
           geocode: true,
           success(res) {
+            formatAppLog("log", "at pages/index/index.vue:148", res);
+            if (res.address) {
+              uni.setStorageSync("address_info", res.address);
+              city.value = res.address.city;
+            }
           }
         });
         getCategory();
@@ -3752,11 +3770,11 @@ This will fail in production.`);
         bannerList.value = await getBannerList();
       };
       const search = () => {
-        formatAppLog("log", "at pages/index/index.vue:181", keyword.value);
+        formatAppLog("log", "at pages/index/index.vue:191", keyword.value);
       };
       const toMerchant = () => {
         if (userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0) {
-          formatAppLog("log", "at pages/index/index.vue:190", userStore.storeInfo);
+          formatAppLog("log", "at pages/index/index.vue:200", userStore.storeInfo);
           uni.navigateTo({
             url: "/pages/merchant/merchant_management"
           });
@@ -3778,13 +3796,13 @@ This will fail in production.`);
         }
       };
       const toRecommend = () => {
-        if (userStore.is_referral_officer) {
+        if (userStore.userInfo.is_referral_officer) {
           uni.navigateTo({
-            url: "/pages/recommend/recommend_intro"
+            url: "/pages/recommend/recommend_management"
           });
         } else {
           uni.navigateTo({
-            url: "/pages/recommend/recommend_management"
+            url: "/pages/recommend/recommend_intro"
           });
         }
       };
@@ -8027,13 +8045,22 @@ ${i3}
                 vue.createElementVNode("view", { class: "flex" }, [
                   vue.createCommentVNode(' <uni-rate :readonly="true" :value="2" active-color="#fc5908" size="12" /> '),
                   vue.createElementVNode("view", { class: "flex" }, [
-                    vue.createElementVNode("image", {
-                      src: _imports_0$3,
-                      mode: "widthFix",
-                      class: "star_pic"
-                    })
+                    (vue.openBlock(), vue.createElementBlock(
+                      vue.Fragment,
+                      null,
+                      vue.renderList(5, (item, index) => {
+                        return vue.createElementVNode("image", {
+                          src: _imports_0$3,
+                          mode: "widthFix",
+                          class: "star_pic",
+                          key: index
+                        });
+                      }),
+                      64
+                      /* STABLE_FRAGMENT */
+                    ))
                   ]),
-                  vue.createElementVNode("view", { class: "point" }, " 4.9 ")
+                  vue.createElementVNode("view", { class: "point" }, " 5 ")
                 ])
               ])
             ]),
@@ -10326,6 +10353,21 @@ ${i3}
     __name: "myAccount",
     setup(__props) {
       const userStore = useUserStore();
+      const accessToken = uni.getStorageSync("accessToken");
+      vue.onMounted(() => {
+        if (accessToken) {
+          getPointInfo();
+        }
+      });
+      const green_points = vue.ref(0);
+      const red_points = vue.ref(0);
+      const user = vue.ref("");
+      const getPointInfo = async () => {
+        const res = await getAllPoint();
+        green_points.value = res.green_points;
+        red_points.value = res.red_points;
+        user.value = res.user;
+      };
       const toLogin = () => {
         uni.navigateTo({
           url: "/pages/login/login"
@@ -10375,7 +10417,7 @@ ${i3}
                   vue.createElementVNode(
                     "view",
                     { class: "name" },
-                    vue.toDisplayString(vue.unref(userStore).userInfo.name),
+                    vue.toDisplayString(vue.unref(userStore).userInfo.username || "点击登录"),
                     1
                     /* TEXT */
                   )
@@ -10390,7 +10432,13 @@ ${i3}
                       src: "https://max.q6z4kzhr.uk/media/category_icons/my_credits.png"
                     }),
                     vue.createElementVNode("text", { class: "text" }, "我的积分"),
-                    vue.createElementVNode("div", { class: "text number" }, "39182")
+                    vue.createElementVNode(
+                      "div",
+                      { class: "text number" },
+                      vue.toDisplayString(green_points.value),
+                      1
+                      /* TEXT */
+                    )
                   ]),
                   vue.createElementVNode("view", {
                     class: "item",
@@ -10401,7 +10449,13 @@ ${i3}
                       src: "https://max.q6z4kzhr.uk/media/category_icons/available_credits.png"
                     }),
                     vue.createElementVNode("text", { class: "text" }, "可用积分"),
-                    vue.createElementVNode("div", { class: "number" }, "100")
+                    vue.createElementVNode(
+                      "div",
+                      { class: "number" },
+                      vue.toDisplayString(red_points.value),
+                      1
+                      /* TEXT */
+                    )
                   ]),
                   vue.createElementVNode("view", {
                     class: "item",
@@ -10412,7 +10466,13 @@ ${i3}
                       src: "https://max.q6z4kzhr.uk/media/category_icons/credits_account.png"
                     }),
                     vue.createElementVNode("text", { class: "text" }, "积分账号"),
-                    vue.createElementVNode("div", { class: "text number" }, "DAUS*****3842")
+                    vue.createElementVNode(
+                      "div",
+                      { class: "text number" },
+                      vue.toDisplayString(user.value),
+                      1
+                      /* TEXT */
+                    )
                   ])
                 ]),
                 vue.createElementVNode("view", { class: "services" }, [
@@ -10940,7 +11000,7 @@ ${i3}
     setup(__props) {
       const userStore = useUserStore();
       const mobile = vue.ref("");
-      const code = vue.ref("");
+      vue.ref("");
       const password = vue.ref("");
       const password2 = vue.ref("");
       const toRegister = async () => {
@@ -10990,29 +11050,17 @@ ${i3}
             vue.createVNode(_component_uni_easyinput, {
               modelValue: mobile.value,
               "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => mobile.value = $event),
+              maxlength: "11",
               placeholder: "请输入手机号",
               inputBorder: false,
               primaryColor: "#1B46CC",
               type: "number"
             }, null, 8, ["modelValue"]),
-            vue.createVNode(_component_uni_easyinput, {
-              modelValue: code.value,
-              "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => code.value = $event),
-              placeholder: "请输入验证码",
-              inputBorder: false,
-              type: "number",
-              primaryColor: "#1B46CC"
-            }, {
-              right: vue.withCtx(() => [
-                vue.createElementVNode("view", { class: "send_btn flex_center" }, " 发送验证码 ")
-              ]),
-              _: 1
-              /* STABLE */
-            }, 8, ["modelValue"]),
+            vue.createCommentVNode(' <uni-easyinput v-model="code" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">\r\n				<template #right>\r\n					<view class="send_btn flex_center">\r\n						发送验证码\r\n					</view>\r\n				</template>\r\n			</uni-easyinput> '),
             vue.createElementVNode("view", { class: "title" }, " 密码： "),
             vue.createVNode(_component_uni_easyinput, {
               modelValue: password.value,
-              "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => password.value = $event),
+              "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => password.value = $event),
               placeholder: "密码长度最低8位",
               inputBorder: false,
               primaryColor: "#1B46CC",
@@ -11021,7 +11069,7 @@ ${i3}
             vue.createElementVNode("view", { class: "title" }, " 确认密码： "),
             vue.createVNode(_component_uni_easyinput, {
               modelValue: password2.value,
-              "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => password2.value = $event),
+              "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => password2.value = $event),
               placeholder: "再次输入密码",
               inputBorder: false,
               primaryColor: "#1B46CC",
