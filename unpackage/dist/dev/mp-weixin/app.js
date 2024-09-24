@@ -31,6 +31,8 @@ if (!Math) {
   "./pages/login/register.js";
   "./pages/login/more_info.js";
   "./pages/myAccount/my_point.js";
+  "./pages/myAccount/withdraw_point.js";
+  "./pages/myAccount/withdraw_record.js";
   "./pages/myAccount/point_available.js";
   "./pages/myAccount/point_account.js";
   "./pages/myAccount/bind_account.js";
@@ -44,10 +46,6 @@ if (!Math) {
   "./pages/agent/merchant_list.js";
   "./pages/recommend/merchant_list.js";
   "./pages/recommend/recommend_test.js";
-  "./pages/myAccount/red_point_withdraw.js";
-  "./pages/myAccount/red_point_withdraw_record.js";
-  "./pages/myAccount/green_point_withdraw.js";
-  "./pages/myAccount/green_point_withdraw_record.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -60,7 +58,10 @@ const _sfc_main = {
     console.log("App Hide");
   }
 };
-const App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "D:/code/money_celestial/App.vue"]]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return {};
+}
+const App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
 function createApp() {
   const app = common_vendor.createSSRApp(App);
   const pinia = common_vendor.createPinia();

@@ -117,5 +117,5 @@ const _sfc_main = {
     };
   }
 };
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-feddcdaa"], ["__file", "D:/code/money_celestial/components/goodsList/goodsList.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-feddcdaa"]]);
 wx.createComponent(Component);

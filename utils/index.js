@@ -1,7 +1,5 @@
 import { uploadUrl } from "../service/config";
 
-
-
 export const uploadImage = async (filePath) => {
   console.log(filePath);
   const token = uni.getStorageSync('accessToken'); // 获取 token

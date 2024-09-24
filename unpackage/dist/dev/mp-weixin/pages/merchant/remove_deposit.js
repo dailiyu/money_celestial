@@ -1,7 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const service_deposit = require("../../service/deposit.js");
-const service_point = require("../../service/point.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -14,12 +13,12 @@ const _sfc_main = {
   __name: "remove_deposit",
   setup(__props) {
     common_vendor.onMounted(() => {
-      getDepositInfo();
+      getDeposit();
     });
-    const amount = common_vendor.ref(0);
-    const getDepositInfo = async () => {
-      const { collateral } = await service_point.getAllPoint();
-      amount.value = collateral;
+    const info = common_vendor.ref({});
+    const getDeposit = async () => {
+      const { data } = await service_deposit.getDepositBalance();
+      info.value = data;
     };
     const address = common_vendor.ref("");
     const number = common_vendor.ref("");
@@ -51,8 +50,7 @@ const _sfc_main = {
       common_vendor.index.showLoading({
         title: "解除中"
       });
-      await service_deposit.removeDeposit({ to_user: address.value, amount: number.value });
-      getDepositInfo();
+      await service_deposit.removeDeposit({ phone_number: address.value, amount: number.value });
       common_vendor.index.hideLoading();
       common_vendor.index.showToast({
         icon: "none",
@@ -68,7 +66,7 @@ const _sfc_main = {
         c: common_vendor.o(($event) => address.value = $event.detail.value),
         d: number.value,
         e: common_vendor.o(($event) => number.value = $event.detail.value),
-        f: common_vendor.t(amount.value),
+        f: common_vendor.t(info.value.amount || 0),
         g: isChecked.value,
         h: common_vendor.o(changeCheck),
         i: common_vendor.o(confirm)
@@ -76,5 +74,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-930acddc"], ["__file", "D:/code/money_celestial/pages/merchant/remove_deposit.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-930acddc"]]);
 wx.createPage(MiniProgramPage);

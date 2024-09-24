@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const service_point = require("../../service/point.js");
-const store_user = require("../../store/user.js");
+const utils_index = require("../../utils/index.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -13,11 +13,11 @@ if (!Math) {
 const _sfc_main = {
   __name: "bind_account",
   setup(__props) {
-    const userStore = store_user.useUserStore();
     const number = common_vendor.ref("");
     const account = common_vendor.ref("");
-    account.value = userStore.userInfo.username;
     common_vendor.onMounted(async () => {
+      const { data } = await service_point.getPointAccount();
+      account.value = utils_index.obscureString(data.account_number);
     });
     const isChecked = common_vendor.ref(false);
     const changeCheck = () => {
@@ -29,28 +29,26 @@ const _sfc_main = {
           icon: "none",
           title: "请阅读完须知后勾选同意"
         });
+      if (account.value)
+        return common_vendor.index.showToast({
+          icon: "none",
+          title: "已绑定积分账号，无法再绑定"
+        });
       if (!number.value)
         return common_vendor.index.showToast({
           icon: "none",
           title: "请输入绑定账号"
         });
-      try {
-        common_vendor.index.showLoading({
-          title: "绑定中"
-        });
-        await service_point.bindPointAccount({ points_account: number.value });
-        account.value = number.value;
-        common_vendor.index.hideLoading();
-        common_vendor.index.showToast({
-          icon: "none",
-          title: "绑定成功"
-        });
-      } catch (e) {
-        common_vendor.index.showToast({
-          icon: "none",
-          title: "绑定失败"
-        });
-      }
+      common_vendor.index.showLoading({
+        title: "绑定中"
+      });
+      await service_point.bindPointAccount({ account_number: number.value });
+      account.value = number.value;
+      common_vendor.index.hideLoading();
+      common_vendor.index.showToast({
+        icon: "none",
+        title: "绑定成功"
+      });
     };
     return (_ctx, _cache) => {
       return {
@@ -66,5 +64,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-bbd33f9d"], ["__file", "D:/code/money_celestial/pages/myAccount/bind_account.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-bbd33f9d"]]);
 wx.createPage(MiniProgramPage);

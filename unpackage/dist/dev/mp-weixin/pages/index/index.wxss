@@ -1,0 +1,212 @@
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.page.data-v-1cf27b2a {
+  min-height: 100%;
+  background-color: #FC5908;
+}
+.search_bar.data-v-1cf27b2a {
+  padding: 0 26rpx 48rpx;
+}
+.search_bar .locate_img.data-v-1cf27b2a {
+  width: 43rpx;
+  margin-right: 18rpx;
+}
+.search_bar .location.data-v-1cf27b2a {
+  color: #fff;
+  font-size: 24rpx;
+  margin-right: 30rpx;
+}
+.search_bar uni-search-bar.data-v-1cf27b2a {
+  flex: 1;
+}
+.search_bar.data-v-1cf27b2a .uni-searchbar {
+  padding: 0;
+}
+.search_bar.data-v-1cf27b2a .uni-searchbar__box {
+  height: 60rpx;
+}
+.search_bar.data-v-1cf27b2a .uni-searchbar__box-search-input {
+  font-size: 21rpx;
+  margin-left: 0;
+}
+.search_bar.data-v-1cf27b2a .uni-searchbar__text-placeholder {
+  color: #888888;
+  font-size: 21rpx;
+  margin-left: 0;
+}
+.search_bar.data-v-1cf27b2a .uni-searchbar__box-icon-clear {
+  line-height: 0;
+}
+.search_bar .search_btn.data-v-1cf27b2a {
+  width: 85rpx;
+  height: 45rpx;
+  background-color: #f96e00;
+  color: #fff;
+  border-radius: 100px;
+  font-size: 21rpx;
+}
+.swiper.data-v-1cf27b2a {
+  height: 300rpx;
+}
+.swiper .swipe_img.data-v-1cf27b2a {
+  width: 750rpx;
+  height: 300rpx;
+  background-color: #ccc;
+}
+.function_list.data-v-1cf27b2a {
+  padding: 36rpx 46rpx;
+}
+.function_list .function_item.data-v-1cf27b2a {
+  text-align: center;
+  font-size: 24rpx;
+  color: #fff;
+  margin-right: 60rpx;
+}
+.function_list .function_item.data-v-1cf27b2a:last-child {
+  margin-right: 0;
+}
+.function_list .function_item .img_box.data-v-1cf27b2a {
+  width: 117rpx;
+  height: 117rpx;
+  border-radius: 38rpx;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+.function_list .function_item .img_box .img_item.data-v-1cf27b2a {
+  width: 72rpx;
+}
+.content.data-v-1cf27b2a {
+  padding: 0 22rpx;
+}
+.content .cate_list.data-v-1cf27b2a {
+  background-color: #fff;
+  border-radius: 38rpx;
+  padding: 42rpx 46rpx 12rpx;
+  margin-bottom: 34rpx;
+}
+.content .cate_list .cate_item.data-v-1cf27b2a {
+  text-align: center;
+  font-size: 21rpx;
+  margin-right: 46rpx;
+  margin-bottom: 30rpx;
+}
+.content .cate_list .cate_item.data-v-1cf27b2a:nth-child(5n) {
+  margin-right: 0;
+}
+.content .cate_list .cate_item .cate_img.data-v-1cf27b2a {
+  width: 86rpx;
+}
+.content .merchant_box.data-v-1cf27b2a {
+  background-color: #fff;
+  border-radius: 38rpx;
+  padding: 50rpx 46rpx 0;
+}
+.content .merchant_box .merchant_top.data-v-1cf27b2a {
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #e1e1e1;
+}
+.content .merchant_box .merchant_top .nearby.data-v-1cf27b2a {
+  font-weight: bold;
+  font-size: 27rpx;
+  margin-right: 24rpx;
+}
+.content .merchant_box .merchant_top .hit.data-v-1cf27b2a {
+  padding: 8rpx 10rpx;
+  border-radius: 100px;
+  font-size: 21rpx;
+  background-image: linear-gradient(to right, #ff9342, #fe676c);
+  color: #fff;
+}
+.content .merchant_box .merchant_top .settle.data-v-1cf27b2a {
+  padding: 10rpx 18rpx;
+  background-color: #fc5908;
+  color: #fff;
+  font-size: 21rpx;
+  border-radius: 100px;
+}
+.content .merchant_box .shop_list .shop_item.data-v-1cf27b2a {
+  padding: 20rpx 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+.content .merchant_box .shop_list .shop_item .shop_img.data-v-1cf27b2a {
+  width: 114rpx;
+  height: 114rpx;
+  margin-right: 22rpx;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+.content .merchant_box .shop_list .shop_item .shop_info.data-v-1cf27b2a {
+  flex: 1;
+}
+.content .merchant_box .shop_list .shop_item .shop_info .shop_name.data-v-1cf27b2a {
+  font-size: 24rpx;
+  margin-bottom: 36rpx;
+}
+.content .merchant_box .shop_list .shop_item .shop_info .shop_address.data-v-1cf27b2a {
+  font-size: 18rpx;
+  color: #385ed2;
+}
+.content .merchant_box .shop_list .shop_item .shop_info .shop_address .address_img.data-v-1cf27b2a {
+  width: 20rpx;
+  margin-right: 10rpx;
+}
+.content .merchant_box .shop_list .shop_item .distance.data-v-1cf27b2a {
+  font-size: 21rpx;
+  color: #fc6216;
+}
+.content .merchant_box .shop_list .more.data-v-1cf27b2a {
+  font-size: 24rpx;
+  color: #ff6a07;
+  text-align: center;
+  padding: 30rpx 0;
+}
+.content .shop_pic.data-v-1cf27b2a {
+  width: 100%;
+  margin-bottom: 30rpx;
+}
+.headline.data-v-1cf27b2a {
+  padding: 30rpx 50rpx;
+}
+.headline .head_title.data-v-1cf27b2a {
+  font-size: 30rpx;
+  color: #fff;
+  margin-right: 20rpx;
+}
+.headline .head_hit.data-v-1cf27b2a {
+  font-size: 24rpx;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  margin-right: 20rpx;
+  padding: 6rpx 12rpx;
+}
+.headline .news.data-v-1cf27b2a {
+  font-size: 24rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}

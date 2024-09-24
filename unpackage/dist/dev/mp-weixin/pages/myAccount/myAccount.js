@@ -39,18 +39,29 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "我的账户"
         }),
-        b: common_vendor.unref(userStore).userInfo.icon,
-        c: common_vendor.t(common_vendor.unref(userStore).userInfo.name),
-        d: common_vendor.o(toLogin),
-        e: common_vendor.o(toMyPoint),
-        f: common_vendor.o(toPointAvailable),
-        g: common_vendor.o(toPointAccount),
-        h: common_assets._imports_0$2,
-        i: common_assets._imports_0$2,
-        j: common_assets._imports_0$2
+        b: common_assets._imports_0$11,
+        c: common_vendor.unref(userStore).userInfo.icon,
+        d: common_vendor.t(common_vendor.unref(userStore).userInfo.name),
+        e: common_vendor.o(toLogin),
+        f: common_assets._imports_1$4,
+        g: common_vendor.o(toMyPoint),
+        h: common_assets._imports_2$5,
+        i: common_vendor.o(toPointAvailable),
+        j: common_assets._imports_3$2,
+        k: common_vendor.o(toPointAccount),
+        l: common_assets._imports_0$3,
+        m: common_assets._imports_5$1,
+        n: common_assets._imports_6$1,
+        o: common_assets._imports_7$1,
+        p: common_assets._imports_0$3,
+        q: common_assets._imports_8$1,
+        r: common_assets._imports_9$1,
+        s: common_assets._imports_10$1,
+        t: common_assets._imports_0$3,
+        v: common_assets._imports_11$1,
+        w: common_assets._imports_12$1
       };
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "D:/code/money_celestial/pages/myAccount/myAccount.vue"]]);
-wx.createPage(MiniProgramPage);
+wx.createPage(_sfc_main);

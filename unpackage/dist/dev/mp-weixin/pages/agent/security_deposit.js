@@ -32,7 +32,7 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "保证金"
         }),
-        b: common_assets._imports_0$3,
+        b: common_assets._imports_0$4,
         c: common_vendor.o(toRecord),
         d: common_vendor.o(toAdd),
         e: common_vendor.o(toRemove)
@@ -40,5 +40,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-151545ee"], ["__file", "D:/code/money_celestial/pages/agent/security_deposit.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-151545ee"]]);
 wx.createPage(MiniProgramPage);

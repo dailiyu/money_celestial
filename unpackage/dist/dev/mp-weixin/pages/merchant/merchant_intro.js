@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const common_assets = require("../../common/assets.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   _easycom_navBar2();
@@ -21,10 +22,11 @@ const _sfc_main = {
         a: common_vendor.p({
           title: "商家"
         }),
-        b: common_vendor.o(toNotice)
+        b: common_assets._imports_0$2,
+        c: common_vendor.o(toNotice)
       };
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-63c4abfc"], ["__file", "D:/code/money_celestial/pages/merchant/merchant_intro.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-63c4abfc"]]);
 wx.createPage(MiniProgramPage);

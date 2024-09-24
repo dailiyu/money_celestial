@@ -19,9 +19,7 @@ const _sfc_main = {
   __name: "more_info",
   setup(__props) {
     const skip = () => {
-      common_vendor.index.reLaunch({
-        url: "/pages/index/index"
-      });
+      console.log(111);
     };
     const name = common_vendor.ref("");
     const imagePath = common_vendor.ref("");
@@ -57,23 +55,17 @@ const _sfc_main = {
     };
     const token = common_vendor.index.getStorageSync("accessToken");
     function uploadImage(filePath) {
-      console.log(filePath);
-      const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 1e4)}`;
       common_vendor.index.uploadFile({
         url: service_config.uploadUrl,
         // 上传接口 URL
         filePath,
         // 需要上传的文件路径
-        name: "image_url",
+        name: "image",
         // 后台接收文件的字段名 (根据实际需求)
         header: {
           "Authorization": `Bearer ${token}`,
           // 将 JWT Token 添加到 Authorization 请求头中
           "Content-Type": "multipart/form-data"
-        },
-        formData: {
-          "file_name": randomFileName
-          // 生成的随机文件名
         },
         success: (uploadFileRes) => {
           if (uploadFileRes.statusCode === 201) {
@@ -152,7 +144,7 @@ const _sfc_main = {
           isSkip: true
         }),
         c: imagePath.value,
-        d: common_assets._imports_0$3,
+        d: common_assets._imports_0$4,
         e: common_vendor.o(chooseImg),
         f: common_vendor.o(($event) => name.value = $event),
         g: common_vendor.p({
@@ -163,13 +155,13 @@ const _sfc_main = {
           modelValue: email.value
         }),
         j: common_vendor.t(gender.value ? gender.value == "male" ? "男" : "女" : "选择"),
-        k: common_assets._imports_0$3,
+        k: common_assets._imports_0$4,
         l: common_vendor.o(getGender),
         m: common_vendor.t(birthday.value),
-        n: common_assets._imports_0$3,
+        n: common_assets._imports_0$4,
         o: common_vendor.o(openCalendar),
         p: common_vendor.t(address.value),
-        q: common_assets._imports_0$3,
+        q: common_assets._imports_0$4,
         r: common_vendor.o(getLocation),
         s: common_vendor.o(saveMessage),
         t: common_vendor.sr(calendar, "dc27228e-3", {
@@ -183,5 +175,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-dc27228e"], ["__file", "D:/code/money_celestial/pages/login/more_info.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-dc27228e"]]);
 wx.createPage(MiniProgramPage);

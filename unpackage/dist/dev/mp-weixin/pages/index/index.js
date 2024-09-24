@@ -3,8 +3,6 @@ const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const store_public = require("../../store/public.js");
 const store_user = require("../../store/user.js");
-const service_shop = require("../../service/shop.js");
-const service_bannner = require("../../service/bannner.js");
 if (!Array) {
   const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
   const _easycom_uni_search_bar2 = common_vendor.resolveComponent("uni-search-bar");
@@ -18,54 +16,20 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    var QQMapWX = require("../../static/qqmap/qqmap-wx-jssdk.min.js");
     const keyword = common_vendor.ref("");
     const publicStore = store_public.usePublicStore();
     const userStore = store_user.useUserStore();
     const city = common_vendor.ref("");
     common_vendor.onMounted(async () => {
       await publicStore.fetchAllDataAction(), await userStore.fetchAllDataAction();
-      common_vendor.index.getLocation({
-        geocode: true,
-        success(res) {
-          var qqmapsdk = new QQMapWX({
-            key: "YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA"
-            // 必填
-          });
-          qqmapsdk.reverseGeocoder({
-            location: {
-              latitude: res.latitude,
-              longitude: res.longitude
-            },
-            success(address) {
-              const ad_info = address.result.ad_info;
-              common_vendor.index.setStorageSync("address_info", address.result.ad_info);
-              city.value = ad_info.city;
-            },
-            fail(err) {
-              console.log(err);
-              common_vendor.index.showToast({
-                icon: "none",
-                title: "定位失败"
-              });
-            }
-          });
-        }
-      });
-      getCategory();
-      getBanner();
     });
-    const categoryList = common_vendor.ref([]);
-    const getCategory = async () => {
-      const { results } = await service_shop.getShopCategories();
-      categoryList.value = results;
-    };
-    const bannerList = common_vendor.ref();
-    const getBanner = async () => {
-      bannerList.value = await service_bannner.getBannerList();
-    };
     const search = () => {
       console.log(keyword.value);
+    };
+    const toSettle = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/merchant/merchant_intro"
+      });
     };
     const toMerchant = () => {
       if (userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0) {
@@ -80,26 +44,14 @@ const _sfc_main = {
       }
     };
     const toAgent = () => {
-      if (userStore.userInfo.is_province_agent || userStore.userInfo.is_city_agent) {
-        common_vendor.index.navigateTo({
-          url: "/pages/agent/agent_management"
-        });
-      } else {
-        common_vendor.index.navigateTo({
-          url: "/pages/agent/agent_intro"
-        });
-      }
+      common_vendor.index.navigateTo({
+        url: "/pages/agent/agent_intro"
+      });
     };
     const toRecommend = () => {
-      if (userStore.is_referral_officer) {
-        common_vendor.index.navigateTo({
-          url: "/pages/recommend/recommend_intro"
-        });
-      } else {
-        common_vendor.index.navigateTo({
-          url: "/pages/recommend/recommend_management"
-        });
-      }
+      common_vendor.index.navigateTo({
+        url: "/pages/recommend/recommend_intro"
+      });
     };
     const toAllMerchant = () => {
       common_vendor.index.navigateTo({
@@ -135,37 +87,40 @@ const _sfc_main = {
           clearButton: "always",
           modelValue: keyword.value
         }),
-        g: common_vendor.f(bannerList.value, (item, k0, i0) => {
-          return {
-            a: item.image_url,
-            b: item.id
-          };
-        }),
+        g: common_assets._imports_1$1,
         h: common_vendor.o(toMerchant),
-        i: common_vendor.o(toAgent),
-        j: common_vendor.o(toRecommend),
-        k: common_vendor.o(toMyAccount),
-        l: categoryList.value.length
-      }, categoryList.value.length ? {
-        m: common_vendor.f(categoryList.value, (item, k0, i0) => {
-          return {
-            a: item.icon,
-            b: common_vendor.t(item.name),
-            c: item.id
-          };
-        })
+        i: common_assets._imports_2$2,
+        j: common_vendor.o(toAgent),
+        k: common_assets._imports_3$1,
+        l: common_vendor.o(toRecommend),
+        m: common_assets._imports_4,
+        n: common_vendor.o(toMyAccount),
+        o: common_assets._imports_5,
+        p: common_assets._imports_6,
+        q: common_assets._imports_7,
+        r: common_assets._imports_8,
+        s: common_assets._imports_9,
+        t: common_assets._imports_10,
+        v: common_assets._imports_11,
+        w: common_assets._imports_12,
+        x: common_assets._imports_13,
+        y: common_assets._imports_14,
+        z: !(common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0)
+      }, !(common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0) ? {
+        A: common_vendor.o(toSettle)
       } : {}, {
-        n: common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0
-      }, common_vendor.unref(userStore).storeInfo && Object.keys(common_vendor.unref(userStore).storeInfo).length > 0 ? {
-        o: common_vendor.t((_a = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _a.name),
-        p: common_assets._imports_1$1,
-        q: common_vendor.t((_b = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _b.address),
-        r: common_vendor.t(((_c = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _c.distance) / 1e3),
-        s: common_vendor.o(toDetail),
-        t: common_vendor.o(toAllMerchant)
-      } : {});
+        B: common_vendor.t((_a = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _a.name),
+        C: common_assets._imports_2$1,
+        D: common_vendor.t((_b = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _b.address),
+        E: common_vendor.t(((_c = common_vendor.unref(publicStore).ascShopList[0]) == null ? void 0 : _c.distance) / 1e3),
+        F: common_vendor.o(toDetail),
+        G: common_vendor.o(toAllMerchant),
+        H: common_assets._imports_16,
+        I: common_assets._imports_17,
+        J: common_assets._imports_18
+      });
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"], ["__file", "D:/code/money_celestial/pages/index/index.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
 wx.createPage(MiniProgramPage);

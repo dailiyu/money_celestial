@@ -32,7 +32,7 @@ const _sfc_main = {
           duration: 1e3
         });
         setTimeout(() => {
-          common_vendor.index.reLaunch({
+          common_vendor.index.navigateTo({
             url: "/pages/index/index"
           });
         }, 1e3);
@@ -79,7 +79,7 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-e4e4508d"], ["__file", "D:/code/money_celestial/pages/login/login.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-e4e4508d"]]);
 const useUserStore = common_vendor.defineStore("user", {
   state: () => {
     return {

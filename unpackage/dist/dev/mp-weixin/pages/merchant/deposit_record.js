@@ -27,9 +27,13 @@ const _sfc_main = {
     const page = common_vendor.ref(1);
     const getRecordList = async () => {
       status.value = "loading";
-      const { transactions, total_amount } = await service_deposit.getRecords({ transaction_type: "collateral" });
-      status.value = "no-more";
-      recordList.value.push(...transactions);
+      const { results, count } = await service_deposit.getDepositList({ page: page.value });
+      if (count == results.length) {
+        status.value = "no-more";
+      } else {
+        status.value = "more";
+      }
+      recordList.value = results;
     };
     const loadMore = () => {
       if (status.value == "more") {
@@ -56,23 +60,22 @@ const _sfc_main = {
         }),
         f: common_vendor.f(recordList.value, (item, index, i0) => {
           return common_vendor.e({
-            a: common_vendor.t(index + 1),
-            b: "d6fe0577-7-" + i0 + "," + ("d6fe0577-6-" + i0),
-            c: common_vendor.t(item.from_user),
-            d: "d6fe0577-8-" + i0 + "," + ("d6fe0577-6-" + i0),
-            e: item.static == "add"
-          }, item.static == "add" ? {
-            f: common_vendor.t(item.amount)
+            a: "d6fe0577-7-" + i0 + "," + ("d6fe0577-6-" + i0),
+            b: common_vendor.t(common_vendor.unref(utils_index.obscureString)(item.user)),
+            c: "d6fe0577-8-" + i0 + "," + ("d6fe0577-6-" + i0),
+            d: item.change_type == "increase"
+          }, item.change_type == "increase" ? {
+            e: common_vendor.t(item.change_amount)
           } : {}, {
-            g: item.static == "remove"
-          }, item.static == "remove" ? {
-            h: common_vendor.t(item.amount)
+            f: item.change_type == "decrease"
+          }, item.change_type == "decrease" ? {
+            g: common_vendor.t(item.change_amount)
           } : {}, {
-            i: "d6fe0577-9-" + i0 + "," + ("d6fe0577-6-" + i0),
-            j: common_vendor.t(common_vendor.unref(utils_index.convertTime)(item.created_at, "yyyy-MM-dd hh:mm:ss")),
-            k: "d6fe0577-10-" + i0 + "," + ("d6fe0577-6-" + i0),
-            l: item.id,
-            m: "d6fe0577-6-" + i0
+            h: "d6fe0577-9-" + i0 + "," + ("d6fe0577-6-" + i0),
+            i: common_vendor.t(common_vendor.unref(utils_index.convertTime)(item.created_at, "yyyy-MM-dd hh:mm:ss")),
+            j: "d6fe0577-10-" + i0 + "," + ("d6fe0577-6-" + i0),
+            k: item.id,
+            l: "d6fe0577-6-" + i0
           });
         }),
         g: common_vendor.p({
@@ -95,5 +98,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-d6fe0577"], ["__file", "D:/code/money_celestial/pages/merchant/deposit_record.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-d6fe0577"]]);
 wx.createPage(MiniProgramPage);

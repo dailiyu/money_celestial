@@ -40,11 +40,11 @@ const _sfc_main = {
       } : {}, {
         c: imageTempPaths.value.length < props.amount
       }, imageTempPaths.value.length < props.amount ? {
-        d: common_assets._imports_0$7,
+        d: common_assets._imports_0$13,
         e: common_vendor.o(chooseImg)
       } : {});
     };
   }
 };
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-0917ae16"], ["__file", "D:/code/money_celestial/components/upload/upload.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-0917ae16"]]);
 wx.createComponent(Component);

@@ -1,8 +1,5 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const service_recommend = require("../../service/recommend.js");
-const service_merchant = require("../../service/merchant.js");
-const store_user = require("../../store/user.js");
 const questions = [
   {
     question: "满仓体系的核心逻辑是什么？",
@@ -448,9 +445,17 @@ const questions = [
 const questionsData = {
   questions
 };
-const userStore = store_user.useUserStore();
+if (!Array) {
+  const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
+  _easycom_navBar2();
+}
+const _easycom_navBar = () => "../../components/navBar/navBar.js";
+if (!Math) {
+  _easycom_navBar();
+}
 const _sfc_main = {
-  setup() {
+  __name: "recommend_test",
+  setup(__props) {
     const allQuestions = common_vendor.ref([]);
     const currentQuestions = common_vendor.ref([]);
     const selectedAnswers = common_vendor.ref([]);
@@ -476,7 +481,7 @@ const _sfc_main = {
     const selectAnswer = (questionIndex, selectedOption) => {
       selectedAnswers.value[questionIndex] = selectedOption;
     };
-    const submitAnswers = async () => {
+    const submitAnswers = () => {
       incorrectQuestions.value = [];
       currentQuestions.value.forEach((question, index) => {
         if (selectedAnswers.value[index] !== question.correct_answer) {
@@ -494,23 +499,9 @@ const _sfc_main = {
           title: "恭喜，全部正确！",
           icon: "success"
         });
-        try {
-          common_vendor.index.showLoading({
-            title: "提交中"
-          });
-          const username = userStore.userInfo.username;
-          const { results } = await service_merchant.getMerchantList();
-          await service_recommend.createRecommendOfficer({ shops: results, name: username });
-          common_vendor.index.hideLoading();
-          common_vendor.index.navigateTo({
-            url: "/pages/recommend/recommend_management"
-          });
-        } catch (e) {
-          common_vendor.index.showToast({
-            title: "出错啦",
-            icon: "none"
-          });
-        }
+        common_vendor.index.navigateTo({
+          url: "/pages/recommend/recommend_management"
+        });
       }
     };
     const showCorrectAnswers = () => {
@@ -522,64 +513,46 @@ const _sfc_main = {
     common_vendor.onMounted(() => {
       initQuestions();
     });
-    return {
-      currentQuestions,
-      selectedAnswers,
-      showAnswers,
-      isSubmitted,
-      selectAnswer,
-      submitAnswers,
-      showCorrectAnswers,
-      resetQuiz
+    return (_ctx, _cache) => {
+      return common_vendor.e({
+        a: common_vendor.p({
+          title: "推荐官考试"
+        }),
+        b: common_vendor.f(currentQuestions.value, (question, index, i0) => {
+          return common_vendor.e({
+            a: common_vendor.t(index + 1),
+            b: common_vendor.t(question.question),
+            c: common_vendor.f(question.options, (option, i, i1) => {
+              return {
+                a: option,
+                b: selectedAnswers.value[index] === option,
+                c: common_vendor.t(option),
+                d: i
+              };
+            }),
+            d: common_vendor.o(($event) => selectAnswer(index, $event.detail.value), index)
+          }, showAnswers.value ? {
+            e: common_vendor.t(question.correct_answer)
+          } : {}, {
+            f: index
+          });
+        }),
+        c: showAnswers.value,
+        d: showAnswers.value,
+        e: !showAnswers.value
+      }, !showAnswers.value ? {
+        f: common_vendor.o(submitAnswers)
+      } : {}, {
+        g: !showAnswers.value && isSubmitted.value
+      }, !showAnswers.value && isSubmitted.value ? {
+        h: common_vendor.o(showCorrectAnswers)
+      } : {}, {
+        i: showAnswers.value
+      }, showAnswers.value ? {
+        j: common_vendor.o(resetQuiz)
+      } : {});
     };
   }
 };
-if (!Array) {
-  const _easycom_navBar2 = common_vendor.resolveComponent("navBar");
-  _easycom_navBar2();
-}
-const _easycom_navBar = () => "../../components/navBar/navBar.js";
-if (!Math) {
-  _easycom_navBar();
-}
-function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return common_vendor.e({
-    a: common_vendor.p({
-      title: "推荐官考试"
-    }),
-    b: common_vendor.f($setup.currentQuestions, (question, index, i0) => {
-      return common_vendor.e({
-        a: common_vendor.t(index + 1),
-        b: common_vendor.t(question.question),
-        c: common_vendor.f(question.options, (option, i, i1) => {
-          return {
-            a: option,
-            b: $setup.selectedAnswers[index] === option,
-            c: common_vendor.t(option),
-            d: i
-          };
-        }),
-        d: common_vendor.o(($event) => $setup.selectAnswer(index, $event.detail.value), index)
-      }, $setup.showAnswers ? {
-        e: common_vendor.t(question.correct_answer)
-      } : {}, {
-        f: index
-      });
-    }),
-    c: $setup.showAnswers,
-    d: $setup.showAnswers,
-    e: !$setup.showAnswers
-  }, !$setup.showAnswers ? {
-    f: common_vendor.o((...args) => $setup.submitAnswers && $setup.submitAnswers(...args))
-  } : {}, {
-    g: !$setup.showAnswers && $setup.isSubmitted
-  }, !$setup.showAnswers && $setup.isSubmitted ? {
-    h: common_vendor.o((...args) => $setup.showCorrectAnswers && $setup.showCorrectAnswers(...args))
-  } : {}, {
-    i: $setup.showAnswers
-  }, $setup.showAnswers ? {
-    j: common_vendor.o((...args) => $setup.resetQuiz && $setup.resetQuiz(...args))
-  } : {});
-}
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-f9f250b0"], ["__file", "D:/code/money_celestial/pages/recommend/recommend_test.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-f9f250b0"]]);
 wx.createPage(MiniProgramPage);

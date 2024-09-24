@@ -4,23 +4,18 @@ const service_config = require("../service/config.js");
 const uploadImage = async (filePath) => {
   console.log(filePath);
   const token = common_vendor.index.getStorageSync("accessToken");
-  const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 1e4)}`;
   return new Promise((resolve, reject) => {
     common_vendor.index.uploadFile({
       url: service_config.uploadUrl,
       // 上传接口 URL
       filePath,
       // 需要上传的文件路径
-      name: "image_url",
+      name: "image",
       // 后台接收文件的字段名
       header: {
         "Authorization": `Bearer ${token}`,
         // JWT Token 添加到 Authorization 请求头
         "Content-Type": "multipart/form-data"
-      },
-      formData: {
-        "file_name": randomFileName
-        // 生成的随机文件名
       },
       success: (uploadFileRes) => {
         if (uploadFileRes.statusCode == 201) {
@@ -50,5 +45,15 @@ const convertTime = (timeStamp, format = "yyyy/MM/dd hh:mm:ss") => {
   const seconds = ("0" + date.getSeconds()).slice(-2);
   return format.replace("yyyy", year).replace("MM", month).replace("dd", day).replace("hh", hours).replace("mm", minutes).replace("ss", seconds);
 };
+const obscureString = (input) => {
+  if (input.length <= 15) {
+    return input;
+  }
+  const start = input.slice(0, 8);
+  const end = input.slice(-7);
+  const obscured = start + "******" + end;
+  return obscured;
+};
 exports.convertTime = convertTime;
+exports.obscureString = obscureString;
 exports.uploadImage = uploadImage;

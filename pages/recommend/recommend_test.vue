@@ -34,8 +34,8 @@ import { ref, onMounted } from 'vue';
 import questionsData from './question/index.json';
 import { createRecommendOfficer } from '@/service/recommend.js'
 import { getMerchantList } from '@/service/merchant.js'
-import { useUserStore } from '../../store/user'
- const  userStore = useUserStore()
+import { useUserStore } from '../../store/user';
+
 
 export default {
   setup() {
@@ -45,6 +45,7 @@ export default {
     const incorrectQuestions = ref([]);  // 答错的题目
     const showAnswers = ref(false);  // 是否显示答案
     const isSubmitted = ref(false);  // 是否已经提交过
+	const userStore = useUserStore()
 
     // 初始化随机获取5道题目
     const initQuestions = () => {
