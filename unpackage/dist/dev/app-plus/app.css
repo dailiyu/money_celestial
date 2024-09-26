@@ -26,7 +26,8 @@
 /* 透明度 */
 /* 文章场景相关 */
 /*每个页面公共css */
-body, uni-view {
+* {
+	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }

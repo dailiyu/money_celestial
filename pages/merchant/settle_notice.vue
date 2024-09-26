@@ -28,6 +28,9 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app'
+import { createMerchant } from '../../service/merchant';
+import { getCitiesDetail } from '../../service/divisions';
+
 const referral_officer = ref('')
 onLoad((options)=>{
 	referral_officer.value = options.referral_officer
@@ -37,17 +40,55 @@ const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 	
 }
+function extractIdFromUrl(url) {
+    // 使用正则表达式匹配最后一个斜杠后面的数字
+    const match = url.match(/\/(\d+)\/?$/);
+    // 如果匹配成功，返回匹配的数字，否则返回null
+    return match ? match[1] : null;
+}
 
+const extractCityName=(location)=> {
+  // 使用空格分割字符串，获取最后一个部分（市名）
+  const parts = location.split(' ');
+  
+  // 返回最后一个元素，假设市名总是最后一部分
+  return parts[parts.length - 1];
+}
+	
 
 const scanCode = () => {
   uni.scanCode({
     onlyFromCamera: true, // 只允许从摄像头扫码
-    success: (res) => {
-      console.log('扫码结果: ', res);
-      uni.showToast({
-        title: `扫码成功: ${res.result}`, // 显示扫码的结果
-        icon: 'none'
-      });
+    success: async(res) => {
+      console.log('扫码结果: ', extractIdFromUrl(res.result));
+	  const recommendPhone=extractIdFromUrl(res.result)
+	  const phoneNumber=uni.getStorageSync('phoneNumber')
+	  const address=uni.getStorageSync('userInfo').residence
+	  const userName=uni.getStorageSync('userInfo').name
+	  const cityName=extractCityName(address)
+	  const cityInfo=await getCitiesDetail(cityName)
+	console.log(recommendPhone,phoneNumber,address,cityName,userName,cityInfo);
+		uni.showLoading({
+			title:"正在创建商家"
+		})
+	  createMerchant({user:phoneNumber,referral_officer:recommendPhone,city:cityName,name:userName}).then((res)=>{
+			uni.hideLoading()
+		  uni.showToast({
+		    title: `创建商家成功`, // 显示扫码的结果
+		    icon: 'success'
+		  });
+		  uni.navigateTo({
+		  	url:'/pages/merchant/before_create_shop'
+		  })
+	  }).catch((err)=>{
+		  console.log(err);
+		  	uni.hideLoading()
+		  uni.showToast({
+		    title: `创建商家失败`, // 显示扫码的结果
+		    icon: 'fail'
+		  })
+	  })
+     
     },
     fail: (err) => {
       console.error('扫码失败: ', err);

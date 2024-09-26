@@ -124,8 +124,10 @@
 import { onMounted, ref } from 'vue';
 import {usePublicStore} from "@/store/public.js"
 import { useUserStore } from '../../store/user';
-import { getShopCategories } from '@/service/shop';
+import { getShopCategories, getShopInfo } from '@/service/shop';
 import { getBannerList } from '@/service/bannner.js'
+import { getRecommendOfficerInfo } from '../../service/recommend';
+import { getUerAccountMessage } from '../../service/uer_profile';
 
 // var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
@@ -195,19 +197,27 @@ const toSettle = ()=>{
 		url: '/pages/merchant/merchant_intro'
 	})
 }
-const toMerchant = () => {
-    if (userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0) {
-        console.log(userStore.storeInfo);
+const toMerchant =async () => {
+	const phoneNumber=await uni.getStorageSync('phoneNumber')
+	const userData=uni.getStorageSync('userInfo')
+	const  shopData=await  getShopInfo(phoneNumber)
+	console.log('进入商家前的用户信息',userData);
+	console.log('进入商家前的店铺信息',shopData);
+    if (userData?.is_seller&&shopData?.is_approved) {
         // 已入驻
         uni.navigateTo({
             url: '/pages/merchant/merchant_management'
         });
-    } else {
+    } else if(!userData?.is_seller) {
         // 未入驻
         uni.navigateTo({
             url: '/pages/merchant/merchant_intro'
         });
-    }
+    } else if(userData?.is_seller&&!shopData?.is_approved){
+		uni.navigateTo({
+			url:'/pages/merchant/before_create_shop'
+		})
+	}
 };
 
 
@@ -223,14 +233,21 @@ const toAgent = ()=>{
 	}
 	
 }
-const toRecommend = ()=>{
-	if (userStore.userInfo.is_referral_officer) {
+const toRecommend =async ()=>{
+	const phoneNumber=uni.getStorageSync('phoneNumber')
+	const data=await getRecommendOfficerInfo(phoneNumber)
+	console.log('进入推荐官页面前的推荐官信息',data);
+	if (data?.is_approved&&data?.is_visible) {
 		uni.navigateTo({
 			url: '/pages/recommend/recommend_management'
 		})
-	} else {
+	} else if(data?.detail) {
 		uni.navigateTo({
 			url: '/pages/recommend/recommend_intro'
+		})
+	} else if(!data?.is_approved){
+		uni.navigateTo({
+			url: '/pages/recommend/before_create_recommend'
 		})
 	}
 }

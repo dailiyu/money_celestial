@@ -115,9 +115,11 @@ export default {
 			const cityName=  await extractCityName(userAddress)
 			console.log("推荐官所在地 ",cityName);
 			const res=await getCitiesDetail(cityName)
-			const cityId=res[0].id
-			console.log("推荐官所在城市id ",cityId);
-			 await createRecommendOfficer({name:userName, city_id:cityId})
+			const cityCode=res.code
+			console.log("推荐官所在城市代码 ",cityCode);
+			const phoneNumber=uni.getStorageSync('phoneNumber')
+			console.log('手机号码',phoneNumber);
+			 await createRecommendOfficer({user:phoneNumber,name:userName, city:cityName})
 			
 			uni.hideLoading()
 			uni.navigateTo({

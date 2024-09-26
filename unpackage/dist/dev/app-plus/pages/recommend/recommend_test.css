@@ -845,11 +845,12 @@
   border-radius: 5px;
 }
 .question-card .title[data-v-f9f250b0] {
-  font-size: 0.84375rem;
+  font-size: 0.9375rem;
 }
 .question-card uni-radio-group[data-v-f9f250b0] {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: #999999;
+  margin-top: 0.3125rem;
 }
 .question-card uni-radio[data-v-f9f250b0] {
   transform: scale(0.6);

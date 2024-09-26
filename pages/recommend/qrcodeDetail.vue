@@ -13,9 +13,9 @@ import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.j
 import QRCode from 'qrcode'
 	const qrcode = ref('')
 	onMounted(async()=>{
-		const {data} = await getOfficerQRCode({path: '/pages/merchant/settle_notice'})
-		qrcode.value=data
-		 await generateQRCode(data)
+		const {referral_url} = await getOfficerQRCode()
+		qrcode.value=referral_url
+		 await generateQRCode(referral_url)
 	})
 	
 	
