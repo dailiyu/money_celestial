@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "门店详情",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar",
-    "uni-segmented-control": "../../uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control",
-    "goods-list": "../../components/goodsList/goodsList"
-  }
-}

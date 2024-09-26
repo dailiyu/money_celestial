@@ -67,11 +67,10 @@ const toRegister = ()=>{
 			duration:1000
 		 })
 		 setTimeout(()=>{
-			uni.reLaunch({
+			uni.navigateTo({
 				url: '/pages/index/index'
 			})
 		 },1000)
-		
 	  }).catch((err)=>{
 		uni.hideLoading()
 		if(err?.data?.error){

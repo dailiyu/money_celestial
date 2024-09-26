@@ -2,6 +2,17 @@ import  {http} from "./index"
 
 
 
+
+//创建商家
+export const createMerchant=async (data)=>{
+	return http.post('/merchant/',data)
+}
+
+
+
+
+
+
 export const getMerchantInfo=async ()=>{
 	return http.get('/merchant/get/')
 }

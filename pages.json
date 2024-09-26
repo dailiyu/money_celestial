@@ -57,6 +57,14 @@
 			}
 		},
 		{
+			"path" : "pages/recommend/before_create_recommend",
+			"style" : 
+			{
+				"navigationBarTitleText" : "成为推荐官",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path" : "pages/merchant/merchant_edit_info",
 			"style" : 
 			{

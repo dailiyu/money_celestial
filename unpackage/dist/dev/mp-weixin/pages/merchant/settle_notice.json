@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "商家入驻须知",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar"
-  }
-}

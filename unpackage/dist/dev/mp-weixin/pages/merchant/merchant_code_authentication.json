@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "商家码认证",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "nav-bar": "../../components/navBar/navBar"
-  }
-}

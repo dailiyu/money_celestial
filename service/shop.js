@@ -32,8 +32,8 @@ export const getShopCategories= ()=>{
 
 
 //获取店铺信息
-export const getShopInfo=()=>{
-	return http.get('/shops/mine/')
+export const getShopInfo=(merchant)=>{
+	return http.get(`/shops/${merchant}/`)
 }
 
 
