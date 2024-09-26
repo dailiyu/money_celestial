@@ -611,6 +611,43 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.c_title[data-v-98cb4a56] {
+  font-size: 0.84375rem;
+  padding-left: 1.125rem;
+  padding-top: 0.6875rem;
+  margin-bottom: 0.625rem;
+}
+.number[data-v-98cb4a56] {
+  padding: 1.15625rem 0;
+  background-color: #fff;
+  font-size: 1.125rem;
+  color: #FC5908;
+  font-weight: bold;
+  margin-bottom: 0.9375rem;
+}
+.btns[data-v-98cb4a56] {
+  margin-top: 2.125rem;
+  margin-bottom: 1.78125rem;
+  padding: 0 1.4375rem;
+}
+.btns .add_btn[data-v-98cb4a56] {
+  width: 9.0625rem;
+  height: 2.625rem;
+  font-size: 0.84375rem;
+  color: #FFFFFF;
+  font-weight: bold;
+  background-image: linear-gradient(to top right, #38b659, #6bd85b);
+  border-radius: 0.40625rem;
+}
+.btns .cancel_btn[data-v-98cb4a56] {
+  width: 9.0625rem;
+  height: 2.625rem;
+  font-size: 0.84375rem;
+  color: #FFFFFF;
+  font-weight: bold;
+  background-image: linear-gradient(to right, #fe9646, #fd8d36);
+  border-radius: 0.40625rem;
+}
 .list_box[data-v-98cb4a56] {
   padding: 0 0.875rem;
   background-color: #fff;
