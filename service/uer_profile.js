@@ -2,8 +2,8 @@ import  {http} from "./index"
 
 
 //获取账号信息，请求头需要携带token
-export  const getUerAccountMessage=async ()=>{
-	return http.get('/users/')
+export  const getUerAccountMessage=async (phone_number)=>{
+	return http.get(`/users/profile/${phone_number}/`)
 }
 
 //注册账号

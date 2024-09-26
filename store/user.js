@@ -25,7 +25,8 @@ export const useUserStore = defineStore('user', {
 	   console.log('登录成功的用户信息',results);
     },
     async getUserInfoAction() {
-	  const res = await getUerAccountMessage();
+		const phoneNumber=uni.getStorageSync('phoneNumber')
+	  const res = await getUerAccountMessage(phoneNumber);
 	  uni.setStorageSync('userInfo',res)
 		console.log('根据token获取到的用户信息',res);
     },
