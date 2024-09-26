@@ -51,7 +51,7 @@ const range = ref({})
 const provinceId = ref()
 onMounted(async()=>{
 	let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-	let curRoute = routes[routes.length - 1].route; //获取当前页面路由
+	// let curRoute = routes[routes.length - 1].route; //获取当前页面路由
 	let curParam = routes[routes.length - 1].options;
 	provinceId.value = curParam.provinceId
 	getShopList()
@@ -76,7 +76,8 @@ const {location} = uni.getStorageSync('address_info')
 const getShopList = async()=>{
 	const params = ref({
 		ordering: time.value,
-		category_id: categoryId.value
+		category_id: categoryId.value,
+		code: provinceId.value
 	})
 	// if (categoryId.value) {
 	// 	params.value.category_id = categoryId.value
@@ -85,7 +86,7 @@ const getShopList = async()=>{
 	uni.showLoading({
 		title: '加载中'
 	})
-	const {results} = await getAgentShopList(provinceId.value, params.value)
+	const {results} = await getAgentShopList(params.value)
 	// const locaList = results.map(shop => ({ latitude: shop.latitude, longitude: shop.longitude }))
 	// shopList.value = await calculateDistances({latitude: location.lat, longitude: location.lng}, locaList)
 	shopList.value = results

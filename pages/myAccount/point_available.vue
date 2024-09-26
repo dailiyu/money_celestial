@@ -6,20 +6,20 @@
 				当前可用积分
 			</view>
 			<view class="number flex_center">
-				10,203
+				{{redPoint}}
 			</view>
 			<view class="btns flex_between">
 				<view class="cancel_btn flex_center" @click="toStepOne">
 					兑换积分
 				</view>
-				<view class="add_btn flex_center">
+				<view class="add_btn flex_center" @click="toWithdrawPoint">
 					提取积分
 				</view>
 			</view>
 			<view class="list_box">
 				<view class="list_item flex_between">
 					<view class="">
-						兑换积分
+						兑换商品
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
@@ -49,6 +49,19 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+import { getAllPoint } from '../../service/point';
+
+
+onMounted(()=>{
+	getPoint()
+})
+const redPoint = ref(0)
+const getPoint = async()=>{
+	const { red_points } = await getAllPoint()
+	redPoint.value = red_points
+}
+
 const toWithdrawPoint = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/red_point_withdraw'
