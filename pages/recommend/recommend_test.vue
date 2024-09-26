@@ -151,11 +151,12 @@ export default {
   border: 1px solid #ddd;
   border-radius: 5px;
   .title {
-	  font-size: 27rpx;
+	font-size: 30rpx;
   }
   radio-group {
-	  font-size: 24rpx;
-	  color: #999999;
+	font-size: 28rpx;
+	color: #999999;
+	margin-top: 10rpx;
   }
   radio {
 	  transform:scale(0.6)

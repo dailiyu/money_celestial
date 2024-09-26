@@ -335,6 +335,54 @@
 				"navigationBarTitleText" : "推荐官考试",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/myAccount/exchange_point_step_1",
+			"style" : 
+			{
+				"navigationBarTitleText" : "兑换积分",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/exchange_point_step_2",
+			"style" : 
+			{
+				"navigationBarTitleText" : "兑换积分",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/green_point_withdraw",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取积分",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/green_point_withdraw_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取记录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/red_point_withdraw",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取记录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/red_point_withdraw_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取记录",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

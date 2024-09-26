@@ -63,11 +63,13 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAgentShopAmount, getRecommendOfficerAmount } from '@/service/agent.js'
+import { getRecommendOfficerAmount, getProvinceId, getAgentShopList } from '@/service/agent.js'
 import { getRecords } from '@/service/deposit';
 
-
-onMounted(()=>{
+const provinceId = ref()
+onMounted(async()=>{
+	const {province} = await getProvinceId()
+	provinceId.value = province
 	getShopAmount()
 	getOfficerAmount()
 	getAgentPoint()
@@ -77,15 +79,15 @@ const merchantAmount = ref(0)
 const cityAgent = ref('')
 
 const getShopAmount = async()=>{
-	const {count, results} = await getAgentShopAmount()
+	const {count, results} = await getAgentShopList(provinceId.value)
 	merchantAmount.value = count
 	cityAgent.value = results[0].city
 }
 
 const officerAmount = ref(0)
 const getOfficerAmount = async()=>{
-	const result = await getRecommendOfficerAmount()
-	officerAmount.value = result.count
+	const {count} = await getRecommendOfficerAmount(provinceId.value)
+	officerAmount.value = count
 }
 const agentPoint = ref(0)
 const getAgentPoint = async()=>{
@@ -96,8 +98,9 @@ const getAgentPoint = async()=>{
 
 
 const toMerchantList = ()=>{
+	if (!provinceId.value) return
 	uni.navigateTo({
-		url: '/pages/agent/merchant_list'
+		url: '/pages/agent/merchant_list?provinceId='+provinceId.value
 	})
 }
 const toMerchantCode = ()=>{

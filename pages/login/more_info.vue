@@ -1,6 +1,10 @@
 <template>
 	<view>
-		<navBar title="完善信息" bgc="#1B46CC" :isSkip="true" @skip="skip"></navBar>
+		<navBar title="完善信息" bgc="#1B46CC" :isShow="true" @clickRight="skip">
+			<template class="skip" #right>
+				跳过
+			</template>
+		</navBar>
 		<view class="content">
 			<view class="info_item flex_between">
 				<view class="title">

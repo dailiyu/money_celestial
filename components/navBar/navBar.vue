@@ -5,8 +5,9 @@
 			<view class="">
 				{{ title }}
 			</view>
-			<view class="skip" v-if="isSkip" @click="skip">
-				跳过
+			<view class="skip" v-if="isShow" @click="clickRight">
+				<!-- 跳过 -->
+				<slot name="right"></slot>
 			</view>
 		</view>
 	</view>
@@ -32,7 +33,7 @@
 				type: String,
 				default: '#FC5908'
 			},
-			isSkip: {
+			isShow: {
 				type: Boolean,
 				default: false
 			}
@@ -44,8 +45,8 @@
 			back(){
 				uni.navigateBack()
 			},
-			skip(){
-				this.$emit('skip')
+			clickRight(){
+				this.$emit('clickRight')
 			}
 		}
 	}

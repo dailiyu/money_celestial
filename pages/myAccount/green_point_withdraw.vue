@@ -62,8 +62,8 @@ onMounted(async ()=>{
 	
 })
 const getPointInfo = async()=>{
-	const {points_account, red_points} = await getPointBindedAccount()
-	account.value = points_account
+	const {user, red_points} = await getPointBindedAccount()
+	account.value = user
 	// 可用积分
 	pointBalance.value = red_points
 }

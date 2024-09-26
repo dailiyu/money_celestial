@@ -263,7 +263,7 @@ const toDetail = ()=>{
 		width: 43rpx;
 		margin-right: 18rpx;
 	}
-	.location {
+	.location {  
 		color: #fff;
 		font-size: 24rpx;
 		margin-right: 30rpx;

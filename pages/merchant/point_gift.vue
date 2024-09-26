@@ -18,12 +18,28 @@
 					</view>
 					<input v-model="number" type="number" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" />
 				</view>
+				<view class="info_item flex">
+					<view class="s_title">
+						到账积分
+					</view>
+					<view class="s_num" style="color: #999999;">
+						1000
+					</view>
+				</view>
 				<view class="info_item flex_between">
 					<view class="s_text">
-						最多可赠送数量
+						最多可赠送金额
 					</view>
 					<view class="s_num">
 						{{totalPoints}}
+					</view>
+				</view>
+				<view class="info_item flex_between">
+					<view class="s_text">
+						消耗
+					</view>
+					<view class="s_num">
+						100可用积分+10保证金
 					</view>
 				</view>
 				<view class="info_item flex_between">
