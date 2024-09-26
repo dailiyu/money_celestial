@@ -32,7 +32,7 @@
 				type: String,
 				default: '#FC5908'
 			},
-			isSkip: {
+			isShow: {
 				type: Boolean,
 				default: false
 			}
@@ -44,8 +44,8 @@
 			back(){
 				uni.navigateBack()
 			},
-			skip(){
-				this.$emit('skip')
+			clickRight(){
+				this.$emit('clickRight')
 			}
 		}
 	}

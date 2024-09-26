@@ -20,9 +20,9 @@
 						</view>
 					</view>
 				</view>
-				<view class="distance">
+				<!-- <view class="distance">
 					{{item.distance/1000}}km
-				</view>
+				</view> -->
 			</view>
 		</view>
 	</view>
