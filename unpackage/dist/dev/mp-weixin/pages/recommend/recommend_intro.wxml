@@ -1,1 +1,0 @@
-<view class="data-v-87fd30d1"><nav-bar wx:if="{{a}}" class="data-v-87fd30d1" u-i="87fd30d1-0" bind:__l="__l" u-p="{{a}}"></nav-bar><view class="content data-v-87fd30d1"><image src="{{b}}" mode="widthFix" class="merchant_intro data-v-87fd30d1"></image><view class="btn_full data-v-87fd30d1" bindtap="{{c}}"> 我要成为推荐官 </view></view></view>

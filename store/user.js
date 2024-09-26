@@ -21,6 +21,11 @@ export const useUserStore = defineStore('user', {
       uni.setStorageSync('accessToken', access);
       uni.setStorageSync('refreshToken', refresh);
 	  uni.setStorageSync('userInfo',results)
+	  await uni.setStorageSync('phoneNumber',phone_number)
+	  console.log('登录传入的手机号',phone_number);
+	  const number=  await uni.getStorageSync('phoneNumber')
+	  console.log('----',number);
+	  await this.getUserInfoAction()
 	  console.log('accessToken', access);
 	   console.log('登录成功的用户信息',results);
     },
