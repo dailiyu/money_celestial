@@ -31,9 +31,7 @@ export const  usePublicStore = defineStore('public', {
 		async getStoreListAction(){
 			const res=await getShopList()
 			const {location}=await uni.getStorageSync('address_info')
-			this.storeList=res?.results||[]
-			this.ascShopList=await sortShopsByDistance({latitude:location.lat,longitude:location.lng},this.storeList,'asc')
-			this.descShopList= await sortShopsByDistance({latitude:location.lat,longitude:location.lng},this.storeList,'desc')
+			
 		},
 		
 		async fetchAllDataAction(){

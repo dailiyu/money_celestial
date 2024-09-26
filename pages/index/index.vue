@@ -133,10 +133,10 @@ import { getBannerList } from '@/service/bannner.js'
 const keyword = ref('')
 const publicStore=  usePublicStore()
 const userStore = useUserStore()
-
 const city = ref('')
 onMounted(async()=>{
 	const accessToken = uni.getStorageSync('accessToken')
+	console.log(accessToken);
 	if (accessToken) {
 		await publicStore.fetchAllDataAction(),
 		await userStore.fetchAllDataAction()

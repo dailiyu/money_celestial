@@ -18,8 +18,8 @@
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title">《商家入驻须知》</text>
 			</view>
-			<view class="btn_full" @click="toSetInfo">
-				扫码提交资料
+			<view class="btn_full" @click="scanCode">
+				扫码成为商家
 			</view>
 		</view>
 	</view>
@@ -35,8 +35,29 @@ onLoad((options)=>{
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
+	
 }
 
+
+const scanCode = () => {
+  uni.scanCode({
+    onlyFromCamera: true, // 只允许从摄像头扫码
+    success: (res) => {
+      console.log('扫码结果: ', res);
+      uni.showToast({
+        title: `扫码成功: ${res.result}`, // 显示扫码的结果
+        icon: 'none'
+      });
+    },
+    fail: (err) => {
+      console.error('扫码失败: ', err);
+      uni.showToast({
+        title: '扫码失败',
+        icon: 'none'
+      });
+    }
+  });
+};
 
 const toSetInfo = ()=>{
 	if (!isChecked.value) return uni.showToast({

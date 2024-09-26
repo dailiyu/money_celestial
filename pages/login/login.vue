@@ -59,6 +59,7 @@ const toRegister = ()=>{
 	  	title: '登录中'
 	  })
 	  userStore.loginAction(moblie.value,password.value).then((res)=>{
+		  console.log('登录成功的用户信息',res);
 		  uni.hideLoading()
 		 uni.showToast({
 		 	title:'登录成功',

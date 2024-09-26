@@ -41,6 +41,14 @@
 			}
 		},
 		{
+			"path" : "pages/merchant/before_create_shop",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家入驻",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path" : "pages/merchant/merchant_management",
 			"style" : 
 			{
@@ -141,6 +149,14 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "推荐官后台",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/recommend/qrcodeDetail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "推荐官二维码",
 				"navigationStyle": "custom"
 			}
 		},
@@ -336,6 +352,7 @@
 				"navigationStyle": "custom"
 			}
 		}
+		
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

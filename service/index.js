@@ -5,9 +5,15 @@ class Request {
     request(url, method, data) {
         return new Promise((resolve, reject) => {
             const accessToken = uni.getStorageSync('accessToken');
-            const headers = {};
+            let headers = {};
             if (accessToken) {
                 headers['Authorization'] = `Bearer ${accessToken}`;
+				if(url=='/users/register/'&&method=='POST'){
+					headers = {};
+				}
+				if(url=='/users/login/'&&method=='POST'){
+					headers = {};
+				}
             }
 
             uni.request({

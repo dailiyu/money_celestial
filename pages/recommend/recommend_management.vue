@@ -12,7 +12,7 @@
 					<view class="name">
 						{{info?.results&&info?.results[0]?.owner?.username}}
 					</view>
-					<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="getQRCode"></image>
+					<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
 				</view>
 				<view class="total_item flex_center">
 					<view class="">
@@ -67,7 +67,7 @@ import { onMounted, ref } from 'vue';
 import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
 const info = ref({})
 onMounted(async()=>{
-	info.value = await getRecommendOfficerInfo()
+	// info.value = await getRecommendOfficerInfo()
 	// getMPQRCode()
 })
 
@@ -92,17 +92,17 @@ const toSecurityDeposit = ()=>{
 		url: '/pages/merchant/security_deposit'
 	})
 }
-const qrcode = ref('')
-const getQRCode = async()=>{
-	if (!qrcode.value) {
-		const {image_url} = await getOfficerQRCode({path: '/pages/merchant/settle_notice'})
-		qrcode.value = image_url
-	}
-	uni.previewImage({
-		urls: [qrcode.value],
-		current: qrcode.value
+
+const toqrDetail=()=>{
+	uni.navigateTo({
+		url:'/pages/recommend/qrcodeDetail'
 	})
 }
+
+
+
+
+
 </script>
 
 <style lang="scss" scoped>

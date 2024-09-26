@@ -20,13 +20,14 @@ export const useUserStore = defineStore('user', {
       // 保存 Token
       uni.setStorageSync('accessToken', access);
       uni.setStorageSync('refreshToken', refresh);
+	  uni.setStorageSync('userInfo',results)
+	  console.log('accessToken', access);
+	   console.log('登录成功的用户信息',results);
     },
     async getUserInfoAction() {
 	  const res = await getUerAccountMessage();
-	  console.log(res);
-	  const { id } = res||{}
-	  this.userInfo= res
-	  uni.setStorageSync('userId', id);
+	  uni.setStorageSync('userInfo',res)
+		console.log('根据token获取到的用户信息',res);
     },
 	async getMerchantInfoAction(){
 		const res=await getMerchantInfo()
@@ -42,7 +43,7 @@ export const useUserStore = defineStore('user', {
 	async fetchAllDataAction(){
 		this.getUserInfoAction()
 		// this.getMerchantInfoAction()
-		 this.getStoreInfoAction()
+		 // this.getStoreInfoAction()
 	}
   }
 });

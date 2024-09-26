@@ -7,15 +7,15 @@ export  const getUerAccountMessage=async ()=>{
 }
 
 //注册账号
-export  const postRegister=async (phone_number,password,username)=>{
+export  const postRegister=async (phone_number,password)=>{
 	return http.post('/users/register/',{
-		phone_number,password,username:phone_number
+		phone_number,password
 	})
 }
 
 //部分修改用户信息
 export const changeUserInfo=async (userInfo)=>{
-	return http.put('/users/update/',userInfo)
+	return http.put(`/users/profile/${userInfo.phone_number}/`,userInfo)
 }
 
 

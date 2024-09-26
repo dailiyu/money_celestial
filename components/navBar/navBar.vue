@@ -5,9 +5,9 @@
 			<view class="">
 				{{ title }}
 			</view>
-			<view class="skip" v-if="isSkip" @click="skip">
+			<!-- <view class="skip" v-if="isSkip" @click="skip">
 				跳过
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>

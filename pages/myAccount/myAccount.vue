@@ -7,10 +7,10 @@
 		<view class="content">
 			<view class="profile" @click="toLogin">
 				<view class="avtar">
-				<image class="img" :src="userStore.userInfo.icon" mode=""></image>
+				<image class="img" :src="ionc_url" mode=""></image>
 				</view>
 				<view class="name">
-					{{userStore.userInfo.username||'点击登录'}}
+					{{user_name||'点击登录'}}
 				</view>
 			</view>
 			<view class="points-box">
@@ -117,9 +117,15 @@
 import { onMounted, ref } from 'vue';
 import { getAllPoint } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
- const  userStore = useUserStore()
+const  userStore = useUserStore()
 
 const accessToken = uni.getStorageSync('accessToken')
+
+const ionc_url=uni.getStorageSync('userInfo').icon
+const user_name=uni.getStorageSync('userInfo').name
+
+
+
 onMounted(()=>{
 	
 	if (accessToken) {

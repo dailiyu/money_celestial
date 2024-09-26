@@ -58,14 +58,22 @@ const toRegister = async() => {
 		title: '密码长度最低8位'
 	})
   if(password.value == password2.value){
+	  uni.showLoading({
+	  	
+	  })
+	  uni.showLoading({
+	  	title: "正在注册中...",
+	  })
     postRegister(mobile.value, password.value).then((res) => {
-		console.log(res);
+		console.log('刚注册的用户信息',res);
+	uni.hideLoading()
       uni.showToast({
         duration: 2000,
         icon: 'success',
         title: "注册成功"
       });
       userStore.loginAction(mobile.value, password.value);
+	  uni.setStorageSync('phoneNumber',mobile.value)
       setTimeout(() => {
         uni.navigateTo({
           url: '/pages/login/more_info'
@@ -74,7 +82,7 @@ const toRegister = async() => {
     }).catch((err) => {
       uni.showToast({
         duration: 2000,
-        icon: 'fail',
+        icon: 'none',
         title: "注册失败"
       });
     });

@@ -17,7 +17,7 @@
     	    </view>
     	  </radio-group>
     	  <!-- 答案展示 -->
-    	  <view v-if="showAnswers" class="answer">
+    	  <view  class="answer">
     	    正确答案：{{ question.correct_answer }}
     	  </view>
     	</view>
@@ -35,6 +35,7 @@ import questionsData from './question/index.json';
 import { createRecommendOfficer } from '@/service/recommend.js'
 import { getMerchantList } from '@/service/merchant.js'
 import { useUserStore } from '../../store/user';
+import { getCitiesDetail } from '../../service/divisions';
 
 
 export default {
@@ -46,7 +47,8 @@ export default {
     const showAnswers = ref(false);  // 是否显示答案
     const isSubmitted = ref(false);  // 是否已经提交过
 	const userStore = useUserStore()
-
+	const userAddress=uni.getStorageSync('userInfo').residence
+	const userName=uni.getStorageSync('userInfo').name
     // 初始化随机获取5道题目
     const initQuestions = () => {
       allQuestions.value = questionsData.questions;
@@ -66,6 +68,17 @@ export default {
       }
       return selected;
     };
+	
+	const extractCityName=(location)=> {
+  // 使用空格分割字符串，获取最后一个部分（市名）
+  const parts = location.split(' ');
+  
+  // 返回最后一个元素，假设市名总是最后一部分
+  return parts[parts.length - 1];
+}
+	
+	
+
 
     // 用户选择答案
     const selectAnswer = (questionIndex, selectedOption) => {
@@ -76,9 +89,9 @@ export default {
     const submitAnswers = async() => {
       incorrectQuestions.value = [];
       currentQuestions.value.forEach((question, index) => {
-        if (selectedAnswers.value[index] !== question.correct_answer) {
-          incorrectQuestions.value.push(question);
-        }
+        if (selectedAnswers.value[index] !== (question.correct_answer+". "+question.answer)) {
+          incorrectQuestions.value.push(question)
+        }        
       });
       isSubmitted.value = true;
       if (incorrectQuestions.value.length > 0) {
@@ -99,7 +112,13 @@ export default {
 			})
 			const username = userStore.userInfo.username
 			const {results} = await getMerchantList()
-			await createRecommendOfficer({shops:results, name:username})
+			const cityName=  await extractCityName(userAddress)
+			console.log("推荐官所在地 ",cityName);
+			const res=await getCitiesDetail(cityName)
+			const cityId=res[0].id
+			console.log("推荐官所在城市id ",cityId);
+			 await createRecommendOfficer({name:userName, city_id:cityId})
+			
 			uni.hideLoading()
 			uni.navigateTo({
 				url: '/pages/recommend/recommend_management'
@@ -138,7 +157,8 @@ export default {
       selectAnswer,
       submitAnswers,
       showCorrectAnswers,
-      resetQuiz
+      resetQuiz,
+	  extractCityName
     };
   }
 };

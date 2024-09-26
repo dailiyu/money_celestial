@@ -705,7 +705,7 @@ if (uni.restoreGlobal) {
     const reg = /^[0-9]*$/g;
     return typeof val === "number" || reg.test(val) ? val + "px" : val;
   };
-  const _sfc_main$V = {
+  const _sfc_main$Z = {
     name: "UniIcons",
     emits: ["click"],
     props: {
@@ -759,7 +759,7 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$j(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(
       "text",
       {
@@ -774,8 +774,8 @@ if (uni.restoreGlobal) {
       /* CLASS, STYLE */
     );
   }
-  const __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["render", _sfc_render$g], ["__scopeId", "data-v-d31e1c47"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
-  const _sfc_main$U = {
+  const __easycom_1$6 = /* @__PURE__ */ _export_sfc(_sfc_main$Z, [["render", _sfc_render$j], ["__scopeId", "data-v-d31e1c47"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
+  const _sfc_main$Y = {
     name: "navBar",
     data() {
       return {
@@ -811,8 +811,8 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_0$1);
+  function _sfc_render$i(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -835,18 +835,14 @@ if (uni.restoreGlobal) {
             1
             /* TEXT */
           ),
-          $props.isSkip ? (vue.openBlock(), vue.createElementBlock("view", {
-            key: 1,
-            class: "skip",
-            onClick: _cache[0] || (_cache[0] = (...args) => $options.skip && $options.skip(...args))
-          }, " 跳过 ")) : vue.createCommentVNode("v-if", true)
+          vue.createCommentVNode(' <view class="skip" v-if="isSkip" @click="skip">\n				跳过\n			</view> ')
         ])
       ],
       4
       /* STYLE */
     );
   }
-  const __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["render", _sfc_render$f], ["__scopeId", "data-v-fba290dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/navBar/navBar.vue"]]);
+  const __easycom_0$1 = /* @__PURE__ */ _export_sfc(_sfc_main$Y, [["render", _sfc_render$i], ["__scopeId", "data-v-fba290dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/navBar/navBar.vue"]]);
   const isObject = (val) => val !== null && typeof val === "object";
   const defaultDelimiters = ["{", "}"];
   class BaseFormatter {
@@ -897,8 +893,8 @@ if (uni.restoreGlobal) {
   function compile(tokens, values) {
     const compiled = [];
     let index = 0;
-    const mode = Array.isArray(values) ? "list" : isObject(values) ? "named" : "unknown";
-    if (mode === "unknown") {
+    const mode2 = Array.isArray(values) ? "list" : isObject(values) ? "named" : "unknown";
+    if (mode2 === "unknown") {
       return compiled;
     }
     while (index < tokens.length) {
@@ -911,11 +907,11 @@ if (uni.restoreGlobal) {
           compiled.push(values[parseInt(token.value, 10)]);
           break;
         case "named":
-          if (mode === "named") {
+          if (mode2 === "named") {
             compiled.push(values[token.value]);
           } else {
             {
-              console.warn(`Type of token '${token.type}' and format of value '${mode}' don't match!`);
+              console.warn(`Type of token '${token.type}' and format of value '${mode2}' don't match!`);
             }
           }
           break;
@@ -1153,7 +1149,7 @@ if (uni.restoreGlobal) {
   const {
     t: t$4
   } = initVueI18n(messages$1);
-  const _sfc_main$T = {
+  const _sfc_main$X = {
     name: "UniSearchBar",
     emits: ["input", "update:modelValue", "clear", "cancel", "confirm", "blur", "focus"],
     props: {
@@ -1295,8 +1291,8 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$e(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_0$1);
+  function _sfc_render$h(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
     return vue.openBlock(), vue.createElementBlock("view", { class: "uni-searchbar" }, [
       vue.createElementVNode(
         "view",
@@ -1371,8 +1367,8 @@ if (uni.restoreGlobal) {
       )) : vue.createCommentVNode("v-if", true)
     ]);
   }
-  const __easycom_1$5 = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["render", _sfc_render$e], ["__scopeId", "data-v-f07ef577"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue"]]);
-  const _imports_0$c = "/static/locate.png";
+  const __easycom_1$5 = /* @__PURE__ */ _export_sfc(_sfc_main$X, [["render", _sfc_render$h], ["__scopeId", "data-v-f07ef577"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue"]]);
+  const _imports_0$d = "/static/locate.png";
   const _imports_1$6 = "/static/home/cart.png";
   const _imports_2$4 = "/static/home/bag.png";
   const _imports_3$2 = "/static/home/star.png";
@@ -2974,32 +2970,6 @@ This will fail in production.`);
   const getShopList = () => {
     return http.get("/shops/");
   };
-  const sortShopsByDistance = async (origins, shopList, order = "asc") => {
-    try {
-      const distances = await calculateDistances(
-        origins,
-        shopList.map((shop) => ({ latitude: shop.latitude, longitude: shop.longitude }))
-      );
-      shopList.forEach((shop, index) => {
-        shop.distance = distances[index].distance;
-      });
-      const sortedShopList = [...shopList].sort((a2, b2) => {
-        if (a2.distance === void 0 || b2.distance === void 0) {
-          return 0;
-        }
-        if (order === "asc") {
-          return a2.distance - b2.distance;
-        } else if (order === "desc") {
-          return b2.distance - a2.distance;
-        }
-        return 0;
-      });
-      return sortedShopList;
-    } catch (error) {
-      formatAppLog("error", "at utils/distanceSorting.js:34", "Error sorting shops by distance:", error);
-      throw error;
-    }
-  };
   const calculateDistances = (origins, destinations) => {
     return new Promise((resolve, reject) => {
       const url = `https://apis.map.qq.com/ws/distance/v1/matrix?mode=driving&from=${origins.latitude},${origins.longitude}&key=YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA`;
@@ -3043,11 +3013,8 @@ This will fail in production.`);
         this.merchantList = (res == null ? void 0 : res.results) || [];
       },
       async getStoreListAction() {
-        const res = await getShopList();
-        const { location: location2 } = await uni.getStorageSync("address_info");
-        this.storeList = (res == null ? void 0 : res.results) || [];
-        this.ascShopList = await sortShopsByDistance({ latitude: location2.lat, longitude: location2.lng }, this.storeList, "asc");
-        this.descShopList = await sortShopsByDistance({ latitude: location2.lat, longitude: location2.lng }, this.storeList, "desc");
+        await getShopList();
+        await uni.getStorageSync("address_info");
       },
       async fetchAllDataAction() {
         this.getCateGoryListAction();
@@ -3058,11 +3025,10 @@ This will fail in production.`);
   const getUerAccountMessage = async () => {
     return http.get("/users/");
   };
-  const postRegister = async (phone_number, password, username) => {
-    return http.post("/users/register/", {
+  const postRegister = async (phone_number, password) => {
+    return http.post("/users/", {
       phone_number,
-      password,
-      username: phone_number
+      password
     });
   };
   const changeUserInfo = async (userInfo) => {
@@ -3092,7 +3058,7 @@ This will fail in production.`);
     }
     return style;
   }
-  const _sfc_main$S = {
+  const _sfc_main$W = {
     name: "uni-easyinput",
     emits: [
       "click",
@@ -3449,8 +3415,8 @@ This will fail in production.`);
       }
     }
   };
-  function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_0$1);
+  function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -3574,11 +3540,11 @@ This will fail in production.`);
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1$4 = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["render", _sfc_render$d], ["__scopeId", "data-v-09fd5285"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue"]]);
-  const _imports_0$b = "/static/logo.png";
+  const __easycom_1$4 = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["render", _sfc_render$g], ["__scopeId", "data-v-09fd5285"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue"]]);
+  const _imports_0$c = "/static/logo.png";
   const _imports_1$4 = "/static/phone-grey.png";
   const _imports_2$3 = "/static/lock-grey.png";
-  const _sfc_main$R = {
+  const _sfc_main$V = {
     __name: "login",
     setup(__props) {
       const userStore = useUserStore();
@@ -3604,6 +3570,7 @@ This will fail in production.`);
           title: "登录中"
         });
         userStore.loginAction(moblie.value, password.value).then((res) => {
+          formatAppLog("log", "at pages/login/login.vue:62", "登录成功的用户信息", res);
           uni.hideLoading();
           uni.showToast({
             title: "登录成功",
@@ -3628,7 +3595,7 @@ This will fail in production.`);
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_uni_easyinput = resolveEasycom(vue.resolveDynamicComponent("uni-easyinput"), __easycom_1$4);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, {
@@ -3637,7 +3604,7 @@ This will fail in production.`);
           }),
           vue.createElementVNode("view", { class: "content" }, [
             vue.createElementVNode("image", {
-              src: _imports_0$b,
+              src: _imports_0$c,
               mode: "widthFix",
               class: "logo"
             }),
@@ -3693,7 +3660,7 @@ This will fail in production.`);
       };
     }
   };
-  const PagesLoginLogin = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["__scopeId", "data-v-e4e4508d"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/login/login.vue"]]);
+  const PagesLoginLogin = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["__scopeId", "data-v-e4e4508d"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/login/login.vue"]]);
   const useUserStore = defineStore("user", {
     state: () => {
       return {
@@ -3708,13 +3675,14 @@ This will fail in production.`);
         const { access, refresh } = results;
         uni.setStorageSync("accessToken", access);
         uni.setStorageSync("refreshToken", refresh);
+        uni.setStorageSync("userInfo", results);
+        formatAppLog("log", "at store/user.js:24", "accessToken", access);
+        formatAppLog("log", "at store/user.js:25", "登录成功的用户信息", results);
       },
       async getUserInfoAction() {
         const res = await getUerAccountMessage();
-        formatAppLog("log", "at store/user.js:26", res);
-        const { id } = res || {};
-        this.userInfo = res;
-        uni.setStorageSync("userId", id);
+        uni.setStorageSync("userInfo", res);
+        formatAppLog("log", "at store/user.js:30", "根据token获取到的用户信息", res);
       },
       async getMerchantInfoAction() {
         var _a;
@@ -3725,19 +3693,18 @@ This will fail in production.`);
       async getStoreInfoAction() {
         const res = await getShopInfo();
         this.storeInfo = res;
-        formatAppLog("log", "at store/user.js:39", res);
+        formatAppLog("log", "at store/user.js:40", res);
         uni.setStorageSync("storeId", res.id);
       },
       async fetchAllDataAction() {
         this.getUserInfoAction();
-        this.getStoreInfoAction();
       }
     }
   });
   const getBannerList = async () => {
     return http.get("/banners/");
   };
-  const _sfc_main$Q = {
+  const _sfc_main$U = {
     __name: "index",
     setup(__props) {
       const keyword = vue.ref("");
@@ -3746,6 +3713,7 @@ This will fail in production.`);
       const city = vue.ref("");
       vue.onMounted(async () => {
         const accessToken = uni.getStorageSync("accessToken");
+        formatAppLog("log", "at pages/index/index.vue:139", accessToken);
         if (accessToken) {
           await publicStore.fetchAllDataAction(), await userStore.fetchAllDataAction();
         }
@@ -3825,7 +3793,7 @@ This will fail in production.`);
       };
       return (_ctx, _cache) => {
         var _a, _b, _c;
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_uni_search_bar = resolveEasycom(vue.resolveDynamicComponent("uni-search-bar"), __easycom_1$5);
         return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
           vue.createVNode(_component_navBar, {
@@ -3834,7 +3802,7 @@ This will fail in production.`);
           }),
           vue.createElementVNode("view", { class: "search_bar flex_between" }, [
             vue.createElementVNode("image", {
-              src: _imports_0$c,
+              src: _imports_0$d,
               mode: "widthFix",
               class: "locate_img"
             }),
@@ -4065,9 +4033,9 @@ This will fail in production.`);
       };
     }
   };
-  const PagesIndexIndex = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["__scopeId", "data-v-1cf27b2a"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/index/index.vue"]]);
-  const _imports_0$a = "/static/merchant/merchant-intro.jpg";
-  const _sfc_main$P = {
+  const PagesIndexIndex = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["__scopeId", "data-v-1cf27b2a"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/index/index.vue"]]);
+  const _imports_0$b = "/static/merchant/merchant-intro.jpg";
+  const _sfc_main$T = {
     __name: "merchant_intro",
     setup(__props) {
       const toNotice = () => {
@@ -4076,12 +4044,12 @@ This will fail in production.`);
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "商家" }),
           vue.createElementVNode("view", { class: "content" }, [
             vue.createElementVNode("image", {
-              src: _imports_0$a,
+              src: _imports_0$b,
               mode: "widthFix",
               class: "merchant_intro"
             }),
@@ -4094,8 +4062,8 @@ This will fail in production.`);
       };
     }
   };
-  const PagesMerchantMerchantIntro = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["__scopeId", "data-v-63c4abfc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_intro.vue"]]);
-  const _sfc_main$O = {
+  const PagesMerchantMerchantIntro = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["__scopeId", "data-v-63c4abfc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_intro.vue"]]);
+  const _sfc_main$S = {
     __name: "settle_notice",
     setup(__props) {
       const referral_officer = vue.ref("");
@@ -4106,18 +4074,29 @@ This will fail in production.`);
       const changeCheck = () => {
         isChecked.value = !isChecked.value;
       };
-      const toSetInfo = () => {
-        if (!isChecked.value)
-          return uni.showToast({
-            icon: "none",
-            title: "请阅读完须知后勾选同意"
-          });
-        uni.navigateTo({
-          url: "/pages/merchant/merchant_set_info?referral_officer=" + referral_officer
+      const scanCode = () => {
+        uni.scanCode({
+          onlyFromCamera: true,
+          // 只允许从摄像头扫码
+          success: (res) => {
+            formatAppLog("log", "at pages/merchant/settle_notice.vue:46", "扫码结果: ", res);
+            uni.showToast({
+              title: `扫码成功: ${res.result}`,
+              // 显示扫码的结果
+              icon: "none"
+            });
+          },
+          fail: (err) => {
+            formatAppLog("error", "at pages/merchant/settle_notice.vue:53", "扫码失败: ", err);
+            uni.showToast({
+              title: "扫码失败",
+              icon: "none"
+            });
+          }
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "商家入驻须知" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -4140,16 +4119,16 @@ This will fail in production.`);
             ]),
             vue.createElementVNode("view", {
               class: "btn_full",
-              onClick: toSetInfo
-            }, " 扫码提交资料 ")
+              onClick: scanCode
+            }, " 扫码成为商家 ")
           ])
         ]);
       };
     }
   };
-  const PagesMerchantSettleNotice = /* @__PURE__ */ _export_sfc(_sfc_main$O, [["__scopeId", "data-v-37037ead"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/settle_notice.vue"]]);
-  const _imports_0$9 = "/static/upload.png";
-  const _sfc_main$N = {
+  const PagesMerchantSettleNotice = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["__scopeId", "data-v-37037ead"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/settle_notice.vue"]]);
+  const _imports_0$a = "/static/upload.png";
+  const _sfc_main$R = {
     __name: "upload",
     props: {
       amount: {
@@ -4193,7 +4172,7 @@ This will fail in production.`);
           )) : vue.createCommentVNode("v-if", true),
           imageTempPaths.value.length < props.amount ? (vue.openBlock(), vue.createElementBlock("image", {
             key: 1,
-            src: _imports_0$9,
+            src: _imports_0$a,
             mode: "widthFix",
             class: "upload_btn",
             onClick: chooseImg
@@ -4202,7 +4181,7 @@ This will fail in production.`);
       };
     }
   };
-  const __easycom_2$4 = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["__scopeId", "data-v-0917ae16"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/upload/upload.vue"]]);
+  const __easycom_2$4 = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["__scopeId", "data-v-0917ae16"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/upload/upload.vue"]]);
   const pages = [
     {
       path: "pages/index/index",
@@ -4234,6 +4213,13 @@ This will fail in production.`);
     },
     {
       path: "pages/merchant/merchant_set_info",
+      style: {
+        navigationBarTitleText: "商家入驻",
+        navigationStyle: "custom"
+      }
+    },
+    {
+      path: "pages/merchant/before_create_shop",
       style: {
         navigationBarTitleText: "商家入驻",
         navigationStyle: "custom"
@@ -4327,6 +4313,13 @@ This will fail in production.`);
       path: "pages/recommend/recommend_management",
       style: {
         navigationBarTitleText: "推荐官后台",
+        navigationStyle: "custom"
+      }
+    },
+    {
+      path: "pages/recommend/qrcodeDetail",
+      style: {
+        navigationBarTitleText: "推荐官二维码",
         navigationStyle: "custom"
       }
     },
@@ -7245,7 +7238,7 @@ ${i3}
     } }), Cs(Js), Js.addInterceptor = N, Js.removeInterceptor = D, Js.interceptObject = F;
   })();
   var Vs = Js;
-  const _sfc_main$M = {
+  const _sfc_main$Q = {
     name: "uni-data-select",
     mixins: [Vs.mixinDatacom || {}],
     props: {
@@ -7497,8 +7490,8 @@ ${i3}
       }
     }
   };
-  function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_0$1);
+  function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
     return vue.openBlock(), vue.createElementBlock("view", { class: "uni-stat__select" }, [
       $props.label ? (vue.openBlock(), vue.createElementBlock(
         "span",
@@ -7637,15 +7630,14 @@ ${i3}
       )
     ]);
   }
-  const __easycom_1$3 = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["render", _sfc_render$c], ["__scopeId", "data-v-ddf9e0a2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-select/components/uni-data-select/uni-data-select.vue"]]);
+  const __easycom_1$3 = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$f], ["__scopeId", "data-v-ddf9e0a2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-select/components/uni-data-select/uni-data-select.vue"]]);
   const getMerchantList$1 = (data) => {
     return http.get("/shops/", data);
   };
   const merchantCodeAuthentication = (data) => {
     return http.post("/users/merchant/code/verification/", data);
   };
-  const getCitiesDetail = async () => {
-    const { city } = await uni.getStorageSync("address_info");
+  const getCitiesDetail = async (city) => {
     formatAppLog("log", "at service/divisions.js:36", city);
     return http.post("/divisions/citys/wechat/", {
       filters: {
@@ -7703,7 +7695,7 @@ ${i3}
     const seconds = ("0" + date.getSeconds()).slice(-2);
     return format.replace("yyyy", year).replace("MM", month).replace("dd", day).replace("hh", hours).replace("mm", minutes).replace("ss", seconds);
   };
-  const _sfc_main$L = {
+  const _sfc_main$P = {
     __name: "merchant_set_info",
     setup(__props) {
       const referral_officer = vue.ref("");
@@ -7857,7 +7849,7 @@ ${i3}
         }
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_upload = resolveEasycom(vue.resolveDynamicComponent("upload"), __easycom_2$4);
         const _component_uni_data_select = resolveEasycom(vue.resolveDynamicComponent("uni-data-select"), __easycom_1$3);
         return vue.openBlock(), vue.createElementBlock("view", null, [
@@ -8030,10 +8022,32 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantSetInfo = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["__scopeId", "data-v-34ea46dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_set_info.vue"]]);
+  const PagesMerchantMerchantSetInfo = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["__scopeId", "data-v-34ea46dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_set_info.vue"]]);
+  const _imports_0$9 = "/static/success.jpg";
+  const _sfc_main$O = {};
+  function _sfc_render$e(_ctx, _cache) {
+    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
+    return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
+      vue.createVNode(_component_navBar, { title: "商家入驻" }),
+      vue.createElementVNode("view", { class: "img-box" }, [
+        vue.createElementVNode("image", {
+          class: "img",
+          src: _imports_0$9,
+          mode: "aspectFit"
+        })
+      ]),
+      vue.createElementVNode("view", { class: "text-box" }, [
+        vue.createElementVNode("view", { class: "text" }, "恭喜你，已经成为满仓商家！")
+      ]),
+      vue.createElementVNode("view", { class: "buttom-box" }, [
+        vue.createElementVNode("view", { class: "buttom" }, "创建店铺")
+      ])
+    ]);
+  }
+  const PagesMerchantBeforeCreateShop = /* @__PURE__ */ _export_sfc(_sfc_main$O, [["render", _sfc_render$e], ["__scopeId", "data-v-cf075c43"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/before_create_shop.vue"]]);
   const _imports_0$8 = "/static/star.png";
   const _imports_0$7 = "/static/arrow-right.png";
-  const _sfc_main$K = {
+  const _sfc_main$N = {
     __name: "merchant_management",
     setup(__props) {
       const userStore = useUserStore();
@@ -8058,7 +8072,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "商家后台" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -8154,8 +8168,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantManagement = /* @__PURE__ */ _export_sfc(_sfc_main$K, [["__scopeId", "data-v-a81a7219"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_management.vue"]]);
-  const _sfc_main$J = {
+  const PagesMerchantMerchantManagement = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["__scopeId", "data-v-a81a7219"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_management.vue"]]);
+  const _sfc_main$M = {
     __name: "merchant_edit_info",
     setup(__props) {
       const publicStore = usePublicStore();
@@ -8271,7 +8285,7 @@ ${i3}
         }
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_upload = resolveEasycom(vue.resolveDynamicComponent("upload"), __easycom_2$4);
         const _component_uni_data_select = resolveEasycom(vue.resolveDynamicComponent("uni-data-select"), __easycom_1$3);
         return vue.openBlock(), vue.createElementBlock("view", null, [
@@ -8399,7 +8413,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantEditInfo = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["__scopeId", "data-v-aaffa612"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_edit_info.vue"]]);
+  const PagesMerchantMerchantEditInfo = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["__scopeId", "data-v-aaffa612"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_edit_info.vue"]]);
   const bindPointAccount = async (data) => {
     return http.post("/wallets/wallet/bind/points/account/", data);
   };
@@ -8412,7 +8426,7 @@ ${i3}
   const getAllPoint = async () => {
     return http.get("/wallets/");
   };
-  const _sfc_main$I = {
+  const _sfc_main$L = {
     __name: "point_gift",
     setup(__props) {
       const totalPoints = vue.ref(0);
@@ -8462,7 +8476,7 @@ ${i3}
         }
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "积分赠送" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -8547,8 +8561,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantPointGift = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["__scopeId", "data-v-976eb3a4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/point_gift.vue"]]);
-  const _sfc_main$H = {
+  const PagesMerchantPointGift = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["__scopeId", "data-v-976eb3a4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/point_gift.vue"]]);
+  const _sfc_main$K = {
     __name: "merchant_code_authentication",
     setup(__props) {
       const address = vue.ref("");
@@ -8569,7 +8583,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "商家码认证" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -8601,8 +8615,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["__scopeId", "data-v-0f661089"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_code_authentication.vue"]]);
-  const _sfc_main$G = {
+  const PagesMerchantMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$K, [["__scopeId", "data-v-0f661089"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_code_authentication.vue"]]);
+  const _sfc_main$J = {
     __name: "security_deposit",
     setup(__props) {
       const toRecord = () => {
@@ -8626,7 +8640,7 @@ ${i3}
         amount.value = collateral;
       });
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "保证金" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -8666,9 +8680,9 @@ ${i3}
       };
     }
   };
-  const PagesMerchantSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["__scopeId", "data-v-3efa2ea6"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/security_deposit.vue"]]);
+  const PagesMerchantSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["__scopeId", "data-v-3efa2ea6"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/security_deposit.vue"]]);
   const ComponentClass$1 = "uni-col";
-  const _sfc_main$F = {
+  const _sfc_main$I = {
     name: "uniCol",
     props: {
       span: {
@@ -8772,7 +8786,7 @@ ${i3}
       }
     }
   };
-  function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -8789,10 +8803,10 @@ ${i3}
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1$2 = /* @__PURE__ */ _export_sfc(_sfc_main$F, [["render", _sfc_render$b], ["__scopeId", "data-v-28ff6624"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
+  const __easycom_1$2 = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["render", _sfc_render$d], ["__scopeId", "data-v-28ff6624"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
   const ComponentClass = "uni-row";
   const modifierSeparator = "--";
-  const _sfc_main$E = {
+  const _sfc_main$H = {
     name: "uniRow",
     componentName: "uniRow",
     props: {
@@ -8832,7 +8846,7 @@ ${i3}
       }
     }
   };
-  function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -8849,7 +8863,7 @@ ${i3}
       /* CLASS, STYLE */
     );
   }
-  const __easycom_2$3 = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["render", _sfc_render$a], ["__scopeId", "data-v-097353af"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
+  const __easycom_2$3 = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["render", _sfc_render$c], ["__scopeId", "data-v-097353af"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
   const en$1 = {
     "uni-load-more.contentdown": "Pull up to show more",
     "uni-load-more.contentrefresh": "loading...",
@@ -8877,7 +8891,7 @@ ${i3}
   const {
     t: t$2
   } = initVueI18n(messages);
-  const _sfc_main$D = {
+  const _sfc_main$G = {
     name: "UniLoadMore",
     emits: ["clickLoadMore"],
     props: {
@@ -8959,7 +8973,7 @@ ${i3}
       }
     }
   };
-  function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", {
       class: "uni-load-more",
       onClick: _cache[0] || (_cache[0] = (...args) => $options.onClick && $options.onClick(...args))
@@ -9034,7 +9048,7 @@ ${i3}
       )) : vue.createCommentVNode("v-if", true)
     ]);
   }
-  const __easycom_3 = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["render", _sfc_render$9], ["__scopeId", "data-v-9245e42c"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-load-more/components/uni-load-more/uni-load-more.vue"]]);
+  const __easycom_0 = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["render", _sfc_render$b], ["__scopeId", "data-v-9245e42c"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-load-more/components/uni-load-more/uni-load-more.vue"]]);
   const addDeposit = (data) => {
     return http.post("/wallets/add/collateral/", data);
   };
@@ -9044,7 +9058,7 @@ ${i3}
   const getRecords = (data) => {
     return http.get("/wallets/transactions/", data);
   };
-  const _sfc_main$C = {
+  const _sfc_main$F = {
     __name: "deposit_record",
     setup(__props) {
       vue.onMounted(() => {
@@ -9066,10 +9080,10 @@ ${i3}
         }
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_uni_col = resolveEasycom(vue.resolveDynamicComponent("uni-col"), __easycom_1$2);
         const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$3);
-        const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_3);
+        const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_0);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "保证金记录" }),
           vue.createVNode(_component_uni_row, { class: "title_row" }, {
@@ -9225,8 +9239,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantDepositRecord = /* @__PURE__ */ _export_sfc(_sfc_main$C, [["__scopeId", "data-v-d6fe0577"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/deposit_record.vue"]]);
-  const _sfc_main$B = {
+  const PagesMerchantDepositRecord = /* @__PURE__ */ _export_sfc(_sfc_main$F, [["__scopeId", "data-v-d6fe0577"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/deposit_record.vue"]]);
+  const _sfc_main$E = {
     __name: "add_deposit",
     setup(__props) {
       const address = vue.ref("");
@@ -9278,7 +9292,7 @@ ${i3}
         }
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "增加保证金" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -9353,8 +9367,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantAddDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["__scopeId", "data-v-4a198a90"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/add_deposit.vue"]]);
-  const _sfc_main$A = {
+  const PagesMerchantAddDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["__scopeId", "data-v-4a198a90"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/add_deposit.vue"]]);
+  const _sfc_main$D = {
     __name: "remove_deposit",
     setup(__props) {
       vue.onMounted(() => {
@@ -9404,7 +9418,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "解除保证金" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -9479,8 +9493,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantRemoveDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$A, [["__scopeId", "data-v-930acddc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/remove_deposit.vue"]]);
-  const _sfc_main$z = {
+  const PagesMerchantRemoveDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["__scopeId", "data-v-930acddc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/remove_deposit.vue"]]);
+  const _sfc_main$C = {
     __name: "upload_goods",
     setup(__props) {
       const shopIntro = vue.ref("");
@@ -9519,7 +9533,7 @@ ${i3}
       vue.ref([]);
       vue.ref([]);
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_uni_data_select = resolveEasycom(vue.resolveDynamicComponent("uni-data-select"), __easycom_1$3);
         const _component_upload = resolveEasycom(vue.resolveDynamicComponent("upload"), __easycom_2$4);
         return vue.openBlock(), vue.createElementBlock("view", null, [
@@ -9631,11 +9645,11 @@ ${i3}
       };
     }
   };
-  const PagesMerchantUploadGoods = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["__scopeId", "data-v-452b451b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/upload_goods.vue"]]);
+  const PagesMerchantUploadGoods = /* @__PURE__ */ _export_sfc(_sfc_main$C, [["__scopeId", "data-v-452b451b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/upload_goods.vue"]]);
   const _imports_0$6 = "/static/agent/agent-intro.jpg";
-  const _sfc_main$y = {};
-  function _sfc_render$8(_ctx, _cache) {
-    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+  const _sfc_main$B = {};
+  function _sfc_render$a(_ctx, _cache) {
+    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
     return vue.openBlock(), vue.createElementBlock("view", null, [
       vue.createVNode(_component_navBar, { title: "代理" }),
       vue.createElementVNode("view", { class: "content" }, [
@@ -9648,7 +9662,7 @@ ${i3}
       ])
     ]);
   }
-  const PagesAgentAgentIntro = /* @__PURE__ */ _export_sfc(_sfc_main$y, [["render", _sfc_render$8], ["__scopeId", "data-v-4d11c0d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_intro.vue"]]);
+  const PagesAgentAgentIntro = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["render", _sfc_render$a], ["__scopeId", "data-v-4d11c0d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_intro.vue"]]);
   const _imports_0$5 = "/static/agent/agent-bg.png";
   const getAgentShopList = async (data) => {
     return http.get("/agent/province/shops/", data);
@@ -9659,7 +9673,7 @@ ${i3}
   const getRecommendOfficerAmount = async () => {
     return http.get("/agent/province/referral/officers/");
   };
-  const _sfc_main$x = {
+  const _sfc_main$A = {
     __name: "agent_management",
     setup(__props) {
       vue.onMounted(() => {
@@ -9700,7 +9714,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "代理后台" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -9798,9 +9812,9 @@ ${i3}
       };
     }
   };
-  const PagesAgentAgentManagement = /* @__PURE__ */ _export_sfc(_sfc_main$x, [["__scopeId", "data-v-aa1b4823"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_management.vue"]]);
+  const PagesAgentAgentManagement = /* @__PURE__ */ _export_sfc(_sfc_main$A, [["__scopeId", "data-v-aa1b4823"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_management.vue"]]);
   const _imports_0$4 = "/static/recommend/recommend-intro.jpg";
-  const _sfc_main$w = {
+  const _sfc_main$z = {
     __name: "recommend_intro",
     setup(__props) {
       const toNext = () => {
@@ -9810,7 +9824,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "推荐官" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -9828,25 +9842,24 @@ ${i3}
       };
     }
   };
-  const PagesRecommendRecommendIntro = /* @__PURE__ */ _export_sfc(_sfc_main$w, [["__scopeId", "data-v-87fd30d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_intro.vue"]]);
+  const PagesRecommendRecommendIntro = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["__scopeId", "data-v-87fd30d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_intro.vue"]]);
   const _imports_0$3 = "/static/recommend/recommend_bg.png";
   const _imports_1$3 = "/static/recommend/lv1.png";
   const _imports_2$2 = "/static/recommend/code.png";
   const getRecommendOfficerInfo = async () => {
-    return http.get("/referral/officer/shops/");
+    return http.get("/referral/officer/me/");
   };
   const createRecommendOfficer = async (data) => {
-    return http.post("/referral/officer/create/", data);
+    return http.post("/referral/officers/", data);
   };
   const getOfficerQRCode = async (data) => {
-    return http.post("/referral/qrcode/", data);
+    return http.get("/referral/qrcode/", data);
   };
-  const _sfc_main$v = {
+  const _sfc_main$y = {
     __name: "recommend_management",
     setup(__props) {
       const info2 = vue.ref({});
       vue.onMounted(async () => {
-        info2.value = await getRecommendOfficerInfo();
       });
       const toMerchantList = () => {
         uni.navigateTo({
@@ -9863,20 +9876,14 @@ ${i3}
           url: "/pages/merchant/security_deposit"
         });
       };
-      const qrcode = vue.ref("");
-      const getQRCode = async () => {
-        if (!qrcode.value) {
-          const { image_url } = await getOfficerQRCode({ path: "/pages/merchant/settle_notice" });
-          qrcode.value = image_url;
-        }
-        uni.previewImage({
-          urls: [qrcode.value],
-          current: qrcode.value
+      const toqrDetail = () => {
+        uni.navigateTo({
+          url: "/pages/recommend/qrcodeDetail"
         });
       };
       return (_ctx, _cache) => {
         var _a, _b, _c, _d;
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "推荐官后台" }),
           vue.createElementVNode("view", { class: "total_data" }, [
@@ -9904,7 +9911,7 @@ ${i3}
                   src: _imports_2$2,
                   mode: "widthFix",
                   class: "code_pic",
-                  onClick: getQRCode
+                  onClick: toqrDetail
                 })
               ]),
               vue.createElementVNode("view", { class: "total_item flex_center" }, [
@@ -9967,8 +9974,2035 @@ ${i3}
       };
     }
   };
-  const PagesRecommendRecommendManagement = /* @__PURE__ */ _export_sfc(_sfc_main$v, [["__scopeId", "data-v-6eb3b4f4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_management.vue"]]);
-  const _sfc_main$u = {
+  const PagesRecommendRecommendManagement = /* @__PURE__ */ _export_sfc(_sfc_main$y, [["__scopeId", "data-v-6eb3b4f4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_management.vue"]]);
+  var browser = {};
+  var canPromise$1 = function() {
+    return typeof Promise === "function" && Promise.prototype && Promise.prototype.then;
+  };
+  var qrcode = {};
+  var utils$1 = {};
+  let toSJISFunction;
+  const CODEWORDS_COUNT = [
+    0,
+    // Not used
+    26,
+    44,
+    70,
+    100,
+    134,
+    172,
+    196,
+    242,
+    292,
+    346,
+    404,
+    466,
+    532,
+    581,
+    655,
+    733,
+    815,
+    901,
+    991,
+    1085,
+    1156,
+    1258,
+    1364,
+    1474,
+    1588,
+    1706,
+    1828,
+    1921,
+    2051,
+    2185,
+    2323,
+    2465,
+    2611,
+    2761,
+    2876,
+    3034,
+    3196,
+    3362,
+    3532,
+    3706
+  ];
+  utils$1.getSymbolSize = function getSymbolSize2(version2) {
+    if (!version2)
+      throw new Error('"version" cannot be null or undefined');
+    if (version2 < 1 || version2 > 40)
+      throw new Error('"version" should be in range from 1 to 40');
+    return version2 * 4 + 17;
+  };
+  utils$1.getSymbolTotalCodewords = function getSymbolTotalCodewords(version2) {
+    return CODEWORDS_COUNT[version2];
+  };
+  utils$1.getBCHDigit = function(data) {
+    let digit = 0;
+    while (data !== 0) {
+      digit++;
+      data >>>= 1;
+    }
+    return digit;
+  };
+  utils$1.setToSJISFunction = function setToSJISFunction(f2) {
+    if (typeof f2 !== "function") {
+      throw new Error('"toSJISFunc" is not a valid function.');
+    }
+    toSJISFunction = f2;
+  };
+  utils$1.isKanjiModeEnabled = function() {
+    return typeof toSJISFunction !== "undefined";
+  };
+  utils$1.toSJIS = function toSJIS(kanji2) {
+    return toSJISFunction(kanji2);
+  };
+  var errorCorrectionLevel = {};
+  (function(exports) {
+    exports.L = { bit: 1 };
+    exports.M = { bit: 0 };
+    exports.Q = { bit: 3 };
+    exports.H = { bit: 2 };
+    function fromString(string) {
+      if (typeof string !== "string") {
+        throw new Error("Param is not a string");
+      }
+      const lcStr = string.toLowerCase();
+      switch (lcStr) {
+        case "l":
+        case "low":
+          return exports.L;
+        case "m":
+        case "medium":
+          return exports.M;
+        case "q":
+        case "quartile":
+          return exports.Q;
+        case "h":
+        case "high":
+          return exports.H;
+        default:
+          throw new Error("Unknown EC Level: " + string);
+      }
+    }
+    exports.isValid = function isValid(level) {
+      return level && typeof level.bit !== "undefined" && level.bit >= 0 && level.bit < 4;
+    };
+    exports.from = function from(value, defaultValue) {
+      if (exports.isValid(value)) {
+        return value;
+      }
+      try {
+        return fromString(value);
+      } catch (e2) {
+        return defaultValue;
+      }
+    };
+  })(errorCorrectionLevel);
+  function BitBuffer$1() {
+    this.buffer = [];
+    this.length = 0;
+  }
+  BitBuffer$1.prototype = {
+    get: function(index) {
+      const bufIndex = Math.floor(index / 8);
+      return (this.buffer[bufIndex] >>> 7 - index % 8 & 1) === 1;
+    },
+    put: function(num, length) {
+      for (let i2 = 0; i2 < length; i2++) {
+        this.putBit((num >>> length - i2 - 1 & 1) === 1);
+      }
+    },
+    getLengthInBits: function() {
+      return this.length;
+    },
+    putBit: function(bit) {
+      const bufIndex = Math.floor(this.length / 8);
+      if (this.buffer.length <= bufIndex) {
+        this.buffer.push(0);
+      }
+      if (bit) {
+        this.buffer[bufIndex] |= 128 >>> this.length % 8;
+      }
+      this.length++;
+    }
+  };
+  var bitBuffer = BitBuffer$1;
+  function BitMatrix$1(size) {
+    if (!size || size < 1) {
+      throw new Error("BitMatrix size must be defined and greater than 0");
+    }
+    this.size = size;
+    this.data = new Uint8Array(size * size);
+    this.reservedBit = new Uint8Array(size * size);
+  }
+  BitMatrix$1.prototype.set = function(row, col, value, reserved) {
+    const index = row * this.size + col;
+    this.data[index] = value;
+    if (reserved)
+      this.reservedBit[index] = true;
+  };
+  BitMatrix$1.prototype.get = function(row, col) {
+    return this.data[row * this.size + col];
+  };
+  BitMatrix$1.prototype.xor = function(row, col, value) {
+    this.data[row * this.size + col] ^= value;
+  };
+  BitMatrix$1.prototype.isReserved = function(row, col) {
+    return this.reservedBit[row * this.size + col];
+  };
+  var bitMatrix = BitMatrix$1;
+  var alignmentPattern = {};
+  (function(exports) {
+    const getSymbolSize2 = utils$1.getSymbolSize;
+    exports.getRowColCoords = function getRowColCoords(version2) {
+      if (version2 === 1)
+        return [];
+      const posCount = Math.floor(version2 / 7) + 2;
+      const size = getSymbolSize2(version2);
+      const intervals = size === 145 ? 26 : Math.ceil((size - 13) / (2 * posCount - 2)) * 2;
+      const positions = [size - 7];
+      for (let i2 = 1; i2 < posCount - 1; i2++) {
+        positions[i2] = positions[i2 - 1] - intervals;
+      }
+      positions.push(6);
+      return positions.reverse();
+    };
+    exports.getPositions = function getPositions(version2) {
+      const coords = [];
+      const pos = exports.getRowColCoords(version2);
+      const posLength = pos.length;
+      for (let i2 = 0; i2 < posLength; i2++) {
+        for (let j2 = 0; j2 < posLength; j2++) {
+          if (i2 === 0 && j2 === 0 || // top-left
+          i2 === 0 && j2 === posLength - 1 || // bottom-left
+          i2 === posLength - 1 && j2 === 0) {
+            continue;
+          }
+          coords.push([pos[i2], pos[j2]]);
+        }
+      }
+      return coords;
+    };
+  })(alignmentPattern);
+  var finderPattern = {};
+  const getSymbolSize = utils$1.getSymbolSize;
+  const FINDER_PATTERN_SIZE = 7;
+  finderPattern.getPositions = function getPositions(version2) {
+    const size = getSymbolSize(version2);
+    return [
+      // top-left
+      [0, 0],
+      // top-right
+      [size - FINDER_PATTERN_SIZE, 0],
+      // bottom-left
+      [0, size - FINDER_PATTERN_SIZE]
+    ];
+  };
+  var maskPattern = {};
+  (function(exports) {
+    exports.Patterns = {
+      PATTERN000: 0,
+      PATTERN001: 1,
+      PATTERN010: 2,
+      PATTERN011: 3,
+      PATTERN100: 4,
+      PATTERN101: 5,
+      PATTERN110: 6,
+      PATTERN111: 7
+    };
+    const PenaltyScores = {
+      N1: 3,
+      N2: 3,
+      N3: 40,
+      N4: 10
+    };
+    exports.isValid = function isValid(mask) {
+      return mask != null && mask !== "" && !isNaN(mask) && mask >= 0 && mask <= 7;
+    };
+    exports.from = function from(value) {
+      return exports.isValid(value) ? parseInt(value, 10) : void 0;
+    };
+    exports.getPenaltyN1 = function getPenaltyN1(data) {
+      const size = data.size;
+      let points = 0;
+      let sameCountCol = 0;
+      let sameCountRow = 0;
+      let lastCol = null;
+      let lastRow = null;
+      for (let row = 0; row < size; row++) {
+        sameCountCol = sameCountRow = 0;
+        lastCol = lastRow = null;
+        for (let col = 0; col < size; col++) {
+          let module = data.get(row, col);
+          if (module === lastCol) {
+            sameCountCol++;
+          } else {
+            if (sameCountCol >= 5)
+              points += PenaltyScores.N1 + (sameCountCol - 5);
+            lastCol = module;
+            sameCountCol = 1;
+          }
+          module = data.get(col, row);
+          if (module === lastRow) {
+            sameCountRow++;
+          } else {
+            if (sameCountRow >= 5)
+              points += PenaltyScores.N1 + (sameCountRow - 5);
+            lastRow = module;
+            sameCountRow = 1;
+          }
+        }
+        if (sameCountCol >= 5)
+          points += PenaltyScores.N1 + (sameCountCol - 5);
+        if (sameCountRow >= 5)
+          points += PenaltyScores.N1 + (sameCountRow - 5);
+      }
+      return points;
+    };
+    exports.getPenaltyN2 = function getPenaltyN2(data) {
+      const size = data.size;
+      let points = 0;
+      for (let row = 0; row < size - 1; row++) {
+        for (let col = 0; col < size - 1; col++) {
+          const last = data.get(row, col) + data.get(row, col + 1) + data.get(row + 1, col) + data.get(row + 1, col + 1);
+          if (last === 4 || last === 0)
+            points++;
+        }
+      }
+      return points * PenaltyScores.N2;
+    };
+    exports.getPenaltyN3 = function getPenaltyN3(data) {
+      const size = data.size;
+      let points = 0;
+      let bitsCol = 0;
+      let bitsRow = 0;
+      for (let row = 0; row < size; row++) {
+        bitsCol = bitsRow = 0;
+        for (let col = 0; col < size; col++) {
+          bitsCol = bitsCol << 1 & 2047 | data.get(row, col);
+          if (col >= 10 && (bitsCol === 1488 || bitsCol === 93))
+            points++;
+          bitsRow = bitsRow << 1 & 2047 | data.get(col, row);
+          if (col >= 10 && (bitsRow === 1488 || bitsRow === 93))
+            points++;
+        }
+      }
+      return points * PenaltyScores.N3;
+    };
+    exports.getPenaltyN4 = function getPenaltyN4(data) {
+      let darkCount = 0;
+      const modulesCount = data.data.length;
+      for (let i2 = 0; i2 < modulesCount; i2++)
+        darkCount += data.data[i2];
+      const k = Math.abs(Math.ceil(darkCount * 100 / modulesCount / 5) - 10);
+      return k * PenaltyScores.N4;
+    };
+    function getMaskAt(maskPattern2, i2, j2) {
+      switch (maskPattern2) {
+        case exports.Patterns.PATTERN000:
+          return (i2 + j2) % 2 === 0;
+        case exports.Patterns.PATTERN001:
+          return i2 % 2 === 0;
+        case exports.Patterns.PATTERN010:
+          return j2 % 3 === 0;
+        case exports.Patterns.PATTERN011:
+          return (i2 + j2) % 3 === 0;
+        case exports.Patterns.PATTERN100:
+          return (Math.floor(i2 / 2) + Math.floor(j2 / 3)) % 2 === 0;
+        case exports.Patterns.PATTERN101:
+          return i2 * j2 % 2 + i2 * j2 % 3 === 0;
+        case exports.Patterns.PATTERN110:
+          return (i2 * j2 % 2 + i2 * j2 % 3) % 2 === 0;
+        case exports.Patterns.PATTERN111:
+          return (i2 * j2 % 3 + (i2 + j2) % 2) % 2 === 0;
+        default:
+          throw new Error("bad maskPattern:" + maskPattern2);
+      }
+    }
+    exports.applyMask = function applyMask(pattern, data) {
+      const size = data.size;
+      for (let col = 0; col < size; col++) {
+        for (let row = 0; row < size; row++) {
+          if (data.isReserved(row, col))
+            continue;
+          data.xor(row, col, getMaskAt(pattern, row, col));
+        }
+      }
+    };
+    exports.getBestMask = function getBestMask(data, setupFormatFunc) {
+      const numPatterns = Object.keys(exports.Patterns).length;
+      let bestPattern = 0;
+      let lowerPenalty = Infinity;
+      for (let p2 = 0; p2 < numPatterns; p2++) {
+        setupFormatFunc(p2);
+        exports.applyMask(p2, data);
+        const penalty = exports.getPenaltyN1(data) + exports.getPenaltyN2(data) + exports.getPenaltyN3(data) + exports.getPenaltyN4(data);
+        exports.applyMask(p2, data);
+        if (penalty < lowerPenalty) {
+          lowerPenalty = penalty;
+          bestPattern = p2;
+        }
+      }
+      return bestPattern;
+    };
+  })(maskPattern);
+  var errorCorrectionCode = {};
+  const ECLevel$1 = errorCorrectionLevel;
+  const EC_BLOCKS_TABLE = [
+    // L  M  Q  H
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    1,
+    2,
+    2,
+    4,
+    1,
+    2,
+    4,
+    4,
+    2,
+    4,
+    4,
+    4,
+    2,
+    4,
+    6,
+    5,
+    2,
+    4,
+    6,
+    6,
+    2,
+    5,
+    8,
+    8,
+    4,
+    5,
+    8,
+    8,
+    4,
+    5,
+    8,
+    11,
+    4,
+    8,
+    10,
+    11,
+    4,
+    9,
+    12,
+    16,
+    4,
+    9,
+    16,
+    16,
+    6,
+    10,
+    12,
+    18,
+    6,
+    10,
+    17,
+    16,
+    6,
+    11,
+    16,
+    19,
+    6,
+    13,
+    18,
+    21,
+    7,
+    14,
+    21,
+    25,
+    8,
+    16,
+    20,
+    25,
+    8,
+    17,
+    23,
+    25,
+    9,
+    17,
+    23,
+    34,
+    9,
+    18,
+    25,
+    30,
+    10,
+    20,
+    27,
+    32,
+    12,
+    21,
+    29,
+    35,
+    12,
+    23,
+    34,
+    37,
+    12,
+    25,
+    34,
+    40,
+    13,
+    26,
+    35,
+    42,
+    14,
+    28,
+    38,
+    45,
+    15,
+    29,
+    40,
+    48,
+    16,
+    31,
+    43,
+    51,
+    17,
+    33,
+    45,
+    54,
+    18,
+    35,
+    48,
+    57,
+    19,
+    37,
+    51,
+    60,
+    19,
+    38,
+    53,
+    63,
+    20,
+    40,
+    56,
+    66,
+    21,
+    43,
+    59,
+    70,
+    22,
+    45,
+    62,
+    74,
+    24,
+    47,
+    65,
+    77,
+    25,
+    49,
+    68,
+    81
+  ];
+  const EC_CODEWORDS_TABLE = [
+    // L  M  Q  H
+    7,
+    10,
+    13,
+    17,
+    10,
+    16,
+    22,
+    28,
+    15,
+    26,
+    36,
+    44,
+    20,
+    36,
+    52,
+    64,
+    26,
+    48,
+    72,
+    88,
+    36,
+    64,
+    96,
+    112,
+    40,
+    72,
+    108,
+    130,
+    48,
+    88,
+    132,
+    156,
+    60,
+    110,
+    160,
+    192,
+    72,
+    130,
+    192,
+    224,
+    80,
+    150,
+    224,
+    264,
+    96,
+    176,
+    260,
+    308,
+    104,
+    198,
+    288,
+    352,
+    120,
+    216,
+    320,
+    384,
+    132,
+    240,
+    360,
+    432,
+    144,
+    280,
+    408,
+    480,
+    168,
+    308,
+    448,
+    532,
+    180,
+    338,
+    504,
+    588,
+    196,
+    364,
+    546,
+    650,
+    224,
+    416,
+    600,
+    700,
+    224,
+    442,
+    644,
+    750,
+    252,
+    476,
+    690,
+    816,
+    270,
+    504,
+    750,
+    900,
+    300,
+    560,
+    810,
+    960,
+    312,
+    588,
+    870,
+    1050,
+    336,
+    644,
+    952,
+    1110,
+    360,
+    700,
+    1020,
+    1200,
+    390,
+    728,
+    1050,
+    1260,
+    420,
+    784,
+    1140,
+    1350,
+    450,
+    812,
+    1200,
+    1440,
+    480,
+    868,
+    1290,
+    1530,
+    510,
+    924,
+    1350,
+    1620,
+    540,
+    980,
+    1440,
+    1710,
+    570,
+    1036,
+    1530,
+    1800,
+    570,
+    1064,
+    1590,
+    1890,
+    600,
+    1120,
+    1680,
+    1980,
+    630,
+    1204,
+    1770,
+    2100,
+    660,
+    1260,
+    1860,
+    2220,
+    720,
+    1316,
+    1950,
+    2310,
+    750,
+    1372,
+    2040,
+    2430
+  ];
+  errorCorrectionCode.getBlocksCount = function getBlocksCount(version2, errorCorrectionLevel2) {
+    switch (errorCorrectionLevel2) {
+      case ECLevel$1.L:
+        return EC_BLOCKS_TABLE[(version2 - 1) * 4 + 0];
+      case ECLevel$1.M:
+        return EC_BLOCKS_TABLE[(version2 - 1) * 4 + 1];
+      case ECLevel$1.Q:
+        return EC_BLOCKS_TABLE[(version2 - 1) * 4 + 2];
+      case ECLevel$1.H:
+        return EC_BLOCKS_TABLE[(version2 - 1) * 4 + 3];
+      default:
+        return void 0;
+    }
+  };
+  errorCorrectionCode.getTotalCodewordsCount = function getTotalCodewordsCount(version2, errorCorrectionLevel2) {
+    switch (errorCorrectionLevel2) {
+      case ECLevel$1.L:
+        return EC_CODEWORDS_TABLE[(version2 - 1) * 4 + 0];
+      case ECLevel$1.M:
+        return EC_CODEWORDS_TABLE[(version2 - 1) * 4 + 1];
+      case ECLevel$1.Q:
+        return EC_CODEWORDS_TABLE[(version2 - 1) * 4 + 2];
+      case ECLevel$1.H:
+        return EC_CODEWORDS_TABLE[(version2 - 1) * 4 + 3];
+      default:
+        return void 0;
+    }
+  };
+  var polynomial = {};
+  var galoisField = {};
+  const EXP_TABLE = new Uint8Array(512);
+  const LOG_TABLE = new Uint8Array(256);
+  (function initTables() {
+    let x = 1;
+    for (let i2 = 0; i2 < 255; i2++) {
+      EXP_TABLE[i2] = x;
+      LOG_TABLE[x] = i2;
+      x <<= 1;
+      if (x & 256) {
+        x ^= 285;
+      }
+    }
+    for (let i2 = 255; i2 < 512; i2++) {
+      EXP_TABLE[i2] = EXP_TABLE[i2 - 255];
+    }
+  })();
+  galoisField.log = function log(n2) {
+    if (n2 < 1)
+      throw new Error("log(" + n2 + ")");
+    return LOG_TABLE[n2];
+  };
+  galoisField.exp = function exp(n2) {
+    return EXP_TABLE[n2];
+  };
+  galoisField.mul = function mul(x, y2) {
+    if (x === 0 || y2 === 0)
+      return 0;
+    return EXP_TABLE[LOG_TABLE[x] + LOG_TABLE[y2]];
+  };
+  (function(exports) {
+    const GF = galoisField;
+    exports.mul = function mul(p1, p2) {
+      const coeff = new Uint8Array(p1.length + p2.length - 1);
+      for (let i2 = 0; i2 < p1.length; i2++) {
+        for (let j2 = 0; j2 < p2.length; j2++) {
+          coeff[i2 + j2] ^= GF.mul(p1[i2], p2[j2]);
+        }
+      }
+      return coeff;
+    };
+    exports.mod = function mod(divident, divisor) {
+      let result = new Uint8Array(divident);
+      while (result.length - divisor.length >= 0) {
+        const coeff = result[0];
+        for (let i2 = 0; i2 < divisor.length; i2++) {
+          result[i2] ^= GF.mul(divisor[i2], coeff);
+        }
+        let offset = 0;
+        while (offset < result.length && result[offset] === 0)
+          offset++;
+        result = result.slice(offset);
+      }
+      return result;
+    };
+    exports.generateECPolynomial = function generateECPolynomial(degree) {
+      let poly = new Uint8Array([1]);
+      for (let i2 = 0; i2 < degree; i2++) {
+        poly = exports.mul(poly, new Uint8Array([1, GF.exp(i2)]));
+      }
+      return poly;
+    };
+  })(polynomial);
+  const Polynomial = polynomial;
+  function ReedSolomonEncoder$1(degree) {
+    this.genPoly = void 0;
+    this.degree = degree;
+    if (this.degree)
+      this.initialize(this.degree);
+  }
+  ReedSolomonEncoder$1.prototype.initialize = function initialize(degree) {
+    this.degree = degree;
+    this.genPoly = Polynomial.generateECPolynomial(this.degree);
+  };
+  ReedSolomonEncoder$1.prototype.encode = function encode(data) {
+    if (!this.genPoly) {
+      throw new Error("Encoder not initialized");
+    }
+    const paddedData = new Uint8Array(data.length + this.degree);
+    paddedData.set(data);
+    const remainder = Polynomial.mod(paddedData, this.genPoly);
+    const start = this.degree - remainder.length;
+    if (start > 0) {
+      const buff = new Uint8Array(this.degree);
+      buff.set(remainder, start);
+      return buff;
+    }
+    return remainder;
+  };
+  var reedSolomonEncoder = ReedSolomonEncoder$1;
+  var version = {};
+  var mode = {};
+  var versionCheck = {};
+  versionCheck.isValid = function isValid(version2) {
+    return !isNaN(version2) && version2 >= 1 && version2 <= 40;
+  };
+  var regex = {};
+  const numeric = "[0-9]+";
+  const alphanumeric = "[A-Z $%*+\\-./:]+";
+  let kanji = "(?:[u3000-u303F]|[u3040-u309F]|[u30A0-u30FF]|[uFF00-uFFEF]|[u4E00-u9FAF]|[u2605-u2606]|[u2190-u2195]|u203B|[u2010u2015u2018u2019u2025u2026u201Cu201Du2225u2260]|[u0391-u0451]|[u00A7u00A8u00B1u00B4u00D7u00F7])+";
+  kanji = kanji.replace(/u/g, "\\u");
+  const byte = "(?:(?![A-Z0-9 $%*+\\-./:]|" + kanji + ")(?:.|[\r\n]))+";
+  regex.KANJI = new RegExp(kanji, "g");
+  regex.BYTE_KANJI = new RegExp("[^A-Z0-9 $%*+\\-./:]+", "g");
+  regex.BYTE = new RegExp(byte, "g");
+  regex.NUMERIC = new RegExp(numeric, "g");
+  regex.ALPHANUMERIC = new RegExp(alphanumeric, "g");
+  const TEST_KANJI = new RegExp("^" + kanji + "$");
+  const TEST_NUMERIC = new RegExp("^" + numeric + "$");
+  const TEST_ALPHANUMERIC = new RegExp("^[A-Z0-9 $%*+\\-./:]+$");
+  regex.testKanji = function testKanji(str) {
+    return TEST_KANJI.test(str);
+  };
+  regex.testNumeric = function testNumeric(str) {
+    return TEST_NUMERIC.test(str);
+  };
+  regex.testAlphanumeric = function testAlphanumeric(str) {
+    return TEST_ALPHANUMERIC.test(str);
+  };
+  (function(exports) {
+    const VersionCheck = versionCheck;
+    const Regex = regex;
+    exports.NUMERIC = {
+      id: "Numeric",
+      bit: 1 << 0,
+      ccBits: [10, 12, 14]
+    };
+    exports.ALPHANUMERIC = {
+      id: "Alphanumeric",
+      bit: 1 << 1,
+      ccBits: [9, 11, 13]
+    };
+    exports.BYTE = {
+      id: "Byte",
+      bit: 1 << 2,
+      ccBits: [8, 16, 16]
+    };
+    exports.KANJI = {
+      id: "Kanji",
+      bit: 1 << 3,
+      ccBits: [8, 10, 12]
+    };
+    exports.MIXED = {
+      bit: -1
+    };
+    exports.getCharCountIndicator = function getCharCountIndicator(mode2, version2) {
+      if (!mode2.ccBits)
+        throw new Error("Invalid mode: " + mode2);
+      if (!VersionCheck.isValid(version2)) {
+        throw new Error("Invalid version: " + version2);
+      }
+      if (version2 >= 1 && version2 < 10)
+        return mode2.ccBits[0];
+      else if (version2 < 27)
+        return mode2.ccBits[1];
+      return mode2.ccBits[2];
+    };
+    exports.getBestModeForData = function getBestModeForData(dataStr) {
+      if (Regex.testNumeric(dataStr))
+        return exports.NUMERIC;
+      else if (Regex.testAlphanumeric(dataStr))
+        return exports.ALPHANUMERIC;
+      else if (Regex.testKanji(dataStr))
+        return exports.KANJI;
+      else
+        return exports.BYTE;
+    };
+    exports.toString = function toString(mode2) {
+      if (mode2 && mode2.id)
+        return mode2.id;
+      throw new Error("Invalid mode");
+    };
+    exports.isValid = function isValid(mode2) {
+      return mode2 && mode2.bit && mode2.ccBits;
+    };
+    function fromString(string) {
+      if (typeof string !== "string") {
+        throw new Error("Param is not a string");
+      }
+      const lcStr = string.toLowerCase();
+      switch (lcStr) {
+        case "numeric":
+          return exports.NUMERIC;
+        case "alphanumeric":
+          return exports.ALPHANUMERIC;
+        case "kanji":
+          return exports.KANJI;
+        case "byte":
+          return exports.BYTE;
+        default:
+          throw new Error("Unknown mode: " + string);
+      }
+    }
+    exports.from = function from(value, defaultValue) {
+      if (exports.isValid(value)) {
+        return value;
+      }
+      try {
+        return fromString(value);
+      } catch (e2) {
+        return defaultValue;
+      }
+    };
+  })(mode);
+  (function(exports) {
+    const Utils2 = utils$1;
+    const ECCode2 = errorCorrectionCode;
+    const ECLevel2 = errorCorrectionLevel;
+    const Mode2 = mode;
+    const VersionCheck = versionCheck;
+    const G18 = 1 << 12 | 1 << 11 | 1 << 10 | 1 << 9 | 1 << 8 | 1 << 5 | 1 << 2 | 1 << 0;
+    const G18_BCH = Utils2.getBCHDigit(G18);
+    function getBestVersionForDataLength(mode2, length, errorCorrectionLevel2) {
+      for (let currentVersion = 1; currentVersion <= 40; currentVersion++) {
+        if (length <= exports.getCapacity(currentVersion, errorCorrectionLevel2, mode2)) {
+          return currentVersion;
+        }
+      }
+      return void 0;
+    }
+    function getReservedBitsCount(mode2, version2) {
+      return Mode2.getCharCountIndicator(mode2, version2) + 4;
+    }
+    function getTotalBitsFromDataArray(segments2, version2) {
+      let totalBits = 0;
+      segments2.forEach(function(data) {
+        const reservedBits = getReservedBitsCount(data.mode, version2);
+        totalBits += reservedBits + data.getBitsLength();
+      });
+      return totalBits;
+    }
+    function getBestVersionForMixedData(segments2, errorCorrectionLevel2) {
+      for (let currentVersion = 1; currentVersion <= 40; currentVersion++) {
+        const length = getTotalBitsFromDataArray(segments2, currentVersion);
+        if (length <= exports.getCapacity(currentVersion, errorCorrectionLevel2, Mode2.MIXED)) {
+          return currentVersion;
+        }
+      }
+      return void 0;
+    }
+    exports.from = function from(value, defaultValue) {
+      if (VersionCheck.isValid(value)) {
+        return parseInt(value, 10);
+      }
+      return defaultValue;
+    };
+    exports.getCapacity = function getCapacity(version2, errorCorrectionLevel2, mode2) {
+      if (!VersionCheck.isValid(version2)) {
+        throw new Error("Invalid QR Code version");
+      }
+      if (typeof mode2 === "undefined")
+        mode2 = Mode2.BYTE;
+      const totalCodewords = Utils2.getSymbolTotalCodewords(version2);
+      const ecTotalCodewords = ECCode2.getTotalCodewordsCount(version2, errorCorrectionLevel2);
+      const dataTotalCodewordsBits = (totalCodewords - ecTotalCodewords) * 8;
+      if (mode2 === Mode2.MIXED)
+        return dataTotalCodewordsBits;
+      const usableBits = dataTotalCodewordsBits - getReservedBitsCount(mode2, version2);
+      switch (mode2) {
+        case Mode2.NUMERIC:
+          return Math.floor(usableBits / 10 * 3);
+        case Mode2.ALPHANUMERIC:
+          return Math.floor(usableBits / 11 * 2);
+        case Mode2.KANJI:
+          return Math.floor(usableBits / 13);
+        case Mode2.BYTE:
+        default:
+          return Math.floor(usableBits / 8);
+      }
+    };
+    exports.getBestVersionForData = function getBestVersionForData(data, errorCorrectionLevel2) {
+      let seg;
+      const ecl = ECLevel2.from(errorCorrectionLevel2, ECLevel2.M);
+      if (Array.isArray(data)) {
+        if (data.length > 1) {
+          return getBestVersionForMixedData(data, ecl);
+        }
+        if (data.length === 0) {
+          return 1;
+        }
+        seg = data[0];
+      } else {
+        seg = data;
+      }
+      return getBestVersionForDataLength(seg.mode, seg.getLength(), ecl);
+    };
+    exports.getEncodedBits = function getEncodedBits(version2) {
+      if (!VersionCheck.isValid(version2) || version2 < 7) {
+        throw new Error("Invalid QR Code version");
+      }
+      let d2 = version2 << 12;
+      while (Utils2.getBCHDigit(d2) - G18_BCH >= 0) {
+        d2 ^= G18 << Utils2.getBCHDigit(d2) - G18_BCH;
+      }
+      return version2 << 12 | d2;
+    };
+  })(version);
+  var formatInfo = {};
+  const Utils$3 = utils$1;
+  const G15 = 1 << 10 | 1 << 8 | 1 << 5 | 1 << 4 | 1 << 2 | 1 << 1 | 1 << 0;
+  const G15_MASK = 1 << 14 | 1 << 12 | 1 << 10 | 1 << 4 | 1 << 1;
+  const G15_BCH = Utils$3.getBCHDigit(G15);
+  formatInfo.getEncodedBits = function getEncodedBits(errorCorrectionLevel2, mask) {
+    const data = errorCorrectionLevel2.bit << 3 | mask;
+    let d2 = data << 10;
+    while (Utils$3.getBCHDigit(d2) - G15_BCH >= 0) {
+      d2 ^= G15 << Utils$3.getBCHDigit(d2) - G15_BCH;
+    }
+    return (data << 10 | d2) ^ G15_MASK;
+  };
+  var segments = {};
+  const Mode$4 = mode;
+  function NumericData(data) {
+    this.mode = Mode$4.NUMERIC;
+    this.data = data.toString();
+  }
+  NumericData.getBitsLength = function getBitsLength(length) {
+    return 10 * Math.floor(length / 3) + (length % 3 ? length % 3 * 3 + 1 : 0);
+  };
+  NumericData.prototype.getLength = function getLength() {
+    return this.data.length;
+  };
+  NumericData.prototype.getBitsLength = function getBitsLength() {
+    return NumericData.getBitsLength(this.data.length);
+  };
+  NumericData.prototype.write = function write(bitBuffer2) {
+    let i2, group, value;
+    for (i2 = 0; i2 + 3 <= this.data.length; i2 += 3) {
+      group = this.data.substr(i2, 3);
+      value = parseInt(group, 10);
+      bitBuffer2.put(value, 10);
+    }
+    const remainingNum = this.data.length - i2;
+    if (remainingNum > 0) {
+      group = this.data.substr(i2);
+      value = parseInt(group, 10);
+      bitBuffer2.put(value, remainingNum * 3 + 1);
+    }
+  };
+  var numericData = NumericData;
+  const Mode$3 = mode;
+  const ALPHA_NUM_CHARS = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+    " ",
+    "$",
+    "%",
+    "*",
+    "+",
+    "-",
+    ".",
+    "/",
+    ":"
+  ];
+  function AlphanumericData(data) {
+    this.mode = Mode$3.ALPHANUMERIC;
+    this.data = data;
+  }
+  AlphanumericData.getBitsLength = function getBitsLength(length) {
+    return 11 * Math.floor(length / 2) + 6 * (length % 2);
+  };
+  AlphanumericData.prototype.getLength = function getLength() {
+    return this.data.length;
+  };
+  AlphanumericData.prototype.getBitsLength = function getBitsLength() {
+    return AlphanumericData.getBitsLength(this.data.length);
+  };
+  AlphanumericData.prototype.write = function write(bitBuffer2) {
+    let i2;
+    for (i2 = 0; i2 + 2 <= this.data.length; i2 += 2) {
+      let value = ALPHA_NUM_CHARS.indexOf(this.data[i2]) * 45;
+      value += ALPHA_NUM_CHARS.indexOf(this.data[i2 + 1]);
+      bitBuffer2.put(value, 11);
+    }
+    if (this.data.length % 2) {
+      bitBuffer2.put(ALPHA_NUM_CHARS.indexOf(this.data[i2]), 6);
+    }
+  };
+  var alphanumericData = AlphanumericData;
+  const Mode$2 = mode;
+  function ByteData(data) {
+    this.mode = Mode$2.BYTE;
+    if (typeof data === "string") {
+      this.data = new TextEncoder().encode(data);
+    } else {
+      this.data = new Uint8Array(data);
+    }
+  }
+  ByteData.getBitsLength = function getBitsLength(length) {
+    return length * 8;
+  };
+  ByteData.prototype.getLength = function getLength() {
+    return this.data.length;
+  };
+  ByteData.prototype.getBitsLength = function getBitsLength() {
+    return ByteData.getBitsLength(this.data.length);
+  };
+  ByteData.prototype.write = function(bitBuffer2) {
+    for (let i2 = 0, l2 = this.data.length; i2 < l2; i2++) {
+      bitBuffer2.put(this.data[i2], 8);
+    }
+  };
+  var byteData = ByteData;
+  const Mode$1 = mode;
+  const Utils$2 = utils$1;
+  function KanjiData(data) {
+    this.mode = Mode$1.KANJI;
+    this.data = data;
+  }
+  KanjiData.getBitsLength = function getBitsLength(length) {
+    return length * 13;
+  };
+  KanjiData.prototype.getLength = function getLength() {
+    return this.data.length;
+  };
+  KanjiData.prototype.getBitsLength = function getBitsLength() {
+    return KanjiData.getBitsLength(this.data.length);
+  };
+  KanjiData.prototype.write = function(bitBuffer2) {
+    let i2;
+    for (i2 = 0; i2 < this.data.length; i2++) {
+      let value = Utils$2.toSJIS(this.data[i2]);
+      if (value >= 33088 && value <= 40956) {
+        value -= 33088;
+      } else if (value >= 57408 && value <= 60351) {
+        value -= 49472;
+      } else {
+        throw new Error(
+          "Invalid SJIS character: " + this.data[i2] + "\nMake sure your charset is UTF-8"
+        );
+      }
+      value = (value >>> 8 & 255) * 192 + (value & 255);
+      bitBuffer2.put(value, 13);
+    }
+  };
+  var kanjiData = KanjiData;
+  var dijkstra = { exports: {} };
+  (function(module) {
+    var dijkstra2 = {
+      single_source_shortest_paths: function(graph, s2, d2) {
+        var predecessors = {};
+        var costs = {};
+        costs[s2] = 0;
+        var open2 = dijkstra2.PriorityQueue.make();
+        open2.push(s2, 0);
+        var closest, u2, v2, cost_of_s_to_u, adjacent_nodes, cost_of_e, cost_of_s_to_u_plus_cost_of_e, cost_of_s_to_v, first_visit;
+        while (!open2.empty()) {
+          closest = open2.pop();
+          u2 = closest.value;
+          cost_of_s_to_u = closest.cost;
+          adjacent_nodes = graph[u2] || {};
+          for (v2 in adjacent_nodes) {
+            if (adjacent_nodes.hasOwnProperty(v2)) {
+              cost_of_e = adjacent_nodes[v2];
+              cost_of_s_to_u_plus_cost_of_e = cost_of_s_to_u + cost_of_e;
+              cost_of_s_to_v = costs[v2];
+              first_visit = typeof costs[v2] === "undefined";
+              if (first_visit || cost_of_s_to_v > cost_of_s_to_u_plus_cost_of_e) {
+                costs[v2] = cost_of_s_to_u_plus_cost_of_e;
+                open2.push(v2, cost_of_s_to_u_plus_cost_of_e);
+                predecessors[v2] = u2;
+              }
+            }
+          }
+        }
+        if (typeof d2 !== "undefined" && typeof costs[d2] === "undefined") {
+          var msg = ["Could not find a path from ", s2, " to ", d2, "."].join("");
+          throw new Error(msg);
+        }
+        return predecessors;
+      },
+      extract_shortest_path_from_predecessor_list: function(predecessors, d2) {
+        var nodes = [];
+        var u2 = d2;
+        while (u2) {
+          nodes.push(u2);
+          predecessors[u2];
+          u2 = predecessors[u2];
+        }
+        nodes.reverse();
+        return nodes;
+      },
+      find_path: function(graph, s2, d2) {
+        var predecessors = dijkstra2.single_source_shortest_paths(graph, s2, d2);
+        return dijkstra2.extract_shortest_path_from_predecessor_list(
+          predecessors,
+          d2
+        );
+      },
+      /**
+       * A very naive priority queue implementation.
+       */
+      PriorityQueue: {
+        make: function(opts) {
+          var T2 = dijkstra2.PriorityQueue, t2 = {}, key;
+          opts = opts || {};
+          for (key in T2) {
+            if (T2.hasOwnProperty(key)) {
+              t2[key] = T2[key];
+            }
+          }
+          t2.queue = [];
+          t2.sorter = opts.sorter || T2.default_sorter;
+          return t2;
+        },
+        default_sorter: function(a2, b2) {
+          return a2.cost - b2.cost;
+        },
+        /**
+         * Add a new item to the queue and ensure the highest priority element
+         * is at the front of the queue.
+         */
+        push: function(value, cost) {
+          var item = { value, cost };
+          this.queue.push(item);
+          this.queue.sort(this.sorter);
+        },
+        /**
+         * Return the highest priority element in the queue.
+         */
+        pop: function() {
+          return this.queue.shift();
+        },
+        empty: function() {
+          return this.queue.length === 0;
+        }
+      }
+    };
+    {
+      module.exports = dijkstra2;
+    }
+  })(dijkstra);
+  var dijkstraExports = dijkstra.exports;
+  (function(exports) {
+    const Mode2 = mode;
+    const NumericData2 = numericData;
+    const AlphanumericData2 = alphanumericData;
+    const ByteData2 = byteData;
+    const KanjiData2 = kanjiData;
+    const Regex = regex;
+    const Utils2 = utils$1;
+    const dijkstra2 = dijkstraExports;
+    function getStringByteLength(str) {
+      return unescape(encodeURIComponent(str)).length;
+    }
+    function getSegments(regex2, mode2, str) {
+      const segments2 = [];
+      let result;
+      while ((result = regex2.exec(str)) !== null) {
+        segments2.push({
+          data: result[0],
+          index: result.index,
+          mode: mode2,
+          length: result[0].length
+        });
+      }
+      return segments2;
+    }
+    function getSegmentsFromString(dataStr) {
+      const numSegs = getSegments(Regex.NUMERIC, Mode2.NUMERIC, dataStr);
+      const alphaNumSegs = getSegments(Regex.ALPHANUMERIC, Mode2.ALPHANUMERIC, dataStr);
+      let byteSegs;
+      let kanjiSegs;
+      if (Utils2.isKanjiModeEnabled()) {
+        byteSegs = getSegments(Regex.BYTE, Mode2.BYTE, dataStr);
+        kanjiSegs = getSegments(Regex.KANJI, Mode2.KANJI, dataStr);
+      } else {
+        byteSegs = getSegments(Regex.BYTE_KANJI, Mode2.BYTE, dataStr);
+        kanjiSegs = [];
+      }
+      const segs = numSegs.concat(alphaNumSegs, byteSegs, kanjiSegs);
+      return segs.sort(function(s1, s2) {
+        return s1.index - s2.index;
+      }).map(function(obj) {
+        return {
+          data: obj.data,
+          mode: obj.mode,
+          length: obj.length
+        };
+      });
+    }
+    function getSegmentBitsLength(length, mode2) {
+      switch (mode2) {
+        case Mode2.NUMERIC:
+          return NumericData2.getBitsLength(length);
+        case Mode2.ALPHANUMERIC:
+          return AlphanumericData2.getBitsLength(length);
+        case Mode2.KANJI:
+          return KanjiData2.getBitsLength(length);
+        case Mode2.BYTE:
+          return ByteData2.getBitsLength(length);
+      }
+    }
+    function mergeSegments(segs) {
+      return segs.reduce(function(acc, curr) {
+        const prevSeg = acc.length - 1 >= 0 ? acc[acc.length - 1] : null;
+        if (prevSeg && prevSeg.mode === curr.mode) {
+          acc[acc.length - 1].data += curr.data;
+          return acc;
+        }
+        acc.push(curr);
+        return acc;
+      }, []);
+    }
+    function buildNodes(segs) {
+      const nodes = [];
+      for (let i2 = 0; i2 < segs.length; i2++) {
+        const seg = segs[i2];
+        switch (seg.mode) {
+          case Mode2.NUMERIC:
+            nodes.push([
+              seg,
+              { data: seg.data, mode: Mode2.ALPHANUMERIC, length: seg.length },
+              { data: seg.data, mode: Mode2.BYTE, length: seg.length }
+            ]);
+            break;
+          case Mode2.ALPHANUMERIC:
+            nodes.push([
+              seg,
+              { data: seg.data, mode: Mode2.BYTE, length: seg.length }
+            ]);
+            break;
+          case Mode2.KANJI:
+            nodes.push([
+              seg,
+              { data: seg.data, mode: Mode2.BYTE, length: getStringByteLength(seg.data) }
+            ]);
+            break;
+          case Mode2.BYTE:
+            nodes.push([
+              { data: seg.data, mode: Mode2.BYTE, length: getStringByteLength(seg.data) }
+            ]);
+        }
+      }
+      return nodes;
+    }
+    function buildGraph(nodes, version2) {
+      const table = {};
+      const graph = { start: {} };
+      let prevNodeIds = ["start"];
+      for (let i2 = 0; i2 < nodes.length; i2++) {
+        const nodeGroup = nodes[i2];
+        const currentNodeIds = [];
+        for (let j2 = 0; j2 < nodeGroup.length; j2++) {
+          const node = nodeGroup[j2];
+          const key = "" + i2 + j2;
+          currentNodeIds.push(key);
+          table[key] = { node, lastCount: 0 };
+          graph[key] = {};
+          for (let n2 = 0; n2 < prevNodeIds.length; n2++) {
+            const prevNodeId = prevNodeIds[n2];
+            if (table[prevNodeId] && table[prevNodeId].node.mode === node.mode) {
+              graph[prevNodeId][key] = getSegmentBitsLength(table[prevNodeId].lastCount + node.length, node.mode) - getSegmentBitsLength(table[prevNodeId].lastCount, node.mode);
+              table[prevNodeId].lastCount += node.length;
+            } else {
+              if (table[prevNodeId])
+                table[prevNodeId].lastCount = node.length;
+              graph[prevNodeId][key] = getSegmentBitsLength(node.length, node.mode) + 4 + Mode2.getCharCountIndicator(node.mode, version2);
+            }
+          }
+        }
+        prevNodeIds = currentNodeIds;
+      }
+      for (let n2 = 0; n2 < prevNodeIds.length; n2++) {
+        graph[prevNodeIds[n2]].end = 0;
+      }
+      return { map: graph, table };
+    }
+    function buildSingleSegment(data, modesHint) {
+      let mode2;
+      const bestMode = Mode2.getBestModeForData(data);
+      mode2 = Mode2.from(modesHint, bestMode);
+      if (mode2 !== Mode2.BYTE && mode2.bit < bestMode.bit) {
+        throw new Error('"' + data + '" cannot be encoded with mode ' + Mode2.toString(mode2) + ".\n Suggested mode is: " + Mode2.toString(bestMode));
+      }
+      if (mode2 === Mode2.KANJI && !Utils2.isKanjiModeEnabled()) {
+        mode2 = Mode2.BYTE;
+      }
+      switch (mode2) {
+        case Mode2.NUMERIC:
+          return new NumericData2(data);
+        case Mode2.ALPHANUMERIC:
+          return new AlphanumericData2(data);
+        case Mode2.KANJI:
+          return new KanjiData2(data);
+        case Mode2.BYTE:
+          return new ByteData2(data);
+      }
+    }
+    exports.fromArray = function fromArray(array) {
+      return array.reduce(function(acc, seg) {
+        if (typeof seg === "string") {
+          acc.push(buildSingleSegment(seg, null));
+        } else if (seg.data) {
+          acc.push(buildSingleSegment(seg.data, seg.mode));
+        }
+        return acc;
+      }, []);
+    };
+    exports.fromString = function fromString(data, version2) {
+      const segs = getSegmentsFromString(data, Utils2.isKanjiModeEnabled());
+      const nodes = buildNodes(segs);
+      const graph = buildGraph(nodes, version2);
+      const path = dijkstra2.find_path(graph.map, "start", "end");
+      const optimizedSegs = [];
+      for (let i2 = 1; i2 < path.length - 1; i2++) {
+        optimizedSegs.push(graph.table[path[i2]].node);
+      }
+      return exports.fromArray(mergeSegments(optimizedSegs));
+    };
+    exports.rawSplit = function rawSplit(data) {
+      return exports.fromArray(
+        getSegmentsFromString(data, Utils2.isKanjiModeEnabled())
+      );
+    };
+  })(segments);
+  const Utils$1 = utils$1;
+  const ECLevel = errorCorrectionLevel;
+  const BitBuffer = bitBuffer;
+  const BitMatrix = bitMatrix;
+  const AlignmentPattern = alignmentPattern;
+  const FinderPattern = finderPattern;
+  const MaskPattern = maskPattern;
+  const ECCode = errorCorrectionCode;
+  const ReedSolomonEncoder = reedSolomonEncoder;
+  const Version = version;
+  const FormatInfo = formatInfo;
+  const Mode = mode;
+  const Segments = segments;
+  function setupFinderPattern(matrix, version2) {
+    const size = matrix.size;
+    const pos = FinderPattern.getPositions(version2);
+    for (let i2 = 0; i2 < pos.length; i2++) {
+      const row = pos[i2][0];
+      const col = pos[i2][1];
+      for (let r2 = -1; r2 <= 7; r2++) {
+        if (row + r2 <= -1 || size <= row + r2)
+          continue;
+        for (let c2 = -1; c2 <= 7; c2++) {
+          if (col + c2 <= -1 || size <= col + c2)
+            continue;
+          if (r2 >= 0 && r2 <= 6 && (c2 === 0 || c2 === 6) || c2 >= 0 && c2 <= 6 && (r2 === 0 || r2 === 6) || r2 >= 2 && r2 <= 4 && c2 >= 2 && c2 <= 4) {
+            matrix.set(row + r2, col + c2, true, true);
+          } else {
+            matrix.set(row + r2, col + c2, false, true);
+          }
+        }
+      }
+    }
+  }
+  function setupTimingPattern(matrix) {
+    const size = matrix.size;
+    for (let r2 = 8; r2 < size - 8; r2++) {
+      const value = r2 % 2 === 0;
+      matrix.set(r2, 6, value, true);
+      matrix.set(6, r2, value, true);
+    }
+  }
+  function setupAlignmentPattern(matrix, version2) {
+    const pos = AlignmentPattern.getPositions(version2);
+    for (let i2 = 0; i2 < pos.length; i2++) {
+      const row = pos[i2][0];
+      const col = pos[i2][1];
+      for (let r2 = -2; r2 <= 2; r2++) {
+        for (let c2 = -2; c2 <= 2; c2++) {
+          if (r2 === -2 || r2 === 2 || c2 === -2 || c2 === 2 || r2 === 0 && c2 === 0) {
+            matrix.set(row + r2, col + c2, true, true);
+          } else {
+            matrix.set(row + r2, col + c2, false, true);
+          }
+        }
+      }
+    }
+  }
+  function setupVersionInfo(matrix, version2) {
+    const size = matrix.size;
+    const bits = Version.getEncodedBits(version2);
+    let row, col, mod;
+    for (let i2 = 0; i2 < 18; i2++) {
+      row = Math.floor(i2 / 3);
+      col = i2 % 3 + size - 8 - 3;
+      mod = (bits >> i2 & 1) === 1;
+      matrix.set(row, col, mod, true);
+      matrix.set(col, row, mod, true);
+    }
+  }
+  function setupFormatInfo(matrix, errorCorrectionLevel2, maskPattern2) {
+    const size = matrix.size;
+    const bits = FormatInfo.getEncodedBits(errorCorrectionLevel2, maskPattern2);
+    let i2, mod;
+    for (i2 = 0; i2 < 15; i2++) {
+      mod = (bits >> i2 & 1) === 1;
+      if (i2 < 6) {
+        matrix.set(i2, 8, mod, true);
+      } else if (i2 < 8) {
+        matrix.set(i2 + 1, 8, mod, true);
+      } else {
+        matrix.set(size - 15 + i2, 8, mod, true);
+      }
+      if (i2 < 8) {
+        matrix.set(8, size - i2 - 1, mod, true);
+      } else if (i2 < 9) {
+        matrix.set(8, 15 - i2 - 1 + 1, mod, true);
+      } else {
+        matrix.set(8, 15 - i2 - 1, mod, true);
+      }
+    }
+    matrix.set(size - 8, 8, 1, true);
+  }
+  function setupData(matrix, data) {
+    const size = matrix.size;
+    let inc = -1;
+    let row = size - 1;
+    let bitIndex = 7;
+    let byteIndex = 0;
+    for (let col = size - 1; col > 0; col -= 2) {
+      if (col === 6)
+        col--;
+      while (true) {
+        for (let c2 = 0; c2 < 2; c2++) {
+          if (!matrix.isReserved(row, col - c2)) {
+            let dark = false;
+            if (byteIndex < data.length) {
+              dark = (data[byteIndex] >>> bitIndex & 1) === 1;
+            }
+            matrix.set(row, col - c2, dark);
+            bitIndex--;
+            if (bitIndex === -1) {
+              byteIndex++;
+              bitIndex = 7;
+            }
+          }
+        }
+        row += inc;
+        if (row < 0 || size <= row) {
+          row -= inc;
+          inc = -inc;
+          break;
+        }
+      }
+    }
+  }
+  function createData(version2, errorCorrectionLevel2, segments2) {
+    const buffer = new BitBuffer();
+    segments2.forEach(function(data) {
+      buffer.put(data.mode.bit, 4);
+      buffer.put(data.getLength(), Mode.getCharCountIndicator(data.mode, version2));
+      data.write(buffer);
+    });
+    const totalCodewords = Utils$1.getSymbolTotalCodewords(version2);
+    const ecTotalCodewords = ECCode.getTotalCodewordsCount(version2, errorCorrectionLevel2);
+    const dataTotalCodewordsBits = (totalCodewords - ecTotalCodewords) * 8;
+    if (buffer.getLengthInBits() + 4 <= dataTotalCodewordsBits) {
+      buffer.put(0, 4);
+    }
+    while (buffer.getLengthInBits() % 8 !== 0) {
+      buffer.putBit(0);
+    }
+    const remainingByte = (dataTotalCodewordsBits - buffer.getLengthInBits()) / 8;
+    for (let i2 = 0; i2 < remainingByte; i2++) {
+      buffer.put(i2 % 2 ? 17 : 236, 8);
+    }
+    return createCodewords(buffer, version2, errorCorrectionLevel2);
+  }
+  function createCodewords(bitBuffer2, version2, errorCorrectionLevel2) {
+    const totalCodewords = Utils$1.getSymbolTotalCodewords(version2);
+    const ecTotalCodewords = ECCode.getTotalCodewordsCount(version2, errorCorrectionLevel2);
+    const dataTotalCodewords = totalCodewords - ecTotalCodewords;
+    const ecTotalBlocks = ECCode.getBlocksCount(version2, errorCorrectionLevel2);
+    const blocksInGroup2 = totalCodewords % ecTotalBlocks;
+    const blocksInGroup1 = ecTotalBlocks - blocksInGroup2;
+    const totalCodewordsInGroup1 = Math.floor(totalCodewords / ecTotalBlocks);
+    const dataCodewordsInGroup1 = Math.floor(dataTotalCodewords / ecTotalBlocks);
+    const dataCodewordsInGroup2 = dataCodewordsInGroup1 + 1;
+    const ecCount = totalCodewordsInGroup1 - dataCodewordsInGroup1;
+    const rs2 = new ReedSolomonEncoder(ecCount);
+    let offset = 0;
+    const dcData = new Array(ecTotalBlocks);
+    const ecData = new Array(ecTotalBlocks);
+    let maxDataSize = 0;
+    const buffer = new Uint8Array(bitBuffer2.buffer);
+    for (let b2 = 0; b2 < ecTotalBlocks; b2++) {
+      const dataSize = b2 < blocksInGroup1 ? dataCodewordsInGroup1 : dataCodewordsInGroup2;
+      dcData[b2] = buffer.slice(offset, offset + dataSize);
+      ecData[b2] = rs2.encode(dcData[b2]);
+      offset += dataSize;
+      maxDataSize = Math.max(maxDataSize, dataSize);
+    }
+    const data = new Uint8Array(totalCodewords);
+    let index = 0;
+    let i2, r2;
+    for (i2 = 0; i2 < maxDataSize; i2++) {
+      for (r2 = 0; r2 < ecTotalBlocks; r2++) {
+        if (i2 < dcData[r2].length) {
+          data[index++] = dcData[r2][i2];
+        }
+      }
+    }
+    for (i2 = 0; i2 < ecCount; i2++) {
+      for (r2 = 0; r2 < ecTotalBlocks; r2++) {
+        data[index++] = ecData[r2][i2];
+      }
+    }
+    return data;
+  }
+  function createSymbol(data, version2, errorCorrectionLevel2, maskPattern2) {
+    let segments2;
+    if (Array.isArray(data)) {
+      segments2 = Segments.fromArray(data);
+    } else if (typeof data === "string") {
+      let estimatedVersion = version2;
+      if (!estimatedVersion) {
+        const rawSegments = Segments.rawSplit(data);
+        estimatedVersion = Version.getBestVersionForData(rawSegments, errorCorrectionLevel2);
+      }
+      segments2 = Segments.fromString(data, estimatedVersion || 40);
+    } else {
+      throw new Error("Invalid data");
+    }
+    const bestVersion = Version.getBestVersionForData(segments2, errorCorrectionLevel2);
+    if (!bestVersion) {
+      throw new Error("The amount of data is too big to be stored in a QR Code");
+    }
+    if (!version2) {
+      version2 = bestVersion;
+    } else if (version2 < bestVersion) {
+      throw new Error(
+        "\nThe chosen QR Code version cannot contain this amount of data.\nMinimum version required to store current data is: " + bestVersion + ".\n"
+      );
+    }
+    const dataBits = createData(version2, errorCorrectionLevel2, segments2);
+    const moduleCount = Utils$1.getSymbolSize(version2);
+    const modules = new BitMatrix(moduleCount);
+    setupFinderPattern(modules, version2);
+    setupTimingPattern(modules);
+    setupAlignmentPattern(modules, version2);
+    setupFormatInfo(modules, errorCorrectionLevel2, 0);
+    if (version2 >= 7) {
+      setupVersionInfo(modules, version2);
+    }
+    setupData(modules, dataBits);
+    if (isNaN(maskPattern2)) {
+      maskPattern2 = MaskPattern.getBestMask(
+        modules,
+        setupFormatInfo.bind(null, modules, errorCorrectionLevel2)
+      );
+    }
+    MaskPattern.applyMask(maskPattern2, modules);
+    setupFormatInfo(modules, errorCorrectionLevel2, maskPattern2);
+    return {
+      modules,
+      version: version2,
+      errorCorrectionLevel: errorCorrectionLevel2,
+      maskPattern: maskPattern2,
+      segments: segments2
+    };
+  }
+  qrcode.create = function create(data, options) {
+    if (typeof data === "undefined" || data === "") {
+      throw new Error("No input text");
+    }
+    let errorCorrectionLevel2 = ECLevel.M;
+    let version2;
+    let mask;
+    if (typeof options !== "undefined") {
+      errorCorrectionLevel2 = ECLevel.from(options.errorCorrectionLevel, ECLevel.M);
+      version2 = Version.from(options.version);
+      mask = MaskPattern.from(options.maskPattern);
+      if (options.toSJISFunc) {
+        Utils$1.setToSJISFunction(options.toSJISFunc);
+      }
+    }
+    return createSymbol(data, version2, errorCorrectionLevel2, mask);
+  };
+  var canvas = {};
+  var utils = {};
+  (function(exports) {
+    function hex2rgba(hex) {
+      if (typeof hex === "number") {
+        hex = hex.toString();
+      }
+      if (typeof hex !== "string") {
+        throw new Error("Color should be defined as hex string");
+      }
+      let hexCode = hex.slice().replace("#", "").split("");
+      if (hexCode.length < 3 || hexCode.length === 5 || hexCode.length > 8) {
+        throw new Error("Invalid hex color: " + hex);
+      }
+      if (hexCode.length === 3 || hexCode.length === 4) {
+        hexCode = Array.prototype.concat.apply([], hexCode.map(function(c2) {
+          return [c2, c2];
+        }));
+      }
+      if (hexCode.length === 6)
+        hexCode.push("F", "F");
+      const hexValue = parseInt(hexCode.join(""), 16);
+      return {
+        r: hexValue >> 24 & 255,
+        g: hexValue >> 16 & 255,
+        b: hexValue >> 8 & 255,
+        a: hexValue & 255,
+        hex: "#" + hexCode.slice(0, 6).join("")
+      };
+    }
+    exports.getOptions = function getOptions(options) {
+      if (!options)
+        options = {};
+      if (!options.color)
+        options.color = {};
+      const margin = typeof options.margin === "undefined" || options.margin === null || options.margin < 0 ? 4 : options.margin;
+      const width = options.width && options.width >= 21 ? options.width : void 0;
+      const scale = options.scale || 4;
+      return {
+        width,
+        scale: width ? 4 : scale,
+        margin,
+        color: {
+          dark: hex2rgba(options.color.dark || "#000000ff"),
+          light: hex2rgba(options.color.light || "#ffffffff")
+        },
+        type: options.type,
+        rendererOpts: options.rendererOpts || {}
+      };
+    };
+    exports.getScale = function getScale(qrSize, opts) {
+      return opts.width && opts.width >= qrSize + opts.margin * 2 ? opts.width / (qrSize + opts.margin * 2) : opts.scale;
+    };
+    exports.getImageWidth = function getImageWidth(qrSize, opts) {
+      const scale = exports.getScale(qrSize, opts);
+      return Math.floor((qrSize + opts.margin * 2) * scale);
+    };
+    exports.qrToImageData = function qrToImageData(imgData, qr, opts) {
+      const size = qr.modules.size;
+      const data = qr.modules.data;
+      const scale = exports.getScale(size, opts);
+      const symbolSize = Math.floor((size + opts.margin * 2) * scale);
+      const scaledMargin = opts.margin * scale;
+      const palette = [opts.color.light, opts.color.dark];
+      for (let i2 = 0; i2 < symbolSize; i2++) {
+        for (let j2 = 0; j2 < symbolSize; j2++) {
+          let posDst = (i2 * symbolSize + j2) * 4;
+          let pxColor = opts.color.light;
+          if (i2 >= scaledMargin && j2 >= scaledMargin && i2 < symbolSize - scaledMargin && j2 < symbolSize - scaledMargin) {
+            const iSrc = Math.floor((i2 - scaledMargin) / scale);
+            const jSrc = Math.floor((j2 - scaledMargin) / scale);
+            pxColor = palette[data[iSrc * size + jSrc] ? 1 : 0];
+          }
+          imgData[posDst++] = pxColor.r;
+          imgData[posDst++] = pxColor.g;
+          imgData[posDst++] = pxColor.b;
+          imgData[posDst] = pxColor.a;
+        }
+      }
+    };
+  })(utils);
+  (function(exports) {
+    const Utils2 = utils;
+    function clearCanvas(ctx, canvas2, size) {
+      ctx.clearRect(0, 0, canvas2.width, canvas2.height);
+      if (!canvas2.style)
+        canvas2.style = {};
+      canvas2.height = size;
+      canvas2.width = size;
+      canvas2.style.height = size + "px";
+      canvas2.style.width = size + "px";
+    }
+    function getCanvasElement() {
+      try {
+        return document.createElement("canvas");
+      } catch (e2) {
+        throw new Error("You need to specify a canvas element");
+      }
+    }
+    exports.render = function render(qrData, canvas2, options) {
+      let opts = options;
+      let canvasEl = canvas2;
+      if (typeof opts === "undefined" && (!canvas2 || !canvas2.getContext)) {
+        opts = canvas2;
+        canvas2 = void 0;
+      }
+      if (!canvas2) {
+        canvasEl = getCanvasElement();
+      }
+      opts = Utils2.getOptions(opts);
+      const size = Utils2.getImageWidth(qrData.modules.size, opts);
+      const ctx = canvasEl.getContext("2d");
+      const image = ctx.createImageData(size, size);
+      Utils2.qrToImageData(image.data, qrData, opts);
+      clearCanvas(ctx, canvasEl, size);
+      ctx.putImageData(image, 0, 0);
+      return canvasEl;
+    };
+    exports.renderToDataURL = function renderToDataURL(qrData, canvas2, options) {
+      let opts = options;
+      if (typeof opts === "undefined" && (!canvas2 || !canvas2.getContext)) {
+        opts = canvas2;
+        canvas2 = void 0;
+      }
+      if (!opts)
+        opts = {};
+      const canvasEl = exports.render(qrData, canvas2, opts);
+      const type = opts.type || "image/png";
+      const rendererOpts = opts.rendererOpts || {};
+      return canvasEl.toDataURL(type, rendererOpts.quality);
+    };
+  })(canvas);
+  var svgTag = {};
+  const Utils = utils;
+  function getColorAttrib(color, attrib) {
+    const alpha = color.a / 255;
+    const str = attrib + '="' + color.hex + '"';
+    return alpha < 1 ? str + " " + attrib + '-opacity="' + alpha.toFixed(2).slice(1) + '"' : str;
+  }
+  function svgCmd(cmd, x, y2) {
+    let str = cmd + x;
+    if (typeof y2 !== "undefined")
+      str += " " + y2;
+    return str;
+  }
+  function qrToPath(data, size, margin) {
+    let path = "";
+    let moveBy = 0;
+    let newRow = false;
+    let lineLength = 0;
+    for (let i2 = 0; i2 < data.length; i2++) {
+      const col = Math.floor(i2 % size);
+      const row = Math.floor(i2 / size);
+      if (!col && !newRow)
+        newRow = true;
+      if (data[i2]) {
+        lineLength++;
+        if (!(i2 > 0 && col > 0 && data[i2 - 1])) {
+          path += newRow ? svgCmd("M", col + margin, 0.5 + row + margin) : svgCmd("m", moveBy, 0);
+          moveBy = 0;
+          newRow = false;
+        }
+        if (!(col + 1 < size && data[i2 + 1])) {
+          path += svgCmd("h", lineLength);
+          lineLength = 0;
+        }
+      } else {
+        moveBy++;
+      }
+    }
+    return path;
+  }
+  svgTag.render = function render(qrData, options, cb) {
+    const opts = Utils.getOptions(options);
+    const size = qrData.modules.size;
+    const data = qrData.modules.data;
+    const qrcodesize = size + opts.margin * 2;
+    const bg = !opts.color.light.a ? "" : "<path " + getColorAttrib(opts.color.light, "fill") + ' d="M0 0h' + qrcodesize + "v" + qrcodesize + 'H0z"/>';
+    const path = "<path " + getColorAttrib(opts.color.dark, "stroke") + ' d="' + qrToPath(data, size, opts.margin) + '"/>';
+    const viewBox = 'viewBox="0 0 ' + qrcodesize + " " + qrcodesize + '"';
+    const width = !opts.width ? "" : 'width="' + opts.width + '" height="' + opts.width + '" ';
+    const svgTag2 = '<svg xmlns="http://www.w3.org/2000/svg" ' + width + viewBox + ' shape-rendering="crispEdges">' + bg + path + "</svg>\n";
+    if (typeof cb === "function") {
+      cb(null, svgTag2);
+    }
+    return svgTag2;
+  };
+  const canPromise = canPromise$1;
+  const QRCode = qrcode;
+  const CanvasRenderer = canvas;
+  const SvgRenderer = svgTag;
+  function renderCanvas(renderFunc, canvas2, text, opts, cb) {
+    const args = [].slice.call(arguments, 1);
+    const argsNum = args.length;
+    const isLastArgCb = typeof args[argsNum - 1] === "function";
+    if (!isLastArgCb && !canPromise()) {
+      throw new Error("Callback required as last argument");
+    }
+    if (isLastArgCb) {
+      if (argsNum < 2) {
+        throw new Error("Too few arguments provided");
+      }
+      if (argsNum === 2) {
+        cb = text;
+        text = canvas2;
+        canvas2 = opts = void 0;
+      } else if (argsNum === 3) {
+        if (canvas2.getContext && typeof cb === "undefined") {
+          cb = opts;
+          opts = void 0;
+        } else {
+          cb = opts;
+          opts = text;
+          text = canvas2;
+          canvas2 = void 0;
+        }
+      }
+    } else {
+      if (argsNum < 1) {
+        throw new Error("Too few arguments provided");
+      }
+      if (argsNum === 1) {
+        text = canvas2;
+        canvas2 = opts = void 0;
+      } else if (argsNum === 2 && !canvas2.getContext) {
+        opts = text;
+        text = canvas2;
+        canvas2 = void 0;
+      }
+      return new Promise(function(resolve, reject) {
+        try {
+          const data = QRCode.create(text, opts);
+          resolve(renderFunc(data, canvas2, opts));
+        } catch (e2) {
+          reject(e2);
+        }
+      });
+    }
+    try {
+      const data = QRCode.create(text, opts);
+      cb(null, renderFunc(data, canvas2, opts));
+    } catch (e2) {
+      cb(e2);
+    }
+  }
+  browser.create = QRCode.create;
+  browser.toCanvas = renderCanvas.bind(null, CanvasRenderer.render);
+  browser.toDataURL = renderCanvas.bind(null, CanvasRenderer.renderToDataURL);
+  browser.toString = renderCanvas.bind(null, function(data, _2, opts) {
+    return SvgRenderer.render(data, opts);
+  });
+  const _sfc_main$x = {
+    __name: "qrcodeDetail",
+    setup(__props) {
+      const qrcode2 = vue.ref("");
+      vue.onMounted(async () => {
+        const { data } = await getOfficerQRCode({ path: "/pages/merchant/settle_notice" });
+        qrcode2.value = data;
+        await generateQRCode(data);
+      });
+      const qrCodeUrl = vue.ref("");
+      const generateQRCode = async (url) => {
+        try {
+          const qrCodeDataUrl = await browser.toDataURL(url, {
+            width: 200,
+            // 二维码宽度
+            height: 200
+            // 二维码高度
+          });
+          qrCodeUrl.value = qrCodeDataUrl;
+        } catch (err) {
+          formatAppLog("error", "at pages/recommend/qrcodeDetail.vue:35", "二维码生成失败:", err);
+        }
+      };
+      return (_ctx, _cache) => {
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
+        return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
+          vue.createVNode(_component_navBar, { title: "推荐官二维码" }),
+          vue.createElementVNode("div", { class: "content" }, [
+            qrCodeUrl.value ? (vue.openBlock(), vue.createElementBlock("img", {
+              key: 0,
+              class: "img",
+              src: qrCodeUrl.value,
+              alt: "QR Code"
+            }, null, 8, ["src"])) : vue.createCommentVNode("v-if", true)
+          ])
+        ]);
+      };
+    }
+  };
+  const PagesRecommendQrcodeDetail = /* @__PURE__ */ _export_sfc(_sfc_main$x, [["__scopeId", "data-v-49865422"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/qrcodeDetail.vue"]]);
+  const _sfc_main$w = {
     __name: "shopList",
     props: {
       sort: {
@@ -10084,11 +12118,11 @@ ${i3}
       };
     }
   };
-  const __easycom_1$1 = /* @__PURE__ */ _export_sfc(_sfc_main$u, [["__scopeId", "data-v-69f4d838"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/shopList/shopList.vue"]]);
+  const __easycom_1$1 = /* @__PURE__ */ _export_sfc(_sfc_main$w, [["__scopeId", "data-v-69f4d838"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/shopList/shopList.vue"]]);
   const _imports_0$2 = "/static/category.png";
   const _imports_1$2 = "/static/arrow-active.png";
   const _imports_2$1 = "/static/arrow-inactive.png";
-  const _sfc_main$t = {
+  const _sfc_main$v = {
     __name: "all_merchant",
     setup(__props) {
       const publicStore = usePublicStore();
@@ -10124,7 +12158,7 @@ ${i3}
       };
       const distance = vue.ref("asc");
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_shopList = resolveEasycom(vue.resolveDynamicComponent("shopList"), __easycom_1$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "全部商家" }),
@@ -10191,100 +12225,100 @@ ${i3}
       };
     }
   };
-  const PagesMerchantAllMerchant = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["__scopeId", "data-v-2d911691"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/all_merchant.vue"]]);
+  const PagesMerchantAllMerchant = /* @__PURE__ */ _export_sfc(_sfc_main$v, [["__scopeId", "data-v-2d911691"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/all_merchant.vue"]]);
+  const _sfc_main$u = {
+    __name: "merchant_code_authentication",
+    setup(__props) {
+      const address = vue.ref("");
+      const isChecked = vue.ref(false);
+      const confirm = () => {
+        if (!isChecked.value)
+          return uni.showToast({
+            icon: "none",
+            title: "请阅读完须知后勾选同意"
+          });
+      };
+      return (_ctx, _cache) => {
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
+        return vue.openBlock(), vue.createElementBlock("view", null, [
+          vue.createVNode(_component_navBar, { title: "商家码认证" }),
+          vue.createElementVNode("view", { class: "content" }, [
+            vue.createElementVNode("view", { class: "shop_info" }, [
+              vue.createElementVNode("view", { class: "info_item flex_between" }, [
+                vue.createElementVNode("view", { class: "s_title" }, " 商家码地址 "),
+                vue.withDirectives(vue.createElementVNode(
+                  "input",
+                  {
+                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => address.value = $event),
+                    class: "uni-input",
+                    placeholder: "请输入商家码地址",
+                    "placeholder-class": "placeholder_class"
+                  },
+                  null,
+                  512
+                  /* NEED_PATCH */
+                ), [
+                  [vue.vModelText, address.value]
+                ])
+              ])
+            ]),
+            vue.createElementVNode("view", {
+              class: "btn_full",
+              onClick: confirm
+            }, " 认证 ")
+          ])
+        ]);
+      };
+    }
+  };
+  const PagesAgentMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$u, [["__scopeId", "data-v-954048b2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/merchant_code_authentication.vue"]]);
+  const _sfc_main$t = {
+    __name: "merchant_code_authentication",
+    setup(__props) {
+      const address = vue.ref("");
+      const isChecked = vue.ref(false);
+      const confirm = () => {
+        if (!isChecked.value)
+          return uni.showToast({
+            icon: "none",
+            title: "请阅读完须知后勾选同意"
+          });
+      };
+      return (_ctx, _cache) => {
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
+        return vue.openBlock(), vue.createElementBlock("view", null, [
+          vue.createVNode(_component_navBar, { title: "商家码认证" }),
+          vue.createElementVNode("view", { class: "content" }, [
+            vue.createElementVNode("view", { class: "shop_info" }, [
+              vue.createElementVNode("view", { class: "info_item flex_between" }, [
+                vue.createElementVNode("view", { class: "s_title" }, " 商家码地址 "),
+                vue.withDirectives(vue.createElementVNode(
+                  "input",
+                  {
+                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => address.value = $event),
+                    class: "uni-input",
+                    placeholder: "请输入商家码地址",
+                    "placeholder-class": "placeholder_class"
+                  },
+                  null,
+                  512
+                  /* NEED_PATCH */
+                ), [
+                  [vue.vModelText, address.value]
+                ])
+              ])
+            ]),
+            vue.createElementVNode("view", {
+              class: "btn_full",
+              onClick: confirm
+            }, " 认证 ")
+          ])
+        ]);
+      };
+    }
+  };
+  const PagesRecommendMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["__scopeId", "data-v-c32e0b38"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/merchant_code_authentication.vue"]]);
   const _sfc_main$s = {
-    __name: "merchant_code_authentication",
-    setup(__props) {
-      const address = vue.ref("");
-      const isChecked = vue.ref(false);
-      const confirm = () => {
-        if (!isChecked.value)
-          return uni.showToast({
-            icon: "none",
-            title: "请阅读完须知后勾选同意"
-          });
-      };
-      return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
-        return vue.openBlock(), vue.createElementBlock("view", null, [
-          vue.createVNode(_component_navBar, { title: "商家码认证" }),
-          vue.createElementVNode("view", { class: "content" }, [
-            vue.createElementVNode("view", { class: "shop_info" }, [
-              vue.createElementVNode("view", { class: "info_item flex_between" }, [
-                vue.createElementVNode("view", { class: "s_title" }, " 商家码地址 "),
-                vue.withDirectives(vue.createElementVNode(
-                  "input",
-                  {
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => address.value = $event),
-                    class: "uni-input",
-                    placeholder: "请输入商家码地址",
-                    "placeholder-class": "placeholder_class"
-                  },
-                  null,
-                  512
-                  /* NEED_PATCH */
-                ), [
-                  [vue.vModelText, address.value]
-                ])
-              ])
-            ]),
-            vue.createElementVNode("view", {
-              class: "btn_full",
-              onClick: confirm
-            }, " 认证 ")
-          ])
-        ]);
-      };
-    }
-  };
-  const PagesAgentMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["__scopeId", "data-v-954048b2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/merchant_code_authentication.vue"]]);
-  const _sfc_main$r = {
-    __name: "merchant_code_authentication",
-    setup(__props) {
-      const address = vue.ref("");
-      const isChecked = vue.ref(false);
-      const confirm = () => {
-        if (!isChecked.value)
-          return uni.showToast({
-            icon: "none",
-            title: "请阅读完须知后勾选同意"
-          });
-      };
-      return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
-        return vue.openBlock(), vue.createElementBlock("view", null, [
-          vue.createVNode(_component_navBar, { title: "商家码认证" }),
-          vue.createElementVNode("view", { class: "content" }, [
-            vue.createElementVNode("view", { class: "shop_info" }, [
-              vue.createElementVNode("view", { class: "info_item flex_between" }, [
-                vue.createElementVNode("view", { class: "s_title" }, " 商家码地址 "),
-                vue.withDirectives(vue.createElementVNode(
-                  "input",
-                  {
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => address.value = $event),
-                    class: "uni-input",
-                    placeholder: "请输入商家码地址",
-                    "placeholder-class": "placeholder_class"
-                  },
-                  null,
-                  512
-                  /* NEED_PATCH */
-                ), [
-                  [vue.vModelText, address.value]
-                ])
-              ])
-            ]),
-            vue.createElementVNode("view", {
-              class: "btn_full",
-              onClick: confirm
-            }, " 认证 ")
-          ])
-        ]);
-      };
-    }
-  };
-  const PagesRecommendMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$r, [["__scopeId", "data-v-c32e0b38"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/merchant_code_authentication.vue"]]);
-  const _sfc_main$q = {
     __name: "security_deposit",
     setup(__props) {
       const toRecord = () => {
@@ -10303,7 +12337,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "保证金" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -10337,8 +12371,8 @@ ${i3}
       };
     }
   };
-  const PagesRecommendSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["__scopeId", "data-v-f039c67b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/security_deposit.vue"]]);
-  const _sfc_main$p = {
+  const PagesRecommendSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["__scopeId", "data-v-f039c67b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/security_deposit.vue"]]);
+  const _sfc_main$r = {
     __name: "security_deposit",
     setup(__props) {
       const toRecord = () => {
@@ -10357,7 +12391,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "保证金" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -10391,7 +12425,7 @@ ${i3}
       };
     }
   };
-  const PagesAgentSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["__scopeId", "data-v-151545ee"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/security_deposit.vue"]]);
+  const PagesAgentSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$r, [["__scopeId", "data-v-151545ee"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/security_deposit.vue"]]);
   const _imports_0$1 = "/static/my/bg_my.png";
   const _imports_1$1 = "/static/my/my_credits.png";
   const _imports_2 = "/static/my/available_credits.png";
@@ -10404,11 +12438,13 @@ ${i3}
   const _imports_10 = "/static/my/service.png";
   const _imports_11 = "/static/my/settle.png";
   const _imports_12 = "/static/my/entrance.png";
-  const _sfc_main$o = {
+  const _sfc_main$q = {
     __name: "myAccount",
     setup(__props) {
-      const userStore = useUserStore();
+      useUserStore();
       const accessToken = uni.getStorageSync("accessToken");
+      const ionc_url = uni.getStorageSync("userInfo").icon;
+      const user_name = uni.getStorageSync("userInfo").name;
       vue.onMounted(() => {
         if (accessToken) {
           getPointInfo();
@@ -10444,7 +12480,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock(
           vue.Fragment,
           null,
@@ -10465,14 +12501,14 @@ ${i3}
                   vue.createElementVNode("view", { class: "avtar" }, [
                     vue.createElementVNode("image", {
                       class: "img",
-                      src: vue.unref(userStore).userInfo.icon,
+                      src: vue.unref(ionc_url),
                       mode: ""
                     }, null, 8, ["src"])
                   ]),
                   vue.createElementVNode(
                     "view",
                     { class: "name" },
-                    vue.toDisplayString(vue.unref(userStore).userInfo.username || "点击登录"),
+                    vue.toDisplayString(vue.unref(user_name) || "点击登录"),
                     1
                     /* TEXT */
                   )
@@ -10639,8 +12675,8 @@ ${i3}
       };
     }
   };
-  const PagesMyAccountMyAccount = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/myAccount.vue"]]);
-  const _sfc_main$n = {
+  const PagesMyAccountMyAccount = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/myAccount.vue"]]);
+  const _sfc_main$p = {
     name: "UniSegmentedControl",
     emits: ["clickItem"],
     props: {
@@ -10694,7 +12730,7 @@ ${i3}
       }
     }
   };
-  function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -10738,8 +12774,8 @@ ${i3}
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["render", _sfc_render$7], ["__scopeId", "data-v-86aa1171"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue"]]);
-  const _sfc_main$m = {
+  const __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$p, [["render", _sfc_render$9], ["__scopeId", "data-v-86aa1171"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue"]]);
+  const _sfc_main$o = {
     __name: "goodsList",
     setup(__props) {
       const _this = vue.getCurrentInstance();
@@ -10907,11 +12943,11 @@ ${i3}
       };
     }
   };
-  const __easycom_2$2 = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["__scopeId", "data-v-feddcdaa"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/goodsList/goodsList.vue"]]);
+  const __easycom_2$2 = /* @__PURE__ */ _export_sfc(_sfc_main$o, [["__scopeId", "data-v-feddcdaa"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/goodsList/goodsList.vue"]]);
   const _imports_1 = "/static/star-plain.png";
   const _imports_3 = "/static/time.png";
   const _imports_4 = "/static/phone.png";
-  const _sfc_main$l = {
+  const _sfc_main$n = {
     __name: "merchant_detail",
     setup(__props) {
       const current = vue.ref(0);
@@ -10922,7 +12958,7 @@ ${i3}
         }
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_uni_segmented_control = resolveEasycom(vue.resolveDynamicComponent("uni-segmented-control"), __easycom_1);
         const _component_goodsList = resolveEasycom(vue.resolveDynamicComponent("goodsList"), __easycom_2$2);
         return vue.openBlock(), vue.createElementBlock("view", null, [
@@ -11004,10 +13040,10 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantDetail = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["__scopeId", "data-v-1771cf06"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_detail.vue"]]);
-  const _sfc_main$k = {};
-  function _sfc_render$6(_ctx, _cache) {
-    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+  const PagesMerchantMerchantDetail = /* @__PURE__ */ _export_sfc(_sfc_main$n, [["__scopeId", "data-v-1771cf06"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_detail.vue"]]);
+  const _sfc_main$m = {};
+  function _sfc_render$8(_ctx, _cache) {
+    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
     return vue.openBlock(), vue.createElementBlock("view", null, [
       vue.createVNode(_component_navBar, { title: "商品详情" }),
       vue.createElementVNode("view", { class: "content" }, [
@@ -11049,8 +13085,8 @@ ${i3}
       ])
     ]);
   }
-  const PagesMerchantGoodsDetail = /* @__PURE__ */ _export_sfc(_sfc_main$k, [["render", _sfc_render$6], ["__scopeId", "data-v-2276b552"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/goods_detail.vue"]]);
-  const _sfc_main$j = {
+  const PagesMerchantGoodsDetail = /* @__PURE__ */ _export_sfc(_sfc_main$m, [["render", _sfc_render$8], ["__scopeId", "data-v-2276b552"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/goods_detail.vue"]]);
+  const _sfc_main$l = {
     __name: "register",
     setup(__props) {
       const userStore = useUserStore();
@@ -11065,8 +13101,13 @@ ${i3}
             title: "密码长度最低8位"
           });
         if (password.value == password2.value) {
+          uni.showLoading({});
+          uni.showLoading({
+            title: "正在注册中..."
+          });
           postRegister(mobile.value, password.value).then((res) => {
-            formatAppLog("log", "at pages/login/register.vue:62", res);
+            formatAppLog("log", "at pages/login/register.vue:68", "刚注册的用户信息", res);
+            uni.hideLoading();
             uni.showToast({
               duration: 2e3,
               icon: "success",
@@ -11081,7 +13122,7 @@ ${i3}
           }).catch((err) => {
             uni.showToast({
               duration: 2e3,
-              icon: "fail",
+              icon: "none",
               title: "注册失败"
             });
           });
@@ -11094,7 +13135,7 @@ ${i3}
         }
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_uni_easyinput = resolveEasycom(vue.resolveDynamicComponent("uni-easyinput"), __easycom_1$4);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, {
@@ -11140,7 +13181,1117 @@ ${i3}
       };
     }
   };
-  const PagesLoginRegister = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["__scopeId", "data-v-838b72c9"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/login/register.vue"]]);
+  const PagesLoginRegister = /* @__PURE__ */ _export_sfc(_sfc_main$l, [["__scopeId", "data-v-838b72c9"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/login/register.vue"]]);
+  const dataPicker = {
+    props: {
+      localdata: {
+        type: [Array, Object],
+        default() {
+          return [];
+        }
+      },
+      spaceInfo: {
+        type: Object,
+        default() {
+          return {};
+        }
+      },
+      collection: {
+        type: String,
+        default: ""
+      },
+      action: {
+        type: String,
+        default: ""
+      },
+      field: {
+        type: String,
+        default: ""
+      },
+      orderby: {
+        type: String,
+        default: ""
+      },
+      where: {
+        type: [String, Object],
+        default: ""
+      },
+      pageData: {
+        type: String,
+        default: "add"
+      },
+      pageCurrent: {
+        type: Number,
+        default: 1
+      },
+      pageSize: {
+        type: Number,
+        default: 500
+      },
+      getcount: {
+        type: [Boolean, String],
+        default: false
+      },
+      getone: {
+        type: [Boolean, String],
+        default: false
+      },
+      gettree: {
+        type: [Boolean, String],
+        default: false
+      },
+      manual: {
+        type: Boolean,
+        default: false
+      },
+      value: {
+        type: [Array, String, Number],
+        default() {
+          return [];
+        }
+      },
+      modelValue: {
+        type: [Array, String, Number],
+        default() {
+          return [];
+        }
+      },
+      preload: {
+        type: Boolean,
+        default: false
+      },
+      stepSearh: {
+        type: Boolean,
+        default: true
+      },
+      selfField: {
+        type: String,
+        default: ""
+      },
+      parentField: {
+        type: String,
+        default: ""
+      },
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      map: {
+        type: Object,
+        default() {
+          return {
+            text: "text",
+            value: "value"
+          };
+        }
+      }
+    },
+    data() {
+      return {
+        loading: false,
+        errorMessage: "",
+        loadMore: {
+          contentdown: "",
+          contentrefresh: "",
+          contentnomore: ""
+        },
+        dataList: [],
+        selected: [],
+        selectedIndex: 0,
+        page: {
+          current: this.pageCurrent,
+          size: this.pageSize,
+          count: 0
+        }
+      };
+    },
+    computed: {
+      isLocalData() {
+        return !this.collection.length;
+      },
+      isCloudData() {
+        return this.collection.length > 0;
+      },
+      isCloudDataList() {
+        return this.isCloudData && (!this.parentField && !this.selfField);
+      },
+      isCloudDataTree() {
+        return this.isCloudData && this.parentField && this.selfField;
+      },
+      dataValue() {
+        let isModelValue = Array.isArray(this.modelValue) ? this.modelValue.length > 0 : this.modelValue !== null || this.modelValue !== void 0;
+        return isModelValue ? this.modelValue : this.value;
+      },
+      hasValue() {
+        if (typeof this.dataValue === "number") {
+          return true;
+        }
+        return this.dataValue != null && this.dataValue.length > 0;
+      }
+    },
+    created() {
+      this.$watch(() => {
+        var al = [];
+        [
+          "pageCurrent",
+          "pageSize",
+          "spaceInfo",
+          "value",
+          "modelValue",
+          "localdata",
+          "collection",
+          "action",
+          "field",
+          "orderby",
+          "where",
+          "getont",
+          "getcount",
+          "gettree"
+        ].forEach((key) => {
+          al.push(this[key]);
+        });
+        return al;
+      }, (newValue, oldValue) => {
+        for (let i2 = 2; i2 < newValue.length; i2++) {
+          if (newValue[i2] != oldValue[i2]) {
+            break;
+          }
+        }
+        if (newValue[0] != oldValue[0]) {
+          this.page.current = this.pageCurrent;
+        }
+        this.page.size = this.pageSize;
+        this.onPropsChange();
+      });
+      this._treeData = [];
+    },
+    methods: {
+      onPropsChange() {
+        this._treeData = [];
+      },
+      // 填充 pickview 数据
+      async loadData() {
+        if (this.isLocalData) {
+          this.loadLocalData();
+        } else if (this.isCloudDataList) {
+          this.loadCloudDataList();
+        } else if (this.isCloudDataTree) {
+          this.loadCloudDataTree();
+        }
+      },
+      // 加载本地数据
+      async loadLocalData() {
+        this._treeData = [];
+        this._extractTree(this.localdata, this._treeData);
+        let inputValue = this.dataValue;
+        if (inputValue === void 0) {
+          return;
+        }
+        if (Array.isArray(inputValue)) {
+          inputValue = inputValue[inputValue.length - 1];
+          if (typeof inputValue === "object" && inputValue[this.map.value]) {
+            inputValue = inputValue[this.map.value];
+          }
+        }
+        this.selected = this._findNodePath(inputValue, this.localdata);
+      },
+      // 加载 Cloud 数据 (单列)
+      async loadCloudDataList() {
+        if (this.loading) {
+          return;
+        }
+        this.loading = true;
+        try {
+          let response = await this.getCommand();
+          let responseData = response.result.data;
+          this._treeData = responseData;
+          this._updateBindData();
+          this._updateSelected();
+          this.onDataChange();
+        } catch (e2) {
+          this.errorMessage = e2;
+        } finally {
+          this.loading = false;
+        }
+      },
+      // 加载 Cloud 数据 (树形)
+      async loadCloudDataTree() {
+        if (this.loading) {
+          return;
+        }
+        this.loading = true;
+        try {
+          let commandOptions = {
+            field: this._cloudDataPostField(),
+            where: this._cloudDataTreeWhere()
+          };
+          if (this.gettree) {
+            commandOptions.startwith = `${this.selfField}=='${this.dataValue}'`;
+          }
+          let response = await this.getCommand(commandOptions);
+          let responseData = response.result.data;
+          this._treeData = responseData;
+          this._updateBindData();
+          this._updateSelected();
+          this.onDataChange();
+        } catch (e2) {
+          this.errorMessage = e2;
+        } finally {
+          this.loading = false;
+        }
+      },
+      // 加载 Cloud 数据 (节点)
+      async loadCloudDataNode(callback) {
+        if (this.loading) {
+          return;
+        }
+        this.loading = true;
+        try {
+          let commandOptions = {
+            field: this._cloudDataPostField(),
+            where: this._cloudDataNodeWhere()
+          };
+          let response = await this.getCommand(commandOptions);
+          let responseData = response.result.data;
+          callback(responseData);
+        } catch (e2) {
+          this.errorMessage = e2;
+        } finally {
+          this.loading = false;
+        }
+      },
+      // 回显 Cloud 数据
+      getCloudDataValue() {
+        if (this.isCloudDataList) {
+          return this.getCloudDataListValue();
+        }
+        if (this.isCloudDataTree) {
+          return this.getCloudDataTreeValue();
+        }
+      },
+      // 回显 Cloud 数据 (单列)
+      getCloudDataListValue() {
+        let where = [];
+        let whereField = this._getForeignKeyByField();
+        if (whereField) {
+          where.push(`${whereField} == '${this.dataValue}'`);
+        }
+        where = where.join(" || ");
+        if (this.where) {
+          where = `(${this.where}) && (${where})`;
+        }
+        return this.getCommand({
+          field: this._cloudDataPostField(),
+          where
+        }).then((res) => {
+          this.selected = res.result.data;
+          return res.result.data;
+        });
+      },
+      // 回显 Cloud 数据 (树形)
+      getCloudDataTreeValue() {
+        return this.getCommand({
+          field: this._cloudDataPostField(),
+          getTreePath: {
+            startWith: `${this.selfField}=='${this.dataValue}'`
+          }
+        }).then((res) => {
+          let treePath = [];
+          this._extractTreePath(res.result.data, treePath);
+          this.selected = treePath;
+          return treePath;
+        });
+      },
+      getCommand(options = {}) {
+        let db = Vs.database(this.spaceInfo);
+        const action = options.action || this.action;
+        if (action) {
+          db = db.action(action);
+        }
+        const collection = options.collection || this.collection;
+        db = db.collection(collection);
+        const where = options.where || this.where;
+        if (!(!where || !Object.keys(where).length)) {
+          db = db.where(where);
+        }
+        const field = options.field || this.field;
+        if (field) {
+          db = db.field(field);
+        }
+        const orderby = options.orderby || this.orderby;
+        if (orderby) {
+          db = db.orderBy(orderby);
+        }
+        const current = options.pageCurrent !== void 0 ? options.pageCurrent : this.page.current;
+        const size = options.pageSize !== void 0 ? options.pageSize : this.page.size;
+        const getCount = options.getcount !== void 0 ? options.getcount : this.getcount;
+        const getTree = options.gettree !== void 0 ? options.gettree : this.gettree;
+        const getOptions = {
+          getCount,
+          getTree
+        };
+        if (options.getTreePath) {
+          getOptions.getTreePath = options.getTreePath;
+        }
+        db = db.skip(size * (current - 1)).limit(size).get(getOptions);
+        return db;
+      },
+      _cloudDataPostField() {
+        let fields = [this.field];
+        if (this.parentField) {
+          fields.push(`${this.parentField} as parent_value`);
+        }
+        return fields.join(",");
+      },
+      _cloudDataTreeWhere() {
+        let result = [];
+        let selected = this.selected;
+        let parentField = this.parentField;
+        if (parentField) {
+          result.push(`${parentField} == null || ${parentField} == ""`);
+        }
+        if (selected.length) {
+          for (var i2 = 0; i2 < selected.length - 1; i2++) {
+            result.push(`${parentField} == '${selected[i2].value}'`);
+          }
+        }
+        let where = [];
+        if (this.where) {
+          where.push(`(${this.where})`);
+        }
+        if (result.length) {
+          where.push(`(${result.join(" || ")})`);
+        }
+        return where.join(" && ");
+      },
+      _cloudDataNodeWhere() {
+        let where = [];
+        let selected = this.selected;
+        if (selected.length) {
+          where.push(`${this.parentField} == '${selected[selected.length - 1].value}'`);
+        }
+        where = where.join(" || ");
+        if (this.where) {
+          return `(${this.where}) && (${where})`;
+        }
+        return where;
+      },
+      _getWhereByForeignKey() {
+        let result = [];
+        let whereField = this._getForeignKeyByField();
+        if (whereField) {
+          result.push(`${whereField} == '${this.dataValue}'`);
+        }
+        if (this.where) {
+          return `(${this.where}) && (${result.join(" || ")})`;
+        }
+        return result.join(" || ");
+      },
+      _getForeignKeyByField() {
+        let fields = this.field.split(",");
+        let whereField = null;
+        for (let i2 = 0; i2 < fields.length; i2++) {
+          const items = fields[i2].split("as");
+          if (items.length < 2) {
+            continue;
+          }
+          if (items[1].trim() === "value") {
+            whereField = items[0].trim();
+            break;
+          }
+        }
+        return whereField;
+      },
+      _updateBindData(node) {
+        const {
+          dataList,
+          hasNodes
+        } = this._filterData(this._treeData, this.selected);
+        let isleaf = this._stepSearh === false && !hasNodes;
+        if (node) {
+          node.isleaf = isleaf;
+        }
+        this.dataList = dataList;
+        this.selectedIndex = dataList.length - 1;
+        if (!isleaf && this.selected.length < dataList.length) {
+          this.selected.push({
+            value: null,
+            text: "请选择"
+          });
+        }
+        return {
+          isleaf,
+          hasNodes
+        };
+      },
+      _updateSelected() {
+        let dl = this.dataList;
+        let sl = this.selected;
+        let textField = this.map.text;
+        let valueField = this.map.value;
+        for (let i2 = 0; i2 < sl.length; i2++) {
+          let value = sl[i2].value;
+          let dl2 = dl[i2];
+          for (let j2 = 0; j2 < dl2.length; j2++) {
+            let item2 = dl2[j2];
+            if (item2[valueField] === value) {
+              sl[i2].text = item2[textField];
+              break;
+            }
+          }
+        }
+      },
+      _filterData(data, paths) {
+        let dataList = [];
+        let hasNodes = true;
+        dataList.push(data.filter((item) => {
+          return item.parent_value === null || item.parent_value === void 0 || item.parent_value === "";
+        }));
+        for (let i2 = 0; i2 < paths.length; i2++) {
+          let value = paths[i2].value;
+          let nodes = data.filter((item) => {
+            return item.parent_value === value;
+          });
+          if (nodes.length) {
+            dataList.push(nodes);
+          } else {
+            hasNodes = false;
+          }
+        }
+        return {
+          dataList,
+          hasNodes
+        };
+      },
+      _extractTree(nodes, result, parent_value) {
+        let valueField = this.map.value;
+        for (let i2 = 0; i2 < nodes.length; i2++) {
+          let node = nodes[i2];
+          let child = {};
+          for (let key in node) {
+            if (key !== "children") {
+              child[key] = node[key];
+            }
+          }
+          if (parent_value !== null && parent_value !== void 0 && parent_value !== "") {
+            child.parent_value = parent_value;
+          }
+          result.push(child);
+          let children = node.children;
+          if (children) {
+            this._extractTree(children, result, node[valueField]);
+          }
+        }
+      },
+      _extractTreePath(nodes, result) {
+        for (let i2 = 0; i2 < nodes.length; i2++) {
+          let node = nodes[i2];
+          let child = {};
+          for (let key in node) {
+            if (key !== "children") {
+              child[key] = node[key];
+            }
+          }
+          result.push(child);
+          let children = node.children;
+          if (children) {
+            this._extractTreePath(children, result);
+          }
+        }
+      },
+      _findNodePath(key, nodes, path = []) {
+        let textField = this.map.text;
+        let valueField = this.map.value;
+        for (let i2 = 0; i2 < nodes.length; i2++) {
+          let node = nodes[i2];
+          let children = node.children;
+          let text = node[textField];
+          let value = node[valueField];
+          path.push({
+            value,
+            text
+          });
+          if (value === key) {
+            return path;
+          }
+          if (children) {
+            const p2 = this._findNodePath(key, children, path);
+            if (p2.length) {
+              return p2;
+            }
+          }
+          path.pop();
+        }
+        return [];
+      }
+    }
+  };
+  const _sfc_main$k = {
+    name: "UniDataPickerView",
+    emits: ["nodeclick", "change", "datachange", "update:modelValue"],
+    mixins: [dataPicker],
+    props: {
+      managedMode: {
+        type: Boolean,
+        default: false
+      },
+      ellipsis: {
+        type: Boolean,
+        default: true
+      }
+    },
+    created() {
+      if (!this.managedMode) {
+        this.$nextTick(() => {
+          this.loadData();
+        });
+      }
+    },
+    methods: {
+      onPropsChange() {
+        this._treeData = [];
+        this.selectedIndex = 0;
+        this.$nextTick(() => {
+          this.loadData();
+        });
+      },
+      handleSelect(index) {
+        this.selectedIndex = index;
+      },
+      handleNodeClick(item, i2, j2) {
+        if (item.disable) {
+          return;
+        }
+        const node = this.dataList[i2][j2];
+        const text = node[this.map.text];
+        const value = node[this.map.value];
+        if (i2 < this.selected.length - 1) {
+          this.selected.splice(i2, this.selected.length - i2);
+          this.selected.push({
+            text,
+            value
+          });
+        } else if (i2 === this.selected.length - 1) {
+          this.selected.splice(i2, 1, {
+            text,
+            value
+          });
+        }
+        if (node.isleaf) {
+          this.onSelectedChange(node, node.isleaf);
+          return;
+        }
+        const {
+          isleaf,
+          hasNodes
+        } = this._updateBindData();
+        if (this.isLocalData) {
+          this.onSelectedChange(node, !hasNodes || isleaf);
+        } else if (this.isCloudDataList) {
+          this.onSelectedChange(node, true);
+        } else if (this.isCloudDataTree) {
+          if (isleaf) {
+            this.onSelectedChange(node, node.isleaf);
+          } else if (!hasNodes) {
+            this.loadCloudDataNode((data) => {
+              if (!data.length) {
+                node.isleaf = true;
+              } else {
+                this._treeData.push(...data);
+                this._updateBindData(node);
+              }
+              this.onSelectedChange(node, node.isleaf);
+            });
+          }
+        }
+      },
+      updateData(data) {
+        this._treeData = data.treeData;
+        this.selected = data.selected;
+        if (!this._treeData.length) {
+          this.loadData();
+        } else {
+          this._updateBindData();
+        }
+      },
+      onDataChange() {
+        this.$emit("datachange");
+      },
+      onSelectedChange(node, isleaf) {
+        if (isleaf) {
+          this._dispatchEvent();
+        }
+        if (node) {
+          this.$emit("nodeclick", node);
+        }
+      },
+      _dispatchEvent() {
+        this.$emit("change", this.selected.slice(0));
+      }
+    }
+  };
+  function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_0);
+    return vue.openBlock(), vue.createElementBlock("view", { class: "uni-data-pickerview" }, [
+      !_ctx.isCloudDataList ? (vue.openBlock(), vue.createElementBlock("scroll-view", {
+        key: 0,
+        class: "selected-area",
+        "scroll-x": "true"
+      }, [
+        vue.createElementVNode("view", { class: "selected-list" }, [
+          (vue.openBlock(true), vue.createElementBlock(
+            vue.Fragment,
+            null,
+            vue.renderList(_ctx.selected, (item, index) => {
+              return vue.openBlock(), vue.createElementBlock("view", {
+                class: vue.normalizeClass(["selected-item", {
+                  "selected-item-active": index == _ctx.selectedIndex
+                }]),
+                key: index,
+                onClick: ($event) => $options.handleSelect(index)
+              }, [
+                vue.createElementVNode(
+                  "text",
+                  null,
+                  vue.toDisplayString(item.text || ""),
+                  1
+                  /* TEXT */
+                )
+              ], 10, ["onClick"]);
+            }),
+            128
+            /* KEYED_FRAGMENT */
+          ))
+        ])
+      ])) : vue.createCommentVNode("v-if", true),
+      vue.createElementVNode("view", { class: "tab-c" }, [
+        vue.createElementVNode("scroll-view", {
+          class: "list",
+          "scroll-y": true
+        }, [
+          (vue.openBlock(true), vue.createElementBlock(
+            vue.Fragment,
+            null,
+            vue.renderList(_ctx.dataList[_ctx.selectedIndex], (item, j2) => {
+              return vue.openBlock(), vue.createElementBlock("view", {
+                class: vue.normalizeClass(["item", { "is-disabled": !!item.disable }]),
+                key: j2,
+                onClick: ($event) => $options.handleNodeClick(item, _ctx.selectedIndex, j2)
+              }, [
+                vue.createElementVNode(
+                  "text",
+                  { class: "item-text" },
+                  vue.toDisplayString(item[_ctx.map.text]),
+                  1
+                  /* TEXT */
+                ),
+                _ctx.selected.length > _ctx.selectedIndex && item[_ctx.map.value] == _ctx.selected[_ctx.selectedIndex].value ? (vue.openBlock(), vue.createElementBlock("view", {
+                  key: 0,
+                  class: "check"
+                })) : vue.createCommentVNode("v-if", true)
+              ], 10, ["onClick"]);
+            }),
+            128
+            /* KEYED_FRAGMENT */
+          ))
+        ]),
+        _ctx.loading ? (vue.openBlock(), vue.createElementBlock("view", {
+          key: 0,
+          class: "loading-cover"
+        }, [
+          vue.createVNode(_component_uni_load_more, {
+            class: "load-more",
+            contentText: _ctx.loadMore,
+            status: "loading"
+          }, null, 8, ["contentText"])
+        ])) : vue.createCommentVNode("v-if", true),
+        _ctx.errorMessage ? (vue.openBlock(), vue.createElementBlock("view", {
+          key: 1,
+          class: "error-message"
+        }, [
+          vue.createElementVNode(
+            "text",
+            { class: "error-text" },
+            vue.toDisplayString(_ctx.errorMessage),
+            1
+            /* TEXT */
+          )
+        ])) : vue.createCommentVNode("v-if", true)
+      ])
+    ]);
+  }
+  const DataPickerView = /* @__PURE__ */ _export_sfc(_sfc_main$k, [["render", _sfc_render$7], ["__scopeId", "data-v-91ec6a82"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-picker/components/uni-data-pickerview/uni-data-pickerview.vue"]]);
+  const _sfc_main$j = {
+    name: "UniDataPicker",
+    emits: ["popupopened", "popupclosed", "nodeclick", "input", "change", "update:modelValue", "inputclick"],
+    mixins: [dataPicker],
+    components: {
+      DataPickerView
+    },
+    props: {
+      options: {
+        type: [Object, Array],
+        default() {
+          return {};
+        }
+      },
+      popupTitle: {
+        type: String,
+        default: "请选择"
+      },
+      placeholder: {
+        type: String,
+        default: "请选择"
+      },
+      heightMobile: {
+        type: String,
+        default: ""
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      clearIcon: {
+        type: Boolean,
+        default: true
+      },
+      border: {
+        type: Boolean,
+        default: true
+      },
+      split: {
+        type: String,
+        default: "/"
+      },
+      ellipsis: {
+        type: Boolean,
+        default: true
+      }
+    },
+    data() {
+      return {
+        isOpened: false,
+        inputSelected: []
+      };
+    },
+    created() {
+      this.$nextTick(() => {
+        this.load();
+      });
+    },
+    watch: {
+      localdata: {
+        handler() {
+          this.load();
+        },
+        deep: true
+      }
+    },
+    methods: {
+      clear() {
+        this._dispatchEvent([]);
+      },
+      onPropsChange() {
+        this._treeData = [];
+        this.selectedIndex = 0;
+        this.load();
+      },
+      load() {
+        if (this.readonly) {
+          this._processReadonly(this.localdata, this.dataValue);
+          return;
+        }
+        if (this.isLocalData) {
+          this.loadData();
+          this.inputSelected = this.selected.slice(0);
+        } else if (this.isCloudDataList || this.isCloudDataTree) {
+          this.loading = true;
+          this.getCloudDataValue().then((res) => {
+            this.loading = false;
+            this.inputSelected = res;
+          }).catch((err) => {
+            this.loading = false;
+            this.errorMessage = err;
+          });
+        }
+      },
+      show() {
+        this.isOpened = true;
+        setTimeout(() => {
+          this.$refs.pickerView.updateData({
+            treeData: this._treeData,
+            selected: this.selected,
+            selectedIndex: this.selectedIndex
+          });
+        }, 200);
+        this.$emit("popupopened");
+      },
+      hide() {
+        this.isOpened = false;
+        this.$emit("popupclosed");
+      },
+      handleInput() {
+        if (this.readonly) {
+          this.$emit("inputclick");
+          return;
+        }
+        this.show();
+      },
+      handleClose(e2) {
+        this.hide();
+      },
+      onnodeclick(e2) {
+        this.$emit("nodeclick", e2);
+      },
+      ondatachange(e2) {
+        this._treeData = this.$refs.pickerView._treeData;
+      },
+      onchange(e2) {
+        this.hide();
+        this.$nextTick(() => {
+          this.inputSelected = e2;
+        });
+        this._dispatchEvent(e2);
+      },
+      _processReadonly(dataList, value) {
+        var isTree = dataList.findIndex((item2) => {
+          return item2.children;
+        });
+        if (isTree > -1) {
+          let inputValue;
+          if (Array.isArray(value)) {
+            inputValue = value[value.length - 1];
+            if (typeof inputValue === "object" && inputValue.value) {
+              inputValue = inputValue.value;
+            }
+          } else {
+            inputValue = value;
+          }
+          this.inputSelected = this._findNodePath(inputValue, this.localdata);
+          return;
+        }
+        if (!this.hasValue) {
+          this.inputSelected = [];
+          return;
+        }
+        let result = [];
+        for (let i2 = 0; i2 < value.length; i2++) {
+          var val = value[i2];
+          var item = dataList.find((v2) => {
+            return v2.value == val;
+          });
+          if (item) {
+            result.push(item);
+          }
+        }
+        if (result.length) {
+          this.inputSelected = result;
+        }
+      },
+      _filterForArray(data, valueArray) {
+        var result = [];
+        for (let i2 = 0; i2 < valueArray.length; i2++) {
+          var value = valueArray[i2];
+          var found = data.find((item) => {
+            return item.value == value;
+          });
+          if (found) {
+            result.push(found);
+          }
+        }
+        return result;
+      },
+      _dispatchEvent(selected) {
+        let item = {};
+        if (selected.length) {
+          var value = new Array(selected.length);
+          for (var i2 = 0; i2 < selected.length; i2++) {
+            value[i2] = selected[i2].value;
+          }
+          item = selected[selected.length - 1];
+        } else {
+          item.value = "";
+        }
+        if (this.formItem) {
+          this.formItem.setValue(item.value);
+        }
+        this.$emit("input", item.value);
+        this.$emit("update:modelValue", item.value);
+        this.$emit("change", {
+          detail: {
+            value: selected
+          }
+        });
+      }
+    }
+  };
+  function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_0);
+    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
+    const _component_data_picker_view = vue.resolveComponent("data-picker-view");
+    return vue.openBlock(), vue.createElementBlock("view", { class: "uni-data-tree" }, [
+      vue.createElementVNode("view", {
+        class: "uni-data-tree-input",
+        onClick: _cache[1] || (_cache[1] = (...args) => $options.handleInput && $options.handleInput(...args))
+      }, [
+        vue.renderSlot(_ctx.$slots, "default", {
+          options: $props.options,
+          data: $data.inputSelected,
+          error: _ctx.errorMessage
+        }, () => [
+          vue.createElementVNode(
+            "view",
+            {
+              class: vue.normalizeClass(["input-value", { "input-value-border": $props.border }])
+            },
+            [
+              _ctx.errorMessage ? (vue.openBlock(), vue.createElementBlock(
+                "text",
+                {
+                  key: 0,
+                  class: "selected-area error-text"
+                },
+                vue.toDisplayString(_ctx.errorMessage),
+                1
+                /* TEXT */
+              )) : _ctx.loading && !$data.isOpened ? (vue.openBlock(), vue.createElementBlock("view", {
+                key: 1,
+                class: "selected-area"
+              }, [
+                vue.createVNode(_component_uni_load_more, {
+                  class: "load-more",
+                  contentText: _ctx.loadMore,
+                  status: "loading"
+                }, null, 8, ["contentText"])
+              ])) : $data.inputSelected.length ? (vue.openBlock(), vue.createElementBlock("scroll-view", {
+                key: 2,
+                class: "selected-area",
+                "scroll-x": "true"
+              }, [
+                vue.createElementVNode("view", { class: "selected-list" }, [
+                  (vue.openBlock(true), vue.createElementBlock(
+                    vue.Fragment,
+                    null,
+                    vue.renderList($data.inputSelected, (item, index) => {
+                      return vue.openBlock(), vue.createElementBlock("view", {
+                        class: "selected-item",
+                        key: index
+                      }, [
+                        vue.createElementVNode(
+                          "text",
+                          { class: "text-color" },
+                          vue.toDisplayString(item.text),
+                          1
+                          /* TEXT */
+                        ),
+                        index < $data.inputSelected.length - 1 ? (vue.openBlock(), vue.createElementBlock(
+                          "text",
+                          {
+                            key: 0,
+                            class: "input-split-line"
+                          },
+                          vue.toDisplayString($props.split),
+                          1
+                          /* TEXT */
+                        )) : vue.createCommentVNode("v-if", true)
+                      ]);
+                    }),
+                    128
+                    /* KEYED_FRAGMENT */
+                  ))
+                ])
+              ])) : (vue.openBlock(), vue.createElementBlock(
+                "text",
+                {
+                  key: 3,
+                  class: "selected-area placeholder"
+                },
+                vue.toDisplayString($props.placeholder),
+                1
+                /* TEXT */
+              )),
+              $props.clearIcon && !$props.readonly && $data.inputSelected.length ? (vue.openBlock(), vue.createElementBlock("view", {
+                key: 4,
+                class: "icon-clear",
+                onClick: _cache[0] || (_cache[0] = vue.withModifiers((...args) => $options.clear && $options.clear(...args), ["stop"]))
+              }, [
+                vue.createVNode(_component_uni_icons, {
+                  type: "clear",
+                  color: "#c0c4cc",
+                  size: "24"
+                })
+              ])) : vue.createCommentVNode("v-if", true),
+              (!$props.clearIcon || !$data.inputSelected.length) && !$props.readonly ? (vue.openBlock(), vue.createElementBlock("view", {
+                key: 5,
+                class: "arrow-area"
+              }, [
+                vue.createElementVNode("view", { class: "input-arrow" })
+              ])) : vue.createCommentVNode("v-if", true)
+            ],
+            2
+            /* CLASS */
+          )
+        ], true)
+      ]),
+      $data.isOpened ? (vue.openBlock(), vue.createElementBlock("view", {
+        key: 0,
+        class: "uni-data-tree-cover",
+        onClick: _cache[2] || (_cache[2] = (...args) => $options.handleClose && $options.handleClose(...args))
+      })) : vue.createCommentVNode("v-if", true),
+      $data.isOpened ? (vue.openBlock(), vue.createElementBlock("view", {
+        key: 1,
+        class: "uni-data-tree-dialog"
+      }, [
+        vue.createElementVNode("view", { class: "uni-popper__arrow" }),
+        vue.createElementVNode("view", { class: "dialog-caption" }, [
+          vue.createElementVNode("view", { class: "title-area" }, [
+            vue.createElementVNode(
+              "text",
+              { class: "dialog-title" },
+              vue.toDisplayString($props.popupTitle),
+              1
+              /* TEXT */
+            )
+          ]),
+          vue.createElementVNode("view", {
+            class: "dialog-close",
+            onClick: _cache[3] || (_cache[3] = (...args) => $options.handleClose && $options.handleClose(...args))
+          }, [
+            vue.createElementVNode("view", {
+              class: "dialog-close-plus",
+              "data-id": "close"
+            }),
+            vue.createElementVNode("view", {
+              class: "dialog-close-plus dialog-close-rotate",
+              "data-id": "close"
+            })
+          ])
+        ]),
+        vue.createVNode(_component_data_picker_view, {
+          class: "picker-view",
+          ref: "pickerView",
+          modelValue: _ctx.dataValue,
+          "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => _ctx.dataValue = $event),
+          localdata: _ctx.localdata,
+          preload: _ctx.preload,
+          collection: _ctx.collection,
+          field: _ctx.field,
+          orderby: _ctx.orderby,
+          where: _ctx.where,
+          "step-searh": _ctx.stepSearh,
+          "self-field": _ctx.selfField,
+          "parent-field": _ctx.parentField,
+          "managed-mode": true,
+          map: _ctx.map,
+          ellipsis: $props.ellipsis,
+          onChange: $options.onchange,
+          onDatachange: $options.ondatachange,
+          onNodeclick: $options.onnodeclick
+        }, null, 8, ["modelValue", "localdata", "preload", "collection", "field", "orderby", "where", "step-searh", "self-field", "parent-field", "map", "ellipsis", "onChange", "onDatachange", "onNodeclick"])
+      ])) : vue.createCommentVNode("v-if", true)
+    ]);
+  }
+  const __easycom_2$1 = /* @__PURE__ */ _export_sfc(_sfc_main$j, [["render", _sfc_render$6], ["__scopeId", "data-v-2653531e"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-picker/components/uni-data-picker/uni-data-picker.vue"]]);
   var calendar = {
     /**
         * 农历1900-2100的润大小信息表
@@ -12949,10 +16100,1433 @@ ${i3}
       )) : vue.createCommentVNode("v-if", true)
     ]);
   }
-  const __easycom_2$1 = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$4], ["__scopeId", "data-v-b6ab2cfb"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-calendar/components/uni-calendar/uni-calendar.vue"]]);
+  const __easycom_3 = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$4], ["__scopeId", "data-v-b6ab2cfb"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-calendar/components/uni-calendar/uni-calendar.vue"]]);
+  const cityDataJson = [
+    {
+      text: "北京市",
+      value: "110000",
+      children: [
+        {
+          text: "北京市",
+          value: "110100"
+        }
+      ]
+    },
+    {
+      text: "天津市",
+      value: "120000",
+      children: [
+        {
+          text: "天津市",
+          value: "120100"
+        }
+      ]
+    },
+    {
+      text: "河北省",
+      value: "130000",
+      children: [
+        {
+          text: "石家庄市",
+          value: "130100"
+        },
+        {
+          text: "唐山市",
+          value: "130200"
+        },
+        {
+          text: "秦皇岛市",
+          value: "130300"
+        },
+        {
+          text: "邯郸市",
+          value: "130400"
+        },
+        {
+          text: "邢台市",
+          value: "130500"
+        },
+        {
+          text: "保定市",
+          value: "130600"
+        },
+        {
+          text: "张家口市",
+          value: "130700"
+        },
+        {
+          text: "承德市",
+          value: "130800"
+        },
+        {
+          text: "沧州市",
+          value: "130900"
+        },
+        {
+          text: "廊坊市",
+          value: "131000"
+        },
+        {
+          text: "衡水市",
+          value: "131100"
+        }
+      ]
+    },
+    {
+      text: "山西省",
+      value: "140000",
+      children: [
+        {
+          text: "太原市",
+          value: "140100"
+        },
+        {
+          text: "大同市",
+          value: "140200"
+        },
+        {
+          text: "阳泉市",
+          value: "140300"
+        },
+        {
+          text: "长治市",
+          value: "140400"
+        },
+        {
+          text: "晋城市",
+          value: "140500"
+        },
+        {
+          text: "朔州市",
+          value: "140600"
+        },
+        {
+          text: "晋中市",
+          value: "140700"
+        },
+        {
+          text: "运城市",
+          value: "140800"
+        },
+        {
+          text: "忻州市",
+          value: "140900"
+        },
+        {
+          text: "临汾市",
+          value: "141000"
+        },
+        {
+          text: "吕梁市",
+          value: "141100"
+        }
+      ]
+    },
+    {
+      text: "内蒙古自治区",
+      value: "150000",
+      children: [
+        {
+          text: "呼和浩特市",
+          value: "150100"
+        },
+        {
+          text: "包头市",
+          value: "150200"
+        },
+        {
+          text: "乌海市",
+          value: "150300"
+        },
+        {
+          text: "赤峰市",
+          value: "150400"
+        },
+        {
+          text: "通辽市",
+          value: "150500"
+        },
+        {
+          text: "鄂尔多斯市",
+          value: "150600"
+        },
+        {
+          text: "呼伦贝尔市",
+          value: "150700"
+        },
+        {
+          text: "巴彦淖尔市",
+          value: "150800"
+        },
+        {
+          text: "乌兰察布市",
+          value: "150900"
+        }
+      ]
+    },
+    {
+      text: "辽宁省",
+      value: "210000",
+      children: [
+        {
+          text: "沈阳市",
+          value: "210100"
+        },
+        {
+          text: "大连市",
+          value: "210200"
+        },
+        {
+          text: "鞍山市",
+          value: "210300"
+        },
+        {
+          text: "抚顺市",
+          value: "210400"
+        },
+        {
+          text: "本溪市",
+          value: "210500"
+        },
+        {
+          text: "丹东市",
+          value: "210600"
+        },
+        {
+          text: "锦州市",
+          value: "210700"
+        },
+        {
+          text: "营口市",
+          value: "210800"
+        },
+        {
+          text: "阜新市",
+          value: "210900"
+        },
+        {
+          text: "辽阳市",
+          value: "211000"
+        },
+        {
+          text: "盘锦市",
+          value: "211100"
+        },
+        {
+          text: "铁岭市",
+          value: "211200"
+        },
+        {
+          text: "朝阳市",
+          value: "211300"
+        },
+        {
+          text: "葫芦岛市",
+          value: "211400"
+        }
+      ]
+    },
+    {
+      text: "吉林省",
+      value: "220000",
+      children: [
+        {
+          text: "长春市",
+          value: "220100"
+        },
+        {
+          text: "吉林市",
+          value: "220200"
+        },
+        {
+          text: "四平市",
+          value: "220300"
+        },
+        {
+          text: "辽源市",
+          value: "220400"
+        },
+        {
+          text: "通化市",
+          value: "220500"
+        },
+        {
+          text: "白山市",
+          value: "220600"
+        },
+        {
+          text: "松原市",
+          value: "220700"
+        },
+        {
+          text: "白城市",
+          value: "220800"
+        }
+      ]
+    },
+    {
+      text: "黑龙江省",
+      value: "230000",
+      children: [
+        {
+          text: "哈尔滨市",
+          value: "230100"
+        },
+        {
+          text: "齐齐哈尔市",
+          value: "230200"
+        },
+        {
+          text: "鸡西市",
+          value: "230300"
+        },
+        {
+          text: "鹤岗市",
+          value: "230400"
+        },
+        {
+          text: "双鸭山市",
+          value: "230500"
+        },
+        {
+          text: "大庆市",
+          value: "230600"
+        },
+        {
+          text: "伊春市",
+          value: "230700"
+        },
+        {
+          text: "佳木斯市",
+          value: "230800"
+        },
+        {
+          text: "七台河市",
+          value: "230900"
+        },
+        {
+          text: "牡丹江市",
+          value: "231000"
+        },
+        {
+          text: "黑河市",
+          value: "231100"
+        },
+        {
+          text: "绥化市",
+          value: "231200"
+        }
+      ]
+    },
+    {
+      text: "上海市",
+      value: "310000",
+      children: [
+        {
+          text: "上海市",
+          value: "310100"
+        }
+      ]
+    },
+    {
+      text: "江苏省",
+      value: "320000",
+      children: [
+        {
+          text: "南京市",
+          value: "320100"
+        },
+        {
+          text: "无锡市",
+          value: "320200"
+        },
+        {
+          text: "徐州市",
+          value: "320300"
+        },
+        {
+          text: "常州市",
+          value: "320400"
+        },
+        {
+          text: "苏州市",
+          value: "320500"
+        },
+        {
+          text: "南通市",
+          value: "320600"
+        },
+        {
+          text: "连云港市",
+          value: "320700"
+        },
+        {
+          text: "淮安市",
+          value: "320800"
+        },
+        {
+          text: "盐城市",
+          value: "320900"
+        },
+        {
+          text: "扬州市",
+          value: "321000"
+        },
+        {
+          text: "镇江市",
+          value: "321100"
+        },
+        {
+          text: "泰州市",
+          value: "321200"
+        },
+        {
+          text: "宿迁市",
+          value: "321300"
+        }
+      ]
+    },
+    {
+      text: "浙江省",
+      value: "330000",
+      children: [
+        {
+          text: "杭州市",
+          value: "330100"
+        },
+        {
+          text: "宁波市",
+          value: "330200"
+        },
+        {
+          text: "温州市",
+          value: "330300"
+        },
+        {
+          text: "嘉兴市",
+          value: "330400"
+        },
+        {
+          text: "湖州市",
+          value: "330500"
+        },
+        {
+          text: "绍兴市",
+          value: "330600"
+        },
+        {
+          text: "金华市",
+          value: "330700"
+        },
+        {
+          text: "衢州市",
+          value: "330800"
+        },
+        {
+          text: "舟山市",
+          value: "330900"
+        },
+        {
+          text: "台州市",
+          value: "331000"
+        },
+        {
+          text: "丽水市",
+          value: "331100"
+        }
+      ]
+    },
+    {
+      text: "安徽省",
+      value: "340000",
+      children: [
+        {
+          text: "合肥市",
+          value: "340100"
+        },
+        {
+          text: "芜湖市",
+          value: "340200"
+        },
+        {
+          text: "蚌埠市",
+          value: "340300"
+        },
+        {
+          text: "淮南市",
+          value: "340400"
+        },
+        {
+          text: "马鞍山市",
+          value: "340500"
+        },
+        {
+          text: "淮北市",
+          value: "340600"
+        },
+        {
+          text: "铜陵市",
+          value: "340700"
+        },
+        {
+          text: "安庆市",
+          value: "340800"
+        },
+        {
+          text: "黄山市",
+          value: "341000"
+        },
+        {
+          text: "滁州市",
+          value: "341100"
+        },
+        {
+          text: "阜阳市",
+          value: "341200"
+        },
+        {
+          text: "宿州市",
+          value: "341300"
+        },
+        {
+          text: "六安市",
+          value: "341500"
+        },
+        {
+          text: "亳州市",
+          value: "341600"
+        },
+        {
+          text: "池州市",
+          value: "341700"
+        },
+        {
+          text: "宣城市",
+          value: "341800"
+        }
+      ]
+    },
+    {
+      text: "福建省",
+      value: "350000",
+      children: [
+        {
+          text: "福州市",
+          value: "350100"
+        },
+        {
+          text: "厦门市",
+          value: "350200"
+        },
+        {
+          text: "莆田市",
+          value: "350300"
+        },
+        {
+          text: "三明市",
+          value: "350400"
+        },
+        {
+          text: "泉州市",
+          value: "350500"
+        },
+        {
+          text: "漳州市",
+          value: "350600"
+        },
+        {
+          text: "南平市",
+          value: "350700"
+        },
+        {
+          text: "龙岩市",
+          value: "350800"
+        },
+        {
+          text: "宁德市",
+          value: "350900"
+        }
+      ]
+    },
+    {
+      text: "江西省",
+      value: "360000",
+      children: [
+        {
+          text: "南昌市",
+          value: "360100"
+        },
+        {
+          text: "景德镇市",
+          value: "360200"
+        },
+        {
+          text: "萍乡市",
+          value: "360300"
+        },
+        {
+          text: "九江市",
+          value: "360400"
+        },
+        {
+          text: "新余市",
+          value: "360500"
+        },
+        {
+          text: "鹰潭市",
+          value: "360600"
+        },
+        {
+          text: "赣州市",
+          value: "360700"
+        },
+        {
+          text: "吉安市",
+          value: "360800"
+        },
+        {
+          text: "宜春市",
+          value: "360900"
+        },
+        {
+          text: "抚州市",
+          value: "361000"
+        },
+        {
+          text: "上饶市",
+          value: "361100"
+        }
+      ]
+    },
+    {
+      text: "山东省",
+      value: "370000",
+      children: [
+        {
+          text: "济南市",
+          value: "370100"
+        },
+        {
+          text: "青岛市",
+          value: "370200"
+        },
+        {
+          text: "淄博市",
+          value: "370300"
+        },
+        {
+          text: "枣庄市",
+          value: "370400"
+        },
+        {
+          text: "东营市",
+          value: "370500"
+        },
+        {
+          text: "烟台市",
+          value: "370600"
+        },
+        {
+          text: "潍坊市",
+          value: "370700"
+        },
+        {
+          text: "济宁市",
+          value: "370800"
+        },
+        {
+          text: "泰安市",
+          value: "370900"
+        },
+        {
+          text: "威海市",
+          value: "371000"
+        },
+        {
+          text: "日照市",
+          value: "371100"
+        },
+        {
+          text: "临沂市",
+          value: "371300"
+        },
+        {
+          text: "德州市",
+          value: "371400"
+        },
+        {
+          text: "聊城市",
+          value: "371500"
+        },
+        {
+          text: "滨州市",
+          value: "371600"
+        },
+        {
+          text: "菏泽市",
+          value: "371700"
+        }
+      ]
+    },
+    {
+      text: "河南省",
+      value: "410000",
+      children: [
+        {
+          text: "郑州市",
+          value: "410100"
+        },
+        {
+          text: "开封市",
+          value: "410200"
+        },
+        {
+          text: "洛阳市",
+          value: "410300"
+        },
+        {
+          text: "平顶山市",
+          value: "410400"
+        },
+        {
+          text: "安阳市",
+          value: "410500"
+        },
+        {
+          text: "鹤壁市",
+          value: "410600"
+        },
+        {
+          text: "新乡市",
+          value: "410700"
+        },
+        {
+          text: "焦作市",
+          value: "410800"
+        },
+        {
+          text: "濮阳市",
+          value: "410900"
+        },
+        {
+          text: "许昌市",
+          value: "411000"
+        },
+        {
+          text: "漯河市",
+          value: "411100"
+        },
+        {
+          text: "三门峡市",
+          value: "411200"
+        },
+        {
+          text: "南阳市",
+          value: "411300"
+        },
+        {
+          text: "商丘市",
+          value: "411400"
+        },
+        {
+          text: "信阳市",
+          value: "411500"
+        },
+        {
+          text: "周口市",
+          value: "411600"
+        },
+        {
+          text: "驻马店市",
+          value: "411700"
+        }
+      ]
+    },
+    {
+      text: "湖北省",
+      value: "420000",
+      children: [
+        {
+          text: "武汉市",
+          value: "420100"
+        },
+        {
+          text: "黄石市",
+          value: "420200"
+        },
+        {
+          text: "十堰市",
+          value: "420300"
+        },
+        {
+          text: "宜昌市",
+          value: "420500"
+        },
+        {
+          text: "襄阳市",
+          value: "420600"
+        },
+        {
+          text: "鄂州市",
+          value: "420700"
+        },
+        {
+          text: "荆门市",
+          value: "420800"
+        },
+        {
+          text: "孝感市",
+          value: "420900"
+        },
+        {
+          text: "荆州市",
+          value: "421000"
+        },
+        {
+          text: "黄冈市",
+          value: "421100"
+        },
+        {
+          text: "咸宁市",
+          value: "421200"
+        },
+        {
+          text: "随州市",
+          value: "421300"
+        }
+      ]
+    },
+    {
+      text: "湖南省",
+      value: "430000",
+      children: [
+        {
+          text: "长沙市",
+          value: "430100"
+        },
+        {
+          text: "株洲市",
+          value: "430200"
+        },
+        {
+          text: "湘潭市",
+          value: "430300"
+        },
+        {
+          text: "衡阳市",
+          value: "430400"
+        },
+        {
+          text: "邵阳市",
+          value: "430500"
+        },
+        {
+          text: "岳阳市",
+          value: "430600"
+        },
+        {
+          text: "常德市",
+          value: "430700"
+        },
+        {
+          text: "张家界市",
+          value: "430800"
+        },
+        {
+          text: "益阳市",
+          value: "430900"
+        },
+        {
+          text: "郴州市",
+          value: "431000"
+        },
+        {
+          text: "永州市",
+          value: "431100"
+        },
+        {
+          text: "怀化市",
+          value: "431200"
+        },
+        {
+          text: "娄底市",
+          value: "431300"
+        }
+      ]
+    },
+    {
+      text: "广东省",
+      value: "440000",
+      children: [
+        {
+          text: "广州市",
+          value: "440100"
+        },
+        {
+          text: "韶关市",
+          value: "440200"
+        },
+        {
+          text: "深圳市",
+          value: "440300"
+        },
+        {
+          text: "珠海市",
+          value: "440400"
+        },
+        {
+          text: "汕头市",
+          value: "440500"
+        },
+        {
+          text: "佛山市",
+          value: "440600"
+        },
+        {
+          text: "江门市",
+          value: "440700"
+        },
+        {
+          text: "湛江市",
+          value: "440800"
+        },
+        {
+          text: "茂名市",
+          value: "440900"
+        },
+        {
+          text: "肇庆市",
+          value: "441200"
+        },
+        {
+          text: "惠州市",
+          value: "441300"
+        },
+        {
+          text: "梅州市",
+          value: "441400"
+        },
+        {
+          text: "汕尾市",
+          value: "441500"
+        },
+        {
+          text: "河源市",
+          value: "441600"
+        },
+        {
+          text: "阳江市",
+          value: "441700"
+        },
+        {
+          text: "清远市",
+          value: "441800"
+        },
+        {
+          text: "东莞市",
+          value: "441900"
+        },
+        {
+          text: "中山市",
+          value: "442000"
+        }
+      ]
+    },
+    {
+      text: "广西壮族自治区",
+      value: "450000",
+      children: [
+        {
+          text: "南宁市",
+          value: "450100"
+        },
+        {
+          text: "柳州市",
+          value: "450200"
+        },
+        {
+          text: "桂林市",
+          value: "450300"
+        },
+        {
+          text: "梧州市",
+          value: "450400"
+        },
+        {
+          text: "北海市",
+          value: "450500"
+        },
+        {
+          text: "防城港市",
+          value: "450600"
+        },
+        {
+          text: "钦州市",
+          value: "450700"
+        },
+        {
+          text: "贵港市",
+          value: "450800"
+        },
+        {
+          text: "玉林市",
+          value: "450900"
+        },
+        {
+          text: "百色市",
+          value: "451000"
+        },
+        {
+          text: "贺州市",
+          value: "451100"
+        },
+        {
+          text: "河池市",
+          value: "451200"
+        },
+        {
+          text: "来宾市",
+          value: "451300"
+        },
+        {
+          text: "崇左市",
+          value: "451400"
+        }
+      ]
+    },
+    {
+      text: "海南省",
+      value: "460000",
+      children: [
+        {
+          text: "海口市",
+          value: "460100"
+        },
+        {
+          text: "三亚市",
+          value: "460200"
+        },
+        {
+          text: "三沙市",
+          value: "460300"
+        },
+        {
+          text: "儋州市",
+          value: "460400"
+        }
+      ]
+    },
+    {
+      text: "重庆市",
+      value: "500000",
+      children: [
+        {
+          text: "重庆市",
+          value: "500100"
+        }
+      ]
+    },
+    {
+      text: "四川省",
+      value: "510000",
+      children: [
+        {
+          text: "成都市",
+          value: "510100"
+        },
+        {
+          text: "自贡市",
+          value: "510300"
+        },
+        {
+          text: "攀枝花市",
+          value: "510400"
+        },
+        {
+          text: "泸州市",
+          value: "510500"
+        },
+        {
+          text: "德阳市",
+          value: "510600"
+        },
+        {
+          text: "绵阳市",
+          value: "510700"
+        },
+        {
+          text: "广元市",
+          value: "510800"
+        },
+        {
+          text: "遂宁市",
+          value: "510900"
+        },
+        {
+          text: "内江市",
+          value: "511000"
+        },
+        {
+          text: "乐山市",
+          value: "511100"
+        },
+        {
+          text: "南充市",
+          value: "511300"
+        },
+        {
+          text: "眉山市",
+          value: "511400"
+        },
+        {
+          text: "宜宾市",
+          value: "511500"
+        },
+        {
+          text: "广安市",
+          value: "511600"
+        },
+        {
+          text: "达州市",
+          value: "511700"
+        },
+        {
+          text: "雅安市",
+          value: "511800"
+        },
+        {
+          text: "巴中市",
+          value: "511900"
+        },
+        {
+          text: "资阳市",
+          value: "512000"
+        }
+      ]
+    },
+    {
+      text: "贵州省",
+      value: "520000",
+      children: [
+        {
+          text: "贵阳市",
+          value: "520100"
+        },
+        {
+          text: "六盘水市",
+          value: "520200"
+        },
+        {
+          text: "遵义市",
+          value: "520300"
+        },
+        {
+          text: "安顺市",
+          value: "520400"
+        },
+        {
+          text: "毕节市",
+          value: "520500"
+        },
+        {
+          text: "铜仁市",
+          value: "520600"
+        }
+      ]
+    },
+    {
+      text: "云南省",
+      value: "530000",
+      children: [
+        {
+          text: "昆明市",
+          value: "530100"
+        },
+        {
+          text: "曲靖市",
+          value: "530300"
+        },
+        {
+          text: "玉溪市",
+          value: "530400"
+        },
+        {
+          text: "保山市",
+          value: "530500"
+        },
+        {
+          text: "昭通市",
+          value: "530600"
+        },
+        {
+          text: "丽江市",
+          value: "530700"
+        },
+        {
+          text: "普洱市",
+          value: "530800"
+        },
+        {
+          text: "临沧市",
+          value: "530900"
+        }
+      ]
+    },
+    {
+      text: "西藏自治区",
+      value: "540000",
+      children: [
+        {
+          text: "拉萨市",
+          value: "540100"
+        },
+        {
+          text: "日喀则市",
+          value: "540200"
+        },
+        {
+          text: "昌都市",
+          value: "540300"
+        },
+        {
+          text: "林芝市",
+          value: "540400"
+        },
+        {
+          text: "山南市",
+          value: "540500"
+        },
+        {
+          text: "那曲市",
+          value: "540600"
+        }
+      ]
+    },
+    {
+      text: "陕西省",
+      value: "610000",
+      children: [
+        {
+          text: "西安市",
+          value: "610100"
+        },
+        {
+          text: "铜川市",
+          value: "610200"
+        },
+        {
+          text: "宝鸡市",
+          value: "610300"
+        },
+        {
+          text: "咸阳市",
+          value: "610400"
+        },
+        {
+          text: "渭南市",
+          value: "610500"
+        },
+        {
+          text: "延安市",
+          value: "610600"
+        },
+        {
+          text: "汉中市",
+          value: "610700"
+        },
+        {
+          text: "榆林市",
+          value: "610800"
+        },
+        {
+          text: "安康市",
+          value: "610900"
+        },
+        {
+          text: "商洛市",
+          value: "611000"
+        }
+      ]
+    },
+    {
+      text: "甘肃省",
+      value: "620000",
+      children: [
+        {
+          text: "兰州市",
+          value: "620100"
+        },
+        {
+          text: "嘉峪关市",
+          value: "620200"
+        },
+        {
+          text: "金昌市",
+          value: "620300"
+        },
+        {
+          text: "白银市",
+          value: "620400"
+        },
+        {
+          text: "天水市",
+          value: "620500"
+        },
+        {
+          text: "武威市",
+          value: "620600"
+        },
+        {
+          text: "张掖市",
+          value: "620700"
+        },
+        {
+          text: "平凉市",
+          value: "620800"
+        },
+        {
+          text: "酒泉市",
+          value: "620900"
+        },
+        {
+          text: "庆阳市",
+          value: "621000"
+        },
+        {
+          text: "定西市",
+          value: "621100"
+        },
+        {
+          text: "陇南市",
+          value: "621200"
+        }
+      ]
+    },
+    {
+      text: "青海省",
+      value: "630000",
+      children: [
+        {
+          text: "西宁市",
+          value: "630100"
+        },
+        {
+          text: "海东市",
+          value: "630200"
+        }
+      ]
+    },
+    {
+      text: "宁夏回族自治区",
+      value: "640000",
+      children: [
+        {
+          text: "银川市",
+          value: "640100"
+        },
+        {
+          text: "石嘴山市",
+          value: "640200"
+        },
+        {
+          text: "吴忠市",
+          value: "640300"
+        },
+        {
+          text: "固原市",
+          value: "640400"
+        },
+        {
+          text: "中卫市",
+          value: "640500"
+        }
+      ]
+    },
+    {
+      text: "新疆维吾尔自治区",
+      value: "650000",
+      children: [
+        {
+          text: "乌鲁木齐市",
+          value: "650100"
+        },
+        {
+          text: "克拉玛依市",
+          value: "650200"
+        }
+      ]
+    },
+    {
+      text: "香港特别行政区",
+      value: "810000",
+      children: [
+        {
+          text: "香港岛",
+          value: "810100"
+        },
+        {
+          text: "九龙",
+          value: "810200"
+        },
+        {
+          text: "新界",
+          value: "810300"
+        }
+      ]
+    },
+    {
+      text: "澳门特别行政区",
+      value: "820000",
+      children: [
+        {
+          text: "澳门半岛",
+          value: "820100"
+        },
+        {
+          text: "离岛",
+          value: "820200"
+        }
+      ]
+    },
+    {
+      text: "台湾省",
+      value: "710000",
+      children: [
+        {
+          text: "台北市",
+          value: "710100"
+        },
+        {
+          text: "高雄市",
+          value: "710200"
+        },
+        {
+          text: "台南市",
+          value: "710300"
+        },
+        {
+          text: "台中市",
+          value: "710400"
+        }
+      ]
+    }
+  ];
   const _sfc_main$g = {
     __name: "more_info",
     setup(__props) {
+      const selectedValues = vue.ref([]);
+      const selectedProvince = vue.ref("");
+      const selectedCity = vue.ref("");
+      const cityData = vue.ref(cityDataJson);
+      const onChange = (e2) => {
+        var _a;
+        const selected = e2.detail.value;
+        const province = cityData.value.find((item) => item.value === selected[0]);
+        (_a = province == null ? void 0 : province.children) == null ? void 0 : _a.find((item) => item.value === selected[1]);
+        selectedProvince.value = e2.detail.value[0].text || "";
+        selectedCity.value = e2.detail.value[1].text || "";
+        formatAppLog("log", "at pages/login/more_info.vue:103", selectedProvince.value, selectedCity.value);
+      };
       const skip = () => {
         uni.reLaunch({
           url: "/pages/index/index"
@@ -12982,17 +17556,17 @@ ${i3}
           success: (res) => {
             const tempFilePaths = res.tempFilePaths;
             imagePath.value = tempFilePaths[0];
-            formatAppLog("log", "at pages/login/more_info.vue:111", "-----选择的图片路径：", tempFilePaths[0]);
+            formatAppLog("log", "at pages/login/more_info.vue:139", "-----选择的图片路径：", tempFilePaths[0]);
             uploadImage2(tempFilePaths[0]);
           },
           fail: (err) => {
-            formatAppLog("log", "at pages/login/more_info.vue:116", "选择图片失败：", err);
+            formatAppLog("log", "at pages/login/more_info.vue:144", "选择图片失败：", err);
           }
         });
       };
       const token = uni.getStorageSync("accessToken");
       function uploadImage2(filePath) {
-        formatAppLog("log", "at pages/login/more_info.vue:125", filePath);
+        formatAppLog("log", "at pages/login/more_info.vue:153", filePath);
         const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 1e4)}`;
         uni.uploadFile({
           url: uploadUrl,
@@ -13013,16 +17587,16 @@ ${i3}
           success: (uploadFileRes) => {
             if (uploadFileRes.statusCode === 201) {
               const data = JSON.parse(uploadFileRes.data);
-              formatAppLog("log", "at pages/login/more_info.vue:144", "上传成功！");
-              formatAppLog("log", "at pages/login/more_info.vue:145", "上传的图片 URL:", data);
+              formatAppLog("log", "at pages/login/more_info.vue:172", "上传成功！");
+              formatAppLog("log", "at pages/login/more_info.vue:173", "上传的图片 URL:", data);
               uploadSuccessUrl.value = data.image_url;
             } else {
-              formatAppLog("log", "at pages/login/more_info.vue:148", "上传失败，状态码：", uploadFileRes.statusCode);
+              formatAppLog("log", "at pages/login/more_info.vue:176", "上传失败，状态码：", uploadFileRes.statusCode);
             }
           },
           fail: (err) => {
-            formatAppLog("log", "at pages/login/more_info.vue:152", err);
-            formatAppLog("error", "at pages/login/more_info.vue:153", "上传文件出错:", err);
+            formatAppLog("log", "at pages/login/more_info.vue:180", err);
+            formatAppLog("error", "at pages/login/more_info.vue:181", "上传文件出错:", err);
           }
         });
       }
@@ -13031,7 +17605,7 @@ ${i3}
         return emailPattern.test(email2);
       };
       const saveMessage = async () => {
-        formatAppLog("log", "at pages/login/more_info.vue:172", validateEmail(email.value));
+        formatAppLog("log", "at pages/login/more_info.vue:200", validateEmail(email.value));
         if (!validateEmail(email.value)) {
           return uni.showToast({
             title: "请输入正确的邮箱",
@@ -13039,7 +17613,12 @@ ${i3}
             duration: 700
           });
         }
-        changeUserInfo({ name: name.value || "", icon: uploadSuccessUrl.value || "", gender: gender.value || "", birthdate: birthday.value || "", residence: address.value || "", email: email.value || "" }).then((res) => {
+        uni.showLoading({
+          title: "正在保存中"
+        });
+        changeUserInfo({ name: name.value || "", icon: uploadSuccessUrl.value || "", gender: gender.value || "", birthdate: birthday.value || "", residence: selectedProvince.value + " " + selectedCity.value || "", email: email.value || "" }).then((res) => {
+          uni.setStorageSync("保存的最新用户信息", res);
+          uni.hideLoading();
           uni.showToast({
             duration: 1e3,
             icon: "success",
@@ -13066,22 +17645,14 @@ ${i3}
       const confirm = (e2) => {
         birthday.value = e2.fulldate;
       };
-      const lat = vue.ref("");
-      const lon = vue.ref("");
-      const address = vue.ref("");
-      const getLocation = () => {
-        uni.chooseLocation({
-          success(res) {
-            lat.value = res.latitude;
-            lon.value = res.longitude;
-            address.value = res.address + res.name;
-          }
-        });
-      };
+      vue.ref("");
+      vue.ref("");
+      vue.ref("");
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_uni_easyinput = resolveEasycom(vue.resolveDynamicComponent("uni-easyinput"), __easycom_1$4);
-        const _component_uni_calendar = resolveEasycom(vue.resolveDynamicComponent("uni-calendar"), __easycom_2$1);
+        const _component_uni_data_picker = resolveEasycom(vue.resolveDynamicComponent("uni-data-picker"), __easycom_2$1);
+        const _component_uni_calendar = resolveEasycom(vue.resolveDynamicComponent("uni-calendar"), __easycom_3);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, {
             title: "完善信息",
@@ -13166,30 +17737,16 @@ ${i3}
             ]),
             vue.createElementVNode("view", {
               class: "info_item flex_between",
-              style: { "flex": "1" },
-              onClick: getLocation
+              style: { "flex": "1" }
             }, [
               vue.createElementVNode("view", { class: "title" }, " 常居地 "),
-              vue.createElementVNode("view", {
-                class: "flex_center",
-                style: { "flex": "1", "justify-content": "flex-end" }
-              }, [
-                vue.createElementVNode(
-                  "view",
-                  {
-                    class: "email",
-                    style: { "flex": "1" }
-                  },
-                  vue.toDisplayString(address.value),
-                  1
-                  /* TEXT */
-                ),
-                vue.createElementVNode("image", {
-                  src: _imports_0$7,
-                  mode: "widthFix",
-                  class: "arrow_pix"
-                })
-              ])
+              vue.createVNode(_component_uni_data_picker, {
+                localdata: cityData.value,
+                value: selectedValues.value,
+                mode: "region",
+                onChange,
+                title: "请选择省市"
+              }, null, 8, ["localdata", "value"])
             ]),
             vue.createElementVNode("view", {
               class: "btn flex_center",
@@ -13227,7 +17784,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "我的积分" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -13270,7 +17827,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "可用积分" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -13308,7 +17865,7 @@ ${i3}
         });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "可用积分" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -13385,7 +17942,7 @@ ${i3}
         }
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "绑定账号" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -13474,7 +18031,7 @@ ${i3}
         }
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "解除绑定" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -13536,7 +18093,7 @@ ${i3}
           });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "增加保证金" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -13636,7 +18193,7 @@ ${i3}
           });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "解除保证金" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -13713,7 +18270,7 @@ ${i3}
   const PagesAgentRemoveDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-f9cb8c94"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/remove_deposit.vue"]]);
   const _sfc_main$8 = {};
   function _sfc_render$3(_ctx, _cache) {
-    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
     const _component_uni_col = resolveEasycom(vue.resolveDynamicComponent("uni-col"), __easycom_1$2);
     const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$3);
     return vue.openBlock(), vue.createElementBlock("view", null, [
@@ -13815,7 +18372,7 @@ ${i3}
           });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "增加保证金" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -13915,7 +18472,7 @@ ${i3}
           });
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "解除保证金" }),
           vue.createElementVNode("view", { class: "content" }, [
@@ -13992,7 +18549,7 @@ ${i3}
   const PagesRecommendRemoveDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-620816bd"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/remove_deposit.vue"]]);
   const _sfc_main$5 = {};
   function _sfc_render$2(_ctx, _cache) {
-    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
     const _component_uni_col = resolveEasycom(vue.resolveDynamicComponent("uni-col"), __easycom_1$2);
     const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$3);
     return vue.openBlock(), vue.createElementBlock("view", null, [
@@ -14208,7 +18765,7 @@ ${i3}
         getShopList2();
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_uni_data_select = resolveEasycom(vue.resolveDynamicComponent("uni-data-select"), __easycom_1$3);
         const _component_publicShopList = resolveEasycom(vue.resolveDynamicComponent("publicShopList"), __easycom_2);
         return vue.openBlock(), vue.createElementBlock("view", null, [
@@ -14333,7 +18890,7 @@ ${i3}
         getShopList2();
       };
       return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
         const _component_uni_data_select = resolveEasycom(vue.resolveDynamicComponent("uni-data-select"), __easycom_1$3);
         const _component_publicShopList = resolveEasycom(vue.resolveDynamicComponent("publicShopList"), __easycom_2);
         return vue.openBlock(), vue.createElementBlock("view", null, [
@@ -14866,6 +19423,8 @@ ${i3}
       const showAnswers = vue.ref(false);
       const isSubmitted = vue.ref(false);
       const userStore = useUserStore();
+      const userAddress = uni.getStorageSync("userInfo").residence;
+      const userName = uni.getStorageSync("userInfo").name;
       const initQuestions = () => {
         allQuestions.value = questionsData.questions;
         currentQuestions.value = getRandomQuestions(5);
@@ -14882,13 +19441,17 @@ ${i3}
         }
         return selected;
       };
+      const extractCityName = (location2) => {
+        const parts = location2.split(" ");
+        return parts[parts.length - 1];
+      };
       const selectAnswer = (questionIndex, selectedOption) => {
         selectedAnswers.value[questionIndex] = selectedOption;
       };
       const submitAnswers = async () => {
         incorrectQuestions.value = [];
         currentQuestions.value.forEach((question, index) => {
-          if (selectedAnswers.value[index] !== question.correct_answer) {
+          if (selectedAnswers.value[index] !== question.correct_answer + ". " + question.answer) {
             incorrectQuestions.value.push(question);
           }
         });
@@ -14909,7 +19472,12 @@ ${i3}
             });
             const username = userStore.userInfo.username;
             const { results } = await getMerchantList$1();
-            await createRecommendOfficer({ shops: results, name: username });
+            const cityName = await extractCityName(userAddress);
+            formatAppLog("log", "at pages/recommend/recommend_test.vue:116", "推荐官所在地 ", cityName);
+            const res = await getCitiesDetail(cityName);
+            const cityId = res[0].id;
+            formatAppLog("log", "at pages/recommend/recommend_test.vue:119", "推荐官所在城市id ", cityId);
+            await createRecommendOfficer({ name: userName, city_id: cityId });
             uni.hideLoading();
             uni.navigateTo({
               url: "/pages/recommend/recommend_management"
@@ -14939,12 +19507,13 @@ ${i3}
         selectAnswer,
         submitAnswers,
         showCorrectAnswers,
-        resetQuiz
+        resetQuiz,
+        extractCityName
       };
     }
   };
   function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0);
+    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$1);
     return vue.openBlock(), vue.createElementBlock("view", null, [
       vue.createVNode(_component_navBar, { title: "推荐官考试" }),
       vue.createElementVNode("view", { class: "content" }, [
@@ -14991,16 +19560,13 @@ ${i3}
                 ))
               ], 40, ["onChange"]),
               vue.createCommentVNode(" 答案展示 "),
-              $setup.showAnswers ? (vue.openBlock(), vue.createElementBlock(
+              vue.createElementVNode(
                 "view",
-                {
-                  key: 0,
-                  class: "answer"
-                },
+                { class: "answer" },
                 " 正确答案：" + vue.toDisplayString(question.correct_answer),
                 1
                 /* TEXT */
-              )) : vue.createCommentVNode("v-if", true)
+              )
             ]);
           }),
           128
@@ -15030,6 +19596,7 @@ ${i3}
   __definePage("pages/merchant/merchant_intro", PagesMerchantMerchantIntro);
   __definePage("pages/merchant/settle_notice", PagesMerchantSettleNotice);
   __definePage("pages/merchant/merchant_set_info", PagesMerchantMerchantSetInfo);
+  __definePage("pages/merchant/before_create_shop", PagesMerchantBeforeCreateShop);
   __definePage("pages/merchant/merchant_management", PagesMerchantMerchantManagement);
   __definePage("pages/merchant/merchant_edit_info", PagesMerchantMerchantEditInfo);
   __definePage("pages/merchant/point_gift", PagesMerchantPointGift);
@@ -15043,6 +19610,7 @@ ${i3}
   __definePage("pages/agent/agent_management", PagesAgentAgentManagement);
   __definePage("pages/recommend/recommend_intro", PagesRecommendRecommendIntro);
   __definePage("pages/recommend/recommend_management", PagesRecommendRecommendManagement);
+  __definePage("pages/recommend/qrcodeDetail", PagesRecommendQrcodeDetail);
   __definePage("pages/merchant/all_merchant", PagesMerchantAllMerchant);
   __definePage("pages/agent/merchant_code_authentication", PagesAgentMerchantCodeAuthentication);
   __definePage("pages/recommend/merchant_code_authentication", PagesRecommendMerchantCodeAuthentication);
