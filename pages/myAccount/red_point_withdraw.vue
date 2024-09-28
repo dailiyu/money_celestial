@@ -49,27 +49,29 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { withdrawPoint, getAllPoint } from '@/service/point.js'
+import { getAllPoint, withdrawRedPoints } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
-import { useUserStore } from '../../store/user'
+import { useUserStore } from '@/store/user'
  const  userStore = useUserStore()
 
-const number = ref('')
 
-const account = ref('')
-const pointBalance = ref('')
-account.value = userStore.userInfo.username
+
+
 onMounted(async ()=>{
 	
 	getPointInfo()
 	
 })
+const account = ref('')
+const pointBalance = ref('')
 const getPointInfo = async()=>{
-	const {green_points} = await getAllPoint()
+	const {red_points, points_account} = await getAllPoint()
 	// 可用积分
-	pointBalance.value = green_points
+	pointBalance.value = red_points
+	account.value = points_account
 }
 const isChecked = ref(false)
+const number = ref('')
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
@@ -88,18 +90,32 @@ const confirm = async()=>{
 	})
 	if (number.value > pointBalance.value) return uni.showToast({
 		icon: 'none',
-		title: '积分余额不足'
+		title: '提取数量不可大于积分余额'
 	})
-	uni.showLoading({
-		title: '提取中'
+	const params = ref({
+		point_account: account.value,
+		transaction_amount: number.value,
+		transaction_type: 'decrease',
+		transaction_method: 'red_points'
 	})
-	await withdrawPoint({points:number.value})
-	getPointInfo()
-	uni.hideLoading()
-	uni.showToast({
-		icon: 'none',
-		title: '提取成功'
-	})
+	try{
+		uni.showLoading({
+			mask: true,
+			title: '提取中'
+		})
+		await withdrawRedPoints(params.value)
+		// getPointInfo()
+		uni.hideLoading()
+		uni.showToast({
+			icon: 'none',
+			title: '提取成功'
+		})
+	}catch(e){
+		uni.showToast({
+			icon: 'none',
+			title: '提取失败'
+		})
+	}
 }
 </script>
 

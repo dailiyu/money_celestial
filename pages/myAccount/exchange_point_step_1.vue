@@ -10,10 +10,10 @@
 				兑换积分前，请先复制下方地址，确保充值完成后，提交您的兑换记录。
 			</view>
 			<view class="copy_box flex_between">
-				<view class="">
-					AGxdhfdjfdk3432gewtw234532rdfd3
+				<view class="copy_text">
+					{{obscureString(address)}}
 				</view>
-				<image src="@/static/copy.png" mode="widthFix" class="copy_pic"></image>
+				<image src="@/static/copy.png" mode="widthFix" class="copy_pic" @click="copy"></image>
 			</view>
 			<view class="text_box">
 				<view class="" style="color: #FC5908;">
@@ -31,6 +31,26 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+import { getWalletAddress } from '@/service/point';
+import { obscureString } from '@/utils';
+const address = ref('')
+onMounted(async()=>{
+	const {results} = await getWalletAddress()
+	address.value = results[0].address
+})
+const copy = ()=>{
+	console.log(address.value)
+	uni.setClipboardData({
+		data: address.value,
+		success() {
+			uni.showToast({
+				icon: 'none',
+				title: '复制成功'
+			})
+		}
+	})
+}
 const toNext = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/exchange_point_step_2'
@@ -54,6 +74,10 @@ const toNext = ()=>{
 	margin-bottom: 40rpx;
 	font-size: 24rpx;
 	color: #999999;
+	
+	.copy_text {
+		flex: 1;
+	}
 	.copy_pic {
 		width: 27rpx;
 		height: 1rpx;

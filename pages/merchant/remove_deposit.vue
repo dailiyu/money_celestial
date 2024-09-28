@@ -41,8 +41,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { removeDeposit } from '@/service/deposit.js'
-import { getAllPoint } from '@/service/point';
+import { removeDeposit, getDeposit } from '@/service/deposit.js'
 
 
 onMounted(()=>{
@@ -50,8 +49,8 @@ onMounted(()=>{
 })
 const amount = ref(0)
 const getDepositInfo = async()=>{
-	const {collateral} = await getAllPoint()
-	amount.value = collateral
+	const res = await getDeposit()
+	amount.value = res.amount
 }
 const address = ref('')
 const number = ref('')
@@ -88,7 +87,7 @@ const confirm = async()=>{
 	uni.showLoading({
 		title: '解除中'
 	})
-	await removeDeposit({to_user:address.value, amount: number.value})
+	await removeDeposit({amount: number.value})
 	getDepositInfo()
 	uni.hideLoading()
 	uni.showToast({

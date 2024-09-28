@@ -222,7 +222,8 @@ const toMerchant =async () => {
 
 
 const toAgent = ()=>{
-	if (userStore.userInfo.is_province_agent || userStore.userInfo.is_city_agent) {
+	const userInfo = uni.getStorageSync('userInfo')
+	if (userInfo && (userInfo.is_province_agent||userInfo.is_city_agent)) {
 		uni.navigateTo({
 			url: '/pages/agent/agent_management'
 		})

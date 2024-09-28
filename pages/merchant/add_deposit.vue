@@ -2,15 +2,15 @@
 	<view>
 		<navBar title="增加保证金"></navBar>
 		<view class="content">
-			<view class="shop_info">
+			<!-- <view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
 						增加账号
 					</view>
 					<input v-model="address" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" />
-					<!-- <image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image> -->
+					<image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image>
 				</view>
-			</view>
+			</view> -->
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -41,8 +41,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { addDeposit } from '@/service/deposit.js'
-import { getAllPoint } from '@/service/point';
+import { addDeposit, getDeposit } from '@/service/deposit.js'
 const address = ref('')
 const number = ref('')
 
@@ -62,8 +61,8 @@ onMounted(()=>{
 })
 const amount = ref(0)
 const getDepositInfo = async()=>{
-	const {collateral} = await getAllPoint()
-	amount.value = collateral
+	const res = await getDeposit()
+	amount.value = res.amount
 }
 const isChecked = ref(false)
 const changeCheck = ()=>{
@@ -86,7 +85,7 @@ const confirm = async ()=>{
 		uni.showLoading({
 			title: '正在提交'
 		})
-		await addDeposit({amount:number.value, to_user:address.value})
+		await addDeposit({amount:number.value})
 		getDepositInfo()
 		uni.hideLoading()
 		uni.showToast({

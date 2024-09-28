@@ -49,7 +49,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getPointBindedAccount, withdrawPoint } from '@/service/point.js'
+import { getPointBindedAccount, withdrawGreenPoint } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 
 const number = ref('')
@@ -62,10 +62,10 @@ onMounted(async ()=>{
 	
 })
 const getPointInfo = async()=>{
-	const {user, red_points} = await getPointBindedAccount()
-	account.value = user
+	const {points_account, green_points} = await getPointBindedAccount()
+	account.value = points_account
 	// 可用积分
-	pointBalance.value = red_points
+	pointBalance.value = green_points
 }
 const isChecked = ref(false)
 const changeCheck = ()=>{
@@ -84,20 +84,33 @@ const confirm = async()=>{
 		icon: 'none',
 		title: '请输入提取数量'
 	})
+	if (number.value % 100 !== 0) return uni.showToast({
+		icon:'none',
+		title: '提取数量必须是100的倍数'
+	})
 	if (number.value > pointBalance.value) return uni.showToast({
 		icon: 'none',
-		title: '积分余额不足'
+		title: '提取数量不可大于积分余额',
+		duration: 3000
 	})
-	uni.showLoading({
-		title: '提取中'
-	})
-	await withdrawPoint({amount:number.value, to_user:account.value})
-	getPointInfo()
-	uni.hideLoading()
-	uni.showToast({
-		icon: 'none',
-		title: '提取成功'
-	})
+	try{
+		uni.showLoading({
+			title: '提取中'
+		})
+		await withdrawGreenPoint({transaction_amount:number.value, point_account:account.value, transaction_type:'decrease', transaction_method: 'green_points'})
+		// getPointInfo()
+		uni.hideLoading()
+		uni.showToast({
+			icon: 'none',
+			title: '提取成功'
+		})
+	}catch(e){
+		uni.showToast({
+			icon: 'none',
+			title: '提取失败'
+		})
+	}
+	
 }
 </script>
 

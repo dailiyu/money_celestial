@@ -4,7 +4,7 @@
 		<view class="content">
 			<image src="@/static/agent/agent-intro.jpg" mode="widthFix" class="merchant_intro"></image>
 			<view class="btn_full" @click="openPop">
-				联系满仓
+				申请代理
 			</view>
 		</view>
 		
@@ -13,7 +13,7 @@
 				<view class="p_title">
 					我想成为代理
 				</view>
-				<input type="number" placeholder="请填写您的手机号" v-model="phone" />
+				<input type="number" placeholder="请填写您的手机号" v-model="phone" maxlength="11" />
 				<input type="text" placeholder="请填写您的邮箱" v-model="email" />
 				<view class="btn_plain" @click="submit">
 					提交
@@ -25,6 +25,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import { applyAgent } from '../../service/agent';
 
 
 onMounted(()=>{
@@ -38,8 +39,34 @@ const openPop = ()=>{
 const phone = ref()
 const email = ref()
 
-const submit = ()=>{
-	popup.value.close()
+const submit = async()=>{
+	if (!phone.value || phone.value.length < 11) return uni.showToast({
+		icon: 'none',
+		title: '请输入正确手机号'
+	})
+	if (!email.value) return uni.showToast({
+		icon: 'none',
+		title: '请输入正确邮箱号'
+	})
+	try{
+		uni.showLoading({
+			mask: true,
+			title: '正在提交申请'
+		})
+		await applyAgent({mail: email.value, phone_number: phone.value})
+		uni.hideLoading()
+		popup.value.close()
+		uni.showToast({
+			icon: 'none',
+			title: '申请成功，请等待后台审核'
+		})
+	}catch(e){
+		uni.showToast({
+			icon: 'none',
+			title: '申请失败'
+		})
+	}
+	
 }
 </script>
 

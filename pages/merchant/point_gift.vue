@@ -7,7 +7,7 @@
 					<view class="s_title">
 						赠送账号
 					</view>
-					<input v-model="address" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" />
+					<input v-model="address" class="uni-input" maxlength="11" text="number" placeholder="请输入手机号" placeholder-class="placeholder_class" />
 					<!-- <image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image> -->
 				</view>
 			</view>
@@ -23,7 +23,7 @@
 						到账积分
 					</view>
 					<view class="s_num" style="color: #999999;">
-						1000
+						{{number}}
 					</view>
 				</view>
 				<view class="info_item flex_between">
@@ -39,7 +39,7 @@
 						消耗
 					</view>
 					<view class="s_num">
-						100可用积分+10保证金
+						{{number/0.16}}
 					</view>
 				</view>
 				<view class="info_item flex_between">
@@ -67,13 +67,16 @@
 import { onMounted, ref } from 'vue';
 import { giftPoint } from '@/service/point.js'
 import { getAllPoint } from '@/service/point';
+import { getDeposit } from '@/service/deposit';
+
 
 const totalPoints = ref(0)
 const balance = ref(0)
 onMounted(async()=>{
 	const data = await getAllPoint()
-	totalPoints.value = data.green_points + data.red_points
-	balance.value = data.collateral
+	totalPoints.value = data.red_points*6.25
+	const res = await getDeposit()
+	balance.value = res.amount
 })
 
 const address = ref('')
@@ -89,19 +92,24 @@ const confirm = async()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	if (!address.value) return uni.showToast({
+	if (!address.value || address.value.length < 11) return uni.showToast({
 		icon:'none',
-		title: '请输入手机号'
+		title: '请输入正确手机号'
 	})
 	if (!number.value) return uni.showToast({
 		icon:'none',
 		title: '请输入赠送数量'
 	})
+	if (number.value > totalPoints.value) return uni.showToast({
+		icon: 'none',
+		title: '赠送数量不可超过最多可赠送金额',
+		duration: 3000
+	})
 	try{
 		uni.showLoading({
 			title: '赠送中'
 		})
-		await giftPoint({to_user:address.value, amount: number.value})
+		await giftPoint({phone_number:address.value, transaction_amount: number.value})
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',

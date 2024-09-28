@@ -31,7 +31,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { onShow } from '@dcloudio/uni-app'
-import { getAllPoint } from '@/service/point';
+import { getDeposit } from '@/service/deposit';
 const toRecord = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/deposit_record'
@@ -49,8 +49,8 @@ const toRemove = ()=>{
 }
 const amount = ref('')
 onShow(async()=>{
-	const {collateral} = await getAllPoint()
-	amount.value = collateral
+	const res = await getDeposit()
+	amount.value = res.amount
 })
 </script>
 
