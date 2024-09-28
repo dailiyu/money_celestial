@@ -3,10 +3,15 @@
 		<navBar title="全部商家"></navBar>
 		<view class="filter_list flex_between">
 			<view class="flex_center" @click="getType">
-				<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
+				<!-- <image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
 				<view>
 					类目
+				</view> -->
+				<view class="" style="flex: 1;text-align: right;">
+					<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
 				</view>
+				<uni-data-select v-model="category" :localdata="range" placeholder="类目" :clear="false"
+					@change="changeRange"></uni-data-select>
 			</view>
 			<view>
 				热门
@@ -39,58 +44,61 @@
 					我要入驻
 				</view>
 			</view> -->
-			<shopList :sort='distance' :shopType="index==0?-1:range[index-1].value"></shopList>
+			<shopList ></shopList>
 		</view>
 	</view>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import {usePublicStore} from "@/store/public.js"
-const publicStore=  usePublicStore()
+import { onMounted, ref } from 'vue';
+import { getShopList } from '@/service/shop';
+import { getShopCategories } from '@/service/shop.js'
 
-const range = computed(() => {
-		return publicStore.cateGoryList.map((item) => {
-			console.log({
-				value: item.id, // value 为 id
-				text: item.name, // text 为 name
-			});
-			return {
-				value: item.id, // value 为 id
-				text: item.name, // text 为 name
-			};
-		});
-	});
-	
-	const categoryTextList = computed(() => {
-			return publicStore.cateGoryList.map((item) => {
-				return item.name
-			});
-		});
-	
-
-const index=ref(0)
-const getType = ()=>{
-	uni.showActionSheet({
-		itemList: ['全部',...categoryTextList.value],
-		success(res) {
-			index.value=res.tapIndex
-			
+const id = ref('')
+const range = ref({})
+onMounted(async()=>{
+	let routes = getCurrentPages()
+	let curParam = routes[routes.length - 1].options;
+	provinceId.value = curParam.provinceId
+	getList()
+	// 类目
+	const {results} = await getShopCategories()
+	range.value = results.map(i=>{
+		return {
+			text: i.name,
+			value: i.id,
+			disable: false
 		}
 	})
+})
+
+const shopList = ref([])
+const getList = async()=>{
+	const params = ref({
+		ordering: time.value,
+		category_id: categoryId.value,
+		code: provinceId.value
+	})
+	uni.showLoading({
+		title: '加载中'
+	})
+	const {results} = await getShopList(params.value)
+	shopList.value = results
+	uni.hideLoading()
 }
+
 const toSettle = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_intro'
 	})
 }
 
-const distance = ref('asc')
-
-
-
-
-
+const category = ref('')
+const changeRange = (e) => {
+	categoryId.value = e
+	shopList.value = []
+	getShopList()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -110,6 +118,29 @@ const distance = ref('asc')
 		&:last-child {
 			margin-top: 6rpx;
 		}
+	}
+	uni-data-select {
+		flex: 1;
+	}
+	:deep(.uni-select) {
+		padding: 0;
+		border: none;
+	}
+	
+	:deep(.uni-select__input-box) {
+		height: fit-content;
+		justify-content: flex-start;
+	}
+	
+	:deep(.uni-select__input-placeholder) {
+		font-size: 30rpx;
+		color: #333;
+	}
+	
+	:deep(.uni-select__input-text) {
+		width: fit-content;
+		font-size: 30rpx;
+		color: #333;
 	}
 }
 .settle_box {

@@ -53,14 +53,20 @@
 		</view>
 		<view class="content">
 			<view class="cate_list flex_between" v-if="categoryList.length">
-				<view class="cate_item" v-for="item in categoryList" :key="item.id">
+				<view class="cate_item" v-for="item in categoryList" :key="item.id" @click="toAllMerchant(item.id)">
 					<image :src="item.icon" mode="widthFix" class="cate_img"></image>
 					<view class="">
 						{{item.name}}
 					</view>
 				</view>
+				<view class="cate_item" @click="toAllMerchant(0)">
+					<image src="@/static/home/all.png" mode="widthFix" class="cate_img"></image>
+					<view class="">
+						全部类目
+					</view>
+				</view>
 			</view>
-			<view class="merchant_box" v-if="userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0">
+			<view class="merchant_box" v-if="userInfo.is_shop">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
 						<text class="nearby">附近商家</text>
@@ -90,7 +96,7 @@
 							{{publicStore.ascShopList[0]?.distance/1000}}km
 						</view>
 					</view>
-					<view class="more" @click="toAllMerchant">
+					<view class="more" @click="toAllMerchant(0)">
 						点击查看更多
 					</view>
 				</view>
@@ -136,6 +142,7 @@ const keyword = ref('')
 const publicStore=  usePublicStore()
 const userStore = useUserStore()
 const city = ref('')
+const userInfo = uni.getStorageSync('userInfo')
 onMounted(async()=>{
 	const accessToken = uni.getStorageSync('accessToken')
 	console.log(accessToken);
@@ -220,9 +227,9 @@ const toRecommend =async ()=>{
 		})
 	}
 }
-const toAllMerchant = ()=>{
+const toAllMerchant = (id)=>{
 	uni.navigateTo({
-		url: '/pages/merchant/all_merchant'
+		url: '/pages/merchant/all_merchant?id='+id
 	})
 }
 
