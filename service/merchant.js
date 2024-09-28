@@ -11,7 +11,7 @@ export const createMerchant=async (data)=>{
 
 
 //验证商家码
-export const createMerchant=async (user,data)=>{
+export const vertifyMerchant=async (user,data)=>{
 	return http.patch(`/merchant/${user}/update/`,data)
 }
 
