@@ -34,7 +34,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getRecommendOfficerInfo } from '@/service/recommend.js'
+import { getRecommendShopList } from '@/service/recommend.js'
 import { getShopCategories } from '@/service/shop.js'
 import { calculateDistances } from "@/utils/distanceSorting.js"
 
@@ -67,18 +67,16 @@ const shopList = ref([])
 const {location} = uni.getStorageSync('address_info')
 const getShopList = async()=>{
 	const params = ref({
-		ordering: time.value
+		ordering: time.value,
+		categories: categoryId.value
 	})
-	if (categoryId.value) {
-		params.value.categories = categoryId.value
-	} else {
-	} 
 	uni.showLoading({
 		title: '加载中'
 	})
-	const {results} = await getRecommendOfficerInfo(params.value)
-	const locaList = results.map(shop => ({ latitude: shop.latitude, longitude: shop.longitude }))
-	shopList.value = await calculateDistances({latitude: location.lat, longitude: location.lng}, locaList)
+	const res = await getRecommendShopList(params.value)
+	shopList.value = res
+	// const locaList = results.map(shop => ({ latitude: shop.latitude, longitude: shop.longitude }))
+	// shopList.value = await calculateDistances({latitude: location.lat, longitude: location.lng}, locaList)
 	uni.hideLoading()
 }
 const filterTime = (i)=>{

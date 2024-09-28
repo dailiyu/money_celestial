@@ -1,8 +1,8 @@
 import  {http} from "./index"
 
-// 获取保证金
+// 获取商家保证金
 export const getDeposit=()=>{
-	return http.get('/deposit/')
+	return http.get('/merchant/margin/cancel/')
 }
 
 
@@ -12,18 +12,23 @@ export const getDepositList=async(data)=>{
 }
 
 
-// 增加保证金
+// 增加商家保证金
 export const addDeposit=(data)=>{
-	return http.post('/wallets/add/collateral/', data)
+	return http.put('/merchant/margin/update/', data)
 }
 
-// 解除保证金
+// 解除商家保证金
 export const removeDeposit=(data)=>{
-	return http.post('/wallets/remove/collateral/', data)
+	return http.put('/merchant/margin/cancel/', data)
 }
 
 
 // 获取积分和保证金记录
 export const getRecords=(data)=>{
 	return http.get('/wallets/transactions/', data)
+}
+
+// 获取商家保证金记录
+export const getMerchantDepositRecord=()=>{
+	return http.get('/merchant/margin/records/')
 }

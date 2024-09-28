@@ -10,7 +10,7 @@
 				</view>
 				<view class="flex_center">
 					<view class="name">
-						{{info?.results&&info?.results[0]?.owner?.username}}
+						{{info?.name}}
 					</view>
 					<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
 				</view>
@@ -66,8 +66,10 @@
 import { onMounted, ref } from 'vue';
 import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
 const info = ref({})
+const user = ref({})
 onMounted(async()=>{
-	// info.value = await getRecommendOfficerInfo()
+	user.value = uni.getStorageSync('userInfo')
+	info.value = await getRecommendOfficerInfo(user.value.phone_number)
 	// getMPQRCode()
 })
 

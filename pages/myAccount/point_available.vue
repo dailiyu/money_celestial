@@ -17,12 +17,12 @@
 				</view>
 			</view>
 			<view class="list_box">
-				<view class="list_item flex_between">
+				<!-- <view class="list_item flex_between">
 					<view class="">
 						兑换商品
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
+				</view> -->
 				<!-- <view class="list_item flex_between">
 					<view class="">
 						兑换商品

@@ -18,13 +18,13 @@ export  const unbindPointAccount=async (data)=>{
 }
 
 //提取绿积分
-export  const withdrawPoint=async (data)=>{
-	return http.post('/wallets/convert/green-to-red/points/', data)
+export  const withdrawGreenPoint=async (data)=>{
+	return http.post('/orders/withdraw/green/points/', data)
 }
 
 // 赠送积分
 export  const giftPoint=async (data)=>{
-	return http.post('/wallets/gift/green/point/', data)
+	return http.post('/orders/merchant/give/green/points/', data)
 }
 
 // 获取红积分，绿积分，代理总积分，保证金
@@ -35,4 +35,24 @@ export  const getAllPoint=async ()=>{
 // 获取积分绑定账号
 export  const getPointBindedAccount=async ()=>{
 	return http.get('/wallets/')
+}
+
+// 获取积分列表
+export  const getPointsRecords=async (data)=>{
+	return http.get('/orders/points/transactions/', data)
+}
+
+// 兑换红积分
+export  const addRedPoints=async (data)=>{
+	return http.post('/orders/add/red/points/', data)
+}
+
+// 获取交易地址
+export  const getWalletAddress=async ()=>{
+	return http.get('/cards/address/')
+}
+
+// 提取红积分
+export  const withdrawRedPoints=async (data)=>{
+	return http.post('/orders/withdraw/red/points/', data)
 }

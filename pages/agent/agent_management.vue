@@ -1,9 +1,10 @@
 <template>
 	<view>
 		<navBar title="代理后台" ></navBar>
+		<!-- <image src="@/static/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image> -->
 		<view class="content">
 			<view class="total_data">
-				<image src="@/static/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image>
+				
 				<view class="data_item">
 					<view class="location">
 						<text class="city">{{cityAgent}}</text>
@@ -81,7 +82,7 @@ const cityAgent = ref('')
 const getShopAmount = async()=>{
 	const {count, results} = await getAgentShopAmount({code:provinceId.value})
 	merchantAmount.value = count
-	cityAgent.value = results[0].city
+	cityAgent.value = results[0]?.city
 }
 
 const officerAmount = ref(0)
@@ -112,28 +113,38 @@ const toMerchantCode = ()=>{
 	})
 }
 const toSecurityDeposit = ()=>{
-	// uni.navigateTo({
-	// 	url: '/pages/agent/security_deposit'
-	// })
 	uni.navigateTo({
-		url: '/pages/merchant/security_deposit'
+		url: '/pages/agent/security_deposit'
 	})
+	// uni.navigateTo({
+	// 	url: '/pages/merchant/security_deposit'
+	// })
 }
 
 </script>
 
 <style lang="scss" scoped>
+// .agent_pic {
+// 	position: absolute;
+// 	top: 0;
+// 	left: 0;
+// 	z-index: -1;
+// 	width: 100%;
+// 	display: block;
+// 	margin-bottom: 20rpx;
+// }
+.content {
+	background: url('@/static/agent/bg.png') no-repeat;
+	background-size: 100% auto;
+}
 .total_data {
-	position: relative;
-	.agent_pic {
-		width: 100%;
-		display: block;
-		margin-bottom: 20rpx;
-	}
+	// position: relative;
 	.data_item {
-		position: absolute;
-		top: 113rpx;
-		left: 44rpx;
+		// position: absolute;
+		// top: 113rpx;
+		// left: 44rpx;
+		padding: 60rpx 44rpx 0;
+		margin-bottom: 280rpx;
 		.location {
 			font-size: 49rpx;
 			color: #FC5908;
@@ -143,25 +154,25 @@ const toSecurityDeposit = ()=>{
 			}
 		}
 		.point_box {
-			border: 1rpx solid #AAAAAA;
+			border: 1rpx solid #fff;
 			font-size: 21rpx;
 			font-weight: bold;
 			margin-bottom: 46rpx;
 			width: fit-content;
 			.point_text {
-				background-color: #AAAAAA;
-				color: #fff;
+				background-color: #fff;
+				color: #0E3360;
 				padding: 8rpx 14rpx;
 			}
 			.point_num {
 				padding: 8rpx 38rpx;
-				color: #AAAAAA;
+				color: #fff;
 			}
 		}
 		.data_text {
 			margin-bottom: 20rpx;
 			font-size: 24rpx;
-			color: #6B6B6B;
+			color: #fff;
 		}
 		.data_num {
 			font-size: 55rpx;

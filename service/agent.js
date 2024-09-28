@@ -27,3 +27,28 @@ export  const getProvinceName=async ()=>{
 	const code = results[0].province
 	return http.get(`/divisions/provinces/${code}/`)
 }
+
+// 申请代理
+export  const applyAgent=async (data)=>{
+	return http.post('/agent/register/', data)
+}
+
+// 增加代理保证金
+export  const addAgentDeposit=async (data)=>{
+	return http.put('/agent/margin/update/', data)
+}
+
+// 查看代理保证金
+export  const getAgentDeposit=async ()=>{
+	return http.get('/agent/margin/update/')
+}
+
+// 撤销代理保证金
+export  const removeAgentDeposit=async (data)=>{
+	return http.put('/agent/margin/cancel/', data)
+}
+
+// 获取保证金记录
+export  const getDepositRecord=async ()=>{
+	return http.get('/agent/margin/records/')
+}

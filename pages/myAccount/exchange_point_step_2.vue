@@ -3,11 +3,11 @@
 		<navBar title="兑换积分"></navBar>
 		<view class="content">
 			<view class="shop_info">
-				<view class="info_item error flex_between">
+				<view class="info_item flex_between">
 					<view class="s_title">
 						钱包地址
 					</view>
-					<uni-easyinput v-model="address" type="number" :inputBorder="false" class="uni-input" placeholder="请输入充值钱包地址" placeholder-class="placeholder_class" :styles="{'padding': '0'}" >
+					<uni-easyinput v-model="address" :inputBorder="false" class="uni-input" placeholder="请输入充值钱包地址" placeholder-class="placeholder_class" :styles="{'padding': '0'}" >
 					<template #right>
 						<view class="error_text">
 							格式错误
@@ -19,7 +19,7 @@
 					<view class="s_title">
 						充值订单
 					</view>
-					<uni-easyinput v-model="address" type="number" :inputBorder="false" class="uni-input" placeholder="请输入充值订单哈希值" placeholder-class="placeholder_class" >
+					<uni-easyinput v-model="order" :inputBorder="false" class="uni-input" placeholder="请输入充值订单哈希值" placeholder-class="placeholder_class" >
 						<template #right>
 							<view class="error_text">
 								格式错误
@@ -31,7 +31,7 @@
 					<view class="s_title">
 						兑换账号
 					</view>
-					<uni-easyinput v-model="address" maxlength="11" type="number" :inputBorder="false" class="uni-input" placeholder="请输入账号" placeholder-class="placeholder_class" >
+					<uni-easyinput v-model="phone" maxlength="11" type="number" :inputBorder="false" class="uni-input" placeholder="请输入账号" placeholder-class="placeholder_class" >
 						<template #right>
 							<view class="" style="text-align: right;">
 								<view class="error_text">
@@ -60,25 +60,63 @@
 			</view>
 		</view>
 		
-		<popup ref="pop" status="fail"></popup>
+		<popup ref="pop" status="success"></popup>
 	</view>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-const address = ref('')
+import { addRedPoints } from '../../service/point';
+
+
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
 
 const pop = ref()
+const address = ref('')
+const phone = ref('')
+const order = ref('')
 const confirm = async()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	pop.value.open()
+	if (!address.value) return uni.showToast({
+		icon: 'none',
+		title: '请输入钱包地址'
+	})
+	if (!order.value) return uni.showToast({
+		icon: 'none',
+		title: '请输入订单哈希值'
+	})
+	if (!phone.value || phone.value.length < 11) return uni.showToast({
+		icon: 'none',
+		title: '请输入正确手机号'
+	})
+	const params = {
+		point_account: phone.value,
+		from_address: address.value,
+		consumer_coupon: order.value,
+		transaction_type: 'increase',
+		transaction_method: 'red_points'
+	}
+	try{
+		uni.showLoading({
+			mask: true,
+			title: '正在提交'
+		})
+		await addRedPoints(params.value)
+		uni.hideLoading()
+		pop.value.open()
+	}catch(e){
+		uni.showToast({
+			icon: 'error',
+			title: '兑换失败'
+		})
+	}
+	
 }
 </script>
 

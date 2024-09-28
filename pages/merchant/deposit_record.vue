@@ -21,11 +21,11 @@
 				<view>{{index+1}}</view>
 			</uni-col>
 			<uni-col :span="9">
-				<view>{{item.from_user}}</view>
+				<view>{{item.user}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view style="color: #4cbe61;" v-if="item.static == 'add'">+{{item.amount}}</view>
-				<view style="color: #fd8c31;" v-if="item.static == 'remove'">-{{item.amount}}</view>
+				<view style="color: #4cbe61;" v-if="item.static == 'increase'">+{{item.amount_changed}}</view>
+				<view style="color: #fd8c31;" v-if="item.static == 'decrease'">-{{item.amount_changed}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
@@ -37,7 +37,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getRecords } from '@/service/deposit.js'
+import { getMerchantDepositRecord } from '@/service/deposit.js'
 import { convertTime, obscureString } from '@/utils/index.js'
 
 
@@ -53,13 +53,13 @@ const getRecordList = async ()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {transactions, total_amount} = await getRecords({transaction_type: 'collateral'})
+	const {results} = await getMerchantDepositRecord()
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value.push(...transactions)
+	recordList.value = results
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {

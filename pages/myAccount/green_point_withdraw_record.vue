@@ -5,13 +5,13 @@
 			<uni-col :span="3">
 				<view class="title">序号</view>
 			</uni-col>
-			<uni-col :span="9">
+			<uni-col :span="7">
 				<view class="title">提取地址</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view class="title">提取数量</view>
 			</uni-col>
-			<uni-col :span="6">
+			<uni-col :span="8">
 				<view class="title">提取时间</view>
 			</uni-col>
 		</uni-row>
@@ -20,13 +20,13 @@
 			<uni-col :span="3">
 				<view>{{index+1}}</view>
 			</uni-col>
-			<uni-col :span="9">
-				<view>{{item.from_user}}</view>
+			<uni-col :span="7">
+				<view>{{item.point_account}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view>{{item.amount}}</view>
+				<view>{{item.transaction_amount}}</view>
 			</uni-col>
-			<uni-col :span="6">
+			<uni-col :span="8">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
@@ -37,7 +37,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getWithdrawRecord } from '@/service/point.js'
-import { getRecords } from '../../service/deposit';
+import { getPointsRecords } from '@/service/point';
 import { convertTime, obscureString } from '@/utils/index.js'
 
 onMounted(()=>{
@@ -51,13 +51,13 @@ const getRecordList = async()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {transactions, total_amount} = await getRecords({transaction_type:'green_point'})
+	const {results} = await getPointsRecords({transaction_method:'green_points'})
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value.push(...transactions)
+	recordList.value.push(...results)
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {

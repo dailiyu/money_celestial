@@ -7,8 +7,8 @@ export  const getRecommendOfficerInfo=async (user)=>{
 }
 
 //获取推荐官商铺列表
-export  const getRecommendShopList=async ()=>{
-	return http.get('/referral/officers/merchants/')
+export  const getRecommendShopList=async (data)=>{
+	return http.get('/referral/merchants/', data)
 }
 
 
