@@ -82,7 +82,7 @@ import loginVue from './login.vue';
 import { changeUserInfo } from '../../service/uer_profile';
 import { uploadUrl } from '../../service/config';
 import cityDataJson from "@/static/cityData.json"
-
+import { uploadImage } from '../../utils';
 
 
 // 绑定选择的值
@@ -137,13 +137,14 @@ const chooseImg = async () => {
   // 选择图片
   uni.chooseImage({
     count: 1, // 限制用户只能选择一张图片
-    success: (res) => {
+    success:async (res) => {
       const tempFilePaths = res.tempFilePaths;
       // 将选择的图片路径赋值给 imagePath 用于页面显示
       imagePath.value = tempFilePaths[0]; 
       console.log('-----选择的图片路径：', tempFilePaths[0]);
       // 调用上传图片方法
-      uploadImage(tempFilePaths[0]);
+      const url=await uploadImage(tempFilePaths[0]);
+	  uploadSuccessUrl.value=url
     },
     fail: (err) => {
       console.log('选择图片失败：', err);
