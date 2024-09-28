@@ -3,24 +3,24 @@
 		<navBar title="商家后台"></navBar>
 		<view class="content">
 			<view class="merchant_info flex">
-				<image :src="userStore.storeInfo.avatar" mode="aspectFill" class="head"></image>
+				<image :src="userStore.shopInfo.avatar" mode="aspectFill" class="head"></image>
 				<view class="">
 					<view class="name flex">
 						<view class="">
-							{{userStore.storeInfo.name}}
+							{{userStore.shopInfo.name}}
 						</view>
-						<view class="level">
+						<!-- <view class="level">
 							Lv.5
-						</view>
+						</view> -->
 					</view>
 					<view class="flex">
 						<!-- <uni-rate :readonly="true" :value="2" active-color="#fc5908" size="12" /> -->
 						<view class="flex">
-							<image src="@/static/star.png" mode="widthFix" class="star_pic" v-for="(item, index) in 5" :key="index"></image>
+							<!-- <image src="@/static/star.png" mode="widthFix" class="star_pic" v-for="(item, index) in 5" :key="index"></image> -->
 						</view>
-						<view class="point">
+						<!-- <view class="point">
 							5
-						</view>
+						</view> -->
 					</view>
 				</view>
 			</view>
@@ -69,6 +69,9 @@
 <script setup>
 import { useUserStore } from '../../store/user';
 const userStore = useUserStore()
+	
+	
+	
 	
 const toEdit = ()=>{
 	uni.navigateTo({

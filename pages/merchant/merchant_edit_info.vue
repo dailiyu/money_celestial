@@ -1,11 +1,11 @@
 <template>
 	<view>
-		<navBar title="商家入驻"></navBar>
+		<navBar title="店铺信息编辑"></navBar>
 		<view class="content">
 			<view class="head_box flex_between" style="align-items: flex-start;">
 				<view class="">
 					<view class="h_title">
-						商家头像（200*200）
+						店铺头像
 					</view>
 					<view class="h_text" style="margin-top: 42rpx;">
 						可上传店铺照片或LOGO
@@ -61,7 +61,7 @@
 						@change="changeRange"
 					></uni-data-select>
 				</view>
-				<view class="info_item flex_between">
+				<!-- <view class="info_item flex_between">
 					<view class="s_title">
 						手机验证
 					</view>
@@ -69,6 +69,18 @@
 					<view class="validate_code">
 						获取验证码
 					</view>
+				</view> -->
+				<view class="info_item flex_between" style="flex: 1;" >
+					<view class="title" style="margin-right: 45rpx;">
+						常居地
+					</view>
+						<uni-data-picker 
+									      :localdata="cityData"
+										  :clear-icon='false'
+									      mode="region"
+									      @change="onChange"
+									      title="请选择省市"
+									    ></uni-data-picker>
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -95,7 +107,7 @@
 		computed,
 		ref
 	} from 'vue';
-import { updateShopInfo } from '../../service/shop';
+
 
 	import {
 		postBindingStoreCategory,
@@ -107,6 +119,7 @@ import { updateShopInfo } from '../../service/shop';
 		useUserStore
 	} from '../../store/user';
 	import {
+		changeShopInfo,
 		postMerchantSettleIn,
 		uploadShopImg
 	} from '../../service/shop';
@@ -120,6 +133,8 @@ import { updateShopInfo } from '../../service/shop';
 	import {
 		usePublicStore
 	} from "@/store/public.js"
+
+	import cityDataJson from "@/static/cityData.json"
 	const publicStore = usePublicStore()
 	const userStore = useUserStore()
 	const shopIntro = ref('')
@@ -134,6 +149,35 @@ import { updateShopInfo } from '../../service/shop';
 	//     { value: "足球", text: "足球" },
 	//     { value: "游泳", text: "游泳" },
 	// ])
+
+
+// 绑定选择的值
+const selectedValues = ref([])
+
+// 绑定省市名显示
+const selectedProvince = ref('')
+const selectedCity = ref('')
+
+// 省市数据
+const cityData = ref(cityDataJson)
+
+// 当选择器值变化时，处理选中的省和市
+
+const onChange = (e) => {
+  const selected = e.detail.value
+  const province = cityData.value.find(item => item.value === selected[0])
+  const city = province?.children?.find(item => item.value === selected[1])
+
+  // 保存选择的省市名
+   selectedProvince.value = e.detail.value[0].text ||''
+   selectedCity.value =  e.detail.value[1].text ||''
+  // 保存选中的省市值
+  console.log( selectedProvince.value,selectedCity.value);
+}
+
+
+
+
 
 	const range = computed(() => {
 		return publicStore.cateGoryList.map((item) => {
@@ -263,7 +307,7 @@ import { updateShopInfo } from '../../service/shop';
 			!shopName.value ||
 			!address.value ||
 			!shopIntro.value ||
-			
+			!selectedCity.value||
 			temProfileImgPaths.value.length === 0
 		) {
 			return uni.showToast({
@@ -275,13 +319,11 @@ import { updateShopInfo } from '../../service/shop';
 			uni.showLoading({
 				title: "正在保存中...",
 			})
-			 const cityDetail=await getCitiesDetail()
-			const {location}=await uni.getStorageSync('address_info')
+			const phoneNumber=uni.getStorageSync('phoneNumber')
 			await uploadProfileImg()
-			console.log('-----');
-			console.log(shopName.value,shopIntro.value,[businessRange.value],profileUrl.value,address.value,location.lat,location.lng,cityDetail[0].id);
-			 const res= await updateShopInfo(shopName.value,shopIntro.value,[businessRange.value],profileUrl.value,address.value,location.lat,location.lng,cityDetail[0].id )
-		console.log('-----!!!',res);
+			console.log({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value||'https://example.com/image.png',address:address.value});
+			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value})
+			console.log('-----!!!',res);
 		
 			// await upLoadDetailImg(res?.id)
 			// await upLoadBannerImg(res?.id)

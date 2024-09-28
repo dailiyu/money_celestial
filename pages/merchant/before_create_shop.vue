@@ -8,12 +8,19 @@
 			<view class="text">恭喜你，已经成为满仓商家！</view>
 		</view>
 		<view class="buttom-box">
-			<view class="buttom">创建店铺</view>
+			<view class="buttom" @click="toCreateShop">创建店铺</view>
 		</view>
 	</view>
 </template>
 
 <script setup>
+	
+	const toCreateShop=async ()=>{
+		uni.navigateTo({
+			url:'merchant_set_info'
+		})
+	}
+	
 </script>
 
 <style lang="scss" scoped>
