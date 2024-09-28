@@ -9,7 +9,7 @@ export const useUserStore = defineStore('user', {
     return {
       userInfo: {},
       merchantInfo:{},
-	  storeInfo:{}
+	  shopInfo:{}
     };
   },
   actions: {
@@ -37,19 +37,20 @@ export const useUserStore = defineStore('user', {
     },
 	async getMerchantInfoAction(){
 		const res=await getMerchantInfo()
-		this.merchantInfo=res?.data||{}
-		 uni.setStorageSync('merchantId', res.data?.id);
+		console.log('store中获得的店铺信息',res);
+		
 	},
 	async getStoreInfoAction(){
-			const res=await getShopInfo()
-			this.storeInfo=res
-			console.log(res);
-			uni.setStorageSync('storeId', res.id);
+			const phone=uni.getStorageSync('userInfo').phone_number
+			const res=await getShopInfo(phone)
+			this.shopInfo=res
+			console.log('获取到的店铺信息',res);
+			uni.setStorageSync('shopInfo',res)
 	},
 	async fetchAllDataAction(){
 		this.getUserInfoAction()
-		// this.getMerchantInfoAction()
-		 // this.getStoreInfoAction()
+		 // this.getMerchantInfoAction()
+		  this.getStoreInfoAction()
 	}
   }
 });

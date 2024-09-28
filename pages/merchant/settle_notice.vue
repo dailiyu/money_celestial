@@ -65,13 +65,14 @@ const scanCode = () => {
 	  const phoneNumber=uni.getStorageSync('phoneNumber')
 	  const address=uni.getStorageSync('userInfo').residence
 	  const userName=uni.getStorageSync('userInfo').name
+	  const avatar=uni.getStorageSync('userInfo').icon
 	  const cityName=extractCityName(address)
 	  const cityInfo=await getCitiesDetail(cityName)
 	console.log(recommendPhone,phoneNumber,address,cityName,userName,cityInfo);
 		uni.showLoading({
 			title:"正在创建商家"
 		})
-	  createMerchant({user:phoneNumber,referral_officer:recommendPhone,city:cityName,name:userName}).then((res)=>{
+	  createMerchant({user:phoneNumber,referral_officer:recommendPhone,city:cityName,name:userName,icon:avatar}).then((res)=>{
 			uni.hideLoading()
 		  uni.showToast({
 		    title: `创建商家成功`, // 显示扫码的结果

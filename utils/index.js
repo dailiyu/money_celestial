@@ -10,14 +10,11 @@ export const uploadImage = async (filePath) => {
     uni.uploadFile({
       url: uploadUrl, // 上传接口 URL
       filePath: filePath, // 需要上传的文件路径
-      name: 'image_url', // 后台接收文件的字段名
+      name: 'image', // 后台接收文件的字段名
       header: {
         'Authorization': `Bearer ${token}`, // JWT Token 添加到 Authorization 请求头
-        'Content-Type': 'multipart/form-data'
       },
-	  formData: {
-	    'file_name': randomFileName // 生成的随机文件名
-	  },
+	 
       success: (uploadFileRes) => {
         if (uploadFileRes.statusCode == 201) {
           const data = JSON.parse(uploadFileRes.data); // 解析返回的数据

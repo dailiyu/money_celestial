@@ -705,7 +705,7 @@ if (uni.restoreGlobal) {
     const reg = /^[0-9]*$/g;
     return typeof val === "number" || reg.test(val) ? val + "px" : val;
   };
-  const _sfc_main$17 = {
+  const _sfc_main$16 = {
     name: "UniIcons",
     emits: ["click"],
     props: {
@@ -759,7 +759,7 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$n(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(
       "text",
       {
@@ -774,8 +774,8 @@ if (uni.restoreGlobal) {
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1$6 = /* @__PURE__ */ _export_sfc(_sfc_main$17, [["render", _sfc_render$n], ["__scopeId", "data-v-d31e1c47"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
-  const _sfc_main$16 = {
+  const __easycom_1$5 = /* @__PURE__ */ _export_sfc(_sfc_main$16, [["render", _sfc_render$l], ["__scopeId", "data-v-d31e1c47"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-icons/components/uni-icons/uni-icons.vue"]]);
+  const _sfc_main$15 = {
     name: "navBar",
     data() {
       return {
@@ -811,8 +811,8 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$m(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
+  function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$5);
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -842,541 +842,15 @@ if (uni.restoreGlobal) {
       /* STYLE */
     );
   }
-  const __easycom_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$16, [["render", _sfc_render$m], ["__scopeId", "data-v-fba290dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/navBar/navBar.vue"]]);
-  const isObject = (val) => val !== null && typeof val === "object";
-  const defaultDelimiters = ["{", "}"];
-  class BaseFormatter {
-    constructor() {
-      this._caches = /* @__PURE__ */ Object.create(null);
-    }
-    interpolate(message, values, delimiters = defaultDelimiters) {
-      if (!values) {
-        return [message];
-      }
-      let tokens = this._caches[message];
-      if (!tokens) {
-        tokens = parse(message, delimiters);
-        this._caches[message] = tokens;
-      }
-      return compile(tokens, values);
-    }
-  }
-  const RE_TOKEN_LIST_VALUE = /^(?:\d)+/;
-  const RE_TOKEN_NAMED_VALUE = /^(?:\w)+/;
-  function parse(format, [startDelimiter, endDelimiter]) {
-    const tokens = [];
-    let position = 0;
-    let text = "";
-    while (position < format.length) {
-      let char = format[position++];
-      if (char === startDelimiter) {
-        if (text) {
-          tokens.push({ type: "text", value: text });
-        }
-        text = "";
-        let sub = "";
-        char = format[position++];
-        while (char !== void 0 && char !== endDelimiter) {
-          sub += char;
-          char = format[position++];
-        }
-        const isClosed = char === endDelimiter;
-        const type = RE_TOKEN_LIST_VALUE.test(sub) ? "list" : isClosed && RE_TOKEN_NAMED_VALUE.test(sub) ? "named" : "unknown";
-        tokens.push({ value: sub, type });
-      } else {
-        text += char;
-      }
-    }
-    text && tokens.push({ type: "text", value: text });
-    return tokens;
-  }
-  function compile(tokens, values) {
-    const compiled = [];
-    let index = 0;
-    const mode2 = Array.isArray(values) ? "list" : isObject(values) ? "named" : "unknown";
-    if (mode2 === "unknown") {
-      return compiled;
-    }
-    while (index < tokens.length) {
-      const token = tokens[index];
-      switch (token.type) {
-        case "text":
-          compiled.push(token.value);
-          break;
-        case "list":
-          compiled.push(values[parseInt(token.value, 10)]);
-          break;
-        case "named":
-          if (mode2 === "named") {
-            compiled.push(values[token.value]);
-          } else {
-            {
-              console.warn(`Type of token '${token.type}' and format of value '${mode2}' don't match!`);
-            }
-          }
-          break;
-        case "unknown":
-          {
-            console.warn(`Detect 'unknown' type of token!`);
-          }
-          break;
-      }
-      index++;
-    }
-    return compiled;
-  }
-  const LOCALE_ZH_HANS = "zh-Hans";
-  const LOCALE_ZH_HANT = "zh-Hant";
-  const LOCALE_EN = "en";
-  const LOCALE_FR = "fr";
-  const LOCALE_ES = "es";
-  const hasOwnProperty = Object.prototype.hasOwnProperty;
-  const hasOwn = (val, key) => hasOwnProperty.call(val, key);
-  const defaultFormatter = new BaseFormatter();
-  function include(str, parts) {
-    return !!parts.find((part) => str.indexOf(part) !== -1);
-  }
-  function startsWith(str, parts) {
-    return parts.find((part) => str.indexOf(part) === 0);
-  }
-  function normalizeLocale(locale, messages2) {
-    if (!locale) {
-      return;
-    }
-    locale = locale.trim().replace(/_/g, "-");
-    if (messages2 && messages2[locale]) {
-      return locale;
-    }
-    locale = locale.toLowerCase();
-    if (locale === "chinese") {
-      return LOCALE_ZH_HANS;
-    }
-    if (locale.indexOf("zh") === 0) {
-      if (locale.indexOf("-hans") > -1) {
-        return LOCALE_ZH_HANS;
-      }
-      if (locale.indexOf("-hant") > -1) {
-        return LOCALE_ZH_HANT;
-      }
-      if (include(locale, ["-tw", "-hk", "-mo", "-cht"])) {
-        return LOCALE_ZH_HANT;
-      }
-      return LOCALE_ZH_HANS;
-    }
-    let locales = [LOCALE_EN, LOCALE_FR, LOCALE_ES];
-    if (messages2 && Object.keys(messages2).length > 0) {
-      locales = Object.keys(messages2);
-    }
-    const lang = startsWith(locale, locales);
-    if (lang) {
-      return lang;
-    }
-  }
-  class I18n {
-    constructor({ locale, fallbackLocale, messages: messages2, watcher, formater: formater2 }) {
-      this.locale = LOCALE_EN;
-      this.fallbackLocale = LOCALE_EN;
-      this.message = {};
-      this.messages = {};
-      this.watchers = [];
-      if (fallbackLocale) {
-        this.fallbackLocale = fallbackLocale;
-      }
-      this.formater = formater2 || defaultFormatter;
-      this.messages = messages2 || {};
-      this.setLocale(locale || LOCALE_EN);
-      if (watcher) {
-        this.watchLocale(watcher);
-      }
-    }
-    setLocale(locale) {
-      const oldLocale = this.locale;
-      this.locale = normalizeLocale(locale, this.messages) || this.fallbackLocale;
-      if (!this.messages[this.locale]) {
-        this.messages[this.locale] = {};
-      }
-      this.message = this.messages[this.locale];
-      if (oldLocale !== this.locale) {
-        this.watchers.forEach((watcher) => {
-          watcher(this.locale, oldLocale);
-        });
-      }
-    }
-    getLocale() {
-      return this.locale;
-    }
-    watchLocale(fn) {
-      const index = this.watchers.push(fn) - 1;
-      return () => {
-        this.watchers.splice(index, 1);
-      };
-    }
-    add(locale, message, override = true) {
-      const curMessages = this.messages[locale];
-      if (curMessages) {
-        if (override) {
-          Object.assign(curMessages, message);
-        } else {
-          Object.keys(message).forEach((key) => {
-            if (!hasOwn(curMessages, key)) {
-              curMessages[key] = message[key];
-            }
-          });
-        }
-      } else {
-        this.messages[locale] = message;
-      }
-    }
-    f(message, values, delimiters) {
-      return this.formater.interpolate(message, values, delimiters).join("");
-    }
-    t(key, locale, values) {
-      let message = this.message;
-      if (typeof locale === "string") {
-        locale = normalizeLocale(locale, this.messages);
-        locale && (message = this.messages[locale]);
-      } else {
-        values = locale;
-      }
-      if (!hasOwn(message, key)) {
-        console.warn(`Cannot translate the value of keypath ${key}. Use the value of keypath as default.`);
-        return key;
-      }
-      return this.formater.interpolate(message[key], values).join("");
-    }
-  }
-  function watchAppLocale(appVm, i18n) {
-    if (appVm.$watchLocale) {
-      appVm.$watchLocale((newLocale) => {
-        i18n.setLocale(newLocale);
-      });
-    } else {
-      appVm.$watch(() => appVm.$locale, (newLocale) => {
-        i18n.setLocale(newLocale);
-      });
-    }
-  }
-  function getDefaultLocale() {
-    if (typeof uni !== "undefined" && uni.getLocale) {
-      return uni.getLocale();
-    }
-    if (typeof global !== "undefined" && global.getLocale) {
-      return global.getLocale();
-    }
-    return LOCALE_EN;
-  }
-  function initVueI18n(locale, messages2 = {}, fallbackLocale, watcher) {
-    if (typeof locale !== "string") {
-      const options = [
-        messages2,
-        locale
-      ];
-      locale = options[0];
-      messages2 = options[1];
-    }
-    if (typeof locale !== "string") {
-      locale = getDefaultLocale();
-    }
-    if (typeof fallbackLocale !== "string") {
-      fallbackLocale = typeof __uniConfig !== "undefined" && __uniConfig.fallbackLocale || LOCALE_EN;
-    }
-    const i18n = new I18n({
-      locale,
-      fallbackLocale,
-      messages: messages2,
-      watcher
-    });
-    let t2 = (key, values) => {
-      if (typeof getApp !== "function") {
-        t2 = function(key2, values2) {
-          return i18n.t(key2, values2);
-        };
-      } else {
-        let isWatchedAppLocale = false;
-        t2 = function(key2, values2) {
-          const appVm = getApp().$vm;
-          if (appVm) {
-            appVm.$locale;
-            if (!isWatchedAppLocale) {
-              isWatchedAppLocale = true;
-              watchAppLocale(appVm, i18n);
-            }
-          }
-          return i18n.t(key2, values2);
-        };
-      }
-      return t2(key, values);
-    };
-    return {
-      i18n,
-      f(message, values, delimiters) {
-        return i18n.f(message, values, delimiters);
-      },
-      t(key, values) {
-        return t2(key, values);
-      },
-      add(locale2, message, override = true) {
-        return i18n.add(locale2, message, override);
-      },
-      watch(fn) {
-        return i18n.watchLocale(fn);
-      },
-      getLocale() {
-        return i18n.getLocale();
-      },
-      setLocale(newLocale) {
-        return i18n.setLocale(newLocale);
-      }
-    };
-  }
-  const en$2 = {
-    "uni-search-bar.cancel": "cancel",
-    "uni-search-bar.placeholder": "Search enter content"
-  };
-  const zhHans$2 = {
-    "uni-search-bar.cancel": "取消",
-    "uni-search-bar.placeholder": "请输入搜索内容"
-  };
-  const zhHant$2 = {
-    "uni-search-bar.cancel": "取消",
-    "uni-search-bar.placeholder": "請輸入搜索內容"
-  };
-  const messages$1 = {
-    en: en$2,
-    "zh-Hans": zhHans$2,
-    "zh-Hant": zhHant$2
-  };
-  const {
-    t: t$4
-  } = initVueI18n(messages$1);
-  const _sfc_main$15 = {
-    name: "UniSearchBar",
-    emits: ["input", "update:modelValue", "clear", "cancel", "confirm", "blur", "focus"],
-    props: {
-      placeholder: {
-        type: String,
-        default: ""
-      },
-      radius: {
-        type: [Number, String],
-        default: 5
-      },
-      clearButton: {
-        type: String,
-        default: "auto"
-      },
-      cancelButton: {
-        type: String,
-        default: "auto"
-      },
-      cancelText: {
-        type: String,
-        default: ""
-      },
-      bgColor: {
-        type: String,
-        default: "#F8F8F8"
-      },
-      textColor: {
-        type: String,
-        default: "#000000"
-      },
-      maxlength: {
-        type: [Number, String],
-        default: 100
-      },
-      value: {
-        type: [Number, String],
-        default: ""
-      },
-      modelValue: {
-        type: [Number, String],
-        default: ""
-      },
-      focus: {
-        type: Boolean,
-        default: false
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data() {
-      return {
-        show: false,
-        showSync: false,
-        searchVal: ""
-      };
-    },
-    computed: {
-      cancelTextI18n() {
-        return this.cancelText || t$4("uni-search-bar.cancel");
-      },
-      placeholderText() {
-        return this.placeholder || t$4("uni-search-bar.placeholder");
-      }
-    },
-    watch: {
-      modelValue: {
-        immediate: true,
-        handler(newVal) {
-          this.searchVal = newVal;
-          if (newVal) {
-            this.show = true;
-          }
-        }
-      },
-      focus: {
-        immediate: true,
-        handler(newVal) {
-          if (newVal) {
-            if (this.readonly)
-              return;
-            this.show = true;
-            this.$nextTick(() => {
-              this.showSync = true;
-            });
-          }
-        }
-      },
-      searchVal(newVal, oldVal) {
-        this.$emit("input", newVal);
-        this.$emit("update:modelValue", newVal);
-      }
-    },
-    methods: {
-      searchClick() {
-        if (this.readonly)
-          return;
-        if (this.show) {
-          return;
-        }
-        this.show = true;
-        this.$nextTick(() => {
-          this.showSync = true;
-        });
-      },
-      clear() {
-        this.searchVal = "";
-        this.$nextTick(() => {
-          this.$emit("clear", { value: "" });
-        });
-      },
-      cancel() {
-        if (this.readonly)
-          return;
-        this.$emit("cancel", {
-          value: this.searchVal
-        });
-        this.searchVal = "";
-        this.show = false;
-        this.showSync = false;
-        plus.key.hideSoftKeybord();
-      },
-      confirm() {
-        plus.key.hideSoftKeybord();
-        this.$emit("confirm", {
-          value: this.searchVal
-        });
-      },
-      blur() {
-        plus.key.hideSoftKeybord();
-        this.$emit("blur", {
-          value: this.searchVal
-        });
-      },
-      emitFocus(e2) {
-        this.$emit("focus", e2.detail);
-      }
-    }
-  };
-  function _sfc_render$l(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
-    return vue.openBlock(), vue.createElementBlock("view", { class: "uni-searchbar" }, [
-      vue.createElementVNode(
-        "view",
-        {
-          style: vue.normalizeStyle({ borderRadius: $props.radius + "px", backgroundColor: $props.bgColor }),
-          class: "uni-searchbar__box",
-          onClick: _cache[5] || (_cache[5] = (...args) => $options.searchClick && $options.searchClick(...args))
-        },
-        [
-          vue.createElementVNode("view", { class: "uni-searchbar__box-icon-search" }, [
-            vue.renderSlot(_ctx.$slots, "searchIcon", {}, () => [
-              vue.createVNode(_component_uni_icons, {
-                color: "#c0c4cc",
-                size: "18",
-                type: "search"
-              })
-            ], true)
-          ]),
-          $data.show || $data.searchVal ? vue.withDirectives((vue.openBlock(), vue.createElementBlock("input", {
-            key: 0,
-            focus: $data.showSync,
-            disabled: $props.readonly,
-            placeholder: $options.placeholderText,
-            maxlength: $props.maxlength,
-            class: "uni-searchbar__box-search-input",
-            "confirm-type": "search",
-            type: "text",
-            "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $data.searchVal = $event),
-            style: vue.normalizeStyle({ color: $props.textColor }),
-            onConfirm: _cache[1] || (_cache[1] = (...args) => $options.confirm && $options.confirm(...args)),
-            onBlur: _cache[2] || (_cache[2] = (...args) => $options.blur && $options.blur(...args)),
-            onFocus: _cache[3] || (_cache[3] = (...args) => $options.emitFocus && $options.emitFocus(...args))
-          }, null, 44, ["focus", "disabled", "placeholder", "maxlength"])), [
-            [vue.vModelText, $data.searchVal]
-          ]) : (vue.openBlock(), vue.createElementBlock(
-            "text",
-            {
-              key: 1,
-              class: "uni-searchbar__text-placeholder"
-            },
-            vue.toDisplayString($props.placeholder),
-            1
-            /* TEXT */
-          )),
-          $data.show && ($props.clearButton === "always" || $props.clearButton === "auto" && $data.searchVal !== "") && !$props.readonly ? (vue.openBlock(), vue.createElementBlock("view", {
-            key: 2,
-            class: "uni-searchbar__box-icon-clear",
-            onClick: _cache[4] || (_cache[4] = (...args) => $options.clear && $options.clear(...args))
-          }, [
-            vue.renderSlot(_ctx.$slots, "clearIcon", {}, () => [
-              vue.createVNode(_component_uni_icons, {
-                color: "#c0c4cc",
-                size: "20",
-                type: "clear"
-              })
-            ], true)
-          ])) : vue.createCommentVNode("v-if", true)
-        ],
-        4
-        /* STYLE */
-      ),
-      $props.cancelButton === "always" || $data.show && $props.cancelButton === "auto" ? (vue.openBlock(), vue.createElementBlock(
-        "text",
-        {
-          key: 0,
-          onClick: _cache[6] || (_cache[6] = (...args) => $options.cancel && $options.cancel(...args)),
-          class: "uni-searchbar__cancel"
-        },
-        vue.toDisplayString($options.cancelTextI18n),
-        1
-        /* TEXT */
-      )) : vue.createCommentVNode("v-if", true)
-    ]);
-  }
-  const __easycom_1$5 = /* @__PURE__ */ _export_sfc(_sfc_main$15, [["render", _sfc_render$l], ["__scopeId", "data-v-f07ef577"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue"]]);
-  const _imports_0$g = "/static/locate.png";
-  const _imports_1$8 = "/static/home/cart.png";
-  const _imports_2$4 = "/static/home/bag.png";
-  const _imports_3$2 = "/static/home/star.png";
-  const _imports_4$1 = "/static/home/profile.png";
+  const __easycom_0$2 = /* @__PURE__ */ _export_sfc(_sfc_main$15, [["render", _sfc_render$k], ["__scopeId", "data-v-fba290dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/navBar/navBar.vue"]]);
+  const _imports_0$g = "/static/home/cart.png";
+  const _imports_1$8 = "/static/home/bag.png";
+  const _imports_2$4 = "/static/home/star.png";
+  const _imports_3$2 = "/static/home/profile.png";
   const _imports_1$7 = "/static/locate_orange.png";
-  const _imports_6$1 = "/static/home/shop.jpg";
-  const _imports_7$1 = "/static/home/benefit.jpg";
-  const _imports_8$1 = "/static/home/earn.jpg";
+  const _imports_5$1 = "/static/home/shop.jpg";
+  const _imports_6$1 = "/static/home/benefit.jpg";
+  const _imports_7$1 = "/static/home/earn.jpg";
   var isVue2 = false;
   function set(target, key, val) {
     if (Array.isArray(target)) {
@@ -2936,36 +2410,11 @@ This will fail in production.`);
     }
   }
   const http = new Request();
-  const uploadShopImg = (image_url, image_type, shop) => {
-    return http.post("/shops/images/create/", {
-      image_url,
-      image_type,
-      shop
-    });
+  const uploadShopImg = (data) => {
+    return http.post("/shops/images/create/", data);
   };
-  const postMerchantSettleIn = (name, description, category_ids, avatar, address, latitude, longitude, city) => {
-    return http.post("/shops/create/", {
-      name,
-      description,
-      category_ids,
-      avatar,
-      address,
-      latitude,
-      longitude,
-      city
-    });
-  };
-  const updateShopInfo = async (name, description, category_ids, avatar, address, latitude, longitude, city) => {
-    return http.put("/shops/update/", {
-      name,
-      description,
-      category_ids,
-      avatar,
-      address,
-      latitude,
-      longitude,
-      city
-    });
+  const postMerchantSettleIn = (data) => {
+    return http.post("/shops/", data);
   };
   const getShopCategories = () => {
     return http.get("/shops/categories/");
@@ -3011,7 +2460,8 @@ This will fail in production.`);
     actions: {
       async getCateGoryListAction() {
         const res = await getShopCategories();
-        formatAppLog("log", "at store/public.js:23", res.results);
+        uni.setStorageSync("shopCategories", res.results);
+        formatAppLog("log", "at store/public.js:24", res.results);
         this.cateGoryList = res.results;
       },
       async getMerchantListAction() {
@@ -3421,8 +2871,8 @@ This will fail in production.`);
       }
     }
   };
-  function _sfc_render$k(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
+  function _sfc_render$j(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$5);
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -3546,7 +2996,7 @@ This will fail in production.`);
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1$4 = /* @__PURE__ */ _export_sfc(_sfc_main$14, [["render", _sfc_render$k], ["__scopeId", "data-v-09fd5285"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue"]]);
+  const __easycom_1$4 = /* @__PURE__ */ _export_sfc(_sfc_main$14, [["render", _sfc_render$j], ["__scopeId", "data-v-09fd5285"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue"]]);
   const _imports_0$f = "/static/logo.png";
   const _imports_1$6 = "/static/phone-grey.png";
   const _imports_2$3 = "/static/lock-grey.png";
@@ -3697,19 +3147,16 @@ This will fail in production.`);
         formatAppLog("log", "at store/user.js:36", "根据token获取到的用户信息", res);
       },
       async getMerchantInfoAction() {
-        var _a;
         const res = await getMerchantInfo();
-        this.merchantInfo = (res == null ? void 0 : res.data) || {};
-        uni.setStorageSync("merchantId", (_a = res.data) == null ? void 0 : _a.id);
+        formatAppLog("log", "at store/user.js:40", "store中获得的店铺信息", res);
       },
       async getStoreInfoAction() {
         const res = await getShopInfo();
-        this.storeInfo = res;
-        formatAppLog("log", "at store/user.js:46", res);
-        uni.setStorageSync("storeId", res.id);
+        uni.setStorageSync("shopInfo", res);
       },
       async fetchAllDataAction() {
         this.getUserInfoAction();
+        this.getStoreInfoAction();
       }
     }
   });
@@ -3728,7 +3175,7 @@ This will fail in production.`);
   const _sfc_main$12 = {
     __name: "index",
     setup(__props) {
-      const keyword = vue.ref("");
+      vue.ref("");
       const publicStore = usePublicStore();
       const userStore = useUserStore();
       const city = vue.ref("");
@@ -3759,9 +3206,6 @@ This will fail in production.`);
       const bannerList = vue.ref();
       const getBanner = async () => {
         bannerList.value = await getBannerList();
-      };
-      const search = () => {
-        formatAppLog("log", "at pages/index/index.vue:193", keyword.value);
       };
       const toMerchant = async () => {
         const phoneNumber = await uni.getStorageSync("phoneNumber");
@@ -3830,44 +3274,22 @@ This will fail in production.`);
       return (_ctx, _cache) => {
         var _a, _b, _c;
         const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
-        const _component_uni_search_bar = resolveEasycom(vue.resolveDynamicComponent("uni-search-bar"), __easycom_1$5);
         return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
           vue.createVNode(_component_navBar, {
             iconShow: false,
             title: "满仓"
           }),
-          vue.createElementVNode("view", { class: "search_bar flex_between" }, [
-            vue.createElementVNode("image", {
-              src: _imports_0$g,
-              mode: "widthFix",
-              class: "locate_img"
-            }),
-            vue.createElementVNode(
-              "view",
-              { class: "location" },
-              vue.toDisplayString(city.value ? city.value : "定位中"),
-              1
-              /* TEXT */
-            ),
-            vue.createVNode(_component_uni_search_bar, {
-              modelValue: keyword.value,
-              "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => keyword.value = $event),
-              placeholder: "请输入你搜索的内容",
-              radius: 100,
-              "cancel-text": "cancel",
-              cancelButton: "none",
-              clearButton: "always"
-            }, {
-              clearIcon: vue.withCtx(() => [
-                vue.createElementVNode("view", {
-                  class: "search_btn flex_center",
-                  onClick: vue.withModifiers(search, ["stop"])
-                }, "搜索")
-              ]),
-              _: 1
-              /* STABLE */
-            }, 8, ["modelValue"])
-          ]),
+          vue.createCommentVNode(` 	<view class="search_bar flex_between">\r
+			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>\r
+			<view class="location">\r
+				{{city?city:'定位中'}}\r
+			</view>\r
+			<uni-search-bar v-model="keyword" placeholder="请输入你搜索的内容" :radius="100" cancel-text="cancel" cancelButton="none" clearButton="always">\r
+				<template v-slot:clearIcon>\r
+					<view class="search_btn flex_center" @click.stop="search" >搜索</view>\r
+				</template>\r
+			</uni-search-bar>\r
+		</view> `),
           vue.createElementVNode("swiper", {
             "indicator-dots": true,
             autoplay: true,
@@ -3903,7 +3325,7 @@ This will fail in production.`);
             }, [
               vue.createElementVNode("view", { class: "img_box flex_center" }, [
                 vue.createElementVNode("image", {
-                  src: _imports_1$8,
+                  src: _imports_0$g,
                   mode: "widthFix",
                   class: "img_item"
                 })
@@ -3916,7 +3338,7 @@ This will fail in production.`);
             }, [
               vue.createElementVNode("view", { class: "img_box flex_center" }, [
                 vue.createElementVNode("image", {
-                  src: _imports_2$4,
+                  src: _imports_1$8,
                   mode: "widthFix",
                   class: "img_item",
                   style: { "width": "70rpx" }
@@ -3930,7 +3352,7 @@ This will fail in production.`);
             }, [
               vue.createElementVNode("view", { class: "img_box flex_center" }, [
                 vue.createElementVNode("image", {
-                  src: _imports_3$2,
+                  src: _imports_2$4,
                   mode: "widthFix",
                   class: "img_item",
                   style: { "width": "56rpx" }
@@ -3944,7 +3366,7 @@ This will fail in production.`);
             }, [
               vue.createElementVNode("view", { class: "img_box flex_center" }, [
                 vue.createElementVNode("image", {
-                  src: _imports_4$1,
+                  src: _imports_3$2,
                   mode: "widthFix",
                   class: "img_item",
                   style: { "width": "58rpx" }
@@ -4050,17 +3472,17 @@ This will fail in production.`);
           vue.createCommentVNode(' <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-color="#a4b8ab" indicator-active-color="#fc5908" :circular="true" class="swiper" style="margin-bottom: 30rpx;">\r\n			<swiper-item>\r\n				<image src="" mode="widthFix" class="swipe_img"></image>\r\n			</swiper-item>\r\n		</swiper> '),
           vue.createElementVNode("view", { class: "content" }, [
             vue.createElementVNode("image", {
+              src: _imports_5$1,
+              mode: "widthFix",
+              class: "shop_pic"
+            }),
+            vue.createElementVNode("image", {
               src: _imports_6$1,
               mode: "widthFix",
               class: "shop_pic"
             }),
             vue.createElementVNode("image", {
               src: _imports_7$1,
-              mode: "widthFix",
-              class: "shop_pic"
-            }),
-            vue.createElementVNode("image", {
-              src: _imports_8$1,
               mode: "widthFix",
               class: "shop_pic"
             })
@@ -4140,13 +3562,14 @@ This will fail in production.`);
             const phoneNumber = uni.getStorageSync("phoneNumber");
             const address = uni.getStorageSync("userInfo").residence;
             const userName = uni.getStorageSync("userInfo").name;
+            const avatar = uni.getStorageSync("userInfo").icon;
             const cityName = extractCityName(address);
             const cityInfo = await getCitiesDetail(cityName);
-            formatAppLog("log", "at pages/merchant/settle_notice.vue:70", recommendPhone, phoneNumber, address, cityName, userName, cityInfo);
+            formatAppLog("log", "at pages/merchant/settle_notice.vue:71", recommendPhone, phoneNumber, address, cityName, userName, cityInfo);
             uni.showLoading({
               title: "正在创建商家"
             });
-            createMerchant({ user: phoneNumber, referral_officer: recommendPhone, city: cityName, name: userName }).then((res2) => {
+            createMerchant({ user: phoneNumber, referral_officer: recommendPhone, city: cityName, name: userName, icon: avatar }).then((res2) => {
               uni.hideLoading();
               uni.showToast({
                 title: `创建商家成功`,
@@ -4157,7 +3580,7 @@ This will fail in production.`);
                 url: "/pages/merchant/before_create_shop"
               });
             }).catch((err) => {
-              formatAppLog("log", "at pages/merchant/settle_notice.vue:84", err);
+              formatAppLog("log", "at pages/merchant/settle_notice.vue:85", err);
               uni.hideLoading();
               uni.showToast({
                 title: `创建商家失败`,
@@ -4167,7 +3590,7 @@ This will fail in production.`);
             });
           },
           fail: (err) => {
-            formatAppLog("error", "at pages/merchant/settle_notice.vue:94", "扫码失败: ", err);
+            formatAppLog("error", "at pages/merchant/settle_notice.vue:95", "扫码失败: ", err);
             uni.showToast({
               title: "扫码失败",
               icon: "none"
@@ -7619,8 +7042,8 @@ ${i3}
       }
     }
   };
-  function _sfc_render$j(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
+  function _sfc_render$i(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$5);
     return vue.openBlock(), vue.createElementBlock("view", { class: "uni-stat__select" }, [
       $props.label ? (vue.openBlock(), vue.createElementBlock(
         "span",
@@ -7759,42 +7182,1617 @@ ${i3}
       )
     ]);
   }
-  const __easycom_1$3 = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$j], ["__scopeId", "data-v-ddf9e0a2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-select/components/uni-data-select/uni-data-select.vue"]]);
+  const __easycom_1$3 = /* @__PURE__ */ _export_sfc(_sfc_main$_, [["render", _sfc_render$i], ["__scopeId", "data-v-ddf9e0a2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-select/components/uni-data-select/uni-data-select.vue"]]);
+  const isObject = (val) => val !== null && typeof val === "object";
+  const defaultDelimiters = ["{", "}"];
+  class BaseFormatter {
+    constructor() {
+      this._caches = /* @__PURE__ */ Object.create(null);
+    }
+    interpolate(message, values, delimiters = defaultDelimiters) {
+      if (!values) {
+        return [message];
+      }
+      let tokens = this._caches[message];
+      if (!tokens) {
+        tokens = parse(message, delimiters);
+        this._caches[message] = tokens;
+      }
+      return compile(tokens, values);
+    }
+  }
+  const RE_TOKEN_LIST_VALUE = /^(?:\d)+/;
+  const RE_TOKEN_NAMED_VALUE = /^(?:\w)+/;
+  function parse(format, [startDelimiter, endDelimiter]) {
+    const tokens = [];
+    let position = 0;
+    let text = "";
+    while (position < format.length) {
+      let char = format[position++];
+      if (char === startDelimiter) {
+        if (text) {
+          tokens.push({ type: "text", value: text });
+        }
+        text = "";
+        let sub = "";
+        char = format[position++];
+        while (char !== void 0 && char !== endDelimiter) {
+          sub += char;
+          char = format[position++];
+        }
+        const isClosed = char === endDelimiter;
+        const type = RE_TOKEN_LIST_VALUE.test(sub) ? "list" : isClosed && RE_TOKEN_NAMED_VALUE.test(sub) ? "named" : "unknown";
+        tokens.push({ value: sub, type });
+      } else {
+        text += char;
+      }
+    }
+    text && tokens.push({ type: "text", value: text });
+    return tokens;
+  }
+  function compile(tokens, values) {
+    const compiled = [];
+    let index = 0;
+    const mode2 = Array.isArray(values) ? "list" : isObject(values) ? "named" : "unknown";
+    if (mode2 === "unknown") {
+      return compiled;
+    }
+    while (index < tokens.length) {
+      const token = tokens[index];
+      switch (token.type) {
+        case "text":
+          compiled.push(token.value);
+          break;
+        case "list":
+          compiled.push(values[parseInt(token.value, 10)]);
+          break;
+        case "named":
+          if (mode2 === "named") {
+            compiled.push(values[token.value]);
+          } else {
+            {
+              console.warn(`Type of token '${token.type}' and format of value '${mode2}' don't match!`);
+            }
+          }
+          break;
+        case "unknown":
+          {
+            console.warn(`Detect 'unknown' type of token!`);
+          }
+          break;
+      }
+      index++;
+    }
+    return compiled;
+  }
+  const LOCALE_ZH_HANS = "zh-Hans";
+  const LOCALE_ZH_HANT = "zh-Hant";
+  const LOCALE_EN = "en";
+  const LOCALE_FR = "fr";
+  const LOCALE_ES = "es";
+  const hasOwnProperty = Object.prototype.hasOwnProperty;
+  const hasOwn = (val, key) => hasOwnProperty.call(val, key);
+  const defaultFormatter = new BaseFormatter();
+  function include(str, parts) {
+    return !!parts.find((part) => str.indexOf(part) !== -1);
+  }
+  function startsWith(str, parts) {
+    return parts.find((part) => str.indexOf(part) === 0);
+  }
+  function normalizeLocale(locale, messages2) {
+    if (!locale) {
+      return;
+    }
+    locale = locale.trim().replace(/_/g, "-");
+    if (messages2 && messages2[locale]) {
+      return locale;
+    }
+    locale = locale.toLowerCase();
+    if (locale === "chinese") {
+      return LOCALE_ZH_HANS;
+    }
+    if (locale.indexOf("zh") === 0) {
+      if (locale.indexOf("-hans") > -1) {
+        return LOCALE_ZH_HANS;
+      }
+      if (locale.indexOf("-hant") > -1) {
+        return LOCALE_ZH_HANT;
+      }
+      if (include(locale, ["-tw", "-hk", "-mo", "-cht"])) {
+        return LOCALE_ZH_HANT;
+      }
+      return LOCALE_ZH_HANS;
+    }
+    let locales = [LOCALE_EN, LOCALE_FR, LOCALE_ES];
+    if (messages2 && Object.keys(messages2).length > 0) {
+      locales = Object.keys(messages2);
+    }
+    const lang = startsWith(locale, locales);
+    if (lang) {
+      return lang;
+    }
+  }
+  class I18n {
+    constructor({ locale, fallbackLocale, messages: messages2, watcher, formater: formater2 }) {
+      this.locale = LOCALE_EN;
+      this.fallbackLocale = LOCALE_EN;
+      this.message = {};
+      this.messages = {};
+      this.watchers = [];
+      if (fallbackLocale) {
+        this.fallbackLocale = fallbackLocale;
+      }
+      this.formater = formater2 || defaultFormatter;
+      this.messages = messages2 || {};
+      this.setLocale(locale || LOCALE_EN);
+      if (watcher) {
+        this.watchLocale(watcher);
+      }
+    }
+    setLocale(locale) {
+      const oldLocale = this.locale;
+      this.locale = normalizeLocale(locale, this.messages) || this.fallbackLocale;
+      if (!this.messages[this.locale]) {
+        this.messages[this.locale] = {};
+      }
+      this.message = this.messages[this.locale];
+      if (oldLocale !== this.locale) {
+        this.watchers.forEach((watcher) => {
+          watcher(this.locale, oldLocale);
+        });
+      }
+    }
+    getLocale() {
+      return this.locale;
+    }
+    watchLocale(fn) {
+      const index = this.watchers.push(fn) - 1;
+      return () => {
+        this.watchers.splice(index, 1);
+      };
+    }
+    add(locale, message, override = true) {
+      const curMessages = this.messages[locale];
+      if (curMessages) {
+        if (override) {
+          Object.assign(curMessages, message);
+        } else {
+          Object.keys(message).forEach((key) => {
+            if (!hasOwn(curMessages, key)) {
+              curMessages[key] = message[key];
+            }
+          });
+        }
+      } else {
+        this.messages[locale] = message;
+      }
+    }
+    f(message, values, delimiters) {
+      return this.formater.interpolate(message, values, delimiters).join("");
+    }
+    t(key, locale, values) {
+      let message = this.message;
+      if (typeof locale === "string") {
+        locale = normalizeLocale(locale, this.messages);
+        locale && (message = this.messages[locale]);
+      } else {
+        values = locale;
+      }
+      if (!hasOwn(message, key)) {
+        console.warn(`Cannot translate the value of keypath ${key}. Use the value of keypath as default.`);
+        return key;
+      }
+      return this.formater.interpolate(message[key], values).join("");
+    }
+  }
+  function watchAppLocale(appVm, i18n) {
+    if (appVm.$watchLocale) {
+      appVm.$watchLocale((newLocale) => {
+        i18n.setLocale(newLocale);
+      });
+    } else {
+      appVm.$watch(() => appVm.$locale, (newLocale) => {
+        i18n.setLocale(newLocale);
+      });
+    }
+  }
+  function getDefaultLocale() {
+    if (typeof uni !== "undefined" && uni.getLocale) {
+      return uni.getLocale();
+    }
+    if (typeof global !== "undefined" && global.getLocale) {
+      return global.getLocale();
+    }
+    return LOCALE_EN;
+  }
+  function initVueI18n(locale, messages2 = {}, fallbackLocale, watcher) {
+    if (typeof locale !== "string") {
+      const options = [
+        messages2,
+        locale
+      ];
+      locale = options[0];
+      messages2 = options[1];
+    }
+    if (typeof locale !== "string") {
+      locale = getDefaultLocale();
+    }
+    if (typeof fallbackLocale !== "string") {
+      fallbackLocale = typeof __uniConfig !== "undefined" && __uniConfig.fallbackLocale || LOCALE_EN;
+    }
+    const i18n = new I18n({
+      locale,
+      fallbackLocale,
+      messages: messages2,
+      watcher
+    });
+    let t2 = (key, values) => {
+      if (typeof getApp !== "function") {
+        t2 = function(key2, values2) {
+          return i18n.t(key2, values2);
+        };
+      } else {
+        let isWatchedAppLocale = false;
+        t2 = function(key2, values2) {
+          const appVm = getApp().$vm;
+          if (appVm) {
+            appVm.$locale;
+            if (!isWatchedAppLocale) {
+              isWatchedAppLocale = true;
+              watchAppLocale(appVm, i18n);
+            }
+          }
+          return i18n.t(key2, values2);
+        };
+      }
+      return t2(key, values);
+    };
+    return {
+      i18n,
+      f(message, values, delimiters) {
+        return i18n.f(message, values, delimiters);
+      },
+      t(key, values) {
+        return t2(key, values);
+      },
+      add(locale2, message, override = true) {
+        return i18n.add(locale2, message, override);
+      },
+      watch(fn) {
+        return i18n.watchLocale(fn);
+      },
+      getLocale() {
+        return i18n.getLocale();
+      },
+      setLocale(newLocale) {
+        return i18n.setLocale(newLocale);
+      }
+    };
+  }
+  const en$1 = {
+    "uni-load-more.contentdown": "Pull up to show more",
+    "uni-load-more.contentrefresh": "loading...",
+    "uni-load-more.contentnomore": "No more data"
+  };
+  const zhHans$1 = {
+    "uni-load-more.contentdown": "上拉显示更多",
+    "uni-load-more.contentrefresh": "正在加载...",
+    "uni-load-more.contentnomore": "没有更多数据了"
+  };
+  const zhHant$1 = {
+    "uni-load-more.contentdown": "上拉顯示更多",
+    "uni-load-more.contentrefresh": "正在加載...",
+    "uni-load-more.contentnomore": "沒有更多數據了"
+  };
+  const messages = {
+    en: en$1,
+    "zh-Hans": zhHans$1,
+    "zh-Hant": zhHant$1
+  };
+  let platform;
+  setTimeout(() => {
+    platform = uni.getSystemInfoSync().platform;
+  }, 16);
+  const {
+    t: t$2
+  } = initVueI18n(messages);
+  const _sfc_main$Z = {
+    name: "UniLoadMore",
+    emits: ["clickLoadMore"],
+    props: {
+      status: {
+        // 上拉的状态：more-loading前；loading-loading中；noMore-没有更多了
+        type: String,
+        default: "more"
+      },
+      showIcon: {
+        type: Boolean,
+        default: true
+      },
+      iconType: {
+        type: String,
+        default: "auto"
+      },
+      iconSize: {
+        type: Number,
+        default: 24
+      },
+      color: {
+        type: String,
+        default: "#777777"
+      },
+      contentText: {
+        type: Object,
+        default() {
+          return {
+            contentdown: "",
+            contentrefresh: "",
+            contentnomore: ""
+          };
+        }
+      },
+      showText: {
+        type: Boolean,
+        default: true
+      }
+    },
+    data() {
+      return {
+        webviewHide: false,
+        platform,
+        imgBase64: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzlBMzU3OTlEOUM0MTFFOUI0NTZDNERBQURBQzI4RkUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzlBMzU3OUFEOUM0MTFFOUI0NTZDNERBQURBQzI4RkUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDOUEzNTc5N0Q5QzQxMUU5QjQ1NkM0REFBREFDMjhGRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDOUEzNTc5OEQ5QzQxMUU5QjQ1NkM0REFBREFDMjhGRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pt+ALSwAAA6CSURBVHja1FsLkFZV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"
+      };
+    },
+    computed: {
+      iconSnowWidth() {
+        return (Math.floor(this.iconSize / 24) || 1) * 2;
+      },
+      contentdownText() {
+        return this.contentText.contentdown || t$2("uni-load-more.contentdown");
+      },
+      contentrefreshText() {
+        return this.contentText.contentrefresh || t$2("uni-load-more.contentrefresh");
+      },
+      contentnomoreText() {
+        return this.contentText.contentnomore || t$2("uni-load-more.contentnomore");
+      }
+    },
+    mounted() {
+      var pages2 = getCurrentPages();
+      var page = pages2[pages2.length - 1];
+      var currentWebview = page.$getAppWebview();
+      currentWebview.addEventListener("hide", () => {
+        this.webviewHide = true;
+      });
+      currentWebview.addEventListener("show", () => {
+        this.webviewHide = false;
+      });
+    },
+    methods: {
+      onClick() {
+        this.$emit("clickLoadMore", {
+          detail: {
+            status: this.status
+          }
+        });
+      }
+    }
+  };
+  function _sfc_render$h(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view", {
+      class: "uni-load-more",
+      onClick: _cache[0] || (_cache[0] = (...args) => $options.onClick && $options.onClick(...args))
+    }, [
+      !$data.webviewHide && ($props.iconType === "circle" || $props.iconType === "auto" && $data.platform === "android") && $props.status === "loading" && $props.showIcon ? (vue.openBlock(), vue.createElementBlock(
+        "view",
+        {
+          key: 0,
+          style: vue.normalizeStyle({ width: $props.iconSize + "px", height: $props.iconSize + "px" }),
+          class: "uni-load-more__img uni-load-more__img--android-MP"
+        },
+        [
+          vue.createElementVNode(
+            "view",
+            {
+              class: "uni-load-more__img-icon",
+              style: vue.normalizeStyle({ borderTopColor: $props.color, borderTopWidth: $props.iconSize / 12 })
+            },
+            null,
+            4
+            /* STYLE */
+          ),
+          vue.createElementVNode(
+            "view",
+            {
+              class: "uni-load-more__img-icon",
+              style: vue.normalizeStyle({ borderTopColor: $props.color, borderTopWidth: $props.iconSize / 12 })
+            },
+            null,
+            4
+            /* STYLE */
+          ),
+          vue.createElementVNode(
+            "view",
+            {
+              class: "uni-load-more__img-icon",
+              style: vue.normalizeStyle({ borderTopColor: $props.color, borderTopWidth: $props.iconSize / 12 })
+            },
+            null,
+            4
+            /* STYLE */
+          )
+        ],
+        4
+        /* STYLE */
+      )) : !$data.webviewHide && $props.status === "loading" && $props.showIcon ? (vue.openBlock(), vue.createElementBlock(
+        "view",
+        {
+          key: 1,
+          style: vue.normalizeStyle({ width: $props.iconSize + "px", height: $props.iconSize + "px" }),
+          class: "uni-load-more__img uni-load-more__img--ios-H5"
+        },
+        [
+          vue.createElementVNode("image", {
+            src: $data.imgBase64,
+            mode: "widthFix"
+          }, null, 8, ["src"])
+        ],
+        4
+        /* STYLE */
+      )) : vue.createCommentVNode("v-if", true),
+      $props.showText ? (vue.openBlock(), vue.createElementBlock(
+        "text",
+        {
+          key: 2,
+          class: "uni-load-more__text",
+          style: vue.normalizeStyle({ color: $props.color })
+        },
+        vue.toDisplayString($props.status === "more" ? $options.contentdownText : $props.status === "loading" ? $options.contentrefreshText : $options.contentnomoreText),
+        5
+        /* TEXT, STYLE */
+      )) : vue.createCommentVNode("v-if", true)
+    ]);
+  }
+  const __easycom_3$1 = /* @__PURE__ */ _export_sfc(_sfc_main$Z, [["render", _sfc_render$h], ["__scopeId", "data-v-9245e42c"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-load-more/components/uni-load-more/uni-load-more.vue"]]);
+  const dataPicker = {
+    props: {
+      localdata: {
+        type: [Array, Object],
+        default() {
+          return [];
+        }
+      },
+      spaceInfo: {
+        type: Object,
+        default() {
+          return {};
+        }
+      },
+      collection: {
+        type: String,
+        default: ""
+      },
+      action: {
+        type: String,
+        default: ""
+      },
+      field: {
+        type: String,
+        default: ""
+      },
+      orderby: {
+        type: String,
+        default: ""
+      },
+      where: {
+        type: [String, Object],
+        default: ""
+      },
+      pageData: {
+        type: String,
+        default: "add"
+      },
+      pageCurrent: {
+        type: Number,
+        default: 1
+      },
+      pageSize: {
+        type: Number,
+        default: 500
+      },
+      getcount: {
+        type: [Boolean, String],
+        default: false
+      },
+      getone: {
+        type: [Boolean, String],
+        default: false
+      },
+      gettree: {
+        type: [Boolean, String],
+        default: false
+      },
+      manual: {
+        type: Boolean,
+        default: false
+      },
+      value: {
+        type: [Array, String, Number],
+        default() {
+          return [];
+        }
+      },
+      modelValue: {
+        type: [Array, String, Number],
+        default() {
+          return [];
+        }
+      },
+      preload: {
+        type: Boolean,
+        default: false
+      },
+      stepSearh: {
+        type: Boolean,
+        default: true
+      },
+      selfField: {
+        type: String,
+        default: ""
+      },
+      parentField: {
+        type: String,
+        default: ""
+      },
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      map: {
+        type: Object,
+        default() {
+          return {
+            text: "text",
+            value: "value"
+          };
+        }
+      }
+    },
+    data() {
+      return {
+        loading: false,
+        errorMessage: "",
+        loadMore: {
+          contentdown: "",
+          contentrefresh: "",
+          contentnomore: ""
+        },
+        dataList: [],
+        selected: [],
+        selectedIndex: 0,
+        page: {
+          current: this.pageCurrent,
+          size: this.pageSize,
+          count: 0
+        }
+      };
+    },
+    computed: {
+      isLocalData() {
+        return !this.collection.length;
+      },
+      isCloudData() {
+        return this.collection.length > 0;
+      },
+      isCloudDataList() {
+        return this.isCloudData && (!this.parentField && !this.selfField);
+      },
+      isCloudDataTree() {
+        return this.isCloudData && this.parentField && this.selfField;
+      },
+      dataValue() {
+        let isModelValue = Array.isArray(this.modelValue) ? this.modelValue.length > 0 : this.modelValue !== null || this.modelValue !== void 0;
+        return isModelValue ? this.modelValue : this.value;
+      },
+      hasValue() {
+        if (typeof this.dataValue === "number") {
+          return true;
+        }
+        return this.dataValue != null && this.dataValue.length > 0;
+      }
+    },
+    created() {
+      this.$watch(() => {
+        var al = [];
+        [
+          "pageCurrent",
+          "pageSize",
+          "spaceInfo",
+          "value",
+          "modelValue",
+          "localdata",
+          "collection",
+          "action",
+          "field",
+          "orderby",
+          "where",
+          "getont",
+          "getcount",
+          "gettree"
+        ].forEach((key) => {
+          al.push(this[key]);
+        });
+        return al;
+      }, (newValue, oldValue) => {
+        for (let i2 = 2; i2 < newValue.length; i2++) {
+          if (newValue[i2] != oldValue[i2]) {
+            break;
+          }
+        }
+        if (newValue[0] != oldValue[0]) {
+          this.page.current = this.pageCurrent;
+        }
+        this.page.size = this.pageSize;
+        this.onPropsChange();
+      });
+      this._treeData = [];
+    },
+    methods: {
+      onPropsChange() {
+        this._treeData = [];
+      },
+      // 填充 pickview 数据
+      async loadData() {
+        if (this.isLocalData) {
+          this.loadLocalData();
+        } else if (this.isCloudDataList) {
+          this.loadCloudDataList();
+        } else if (this.isCloudDataTree) {
+          this.loadCloudDataTree();
+        }
+      },
+      // 加载本地数据
+      async loadLocalData() {
+        this._treeData = [];
+        this._extractTree(this.localdata, this._treeData);
+        let inputValue = this.dataValue;
+        if (inputValue === void 0) {
+          return;
+        }
+        if (Array.isArray(inputValue)) {
+          inputValue = inputValue[inputValue.length - 1];
+          if (typeof inputValue === "object" && inputValue[this.map.value]) {
+            inputValue = inputValue[this.map.value];
+          }
+        }
+        this.selected = this._findNodePath(inputValue, this.localdata);
+      },
+      // 加载 Cloud 数据 (单列)
+      async loadCloudDataList() {
+        if (this.loading) {
+          return;
+        }
+        this.loading = true;
+        try {
+          let response = await this.getCommand();
+          let responseData = response.result.data;
+          this._treeData = responseData;
+          this._updateBindData();
+          this._updateSelected();
+          this.onDataChange();
+        } catch (e2) {
+          this.errorMessage = e2;
+        } finally {
+          this.loading = false;
+        }
+      },
+      // 加载 Cloud 数据 (树形)
+      async loadCloudDataTree() {
+        if (this.loading) {
+          return;
+        }
+        this.loading = true;
+        try {
+          let commandOptions = {
+            field: this._cloudDataPostField(),
+            where: this._cloudDataTreeWhere()
+          };
+          if (this.gettree) {
+            commandOptions.startwith = `${this.selfField}=='${this.dataValue}'`;
+          }
+          let response = await this.getCommand(commandOptions);
+          let responseData = response.result.data;
+          this._treeData = responseData;
+          this._updateBindData();
+          this._updateSelected();
+          this.onDataChange();
+        } catch (e2) {
+          this.errorMessage = e2;
+        } finally {
+          this.loading = false;
+        }
+      },
+      // 加载 Cloud 数据 (节点)
+      async loadCloudDataNode(callback) {
+        if (this.loading) {
+          return;
+        }
+        this.loading = true;
+        try {
+          let commandOptions = {
+            field: this._cloudDataPostField(),
+            where: this._cloudDataNodeWhere()
+          };
+          let response = await this.getCommand(commandOptions);
+          let responseData = response.result.data;
+          callback(responseData);
+        } catch (e2) {
+          this.errorMessage = e2;
+        } finally {
+          this.loading = false;
+        }
+      },
+      // 回显 Cloud 数据
+      getCloudDataValue() {
+        if (this.isCloudDataList) {
+          return this.getCloudDataListValue();
+        }
+        if (this.isCloudDataTree) {
+          return this.getCloudDataTreeValue();
+        }
+      },
+      // 回显 Cloud 数据 (单列)
+      getCloudDataListValue() {
+        let where = [];
+        let whereField = this._getForeignKeyByField();
+        if (whereField) {
+          where.push(`${whereField} == '${this.dataValue}'`);
+        }
+        where = where.join(" || ");
+        if (this.where) {
+          where = `(${this.where}) && (${where})`;
+        }
+        return this.getCommand({
+          field: this._cloudDataPostField(),
+          where
+        }).then((res) => {
+          this.selected = res.result.data;
+          return res.result.data;
+        });
+      },
+      // 回显 Cloud 数据 (树形)
+      getCloudDataTreeValue() {
+        return this.getCommand({
+          field: this._cloudDataPostField(),
+          getTreePath: {
+            startWith: `${this.selfField}=='${this.dataValue}'`
+          }
+        }).then((res) => {
+          let treePath = [];
+          this._extractTreePath(res.result.data, treePath);
+          this.selected = treePath;
+          return treePath;
+        });
+      },
+      getCommand(options = {}) {
+        let db = Vs.database(this.spaceInfo);
+        const action = options.action || this.action;
+        if (action) {
+          db = db.action(action);
+        }
+        const collection = options.collection || this.collection;
+        db = db.collection(collection);
+        const where = options.where || this.where;
+        if (!(!where || !Object.keys(where).length)) {
+          db = db.where(where);
+        }
+        const field = options.field || this.field;
+        if (field) {
+          db = db.field(field);
+        }
+        const orderby = options.orderby || this.orderby;
+        if (orderby) {
+          db = db.orderBy(orderby);
+        }
+        const current = options.pageCurrent !== void 0 ? options.pageCurrent : this.page.current;
+        const size = options.pageSize !== void 0 ? options.pageSize : this.page.size;
+        const getCount = options.getcount !== void 0 ? options.getcount : this.getcount;
+        const getTree = options.gettree !== void 0 ? options.gettree : this.gettree;
+        const getOptions = {
+          getCount,
+          getTree
+        };
+        if (options.getTreePath) {
+          getOptions.getTreePath = options.getTreePath;
+        }
+        db = db.skip(size * (current - 1)).limit(size).get(getOptions);
+        return db;
+      },
+      _cloudDataPostField() {
+        let fields = [this.field];
+        if (this.parentField) {
+          fields.push(`${this.parentField} as parent_value`);
+        }
+        return fields.join(",");
+      },
+      _cloudDataTreeWhere() {
+        let result = [];
+        let selected = this.selected;
+        let parentField = this.parentField;
+        if (parentField) {
+          result.push(`${parentField} == null || ${parentField} == ""`);
+        }
+        if (selected.length) {
+          for (var i2 = 0; i2 < selected.length - 1; i2++) {
+            result.push(`${parentField} == '${selected[i2].value}'`);
+          }
+        }
+        let where = [];
+        if (this.where) {
+          where.push(`(${this.where})`);
+        }
+        if (result.length) {
+          where.push(`(${result.join(" || ")})`);
+        }
+        return where.join(" && ");
+      },
+      _cloudDataNodeWhere() {
+        let where = [];
+        let selected = this.selected;
+        if (selected.length) {
+          where.push(`${this.parentField} == '${selected[selected.length - 1].value}'`);
+        }
+        where = where.join(" || ");
+        if (this.where) {
+          return `(${this.where}) && (${where})`;
+        }
+        return where;
+      },
+      _getWhereByForeignKey() {
+        let result = [];
+        let whereField = this._getForeignKeyByField();
+        if (whereField) {
+          result.push(`${whereField} == '${this.dataValue}'`);
+        }
+        if (this.where) {
+          return `(${this.where}) && (${result.join(" || ")})`;
+        }
+        return result.join(" || ");
+      },
+      _getForeignKeyByField() {
+        let fields = this.field.split(",");
+        let whereField = null;
+        for (let i2 = 0; i2 < fields.length; i2++) {
+          const items = fields[i2].split("as");
+          if (items.length < 2) {
+            continue;
+          }
+          if (items[1].trim() === "value") {
+            whereField = items[0].trim();
+            break;
+          }
+        }
+        return whereField;
+      },
+      _updateBindData(node) {
+        const {
+          dataList,
+          hasNodes
+        } = this._filterData(this._treeData, this.selected);
+        let isleaf = this._stepSearh === false && !hasNodes;
+        if (node) {
+          node.isleaf = isleaf;
+        }
+        this.dataList = dataList;
+        this.selectedIndex = dataList.length - 1;
+        if (!isleaf && this.selected.length < dataList.length) {
+          this.selected.push({
+            value: null,
+            text: "请选择"
+          });
+        }
+        return {
+          isleaf,
+          hasNodes
+        };
+      },
+      _updateSelected() {
+        let dl = this.dataList;
+        let sl = this.selected;
+        let textField = this.map.text;
+        let valueField = this.map.value;
+        for (let i2 = 0; i2 < sl.length; i2++) {
+          let value = sl[i2].value;
+          let dl2 = dl[i2];
+          for (let j2 = 0; j2 < dl2.length; j2++) {
+            let item2 = dl2[j2];
+            if (item2[valueField] === value) {
+              sl[i2].text = item2[textField];
+              break;
+            }
+          }
+        }
+      },
+      _filterData(data, paths) {
+        let dataList = [];
+        let hasNodes = true;
+        dataList.push(data.filter((item) => {
+          return item.parent_value === null || item.parent_value === void 0 || item.parent_value === "";
+        }));
+        for (let i2 = 0; i2 < paths.length; i2++) {
+          let value = paths[i2].value;
+          let nodes = data.filter((item) => {
+            return item.parent_value === value;
+          });
+          if (nodes.length) {
+            dataList.push(nodes);
+          } else {
+            hasNodes = false;
+          }
+        }
+        return {
+          dataList,
+          hasNodes
+        };
+      },
+      _extractTree(nodes, result, parent_value) {
+        let valueField = this.map.value;
+        for (let i2 = 0; i2 < nodes.length; i2++) {
+          let node = nodes[i2];
+          let child = {};
+          for (let key in node) {
+            if (key !== "children") {
+              child[key] = node[key];
+            }
+          }
+          if (parent_value !== null && parent_value !== void 0 && parent_value !== "") {
+            child.parent_value = parent_value;
+          }
+          result.push(child);
+          let children = node.children;
+          if (children) {
+            this._extractTree(children, result, node[valueField]);
+          }
+        }
+      },
+      _extractTreePath(nodes, result) {
+        for (let i2 = 0; i2 < nodes.length; i2++) {
+          let node = nodes[i2];
+          let child = {};
+          for (let key in node) {
+            if (key !== "children") {
+              child[key] = node[key];
+            }
+          }
+          result.push(child);
+          let children = node.children;
+          if (children) {
+            this._extractTreePath(children, result);
+          }
+        }
+      },
+      _findNodePath(key, nodes, path = []) {
+        let textField = this.map.text;
+        let valueField = this.map.value;
+        for (let i2 = 0; i2 < nodes.length; i2++) {
+          let node = nodes[i2];
+          let children = node.children;
+          let text = node[textField];
+          let value = node[valueField];
+          path.push({
+            value,
+            text
+          });
+          if (value === key) {
+            return path;
+          }
+          if (children) {
+            const p2 = this._findNodePath(key, children, path);
+            if (p2.length) {
+              return p2;
+            }
+          }
+          path.pop();
+        }
+        return [];
+      }
+    }
+  };
+  const _sfc_main$Y = {
+    name: "UniDataPickerView",
+    emits: ["nodeclick", "change", "datachange", "update:modelValue"],
+    mixins: [dataPicker],
+    props: {
+      managedMode: {
+        type: Boolean,
+        default: false
+      },
+      ellipsis: {
+        type: Boolean,
+        default: true
+      }
+    },
+    created() {
+      if (!this.managedMode) {
+        this.$nextTick(() => {
+          this.loadData();
+        });
+      }
+    },
+    methods: {
+      onPropsChange() {
+        this._treeData = [];
+        this.selectedIndex = 0;
+        this.$nextTick(() => {
+          this.loadData();
+        });
+      },
+      handleSelect(index) {
+        this.selectedIndex = index;
+      },
+      handleNodeClick(item, i2, j2) {
+        if (item.disable) {
+          return;
+        }
+        const node = this.dataList[i2][j2];
+        const text = node[this.map.text];
+        const value = node[this.map.value];
+        if (i2 < this.selected.length - 1) {
+          this.selected.splice(i2, this.selected.length - i2);
+          this.selected.push({
+            text,
+            value
+          });
+        } else if (i2 === this.selected.length - 1) {
+          this.selected.splice(i2, 1, {
+            text,
+            value
+          });
+        }
+        if (node.isleaf) {
+          this.onSelectedChange(node, node.isleaf);
+          return;
+        }
+        const {
+          isleaf,
+          hasNodes
+        } = this._updateBindData();
+        if (this.isLocalData) {
+          this.onSelectedChange(node, !hasNodes || isleaf);
+        } else if (this.isCloudDataList) {
+          this.onSelectedChange(node, true);
+        } else if (this.isCloudDataTree) {
+          if (isleaf) {
+            this.onSelectedChange(node, node.isleaf);
+          } else if (!hasNodes) {
+            this.loadCloudDataNode((data) => {
+              if (!data.length) {
+                node.isleaf = true;
+              } else {
+                this._treeData.push(...data);
+                this._updateBindData(node);
+              }
+              this.onSelectedChange(node, node.isleaf);
+            });
+          }
+        }
+      },
+      updateData(data) {
+        this._treeData = data.treeData;
+        this.selected = data.selected;
+        if (!this._treeData.length) {
+          this.loadData();
+        } else {
+          this._updateBindData();
+        }
+      },
+      onDataChange() {
+        this.$emit("datachange");
+      },
+      onSelectedChange(node, isleaf) {
+        if (isleaf) {
+          this._dispatchEvent();
+        }
+        if (node) {
+          this.$emit("nodeclick", node);
+        }
+      },
+      _dispatchEvent() {
+        this.$emit("change", this.selected.slice(0));
+      }
+    }
+  };
+  function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_3$1);
+    return vue.openBlock(), vue.createElementBlock("view", { class: "uni-data-pickerview" }, [
+      !_ctx.isCloudDataList ? (vue.openBlock(), vue.createElementBlock("scroll-view", {
+        key: 0,
+        class: "selected-area",
+        "scroll-x": "true"
+      }, [
+        vue.createElementVNode("view", { class: "selected-list" }, [
+          (vue.openBlock(true), vue.createElementBlock(
+            vue.Fragment,
+            null,
+            vue.renderList(_ctx.selected, (item, index) => {
+              return vue.openBlock(), vue.createElementBlock("view", {
+                class: vue.normalizeClass(["selected-item", {
+                  "selected-item-active": index == _ctx.selectedIndex
+                }]),
+                key: index,
+                onClick: ($event) => $options.handleSelect(index)
+              }, [
+                vue.createElementVNode(
+                  "text",
+                  null,
+                  vue.toDisplayString(item.text || ""),
+                  1
+                  /* TEXT */
+                )
+              ], 10, ["onClick"]);
+            }),
+            128
+            /* KEYED_FRAGMENT */
+          ))
+        ])
+      ])) : vue.createCommentVNode("v-if", true),
+      vue.createElementVNode("view", { class: "tab-c" }, [
+        vue.createElementVNode("scroll-view", {
+          class: "list",
+          "scroll-y": true
+        }, [
+          (vue.openBlock(true), vue.createElementBlock(
+            vue.Fragment,
+            null,
+            vue.renderList(_ctx.dataList[_ctx.selectedIndex], (item, j2) => {
+              return vue.openBlock(), vue.createElementBlock("view", {
+                class: vue.normalizeClass(["item", { "is-disabled": !!item.disable }]),
+                key: j2,
+                onClick: ($event) => $options.handleNodeClick(item, _ctx.selectedIndex, j2)
+              }, [
+                vue.createElementVNode(
+                  "text",
+                  { class: "item-text" },
+                  vue.toDisplayString(item[_ctx.map.text]),
+                  1
+                  /* TEXT */
+                ),
+                _ctx.selected.length > _ctx.selectedIndex && item[_ctx.map.value] == _ctx.selected[_ctx.selectedIndex].value ? (vue.openBlock(), vue.createElementBlock("view", {
+                  key: 0,
+                  class: "check"
+                })) : vue.createCommentVNode("v-if", true)
+              ], 10, ["onClick"]);
+            }),
+            128
+            /* KEYED_FRAGMENT */
+          ))
+        ]),
+        _ctx.loading ? (vue.openBlock(), vue.createElementBlock("view", {
+          key: 0,
+          class: "loading-cover"
+        }, [
+          vue.createVNode(_component_uni_load_more, {
+            class: "load-more",
+            contentText: _ctx.loadMore,
+            status: "loading"
+          }, null, 8, ["contentText"])
+        ])) : vue.createCommentVNode("v-if", true),
+        _ctx.errorMessage ? (vue.openBlock(), vue.createElementBlock("view", {
+          key: 1,
+          class: "error-message"
+        }, [
+          vue.createElementVNode(
+            "text",
+            { class: "error-text" },
+            vue.toDisplayString(_ctx.errorMessage),
+            1
+            /* TEXT */
+          )
+        ])) : vue.createCommentVNode("v-if", true)
+      ])
+    ]);
+  }
+  const DataPickerView = /* @__PURE__ */ _export_sfc(_sfc_main$Y, [["render", _sfc_render$g], ["__scopeId", "data-v-91ec6a82"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-picker/components/uni-data-pickerview/uni-data-pickerview.vue"]]);
+  const _sfc_main$X = {
+    name: "UniDataPicker",
+    emits: ["popupopened", "popupclosed", "nodeclick", "input", "change", "update:modelValue", "inputclick"],
+    mixins: [dataPicker],
+    components: {
+      DataPickerView
+    },
+    props: {
+      options: {
+        type: [Object, Array],
+        default() {
+          return {};
+        }
+      },
+      popupTitle: {
+        type: String,
+        default: "请选择"
+      },
+      placeholder: {
+        type: String,
+        default: "请选择"
+      },
+      heightMobile: {
+        type: String,
+        default: ""
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      clearIcon: {
+        type: Boolean,
+        default: true
+      },
+      border: {
+        type: Boolean,
+        default: true
+      },
+      split: {
+        type: String,
+        default: "/"
+      },
+      ellipsis: {
+        type: Boolean,
+        default: true
+      }
+    },
+    data() {
+      return {
+        isOpened: false,
+        inputSelected: []
+      };
+    },
+    created() {
+      this.$nextTick(() => {
+        this.load();
+      });
+    },
+    watch: {
+      localdata: {
+        handler() {
+          this.load();
+        },
+        deep: true
+      }
+    },
+    methods: {
+      clear() {
+        this._dispatchEvent([]);
+      },
+      onPropsChange() {
+        this._treeData = [];
+        this.selectedIndex = 0;
+        this.load();
+      },
+      load() {
+        if (this.readonly) {
+          this._processReadonly(this.localdata, this.dataValue);
+          return;
+        }
+        if (this.isLocalData) {
+          this.loadData();
+          this.inputSelected = this.selected.slice(0);
+        } else if (this.isCloudDataList || this.isCloudDataTree) {
+          this.loading = true;
+          this.getCloudDataValue().then((res) => {
+            this.loading = false;
+            this.inputSelected = res;
+          }).catch((err) => {
+            this.loading = false;
+            this.errorMessage = err;
+          });
+        }
+      },
+      show() {
+        this.isOpened = true;
+        setTimeout(() => {
+          this.$refs.pickerView.updateData({
+            treeData: this._treeData,
+            selected: this.selected,
+            selectedIndex: this.selectedIndex
+          });
+        }, 200);
+        this.$emit("popupopened");
+      },
+      hide() {
+        this.isOpened = false;
+        this.$emit("popupclosed");
+      },
+      handleInput() {
+        if (this.readonly) {
+          this.$emit("inputclick");
+          return;
+        }
+        this.show();
+      },
+      handleClose(e2) {
+        this.hide();
+      },
+      onnodeclick(e2) {
+        this.$emit("nodeclick", e2);
+      },
+      ondatachange(e2) {
+        this._treeData = this.$refs.pickerView._treeData;
+      },
+      onchange(e2) {
+        this.hide();
+        this.$nextTick(() => {
+          this.inputSelected = e2;
+        });
+        this._dispatchEvent(e2);
+      },
+      _processReadonly(dataList, value) {
+        var isTree = dataList.findIndex((item2) => {
+          return item2.children;
+        });
+        if (isTree > -1) {
+          let inputValue;
+          if (Array.isArray(value)) {
+            inputValue = value[value.length - 1];
+            if (typeof inputValue === "object" && inputValue.value) {
+              inputValue = inputValue.value;
+            }
+          } else {
+            inputValue = value;
+          }
+          this.inputSelected = this._findNodePath(inputValue, this.localdata);
+          return;
+        }
+        if (!this.hasValue) {
+          this.inputSelected = [];
+          return;
+        }
+        let result = [];
+        for (let i2 = 0; i2 < value.length; i2++) {
+          var val = value[i2];
+          var item = dataList.find((v2) => {
+            return v2.value == val;
+          });
+          if (item) {
+            result.push(item);
+          }
+        }
+        if (result.length) {
+          this.inputSelected = result;
+        }
+      },
+      _filterForArray(data, valueArray) {
+        var result = [];
+        for (let i2 = 0; i2 < valueArray.length; i2++) {
+          var value = valueArray[i2];
+          var found = data.find((item) => {
+            return item.value == value;
+          });
+          if (found) {
+            result.push(found);
+          }
+        }
+        return result;
+      },
+      _dispatchEvent(selected) {
+        let item = {};
+        if (selected.length) {
+          var value = new Array(selected.length);
+          for (var i2 = 0; i2 < selected.length; i2++) {
+            value[i2] = selected[i2].value;
+          }
+          item = selected[selected.length - 1];
+        } else {
+          item.value = "";
+        }
+        if (this.formItem) {
+          this.formItem.setValue(item.value);
+        }
+        this.$emit("input", item.value);
+        this.$emit("update:modelValue", item.value);
+        this.$emit("change", {
+          detail: {
+            value: selected
+          }
+        });
+      }
+    }
+  };
+  function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_3$1);
+    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$5);
+    const _component_data_picker_view = vue.resolveComponent("data-picker-view");
+    return vue.openBlock(), vue.createElementBlock("view", { class: "uni-data-tree" }, [
+      vue.createElementVNode("view", {
+        class: "uni-data-tree-input",
+        onClick: _cache[1] || (_cache[1] = (...args) => $options.handleInput && $options.handleInput(...args))
+      }, [
+        vue.renderSlot(_ctx.$slots, "default", {
+          options: $props.options,
+          data: $data.inputSelected,
+          error: _ctx.errorMessage
+        }, () => [
+          vue.createElementVNode(
+            "view",
+            {
+              class: vue.normalizeClass(["input-value", { "input-value-border": $props.border }])
+            },
+            [
+              _ctx.errorMessage ? (vue.openBlock(), vue.createElementBlock(
+                "text",
+                {
+                  key: 0,
+                  class: "selected-area error-text"
+                },
+                vue.toDisplayString(_ctx.errorMessage),
+                1
+                /* TEXT */
+              )) : _ctx.loading && !$data.isOpened ? (vue.openBlock(), vue.createElementBlock("view", {
+                key: 1,
+                class: "selected-area"
+              }, [
+                vue.createVNode(_component_uni_load_more, {
+                  class: "load-more",
+                  contentText: _ctx.loadMore,
+                  status: "loading"
+                }, null, 8, ["contentText"])
+              ])) : $data.inputSelected.length ? (vue.openBlock(), vue.createElementBlock("scroll-view", {
+                key: 2,
+                class: "selected-area",
+                "scroll-x": "true"
+              }, [
+                vue.createElementVNode("view", { class: "selected-list" }, [
+                  (vue.openBlock(true), vue.createElementBlock(
+                    vue.Fragment,
+                    null,
+                    vue.renderList($data.inputSelected, (item, index) => {
+                      return vue.openBlock(), vue.createElementBlock("view", {
+                        class: "selected-item",
+                        key: index
+                      }, [
+                        vue.createElementVNode(
+                          "text",
+                          { class: "text-color" },
+                          vue.toDisplayString(item.text),
+                          1
+                          /* TEXT */
+                        ),
+                        index < $data.inputSelected.length - 1 ? (vue.openBlock(), vue.createElementBlock(
+                          "text",
+                          {
+                            key: 0,
+                            class: "input-split-line"
+                          },
+                          vue.toDisplayString($props.split),
+                          1
+                          /* TEXT */
+                        )) : vue.createCommentVNode("v-if", true)
+                      ]);
+                    }),
+                    128
+                    /* KEYED_FRAGMENT */
+                  ))
+                ])
+              ])) : (vue.openBlock(), vue.createElementBlock(
+                "text",
+                {
+                  key: 3,
+                  class: "selected-area placeholder"
+                },
+                vue.toDisplayString($props.placeholder),
+                1
+                /* TEXT */
+              )),
+              $props.clearIcon && !$props.readonly && $data.inputSelected.length ? (vue.openBlock(), vue.createElementBlock("view", {
+                key: 4,
+                class: "icon-clear",
+                onClick: _cache[0] || (_cache[0] = vue.withModifiers((...args) => $options.clear && $options.clear(...args), ["stop"]))
+              }, [
+                vue.createVNode(_component_uni_icons, {
+                  type: "clear",
+                  color: "#c0c4cc",
+                  size: "24"
+                })
+              ])) : vue.createCommentVNode("v-if", true),
+              (!$props.clearIcon || !$data.inputSelected.length) && !$props.readonly ? (vue.openBlock(), vue.createElementBlock("view", {
+                key: 5,
+                class: "arrow-area"
+              }, [
+                vue.createElementVNode("view", { class: "input-arrow" })
+              ])) : vue.createCommentVNode("v-if", true)
+            ],
+            2
+            /* CLASS */
+          )
+        ], true)
+      ]),
+      $data.isOpened ? (vue.openBlock(), vue.createElementBlock("view", {
+        key: 0,
+        class: "uni-data-tree-cover",
+        onClick: _cache[2] || (_cache[2] = (...args) => $options.handleClose && $options.handleClose(...args))
+      })) : vue.createCommentVNode("v-if", true),
+      $data.isOpened ? (vue.openBlock(), vue.createElementBlock("view", {
+        key: 1,
+        class: "uni-data-tree-dialog"
+      }, [
+        vue.createElementVNode("view", { class: "uni-popper__arrow" }),
+        vue.createElementVNode("view", { class: "dialog-caption" }, [
+          vue.createElementVNode("view", { class: "title-area" }, [
+            vue.createElementVNode(
+              "text",
+              { class: "dialog-title" },
+              vue.toDisplayString($props.popupTitle),
+              1
+              /* TEXT */
+            )
+          ]),
+          vue.createElementVNode("view", {
+            class: "dialog-close",
+            onClick: _cache[3] || (_cache[3] = (...args) => $options.handleClose && $options.handleClose(...args))
+          }, [
+            vue.createElementVNode("view", {
+              class: "dialog-close-plus",
+              "data-id": "close"
+            }),
+            vue.createElementVNode("view", {
+              class: "dialog-close-plus dialog-close-rotate",
+              "data-id": "close"
+            })
+          ])
+        ]),
+        vue.createVNode(_component_data_picker_view, {
+          class: "picker-view",
+          ref: "pickerView",
+          modelValue: _ctx.dataValue,
+          "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => _ctx.dataValue = $event),
+          localdata: _ctx.localdata,
+          preload: _ctx.preload,
+          collection: _ctx.collection,
+          field: _ctx.field,
+          orderby: _ctx.orderby,
+          where: _ctx.where,
+          "step-searh": _ctx.stepSearh,
+          "self-field": _ctx.selfField,
+          "parent-field": _ctx.parentField,
+          "managed-mode": true,
+          map: _ctx.map,
+          ellipsis: $props.ellipsis,
+          onChange: $options.onchange,
+          onDatachange: $options.ondatachange,
+          onNodeclick: $options.onnodeclick
+        }, null, 8, ["modelValue", "localdata", "preload", "collection", "field", "orderby", "where", "step-searh", "self-field", "parent-field", "map", "ellipsis", "onChange", "onDatachange", "onNodeclick"])
+      ])) : vue.createCommentVNode("v-if", true)
+    ]);
+  }
+  const __easycom_2$4 = /* @__PURE__ */ _export_sfc(_sfc_main$X, [["render", _sfc_render$f], ["__scopeId", "data-v-2653531e"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-picker/components/uni-data-picker/uni-data-picker.vue"]]);
   const uploadUrl = "https://max.q6z4kzhr.uk/api/upload/image/";
   const uploadImage = async (filePath) => {
     formatAppLog("log", "at utils/index.js:4", filePath);
     const token = uni.getStorageSync("accessToken");
-    const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 1e4)}`;
     return new Promise((resolve, reject) => {
       uni.uploadFile({
         url: uploadUrl,
         // 上传接口 URL
         filePath,
         // 需要上传的文件路径
-        name: "image_url",
+        name: "image",
         // 后台接收文件的字段名
         header: {
-          "Authorization": `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`
           // JWT Token 添加到 Authorization 请求头
-          "Content-Type": "multipart/form-data"
-        },
-        formData: {
-          "file_name": randomFileName
-          // 生成的随机文件名
         },
         success: (uploadFileRes) => {
           if (uploadFileRes.statusCode == 201) {
             const data = JSON.parse(uploadFileRes.data);
-            formatAppLog("log", "at utils/index.js:24", "上传成功！");
-            formatAppLog("log", "at utils/index.js:25", "上传的图片 URL:", data.image_url);
+            formatAppLog("log", "at utils/index.js:21", "上传成功！");
+            formatAppLog("log", "at utils/index.js:22", "上传的图片 URL:", data.image_url);
             resolve(data.image_url);
           } else {
-            formatAppLog("log", "at utils/index.js:28", "上传失败，状态码：", uploadFileRes.statusCode);
+            formatAppLog("log", "at utils/index.js:25", "上传失败，状态码：", uploadFileRes.statusCode);
             reject(new Error(`上传失败，状态码：${uploadFileRes.statusCode}`));
           }
         },
         fail: (err) => {
-          formatAppLog("error", "at utils/index.js:33", "上传文件出错:", err);
+          formatAppLog("error", "at utils/index.js:30", "上传文件出错:", err);
           reject(err);
         }
       });
@@ -7810,7 +8808,1417 @@ ${i3}
     const seconds = ("0" + date.getSeconds()).slice(-2);
     return format.replace("yyyy", year).replace("MM", month).replace("dd", day).replace("hh", hours).replace("mm", minutes).replace("ss", seconds);
   };
-  const _sfc_main$Z = {
+  const cityDataJson = [
+    {
+      text: "北京市",
+      value: "110000",
+      children: [
+        {
+          text: "北京市",
+          value: "110100"
+        }
+      ]
+    },
+    {
+      text: "天津市",
+      value: "120000",
+      children: [
+        {
+          text: "天津市",
+          value: "120100"
+        }
+      ]
+    },
+    {
+      text: "河北省",
+      value: "130000",
+      children: [
+        {
+          text: "石家庄市",
+          value: "130100"
+        },
+        {
+          text: "唐山市",
+          value: "130200"
+        },
+        {
+          text: "秦皇岛市",
+          value: "130300"
+        },
+        {
+          text: "邯郸市",
+          value: "130400"
+        },
+        {
+          text: "邢台市",
+          value: "130500"
+        },
+        {
+          text: "保定市",
+          value: "130600"
+        },
+        {
+          text: "张家口市",
+          value: "130700"
+        },
+        {
+          text: "承德市",
+          value: "130800"
+        },
+        {
+          text: "沧州市",
+          value: "130900"
+        },
+        {
+          text: "廊坊市",
+          value: "131000"
+        },
+        {
+          text: "衡水市",
+          value: "131100"
+        }
+      ]
+    },
+    {
+      text: "山西省",
+      value: "140000",
+      children: [
+        {
+          text: "太原市",
+          value: "140100"
+        },
+        {
+          text: "大同市",
+          value: "140200"
+        },
+        {
+          text: "阳泉市",
+          value: "140300"
+        },
+        {
+          text: "长治市",
+          value: "140400"
+        },
+        {
+          text: "晋城市",
+          value: "140500"
+        },
+        {
+          text: "朔州市",
+          value: "140600"
+        },
+        {
+          text: "晋中市",
+          value: "140700"
+        },
+        {
+          text: "运城市",
+          value: "140800"
+        },
+        {
+          text: "忻州市",
+          value: "140900"
+        },
+        {
+          text: "临汾市",
+          value: "141000"
+        },
+        {
+          text: "吕梁市",
+          value: "141100"
+        }
+      ]
+    },
+    {
+      text: "内蒙古自治区",
+      value: "150000",
+      children: [
+        {
+          text: "呼和浩特市",
+          value: "150100"
+        },
+        {
+          text: "包头市",
+          value: "150200"
+        },
+        {
+          text: "乌海市",
+          value: "150300"
+        },
+        {
+          text: "赤峰市",
+          value: "150400"
+        },
+        {
+          text: "通辽市",
+          value: "150500"
+        },
+        {
+          text: "鄂尔多斯市",
+          value: "150600"
+        },
+        {
+          text: "呼伦贝尔市",
+          value: "150700"
+        },
+        {
+          text: "巴彦淖尔市",
+          value: "150800"
+        },
+        {
+          text: "乌兰察布市",
+          value: "150900"
+        }
+      ]
+    },
+    {
+      text: "辽宁省",
+      value: "210000",
+      children: [
+        {
+          text: "沈阳市",
+          value: "210100"
+        },
+        {
+          text: "大连市",
+          value: "210200"
+        },
+        {
+          text: "鞍山市",
+          value: "210300"
+        },
+        {
+          text: "抚顺市",
+          value: "210400"
+        },
+        {
+          text: "本溪市",
+          value: "210500"
+        },
+        {
+          text: "丹东市",
+          value: "210600"
+        },
+        {
+          text: "锦州市",
+          value: "210700"
+        },
+        {
+          text: "营口市",
+          value: "210800"
+        },
+        {
+          text: "阜新市",
+          value: "210900"
+        },
+        {
+          text: "辽阳市",
+          value: "211000"
+        },
+        {
+          text: "盘锦市",
+          value: "211100"
+        },
+        {
+          text: "铁岭市",
+          value: "211200"
+        },
+        {
+          text: "朝阳市",
+          value: "211300"
+        },
+        {
+          text: "葫芦岛市",
+          value: "211400"
+        }
+      ]
+    },
+    {
+      text: "吉林省",
+      value: "220000",
+      children: [
+        {
+          text: "长春市",
+          value: "220100"
+        },
+        {
+          text: "吉林市",
+          value: "220200"
+        },
+        {
+          text: "四平市",
+          value: "220300"
+        },
+        {
+          text: "辽源市",
+          value: "220400"
+        },
+        {
+          text: "通化市",
+          value: "220500"
+        },
+        {
+          text: "白山市",
+          value: "220600"
+        },
+        {
+          text: "松原市",
+          value: "220700"
+        },
+        {
+          text: "白城市",
+          value: "220800"
+        }
+      ]
+    },
+    {
+      text: "黑龙江省",
+      value: "230000",
+      children: [
+        {
+          text: "哈尔滨市",
+          value: "230100"
+        },
+        {
+          text: "齐齐哈尔市",
+          value: "230200"
+        },
+        {
+          text: "鸡西市",
+          value: "230300"
+        },
+        {
+          text: "鹤岗市",
+          value: "230400"
+        },
+        {
+          text: "双鸭山市",
+          value: "230500"
+        },
+        {
+          text: "大庆市",
+          value: "230600"
+        },
+        {
+          text: "伊春市",
+          value: "230700"
+        },
+        {
+          text: "佳木斯市",
+          value: "230800"
+        },
+        {
+          text: "七台河市",
+          value: "230900"
+        },
+        {
+          text: "牡丹江市",
+          value: "231000"
+        },
+        {
+          text: "黑河市",
+          value: "231100"
+        },
+        {
+          text: "绥化市",
+          value: "231200"
+        }
+      ]
+    },
+    {
+      text: "上海市",
+      value: "310000",
+      children: [
+        {
+          text: "上海市",
+          value: "310100"
+        }
+      ]
+    },
+    {
+      text: "江苏省",
+      value: "320000",
+      children: [
+        {
+          text: "南京市",
+          value: "320100"
+        },
+        {
+          text: "无锡市",
+          value: "320200"
+        },
+        {
+          text: "徐州市",
+          value: "320300"
+        },
+        {
+          text: "常州市",
+          value: "320400"
+        },
+        {
+          text: "苏州市",
+          value: "320500"
+        },
+        {
+          text: "南通市",
+          value: "320600"
+        },
+        {
+          text: "连云港市",
+          value: "320700"
+        },
+        {
+          text: "淮安市",
+          value: "320800"
+        },
+        {
+          text: "盐城市",
+          value: "320900"
+        },
+        {
+          text: "扬州市",
+          value: "321000"
+        },
+        {
+          text: "镇江市",
+          value: "321100"
+        },
+        {
+          text: "泰州市",
+          value: "321200"
+        },
+        {
+          text: "宿迁市",
+          value: "321300"
+        }
+      ]
+    },
+    {
+      text: "浙江省",
+      value: "330000",
+      children: [
+        {
+          text: "杭州市",
+          value: "330100"
+        },
+        {
+          text: "宁波市",
+          value: "330200"
+        },
+        {
+          text: "温州市",
+          value: "330300"
+        },
+        {
+          text: "嘉兴市",
+          value: "330400"
+        },
+        {
+          text: "湖州市",
+          value: "330500"
+        },
+        {
+          text: "绍兴市",
+          value: "330600"
+        },
+        {
+          text: "金华市",
+          value: "330700"
+        },
+        {
+          text: "衢州市",
+          value: "330800"
+        },
+        {
+          text: "舟山市",
+          value: "330900"
+        },
+        {
+          text: "台州市",
+          value: "331000"
+        },
+        {
+          text: "丽水市",
+          value: "331100"
+        }
+      ]
+    },
+    {
+      text: "安徽省",
+      value: "340000",
+      children: [
+        {
+          text: "合肥市",
+          value: "340100"
+        },
+        {
+          text: "芜湖市",
+          value: "340200"
+        },
+        {
+          text: "蚌埠市",
+          value: "340300"
+        },
+        {
+          text: "淮南市",
+          value: "340400"
+        },
+        {
+          text: "马鞍山市",
+          value: "340500"
+        },
+        {
+          text: "淮北市",
+          value: "340600"
+        },
+        {
+          text: "铜陵市",
+          value: "340700"
+        },
+        {
+          text: "安庆市",
+          value: "340800"
+        },
+        {
+          text: "黄山市",
+          value: "341000"
+        },
+        {
+          text: "滁州市",
+          value: "341100"
+        },
+        {
+          text: "阜阳市",
+          value: "341200"
+        },
+        {
+          text: "宿州市",
+          value: "341300"
+        },
+        {
+          text: "六安市",
+          value: "341500"
+        },
+        {
+          text: "亳州市",
+          value: "341600"
+        },
+        {
+          text: "池州市",
+          value: "341700"
+        },
+        {
+          text: "宣城市",
+          value: "341800"
+        }
+      ]
+    },
+    {
+      text: "福建省",
+      value: "350000",
+      children: [
+        {
+          text: "福州市",
+          value: "350100"
+        },
+        {
+          text: "厦门市",
+          value: "350200"
+        },
+        {
+          text: "莆田市",
+          value: "350300"
+        },
+        {
+          text: "三明市",
+          value: "350400"
+        },
+        {
+          text: "泉州市",
+          value: "350500"
+        },
+        {
+          text: "漳州市",
+          value: "350600"
+        },
+        {
+          text: "南平市",
+          value: "350700"
+        },
+        {
+          text: "龙岩市",
+          value: "350800"
+        },
+        {
+          text: "宁德市",
+          value: "350900"
+        }
+      ]
+    },
+    {
+      text: "江西省",
+      value: "360000",
+      children: [
+        {
+          text: "南昌市",
+          value: "360100"
+        },
+        {
+          text: "景德镇市",
+          value: "360200"
+        },
+        {
+          text: "萍乡市",
+          value: "360300"
+        },
+        {
+          text: "九江市",
+          value: "360400"
+        },
+        {
+          text: "新余市",
+          value: "360500"
+        },
+        {
+          text: "鹰潭市",
+          value: "360600"
+        },
+        {
+          text: "赣州市",
+          value: "360700"
+        },
+        {
+          text: "吉安市",
+          value: "360800"
+        },
+        {
+          text: "宜春市",
+          value: "360900"
+        },
+        {
+          text: "抚州市",
+          value: "361000"
+        },
+        {
+          text: "上饶市",
+          value: "361100"
+        }
+      ]
+    },
+    {
+      text: "山东省",
+      value: "370000",
+      children: [
+        {
+          text: "济南市",
+          value: "370100"
+        },
+        {
+          text: "青岛市",
+          value: "370200"
+        },
+        {
+          text: "淄博市",
+          value: "370300"
+        },
+        {
+          text: "枣庄市",
+          value: "370400"
+        },
+        {
+          text: "东营市",
+          value: "370500"
+        },
+        {
+          text: "烟台市",
+          value: "370600"
+        },
+        {
+          text: "潍坊市",
+          value: "370700"
+        },
+        {
+          text: "济宁市",
+          value: "370800"
+        },
+        {
+          text: "泰安市",
+          value: "370900"
+        },
+        {
+          text: "威海市",
+          value: "371000"
+        },
+        {
+          text: "日照市",
+          value: "371100"
+        },
+        {
+          text: "临沂市",
+          value: "371300"
+        },
+        {
+          text: "德州市",
+          value: "371400"
+        },
+        {
+          text: "聊城市",
+          value: "371500"
+        },
+        {
+          text: "滨州市",
+          value: "371600"
+        },
+        {
+          text: "菏泽市",
+          value: "371700"
+        }
+      ]
+    },
+    {
+      text: "河南省",
+      value: "410000",
+      children: [
+        {
+          text: "郑州市",
+          value: "410100"
+        },
+        {
+          text: "开封市",
+          value: "410200"
+        },
+        {
+          text: "洛阳市",
+          value: "410300"
+        },
+        {
+          text: "平顶山市",
+          value: "410400"
+        },
+        {
+          text: "安阳市",
+          value: "410500"
+        },
+        {
+          text: "鹤壁市",
+          value: "410600"
+        },
+        {
+          text: "新乡市",
+          value: "410700"
+        },
+        {
+          text: "焦作市",
+          value: "410800"
+        },
+        {
+          text: "濮阳市",
+          value: "410900"
+        },
+        {
+          text: "许昌市",
+          value: "411000"
+        },
+        {
+          text: "漯河市",
+          value: "411100"
+        },
+        {
+          text: "三门峡市",
+          value: "411200"
+        },
+        {
+          text: "南阳市",
+          value: "411300"
+        },
+        {
+          text: "商丘市",
+          value: "411400"
+        },
+        {
+          text: "信阳市",
+          value: "411500"
+        },
+        {
+          text: "周口市",
+          value: "411600"
+        },
+        {
+          text: "驻马店市",
+          value: "411700"
+        }
+      ]
+    },
+    {
+      text: "湖北省",
+      value: "420000",
+      children: [
+        {
+          text: "武汉市",
+          value: "420100"
+        },
+        {
+          text: "黄石市",
+          value: "420200"
+        },
+        {
+          text: "十堰市",
+          value: "420300"
+        },
+        {
+          text: "宜昌市",
+          value: "420500"
+        },
+        {
+          text: "襄阳市",
+          value: "420600"
+        },
+        {
+          text: "鄂州市",
+          value: "420700"
+        },
+        {
+          text: "荆门市",
+          value: "420800"
+        },
+        {
+          text: "孝感市",
+          value: "420900"
+        },
+        {
+          text: "荆州市",
+          value: "421000"
+        },
+        {
+          text: "黄冈市",
+          value: "421100"
+        },
+        {
+          text: "咸宁市",
+          value: "421200"
+        },
+        {
+          text: "随州市",
+          value: "421300"
+        }
+      ]
+    },
+    {
+      text: "湖南省",
+      value: "430000",
+      children: [
+        {
+          text: "长沙市",
+          value: "430100"
+        },
+        {
+          text: "株洲市",
+          value: "430200"
+        },
+        {
+          text: "湘潭市",
+          value: "430300"
+        },
+        {
+          text: "衡阳市",
+          value: "430400"
+        },
+        {
+          text: "邵阳市",
+          value: "430500"
+        },
+        {
+          text: "岳阳市",
+          value: "430600"
+        },
+        {
+          text: "常德市",
+          value: "430700"
+        },
+        {
+          text: "张家界市",
+          value: "430800"
+        },
+        {
+          text: "益阳市",
+          value: "430900"
+        },
+        {
+          text: "郴州市",
+          value: "431000"
+        },
+        {
+          text: "永州市",
+          value: "431100"
+        },
+        {
+          text: "怀化市",
+          value: "431200"
+        },
+        {
+          text: "娄底市",
+          value: "431300"
+        }
+      ]
+    },
+    {
+      text: "广东省",
+      value: "440000",
+      children: [
+        {
+          text: "广州市",
+          value: "440100"
+        },
+        {
+          text: "韶关市",
+          value: "440200"
+        },
+        {
+          text: "深圳市",
+          value: "440300"
+        },
+        {
+          text: "珠海市",
+          value: "440400"
+        },
+        {
+          text: "汕头市",
+          value: "440500"
+        },
+        {
+          text: "佛山市",
+          value: "440600"
+        },
+        {
+          text: "江门市",
+          value: "440700"
+        },
+        {
+          text: "湛江市",
+          value: "440800"
+        },
+        {
+          text: "茂名市",
+          value: "440900"
+        },
+        {
+          text: "肇庆市",
+          value: "441200"
+        },
+        {
+          text: "惠州市",
+          value: "441300"
+        },
+        {
+          text: "梅州市",
+          value: "441400"
+        },
+        {
+          text: "汕尾市",
+          value: "441500"
+        },
+        {
+          text: "河源市",
+          value: "441600"
+        },
+        {
+          text: "阳江市",
+          value: "441700"
+        },
+        {
+          text: "清远市",
+          value: "441800"
+        },
+        {
+          text: "东莞市",
+          value: "441900"
+        },
+        {
+          text: "中山市",
+          value: "442000"
+        }
+      ]
+    },
+    {
+      text: "广西壮族自治区",
+      value: "450000",
+      children: [
+        {
+          text: "南宁市",
+          value: "450100"
+        },
+        {
+          text: "柳州市",
+          value: "450200"
+        },
+        {
+          text: "桂林市",
+          value: "450300"
+        },
+        {
+          text: "梧州市",
+          value: "450400"
+        },
+        {
+          text: "北海市",
+          value: "450500"
+        },
+        {
+          text: "防城港市",
+          value: "450600"
+        },
+        {
+          text: "钦州市",
+          value: "450700"
+        },
+        {
+          text: "贵港市",
+          value: "450800"
+        },
+        {
+          text: "玉林市",
+          value: "450900"
+        },
+        {
+          text: "百色市",
+          value: "451000"
+        },
+        {
+          text: "贺州市",
+          value: "451100"
+        },
+        {
+          text: "河池市",
+          value: "451200"
+        },
+        {
+          text: "来宾市",
+          value: "451300"
+        },
+        {
+          text: "崇左市",
+          value: "451400"
+        }
+      ]
+    },
+    {
+      text: "海南省",
+      value: "460000",
+      children: [
+        {
+          text: "海口市",
+          value: "460100"
+        },
+        {
+          text: "三亚市",
+          value: "460200"
+        },
+        {
+          text: "三沙市",
+          value: "460300"
+        },
+        {
+          text: "儋州市",
+          value: "460400"
+        }
+      ]
+    },
+    {
+      text: "重庆市",
+      value: "500000",
+      children: [
+        {
+          text: "重庆市",
+          value: "500100"
+        }
+      ]
+    },
+    {
+      text: "四川省",
+      value: "510000",
+      children: [
+        {
+          text: "成都市",
+          value: "510100"
+        },
+        {
+          text: "自贡市",
+          value: "510300"
+        },
+        {
+          text: "攀枝花市",
+          value: "510400"
+        },
+        {
+          text: "泸州市",
+          value: "510500"
+        },
+        {
+          text: "德阳市",
+          value: "510600"
+        },
+        {
+          text: "绵阳市",
+          value: "510700"
+        },
+        {
+          text: "广元市",
+          value: "510800"
+        },
+        {
+          text: "遂宁市",
+          value: "510900"
+        },
+        {
+          text: "内江市",
+          value: "511000"
+        },
+        {
+          text: "乐山市",
+          value: "511100"
+        },
+        {
+          text: "南充市",
+          value: "511300"
+        },
+        {
+          text: "眉山市",
+          value: "511400"
+        },
+        {
+          text: "宜宾市",
+          value: "511500"
+        },
+        {
+          text: "广安市",
+          value: "511600"
+        },
+        {
+          text: "达州市",
+          value: "511700"
+        },
+        {
+          text: "雅安市",
+          value: "511800"
+        },
+        {
+          text: "巴中市",
+          value: "511900"
+        },
+        {
+          text: "资阳市",
+          value: "512000"
+        }
+      ]
+    },
+    {
+      text: "贵州省",
+      value: "520000",
+      children: [
+        {
+          text: "贵阳市",
+          value: "520100"
+        },
+        {
+          text: "六盘水市",
+          value: "520200"
+        },
+        {
+          text: "遵义市",
+          value: "520300"
+        },
+        {
+          text: "安顺市",
+          value: "520400"
+        },
+        {
+          text: "毕节市",
+          value: "520500"
+        },
+        {
+          text: "铜仁市",
+          value: "520600"
+        }
+      ]
+    },
+    {
+      text: "云南省",
+      value: "530000",
+      children: [
+        {
+          text: "昆明市",
+          value: "530100"
+        },
+        {
+          text: "曲靖市",
+          value: "530300"
+        },
+        {
+          text: "玉溪市",
+          value: "530400"
+        },
+        {
+          text: "保山市",
+          value: "530500"
+        },
+        {
+          text: "昭通市",
+          value: "530600"
+        },
+        {
+          text: "丽江市",
+          value: "530700"
+        },
+        {
+          text: "普洱市",
+          value: "530800"
+        },
+        {
+          text: "临沧市",
+          value: "530900"
+        }
+      ]
+    },
+    {
+      text: "西藏自治区",
+      value: "540000",
+      children: [
+        {
+          text: "拉萨市",
+          value: "540100"
+        },
+        {
+          text: "日喀则市",
+          value: "540200"
+        },
+        {
+          text: "昌都市",
+          value: "540300"
+        },
+        {
+          text: "林芝市",
+          value: "540400"
+        },
+        {
+          text: "山南市",
+          value: "540500"
+        },
+        {
+          text: "那曲市",
+          value: "540600"
+        }
+      ]
+    },
+    {
+      text: "陕西省",
+      value: "610000",
+      children: [
+        {
+          text: "西安市",
+          value: "610100"
+        },
+        {
+          text: "铜川市",
+          value: "610200"
+        },
+        {
+          text: "宝鸡市",
+          value: "610300"
+        },
+        {
+          text: "咸阳市",
+          value: "610400"
+        },
+        {
+          text: "渭南市",
+          value: "610500"
+        },
+        {
+          text: "延安市",
+          value: "610600"
+        },
+        {
+          text: "汉中市",
+          value: "610700"
+        },
+        {
+          text: "榆林市",
+          value: "610800"
+        },
+        {
+          text: "安康市",
+          value: "610900"
+        },
+        {
+          text: "商洛市",
+          value: "611000"
+        }
+      ]
+    },
+    {
+      text: "甘肃省",
+      value: "620000",
+      children: [
+        {
+          text: "兰州市",
+          value: "620100"
+        },
+        {
+          text: "嘉峪关市",
+          value: "620200"
+        },
+        {
+          text: "金昌市",
+          value: "620300"
+        },
+        {
+          text: "白银市",
+          value: "620400"
+        },
+        {
+          text: "天水市",
+          value: "620500"
+        },
+        {
+          text: "武威市",
+          value: "620600"
+        },
+        {
+          text: "张掖市",
+          value: "620700"
+        },
+        {
+          text: "平凉市",
+          value: "620800"
+        },
+        {
+          text: "酒泉市",
+          value: "620900"
+        },
+        {
+          text: "庆阳市",
+          value: "621000"
+        },
+        {
+          text: "定西市",
+          value: "621100"
+        },
+        {
+          text: "陇南市",
+          value: "621200"
+        }
+      ]
+    },
+    {
+      text: "青海省",
+      value: "630000",
+      children: [
+        {
+          text: "西宁市",
+          value: "630100"
+        },
+        {
+          text: "海东市",
+          value: "630200"
+        }
+      ]
+    },
+    {
+      text: "宁夏回族自治区",
+      value: "640000",
+      children: [
+        {
+          text: "银川市",
+          value: "640100"
+        },
+        {
+          text: "石嘴山市",
+          value: "640200"
+        },
+        {
+          text: "吴忠市",
+          value: "640300"
+        },
+        {
+          text: "固原市",
+          value: "640400"
+        },
+        {
+          text: "中卫市",
+          value: "640500"
+        }
+      ]
+    },
+    {
+      text: "新疆维吾尔自治区",
+      value: "650000",
+      children: [
+        {
+          text: "乌鲁木齐市",
+          value: "650100"
+        },
+        {
+          text: "克拉玛依市",
+          value: "650200"
+        }
+      ]
+    },
+    {
+      text: "香港特别行政区",
+      value: "810000",
+      children: [
+        {
+          text: "香港岛",
+          value: "810100"
+        },
+        {
+          text: "九龙",
+          value: "810200"
+        },
+        {
+          text: "新界",
+          value: "810300"
+        }
+      ]
+    },
+    {
+      text: "澳门特别行政区",
+      value: "820000",
+      children: [
+        {
+          text: "澳门半岛",
+          value: "820100"
+        },
+        {
+          text: "离岛",
+          value: "820200"
+        }
+      ]
+    },
+    {
+      text: "台湾省",
+      value: "710000",
+      children: [
+        {
+          text: "台北市",
+          value: "710100"
+        },
+        {
+          text: "高雄市",
+          value: "710200"
+        },
+        {
+          text: "台南市",
+          value: "710300"
+        },
+        {
+          text: "台中市",
+          value: "710400"
+        }
+      ]
+    }
+  ];
+  const _sfc_main$W = {
     __name: "merchant_set_info",
     setup(__props) {
       const referral_officer = vue.ref("");
@@ -7818,22 +10226,16 @@ ${i3}
         referral_officer.value = options.referral_officer;
       });
       const publicStore = usePublicStore();
-      const userStore = useUserStore();
+      useUserStore();
       const shopIntro = vue.ref("");
       const shopName = vue.ref("");
       const businessRange = vue.ref("");
-      const code = vue.ref("");
+      vue.ref("");
       const temBannerImgPaths = vue.ref([]);
       const temProfileImgPaths = vue.ref([]);
       const temDetailImgPaths = vue.ref([]);
       const range = vue.computed(() => {
         return publicStore.cateGoryList.map((item) => {
-          formatAppLog("log", "at pages/merchant/merchant_set_info.vue:142", {
-            value: item.id,
-            // value 为 id
-            text: item.name
-            // text 为 name
-          });
           return {
             value: item.id,
             // value 为 id
@@ -7842,31 +10244,45 @@ ${i3}
           };
         });
       });
+      vue.ref([]);
+      const selectedProvince = vue.ref("");
+      const selectedCity = vue.ref("");
+      const cityData = vue.ref(cityDataJson);
+      const onChange = (e2) => {
+        var _a;
+        const selected = e2.detail.value;
+        const province = cityData.value.find((item) => item.value === selected[0]);
+        (_a = province == null ? void 0 : province.children) == null ? void 0 : _a.find((item) => item.value === selected[1]);
+        selectedProvince.value = e2.detail.value[0].text || "";
+        selectedCity.value = e2.detail.value[1].text || "";
+        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:178", selectedProvince.value, selectedCity.value);
+      };
       const isChecked = vue.ref(false);
       const changeCheck = () => {
         isChecked.value = !isChecked.value;
+        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:186", isChecked.value);
       };
       const changeRange = (e2) => {
         businessRange.value = e2;
-        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:162", e2);
+        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:191", e2);
       };
       const acceptTempBannerImgPath = async (ImgPaths) => {
         temBannerImgPaths.value = ImgPaths;
-        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:183", temBannerImgPaths.value);
+        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:212", temBannerImgPaths.value);
       };
       const acceptTempProfileImgPath = async (ImgPaths) => {
         temProfileImgPaths.value = ImgPaths;
-        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:188", "tem", temProfileImgPaths.value);
+        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:217", "tem", temProfileImgPaths.value);
       };
       const acceptTempDetailImgPath = async (ImgPaths) => {
         temDetailImgPaths.value = ImgPaths;
-        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:193", temDetailImgPaths.value);
+        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:222", temDetailImgPaths.value);
       };
       const bannerListUrl = vue.ref([]);
       const upLoadBannerImg = async (shop) => {
         for (let i2 = 0; i2 < temBannerImgPaths.value.length; i2++) {
           const url = await uploadImage(temBannerImgPaths.value[i2]);
-          await uploadShopImg(url, "banner", shop);
+          await uploadShopImg({ image_url: url, image_type: "banner" });
           bannerListUrl.value.push(url);
         }
       };
@@ -7874,15 +10290,15 @@ ${i3}
       const upLoadDetailImg = async (shop) => {
         for (let i2 = 0; i2 < temDetailImgPaths.value.length; i2++) {
           const url = await uploadImage(temDetailImgPaths.value[i2]);
-          await uploadShopImg(url, "avatar", shop);
+          await uploadShopImg({ image_url: url, image_type: "other" });
           detailListUrl.value.push(url);
         }
       };
       const profileUrl = vue.ref("");
       const uploadProfileImg = async () => {
-        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:222", temProfileImgPaths.value[0]);
+        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:251", temProfileImgPaths.value[0]);
         const url = await uploadImage(temProfileImgPaths.value[0]);
-        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:224", url);
+        formatAppLog("log", "at pages/merchant/merchant_set_info.vue:253", url);
         profileUrl.value = url;
       };
       const lat = vue.ref("");
@@ -7905,7 +10321,7 @@ ${i3}
           });
         formatAppLog(
           "log",
-          "at pages/merchant/merchant_set_info.vue:252",
+          "at pages/merchant/merchant_set_info.vue:281",
           !shopName.value,
           !address.value,
           !shopIntro.value,
@@ -7915,7 +10331,7 @@ ${i3}
         );
         formatAppLog(
           "log",
-          "at pages/merchant/merchant_set_info.vue:259",
+          "at pages/merchant/merchant_set_info.vue:288",
           shopIntro.value,
           shopName.value,
           address.value,
@@ -7933,16 +10349,14 @@ ${i3}
           uni.showLoading({
             title: "正在入驻中..."
           });
-          const cityDetail = await getCitiesDetail();
-          const { location: location2 } = await uni.getStorageSync("address_info");
+          const phoneNumber = uni.getStorageSync("phoneNumber");
+          formatAppLog("log", "at pages/merchant/merchant_set_info.vue:317", "-----");
           await uploadProfileImg();
-          formatAppLog("log", "at pages/merchant/merchant_set_info.vue:287", "-----");
-          formatAppLog("log", "at pages/merchant/merchant_set_info.vue:288", shopName.value, shopIntro.value, [businessRange.value], profileUrl.value, address.value, location2.lat, location2.lng, cityDetail[0].id);
-          const res = await postMerchantSettleIn(shopName.value, shopIntro.value, [businessRange.value], profileUrl.value, address.value, location2.lat, location2.lng, cityDetail[0].id);
-          formatAppLog("log", "at pages/merchant/merchant_set_info.vue:290", "-----!!!", res);
+          formatAppLog("log", "at pages/merchant/merchant_set_info.vue:319", { merchant: phoneNumber, categories: [businessRange.value], city: selectedCity.value, name: shopName.value, description: shopIntro.value, avatar: profileUrl.value || "https://example.com/image.png", address: address.value });
+          const res = await postMerchantSettleIn({ merchant: phoneNumber, categories: [businessRange.value], city: selectedCity.value, name: shopName.value, description: shopIntro.value, avatar: profileUrl.value, address: address.value });
+          formatAppLog("log", "at pages/merchant/merchant_set_info.vue:322", "-----!!!", res);
           await upLoadDetailImg(res == null ? void 0 : res.id);
           await upLoadBannerImg(res == null ? void 0 : res.id);
-          await userStore.fetchAllDataAction();
           uni.hideLoading();
           uni.showToast({
             title: "入驻成功",
@@ -7955,11 +10369,11 @@ ${i3}
             });
           }, 700);
         } catch (e2) {
-          formatAppLog("log", "at pages/merchant/merchant_set_info.vue:312", e2);
+          formatAppLog("log", "at pages/merchant/merchant_set_info.vue:343", e2);
           uni.showToast({
             title: "出现错误",
             duration: 1e3,
-            icon: "fail"
+            icon: "error"
           });
         }
       };
@@ -7967,22 +10381,23 @@ ${i3}
         const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
         const _component_upload = resolveEasycom(vue.resolveDynamicComponent("upload"), __easycom_2$5);
         const _component_uni_data_select = resolveEasycom(vue.resolveDynamicComponent("uni-data-select"), __easycom_1$3);
+        const _component_uni_data_picker = resolveEasycom(vue.resolveDynamicComponent("uni-data-picker"), __easycom_2$4);
         return vue.openBlock(), vue.createElementBlock("view", null, [
-          vue.createVNode(_component_navBar, { title: "商家入驻" }),
+          vue.createVNode(_component_navBar, { title: "店铺开通" }),
           vue.createElementVNode("view", { class: "content" }, [
             vue.createElementVNode("view", {
               class: "head_box flex_between",
               style: { "align-items": "flex-start" }
             }, [
               vue.createElementVNode("view", { class: "" }, [
-                vue.createElementVNode("view", { class: "h_title" }, " 商家头像（200*200） "),
+                vue.createElementVNode("view", { class: "h_title" }, " 店铺头像 "),
                 vue.createElementVNode("view", {
                   class: "h_text",
                   style: { "margin-top": "42rpx" }
                 }, " 可上传店铺照片或LOGO ")
               ]),
               vue.createVNode(_component_upload, {
-                amount: 1,
+                amount: "1",
                 onTempImgPaths: acceptTempProfileImgPath
               })
             ]),
@@ -7991,7 +10406,7 @@ ${i3}
                 class: "flex_between",
                 style: { "margin-bottom": "54rpx" }
               }, [
-                vue.createElementVNode("view", { class: "h_title" }, " 商家轮播图（750*340） "),
+                vue.createElementVNode("view", { class: "h_title" }, " 店铺轮播图 "),
                 vue.createElementVNode(
                   "view",
                   { class: "h_text" },
@@ -8010,12 +10425,12 @@ ${i3}
                 vue.createElementVNode("view", {
                   class: "h_title",
                   style: { "margin-bottom": "34rpx" }
-                }, " 企业介绍 "),
+                }, " 店铺介绍 "),
                 vue.withDirectives(vue.createElementVNode(
                   "textarea",
                   {
                     "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => shopIntro.value = $event),
-                    placeholder: "请输入商家介绍",
+                    placeholder: "请输入店铺介绍",
                     style: { "width": "100%", "height": "146rpx" },
                     "placeholder-style": "font-size: 24rpx;color:#aaaaaa;"
                   },
@@ -8030,7 +10445,7 @@ ${i3}
                 class: "flex_between",
                 style: { "margin-bottom": "54rpx" }
               }, [
-                vue.createElementVNode("view", { class: "h_title" }, " 商家详情图（750*340） "),
+                vue.createElementVNode("view", { class: "h_title" }, " 店铺详情图） "),
                 vue.createElementVNode(
                   "view",
                   { class: "h_text" },
@@ -8040,13 +10455,13 @@ ${i3}
                 )
               ]),
               vue.createVNode(_component_upload, {
-                amount: 6,
+                amount: "6",
                 onTempImgPaths: acceptTempDetailImgPath
               })
             ]),
             vue.createElementVNode("view", { class: "shop_info" }, [
               vue.createElementVNode("view", { class: "info_item flex_between" }, [
-                vue.createElementVNode("view", { class: "s_title" }, " 商家名称 "),
+                vue.createElementVNode("view", { class: "s_title" }, " 店铺名称 "),
                 vue.withDirectives(vue.createElementVNode(
                   "input",
                   {
@@ -8074,30 +10489,28 @@ ${i3}
                   onChange: changeRange
                 }, null, 8, ["modelValue", "localdata"])
               ]),
-              vue.createElementVNode("view", { class: "info_item flex_between" }, [
-                vue.createElementVNode("view", { class: "s_title" }, " 手机验证 "),
-                vue.withDirectives(vue.createElementVNode(
-                  "input",
-                  {
-                    "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => code.value = $event),
-                    class: "uni-input",
-                    placeholder: "请输入验证码",
-                    "placeholder-class": "placeholder_class"
-                  },
-                  null,
-                  512
-                  /* NEED_PATCH */
-                ), [
-                  [vue.vModelText, code.value]
-                ]),
-                vue.createElementVNode("view", { class: "validate_code" }, " 获取验证码 ")
+              vue.createElementVNode("view", {
+                class: "info_item flex_between",
+                style: { "flex": "1" }
+              }, [
+                vue.createElementVNode("view", {
+                  class: "title",
+                  style: { "margin-right": "45rpx" }
+                }, " 常居地 "),
+                vue.createVNode(_component_uni_data_picker, {
+                  localdata: cityData.value,
+                  "clear-icon": false,
+                  mode: "region",
+                  onChange,
+                  title: "请选择省市"
+                }, null, 8, ["localdata"])
               ]),
               vue.createElementVNode("view", { class: "info_item flex_between" }, [
                 vue.createElementVNode("view", { class: "s_title" }, " 具体位置 "),
                 vue.withDirectives(vue.createElementVNode(
                   "input",
                   {
-                    "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => address.value = $event),
+                    "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => address.value = $event),
                     class: "uni-input",
                     placeholder: "输入地址或点击地图选择",
                     "placeholder-class": "placeholder_class"
@@ -8137,32 +10550,44 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantSetInfo = /* @__PURE__ */ _export_sfc(_sfc_main$Z, [["__scopeId", "data-v-34ea46dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_set_info.vue"]]);
+  const PagesMerchantMerchantSetInfo = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["__scopeId", "data-v-34ea46dc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_set_info.vue"]]);
   const _imports_0$c = "/static/success.jpg";
-  const _sfc_main$Y = {};
-  function _sfc_render$i(_ctx, _cache) {
-    const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
-    return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
-      vue.createVNode(_component_navBar, { title: "商家入驻" }),
-      vue.createElementVNode("view", { class: "img-box" }, [
-        vue.createElementVNode("image", {
-          class: "img",
-          src: _imports_0$c,
-          mode: "aspectFit"
-        })
-      ]),
-      vue.createElementVNode("view", { class: "text-box" }, [
-        vue.createElementVNode("view", { class: "text" }, "恭喜你，已经成为满仓商家！")
-      ]),
-      vue.createElementVNode("view", { class: "buttom-box" }, [
-        vue.createElementVNode("view", { class: "buttom" }, "创建店铺")
-      ])
-    ]);
-  }
-  const PagesMerchantBeforeCreateShop = /* @__PURE__ */ _export_sfc(_sfc_main$Y, [["render", _sfc_render$i], ["__scopeId", "data-v-cf075c43"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/before_create_shop.vue"]]);
+  const _sfc_main$V = {
+    __name: "before_create_shop",
+    setup(__props) {
+      const toCreateShop = async () => {
+        uni.navigateTo({
+          url: "merchant_set_info"
+        });
+      };
+      return (_ctx, _cache) => {
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
+        return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
+          vue.createVNode(_component_navBar, { title: "商家入驻" }),
+          vue.createElementVNode("view", { class: "img-box" }, [
+            vue.createElementVNode("image", {
+              class: "img",
+              src: _imports_0$c,
+              mode: "aspectFit"
+            })
+          ]),
+          vue.createElementVNode("view", { class: "text-box" }, [
+            vue.createElementVNode("view", { class: "text" }, "恭喜你，已经成为满仓商家！")
+          ]),
+          vue.createElementVNode("view", { class: "buttom-box" }, [
+            vue.createElementVNode("view", {
+              class: "buttom",
+              onClick: toCreateShop
+            }, "创建店铺")
+          ])
+        ]);
+      };
+    }
+  };
+  const PagesMerchantBeforeCreateShop = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["__scopeId", "data-v-cf075c43"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/before_create_shop.vue"]]);
   const _imports_0$b = "/static/star.png";
   const _imports_0$a = "/static/arrow-right.png";
-  const _sfc_main$X = {
+  const _sfc_main$U = {
     __name: "merchant_management",
     setup(__props) {
       const userStore = useUserStore();
@@ -8283,9 +10708,9 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantManagement = /* @__PURE__ */ _export_sfc(_sfc_main$X, [["__scopeId", "data-v-a81a7219"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_management.vue"]]);
-  const _sfc_main$W = {};
-  function _sfc_render$h(_ctx, _cache) {
+  const PagesMerchantMerchantManagement = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["__scopeId", "data-v-a81a7219"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_management.vue"]]);
+  const _sfc_main$T = {};
+  function _sfc_render$e(_ctx, _cache) {
     const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
     return vue.openBlock(), vue.createElementBlock("view", { class: "page" }, [
       vue.createVNode(_component_navBar, { title: "推荐官" }),
@@ -8301,8 +10726,8 @@ ${i3}
       ])
     ]);
   }
-  const PagesRecommendBeforeCreateRecommend = /* @__PURE__ */ _export_sfc(_sfc_main$W, [["render", _sfc_render$h], ["__scopeId", "data-v-3e5f301f"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/before_create_recommend.vue"]]);
-  const _sfc_main$V = {
+  const PagesRecommendBeforeCreateRecommend = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["render", _sfc_render$e], ["__scopeId", "data-v-3e5f301f"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/before_create_recommend.vue"]]);
+  const _sfc_main$S = {
     __name: "merchant_edit_info",
     setup(__props) {
       const publicStore = usePublicStore();
@@ -8391,7 +10816,7 @@ ${i3}
           uni.showLoading({
             title: "正在保存中..."
           });
-          const cityDetail = await getCitiesDetail();
+          const cityDetail = await getCitiesDetail("广州");
           const { location: location2 } = await uni.getStorageSync("address_info");
           await uploadProfileImg();
           formatAppLog("log", "at pages/merchant/merchant_edit_info.vue:281", "-----");
@@ -8546,7 +10971,7 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantEditInfo = /* @__PURE__ */ _export_sfc(_sfc_main$V, [["__scopeId", "data-v-aaffa612"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_edit_info.vue"]]);
+  const PagesMerchantMerchantEditInfo = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["__scopeId", "data-v-aaffa612"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_edit_info.vue"]]);
   const bindPointAccount = async (data) => {
     return http.post("/wallets/wallet/bind/points/account/", data);
   };
@@ -8565,7 +10990,7 @@ ${i3}
   const getPointBindedAccount = async () => {
     return http.get("/wallets/");
   };
-  const _sfc_main$U = {
+  const _sfc_main$R = {
     __name: "point_gift",
     setup(__props) {
       const totalPoints = vue.ref(0);
@@ -8711,8 +11136,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantPointGift = /* @__PURE__ */ _export_sfc(_sfc_main$U, [["__scopeId", "data-v-976eb3a4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/point_gift.vue"]]);
-  const _sfc_main$T = {
+  const PagesMerchantPointGift = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["__scopeId", "data-v-976eb3a4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/point_gift.vue"]]);
+  const _sfc_main$Q = {
     __name: "merchant_code_authentication",
     setup(__props) {
       const address = vue.ref("");
@@ -8765,8 +11190,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$T, [["__scopeId", "data-v-0f661089"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_code_authentication.vue"]]);
-  const _sfc_main$S = {
+  const PagesMerchantMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["__scopeId", "data-v-0f661089"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_code_authentication.vue"]]);
+  const _sfc_main$P = {
     __name: "security_deposit",
     setup(__props) {
       const toRecord = () => {
@@ -8830,9 +11255,9 @@ ${i3}
       };
     }
   };
-  const PagesMerchantSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$S, [["__scopeId", "data-v-3efa2ea6"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/security_deposit.vue"]]);
+  const PagesMerchantSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["__scopeId", "data-v-3efa2ea6"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/security_deposit.vue"]]);
   const ComponentClass$1 = "uni-col";
-  const _sfc_main$R = {
+  const _sfc_main$O = {
     name: "uniCol",
     props: {
       span: {
@@ -8936,7 +11361,7 @@ ${i3}
       }
     }
   };
-  function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -8953,10 +11378,10 @@ ${i3}
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1$2 = /* @__PURE__ */ _export_sfc(_sfc_main$R, [["render", _sfc_render$g], ["__scopeId", "data-v-28ff6624"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
+  const __easycom_1$2 = /* @__PURE__ */ _export_sfc(_sfc_main$O, [["render", _sfc_render$d], ["__scopeId", "data-v-28ff6624"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-col/uni-col.vue"]]);
   const ComponentClass = "uni-row";
   const modifierSeparator = "--";
-  const _sfc_main$Q = {
+  const _sfc_main$N = {
     name: "uniRow",
     componentName: "uniRow",
     props: {
@@ -8996,7 +11421,7 @@ ${i3}
       }
     }
   };
-  function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -9013,192 +11438,7 @@ ${i3}
       /* CLASS, STYLE */
     );
   }
-  const __easycom_2$4 = /* @__PURE__ */ _export_sfc(_sfc_main$Q, [["render", _sfc_render$f], ["__scopeId", "data-v-097353af"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
-  const en$1 = {
-    "uni-load-more.contentdown": "Pull up to show more",
-    "uni-load-more.contentrefresh": "loading...",
-    "uni-load-more.contentnomore": "No more data"
-  };
-  const zhHans$1 = {
-    "uni-load-more.contentdown": "上拉显示更多",
-    "uni-load-more.contentrefresh": "正在加载...",
-    "uni-load-more.contentnomore": "没有更多数据了"
-  };
-  const zhHant$1 = {
-    "uni-load-more.contentdown": "上拉顯示更多",
-    "uni-load-more.contentrefresh": "正在加載...",
-    "uni-load-more.contentnomore": "沒有更多數據了"
-  };
-  const messages = {
-    en: en$1,
-    "zh-Hans": zhHans$1,
-    "zh-Hant": zhHant$1
-  };
-  let platform;
-  setTimeout(() => {
-    platform = uni.getSystemInfoSync().platform;
-  }, 16);
-  const {
-    t: t$2
-  } = initVueI18n(messages);
-  const _sfc_main$P = {
-    name: "UniLoadMore",
-    emits: ["clickLoadMore"],
-    props: {
-      status: {
-        // 上拉的状态：more-loading前；loading-loading中；noMore-没有更多了
-        type: String,
-        default: "more"
-      },
-      showIcon: {
-        type: Boolean,
-        default: true
-      },
-      iconType: {
-        type: String,
-        default: "auto"
-      },
-      iconSize: {
-        type: Number,
-        default: 24
-      },
-      color: {
-        type: String,
-        default: "#777777"
-      },
-      contentText: {
-        type: Object,
-        default() {
-          return {
-            contentdown: "",
-            contentrefresh: "",
-            contentnomore: ""
-          };
-        }
-      },
-      showText: {
-        type: Boolean,
-        default: true
-      }
-    },
-    data() {
-      return {
-        webviewHide: false,
-        platform,
-        imgBase64: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzlBMzU3OTlEOUM0MTFFOUI0NTZDNERBQURBQzI4RkUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzlBMzU3OUFEOUM0MTFFOUI0NTZDNERBQURBQzI4RkUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDOUEzNTc5N0Q5QzQxMUU5QjQ1NkM0REFBREFDMjhGRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDOUEzNTc5OEQ5QzQxMUU5QjQ1NkM0REFBREFDMjhGRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pt+ALSwAAA6CSURBVHja1FsLkFZV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"
-      };
-    },
-    computed: {
-      iconSnowWidth() {
-        return (Math.floor(this.iconSize / 24) || 1) * 2;
-      },
-      contentdownText() {
-        return this.contentText.contentdown || t$2("uni-load-more.contentdown");
-      },
-      contentrefreshText() {
-        return this.contentText.contentrefresh || t$2("uni-load-more.contentrefresh");
-      },
-      contentnomoreText() {
-        return this.contentText.contentnomore || t$2("uni-load-more.contentnomore");
-      }
-    },
-    mounted() {
-      var pages2 = getCurrentPages();
-      var page = pages2[pages2.length - 1];
-      var currentWebview = page.$getAppWebview();
-      currentWebview.addEventListener("hide", () => {
-        this.webviewHide = true;
-      });
-      currentWebview.addEventListener("show", () => {
-        this.webviewHide = false;
-      });
-    },
-    methods: {
-      onClick() {
-        this.$emit("clickLoadMore", {
-          detail: {
-            status: this.status
-          }
-        });
-      }
-    }
-  };
-  function _sfc_render$e(_ctx, _cache, $props, $setup, $data, $options) {
-    return vue.openBlock(), vue.createElementBlock("view", {
-      class: "uni-load-more",
-      onClick: _cache[0] || (_cache[0] = (...args) => $options.onClick && $options.onClick(...args))
-    }, [
-      !$data.webviewHide && ($props.iconType === "circle" || $props.iconType === "auto" && $data.platform === "android") && $props.status === "loading" && $props.showIcon ? (vue.openBlock(), vue.createElementBlock(
-        "view",
-        {
-          key: 0,
-          style: vue.normalizeStyle({ width: $props.iconSize + "px", height: $props.iconSize + "px" }),
-          class: "uni-load-more__img uni-load-more__img--android-MP"
-        },
-        [
-          vue.createElementVNode(
-            "view",
-            {
-              class: "uni-load-more__img-icon",
-              style: vue.normalizeStyle({ borderTopColor: $props.color, borderTopWidth: $props.iconSize / 12 })
-            },
-            null,
-            4
-            /* STYLE */
-          ),
-          vue.createElementVNode(
-            "view",
-            {
-              class: "uni-load-more__img-icon",
-              style: vue.normalizeStyle({ borderTopColor: $props.color, borderTopWidth: $props.iconSize / 12 })
-            },
-            null,
-            4
-            /* STYLE */
-          ),
-          vue.createElementVNode(
-            "view",
-            {
-              class: "uni-load-more__img-icon",
-              style: vue.normalizeStyle({ borderTopColor: $props.color, borderTopWidth: $props.iconSize / 12 })
-            },
-            null,
-            4
-            /* STYLE */
-          )
-        ],
-        4
-        /* STYLE */
-      )) : !$data.webviewHide && $props.status === "loading" && $props.showIcon ? (vue.openBlock(), vue.createElementBlock(
-        "view",
-        {
-          key: 1,
-          style: vue.normalizeStyle({ width: $props.iconSize + "px", height: $props.iconSize + "px" }),
-          class: "uni-load-more__img uni-load-more__img--ios-H5"
-        },
-        [
-          vue.createElementVNode("image", {
-            src: $data.imgBase64,
-            mode: "widthFix"
-          }, null, 8, ["src"])
-        ],
-        4
-        /* STYLE */
-      )) : vue.createCommentVNode("v-if", true),
-      $props.showText ? (vue.openBlock(), vue.createElementBlock(
-        "text",
-        {
-          key: 2,
-          class: "uni-load-more__text",
-          style: vue.normalizeStyle({ color: $props.color })
-        },
-        vue.toDisplayString($props.status === "more" ? $options.contentdownText : $props.status === "loading" ? $options.contentrefreshText : $options.contentnomoreText),
-        5
-        /* TEXT, STYLE */
-      )) : vue.createCommentVNode("v-if", true)
-    ]);
-  }
-  const __easycom_3$1 = /* @__PURE__ */ _export_sfc(_sfc_main$P, [["render", _sfc_render$e], ["__scopeId", "data-v-9245e42c"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-load-more/components/uni-load-more/uni-load-more.vue"]]);
+  const __easycom_2$3 = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["render", _sfc_render$c], ["__scopeId", "data-v-097353af"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-row/components/uni-row/uni-row.vue"]]);
   const addDeposit = (data) => {
     return http.post("/wallets/add/collateral/", data);
   };
@@ -9208,7 +11448,7 @@ ${i3}
   const getRecords = (data) => {
     return http.get("/wallets/transactions/", data);
   };
-  const _sfc_main$O = {
+  const _sfc_main$M = {
     __name: "deposit_record",
     setup(__props) {
       vue.onMounted(() => {
@@ -9232,7 +11472,7 @@ ${i3}
       return (_ctx, _cache) => {
         const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
         const _component_uni_col = resolveEasycom(vue.resolveDynamicComponent("uni-col"), __easycom_1$2);
-        const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$4);
+        const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$3);
         const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_3$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "保证金记录" }),
@@ -9389,8 +11629,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantDepositRecord = /* @__PURE__ */ _export_sfc(_sfc_main$O, [["__scopeId", "data-v-d6fe0577"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/deposit_record.vue"]]);
-  const _sfc_main$N = {
+  const PagesMerchantDepositRecord = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["__scopeId", "data-v-d6fe0577"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/deposit_record.vue"]]);
+  const _sfc_main$L = {
     __name: "add_deposit",
     setup(__props) {
       const address = vue.ref("");
@@ -9517,8 +11757,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantAddDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$N, [["__scopeId", "data-v-4a198a90"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/add_deposit.vue"]]);
-  const _sfc_main$M = {
+  const PagesMerchantAddDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["__scopeId", "data-v-4a198a90"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/add_deposit.vue"]]);
+  const _sfc_main$K = {
     __name: "remove_deposit",
     setup(__props) {
       vue.onMounted(() => {
@@ -9643,8 +11883,8 @@ ${i3}
       };
     }
   };
-  const PagesMerchantRemoveDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$M, [["__scopeId", "data-v-930acddc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/remove_deposit.vue"]]);
-  const _sfc_main$L = {
+  const PagesMerchantRemoveDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$K, [["__scopeId", "data-v-930acddc"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/remove_deposit.vue"]]);
+  const _sfc_main$J = {
     __name: "upload_goods",
     setup(__props) {
       const shopIntro = vue.ref("");
@@ -9795,10 +12035,10 @@ ${i3}
       };
     }
   };
-  const PagesMerchantUploadGoods = /* @__PURE__ */ _export_sfc(_sfc_main$L, [["__scopeId", "data-v-452b451b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/upload_goods.vue"]]);
+  const PagesMerchantUploadGoods = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["__scopeId", "data-v-452b451b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/upload_goods.vue"]]);
   const _imports_0$9 = "/static/agent/agent-intro.jpg";
-  const _sfc_main$K = {};
-  function _sfc_render$d(_ctx, _cache) {
+  const _sfc_main$I = {};
+  function _sfc_render$b(_ctx, _cache) {
     const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
     return vue.openBlock(), vue.createElementBlock("view", null, [
       vue.createVNode(_component_navBar, { title: "代理" }),
@@ -9812,7 +12052,7 @@ ${i3}
       ])
     ]);
   }
-  const PagesAgentAgentIntro = /* @__PURE__ */ _export_sfc(_sfc_main$K, [["render", _sfc_render$d], ["__scopeId", "data-v-4d11c0d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_intro.vue"]]);
+  const PagesAgentAgentIntro = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["render", _sfc_render$b], ["__scopeId", "data-v-4d11c0d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_intro.vue"]]);
   const _imports_0$8 = "/static/agent/agent-bg.png";
   const getAgentShopList = async (id, data) => {
     return http.get(`/divisions/merchants/province/${id}/list/`, data);
@@ -9823,7 +12063,7 @@ ${i3}
   const getProvinceId = async () => {
     return http.get("/agent/province/");
   };
-  const _sfc_main$J = {
+  const _sfc_main$H = {
     __name: "agent_management",
     setup(__props) {
       const provinceId = vue.ref();
@@ -9967,9 +12207,9 @@ ${i3}
       };
     }
   };
-  const PagesAgentAgentManagement = /* @__PURE__ */ _export_sfc(_sfc_main$J, [["__scopeId", "data-v-aa1b4823"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_management.vue"]]);
+  const PagesAgentAgentManagement = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["__scopeId", "data-v-aa1b4823"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/agent_management.vue"]]);
   const _imports_0$7 = "/static/recommend/recommend-intro.jpg";
-  const _sfc_main$I = {
+  const _sfc_main$G = {
     __name: "recommend_intro",
     setup(__props) {
       const toNext = () => {
@@ -9997,11 +12237,11 @@ ${i3}
       };
     }
   };
-  const PagesRecommendRecommendIntro = /* @__PURE__ */ _export_sfc(_sfc_main$I, [["__scopeId", "data-v-87fd30d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_intro.vue"]]);
+  const PagesRecommendRecommendIntro = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["__scopeId", "data-v-87fd30d1"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_intro.vue"]]);
   const _imports_0$6 = "/static/recommend/recommend_bg.png";
   const _imports_1$5 = "/static/recommend/lv1.png";
   const _imports_2$2 = "/static/recommend/code.png";
-  const _sfc_main$H = {
+  const _sfc_main$F = {
     __name: "recommend_management",
     setup(__props) {
       const info2 = vue.ref({});
@@ -10120,7 +12360,7 @@ ${i3}
       };
     }
   };
-  const PagesRecommendRecommendManagement = /* @__PURE__ */ _export_sfc(_sfc_main$H, [["__scopeId", "data-v-6eb3b4f4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_management.vue"]]);
+  const PagesRecommendRecommendManagement = /* @__PURE__ */ _export_sfc(_sfc_main$F, [["__scopeId", "data-v-6eb3b4f4"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/recommend_management.vue"]]);
   var browser = {};
   var canPromise$1 = function() {
     return typeof Promise === "function" && Promise.prototype && Promise.prototype.then;
@@ -12108,7 +14348,7 @@ ${i3}
   browser.toString = renderCanvas.bind(null, function(data, _2, opts) {
     return SvgRenderer.render(data, opts);
   });
-  const _sfc_main$G = {
+  const _sfc_main$E = {
     __name: "qrcodeDetail",
     setup(__props) {
       const qrcode2 = vue.ref("");
@@ -12147,8 +14387,8 @@ ${i3}
       };
     }
   };
-  const PagesRecommendQrcodeDetail = /* @__PURE__ */ _export_sfc(_sfc_main$G, [["__scopeId", "data-v-49865422"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/qrcodeDetail.vue"]]);
-  const _sfc_main$F = {
+  const PagesRecommendQrcodeDetail = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["__scopeId", "data-v-49865422"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/qrcodeDetail.vue"]]);
+  const _sfc_main$D = {
     __name: "shopList",
     props: {
       sort: {
@@ -12264,11 +14504,11 @@ ${i3}
       };
     }
   };
-  const __easycom_1$1 = /* @__PURE__ */ _export_sfc(_sfc_main$F, [["__scopeId", "data-v-69f4d838"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/shopList/shopList.vue"]]);
+  const __easycom_1$1 = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["__scopeId", "data-v-69f4d838"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/shopList/shopList.vue"]]);
   const _imports_0$5 = "/static/category.png";
   const _imports_1$4 = "/static/arrow-active.png";
   const _imports_2$1 = "/static/arrow-inactive.png";
-  const _sfc_main$E = {
+  const _sfc_main$C = {
     __name: "all_merchant",
     setup(__props) {
       const publicStore = usePublicStore();
@@ -12371,100 +14611,100 @@ ${i3}
       };
     }
   };
-  const PagesMerchantAllMerchant = /* @__PURE__ */ _export_sfc(_sfc_main$E, [["__scopeId", "data-v-2d911691"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/all_merchant.vue"]]);
-  const _sfc_main$D = {
-    __name: "merchant_code_authentication",
-    setup(__props) {
-      const address = vue.ref("");
-      const isChecked = vue.ref(false);
-      const confirm = () => {
-        if (!isChecked.value)
-          return uni.showToast({
-            icon: "none",
-            title: "请阅读完须知后勾选同意"
-          });
-      };
-      return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
-        return vue.openBlock(), vue.createElementBlock("view", null, [
-          vue.createVNode(_component_navBar, { title: "商家码认证" }),
-          vue.createElementVNode("view", { class: "content" }, [
-            vue.createElementVNode("view", { class: "shop_info" }, [
-              vue.createElementVNode("view", { class: "info_item flex_between" }, [
-                vue.createElementVNode("view", { class: "s_title" }, " 商家码地址 "),
-                vue.withDirectives(vue.createElementVNode(
-                  "input",
-                  {
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => address.value = $event),
-                    class: "uni-input",
-                    placeholder: "请输入商家码地址",
-                    "placeholder-class": "placeholder_class"
-                  },
-                  null,
-                  512
-                  /* NEED_PATCH */
-                ), [
-                  [vue.vModelText, address.value]
-                ])
-              ])
-            ]),
-            vue.createElementVNode("view", {
-              class: "btn_full",
-              onClick: confirm
-            }, " 认证 ")
-          ])
-        ]);
-      };
-    }
-  };
-  const PagesAgentMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$D, [["__scopeId", "data-v-954048b2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/merchant_code_authentication.vue"]]);
-  const _sfc_main$C = {
-    __name: "merchant_code_authentication",
-    setup(__props) {
-      const address = vue.ref("");
-      const isChecked = vue.ref(false);
-      const confirm = () => {
-        if (!isChecked.value)
-          return uni.showToast({
-            icon: "none",
-            title: "请阅读完须知后勾选同意"
-          });
-      };
-      return (_ctx, _cache) => {
-        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
-        return vue.openBlock(), vue.createElementBlock("view", null, [
-          vue.createVNode(_component_navBar, { title: "商家码认证" }),
-          vue.createElementVNode("view", { class: "content" }, [
-            vue.createElementVNode("view", { class: "shop_info" }, [
-              vue.createElementVNode("view", { class: "info_item flex_between" }, [
-                vue.createElementVNode("view", { class: "s_title" }, " 商家码地址 "),
-                vue.withDirectives(vue.createElementVNode(
-                  "input",
-                  {
-                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => address.value = $event),
-                    class: "uni-input",
-                    placeholder: "请输入商家码地址",
-                    "placeholder-class": "placeholder_class"
-                  },
-                  null,
-                  512
-                  /* NEED_PATCH */
-                ), [
-                  [vue.vModelText, address.value]
-                ])
-              ])
-            ]),
-            vue.createElementVNode("view", {
-              class: "btn_full",
-              onClick: confirm
-            }, " 认证 ")
-          ])
-        ]);
-      };
-    }
-  };
-  const PagesRecommendMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$C, [["__scopeId", "data-v-c32e0b38"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/merchant_code_authentication.vue"]]);
+  const PagesMerchantAllMerchant = /* @__PURE__ */ _export_sfc(_sfc_main$C, [["__scopeId", "data-v-2d911691"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/all_merchant.vue"]]);
   const _sfc_main$B = {
+    __name: "merchant_code_authentication",
+    setup(__props) {
+      const address = vue.ref("");
+      const isChecked = vue.ref(false);
+      const confirm = () => {
+        if (!isChecked.value)
+          return uni.showToast({
+            icon: "none",
+            title: "请阅读完须知后勾选同意"
+          });
+      };
+      return (_ctx, _cache) => {
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
+        return vue.openBlock(), vue.createElementBlock("view", null, [
+          vue.createVNode(_component_navBar, { title: "商家码认证" }),
+          vue.createElementVNode("view", { class: "content" }, [
+            vue.createElementVNode("view", { class: "shop_info" }, [
+              vue.createElementVNode("view", { class: "info_item flex_between" }, [
+                vue.createElementVNode("view", { class: "s_title" }, " 商家码地址 "),
+                vue.withDirectives(vue.createElementVNode(
+                  "input",
+                  {
+                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => address.value = $event),
+                    class: "uni-input",
+                    placeholder: "请输入商家码地址",
+                    "placeholder-class": "placeholder_class"
+                  },
+                  null,
+                  512
+                  /* NEED_PATCH */
+                ), [
+                  [vue.vModelText, address.value]
+                ])
+              ])
+            ]),
+            vue.createElementVNode("view", {
+              class: "btn_full",
+              onClick: confirm
+            }, " 认证 ")
+          ])
+        ]);
+      };
+    }
+  };
+  const PagesAgentMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["__scopeId", "data-v-954048b2"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/merchant_code_authentication.vue"]]);
+  const _sfc_main$A = {
+    __name: "merchant_code_authentication",
+    setup(__props) {
+      const address = vue.ref("");
+      const isChecked = vue.ref(false);
+      const confirm = () => {
+        if (!isChecked.value)
+          return uni.showToast({
+            icon: "none",
+            title: "请阅读完须知后勾选同意"
+          });
+      };
+      return (_ctx, _cache) => {
+        const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
+        return vue.openBlock(), vue.createElementBlock("view", null, [
+          vue.createVNode(_component_navBar, { title: "商家码认证" }),
+          vue.createElementVNode("view", { class: "content" }, [
+            vue.createElementVNode("view", { class: "shop_info" }, [
+              vue.createElementVNode("view", { class: "info_item flex_between" }, [
+                vue.createElementVNode("view", { class: "s_title" }, " 商家码地址 "),
+                vue.withDirectives(vue.createElementVNode(
+                  "input",
+                  {
+                    "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => address.value = $event),
+                    class: "uni-input",
+                    placeholder: "请输入商家码地址",
+                    "placeholder-class": "placeholder_class"
+                  },
+                  null,
+                  512
+                  /* NEED_PATCH */
+                ), [
+                  [vue.vModelText, address.value]
+                ])
+              ])
+            ]),
+            vue.createElementVNode("view", {
+              class: "btn_full",
+              onClick: confirm
+            }, " 认证 ")
+          ])
+        ]);
+      };
+    }
+  };
+  const PagesRecommendMerchantCodeAuthentication = /* @__PURE__ */ _export_sfc(_sfc_main$A, [["__scopeId", "data-v-c32e0b38"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/merchant_code_authentication.vue"]]);
+  const _sfc_main$z = {
     __name: "security_deposit",
     setup(__props) {
       const toRecord = () => {
@@ -12517,8 +14757,8 @@ ${i3}
       };
     }
   };
-  const PagesRecommendSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$B, [["__scopeId", "data-v-f039c67b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/security_deposit.vue"]]);
-  const _sfc_main$A = {
+  const PagesRecommendSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["__scopeId", "data-v-f039c67b"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/recommend/security_deposit.vue"]]);
+  const _sfc_main$y = {
     __name: "security_deposit",
     setup(__props) {
       const toRecord = () => {
@@ -12571,7 +14811,7 @@ ${i3}
       };
     }
   };
-  const PagesAgentSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$A, [["__scopeId", "data-v-151545ee"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/security_deposit.vue"]]);
+  const PagesAgentSecurityDeposit = /* @__PURE__ */ _export_sfc(_sfc_main$y, [["__scopeId", "data-v-151545ee"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/agent/security_deposit.vue"]]);
   const _imports_0$4 = "/static/my/bg_my.png";
   const _imports_1$3 = "/static/my/my_credits.png";
   const _imports_2 = "/static/my/available_credits.png";
@@ -12584,7 +14824,7 @@ ${i3}
   const _imports_10 = "/static/my/service.png";
   const _imports_11 = "/static/my/settle.png";
   const _imports_12 = "/static/my/entrance.png";
-  const _sfc_main$z = {
+  const _sfc_main$x = {
     __name: "myAccount",
     setup(__props) {
       useUserStore();
@@ -12821,8 +15061,8 @@ ${i3}
       };
     }
   };
-  const PagesMyAccountMyAccount = /* @__PURE__ */ _export_sfc(_sfc_main$z, [["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/myAccount.vue"]]);
-  const _sfc_main$y = {
+  const PagesMyAccountMyAccount = /* @__PURE__ */ _export_sfc(_sfc_main$x, [["__file", "/Users/daily/Desktop/d9/money_celestial/pages/myAccount/myAccount.vue"]]);
+  const _sfc_main$w = {
     name: "UniSegmentedControl",
     emits: ["clickItem"],
     props: {
@@ -12876,7 +15116,7 @@ ${i3}
       }
     }
   };
-  function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(
       "view",
       {
@@ -12920,8 +15160,8 @@ ${i3}
       /* CLASS, STYLE */
     );
   }
-  const __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$y, [["render", _sfc_render$c], ["__scopeId", "data-v-86aa1171"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue"]]);
-  const _sfc_main$x = {
+  const __easycom_1 = /* @__PURE__ */ _export_sfc(_sfc_main$w, [["render", _sfc_render$a], ["__scopeId", "data-v-86aa1171"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue"]]);
+  const _sfc_main$v = {
     __name: "goodsList",
     setup(__props) {
       const _this = vue.getCurrentInstance();
@@ -13089,11 +15329,11 @@ ${i3}
       };
     }
   };
-  const __easycom_2$3 = /* @__PURE__ */ _export_sfc(_sfc_main$x, [["__scopeId", "data-v-feddcdaa"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/goodsList/goodsList.vue"]]);
+  const __easycom_2$2 = /* @__PURE__ */ _export_sfc(_sfc_main$v, [["__scopeId", "data-v-feddcdaa"], ["__file", "/Users/daily/Desktop/d9/money_celestial/components/goodsList/goodsList.vue"]]);
   const _imports_1$2 = "/static/star-plain.png";
   const _imports_3 = "/static/time.png";
   const _imports_4 = "/static/phone.png";
-  const _sfc_main$w = {
+  const _sfc_main$u = {
     __name: "merchant_detail",
     setup(__props) {
       const current = vue.ref(0);
@@ -13106,7 +15346,7 @@ ${i3}
       return (_ctx, _cache) => {
         const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
         const _component_uni_segmented_control = resolveEasycom(vue.resolveDynamicComponent("uni-segmented-control"), __easycom_1);
-        const _component_goodsList = resolveEasycom(vue.resolveDynamicComponent("goodsList"), __easycom_2$3);
+        const _component_goodsList = resolveEasycom(vue.resolveDynamicComponent("goodsList"), __easycom_2$2);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "门店详情" }),
           vue.createElementVNode("image", {
@@ -13186,9 +15426,9 @@ ${i3}
       };
     }
   };
-  const PagesMerchantMerchantDetail = /* @__PURE__ */ _export_sfc(_sfc_main$w, [["__scopeId", "data-v-1771cf06"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_detail.vue"]]);
-  const _sfc_main$v = {};
-  function _sfc_render$b(_ctx, _cache) {
+  const PagesMerchantMerchantDetail = /* @__PURE__ */ _export_sfc(_sfc_main$u, [["__scopeId", "data-v-1771cf06"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/merchant_detail.vue"]]);
+  const _sfc_main$t = {};
+  function _sfc_render$9(_ctx, _cache) {
     const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
     return vue.openBlock(), vue.createElementBlock("view", null, [
       vue.createVNode(_component_navBar, { title: "商品详情" }),
@@ -13231,8 +15471,8 @@ ${i3}
       ])
     ]);
   }
-  const PagesMerchantGoodsDetail = /* @__PURE__ */ _export_sfc(_sfc_main$v, [["render", _sfc_render$b], ["__scopeId", "data-v-2276b552"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/goods_detail.vue"]]);
-  const _sfc_main$u = {
+  const PagesMerchantGoodsDetail = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["render", _sfc_render$9], ["__scopeId", "data-v-2276b552"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/merchant/goods_detail.vue"]]);
+  const _sfc_main$s = {
     __name: "register",
     setup(__props) {
       const userStore = useUserStore();
@@ -13328,1117 +15568,7 @@ ${i3}
       };
     }
   };
-  const PagesLoginRegister = /* @__PURE__ */ _export_sfc(_sfc_main$u, [["__scopeId", "data-v-838b72c9"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/login/register.vue"]]);
-  const dataPicker = {
-    props: {
-      localdata: {
-        type: [Array, Object],
-        default() {
-          return [];
-        }
-      },
-      spaceInfo: {
-        type: Object,
-        default() {
-          return {};
-        }
-      },
-      collection: {
-        type: String,
-        default: ""
-      },
-      action: {
-        type: String,
-        default: ""
-      },
-      field: {
-        type: String,
-        default: ""
-      },
-      orderby: {
-        type: String,
-        default: ""
-      },
-      where: {
-        type: [String, Object],
-        default: ""
-      },
-      pageData: {
-        type: String,
-        default: "add"
-      },
-      pageCurrent: {
-        type: Number,
-        default: 1
-      },
-      pageSize: {
-        type: Number,
-        default: 500
-      },
-      getcount: {
-        type: [Boolean, String],
-        default: false
-      },
-      getone: {
-        type: [Boolean, String],
-        default: false
-      },
-      gettree: {
-        type: [Boolean, String],
-        default: false
-      },
-      manual: {
-        type: Boolean,
-        default: false
-      },
-      value: {
-        type: [Array, String, Number],
-        default() {
-          return [];
-        }
-      },
-      modelValue: {
-        type: [Array, String, Number],
-        default() {
-          return [];
-        }
-      },
-      preload: {
-        type: Boolean,
-        default: false
-      },
-      stepSearh: {
-        type: Boolean,
-        default: true
-      },
-      selfField: {
-        type: String,
-        default: ""
-      },
-      parentField: {
-        type: String,
-        default: ""
-      },
-      multiple: {
-        type: Boolean,
-        default: false
-      },
-      map: {
-        type: Object,
-        default() {
-          return {
-            text: "text",
-            value: "value"
-          };
-        }
-      }
-    },
-    data() {
-      return {
-        loading: false,
-        errorMessage: "",
-        loadMore: {
-          contentdown: "",
-          contentrefresh: "",
-          contentnomore: ""
-        },
-        dataList: [],
-        selected: [],
-        selectedIndex: 0,
-        page: {
-          current: this.pageCurrent,
-          size: this.pageSize,
-          count: 0
-        }
-      };
-    },
-    computed: {
-      isLocalData() {
-        return !this.collection.length;
-      },
-      isCloudData() {
-        return this.collection.length > 0;
-      },
-      isCloudDataList() {
-        return this.isCloudData && (!this.parentField && !this.selfField);
-      },
-      isCloudDataTree() {
-        return this.isCloudData && this.parentField && this.selfField;
-      },
-      dataValue() {
-        let isModelValue = Array.isArray(this.modelValue) ? this.modelValue.length > 0 : this.modelValue !== null || this.modelValue !== void 0;
-        return isModelValue ? this.modelValue : this.value;
-      },
-      hasValue() {
-        if (typeof this.dataValue === "number") {
-          return true;
-        }
-        return this.dataValue != null && this.dataValue.length > 0;
-      }
-    },
-    created() {
-      this.$watch(() => {
-        var al = [];
-        [
-          "pageCurrent",
-          "pageSize",
-          "spaceInfo",
-          "value",
-          "modelValue",
-          "localdata",
-          "collection",
-          "action",
-          "field",
-          "orderby",
-          "where",
-          "getont",
-          "getcount",
-          "gettree"
-        ].forEach((key) => {
-          al.push(this[key]);
-        });
-        return al;
-      }, (newValue, oldValue) => {
-        for (let i2 = 2; i2 < newValue.length; i2++) {
-          if (newValue[i2] != oldValue[i2]) {
-            break;
-          }
-        }
-        if (newValue[0] != oldValue[0]) {
-          this.page.current = this.pageCurrent;
-        }
-        this.page.size = this.pageSize;
-        this.onPropsChange();
-      });
-      this._treeData = [];
-    },
-    methods: {
-      onPropsChange() {
-        this._treeData = [];
-      },
-      // 填充 pickview 数据
-      async loadData() {
-        if (this.isLocalData) {
-          this.loadLocalData();
-        } else if (this.isCloudDataList) {
-          this.loadCloudDataList();
-        } else if (this.isCloudDataTree) {
-          this.loadCloudDataTree();
-        }
-      },
-      // 加载本地数据
-      async loadLocalData() {
-        this._treeData = [];
-        this._extractTree(this.localdata, this._treeData);
-        let inputValue = this.dataValue;
-        if (inputValue === void 0) {
-          return;
-        }
-        if (Array.isArray(inputValue)) {
-          inputValue = inputValue[inputValue.length - 1];
-          if (typeof inputValue === "object" && inputValue[this.map.value]) {
-            inputValue = inputValue[this.map.value];
-          }
-        }
-        this.selected = this._findNodePath(inputValue, this.localdata);
-      },
-      // 加载 Cloud 数据 (单列)
-      async loadCloudDataList() {
-        if (this.loading) {
-          return;
-        }
-        this.loading = true;
-        try {
-          let response = await this.getCommand();
-          let responseData = response.result.data;
-          this._treeData = responseData;
-          this._updateBindData();
-          this._updateSelected();
-          this.onDataChange();
-        } catch (e2) {
-          this.errorMessage = e2;
-        } finally {
-          this.loading = false;
-        }
-      },
-      // 加载 Cloud 数据 (树形)
-      async loadCloudDataTree() {
-        if (this.loading) {
-          return;
-        }
-        this.loading = true;
-        try {
-          let commandOptions = {
-            field: this._cloudDataPostField(),
-            where: this._cloudDataTreeWhere()
-          };
-          if (this.gettree) {
-            commandOptions.startwith = `${this.selfField}=='${this.dataValue}'`;
-          }
-          let response = await this.getCommand(commandOptions);
-          let responseData = response.result.data;
-          this._treeData = responseData;
-          this._updateBindData();
-          this._updateSelected();
-          this.onDataChange();
-        } catch (e2) {
-          this.errorMessage = e2;
-        } finally {
-          this.loading = false;
-        }
-      },
-      // 加载 Cloud 数据 (节点)
-      async loadCloudDataNode(callback) {
-        if (this.loading) {
-          return;
-        }
-        this.loading = true;
-        try {
-          let commandOptions = {
-            field: this._cloudDataPostField(),
-            where: this._cloudDataNodeWhere()
-          };
-          let response = await this.getCommand(commandOptions);
-          let responseData = response.result.data;
-          callback(responseData);
-        } catch (e2) {
-          this.errorMessage = e2;
-        } finally {
-          this.loading = false;
-        }
-      },
-      // 回显 Cloud 数据
-      getCloudDataValue() {
-        if (this.isCloudDataList) {
-          return this.getCloudDataListValue();
-        }
-        if (this.isCloudDataTree) {
-          return this.getCloudDataTreeValue();
-        }
-      },
-      // 回显 Cloud 数据 (单列)
-      getCloudDataListValue() {
-        let where = [];
-        let whereField = this._getForeignKeyByField();
-        if (whereField) {
-          where.push(`${whereField} == '${this.dataValue}'`);
-        }
-        where = where.join(" || ");
-        if (this.where) {
-          where = `(${this.where}) && (${where})`;
-        }
-        return this.getCommand({
-          field: this._cloudDataPostField(),
-          where
-        }).then((res) => {
-          this.selected = res.result.data;
-          return res.result.data;
-        });
-      },
-      // 回显 Cloud 数据 (树形)
-      getCloudDataTreeValue() {
-        return this.getCommand({
-          field: this._cloudDataPostField(),
-          getTreePath: {
-            startWith: `${this.selfField}=='${this.dataValue}'`
-          }
-        }).then((res) => {
-          let treePath = [];
-          this._extractTreePath(res.result.data, treePath);
-          this.selected = treePath;
-          return treePath;
-        });
-      },
-      getCommand(options = {}) {
-        let db = Vs.database(this.spaceInfo);
-        const action = options.action || this.action;
-        if (action) {
-          db = db.action(action);
-        }
-        const collection = options.collection || this.collection;
-        db = db.collection(collection);
-        const where = options.where || this.where;
-        if (!(!where || !Object.keys(where).length)) {
-          db = db.where(where);
-        }
-        const field = options.field || this.field;
-        if (field) {
-          db = db.field(field);
-        }
-        const orderby = options.orderby || this.orderby;
-        if (orderby) {
-          db = db.orderBy(orderby);
-        }
-        const current = options.pageCurrent !== void 0 ? options.pageCurrent : this.page.current;
-        const size = options.pageSize !== void 0 ? options.pageSize : this.page.size;
-        const getCount = options.getcount !== void 0 ? options.getcount : this.getcount;
-        const getTree = options.gettree !== void 0 ? options.gettree : this.gettree;
-        const getOptions = {
-          getCount,
-          getTree
-        };
-        if (options.getTreePath) {
-          getOptions.getTreePath = options.getTreePath;
-        }
-        db = db.skip(size * (current - 1)).limit(size).get(getOptions);
-        return db;
-      },
-      _cloudDataPostField() {
-        let fields = [this.field];
-        if (this.parentField) {
-          fields.push(`${this.parentField} as parent_value`);
-        }
-        return fields.join(",");
-      },
-      _cloudDataTreeWhere() {
-        let result = [];
-        let selected = this.selected;
-        let parentField = this.parentField;
-        if (parentField) {
-          result.push(`${parentField} == null || ${parentField} == ""`);
-        }
-        if (selected.length) {
-          for (var i2 = 0; i2 < selected.length - 1; i2++) {
-            result.push(`${parentField} == '${selected[i2].value}'`);
-          }
-        }
-        let where = [];
-        if (this.where) {
-          where.push(`(${this.where})`);
-        }
-        if (result.length) {
-          where.push(`(${result.join(" || ")})`);
-        }
-        return where.join(" && ");
-      },
-      _cloudDataNodeWhere() {
-        let where = [];
-        let selected = this.selected;
-        if (selected.length) {
-          where.push(`${this.parentField} == '${selected[selected.length - 1].value}'`);
-        }
-        where = where.join(" || ");
-        if (this.where) {
-          return `(${this.where}) && (${where})`;
-        }
-        return where;
-      },
-      _getWhereByForeignKey() {
-        let result = [];
-        let whereField = this._getForeignKeyByField();
-        if (whereField) {
-          result.push(`${whereField} == '${this.dataValue}'`);
-        }
-        if (this.where) {
-          return `(${this.where}) && (${result.join(" || ")})`;
-        }
-        return result.join(" || ");
-      },
-      _getForeignKeyByField() {
-        let fields = this.field.split(",");
-        let whereField = null;
-        for (let i2 = 0; i2 < fields.length; i2++) {
-          const items = fields[i2].split("as");
-          if (items.length < 2) {
-            continue;
-          }
-          if (items[1].trim() === "value") {
-            whereField = items[0].trim();
-            break;
-          }
-        }
-        return whereField;
-      },
-      _updateBindData(node) {
-        const {
-          dataList,
-          hasNodes
-        } = this._filterData(this._treeData, this.selected);
-        let isleaf = this._stepSearh === false && !hasNodes;
-        if (node) {
-          node.isleaf = isleaf;
-        }
-        this.dataList = dataList;
-        this.selectedIndex = dataList.length - 1;
-        if (!isleaf && this.selected.length < dataList.length) {
-          this.selected.push({
-            value: null,
-            text: "请选择"
-          });
-        }
-        return {
-          isleaf,
-          hasNodes
-        };
-      },
-      _updateSelected() {
-        let dl = this.dataList;
-        let sl = this.selected;
-        let textField = this.map.text;
-        let valueField = this.map.value;
-        for (let i2 = 0; i2 < sl.length; i2++) {
-          let value = sl[i2].value;
-          let dl2 = dl[i2];
-          for (let j2 = 0; j2 < dl2.length; j2++) {
-            let item2 = dl2[j2];
-            if (item2[valueField] === value) {
-              sl[i2].text = item2[textField];
-              break;
-            }
-          }
-        }
-      },
-      _filterData(data, paths) {
-        let dataList = [];
-        let hasNodes = true;
-        dataList.push(data.filter((item) => {
-          return item.parent_value === null || item.parent_value === void 0 || item.parent_value === "";
-        }));
-        for (let i2 = 0; i2 < paths.length; i2++) {
-          let value = paths[i2].value;
-          let nodes = data.filter((item) => {
-            return item.parent_value === value;
-          });
-          if (nodes.length) {
-            dataList.push(nodes);
-          } else {
-            hasNodes = false;
-          }
-        }
-        return {
-          dataList,
-          hasNodes
-        };
-      },
-      _extractTree(nodes, result, parent_value) {
-        let valueField = this.map.value;
-        for (let i2 = 0; i2 < nodes.length; i2++) {
-          let node = nodes[i2];
-          let child = {};
-          for (let key in node) {
-            if (key !== "children") {
-              child[key] = node[key];
-            }
-          }
-          if (parent_value !== null && parent_value !== void 0 && parent_value !== "") {
-            child.parent_value = parent_value;
-          }
-          result.push(child);
-          let children = node.children;
-          if (children) {
-            this._extractTree(children, result, node[valueField]);
-          }
-        }
-      },
-      _extractTreePath(nodes, result) {
-        for (let i2 = 0; i2 < nodes.length; i2++) {
-          let node = nodes[i2];
-          let child = {};
-          for (let key in node) {
-            if (key !== "children") {
-              child[key] = node[key];
-            }
-          }
-          result.push(child);
-          let children = node.children;
-          if (children) {
-            this._extractTreePath(children, result);
-          }
-        }
-      },
-      _findNodePath(key, nodes, path = []) {
-        let textField = this.map.text;
-        let valueField = this.map.value;
-        for (let i2 = 0; i2 < nodes.length; i2++) {
-          let node = nodes[i2];
-          let children = node.children;
-          let text = node[textField];
-          let value = node[valueField];
-          path.push({
-            value,
-            text
-          });
-          if (value === key) {
-            return path;
-          }
-          if (children) {
-            const p2 = this._findNodePath(key, children, path);
-            if (p2.length) {
-              return p2;
-            }
-          }
-          path.pop();
-        }
-        return [];
-      }
-    }
-  };
-  const _sfc_main$t = {
-    name: "UniDataPickerView",
-    emits: ["nodeclick", "change", "datachange", "update:modelValue"],
-    mixins: [dataPicker],
-    props: {
-      managedMode: {
-        type: Boolean,
-        default: false
-      },
-      ellipsis: {
-        type: Boolean,
-        default: true
-      }
-    },
-    created() {
-      if (!this.managedMode) {
-        this.$nextTick(() => {
-          this.loadData();
-        });
-      }
-    },
-    methods: {
-      onPropsChange() {
-        this._treeData = [];
-        this.selectedIndex = 0;
-        this.$nextTick(() => {
-          this.loadData();
-        });
-      },
-      handleSelect(index) {
-        this.selectedIndex = index;
-      },
-      handleNodeClick(item, i2, j2) {
-        if (item.disable) {
-          return;
-        }
-        const node = this.dataList[i2][j2];
-        const text = node[this.map.text];
-        const value = node[this.map.value];
-        if (i2 < this.selected.length - 1) {
-          this.selected.splice(i2, this.selected.length - i2);
-          this.selected.push({
-            text,
-            value
-          });
-        } else if (i2 === this.selected.length - 1) {
-          this.selected.splice(i2, 1, {
-            text,
-            value
-          });
-        }
-        if (node.isleaf) {
-          this.onSelectedChange(node, node.isleaf);
-          return;
-        }
-        const {
-          isleaf,
-          hasNodes
-        } = this._updateBindData();
-        if (this.isLocalData) {
-          this.onSelectedChange(node, !hasNodes || isleaf);
-        } else if (this.isCloudDataList) {
-          this.onSelectedChange(node, true);
-        } else if (this.isCloudDataTree) {
-          if (isleaf) {
-            this.onSelectedChange(node, node.isleaf);
-          } else if (!hasNodes) {
-            this.loadCloudDataNode((data) => {
-              if (!data.length) {
-                node.isleaf = true;
-              } else {
-                this._treeData.push(...data);
-                this._updateBindData(node);
-              }
-              this.onSelectedChange(node, node.isleaf);
-            });
-          }
-        }
-      },
-      updateData(data) {
-        this._treeData = data.treeData;
-        this.selected = data.selected;
-        if (!this._treeData.length) {
-          this.loadData();
-        } else {
-          this._updateBindData();
-        }
-      },
-      onDataChange() {
-        this.$emit("datachange");
-      },
-      onSelectedChange(node, isleaf) {
-        if (isleaf) {
-          this._dispatchEvent();
-        }
-        if (node) {
-          this.$emit("nodeclick", node);
-        }
-      },
-      _dispatchEvent() {
-        this.$emit("change", this.selected.slice(0));
-      }
-    }
-  };
-  function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_3$1);
-    return vue.openBlock(), vue.createElementBlock("view", { class: "uni-data-pickerview" }, [
-      !_ctx.isCloudDataList ? (vue.openBlock(), vue.createElementBlock("scroll-view", {
-        key: 0,
-        class: "selected-area",
-        "scroll-x": "true"
-      }, [
-        vue.createElementVNode("view", { class: "selected-list" }, [
-          (vue.openBlock(true), vue.createElementBlock(
-            vue.Fragment,
-            null,
-            vue.renderList(_ctx.selected, (item, index) => {
-              return vue.openBlock(), vue.createElementBlock("view", {
-                class: vue.normalizeClass(["selected-item", {
-                  "selected-item-active": index == _ctx.selectedIndex
-                }]),
-                key: index,
-                onClick: ($event) => $options.handleSelect(index)
-              }, [
-                vue.createElementVNode(
-                  "text",
-                  null,
-                  vue.toDisplayString(item.text || ""),
-                  1
-                  /* TEXT */
-                )
-              ], 10, ["onClick"]);
-            }),
-            128
-            /* KEYED_FRAGMENT */
-          ))
-        ])
-      ])) : vue.createCommentVNode("v-if", true),
-      vue.createElementVNode("view", { class: "tab-c" }, [
-        vue.createElementVNode("scroll-view", {
-          class: "list",
-          "scroll-y": true
-        }, [
-          (vue.openBlock(true), vue.createElementBlock(
-            vue.Fragment,
-            null,
-            vue.renderList(_ctx.dataList[_ctx.selectedIndex], (item, j2) => {
-              return vue.openBlock(), vue.createElementBlock("view", {
-                class: vue.normalizeClass(["item", { "is-disabled": !!item.disable }]),
-                key: j2,
-                onClick: ($event) => $options.handleNodeClick(item, _ctx.selectedIndex, j2)
-              }, [
-                vue.createElementVNode(
-                  "text",
-                  { class: "item-text" },
-                  vue.toDisplayString(item[_ctx.map.text]),
-                  1
-                  /* TEXT */
-                ),
-                _ctx.selected.length > _ctx.selectedIndex && item[_ctx.map.value] == _ctx.selected[_ctx.selectedIndex].value ? (vue.openBlock(), vue.createElementBlock("view", {
-                  key: 0,
-                  class: "check"
-                })) : vue.createCommentVNode("v-if", true)
-              ], 10, ["onClick"]);
-            }),
-            128
-            /* KEYED_FRAGMENT */
-          ))
-        ]),
-        _ctx.loading ? (vue.openBlock(), vue.createElementBlock("view", {
-          key: 0,
-          class: "loading-cover"
-        }, [
-          vue.createVNode(_component_uni_load_more, {
-            class: "load-more",
-            contentText: _ctx.loadMore,
-            status: "loading"
-          }, null, 8, ["contentText"])
-        ])) : vue.createCommentVNode("v-if", true),
-        _ctx.errorMessage ? (vue.openBlock(), vue.createElementBlock("view", {
-          key: 1,
-          class: "error-message"
-        }, [
-          vue.createElementVNode(
-            "text",
-            { class: "error-text" },
-            vue.toDisplayString(_ctx.errorMessage),
-            1
-            /* TEXT */
-          )
-        ])) : vue.createCommentVNode("v-if", true)
-      ])
-    ]);
-  }
-  const DataPickerView = /* @__PURE__ */ _export_sfc(_sfc_main$t, [["render", _sfc_render$a], ["__scopeId", "data-v-91ec6a82"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-picker/components/uni-data-pickerview/uni-data-pickerview.vue"]]);
-  const _sfc_main$s = {
-    name: "UniDataPicker",
-    emits: ["popupopened", "popupclosed", "nodeclick", "input", "change", "update:modelValue", "inputclick"],
-    mixins: [dataPicker],
-    components: {
-      DataPickerView
-    },
-    props: {
-      options: {
-        type: [Object, Array],
-        default() {
-          return {};
-        }
-      },
-      popupTitle: {
-        type: String,
-        default: "请选择"
-      },
-      placeholder: {
-        type: String,
-        default: "请选择"
-      },
-      heightMobile: {
-        type: String,
-        default: ""
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      },
-      clearIcon: {
-        type: Boolean,
-        default: true
-      },
-      border: {
-        type: Boolean,
-        default: true
-      },
-      split: {
-        type: String,
-        default: "/"
-      },
-      ellipsis: {
-        type: Boolean,
-        default: true
-      }
-    },
-    data() {
-      return {
-        isOpened: false,
-        inputSelected: []
-      };
-    },
-    created() {
-      this.$nextTick(() => {
-        this.load();
-      });
-    },
-    watch: {
-      localdata: {
-        handler() {
-          this.load();
-        },
-        deep: true
-      }
-    },
-    methods: {
-      clear() {
-        this._dispatchEvent([]);
-      },
-      onPropsChange() {
-        this._treeData = [];
-        this.selectedIndex = 0;
-        this.load();
-      },
-      load() {
-        if (this.readonly) {
-          this._processReadonly(this.localdata, this.dataValue);
-          return;
-        }
-        if (this.isLocalData) {
-          this.loadData();
-          this.inputSelected = this.selected.slice(0);
-        } else if (this.isCloudDataList || this.isCloudDataTree) {
-          this.loading = true;
-          this.getCloudDataValue().then((res) => {
-            this.loading = false;
-            this.inputSelected = res;
-          }).catch((err) => {
-            this.loading = false;
-            this.errorMessage = err;
-          });
-        }
-      },
-      show() {
-        this.isOpened = true;
-        setTimeout(() => {
-          this.$refs.pickerView.updateData({
-            treeData: this._treeData,
-            selected: this.selected,
-            selectedIndex: this.selectedIndex
-          });
-        }, 200);
-        this.$emit("popupopened");
-      },
-      hide() {
-        this.isOpened = false;
-        this.$emit("popupclosed");
-      },
-      handleInput() {
-        if (this.readonly) {
-          this.$emit("inputclick");
-          return;
-        }
-        this.show();
-      },
-      handleClose(e2) {
-        this.hide();
-      },
-      onnodeclick(e2) {
-        this.$emit("nodeclick", e2);
-      },
-      ondatachange(e2) {
-        this._treeData = this.$refs.pickerView._treeData;
-      },
-      onchange(e2) {
-        this.hide();
-        this.$nextTick(() => {
-          this.inputSelected = e2;
-        });
-        this._dispatchEvent(e2);
-      },
-      _processReadonly(dataList, value) {
-        var isTree = dataList.findIndex((item2) => {
-          return item2.children;
-        });
-        if (isTree > -1) {
-          let inputValue;
-          if (Array.isArray(value)) {
-            inputValue = value[value.length - 1];
-            if (typeof inputValue === "object" && inputValue.value) {
-              inputValue = inputValue.value;
-            }
-          } else {
-            inputValue = value;
-          }
-          this.inputSelected = this._findNodePath(inputValue, this.localdata);
-          return;
-        }
-        if (!this.hasValue) {
-          this.inputSelected = [];
-          return;
-        }
-        let result = [];
-        for (let i2 = 0; i2 < value.length; i2++) {
-          var val = value[i2];
-          var item = dataList.find((v2) => {
-            return v2.value == val;
-          });
-          if (item) {
-            result.push(item);
-          }
-        }
-        if (result.length) {
-          this.inputSelected = result;
-        }
-      },
-      _filterForArray(data, valueArray) {
-        var result = [];
-        for (let i2 = 0; i2 < valueArray.length; i2++) {
-          var value = valueArray[i2];
-          var found = data.find((item) => {
-            return item.value == value;
-          });
-          if (found) {
-            result.push(found);
-          }
-        }
-        return result;
-      },
-      _dispatchEvent(selected) {
-        let item = {};
-        if (selected.length) {
-          var value = new Array(selected.length);
-          for (var i2 = 0; i2 < selected.length; i2++) {
-            value[i2] = selected[i2].value;
-          }
-          item = selected[selected.length - 1];
-        } else {
-          item.value = "";
-        }
-        if (this.formItem) {
-          this.formItem.setValue(item.value);
-        }
-        this.$emit("input", item.value);
-        this.$emit("update:modelValue", item.value);
-        this.$emit("change", {
-          detail: {
-            value: selected
-          }
-        });
-      }
-    }
-  };
-  function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_3$1);
-    const _component_uni_icons = resolveEasycom(vue.resolveDynamicComponent("uni-icons"), __easycom_1$6);
-    const _component_data_picker_view = vue.resolveComponent("data-picker-view");
-    return vue.openBlock(), vue.createElementBlock("view", { class: "uni-data-tree" }, [
-      vue.createElementVNode("view", {
-        class: "uni-data-tree-input",
-        onClick: _cache[1] || (_cache[1] = (...args) => $options.handleInput && $options.handleInput(...args))
-      }, [
-        vue.renderSlot(_ctx.$slots, "default", {
-          options: $props.options,
-          data: $data.inputSelected,
-          error: _ctx.errorMessage
-        }, () => [
-          vue.createElementVNode(
-            "view",
-            {
-              class: vue.normalizeClass(["input-value", { "input-value-border": $props.border }])
-            },
-            [
-              _ctx.errorMessage ? (vue.openBlock(), vue.createElementBlock(
-                "text",
-                {
-                  key: 0,
-                  class: "selected-area error-text"
-                },
-                vue.toDisplayString(_ctx.errorMessage),
-                1
-                /* TEXT */
-              )) : _ctx.loading && !$data.isOpened ? (vue.openBlock(), vue.createElementBlock("view", {
-                key: 1,
-                class: "selected-area"
-              }, [
-                vue.createVNode(_component_uni_load_more, {
-                  class: "load-more",
-                  contentText: _ctx.loadMore,
-                  status: "loading"
-                }, null, 8, ["contentText"])
-              ])) : $data.inputSelected.length ? (vue.openBlock(), vue.createElementBlock("scroll-view", {
-                key: 2,
-                class: "selected-area",
-                "scroll-x": "true"
-              }, [
-                vue.createElementVNode("view", { class: "selected-list" }, [
-                  (vue.openBlock(true), vue.createElementBlock(
-                    vue.Fragment,
-                    null,
-                    vue.renderList($data.inputSelected, (item, index) => {
-                      return vue.openBlock(), vue.createElementBlock("view", {
-                        class: "selected-item",
-                        key: index
-                      }, [
-                        vue.createElementVNode(
-                          "text",
-                          { class: "text-color" },
-                          vue.toDisplayString(item.text),
-                          1
-                          /* TEXT */
-                        ),
-                        index < $data.inputSelected.length - 1 ? (vue.openBlock(), vue.createElementBlock(
-                          "text",
-                          {
-                            key: 0,
-                            class: "input-split-line"
-                          },
-                          vue.toDisplayString($props.split),
-                          1
-                          /* TEXT */
-                        )) : vue.createCommentVNode("v-if", true)
-                      ]);
-                    }),
-                    128
-                    /* KEYED_FRAGMENT */
-                  ))
-                ])
-              ])) : (vue.openBlock(), vue.createElementBlock(
-                "text",
-                {
-                  key: 3,
-                  class: "selected-area placeholder"
-                },
-                vue.toDisplayString($props.placeholder),
-                1
-                /* TEXT */
-              )),
-              $props.clearIcon && !$props.readonly && $data.inputSelected.length ? (vue.openBlock(), vue.createElementBlock("view", {
-                key: 4,
-                class: "icon-clear",
-                onClick: _cache[0] || (_cache[0] = vue.withModifiers((...args) => $options.clear && $options.clear(...args), ["stop"]))
-              }, [
-                vue.createVNode(_component_uni_icons, {
-                  type: "clear",
-                  color: "#c0c4cc",
-                  size: "24"
-                })
-              ])) : vue.createCommentVNode("v-if", true),
-              (!$props.clearIcon || !$data.inputSelected.length) && !$props.readonly ? (vue.openBlock(), vue.createElementBlock("view", {
-                key: 5,
-                class: "arrow-area"
-              }, [
-                vue.createElementVNode("view", { class: "input-arrow" })
-              ])) : vue.createCommentVNode("v-if", true)
-            ],
-            2
-            /* CLASS */
-          )
-        ], true)
-      ]),
-      $data.isOpened ? (vue.openBlock(), vue.createElementBlock("view", {
-        key: 0,
-        class: "uni-data-tree-cover",
-        onClick: _cache[2] || (_cache[2] = (...args) => $options.handleClose && $options.handleClose(...args))
-      })) : vue.createCommentVNode("v-if", true),
-      $data.isOpened ? (vue.openBlock(), vue.createElementBlock("view", {
-        key: 1,
-        class: "uni-data-tree-dialog"
-      }, [
-        vue.createElementVNode("view", { class: "uni-popper__arrow" }),
-        vue.createElementVNode("view", { class: "dialog-caption" }, [
-          vue.createElementVNode("view", { class: "title-area" }, [
-            vue.createElementVNode(
-              "text",
-              { class: "dialog-title" },
-              vue.toDisplayString($props.popupTitle),
-              1
-              /* TEXT */
-            )
-          ]),
-          vue.createElementVNode("view", {
-            class: "dialog-close",
-            onClick: _cache[3] || (_cache[3] = (...args) => $options.handleClose && $options.handleClose(...args))
-          }, [
-            vue.createElementVNode("view", {
-              class: "dialog-close-plus",
-              "data-id": "close"
-            }),
-            vue.createElementVNode("view", {
-              class: "dialog-close-plus dialog-close-rotate",
-              "data-id": "close"
-            })
-          ])
-        ]),
-        vue.createVNode(_component_data_picker_view, {
-          class: "picker-view",
-          ref: "pickerView",
-          modelValue: _ctx.dataValue,
-          "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => _ctx.dataValue = $event),
-          localdata: _ctx.localdata,
-          preload: _ctx.preload,
-          collection: _ctx.collection,
-          field: _ctx.field,
-          orderby: _ctx.orderby,
-          where: _ctx.where,
-          "step-searh": _ctx.stepSearh,
-          "self-field": _ctx.selfField,
-          "parent-field": _ctx.parentField,
-          "managed-mode": true,
-          map: _ctx.map,
-          ellipsis: $props.ellipsis,
-          onChange: $options.onchange,
-          onDatachange: $options.ondatachange,
-          onNodeclick: $options.onnodeclick
-        }, null, 8, ["modelValue", "localdata", "preload", "collection", "field", "orderby", "where", "step-searh", "self-field", "parent-field", "map", "ellipsis", "onChange", "onDatachange", "onNodeclick"])
-      ])) : vue.createCommentVNode("v-if", true)
-    ]);
-  }
-  const __easycom_2$2 = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["render", _sfc_render$9], ["__scopeId", "data-v-2653531e"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-data-picker/components/uni-data-picker/uni-data-picker.vue"]]);
+  const PagesLoginRegister = /* @__PURE__ */ _export_sfc(_sfc_main$s, [["__scopeId", "data-v-838b72c9"], ["__file", "/Users/daily/Desktop/d9/money_celestial/pages/login/register.vue"]]);
   var calendar = {
     /**
         * 农历1900-2100的润大小信息表
@@ -16248,1416 +17378,6 @@ ${i3}
     ]);
   }
   const __easycom_3 = /* @__PURE__ */ _export_sfc(_sfc_main$q, [["render", _sfc_render$7], ["__scopeId", "data-v-b6ab2cfb"], ["__file", "/Users/daily/Desktop/d9/money_celestial/uni_modules/uni-calendar/components/uni-calendar/uni-calendar.vue"]]);
-  const cityDataJson = [
-    {
-      text: "北京市",
-      value: "110000",
-      children: [
-        {
-          text: "北京市",
-          value: "110100"
-        }
-      ]
-    },
-    {
-      text: "天津市",
-      value: "120000",
-      children: [
-        {
-          text: "天津市",
-          value: "120100"
-        }
-      ]
-    },
-    {
-      text: "河北省",
-      value: "130000",
-      children: [
-        {
-          text: "石家庄市",
-          value: "130100"
-        },
-        {
-          text: "唐山市",
-          value: "130200"
-        },
-        {
-          text: "秦皇岛市",
-          value: "130300"
-        },
-        {
-          text: "邯郸市",
-          value: "130400"
-        },
-        {
-          text: "邢台市",
-          value: "130500"
-        },
-        {
-          text: "保定市",
-          value: "130600"
-        },
-        {
-          text: "张家口市",
-          value: "130700"
-        },
-        {
-          text: "承德市",
-          value: "130800"
-        },
-        {
-          text: "沧州市",
-          value: "130900"
-        },
-        {
-          text: "廊坊市",
-          value: "131000"
-        },
-        {
-          text: "衡水市",
-          value: "131100"
-        }
-      ]
-    },
-    {
-      text: "山西省",
-      value: "140000",
-      children: [
-        {
-          text: "太原市",
-          value: "140100"
-        },
-        {
-          text: "大同市",
-          value: "140200"
-        },
-        {
-          text: "阳泉市",
-          value: "140300"
-        },
-        {
-          text: "长治市",
-          value: "140400"
-        },
-        {
-          text: "晋城市",
-          value: "140500"
-        },
-        {
-          text: "朔州市",
-          value: "140600"
-        },
-        {
-          text: "晋中市",
-          value: "140700"
-        },
-        {
-          text: "运城市",
-          value: "140800"
-        },
-        {
-          text: "忻州市",
-          value: "140900"
-        },
-        {
-          text: "临汾市",
-          value: "141000"
-        },
-        {
-          text: "吕梁市",
-          value: "141100"
-        }
-      ]
-    },
-    {
-      text: "内蒙古自治区",
-      value: "150000",
-      children: [
-        {
-          text: "呼和浩特市",
-          value: "150100"
-        },
-        {
-          text: "包头市",
-          value: "150200"
-        },
-        {
-          text: "乌海市",
-          value: "150300"
-        },
-        {
-          text: "赤峰市",
-          value: "150400"
-        },
-        {
-          text: "通辽市",
-          value: "150500"
-        },
-        {
-          text: "鄂尔多斯市",
-          value: "150600"
-        },
-        {
-          text: "呼伦贝尔市",
-          value: "150700"
-        },
-        {
-          text: "巴彦淖尔市",
-          value: "150800"
-        },
-        {
-          text: "乌兰察布市",
-          value: "150900"
-        }
-      ]
-    },
-    {
-      text: "辽宁省",
-      value: "210000",
-      children: [
-        {
-          text: "沈阳市",
-          value: "210100"
-        },
-        {
-          text: "大连市",
-          value: "210200"
-        },
-        {
-          text: "鞍山市",
-          value: "210300"
-        },
-        {
-          text: "抚顺市",
-          value: "210400"
-        },
-        {
-          text: "本溪市",
-          value: "210500"
-        },
-        {
-          text: "丹东市",
-          value: "210600"
-        },
-        {
-          text: "锦州市",
-          value: "210700"
-        },
-        {
-          text: "营口市",
-          value: "210800"
-        },
-        {
-          text: "阜新市",
-          value: "210900"
-        },
-        {
-          text: "辽阳市",
-          value: "211000"
-        },
-        {
-          text: "盘锦市",
-          value: "211100"
-        },
-        {
-          text: "铁岭市",
-          value: "211200"
-        },
-        {
-          text: "朝阳市",
-          value: "211300"
-        },
-        {
-          text: "葫芦岛市",
-          value: "211400"
-        }
-      ]
-    },
-    {
-      text: "吉林省",
-      value: "220000",
-      children: [
-        {
-          text: "长春市",
-          value: "220100"
-        },
-        {
-          text: "吉林市",
-          value: "220200"
-        },
-        {
-          text: "四平市",
-          value: "220300"
-        },
-        {
-          text: "辽源市",
-          value: "220400"
-        },
-        {
-          text: "通化市",
-          value: "220500"
-        },
-        {
-          text: "白山市",
-          value: "220600"
-        },
-        {
-          text: "松原市",
-          value: "220700"
-        },
-        {
-          text: "白城市",
-          value: "220800"
-        }
-      ]
-    },
-    {
-      text: "黑龙江省",
-      value: "230000",
-      children: [
-        {
-          text: "哈尔滨市",
-          value: "230100"
-        },
-        {
-          text: "齐齐哈尔市",
-          value: "230200"
-        },
-        {
-          text: "鸡西市",
-          value: "230300"
-        },
-        {
-          text: "鹤岗市",
-          value: "230400"
-        },
-        {
-          text: "双鸭山市",
-          value: "230500"
-        },
-        {
-          text: "大庆市",
-          value: "230600"
-        },
-        {
-          text: "伊春市",
-          value: "230700"
-        },
-        {
-          text: "佳木斯市",
-          value: "230800"
-        },
-        {
-          text: "七台河市",
-          value: "230900"
-        },
-        {
-          text: "牡丹江市",
-          value: "231000"
-        },
-        {
-          text: "黑河市",
-          value: "231100"
-        },
-        {
-          text: "绥化市",
-          value: "231200"
-        }
-      ]
-    },
-    {
-      text: "上海市",
-      value: "310000",
-      children: [
-        {
-          text: "上海市",
-          value: "310100"
-        }
-      ]
-    },
-    {
-      text: "江苏省",
-      value: "320000",
-      children: [
-        {
-          text: "南京市",
-          value: "320100"
-        },
-        {
-          text: "无锡市",
-          value: "320200"
-        },
-        {
-          text: "徐州市",
-          value: "320300"
-        },
-        {
-          text: "常州市",
-          value: "320400"
-        },
-        {
-          text: "苏州市",
-          value: "320500"
-        },
-        {
-          text: "南通市",
-          value: "320600"
-        },
-        {
-          text: "连云港市",
-          value: "320700"
-        },
-        {
-          text: "淮安市",
-          value: "320800"
-        },
-        {
-          text: "盐城市",
-          value: "320900"
-        },
-        {
-          text: "扬州市",
-          value: "321000"
-        },
-        {
-          text: "镇江市",
-          value: "321100"
-        },
-        {
-          text: "泰州市",
-          value: "321200"
-        },
-        {
-          text: "宿迁市",
-          value: "321300"
-        }
-      ]
-    },
-    {
-      text: "浙江省",
-      value: "330000",
-      children: [
-        {
-          text: "杭州市",
-          value: "330100"
-        },
-        {
-          text: "宁波市",
-          value: "330200"
-        },
-        {
-          text: "温州市",
-          value: "330300"
-        },
-        {
-          text: "嘉兴市",
-          value: "330400"
-        },
-        {
-          text: "湖州市",
-          value: "330500"
-        },
-        {
-          text: "绍兴市",
-          value: "330600"
-        },
-        {
-          text: "金华市",
-          value: "330700"
-        },
-        {
-          text: "衢州市",
-          value: "330800"
-        },
-        {
-          text: "舟山市",
-          value: "330900"
-        },
-        {
-          text: "台州市",
-          value: "331000"
-        },
-        {
-          text: "丽水市",
-          value: "331100"
-        }
-      ]
-    },
-    {
-      text: "安徽省",
-      value: "340000",
-      children: [
-        {
-          text: "合肥市",
-          value: "340100"
-        },
-        {
-          text: "芜湖市",
-          value: "340200"
-        },
-        {
-          text: "蚌埠市",
-          value: "340300"
-        },
-        {
-          text: "淮南市",
-          value: "340400"
-        },
-        {
-          text: "马鞍山市",
-          value: "340500"
-        },
-        {
-          text: "淮北市",
-          value: "340600"
-        },
-        {
-          text: "铜陵市",
-          value: "340700"
-        },
-        {
-          text: "安庆市",
-          value: "340800"
-        },
-        {
-          text: "黄山市",
-          value: "341000"
-        },
-        {
-          text: "滁州市",
-          value: "341100"
-        },
-        {
-          text: "阜阳市",
-          value: "341200"
-        },
-        {
-          text: "宿州市",
-          value: "341300"
-        },
-        {
-          text: "六安市",
-          value: "341500"
-        },
-        {
-          text: "亳州市",
-          value: "341600"
-        },
-        {
-          text: "池州市",
-          value: "341700"
-        },
-        {
-          text: "宣城市",
-          value: "341800"
-        }
-      ]
-    },
-    {
-      text: "福建省",
-      value: "350000",
-      children: [
-        {
-          text: "福州市",
-          value: "350100"
-        },
-        {
-          text: "厦门市",
-          value: "350200"
-        },
-        {
-          text: "莆田市",
-          value: "350300"
-        },
-        {
-          text: "三明市",
-          value: "350400"
-        },
-        {
-          text: "泉州市",
-          value: "350500"
-        },
-        {
-          text: "漳州市",
-          value: "350600"
-        },
-        {
-          text: "南平市",
-          value: "350700"
-        },
-        {
-          text: "龙岩市",
-          value: "350800"
-        },
-        {
-          text: "宁德市",
-          value: "350900"
-        }
-      ]
-    },
-    {
-      text: "江西省",
-      value: "360000",
-      children: [
-        {
-          text: "南昌市",
-          value: "360100"
-        },
-        {
-          text: "景德镇市",
-          value: "360200"
-        },
-        {
-          text: "萍乡市",
-          value: "360300"
-        },
-        {
-          text: "九江市",
-          value: "360400"
-        },
-        {
-          text: "新余市",
-          value: "360500"
-        },
-        {
-          text: "鹰潭市",
-          value: "360600"
-        },
-        {
-          text: "赣州市",
-          value: "360700"
-        },
-        {
-          text: "吉安市",
-          value: "360800"
-        },
-        {
-          text: "宜春市",
-          value: "360900"
-        },
-        {
-          text: "抚州市",
-          value: "361000"
-        },
-        {
-          text: "上饶市",
-          value: "361100"
-        }
-      ]
-    },
-    {
-      text: "山东省",
-      value: "370000",
-      children: [
-        {
-          text: "济南市",
-          value: "370100"
-        },
-        {
-          text: "青岛市",
-          value: "370200"
-        },
-        {
-          text: "淄博市",
-          value: "370300"
-        },
-        {
-          text: "枣庄市",
-          value: "370400"
-        },
-        {
-          text: "东营市",
-          value: "370500"
-        },
-        {
-          text: "烟台市",
-          value: "370600"
-        },
-        {
-          text: "潍坊市",
-          value: "370700"
-        },
-        {
-          text: "济宁市",
-          value: "370800"
-        },
-        {
-          text: "泰安市",
-          value: "370900"
-        },
-        {
-          text: "威海市",
-          value: "371000"
-        },
-        {
-          text: "日照市",
-          value: "371100"
-        },
-        {
-          text: "临沂市",
-          value: "371300"
-        },
-        {
-          text: "德州市",
-          value: "371400"
-        },
-        {
-          text: "聊城市",
-          value: "371500"
-        },
-        {
-          text: "滨州市",
-          value: "371600"
-        },
-        {
-          text: "菏泽市",
-          value: "371700"
-        }
-      ]
-    },
-    {
-      text: "河南省",
-      value: "410000",
-      children: [
-        {
-          text: "郑州市",
-          value: "410100"
-        },
-        {
-          text: "开封市",
-          value: "410200"
-        },
-        {
-          text: "洛阳市",
-          value: "410300"
-        },
-        {
-          text: "平顶山市",
-          value: "410400"
-        },
-        {
-          text: "安阳市",
-          value: "410500"
-        },
-        {
-          text: "鹤壁市",
-          value: "410600"
-        },
-        {
-          text: "新乡市",
-          value: "410700"
-        },
-        {
-          text: "焦作市",
-          value: "410800"
-        },
-        {
-          text: "濮阳市",
-          value: "410900"
-        },
-        {
-          text: "许昌市",
-          value: "411000"
-        },
-        {
-          text: "漯河市",
-          value: "411100"
-        },
-        {
-          text: "三门峡市",
-          value: "411200"
-        },
-        {
-          text: "南阳市",
-          value: "411300"
-        },
-        {
-          text: "商丘市",
-          value: "411400"
-        },
-        {
-          text: "信阳市",
-          value: "411500"
-        },
-        {
-          text: "周口市",
-          value: "411600"
-        },
-        {
-          text: "驻马店市",
-          value: "411700"
-        }
-      ]
-    },
-    {
-      text: "湖北省",
-      value: "420000",
-      children: [
-        {
-          text: "武汉市",
-          value: "420100"
-        },
-        {
-          text: "黄石市",
-          value: "420200"
-        },
-        {
-          text: "十堰市",
-          value: "420300"
-        },
-        {
-          text: "宜昌市",
-          value: "420500"
-        },
-        {
-          text: "襄阳市",
-          value: "420600"
-        },
-        {
-          text: "鄂州市",
-          value: "420700"
-        },
-        {
-          text: "荆门市",
-          value: "420800"
-        },
-        {
-          text: "孝感市",
-          value: "420900"
-        },
-        {
-          text: "荆州市",
-          value: "421000"
-        },
-        {
-          text: "黄冈市",
-          value: "421100"
-        },
-        {
-          text: "咸宁市",
-          value: "421200"
-        },
-        {
-          text: "随州市",
-          value: "421300"
-        }
-      ]
-    },
-    {
-      text: "湖南省",
-      value: "430000",
-      children: [
-        {
-          text: "长沙市",
-          value: "430100"
-        },
-        {
-          text: "株洲市",
-          value: "430200"
-        },
-        {
-          text: "湘潭市",
-          value: "430300"
-        },
-        {
-          text: "衡阳市",
-          value: "430400"
-        },
-        {
-          text: "邵阳市",
-          value: "430500"
-        },
-        {
-          text: "岳阳市",
-          value: "430600"
-        },
-        {
-          text: "常德市",
-          value: "430700"
-        },
-        {
-          text: "张家界市",
-          value: "430800"
-        },
-        {
-          text: "益阳市",
-          value: "430900"
-        },
-        {
-          text: "郴州市",
-          value: "431000"
-        },
-        {
-          text: "永州市",
-          value: "431100"
-        },
-        {
-          text: "怀化市",
-          value: "431200"
-        },
-        {
-          text: "娄底市",
-          value: "431300"
-        }
-      ]
-    },
-    {
-      text: "广东省",
-      value: "440000",
-      children: [
-        {
-          text: "广州市",
-          value: "440100"
-        },
-        {
-          text: "韶关市",
-          value: "440200"
-        },
-        {
-          text: "深圳市",
-          value: "440300"
-        },
-        {
-          text: "珠海市",
-          value: "440400"
-        },
-        {
-          text: "汕头市",
-          value: "440500"
-        },
-        {
-          text: "佛山市",
-          value: "440600"
-        },
-        {
-          text: "江门市",
-          value: "440700"
-        },
-        {
-          text: "湛江市",
-          value: "440800"
-        },
-        {
-          text: "茂名市",
-          value: "440900"
-        },
-        {
-          text: "肇庆市",
-          value: "441200"
-        },
-        {
-          text: "惠州市",
-          value: "441300"
-        },
-        {
-          text: "梅州市",
-          value: "441400"
-        },
-        {
-          text: "汕尾市",
-          value: "441500"
-        },
-        {
-          text: "河源市",
-          value: "441600"
-        },
-        {
-          text: "阳江市",
-          value: "441700"
-        },
-        {
-          text: "清远市",
-          value: "441800"
-        },
-        {
-          text: "东莞市",
-          value: "441900"
-        },
-        {
-          text: "中山市",
-          value: "442000"
-        }
-      ]
-    },
-    {
-      text: "广西壮族自治区",
-      value: "450000",
-      children: [
-        {
-          text: "南宁市",
-          value: "450100"
-        },
-        {
-          text: "柳州市",
-          value: "450200"
-        },
-        {
-          text: "桂林市",
-          value: "450300"
-        },
-        {
-          text: "梧州市",
-          value: "450400"
-        },
-        {
-          text: "北海市",
-          value: "450500"
-        },
-        {
-          text: "防城港市",
-          value: "450600"
-        },
-        {
-          text: "钦州市",
-          value: "450700"
-        },
-        {
-          text: "贵港市",
-          value: "450800"
-        },
-        {
-          text: "玉林市",
-          value: "450900"
-        },
-        {
-          text: "百色市",
-          value: "451000"
-        },
-        {
-          text: "贺州市",
-          value: "451100"
-        },
-        {
-          text: "河池市",
-          value: "451200"
-        },
-        {
-          text: "来宾市",
-          value: "451300"
-        },
-        {
-          text: "崇左市",
-          value: "451400"
-        }
-      ]
-    },
-    {
-      text: "海南省",
-      value: "460000",
-      children: [
-        {
-          text: "海口市",
-          value: "460100"
-        },
-        {
-          text: "三亚市",
-          value: "460200"
-        },
-        {
-          text: "三沙市",
-          value: "460300"
-        },
-        {
-          text: "儋州市",
-          value: "460400"
-        }
-      ]
-    },
-    {
-      text: "重庆市",
-      value: "500000",
-      children: [
-        {
-          text: "重庆市",
-          value: "500100"
-        }
-      ]
-    },
-    {
-      text: "四川省",
-      value: "510000",
-      children: [
-        {
-          text: "成都市",
-          value: "510100"
-        },
-        {
-          text: "自贡市",
-          value: "510300"
-        },
-        {
-          text: "攀枝花市",
-          value: "510400"
-        },
-        {
-          text: "泸州市",
-          value: "510500"
-        },
-        {
-          text: "德阳市",
-          value: "510600"
-        },
-        {
-          text: "绵阳市",
-          value: "510700"
-        },
-        {
-          text: "广元市",
-          value: "510800"
-        },
-        {
-          text: "遂宁市",
-          value: "510900"
-        },
-        {
-          text: "内江市",
-          value: "511000"
-        },
-        {
-          text: "乐山市",
-          value: "511100"
-        },
-        {
-          text: "南充市",
-          value: "511300"
-        },
-        {
-          text: "眉山市",
-          value: "511400"
-        },
-        {
-          text: "宜宾市",
-          value: "511500"
-        },
-        {
-          text: "广安市",
-          value: "511600"
-        },
-        {
-          text: "达州市",
-          value: "511700"
-        },
-        {
-          text: "雅安市",
-          value: "511800"
-        },
-        {
-          text: "巴中市",
-          value: "511900"
-        },
-        {
-          text: "资阳市",
-          value: "512000"
-        }
-      ]
-    },
-    {
-      text: "贵州省",
-      value: "520000",
-      children: [
-        {
-          text: "贵阳市",
-          value: "520100"
-        },
-        {
-          text: "六盘水市",
-          value: "520200"
-        },
-        {
-          text: "遵义市",
-          value: "520300"
-        },
-        {
-          text: "安顺市",
-          value: "520400"
-        },
-        {
-          text: "毕节市",
-          value: "520500"
-        },
-        {
-          text: "铜仁市",
-          value: "520600"
-        }
-      ]
-    },
-    {
-      text: "云南省",
-      value: "530000",
-      children: [
-        {
-          text: "昆明市",
-          value: "530100"
-        },
-        {
-          text: "曲靖市",
-          value: "530300"
-        },
-        {
-          text: "玉溪市",
-          value: "530400"
-        },
-        {
-          text: "保山市",
-          value: "530500"
-        },
-        {
-          text: "昭通市",
-          value: "530600"
-        },
-        {
-          text: "丽江市",
-          value: "530700"
-        },
-        {
-          text: "普洱市",
-          value: "530800"
-        },
-        {
-          text: "临沧市",
-          value: "530900"
-        }
-      ]
-    },
-    {
-      text: "西藏自治区",
-      value: "540000",
-      children: [
-        {
-          text: "拉萨市",
-          value: "540100"
-        },
-        {
-          text: "日喀则市",
-          value: "540200"
-        },
-        {
-          text: "昌都市",
-          value: "540300"
-        },
-        {
-          text: "林芝市",
-          value: "540400"
-        },
-        {
-          text: "山南市",
-          value: "540500"
-        },
-        {
-          text: "那曲市",
-          value: "540600"
-        }
-      ]
-    },
-    {
-      text: "陕西省",
-      value: "610000",
-      children: [
-        {
-          text: "西安市",
-          value: "610100"
-        },
-        {
-          text: "铜川市",
-          value: "610200"
-        },
-        {
-          text: "宝鸡市",
-          value: "610300"
-        },
-        {
-          text: "咸阳市",
-          value: "610400"
-        },
-        {
-          text: "渭南市",
-          value: "610500"
-        },
-        {
-          text: "延安市",
-          value: "610600"
-        },
-        {
-          text: "汉中市",
-          value: "610700"
-        },
-        {
-          text: "榆林市",
-          value: "610800"
-        },
-        {
-          text: "安康市",
-          value: "610900"
-        },
-        {
-          text: "商洛市",
-          value: "611000"
-        }
-      ]
-    },
-    {
-      text: "甘肃省",
-      value: "620000",
-      children: [
-        {
-          text: "兰州市",
-          value: "620100"
-        },
-        {
-          text: "嘉峪关市",
-          value: "620200"
-        },
-        {
-          text: "金昌市",
-          value: "620300"
-        },
-        {
-          text: "白银市",
-          value: "620400"
-        },
-        {
-          text: "天水市",
-          value: "620500"
-        },
-        {
-          text: "武威市",
-          value: "620600"
-        },
-        {
-          text: "张掖市",
-          value: "620700"
-        },
-        {
-          text: "平凉市",
-          value: "620800"
-        },
-        {
-          text: "酒泉市",
-          value: "620900"
-        },
-        {
-          text: "庆阳市",
-          value: "621000"
-        },
-        {
-          text: "定西市",
-          value: "621100"
-        },
-        {
-          text: "陇南市",
-          value: "621200"
-        }
-      ]
-    },
-    {
-      text: "青海省",
-      value: "630000",
-      children: [
-        {
-          text: "西宁市",
-          value: "630100"
-        },
-        {
-          text: "海东市",
-          value: "630200"
-        }
-      ]
-    },
-    {
-      text: "宁夏回族自治区",
-      value: "640000",
-      children: [
-        {
-          text: "银川市",
-          value: "640100"
-        },
-        {
-          text: "石嘴山市",
-          value: "640200"
-        },
-        {
-          text: "吴忠市",
-          value: "640300"
-        },
-        {
-          text: "固原市",
-          value: "640400"
-        },
-        {
-          text: "中卫市",
-          value: "640500"
-        }
-      ]
-    },
-    {
-      text: "新疆维吾尔自治区",
-      value: "650000",
-      children: [
-        {
-          text: "乌鲁木齐市",
-          value: "650100"
-        },
-        {
-          text: "克拉玛依市",
-          value: "650200"
-        }
-      ]
-    },
-    {
-      text: "香港特别行政区",
-      value: "810000",
-      children: [
-        {
-          text: "香港岛",
-          value: "810100"
-        },
-        {
-          text: "九龙",
-          value: "810200"
-        },
-        {
-          text: "新界",
-          value: "810300"
-        }
-      ]
-    },
-    {
-      text: "澳门特别行政区",
-      value: "820000",
-      children: [
-        {
-          text: "澳门半岛",
-          value: "820100"
-        },
-        {
-          text: "离岛",
-          value: "820200"
-        }
-      ]
-    },
-    {
-      text: "台湾省",
-      value: "710000",
-      children: [
-        {
-          text: "台北市",
-          value: "710100"
-        },
-        {
-          text: "高雄市",
-          value: "710200"
-        },
-        {
-          text: "台南市",
-          value: "710300"
-        },
-        {
-          text: "台中市",
-          value: "710400"
-        }
-      ]
-    }
-  ];
   const _sfc_main$p = {
     __name: "more_info",
     setup(__props) {
@@ -17672,7 +17392,7 @@ ${i3}
         (_a = province == null ? void 0 : province.children) == null ? void 0 : _a.find((item) => item.value === selected[1]);
         selectedProvince.value = e2.detail.value[0].text || "";
         selectedCity.value = e2.detail.value[1].text || "";
-        formatAppLog("log", "at pages/login/more_info.vue:107", selectedProvince.value, selectedCity.value);
+        formatAppLog("log", "at pages/login/more_info.vue:108", selectedProvince.value, selectedCity.value);
       };
       const skip = () => {
         uni.reLaunch({
@@ -17703,47 +17423,41 @@ ${i3}
           success: (res) => {
             const tempFilePaths = res.tempFilePaths;
             imagePath.value = tempFilePaths[0];
-            formatAppLog("log", "at pages/login/more_info.vue:143", "-----选择的图片路径：", tempFilePaths[0]);
+            formatAppLog("log", "at pages/login/more_info.vue:144", "-----选择的图片路径：", tempFilePaths[0]);
             uploadImage2(tempFilePaths[0]);
           },
           fail: (err) => {
-            formatAppLog("log", "at pages/login/more_info.vue:148", "选择图片失败：", err);
+            formatAppLog("log", "at pages/login/more_info.vue:149", "选择图片失败：", err);
           }
         });
       };
       const token = uni.getStorageSync("accessToken");
       function uploadImage2(filePath) {
-        formatAppLog("log", "at pages/login/more_info.vue:157", filePath);
-        const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 1e4)}`;
+        formatAppLog("log", "at pages/login/more_info.vue:158", filePath);
         uni.uploadFile({
           url: uploadUrl,
           // 上传接口 URL
           filePath,
           // 需要上传的文件路径
-          name: "image_url",
+          name: "image",
           // 后台接收文件的字段名 (根据实际需求)
           header: {
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`
             // 将 JWT Token 添加到 Authorization 请求头中
-            "Content-Type": "multipart/form-data"
-          },
-          formData: {
-            "file_name": randomFileName
-            // 生成的随机文件名
           },
           success: (uploadFileRes) => {
             if (uploadFileRes.statusCode === 201) {
               const data = JSON.parse(uploadFileRes.data);
-              formatAppLog("log", "at pages/login/more_info.vue:176", "上传成功！");
-              formatAppLog("log", "at pages/login/more_info.vue:177", "上传的图片 URL:", data);
+              formatAppLog("log", "at pages/login/more_info.vue:174", "上传成功！");
+              formatAppLog("log", "at pages/login/more_info.vue:175", "上传的图片 URL:", data);
               uploadSuccessUrl.value = data.image_url;
             } else {
-              formatAppLog("log", "at pages/login/more_info.vue:180", "上传失败，状态码：", uploadFileRes.statusCode);
+              formatAppLog("log", "at pages/login/more_info.vue:178", "上传失败，状态码：", uploadFileRes.statusCode);
             }
           },
           fail: (err) => {
-            formatAppLog("log", "at pages/login/more_info.vue:184", err);
-            formatAppLog("error", "at pages/login/more_info.vue:185", "上传文件出错:", err);
+            formatAppLog("log", "at pages/login/more_info.vue:182", err);
+            formatAppLog("error", "at pages/login/more_info.vue:183", "上传文件出错:", err);
           }
         });
       }
@@ -17752,7 +17466,7 @@ ${i3}
         return emailPattern.test(email2);
       };
       const saveMessage = async () => {
-        formatAppLog("log", "at pages/login/more_info.vue:204", validateEmail(email.value));
+        formatAppLog("log", "at pages/login/more_info.vue:202", validateEmail(email.value));
         if (!validateEmail(email.value)) {
           return uni.showToast({
             title: "请输入正确的邮箱",
@@ -17799,7 +17513,7 @@ ${i3}
       return (_ctx, _cache) => {
         const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
         const _component_uni_easyinput = resolveEasycom(vue.resolveDynamicComponent("uni-easyinput"), __easycom_1$4);
-        const _component_uni_data_picker = resolveEasycom(vue.resolveDynamicComponent("uni-data-picker"), __easycom_2$2);
+        const _component_uni_data_picker = resolveEasycom(vue.resolveDynamicComponent("uni-data-picker"), __easycom_2$4);
         const _component_uni_calendar = resolveEasycom(vue.resolveDynamicComponent("uni-calendar"), __easycom_3);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, {
@@ -17897,6 +17611,7 @@ ${i3}
               vue.createVNode(_component_uni_data_picker, {
                 localdata: cityData.value,
                 value: selectedValues.value,
+                "clear-icon": false,
                 mode: "region",
                 onChange,
                 title: "请选择省市"
@@ -18448,7 +18163,7 @@ ${i3}
   function _sfc_render$6(_ctx, _cache) {
     const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
     const _component_uni_col = resolveEasycom(vue.resolveDynamicComponent("uni-col"), __easycom_1$2);
-    const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$4);
+    const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$3);
     return vue.openBlock(), vue.createElementBlock("view", null, [
       vue.createVNode(_component_navBar, { title: "保证金记录" }),
       vue.createVNode(_component_uni_row, { class: "title_row" }, {
@@ -18727,7 +18442,7 @@ ${i3}
   function _sfc_render$5(_ctx, _cache) {
     const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
     const _component_uni_col = resolveEasycom(vue.resolveDynamicComponent("uni-col"), __easycom_1$2);
-    const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$4);
+    const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$3);
     return vue.openBlock(), vue.createElementBlock("view", null, [
       vue.createVNode(_component_navBar, { title: "保证金记录" }),
       vue.createVNode(_component_uni_row, { class: "title_row" }, {
@@ -20971,7 +20686,7 @@ ${i3}
       return (_ctx, _cache) => {
         const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
         const _component_uni_col = resolveEasycom(vue.resolveDynamicComponent("uni-col"), __easycom_1$2);
-        const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$4);
+        const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$3);
         const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_3$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "提取记录" }),
@@ -21276,7 +20991,7 @@ ${i3}
       return (_ctx, _cache) => {
         const _component_navBar = resolveEasycom(vue.resolveDynamicComponent("navBar"), __easycom_0$2);
         const _component_uni_col = resolveEasycom(vue.resolveDynamicComponent("uni-col"), __easycom_1$2);
-        const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$4);
+        const _component_uni_row = resolveEasycom(vue.resolveDynamicComponent("uni-row"), __easycom_2$3);
         const _component_uni_load_more = resolveEasycom(vue.resolveDynamicComponent("uni-load-more"), __easycom_3$1);
         return vue.openBlock(), vue.createElementBlock("view", null, [
           vue.createVNode(_component_navBar, { title: "提取记录" }),

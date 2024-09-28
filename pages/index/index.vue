@@ -1,7 +1,7 @@
 <template>
 	<view class="page">
 		<navBar :iconShow="false" title="满仓"></navBar>
-		<view class="search_bar flex_between">
+	<!-- 	<view class="search_bar flex_between">
 			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>
 			<view class="location">
 				{{city?city:'定位中'}}
@@ -11,7 +11,7 @@
 					<view class="search_btn flex_center" @click.stop="search" >搜索</view>
 				</template>
 			</uni-search-bar>
-		</view>
+		</view> -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-color="#a4b8ab" indicator-active-color="#fc5908" :circular="true" class="swiper">
 			<swiper-item v-for="item in bannerList" :key="item.id">
 				<image :src="item.image_url" mode="widthFix" class="swipe_img"></image>
@@ -144,39 +144,7 @@ onMounted(async()=>{
 		await userStore.fetchAllDataAction()
 	}
 	
-	uni.getLocation({
-		geocode: true,
-		success(res) {
-			console.log(res)
-			if (res.address) {
-				uni.setStorageSync('address_info', res.address)
-				city.value = res.address.city
-			}
-			
-			// var qqmapsdk = new QQMapWX({
-			//     key: 'YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA' // 必填
-			// });
-			// qqmapsdk.reverseGeocoder({
-			// 	location: {
-			// 		latitude: res.latitude,
-			// 		longitude: res.longitude
-			// 	},
-			// 	success(address){
-			// 		const ad_info = address.result.ad_info
-			// 		uni.setStorageSync('address_info', address.result.ad_info)
-				
-			// 		city.value = ad_info.city
-			// 	},
-			// 	fail(err){
-			// 		console.log(err)
-			// 		uni.showToast({
-			// 			icon: 'none',
-			// 			title: '定位失败'
-			// 		})
-			// 	}
-			// })
-		}
-	})
+
 	getCategory()
 	getBanner()
 })
@@ -198,12 +166,12 @@ const toSettle = ()=>{
 	})
 }
 const toMerchant =async () => {
-	const phoneNumber=await uni.getStorageSync('phoneNumber')
+	const phoneNumber= uni.getStorageSync('phoneNumber')
 	const userData=uni.getStorageSync('userInfo')
-	const  shopData=await  getShopInfo(phoneNumber)
+	const  shopData=uni.getStorageSync('shopInfo')
 	console.log('进入商家前的用户信息',userData);
 	console.log('进入商家前的店铺信息',shopData);
-    if (userData?.is_seller&&shopData?.is_approved) {
+    if (userData?.is_seller&&userData?.is_shop) {
         // 已入驻
         uni.navigateTo({
             url: '/pages/merchant/merchant_management'
@@ -213,7 +181,7 @@ const toMerchant =async () => {
         uni.navigateTo({
             url: '/pages/merchant/merchant_intro'
         });
-    } else if(userData?.is_seller&&!shopData?.is_approved){
+    } else if(userData?.is_seller&&!userData?.is_shop){
 		uni.navigateTo({
 			url:'/pages/merchant/before_create_shop'
 		})

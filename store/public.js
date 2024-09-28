@@ -20,6 +20,7 @@ export const  usePublicStore = defineStore('public', {
 	actions: {
 		async getCateGoryListAction(){
 			const res=await getShopCategories()
+			uni.setStorageSync('shopCategories',res.results)
 			console.log(res.results);
 			this.cateGoryList=res.results
 		},
@@ -33,7 +34,6 @@ export const  usePublicStore = defineStore('public', {
 			const {location}=await uni.getStorageSync('address_info')
 			
 		},
-		
 		async fetchAllDataAction(){
 			this.getCateGoryListAction()
 			this.getStoreListAction()
