@@ -12,7 +12,7 @@
 
 <script setup>
 const toNext = ()=>{
-	uni.navigateTo({
+	uni.redirectTo({
 		// url: '/pages/recommend/recommend_management'
 		url: '/pages/recommend/recommend_test'
 	})

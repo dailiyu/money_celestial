@@ -37,7 +37,7 @@
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
-				<view class="list_item flex_between" @click="toCode">
+				<view class="list_item flex_between" @click="toCode" v-if="!userStore.vertifyMerchantInfo.is_verified">
 					<view class="">
 						商家码认证
 					</view>
@@ -67,87 +67,104 @@
 </template>
 
 <script setup>
-import { useUserStore } from '../../store/user';
-const userStore = useUserStore()
-	
-	
-	
-	
-const toEdit = ()=>{
-	uni.navigateTo({
-		url: '/pages/merchant/merchant_edit_info'
+	import {
+		onMounted
+	} from 'vue';
+	import {
+		useUserStore
+	} from '../../store/user';
+
+	const userStore = useUserStore()
+
+	onMounted(() => {
+		userStore.getStoreInfoAction()
 	})
-}
-const toPoinGift = ()=>{
-	uni.navigateTo({
-		url: '/pages/merchant/point_gift'
-	})
-}
-const toCode = ()=>{
-	uni.navigateTo({
-		url: '/pages/merchant/merchant_code_authentication'
-	})
-}
-const toSecurityDeposit = ()=>{
-	uni.navigateTo({
-		url: '/pages/merchant/security_deposit'
-	})
-}
-const toUploadGoods = ()=>{
-	uni.navigateTo({
-		url: '/pages/merchant/upload_goods'
-	})
-}
+
+
+	const toEdit = () => {
+		uni.navigateTo({
+			url: '/pages/merchant/merchant_edit_info'
+		})
+	}
+	const toPoinGift = () => {
+		uni.navigateTo({
+			url: '/pages/merchant/point_gift'
+		})
+	}
+	const toCode = () => {
+		uni.navigateTo({
+			url: '/pages/merchant/merchant_code_authentication'
+		})
+	}
+	const toSecurityDeposit = () => {
+		uni.navigateTo({
+			url: '/pages/merchant/security_deposit'
+		})
+	}
+	const toUploadGoods = () => {
+		uni.navigateTo({
+			url: '/pages/merchant/upload_goods'
+		})
+	}
 </script>
 
 <style lang="scss" scoped>
-.merchant_info {
-	padding: 50rpx 42rpx 34rpx;
-	.head {
-		width: 110rpx;
-		height: 110rpx;
-		border-radius: 50%;
-		background-color: #ccc;
-		margin-right: 28rpx;
-	}
-	.name {
-		font-size: 26rpx;
-		margin-bottom: 22rpx;
-		font-weight: 500;
-		.level {
-			padding: 6rpx 14rpx;
-			background-color: #fc5908;
-			margin-left: 12rpx;
-			color: #fff;
-			border-radius: 100px;
-			font-weight: bold;
+	.merchant_info {
+		padding: 50rpx 42rpx 34rpx;
+
+		.head {
+			width: 110rpx;
+			height: 110rpx;
+			border-radius: 50%;
+			background-color: #ccc;
+			margin-right: 28rpx;
+		}
+
+		.name {
+			font-size: 26rpx;
+			margin-bottom: 22rpx;
+			font-weight: 500;
+
+			.level {
+				padding: 6rpx 14rpx;
+				background-color: #fc5908;
+				margin-left: 12rpx;
+				color: #fff;
+				border-radius: 100px;
+				font-weight: bold;
+			}
+		}
+
+		.star_pic {
+			width: 22rpx;
+			display: block;
+		}
+
+		.point {
+			font-size: 16rpx;
+			color: #fc5908;
+			margin-left: 20rpx;
+			font-weight: 500;
 		}
 	}
-	.star_pic {
-		width: 22rpx;
-		display: block;
-	}
-	.point {
-		font-size: 16rpx;
-		color: #fc5908;
-		margin-left: 20rpx;
-		font-weight: 500;
-	}
-}
-.list_box {
-	padding: 0 28rpx;
-	background-color: #fff;
-	.list_item {
-		padding: 46rpx 14rpx;
-		font-weight: 500;
-		font-size: 27rpx;
-		border-bottom: 1px solid #ececec;
-		&:last-child {
-			border-bottom: none;
-		}
-		.arrow_pic {
-			width: 12rpx;
+
+	.list_box {
+		padding: 0 28rpx;
+		background-color: #fff;
+
+		.list_item {
+			padding: 46rpx 14rpx;
+			font-weight: 500;
+			font-size: 27rpx;
+			border-bottom: 1px solid #ececec;
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			.arrow_pic {
+				width: 12rpx;
+			}
 		}
 	}
-}
 </style>

@@ -1,5 +1,5 @@
 const TIME_OUT = 60000;
-const BASE_URL = 'https://max.q6z4kzhr.uk/api';
+const BASE_URL = 'https://www.shabiimage.com/api';
 
 class Request {
     request(url, method, data) {

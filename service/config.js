@@ -1,4 +1,4 @@
-export  const uploadUrl="https://max.q6z4kzhr.uk/api/upload/image/"
+export  const uploadUrl="https://www.shabiimage.com/api/upload/image/"
 
 
  
