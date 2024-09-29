@@ -144,12 +144,12 @@ const userStore = useUserStore()
 const city = ref('')
 const userInfo = uni.getStorageSync('userInfo')
 onMounted(async()=>{
-	const accessToken = uni.getStorageSync('accessToken')
-	console.log(accessToken);
-	if (accessToken) {
+	// const accessToken = uni.getStorageSync('accessToken')
+	// console.log(accessToken);
+	// if (accessToken) {
 		await publicStore.fetchAllDataAction(),
 		await userStore.fetchAllDataAction()
-	}
+	// }
 	
 
 	getCategory()
