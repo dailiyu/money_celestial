@@ -8,11 +8,11 @@
 						钱包地址
 					</view>
 					<uni-easyinput v-model="address" :inputBorder="false" class="uni-input" placeholder="请输入充值钱包地址" placeholder-class="placeholder_class" :styles="{'padding': '0'}" >
-					<template #right>
+					<!-- <template #right>
 						<view class="error_text">
 							格式错误
 						</view>
-					</template>
+					</template> -->
 					</uni-easyinput>
 				</view>
 				<view class="info_item flex_between">
@@ -20,11 +20,11 @@
 						充值订单
 					</view>
 					<uni-easyinput v-model="order" :inputBorder="false" class="uni-input" placeholder="请输入充值订单哈希值" placeholder-class="placeholder_class" >
-						<template #right>
+						<!-- <template #right>
 							<view class="error_text">
 								格式错误
 							</view>
-						</template>
+						</template> -->
 					</uni-easyinput>
 				</view>
 				<view class="info_item flex_between">
@@ -32,7 +32,7 @@
 						兑换账号
 					</view>
 					<uni-easyinput v-model="phone" maxlength="11" type="number" :inputBorder="false" class="uni-input" placeholder="请输入账号" placeholder-class="placeholder_class" >
-						<template #right>
+						<!-- <template #right>
 							<view class="" style="text-align: right;">
 								<view class="error_text">
 									手机号错误
@@ -41,7 +41,7 @@
 									请输入正确的手机号
 								</view>
 							</view>
-						</template>
+						</template> -->
 					</uni-easyinput>
 				</view>
 			</view>
@@ -95,13 +95,13 @@ const confirm = async()=>{
 		icon: 'none',
 		title: '请输入正确手机号'
 	})
-	const params = {
+	const params = ref({
 		point_account: phone.value,
 		from_address: address.value,
 		consumer_coupon: order.value,
 		transaction_type: 'increase',
 		transaction_method: 'red_points'
-	}
+	})
 	try{
 		uni.showLoading({
 			mask: true,

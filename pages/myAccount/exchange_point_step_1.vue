@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<navBar title="兑换积分" :isShow="true">
+		<navBar title="兑换积分" :isShow="true" :isSkip="true">
 			<template class="skip" #right>
-				<image src="@/static/record.png" mode="widthFix" class="record_pic"></image>
+				<image src="@/static/record.png" mode="widthFix" class="record_pic" @click="toRecord"></image>
 			</template>
 		</navBar>
 		<view class="content">
@@ -54,6 +54,11 @@ const copy = ()=>{
 const toNext = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/exchange_point_step_2'
+	})
+}
+const toRecord = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/red_point_add_record'
 	})
 }
 </script>

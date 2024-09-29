@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="shop_list">
-			<view  class="shop_item flex" @click="toDetail">
+			<view  class="shop_item flex" @click="toDetail(item.merchant)" v-for="item in list" :key="item.merchant">
 				<image :src="item.avatar" mode="aspectFill" class="shop_pic"></image>
 				<view class="" style="flex: 1;">
 					<view class="shop_name">
@@ -29,18 +29,22 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
-import { sortShopsByDistance } from "../../utils/distanceSorting";
-import {usePublicStore} from "@/store/public.js"
+import { computed, onMounted, watch } from "vue";
 
+defineProps({
+	list: {
+		type: Array,
+		default: []
+	}
+})
 onMounted(async()=>{
 	
 })
 
 
-const toDetail = () => {
+const toDetail = (phone) => {
   uni.navigateTo({
-    url: '/pages/merchant/merchant_detail'
+    url: '/pages/merchant/merchant_detail?phone='+phone
   });
 };
 </script>
