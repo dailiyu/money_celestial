@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<navBar title="全部商家"></navBar>
+		<navBar title="全部商铺"></navBar>
 		<view class="filter_list flex_between">
-			<view class="flex_center" @click="getType">
+			<view class="flex_center" style="flex: 1;">
 				<!-- <image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
 				<view>
 					类目
@@ -13,13 +13,13 @@
 				<uni-data-select v-model="category" :localdata="range" placeholder="类目" :clear="false"
 					@change="changeRange"></uni-data-select>
 			</view>
-			<view>
+			<view style="flex: 1; text-align: center;">
 				热门
 			</view>
-			<view>
+			<view style="flex: 1; text-align: center;">
 				好评
 			</view>
-			<view class="flex_center">
+			<!-- <view class="flex_center">
 				<view class="">
 					距离
 				</view>
@@ -31,7 +31,7 @@
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<view class="content">
 		<!-- 	<view class="settle_box flex_between">
@@ -44,7 +44,7 @@
 					我要入驻
 				</view>
 			</view> -->
-			<shopList ></shopList>
+			<shopList :list="shopLists"></shopList>
 		</view>
 	</view>
 </template>
@@ -55,11 +55,11 @@ import { getShopList } from '@/service/shop';
 import { getShopCategories } from '@/service/shop.js'
 
 const categoryId = ref('')
-const range = ref({})
+const range = ref([])
 onMounted(async()=>{
 	let routes = getCurrentPages()
 	let curParam = routes[routes.length - 1].options;
-	categoryId.value = curParam.id
+	categoryId.value = curParam.id==0?'':curParam.id
 	getList()
 	// 类目
 	const {results} = await getShopCategories()
@@ -72,7 +72,7 @@ onMounted(async()=>{
 	})
 })
 
-const shopList = ref([])
+const shopLists = ref([])
 const getList = async()=>{
 	const params = ref({
 		ordering: 'created_at',
@@ -82,7 +82,7 @@ const getList = async()=>{
 		title: '加载中'
 	})
 	const {results} = await getShopList(params.value)
-	shopList.value = results
+	shopLists.value.push(...results)
 	uni.hideLoading()
 }
 
@@ -95,8 +95,8 @@ const toSettle = ()=>{
 const category = ref('')
 const changeRange = (e) => {
 	categoryId.value = e
-	shopList.value = []
-	getShopList()
+	shopLists.value = []
+	getList()
 }
 </script>
 

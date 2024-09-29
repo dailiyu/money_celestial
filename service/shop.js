@@ -37,7 +37,10 @@ export const getShopList=(data)=>{
 }
 
 
-
+//获取店铺图片
+export const getShopImages=(data)=>{
+	return http.get('/shops-images/', data)
+}
 
 
 

@@ -406,6 +406,14 @@
 				"navigationBarTitleText" : "提取记录",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/myAccount/red_point_add_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

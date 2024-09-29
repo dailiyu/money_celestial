@@ -2,31 +2,37 @@
 	<view>
 		<navBar title="提取记录"></navBar>
 		<uni-row class="title_row">
-			<uni-col :span="3">
+			<uni-col :span="2">
 				<view class="title">序号</view>
 			</uni-col>
-			<uni-col :span="7">
+			<uni-col :span="6">
 				<view class="title">提取地址</view>
 			</uni-col>
-			<uni-col :span="6">
+			<uni-col :span="5">
 				<view class="title">提取数量</view>
 			</uni-col>
-			<uni-col :span="8">
+			<uni-col :span="4">
+				<view class="title">审核状态</view>
+			</uni-col>
+			<uni-col :span="7">
 				<view class="title">提取时间</view>
 			</uni-col>
 		</uni-row>
 		
 		<uni-row v-for="(item, index) in recordList" :key="item.id">
-			<uni-col :span="3">
+			<uni-col :span="2">
 				<view>{{index+1}}</view>
 			</uni-col>
-			<uni-col :span="7">
+			<uni-col :span="6">
 				<view>{{item.point_account}}</view>
 			</uni-col>
-			<uni-col :span="6">
+			<uni-col :span="5">
 				<view>{{item.transaction_amount}}</view>
 			</uni-col>
-			<uni-col :span="8">
+			<uni-col :span="4">
+				<view>{{is_allowed&&is_processed?'已审核':'待审核'}}</view>
+			</uni-col>
+			<uni-col :span="7">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
@@ -51,7 +57,7 @@ const getRecordList = async()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {results} = await getPointsRecords({transaction_method:'red_points'})
+	const {results} = await getPointsRecords({transaction_method:'red_points', transaction_type: 'decrease'})
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {

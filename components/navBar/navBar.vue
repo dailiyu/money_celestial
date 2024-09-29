@@ -5,9 +5,9 @@
 			<view class="">
 				{{ title }}
 			</view>
-			<!-- <view class="skip" v-if="isSkip" @click="skip">
-				跳过
-			</view> -->
+			<view class="skip" v-if="isSkip">
+				<slot name="right"></slot>
+			</view>
 		</view>
 	</view>
 </template>
@@ -33,6 +33,10 @@
 				default: '#FC5908'
 			},
 			isShow: {
+				type: Boolean,
+				default: false
+			},
+			isSkip: {
 				type: Boolean,
 				default: false
 			}

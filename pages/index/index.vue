@@ -66,7 +66,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="merchant_box" v-if="userInfo.is_shop">
+			<view class="merchant_box" v-if="userInfo.is_shop&&shopLists.merchant">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
 						<text class="nearby">附近商家</text>
@@ -79,22 +79,22 @@
 					</view> -->
 				</view>
 				<view class="shop_list">
-					<view class="shop_item flex_between" @click="toDetail">
-						<image src="" mode="aspectFill" class="shop_img"></image>
+					<view class="shop_item flex_between" @click="toDetail(shopLists.merchant)">
+						<image :src="shopLists.avatar" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
 							<view class="shop_name">
-								{{publicStore.ascShopList[0]?.name}}
+								{{shopLists.name}}
 							</view>
 							<view class="shop_address flex">
 								<image src="@/static/locate_orange.png" mode="widthFix" class="address_img"></image>
 								<view class="" style="flex: 1;">
-									{{publicStore.ascShopList[0]?.address}}
+									{{shopLists.address}}
 								</view>
 							</view>
 						</view>
-						<view class="distance">
-							{{publicStore.ascShopList[0]?.distance/1000}}km
-						</view>
+						<!-- <view class="distance">
+							{{shopLists.ascShopList[0]?.distance/1000}}km
+						</view> -->
 					</view>
 					<view class="more" @click="toAllMerchant(0)">
 						点击查看更多
@@ -130,10 +130,11 @@
 import { onMounted, ref } from 'vue';
 import {usePublicStore} from "@/store/public.js"
 import { useUserStore } from '../../store/user';
-import { getShopCategories, getShopInfo } from '@/service/shop';
+import { getShopCategories, getShopInfo, getShopList } from '@/service/shop';
 import { getBannerList } from '@/service/bannner.js'
 import { getRecommendOfficerInfo } from '../../service/recommend';
 import { getUerAccountMessage } from '../../service/uer_profile';
+
 
 // var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
@@ -154,7 +155,13 @@ onMounted(async()=>{
 
 	getCategory()
 	getBanner()
+	getShopLists()
 })
+const shopLists = ref({})
+const getShopLists = async()=>{
+	const {results} = await getShopList()
+	shopLists.value = results[0]
+}
 const categoryList = ref([])
 const getCategory = async()=>{
 	const {results} = await getShopCategories()
@@ -238,9 +245,9 @@ const toMyAccount = ()=>{
 		url: '/pages/myAccount/myAccount'
 	})
 }
-const toDetail = ()=>{
+const toDetail = (phone)=>{
 	uni.navigateTo({
-		url: '/pages/merchant/merchant_detail'
+		url: '/pages/merchant/merchant_detail?phone='+phone
 	})
 }
 </script>

@@ -36,7 +36,7 @@ export const  usePublicStore = defineStore('public', {
 		},
 		async fetchAllDataAction(){
 			this.getCateGoryListAction()
-			this.getStoreListAction()
+			// this.getStoreListAction()
 		}
 		
 	}

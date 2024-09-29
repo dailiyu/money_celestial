@@ -42,8 +42,8 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getWithdrawRecord } from '@/service/point.js'
-import { getPointsRecords } from '@/service/point';
+import { getPointsRecords } from '@/service/point.js'
+// import { getPointsRecords } from '@/service/deposit';
 import { convertTime, obscureString } from '@/utils/index.js'
 
 onMounted(()=>{
@@ -57,7 +57,7 @@ const getRecordList = async()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {results} = await getPointsRecords({transaction_method:'green_points', transaction_type: 'decrease'})
+	const {results} = await getPointsRecords({transaction_method:'red_points', transaction_type: 'increase'})
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {

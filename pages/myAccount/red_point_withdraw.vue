@@ -65,10 +65,10 @@ onMounted(async ()=>{
 const account = ref('')
 const pointBalance = ref('')
 const getPointInfo = async()=>{
-	const {red_points, points_account} = await getAllPoint()
+	const {red_points, user} = await getAllPoint()
 	// 可用积分
 	pointBalance.value = red_points
-	account.value = points_account
+	account.value = user
 }
 const isChecked = ref(false)
 const number = ref('')

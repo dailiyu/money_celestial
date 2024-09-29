@@ -10,14 +10,14 @@
 						<text class="city">{{cityAgent}}</text>
 						<text>代理</text>
 					</view>
-					<view class="point_box flex">
+					<!-- <view class="point_box flex">
 						<view class="point_text">
 							获得积分
 						</view>
 						<view class="point_num">
 							{{agentPoint}}
 						</view>
-					</view>
+					</view> -->
 					<view class="flex">
 						<view class="" style="margin-right: 112rpx;">
 							<view class="data_text">
@@ -74,7 +74,7 @@ onMounted(async()=>{
 	provinceId.value = results[0].province
 	getShopAmount()
 	getOfficerAmount()
-	getAgentPoint()
+	// getAgentPoint()
 })
 
 const merchantAmount = ref(0)
