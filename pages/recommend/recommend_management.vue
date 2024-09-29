@@ -43,7 +43,7 @@
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
-				<view class="list_item flex_between" @click="toMerchantCode">
+				<view class="list_item flex_between" @click="toMerchantCode" v-if="!userStore.vertifyMerchantInfo.is_verified">
 					<view class="">
 						商家码认证
 					</view>
@@ -65,6 +65,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
+import { useUserStore } from '../../store/user';
+ const userStore=  useUserStore()
 const info = ref({})
 const user = ref({})
 onMounted(async()=>{

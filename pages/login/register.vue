@@ -80,10 +80,11 @@ const toRegister = async() => {
         });
       }, 2000); // 延迟 2 秒跳转
     }).catch((err) => {
+		console.log(err.data);
       uni.showToast({
         duration: 2000,
-        icon: 'none',
-        title: "注册失败"
+        icon: 'error',
+        title: err.data.phone_number[0]
       });
     });
   } else {

@@ -5,9 +5,9 @@
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						积分账号
+						账号
 					</view>
-					<input v-model="address" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" />
+					<input v-model="address" class="uni-input" placeholder="请输入商家码账号" placeholder-class="placeholder_class" />
 				</view>
 			</view>
 			<view class="btn_full" @click="confirm">
@@ -19,7 +19,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { merchantCodeAuthentication } from '@/service/merchant';
+import { vertifyMerchant } from '@/service/merchant';
 const address = ref('')
 
 const confirm = async()=>{
@@ -30,12 +30,21 @@ const confirm = async()=>{
 	uni.showLoading({
 		title: '认证中'
 	})
-	await merchantCodeAuthentication({username: address.value})
-	uni.hideLoading()
-	uni.showToast({
-		icon: 'none',
-		title: '认证成功'
+	const phoneNumber=uni.getStorageSync('phoneNumber')
+    vertifyMerchant(phoneNumber,{verification_account: address.value}).then((res)=>{
+		uni.hideLoading()
+		uni.showToast({
+			icon: 'success',
+			title: '认证成功'
+		})
+	}).catch((err)=>{
+		uni.hideLoading()
+		uni.showToast({
+			icon: 'error',
+			title: '认证失败'
+		})
 	})
+	
 }
 </script>
 

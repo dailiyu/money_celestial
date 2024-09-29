@@ -122,7 +122,7 @@ export default {
 			 await createRecommendOfficer({user:phoneNumber,name:userName, city:cityName})
 			
 			uni.hideLoading()
-			uni.navigateTo({
+			uni.redirectTo({
 				url: '/pages/recommend/recommend_management'
 			})
 		}catch(e){
