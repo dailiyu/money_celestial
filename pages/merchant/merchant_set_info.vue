@@ -79,8 +79,8 @@
 					<image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image>
 				</view>
 			</view>
-			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+			<view class="radio" >
+				<radio value="r1" :checked="isChecked" color="#FC5908"  @click="changeCheck"/>
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title">《商家入驻须知》</text>
 			</view>
