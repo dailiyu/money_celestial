@@ -44,7 +44,7 @@
 							我的信息
 						</view>
 					</view>
-					<view class="service_item">
+					<view class="service_item" @click="toRecord">
 						<image src="@/static/my/record.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							我的记录
@@ -161,6 +161,11 @@ const toPointAvailable = ()=>{
 const toPointAccount = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/point_account'
+	})
+}
+const toRecord = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/red_point_add_record'
 	})
 }
 </script>
