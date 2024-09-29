@@ -54,12 +54,12 @@ import { onMounted, ref } from 'vue';
 import { getShopList } from '@/service/shop';
 import { getShopCategories } from '@/service/shop.js'
 
-const id = ref('')
+const categoryId = ref('')
 const range = ref({})
 onMounted(async()=>{
 	let routes = getCurrentPages()
 	let curParam = routes[routes.length - 1].options;
-	provinceId.value = curParam.provinceId
+	categoryId.value = curParam.id
 	getList()
 	// 类目
 	const {results} = await getShopCategories()
@@ -75,9 +75,8 @@ onMounted(async()=>{
 const shopList = ref([])
 const getList = async()=>{
 	const params = ref({
-		ordering: time.value,
-		category_id: categoryId.value,
-		code: provinceId.value
+		ordering: 'created_at',
+		category: categoryId.value,
 	})
 	uni.showLoading({
 		title: '加载中'

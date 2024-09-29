@@ -73,10 +73,10 @@ const confirm = async ()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	if (!address.value) return uni.showToast({
-		icon:'none',
-		title: '请输入账号'
-	})
+	// if (!address.value) return uni.showToast({
+	// 	icon:'none',
+	// 	title: '请输入账号'
+	// })
 	if (!number.value) return uni.showToast({
 		icon:'none',
 		title: '请输入金额'

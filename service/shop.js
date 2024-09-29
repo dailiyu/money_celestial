@@ -32,8 +32,8 @@ export const getShopInfo=(merchant)=>{
 
 
 
-export const getShopList=()=>{
-	return http.get('/shops/')
+export const getShopList=(data)=>{
+	return http.get('/shops/', data)
 }
 
 
