@@ -20,7 +20,7 @@
 							已推荐商家数
 						</view>
 						<view class="total_num">
-							{{info.count||0}}
+							{{userStore.recommendShopList.length||0}}
 						</view>
 					</view>
 					<!-- <view class="">
@@ -66,6 +66,7 @@
 import { onMounted, ref } from 'vue';
 import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
 import { useUserStore } from '../../store/user';
+
  const userStore=  useUserStore()
 const info = ref({})
 const user = ref({})

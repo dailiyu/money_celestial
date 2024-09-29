@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { postProfileLogin, getUerAccountMessage } from '../service/uer_profile';
-
 import { getShopInfo } from '../service/shop';
 import { getVertifyMerchantInfo } from '../service/merchant';
+import { getRecommendShopList } from '../service/recommend';
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -10,7 +10,8 @@ export const useUserStore = defineStore('user', {
       userInfo: {},
       merchantInfo:{},
 	  shopInfo:{},
-	  vertifyMerchantInfo:{}
+	  vertifyMerchantInfo:{},
+	  recommendShopList:[]
     };
   },
   actions: {
@@ -54,11 +55,17 @@ export const useUserStore = defineStore('user', {
 		console.log('获取到的验证商家码信息',res);
 		this.vertifyMerchantInfo=res
 	},
+	async getRecommendShopListAction(){
+	  const res=await getRecommendShopList({})
+	  this.recommendShopList=res
+	  console.log('推荐官的推荐商家列表',res);
+	},
 	async fetchAllDataAction(){
 		this.getUserInfoAction()
 		 // this.getMerchantInfoAction()
 		  this.getStoreInfoAction()
 		  this.getVertifyMerchantInfoAction()
+		  this.getRecommendShopListAction()
 	}
   }
 });
