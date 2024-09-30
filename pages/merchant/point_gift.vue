@@ -39,7 +39,7 @@
 						消耗
 					</view>
 					<view class="s_num">
-						{{number/0.16}}
+						{{number*0.16}}
 					</view>
 				</view>
 				<view class="info_item flex_between">
@@ -74,9 +74,9 @@ const totalPoints = ref(0)
 const balance = ref(0)
 onMounted(async()=>{
 	const data = await getAllPoint()
-	totalPoints.value = data.red_points*6.25
 	const res = await getDeposit()
 	balance.value = res.amount
+	totalPoints.value = data.red_points+(balance.value*6.25)
 })
 
 const address = ref('')

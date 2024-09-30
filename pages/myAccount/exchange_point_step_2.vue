@@ -1,20 +1,20 @@
 <template>
 	<view>
-		<navBar title="兑换积分"></navBar>
+		<navBar title="增加积分"></navBar>
 		<view class="content">
 			<view class="shop_info">
-				<view class="info_item flex_between">
+				<!-- <view class="info_item flex_between">
 					<view class="s_title">
 						钱包地址
 					</view>
 					<uni-easyinput v-model="address" :inputBorder="false" class="uni-input" placeholder="请输入充值钱包地址" placeholder-class="placeholder_class" :styles="{'padding': '0'}" >
-					<!-- <template #right>
+					<template #right>
 						<view class="error_text">
 							格式错误
 						</view>
-					</template> -->
+					</template>
 					</uni-easyinput>
-				</view>
+				</view> -->
 				<view class="info_item flex_between">
 					<view class="s_title">
 						充值订单
@@ -83,10 +83,10 @@ const confirm = async()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	if (!address.value) return uni.showToast({
-		icon: 'none',
-		title: '请输入钱包地址'
-	})
+	// if (!address.value) return uni.showToast({
+	// 	icon: 'none',
+	// 	title: '请输入钱包地址'
+	// })
 	if (!order.value) return uni.showToast({
 		icon: 'none',
 		title: '请输入订单哈希值'
@@ -97,7 +97,7 @@ const confirm = async()=>{
 	})
 	const params = ref({
 		point_account: phone.value,
-		from_address: address.value,
+		// from_address: address.value,
 		consumer_coupon: order.value,
 		transaction_type: 'increase',
 		transaction_method: 'red_points'

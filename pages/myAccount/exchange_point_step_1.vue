@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="兑换积分" :isShow="true" :isSkip="true">
+		<navBar title="增加积分" :isShow="true" :isSkip="true">
 			<template class="skip" #right>
 				<image src="@/static/record.png" mode="widthFix" class="record_pic" @click="toRecord"></image>
 			</template>

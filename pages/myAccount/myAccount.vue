@@ -229,6 +229,10 @@ const toRecord = ()=>{
 				background-size: cover;
 
 				.item {
+					flex: 1;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
 					display: flex;
 					flex-direction: column;
 					justify-content: center;

@@ -10,7 +10,7 @@
 			</view>
 			<view class="btns flex_between">
 				<view class="cancel_btn flex_center" @click="toStepOne">
-					兑换积分
+					增加积分
 				</view>
 				<view class="add_btn flex_center" @click="toWithdrawPoint">
 					提取积分

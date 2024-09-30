@@ -7,7 +7,7 @@
 				<image :src="item.image_url" mode="widthFix" class="shop_pic"></image>
 			</swiper-item>
 		</swiper>
-		<view class="shop_info">
+		<view class="shop_info" v-if="shopInfo.name">
 			<view class="info_item flex">
 				<image :src="shopInfo.avatar" mode="aspectFill" class="shop_head"></image>
 				<view class="" style="flex: 1;">
@@ -82,7 +82,11 @@ onMounted(()=>{
 })
 const shopInfo = ref({})
 const getInfo = async()=>{
+	uni.showLoading({
+		title: '加载中'
+	})
 	const res = await getShopInfo(phone.value)
+	uni.hideLoading()
 	shopInfo.value = res
 }
 const swiperList = ref([])
