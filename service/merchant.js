@@ -12,11 +12,13 @@ export const createMerchant=async (data)=>{
 
 //验证商家码
 export const vertifyMerchant=async (user,data)=>{
-	return http.patch(`/merchant/${user}/update/`,data)
+	return http.put(`/merchant/code/verifications/${user}/`,data)
 }
 
-
-
+//查看验证商家码信息
+export const getVertifyMerchantInfo=async (user)=>{
+	return http.get(`/merchant/code/verifications/${user}/`)
+}
 
 
 export const getMerchantInfo=async ()=>{
@@ -114,10 +116,6 @@ export const getStoreList=()=>{
 }
 
 
-// 商家码认证
-export const merchantCodeAuthentication=(data)=>{
-	return http.post('/users/merchant/code/verification/', data)
-}
 
 
 

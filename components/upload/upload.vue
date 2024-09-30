@@ -5,8 +5,8 @@
 	  v-for="(image, index) in imageTempPaths" 
 	  :key="index"  
 	  :src="image" 
-	  mode="widthFix" 
-	  class="upload_btn">
+	  mode="aspectFill" 
+	  class="upload_pic">
 	</image>
 
     <image v-if="imageTempPaths.length<props.amount" src="@/static/upload.png" mode="widthFix" class="upload_btn" @click="chooseImg"></image>
@@ -80,5 +80,10 @@ const  upLoadImg=async ()=>{
 <style lang="scss" scoped>
 .upload_btn {
 	width: 152rpx;
+}
+.upload_pic {
+	width: 152rpx;
+	height: 152rpx;
+	margin: 10rpx;
 }
 </style>

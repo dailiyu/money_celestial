@@ -174,6 +174,13 @@ const saveMessage=async()=>{
 			duration:700
 		})
 	}
+	if(!name.value||!uploadSuccessUrl.value||!gender.value||!birthday.value||!email.value||!selectedCity.value) {
+		return uni.showToast({
+			title:"请填入完整信息",
+			icon:"fail",
+			duration:700
+		})
+	}
 	uni.showLoading({
 		title:"正在保存中"              
 	})

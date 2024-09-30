@@ -1,41 +1,32 @@
 <template>
-	<view class="page">
-		<navBar title="推荐官二维码" ></navBar>
-		<div class="content">
-			<img class="img"  v-if="qrCodeUrl" :src="qrCodeUrl" alt="QR Code" />
-		</div>
-	</view>
+  <view class="page">
+    <navBar title="推荐官二维码"></navBar>
+    <div class="content">
+      <!-- 使用图片展示二维码 -->
+      <img class="img" v-if="qrCodeUrl" :src="qrCodeUrl" alt="QR Code" />
+    </div>
+  </view>
 </template>
 
+
 <script setup>
-import { onMounted ,ref} from 'vue';
-import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
-import QRCode from 'qrcode'
-	const qrcode = ref('')
-	onMounted(async()=>{
-		const {referral_url} = await getOfficerQRCode()
-		qrcode.value=referral_url
-		 await generateQRCode(referral_url)
-	})
-	
-	
-const qrCodeUrl = ref('')
-	// 生成二维码的函数
-	const generateQRCode = async (url) => {
-		
-	  try {
-	    // 使用 qrcode.js 生成二维码并将其转换为 Data URL
-	    const qrCodeDataUrl = await QRCode.toDataURL(url, {
-	      width: 200,  // 二维码宽度
-	      height: 200, // 二维码高度
-	    })
-	    // 将生成的二维码 URL 存储在 qrCodeUrl 中
-	    qrCodeUrl.value = qrCodeDataUrl
-	  } catch (err) {
-	    console.error('二维码生成失败:', err)
-	  }
-	}
+import { onMounted, ref } from 'vue';
+import { getOfficerQRCode } from '@/service/recommend.js';
+
+const qrCodeUrl = ref('');
+
+onMounted(async () => {
+  const { referral_url } = await getOfficerQRCode();
+  generateQRCode(referral_url);
+});
+
+// 生成二维码的函数
+const generateQRCode = (url) => {
+  // 使用在线 API 生成二维码
+  qrCodeUrl.value = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+};
 </script>
+
 
 <style lang="scss" scoped>
 	.content{

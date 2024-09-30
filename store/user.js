@@ -1,15 +1,17 @@
 import { defineStore } from 'pinia';
 import { postProfileLogin, getUerAccountMessage } from '../service/uer_profile';
-import loginVue from '../pages/login/login.vue';
-
 import { getShopInfo } from '../service/shop';
+import { getVertifyMerchantInfo } from '../service/merchant';
+import { getRecommendShopList } from '../service/recommend';
 
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
       userInfo: {},
       merchantInfo:{},
-	  shopInfo:{}
+	  shopInfo:{},
+	  vertifyMerchantInfo:{},
+	  recommendShopList:[]
     };
   },
   actions: {
@@ -47,10 +49,23 @@ export const useUserStore = defineStore('user', {
 			console.log('获取到的店铺信息',res);
 			uni.setStorageSync('shopInfo',res)
 	},
+	async getVertifyMerchantInfoAction(){
+		const phoneNumber=uni.getStorageSync('phoneNumber')
+		const res=await getVertifyMerchantInfo(phoneNumber)
+		console.log('获取到的验证商家码信息',res);
+		this.vertifyMerchantInfo=res
+	},
+	async getRecommendShopListAction(){
+	  const res=await getRecommendShopList({})
+	  this.recommendShopList=res
+	  console.log('推荐官的推荐商家列表',res);
+	},
 	async fetchAllDataAction(){
 		this.getUserInfoAction()
 		 // this.getMerchantInfoAction()
 		  this.getStoreInfoAction()
+		  this.getVertifyMerchantInfoAction()
+		  this.getRecommendShopListAction()
 	}
   }
 });
