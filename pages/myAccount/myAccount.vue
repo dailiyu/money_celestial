@@ -12,6 +12,9 @@
 				<view class="name">
 					{{user_name||'点击登录'}}
 				</view>
+				<view class="logout" @click="logout">
+					退出登录
+				</view>
 			</view>
 			<view class="points-box">
 				<view class="item" @click="toMyPoint">
@@ -148,6 +151,15 @@ const toLogin = ()=>{
 		url: '/pages/login/login'
 	})
 }
+
+const logout=()=>{
+	uni.clearStorageSync()
+	uni.redirectTo({
+		url: '/pages/login/login'
+	})
+}
+
+
 const toMyPoint = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/my_point'
@@ -215,6 +227,10 @@ const toRecord = ()=>{
 					font-family: HarmonyOS_Sans_SC_Bold;
 					font-size: 30rpx;
 					color: #FFFFFF;
+				}
+				.logout{
+					margin-left: 200rpx;
+					color: #54b1fd;
 				}
 			}
 

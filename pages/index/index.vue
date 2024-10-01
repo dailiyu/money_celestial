@@ -1,6 +1,6 @@
 <template>
 	<view class="page">
-		<navBar :iconShow="false" title="满仓"></navBar>
+		<navBarForIndex :iconShow="false" title="满仓"></navBarForIndex>
 	<!-- 	<view class="search_bar flex_between">
 			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>
 			<view class="location">
@@ -192,11 +192,11 @@ const toMerchant =async () => {
         });
     } else if(!userData?.is_seller) {
         // 未入驻
-        uni.navigateTo({
+        uni.redirectTo({
             url: '/pages/merchant/merchant_intro'
         });
     } else if(userData?.is_seller&&!userData?.is_shop){
-		uni.navigateTo({
+		uni.redirectTo({
 			url:'/pages/merchant/before_create_shop'
 		})
 	}

@@ -16,7 +16,7 @@
 <script setup>
 	
 	const toCreateShop=async ()=>{
-		uni.navigateTo({
+		uni.redirectTo({
 			url:'merchant_set_info'
 		})
 	}

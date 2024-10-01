@@ -78,7 +78,7 @@ const scanCode = () => {
 		    title: `创建商家成功`, // 显示扫码的结果
 		    icon: 'success'
 		  });
-		  uni.navigateTo({
+		  uni.redirectTo({
 		  	url:'/pages/merchant/before_create_shop'
 		  })
 	  }).catch((err)=>{

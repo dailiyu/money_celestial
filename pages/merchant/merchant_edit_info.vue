@@ -11,19 +11,19 @@
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload  :amount="1"  @tempImgPaths="acceptTempProfileImgPath"></upload>
+				<upload  amount="1" :imgUrls="avatarImages"  @tempImgPaths="acceptTempProfileImgPath"></upload>
 			</view>
-		<!-- 	<view class="head_box">
+			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						商家轮播图（750*340）
+						店铺轮播图
 					</view>
 					<view class="h_text">
 						已选择{{temBannerImgPaths.length}}张
 					</view>
 				</view>
-				<upload amount="6" @tempImgPaths="acceptTempBannerImgPath"></upload>
-			</view> -->
+				<upload amount="6"  :imgUrls="bannerImages"  @tempImgPaths="acceptTempBannerImgPath"></upload>
+			</view>
 			<view class="head_box">
 				<view class="shop_intro">
 					<view class="h_title" style="margin-bottom: 34rpx;">
@@ -31,20 +31,20 @@
 					</view>
 					<textarea   v-model="shopIntro" placeholder="请输入商家介绍" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
 				</view>
-		<!-- 		<view class="flex_between" style="margin-bottom: 54rpx;">
+				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						商家详情图（750*340）
+						店铺详情图
 					</view>
 					<view class="h_text">
 						已选择{{temDetailImgPaths.length}}张
 					</view>
 				</view>
-				<upload :amount="6" @tempImgPaths="acceptTempDetailImgPath"></upload> -->
+				<upload amount="6"  :imgUrls="detailImages"    @tempImgPaths="acceptTempDetailImgPath"></upload>
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						商家名称
+						店铺名称
 					</view>
 					<input v-model="shopName" class="uni-input" placeholder="请输入商家名称" placeholder-class="placeholder_class" />
 				</view>
@@ -74,7 +74,7 @@
 					<view class="title" style="margin-right: 45rpx;">
 						常居地
 					</view>
-						<uni-data-picker 
+						<uni-data-picker v-model="curData"
 									      :localdata="cityData"
 										  :clear-icon='false'
 									      mode="region"
@@ -105,6 +105,7 @@
 <script setup>
 	import {
 		computed,
+		onMounted,
 		ref
 	} from 'vue';
 
@@ -121,6 +122,7 @@
 	import {
 		changeShopInfo,
 		postMerchantSettleIn,
+		updateShopImg,
 		uploadShopImg
 	} from '../../service/shop';
 	import {
@@ -135,12 +137,17 @@
 	} from "@/store/public.js"
 
 	import cityDataJson from "@/static/cityData.json"
+	const shopInfo=uni.getStorageSync('shopInfo')
+	const bannerImages =  shopInfo.images.filter(image => image.image_type === "banner").map(image => image.image_url);
+	const detailImages =  shopInfo.images.filter(image => image.image_type === "other").map(image => image.image_url);
+	const avatarImages =  shopInfo.images.filter(image => image.image_type === "avatar").map(image => image.image_url);
 	const publicStore = usePublicStore()
 	const userStore = useUserStore()
-	const shopIntro = ref('')
-	const shopName = ref('')
+	const shopIntro = ref()
+	const shopName = ref()
 	const businessRange = ref('')
 	const code = ref('')
+	const curData=ref()
 	const temBannerImgPaths = ref([])
 	const temProfileImgPaths = ref([])
 	const temDetailImgPaths = ref([])
@@ -149,14 +156,37 @@
 	//     { value: "足球", text: "足球" },
 	//     { value: "游泳", text: "游泳" },
 	// ])
+onMounted(()=>{
+	shopName.value=shopInfo.name
+	shopIntro.value=shopInfo.description
+	businessRange.value=shopInfo.categories[0]
+	address.value=shopInfo.address
+	curData.value=findValueByText(shopInfo.city.name)
+	console.log(findValueByText(shopInfo.city.name));		
+	console.log(cityDataJson);
+	console.log("本地获取到的商铺信息",shopInfo);
+	
+})
 
+const findValueByText=(text)=> {
+  for (const province of cityDataJson) {
+	 
+    for (const city of province.children) {
+		
+      if (city.text === text) {
+        return city.value;
+      }
+    }
+  }
+  return null;
+}
 
 // 绑定选择的值
 const selectedValues = ref([])
 
 // 绑定省市名显示
 const selectedProvince = ref('')
-const selectedCity = ref('')
+const selectedCity = ref()
 
 // 省市数据
 const cityData = ref(cityDataJson)
@@ -167,7 +197,7 @@ const onChange = (e) => {
   const selected = e.detail.value
   const province = cityData.value.find(item => item.value === selected[0])
   const city = province?.children?.find(item => item.value === selected[1])
-
+	console.log('选择的城市',curData.value);
   // 保存选择的省市名
    selectedProvince.value = e.detail.value[0].text ||''
    selectedCity.value =  e.detail.value[1].text ||''
@@ -238,36 +268,46 @@ const onChange = (e) => {
 
 	//上传商家轮播图
 	const bannerListUrl = ref([])
-	const upLoadBannerImg = async (shop) => {
+	const upLoadBannerImg = async () => {
+			const phoneNumber=uni.getStorageSync('phoneNumber')
 		for (let i = 0; i < temBannerImgPaths.value.length; i++) {
 			//逐个向服务器传图片
 			const url = await uploadImage(temBannerImgPaths.value[i])
-            await uploadShopImg(url, 'banner',shop)
-			bannerListUrl.value.push(url)
+	        // await updateShopImg(phoneNumber,{image_url:url,image_type:'banner'})
+			bannerListUrl.value.push({image_url:url,image_type:'banner'})
 		}
+		console.log('bannerListUrl',bannerListUrl.value);
 	}
-
+	
 	//上传详情图
 	const detailListUrl = ref([])
-	const upLoadDetailImg = async (shop) => {
+	const upLoadDetailImg = async () => {
+			const phoneNumber=uni.getStorageSync('phoneNumber')
 		for (let i = 0; i < temDetailImgPaths.value.length; i++) {
 			//逐个向服务器传图片
 			const url = await uploadImage(temDetailImgPaths.value[i])
-			await uploadShopImg(url, 'avatar',shop)
-			detailListUrl.value.push(url)
+			// await updateShopImg(phoneNumber,{image_url:url,image_type:'other'})
+			detailListUrl.value.push({image_url:url,image_type:'other'})
 		}
+		console.log('detailListUrl',detailListUrl.value);
+	}
+	
+	//头像url与商铺相关联
+	const upLoadProfileImg=async ()=>{
+			const phoneNumber=uni.getStorageSync('phoneNumber')
+			// await updateShopImg(phoneNumber,{image_url:profileUrl.value,image_type:'avatar'})
 	}
 
 	//上传店铺头像
 	const profileUrl = ref('')
+	const  userProfileUrls=ref([])
 	const uploadProfileImg = async () => {
 		console.log(temProfileImgPaths.value[0]);
 		const url = await uploadImage(temProfileImgPaths.value[0])
 		console.log(url);
 		profileUrl.value = url
+		userProfileUrls.value.push({image_url:url,image_type:'avatar'})
 	}
-
-
 
 
 
@@ -321,12 +361,22 @@ const onChange = (e) => {
 			})
 			const phoneNumber=uni.getStorageSync('phoneNumber')
 			await uploadProfileImg()
+			 await upLoadDetailImg()
+			  await upLoadBannerImg()
 			console.log({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value||'https://example.com/image.png',address:address.value});
 			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value})
 			console.log('-----!!!',res);
+			
+			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value]
+			console.log('图片列表参数',params);
+		   await updateShopImg(phoneNumber,{images:params})
+			
 		
-			// await upLoadDetailImg(res?.id)
-			// await upLoadBannerImg(res?.id)
+	
+		
+			// await upLoadProfileImg()
+			//  await upLoadDetailImg()
+			//  await upLoadBannerImg()
 			// console.log('----11',businessRange.value,userStore.merchantInfo.id);
 			//console.log(res);
 			

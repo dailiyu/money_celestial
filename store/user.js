@@ -39,7 +39,7 @@ export const useUserStore = defineStore('user', {
     },
 	async getMerchantInfoAction(){
 		const res=await getMerchantInfo()
-		console.log('store中获得的店铺信息',res);
+		console.log('store中获得的商家信息',res);
 		
 	},
 	async getStoreInfoAction(){

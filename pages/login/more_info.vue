@@ -78,7 +78,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import loginVue from './login.vue';
 import { changeUserInfo } from '../../service/uer_profile';
 import { uploadUrl } from '../../service/config';
 import cityDataJson from "@/static/cityData.json"

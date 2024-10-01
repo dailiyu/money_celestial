@@ -4,17 +4,17 @@
 	  v-if="imageTempPaths.length != 0" 
 	  v-for="(image, index) in imageTempPaths" 
 	  :key="index"  
-	  :src="image" 
+	  :src="String(image)" 
 	  mode="aspectFill" 
 	  class="upload_pic">
 	</image>
 
-    <image v-if="imageTempPaths.length<props.amount" src="@/static/upload.png" mode="widthFix" class="upload_btn" @click="chooseImg"></image>
+    <image src="@/static/upload.png"   mode="widthFix" class="upload_btn" @click="chooseImg"></image>
   </view>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 // import { defineProps, defineEmits } from 'vue';
 const emit = defineEmits(['tempImgPaths']); 
 const imageTempPaths=ref([])
@@ -22,8 +22,16 @@ const props = defineProps({
   amount: {
     type: String,
     default: '1'
+  },
+  imgUrls:{
+	  type:Array,
+	  default:[]
   }
 });
+onMounted(()=>{
+	 imageTempPaths.value=props.imgUrls||[]
+})
+
 const chooseImg = async () => {
   // 选择图片
   uni.chooseImage({

@@ -12,7 +12,7 @@
 
 <script setup>
 const toNotice = ()=>{
-	uni.navigateTo({
+	uni.redirectTo({
 		url: '/pages/merchant/settle_notice'
 	})
 }

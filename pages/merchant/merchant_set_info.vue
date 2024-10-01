@@ -244,6 +244,12 @@ const onChange = (e) => {
 			detailListUrl.value.push(url)
 		}
 	}
+	
+	//头像url与商铺相关联
+	const upLoadProfileImg=async ()=>{
+			await uploadShopImg({image_url:profileUrl.value,image_type:'avatar'})
+	}
+	
 
 	//上传店铺头像
 	const profileUrl = ref('')
@@ -319,7 +325,7 @@ const onChange = (e) => {
 			console.log('-----!!!',res);
 			await upLoadBannerImg(res?.id)
 			await upLoadDetailImg(res?.id)
-			
+			await upLoadProfileImg(res?.id)
 			// console.log('----11',businessRange.value,userStore.merchantInfo.id);
 			//console.log(res);
 			uni.hideLoading()
@@ -330,7 +336,7 @@ const onChange = (e) => {
 			})
 			// await userStore.fetchAllDataAction()
 			setTimeout(() => {
-				uni.navigateTo({
+				uni.redirectTo({
 					url: '/pages/merchant/merchant_management'
 				})
 			}, 700)

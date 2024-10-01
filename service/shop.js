@@ -1,11 +1,15 @@
 import  {http} from "./index"
 
 
-
+//回传url将图片与店铺关联
 export const uploadShopImg=(data)=>{
-	return http.post('/shops/images/create/',data)
+	return http.post('/shops-images/',data)
 }
 
+//更新店铺图片的url
+export const updateShopImg=(id,data)=>{
+		return http.put(`/shops-images/${id}/update/`,data)
+	}
 
 //创建店铺
 export const postMerchantSettleIn=(data)=>{
