@@ -4,12 +4,13 @@
       <uni-icons type="left" size="20" color="#fff" @click="back" v-if="iconShow"></uni-icons>
 	 <view class="picker-box">
 	 	<uni-data-picker
+							v-model="curPosition"
 	 				      :localdata="cityData"
 	 				      :value="selectedValues"
 	 					  :clear-icon='false'
 	 				      mode="region"
 	 				      @change="onChange"
-	 				      title="请选择省市"
+	 				      popup-title="请选择所在地区"
 	 				    ></uni-data-picker>
 	 </view>
       <view class="name">{{ title }}</view>
@@ -48,7 +49,12 @@ const props = defineProps({
 });
 
 
+onMounted(()=>{
+	const city=uni.getStorageSync('city')
+	curPosition.value=findValueByText(city)
+})
 
+const curPosition=ref('')
 // 绑定选择的值
 const selectedValues = ref([])
 
@@ -71,6 +77,20 @@ const onChange = (e) => {
   // 保存选中的省市值
   // console.log( selectedProvince.value,selectedCity.value);
   emit('changeCity', {province:selectedProvince.value, city: selectedCity.value})
+}
+
+
+const findValueByText=(text)=> {
+  for (const province of cityDataJson) {
+	 
+    for (const city of province.children) {
+		
+      if (city.text === text) {
+        return city.value;
+      }
+    }
+  }
+  return null;
 }
 
 
@@ -134,7 +154,6 @@ const clickRight = () => {
    border: none;
 }
 
-
 }
 :deep(.input-value-border) {
 	border: none;
@@ -145,11 +164,21 @@ const clickRight = () => {
 :deep(.input-arrow) {
 	border-color: #fff;
 }
+:deep(.selected-list){
+	color: #000;
+}
+:deep(.input-split-line){
+	color: #FC5908;
+}
 .uni-icons {
   position: absolute;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
+}
+
+uni-text{
+	color: #000;
 }
 
 .skip {

@@ -162,6 +162,11 @@ onMounted(()=>{
 	businessRange.value=shopInfo.categories[0]
 	address.value=shopInfo.address
 	curData.value=findValueByText(shopInfo.city.name)
+	selectedCity.value=shopInfo.city.name
+	 temDetailImgPaths.value=detailImages
+	 temProfileImgPaths.value=avatarImages
+	 temBannerImgPaths.value=bannerImages
+	console.log('---------',temDetailImgPaths.value,temProfileImgPaths.value,temBannerImgPaths.value);
 	console.log(findValueByText(shopInfo.city.name));		
 	console.log(cityDataJson);
 	console.log("本地获取到的商铺信息",shopInfo);

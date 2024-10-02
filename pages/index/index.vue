@@ -66,7 +66,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="merchant_box" v-if="userInfo.is_shop&&shopLists.merchant">
+			<view class="merchant_box" v-if="userInfo.is_shop&&!!shopLists">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
 						<text class="nearby">附近商家</text>
@@ -151,7 +151,8 @@ onMounted(async()=>{
 		await userStore.fetchAllDataAction()
 	// }
 	
-
+	const localCity=uni.getStorageSync('city')
+	city.value=localCity
 	getCategory()
 	getBanner()
 	getShopLists()
@@ -165,6 +166,7 @@ const getCity = (e)=>{
 }
 const shopLists = ref({})
 const getShopLists = async()=>{
+	
 	const {results} = await getCityShopList({name: city.value})
 	shopLists.value = results[0]
 	console.log('切换城市获取到对应的商店列表',results );
@@ -252,7 +254,8 @@ const toMyAccount = ()=>{
 		url: '/pages/myAccount/myAccount'
 	})
 }
-const toDetail = ()=>{
+const toDetail =async ()=>{
+	await uni.setStorageSync('selectedShopInfo',shopLists.value)
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_detail?city='+city.value
 	})

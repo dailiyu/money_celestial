@@ -4,7 +4,7 @@
 		
 		<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-active-color="#FC5908" circular v-if="swiperList.length">
 			<swiper-item v-for="item in swiperList" :key="item.id">
-				<image :src="item.image_url" mode="widthFix" class="shop_pic"></image>
+				<image :src="item" mode="widthFix" class="shop_pic"></image>
 			</swiper-item>
 		</swiper>
 		<view class="shop_info" v-if="shopInfo.name">
@@ -61,39 +61,43 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getShopImages, getShopInfo } from '../../service/shop';
+// import { getShopImages, getShopInfo } from '../../service/shop';
 
 
-const current = ref(0)
-const items = ref(['本店商品', '商家介绍', '评价'])
-const onClickItem = (e)=>{
-	if (current.value !== e.currentIndex) {
-		current.value = e.currentIndex
-	}
-}
+// const current = ref(0)
+// const items = ref(['本店商品', '商家介绍', '评价'])
+// const onClickItem = (e)=>{
+// 	if (current.value !== e.currentIndex) {
+// 		current.value = e.currentIndex
+// 	}
+// }
 const phone = ref('')
 
-onMounted(()=>{
-	let routes = getCurrentPages()
-	let curParam = routes[routes.length - 1].options;
-	phone.value = curParam.phone
-	getInfo()
-	getShopBanner()
+onMounted(async()=>{
+	// let routes = getCurrentPages()
+	// let curParam = routes[routes.length - 1].options;
+	// phone.value = curParam.phone
+	shopInfo.value=await uni.getStorageSync('selectedShopInfo')
+	const bannerImages =  shopInfo.value.images.filter(image => image.image_type === "banner").map(image => image.image_url);
+	swiperList.value=bannerImages
+	console.log('店铺详情的轮播图',swiperList.value);
+	// getInfo()
+	// getShopBanner()
 })
 const shopInfo = ref({})
-const getInfo = async()=>{
-	uni.showLoading({
-		title: '加载中'
-	})
-	const res = await getShopInfo(phone.value)
-	uni.hideLoading()
-	shopInfo.value = res
-}
-const swiperList = ref([])
-const getShopBanner = async()=>{
-	const {results} = await getShopImages({shop: phone.value, image_type:'banner'})
-	swiperList.value = results
-}
+// const getInfo = async()=>{
+// 	uni.showLoading({
+// 		title: '加载中'
+// 	})
+// 	const res = await getShopInfo(phone.value)
+// 	uni.hideLoading()
+// 	shopInfo.value = res
+// }
+ const swiperList = ref([])
+// const getShopBanner = async()=>{
+// 	const {results} = await getShopImages({shop: phone.value, image_type:'banner'})
+// 	swiperList.value = results
+// }
 </script>
 
 <style lang="scss" scoped>

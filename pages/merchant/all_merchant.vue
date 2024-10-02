@@ -62,19 +62,21 @@ const range = ref([])
 const curPage=ref(1)
 const hasNext=ref(false)
 onMounted(async()=>{
-	let routes = getCurrentPages()
-	let curParam = routes[routes.length - 1].options;
-	categoryId.value = curParam.id==0?'':curParam.id
-	getList()
+	// let routes = getCurrentPages()
+	// let curParam = routes[routes.length - 1].options;
+	// categoryId.value = curParam.id==0?'':curParam.id
+
 	// 类目
 	const {results} = await getShopCategories()
-	range.value = results.map(i=>{
+	const dealData = results.map(i=>{
 		return {
 			text: i.name,
 			value: i.id,
 			disable: false
 		}
 	})
+	range.value=[{text:"全部",value:'',disable:false},...dealData]
+		getList()
 })
 
 const shopLists = ref([])
@@ -161,6 +163,9 @@ const loadMore=async()=>{
 		width: fit-content;
 		font-size: 30rpx;
 		color: #333;
+	}
+	:deep(.uni-select__selector){
+		width: 200%;
 	}
 }
 .settle_box {
