@@ -130,7 +130,7 @@
 import { onMounted, ref } from 'vue';
 import {usePublicStore} from "@/store/public.js"
 import { useUserStore } from '../../store/user';
-import { getShopCategories, getShopInfo, getShopList } from '@/service/shop';
+import { getShopCategories, getShopInfo, getShopList,getCityShopList } from '@/service/shop';
 import { getBannerList } from '@/service/bannner.js'
 import { getRecommendOfficerInfo } from '../../service/recommend';
 import { getUerAccountMessage } from '../../service/uer_profile';
@@ -159,14 +159,15 @@ onMounted(async()=>{
 const city = ref('')
 const getCity = (e)=>{
 	city.value = e.city
-	console.log(city.value);
+	uni.setStorageSync('city',city.value)
+	console.log('当前选择的城市',city.value);
 	getShopLists()
 }
 const shopLists = ref({})
 const getShopLists = async()=>{
-	const {results} = await getShopList({name: city.value})
+	const {results} = await getCityShopList({name: city.value})
 	shopLists.value = results[0]
-	console.log('商店列表',shopLists.value );
+	console.log('切换城市获取到对应的商店列表',results );
 }
 const categoryList = ref([])
 const getCategory = async()=>{

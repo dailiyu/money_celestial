@@ -46,20 +46,25 @@
 			</view> -->
 			<shopList :list="shopLists"></shopList>
 		</view>
+		<view class="load-more" @click="loadMore"  v-if="hasNext">
+			加载更多...
+		</view>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getShopList } from '@/service/shop';
-import { getShopCategories } from '@/service/shop.js'
+import { getShopCategories,getCityShopList } from '@/service/shop.js'
 
-const city = ref('')
+const categoryId = ref('')
 const range = ref([])
+const curPage=ref(1)
+const hasNext=ref(false)
 onMounted(async()=>{
 	let routes = getCurrentPages()
 	let curParam = routes[routes.length - 1].options;
-	city.value = curParam.city
+	categoryId.value = curParam.id==0?'':curParam.id
 	getList()
 	// 类目
 	const {results} = await getShopCategories()
@@ -74,16 +79,24 @@ onMounted(async()=>{
 
 const shopLists = ref([])
 const getList = async()=>{
+	const city=uni.getStorageSync('city')
 	const params = ref({
-		ordering: 'created_at',
-		// category: categoryId.value,
-		name: city.value
+		category: categoryId.value,
+		name:city,
+		page:curPage.value
 	})
 	uni.showLoading({
 		title: '加载中'
 	})
-	const {results} = await getShopList(params.value)
+	const {results,next} = await getCityShopList(params.value)
 	shopLists.value.push(...results)
+	if(!!next){
+		hasNext.value=true
+		curPage.value=curPage.value+1
+	}else{
+		hasNext.value=false
+	}
+	
 	uni.hideLoading()
 }
 
@@ -95,10 +108,17 @@ const toSettle = ()=>{
 
 const category = ref('')
 const changeRange = (e) => {
+	console.log(e);
 	categoryId.value = e
 	shopLists.value = []
 	getList()
 }
+
+
+const loadMore=async()=>{
+	await getList()
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -162,5 +182,8 @@ const changeRange = (e) => {
 		border-radius: 100px;
 	}
 }
-
+.load-more{
+	width: 750rpx;
+	text-align: center;
+}
 </style>

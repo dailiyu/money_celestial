@@ -36,7 +36,7 @@ export const getShopInfo=(merchant)=>{
 
 
 
-export const getShopList=(data={name:"广州市"})=>{
+export const getShopList=(data)=>{
 	return http.get('/shops/', data)
 }
 
@@ -44,6 +44,11 @@ export const getShopList=(data={name:"广州市"})=>{
 //获取店铺图片
 export const getShopImages=(data)=>{
 	return http.get('/shops-images/', data)
+}
+
+//获取城市商家列表
+export const getCityShopList=(data)=>{
+	return http.get('/divisions/city_shops', data)
 }
 
 
