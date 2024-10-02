@@ -7,7 +7,7 @@
 		</navBar>
 		<view class="content">
 			<view class="tip">
-				兑换积分前，请先复制下方地址，确保充值完成后，提交您的兑换记录。
+				首次增加积分操作，请在推荐人的指导下进行！
 			</view>
 			<view class="copy_box flex_between">
 				<view class="copy_text">
@@ -16,15 +16,21 @@
 				<image src="@/static/copy.png" mode="widthFix" class="copy_pic" @click="copy"></image>
 			</view>
 			<view class="text_box">
-				<view class="" style="color: #FC5908;">
-					·  请复制您充值时的哈希值
+				<view class="">
+					1、复制当前分配的充值地址。
 				</view>
 				<view class="">
-					·  兑换时间：AM 9:00 ~ pm 9:00
+					2、务必使用当前账号绑定的积分账号进行充值。 
+				</view>
+				<view class="">
+					3、提交成功充值后的订单哈希值。  
+				</view>
+				<view class="">
+					4、选择需增加积分的手机账号。
 				</view>
 			</view>
 			<view class="btn_full" @click="toNext">
-				我要兑换
+				我已充值
 			</view>
 		</view>
 	</view>

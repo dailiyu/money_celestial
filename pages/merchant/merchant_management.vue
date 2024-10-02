@@ -37,12 +37,12 @@
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
-				<view class="list_item flex_between" @click="toCode" v-if="!userStore.vertifyMerchantInfo.is_verified">
+				<!-- <view class="list_item flex_between" @click="toCode" v-if="!userStore.vertifyMerchantInfo.is_verified">
 					<view class="">
 						商家码认证
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
+				</view> -->
 				<view class="list_item flex_between" @click="toSecurityDeposit">
 					<view class="">
 						保证金
@@ -116,7 +116,7 @@
 			width: 110rpx;
 			height: 110rpx;
 			border-radius: 50%;
-			background-color: #ccc;
+			// background-color: #ccc;
 			margin-right: 28rpx;
 		}
 

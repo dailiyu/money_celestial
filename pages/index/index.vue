@@ -1,7 +1,7 @@
 <template>
 	<view class="page">
-		<navBarForIndex :iconShow="false" title="满仓"></navBarForIndex>
-	<!-- 	<view class="search_bar flex_between">
+		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity"></navBarForIndex>
+		<!-- <view class="search_bar flex_between">
 			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>
 			<view class="location">
 				{{city?city:'定位中'}}
@@ -79,7 +79,7 @@
 					</view> -->
 				</view>
 				<view class="shop_list">
-					<view class="shop_item flex_between" @click="toDetail(shopLists.merchant)">
+					<view class="shop_item flex_between" @click="toDetail">
 						<image :src="shopLists.avatar" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
 							<view class="shop_name">
@@ -142,7 +142,6 @@ import { getUerAccountMessage } from '../../service/uer_profile';
 const keyword = ref('')
 const publicStore=  usePublicStore()
 const userStore = useUserStore()
-const city = ref('')
 const userInfo = uni.getStorageSync('userInfo')
 onMounted(async()=>{
 	// const accessToken = uni.getStorageSync('accessToken')
@@ -157,9 +156,13 @@ onMounted(async()=>{
 	getBanner()
 	getShopLists()
 })
+const city = ref('')
+const getCity = (e)=>{
+	city.value = e.city
+}
 const shopLists = ref({})
 const getShopLists = async()=>{
-	const {results} = await getShopList()
+	const {results} = await getShopList({name: city.value})
 	shopLists.value = results[0]
 }
 const categoryList = ref([])
@@ -245,9 +248,9 @@ const toMyAccount = ()=>{
 		url: '/pages/myAccount/myAccount'
 	})
 }
-const toDetail = (phone)=>{
+const toDetail = ()=>{
 	uni.navigateTo({
-		url: '/pages/merchant/merchant_detail?phone='+phone
+		url: '/pages/merchant/merchant_detail?city='+city.value
 	})
 }
 </script>

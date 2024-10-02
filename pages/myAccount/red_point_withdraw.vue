@@ -31,7 +31,7 @@
 						到账数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number||0}}
+						{{number?number-(number*3/100):0}}
 					</view>
 				</view>
 			</view>

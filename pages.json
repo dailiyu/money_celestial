@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app",
+				"navigationBarTitleText": "满仓生态",
 				"navigationStyle": "custom"
 			}
 		},
@@ -412,6 +412,14 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/all_records",
+			"style" : 
+			{
+				"navigationBarTitleText" : "积分记录",
 				"navigationStyle": "custom"
 			}
 		}

@@ -31,7 +31,7 @@
 						到账数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number||0}}
+						{{number?number-(number*3/100):0}}
 					</view>
 				</view>
 			</view>
@@ -52,7 +52,7 @@ import { onMounted, ref } from 'vue';
 import { getPointBindedAccount, withdrawGreenPoint } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 
-const number = ref('')
+const number = ref()
 
 const account = ref('')
 const pointBalance = ref('')

@@ -24,19 +24,17 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { bindPointAccount, getPointBindedAccount } from '@/service/point.js'
+import { bindPointAccount, getWalletAddress } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 const number = ref('')
 
 
-onMounted(async ()=>{
-	getPointAccount()
+
+const address = ref('')
+onMounted(async()=>{
+	const {results} = await getWalletAddress()
+	address.value = results[0].address
 })
-const account = ref('')
-const getPointAccount = async()=>{
-	const {user} = await getPointBindedAccount()
-	account.value = user
-}
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
@@ -46,7 +44,7 @@ const confirm = async ()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	if (account.value) return uni.showToast({
+	if (address.value) return uni.showToast({
 		icon:'none',
 		title: '已绑定积分账号，无法再绑定'
 	})
@@ -59,7 +57,7 @@ const confirm = async ()=>{
 			title: '绑定中'
 		})
 		await bindPointAccount({points_account: number.value})
-		account.value = number.value
+		address.value = number.value
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',

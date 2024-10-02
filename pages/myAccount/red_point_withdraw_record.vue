@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="提取记录"></navBar>
+		<navBar title="积分记录"></navBar>
 		<uni-row class="title_row">
 			<uni-col :span="2">
 				<view class="title">序号</view>

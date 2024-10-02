@@ -56,3 +56,8 @@ export  const getWalletAddress=async ()=>{
 export  const withdrawRedPoints=async (data)=>{
 	return http.post('/orders/withdraw/red/points/', data)
 }
+
+// 提取所有记录列表
+export  const getAllRecords=async ()=>{
+	return http.get('/orders/')
+}

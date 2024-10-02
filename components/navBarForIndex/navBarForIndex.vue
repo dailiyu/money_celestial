@@ -69,7 +69,8 @@ const onChange = (e) => {
    selectedProvince.value = e.detail.value[0].text ||''
    selectedCity.value =  e.detail.value[1].text ||''
   // 保存选中的省市值
-  console.log( selectedProvince.value,selectedCity.value);
+  // console.log( selectedProvince.value,selectedCity.value);
+  emit('changeCity', {province:selectedProvince.value, city: selectedCity.value})
 }
 
 
@@ -93,7 +94,7 @@ const back = () => {
 };
 
 // 定义发射自定义事件
-const emit = defineEmits(['clickRight']);
+const emit = defineEmits(['clickRight','changeCity']);
 const clickRight = () => {
   emit('clickRight');
 };
@@ -135,7 +136,15 @@ const clickRight = () => {
 
 
 }
-
+:deep(.input-value-border) {
+	border: none;
+}
+:deep(.placeholder) {
+	color: #fff;
+}
+:deep(.input-arrow) {
+	border-color: #fff;
+}
 .uni-icons {
   position: absolute;
   left: 0;

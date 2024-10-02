@@ -30,7 +30,7 @@
 				<view class="item" @click="toPointAccount">
 					<image class="img" src="@/static/my/credits_account.png"></image>
 					<text class="text">积分账号</text>
-					<div class="text number">{{user}}</div>
+					<div class="text number">{{obscureString(user)}}</div>
 				</view>
 			</view>
 			<view class="services">
@@ -118,8 +118,9 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAllPoint } from '@/service/point.js'
+import { getAllPoint, getWalletAddress } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
+import { obscureString } from '@/utils';
 const  userStore = useUserStore()
 
 const accessToken = uni.getStorageSync('accessToken')
@@ -144,7 +145,9 @@ const getPointInfo = async()=>{
 	green_points.value = res.green_points
 	// 可用积分
 	red_points.value = res.red_points
-	user.value = res.user
+	// user.value = res.user
+	const {results} = await getWalletAddress()
+	user.value = results[0].address
 }
 const toLogin = ()=>{
 	uni.navigateTo({
@@ -177,7 +180,7 @@ const toPointAccount = ()=>{
 }
 const toRecord = ()=>{
 	uni.navigateTo({
-		url: '/pages/myAccount/red_point_add_record'
+		url: '/pages/myAccount/all_records'
 	})
 }
 </script>
@@ -243,12 +246,11 @@ const toRecord = ()=>{
 				margin-top: 15rpx;
 				background-image: url('@/static/my/bg_credit.png');
 				background-size: cover;
+				padding: 0 10rpx;
 
 				.item {
 					flex: 1;
-					overflow: hidden;
-					white-space: nowrap;
-					text-overflow: ellipsis;
+					
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
@@ -260,12 +262,15 @@ const toRecord = ()=>{
 					}
 
 					.text {
+						width: 100%;
 						font-family: HarmonyOS_Sans_SC;
 						margin-top: 15rpx;
 						font-size: 24rpx;
 						color: #333333;
 						text-align: center;
-
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
 					}
 
 					.number {

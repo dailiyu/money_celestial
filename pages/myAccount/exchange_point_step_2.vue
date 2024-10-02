@@ -56,7 +56,7 @@
 				<text class="c_title">《兑换须知》</text>
 			</view>
 			<view class="btn_full" @click="confirm">
-				兑换
+				增加
 			</view>
 		</view>
 		

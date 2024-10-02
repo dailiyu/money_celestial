@@ -37,7 +37,7 @@ export const getShopInfo=(merchant)=>{
 
 
 export const getShopList=(data)=>{
-	return http.get('/shops/', data)
+	return http.get('/divisions/city_shops/', data)
 }
 
 
@@ -45,6 +45,4 @@ export const getShopList=(data)=>{
 export const getShopImages=(data)=>{
 	return http.get('/shops-images/', data)
 }
-
-
 
