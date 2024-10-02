@@ -159,11 +159,14 @@ onMounted(async()=>{
 const city = ref('')
 const getCity = (e)=>{
 	city.value = e.city
+	console.log(city.value);
+	getShopLists()
 }
 const shopLists = ref({})
 const getShopLists = async()=>{
 	const {results} = await getShopList({name: city.value})
 	shopLists.value = results[0]
+	console.log('商店列表',shopLists.value );
 }
 const categoryList = ref([])
 const getCategory = async()=>{

@@ -125,7 +125,7 @@ const clickRight = () => {
 	transform: translateX(-90rpx);
 }
 .picker-box{
-	width: 180rpx;
+	width: 200rpx;
 	height: 50rpx;
 	float: left;
 ::v-deep .input-value .text-color {
