@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="提取记录"></navBar>
+		<navBar title="增加记录"></navBar>
 		<uni-row class="title_row">
 			<uni-col :span="2">
 				<view class="title">序号</view>
@@ -25,7 +25,7 @@
 					<view>{{index+1}}</view>
 				</uni-col>
 				<uni-col :span="6">
-					<view>{{item.point_account}}</view>
+					<view>{{item.to_user.phone_number}}</view>
 				</uni-col>
 				<uni-col :span="5">
 					<view>{{item.transaction_amount}}</view>
@@ -44,7 +44,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getPointsRecords } from '@/service/point.js'
+import { getAllRecords } from '@/service/point.js'
 // import { getPointsRecords } from '@/service/deposit';
 import { convertTime, obscureString } from '@/utils/index.js'
 
@@ -59,7 +59,7 @@ const getRecordList = async()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {results} = await getPointsRecords({transaction_method:'red_points'})
+	const {results} = await getAllRecords({transaction_method:'red_points',transaction_type:'increase'})
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {

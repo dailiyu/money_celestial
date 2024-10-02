@@ -16,7 +16,7 @@
 			</uni-col>
 		</uni-row>
 		
-		<uni-row v-for="(item, index) in recordList" :key="item.id">
+		<uni-row v-for="(item, index) in recordList" :key="item.order_id">
 			<uni-col :span="3">
 				<view>{{index+1}}</view>
 			</uni-col>
@@ -25,13 +25,10 @@
 				<view style="color: #fd8c31;" v-if="item.transaction_type == 'decrease'">-{{item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view v-if="item.transaction_method=='gift_green_points'">赠送绿积分</view>
-				<view v-else-if="item.transaction_method=='extract_green_points'">提取绿积分</view>
-				<view v-else-if="item.transaction_method=='extract_red_points'">提取红积分</view>
-				<view v-else-if="item.transaction_method=='increase_red_points'">增加红积分</view>
-				<view v-else-if="item.transaction_method=='increase_margin'">增加保证金</view>
-				<view v-else-if="item.transaction_method=='merchant_rebate'">商家返利</view>
-				<view v-else-if="item.transaction_method=='integral_bonus'">总积分</view>
+				<view v-if="item.transaction_method=='red_points'">红积分</view>
+				<view v-else-if="item.transaction_method=='merchant_bonus'">商家保证金</view>
+				<view v-else-if="item.transaction_method=='agent_bonus'">代理保证金</view>
+				<view v-else-if="item.transaction_method=='green_points'">绿积分</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
@@ -59,13 +56,13 @@ const getRecordList = async ()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const res = await getAllRecords()
+	const {results} = await getAllRecords()
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value = res
+	recordList.value = results
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {

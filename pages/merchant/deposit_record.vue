@@ -21,11 +21,11 @@
 				<view>{{index+1}}</view>
 			</uni-col>
 			<uni-col :span="9">
-				<view>{{item.user}}</view>
+				<view>{{item.to_user.phone_number}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view style="color: #4cbe61;" v-if="item.action_type == 'increase'">+{{item.amount_changed}}</view>
-				<view style="color: #fd8c31;" v-if="item.action_type == 'decrease'">-{{item.amount_changed}}</view>
+				<view style="color: #4cbe61;" v-if="item.transaction_type == 'increase'">+{{item.transaction_amount}}</view>
+				<view style="color: #fd8c31;" v-if="item.transaction_type == 'decrease'">-{{item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
@@ -37,7 +37,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getMerchantDepositRecord } from '@/service/deposit.js'
+import { getAllRecords } from '@/service/point.js'
 import { convertTime, obscureString } from '@/utils/index.js'
 
 
@@ -53,7 +53,7 @@ const getRecordList = async ()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {results} = await getMerchantDepositRecord()
+	const {results} = await getAllRecords({transaction_method:'merchant_bonus'})
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {

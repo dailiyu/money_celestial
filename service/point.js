@@ -58,6 +58,11 @@ export  const withdrawRedPoints=async (data)=>{
 }
 
 // 提取所有记录列表
-export  const getAllRecords=async ()=>{
-	return http.get('/orders/')
+export  const getAllRecords=async (data)=>{
+	return http.get('/orders/', data)
+}
+
+// 获取代理和推荐官的绿积分返利
+export  const getGreenPoints=async ()=>{
+	return http.get('/orders/users/total_gift_green_points_bonus/')
 }

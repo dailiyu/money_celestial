@@ -14,7 +14,7 @@
 					</view>
 					<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
 				</view>
-				<view class="total_item flex_center">
+				<view class="total_item flex_between">
 					<view class="">
 						<view class="total_text">
 							已推荐商家数
@@ -23,14 +23,14 @@
 							{{userStore.recommendShopList.length||0}}
 						</view>
 					</view>
-					<!-- <view class="">
+					<view class="">
 						<view class="total_text">
 							已获得积分
 						</view>
 						<view class="total_num">
-							15,328,872,819
+							{{points}}
 						</view>
-					</view> -->
+					</view>
 				</view>
 			</view>
 		</view>
@@ -66,16 +66,22 @@
 import { onMounted, ref } from 'vue';
 import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
 import { useUserStore } from '../../store/user';
+import { getGreenPoints } from '@/service/point';
 
  const userStore=  useUserStore()
 const info = ref({})
 const user = ref({})
 onMounted(async()=>{
+	getPoint()
 	user.value = uni.getStorageSync('userInfo')
 	info.value = await getRecommendOfficerInfo(user.value.phone_number)
 	// getMPQRCode()
 })
-
+const points = ref(0)
+const getPoint = async()=>{
+	const {total} = await getGreenPoints()
+	points.value = total
+}
 const toMerchantList = ()=>{
 	uni.navigateTo({
 		url: '/pages/recommend/merchant_list'

@@ -21,11 +21,11 @@
 				<view>{{index+1}}</view>
 			</uni-col>
 			<uni-col :span="7">
-				<view>{{item.user}}</view>
+				<view>{{item.to_user.phone_number}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view style="color: #4cbe61;" v-if="item.action_type == 'increase'">+{{item.amount_changed}}</view>
-				<view style="color: #fd8c31;" v-if="item.action_type == 'decrease'">-{{item.amount_changed}}</view>
+				<view style="color: #4cbe61;" v-if="item.transaction_type == 'increase'">+{{item.transaction_amount}}</view>
+				<view style="color: #fd8c31;" v-if="item.transaction_type == 'decrease'">-{{item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="8">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
@@ -36,12 +36,12 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getDepositRecord } from '@/service/agent';
+import { getAllRecords } from '@/service/point';
 import { convertTime } from '@/utils/index.js'
 
 const recordList = ref([])
 onMounted(async()=>{
-	const {results} = await getDepositRecord()
+	const {results} = await getAllRecords({transaction_method:'agent_bonus'})
 	recordList.value = results
 })
 

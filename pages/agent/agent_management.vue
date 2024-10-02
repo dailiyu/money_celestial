@@ -10,14 +10,14 @@
 						<text class="city">{{cityAgent}}</text>
 						<text>代理</text>
 					</view>
-					<!-- <view class="point_box flex">
+					<view class="point_box flex">
 						<view class="point_text">
 							获得积分
 						</view>
 						<view class="point_num">
 							{{agentPoint}}
 						</view>
-					</view> -->
+					</view>
 					<view class="flex">
 						<view class="" style="margin-right: 112rpx;">
 							<view class="data_text">
@@ -65,8 +65,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getRecommendOfficerAmount, getAgentShopAmount, getProvinceId } from '@/service/agent.js'
-import { getRecords } from '@/service/deposit';
 import { useUserStore } from '../../store/user';
+import { getGreenPoints } from '@/service/point';
  const userStore=  useUserStore()
 const provinceId = ref()
 onMounted(async()=>{
@@ -74,7 +74,7 @@ onMounted(async()=>{
 	provinceId.value = results[0].province
 	getShopAmount()
 	getOfficerAmount()
-	// getAgentPoint()
+	getAgentPoint()
 })
 
 const merchantAmount = ref(0)
@@ -93,8 +93,8 @@ const getOfficerAmount = async()=>{
 }
 const agentPoint = ref(0)
 const getAgentPoint = async()=>{
-	const {total_amount} = await getRecords({transaction_type:'bonus'})
-	agentPoint.value = total_amount
+	const {total} = await getGreenPoints()
+	agentPoint.value = total
 }
 
 

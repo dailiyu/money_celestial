@@ -19,33 +19,30 @@
 			</uni-col>
 		</uni-row>
 		
-		<view class="" v-for="(item, index) in recordList" :key="item.id">
-			<uni-row v-if="item.transaction_type=='decrease'">
-				<uni-col :span="2">
-					<view>{{index+1}}</view>
-				</uni-col>
-				<uni-col :span="6">
-					<view>{{item.point_account}}</view>
-				</uni-col>
-				<uni-col :span="5">
-					<view>{{item.transaction_amount}}</view>
-				</uni-col>
-				<uni-col :span="4">
-					<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
-				</uni-col>
-				<uni-col :span="7">
-					<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
-				</uni-col>
-			</uni-row>
-		</view>
+		<uni-row v-for="(item, index) in recordList" :key="item.id">
+			<uni-col :span="2">
+				<view>{{index+1}}</view>
+			</uni-col>
+			<uni-col :span="6">
+				<view>{{item.to_user.phone_number}}</view>
+			</uni-col>
+			<uni-col :span="5">
+				<view>{{item.transaction_amount}}</view>
+			</uni-col>
+			<uni-col :span="4">
+				<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
+			</uni-col>
+			<uni-col :span="7">
+				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
+			</uni-col>
+		</uni-row>
 		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getPointsRecords } from '@/service/point.js'
-// import { getPointsRecords } from '@/service/deposit';
+import { getAllRecords } from '@/service/point.js'
 import { convertTime, obscureString } from '@/utils/index.js'
 
 onMounted(()=>{
@@ -59,13 +56,13 @@ const getRecordList = async()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {results} = await getPointsRecords({transaction_method:'red_points'})
+	const {results} = await getAllRecords({transaction_method:'red_points',transaction_type:'decrease'})
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value.push(...results)
+	recordList.value = results
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {
