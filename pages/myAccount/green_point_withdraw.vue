@@ -9,7 +9,7 @@
 				<image src="@/static/account.png" mode="widthFix" class="a_pic"></image>
 			</view>
 			<view class="account_box">
-				{{account}}
+				{{obscureString(account)}}
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -49,7 +49,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getPointBindedAccount, withdrawGreenPoint } from '@/service/point.js'
+import { getPointBindedAccount, withdrawGreenPoint, getWalletAddress } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 
 const number = ref()
@@ -59,11 +59,12 @@ const pointBalance = ref('')
 onMounted(async ()=>{
 	
 	getPointInfo()
-	
+	const {results} = await getWalletAddress()
+	account.value = results[0].address
 })
 const getPointInfo = async()=>{
-	const {user, green_points} = await getPointBindedAccount()
-	account.value = user
+	const {green_points} = await getPointBindedAccount()
+	// account.value = user
 	// 可用积分
 	pointBalance.value = green_points
 }

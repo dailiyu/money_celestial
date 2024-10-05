@@ -232,8 +232,13 @@ const toRecord = ()=>{
 					color: #FFFFFF;
 				}
 				.logout{
-					margin-left: 200rpx;
-					color: #54b1fd;
+					margin-left: 300rpx;
+					// color: #54b1fd;
+					padding: 12rpx 20rpx;
+					color: #FC5908;
+					font-size: 21rpx;
+					background-color: #fff;
+					border-radius: 100px;
 				}
 			}
 

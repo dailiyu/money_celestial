@@ -29,7 +29,7 @@
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_title">
-						兑换账号
+						充值账号
 					</view>
 					<uni-easyinput v-model="phone" maxlength="11" type="number" :inputBorder="false" class="uni-input" placeholder="请输入账号" placeholder-class="placeholder_class" >
 						<!-- <template #right>

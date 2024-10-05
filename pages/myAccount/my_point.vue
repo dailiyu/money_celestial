@@ -11,7 +11,7 @@
 				</view>
 				<view class="list_item flex_between" @click="toWithdrawRecord">
 					<view class="">
-						提取记录
+						积分记录
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>

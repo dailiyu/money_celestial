@@ -9,7 +9,7 @@
 				<image src="@/static/account.png" mode="widthFix" class="a_pic"></image>
 			</view>
 			<view class="account_box">
-				{{account}}
+				{{obscureString(account)}}
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -49,26 +49,24 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAllPoint, withdrawRedPoints } from '@/service/point.js'
+import { getAllPoint, withdrawRedPoints, getWalletAddress } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
-import { useUserStore } from '@/store/user'
- const  userStore = useUserStore()
 
 
 
-
+const account = ref('')
 onMounted(async ()=>{
 	
 	getPointInfo()
-	
+	const {results} = await getWalletAddress()
+	account.value = results[0].address
 })
-const account = ref('')
 const pointBalance = ref('')
 const getPointInfo = async()=>{
-	const {red_points, user} = await getAllPoint()
+	const {red_points} = await getAllPoint()
 	// 可用积分
 	pointBalance.value = red_points
-	account.value = user
+	// account.value = user
 }
 const isChecked = ref(false)
 const number = ref('')

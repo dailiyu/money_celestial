@@ -3,11 +3,27 @@
 		<navBar title="积分账号"></navBar>
 		<view class="content">
 			<view class="list_box">
+				<view class="list_item flex_between" @click="toCode">
+					<view class="">
+						商家码认证
+					</view>
+					<view class="flex">
+						<view class="account">
+							{{obscureString(address)}}
+						</view>
+						<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					</view>
+				</view>
 				<view class="list_item flex_between" @click="toBindAccount">
 					<view class="">
 						绑定账号
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<view class="flex">
+						<view class="account">
+							{{obscureString(address)}}
+						</view>
+						<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					</view>
 				</view>
 				<view class="list_item flex_between" @click="toUnbindAccount">
 					<view class="">
@@ -15,15 +31,6 @@
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
-				<view class="list_item flex_between" @click="toCode">
-					<view class="">
-						商家码认证
-					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
-			</view>
-			<view class="text">
-				已绑定账号：{{obscureString(address)}}
 			</view>
 		</view>
 		
@@ -72,11 +79,11 @@ const toCode = () => {
 		.arrow_pic {
 			width: 12rpx;
 		}
+		.account {
+			color: #999999;
+			font-size: 21rpx;
+			margin-right: 34rpx;
+		}
 	}
-}
-.text {
-	color: #999;
-	font-size: 28rpx;
-	margin-top: 20rpx;
 }
 </style>
