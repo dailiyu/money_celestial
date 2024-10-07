@@ -110,7 +110,7 @@ const toSettle = ()=>{
 
 const category = ref('')
 const changeRange = (e) => {
-	console.log(e);
+	console.log('当前选择的类目id',e);
 	categoryId.value = e
 	shopLists.value = []
 	getList()

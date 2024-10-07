@@ -35,7 +35,7 @@
 			"path" : "pages/merchant/merchant_set_info",
 			"style" : 
 			{
-				"navigationBarTitleText" : "商家入驻",
+				"navigationBarTitleText" : "开通店铺",
 				"navigationStyle": "custom"
 			}
 		},
@@ -44,6 +44,14 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "商家入驻",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/shop_profile",
+			"style" : 
+			{
+				"navigationBarTitleText" : "店铺资料",
 				"navigationStyle": "custom"
 			}
 		},

@@ -2,46 +2,9 @@
 	<view>
 		<navBar title="店铺开通"></navBar>
 		<view class="content">
-			<view class="head_box flex_between" style="align-items: flex-start;">
-				<view class="">
-					<view class="h_title">
-						店铺头像
-					</view>
-					<view class="h_text" style="margin-top: 42rpx;">
-						可上传店铺照片或LOGO
-					</view>
-				</view>
-				<upload amount="1" @tempImgPaths="acceptTempProfileImgPath"></upload>
-			</view>
-			<view class="head_box">
-				<view class="flex_between" style="margin-bottom: 54rpx;">
-					<view class="h_title">
-						店铺轮播图
-					</view>
-					<view class="h_text">
-						已选择{{temBannerImgPaths.length}}张
-					</view>
-				</view>
-				<upload amount="6" @tempImgPaths="acceptTempBannerImgPath"></upload>
-			</view>
-			<view class="head_box">
-				<view class="shop_intro">
-					<view class="h_title" style="margin-bottom: 34rpx;">
-						店铺介绍
-					</view>
-					<textarea v-model="shopIntro" placeholder="请输入店铺介绍" style="width: 100%;height: 146rpx;"
-						placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
-				</view>
-				<view class="flex_between" style="margin-bottom: 54rpx;">
-					<view class="h_title">
-						店铺详情图）
-					</view>
-					<view class="h_text">
-						已选择{{temDetailImgPaths.length}}张
-					</view>
-				</view>
-				<upload amount="6" @tempImgPaths="acceptTempDetailImgPath"></upload>
-			</view>
+		
+			
+		
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -192,20 +155,7 @@ const onChange = (e) => {
 	}
 
 
-	const toSetInfo = () => {
-		if (!isChecked.value) return uni.showToast({
-			icon: 'none',
-			title: '请阅读完须知后勾选同意'
-		})
-		uni.navigateTo({
-			url: '/pages/merchant/merchant_set_info'
-		})
-	}
-	const toManagement = () => {
-		uni.navigateTo({
-			url: '/pages/merchant/merchant_management'
-		})
-	}
+	
 
 	const acceptTempBannerImgPath = async (ImgPaths) => {
 		temBannerImgPaths.value = ImgPaths
@@ -262,8 +212,6 @@ const onChange = (e) => {
 
 
 
-
-
 	const lat = ref('')
 	const lon = ref('')
 	const address = ref('')
@@ -284,29 +232,13 @@ const onChange = (e) => {
 			icon: 'none',
 			title: '请阅读完须知后勾选同意'
 		})
-		console.log(
-			!shopName.value,
-			!address.value,
-			!shopIntro.value,
-			temDetailImgPaths.value.length === 0,
-			temProfileImgPaths.value.length === 0,
-			temBannerImgPaths.value.length === 0)
-		console.log(
-			shopIntro.value,
-			shopName.value,
-			address.value,
-			temDetailImgPaths.value.length,
-			temProfileImgPaths.value.length,
-			temBannerImgPaths.value.length)
+		
 		//检查是否有任意一个值为空
 		if (
 			!shopName.value ||
 			!address.value ||
-			!shopIntro.value ||
 			!selectedCity.value||
-			temDetailImgPaths.value.length.length === 0 ||
-			temBannerImgPaths.value.length === 0 ||
-			temProfileImgPaths.value.length === 0
+			!businessRange.value
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -321,11 +253,12 @@ const onChange = (e) => {
 			 await uploadProfileImg()
 			 console.log('-----');
 			console.log({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value||'https://example.com/image.png',address:address.value});
-			 const res= await postMerchantSettleIn({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value})
+			 const res= await postMerchantSettleIn({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
 			console.log('-----!!!',res);
 			await upLoadBannerImg(res?.id)
 			await upLoadDetailImg(res?.id)
 			await upLoadProfileImg(res?.id)
+			await userStore.fetchAllDataAction()
 			// console.log('----11',businessRange.value,userStore.merchantInfo.id);
 			//console.log(res);
 			uni.hideLoading()
@@ -334,10 +267,10 @@ const onChange = (e) => {
 				duration: 600,
 				icon: 'success'
 			})
-			// await userStore.fetchAllDataAction()
+			
 			setTimeout(() => {
 				uni.redirectTo({
-					url: '/pages/merchant/merchant_management'
+					url: '/pages/merchant/shop_profile'
 				})
 			}, 700)
 
@@ -358,26 +291,7 @@ const onChange = (e) => {
 </script>
 
 <style lang="scss" scoped>
-	.head_box {
-		background-color: #fff;
-		padding: 34rpx 48rpx 34rpx;
-		margin-bottom: 20rpx;
-
-		.h_title {
-			font-size: 27rpx;
-		}
-
-		.h_text {
-			font-size: 24rpx;
-			color: #999999;
-		}
-
-		.shop_intro {
-			border-bottom: 1px solid #DDDDDD;
-			margin-bottom: 50rpx;
-		}
-	}
-
+	
 	.shop_info {
 		padding: 0 26rpx;
 		background-color: #fff;

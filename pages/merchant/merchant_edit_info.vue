@@ -87,7 +87,7 @@
 						具体位置
 					</view>
 					<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
-					<image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image>
+					<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
 				</view>
 			</view>
 		<!-- 	<view class="radio" @click="changeCheck">
@@ -240,20 +240,7 @@ const onChange = (e) => {
 	}
 
 
-	const toSetInfo = () => {
-		if (!isChecked.value) return uni.showToast({
-			icon: 'none',
-			title: '请阅读完须知后勾选同意'
-		})
-		uni.navigateTo({
-			url: '/pages/merchant/merchant_set_info'
-		})
-	}
-	const toManagement = () => {
-		uni.navigateTo({
-			url: '/pages/merchant/merchant_management'
-		})
-	}
+	
 
 	const acceptTempBannerImgPath = async (ImgPaths) => {
 		temBannerImgPaths.value = ImgPaths
@@ -297,11 +284,7 @@ const onChange = (e) => {
 		console.log('detailListUrl',detailListUrl.value);
 	}
 	
-	//头像url与商铺相关联
-	const upLoadProfileImg=async ()=>{
-			const phoneNumber=uni.getStorageSync('phoneNumber')
-			// await updateShopImg(phoneNumber,{image_url:profileUrl.value,image_type:'avatar'})
-	}
+
 
 	//上传店铺头像
 	const profileUrl = ref('')

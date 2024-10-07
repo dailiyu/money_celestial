@@ -19,7 +19,7 @@ export const postMerchantSettleIn=(data)=>{
 
 //更新店铺信息
 export const changeShopInfo=(merchant,data)=>{
-	return http.put(`/shops/${merchant}/`,data)
+	return http.patch(`/shops/${merchant}/`,data)
 }
 
 //获取商品分类列表
@@ -45,6 +45,7 @@ export const getShopList=(data)=>{
 export const getShopImages=(data)=>{
 	return http.get('/shops-images/', data)
 }
+
 
 //获取城市商家列表
 export const getCityShopList=(data)=>{

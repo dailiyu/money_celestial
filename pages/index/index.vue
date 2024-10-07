@@ -201,11 +201,11 @@ const toMerchant =async () => {
         });
     } else if(!userData?.is_seller) {
         // 未入驻
-        uni.redirectTo({
+        uni.navigateTo({
             url: '/pages/merchant/merchant_intro'
         });
     } else if(userData?.is_seller&&!userData?.is_shop){
-		uni.redirectTo({
+		uni.navigateTo({
 			url:'/pages/merchant/before_create_shop'
 		})
 	}
