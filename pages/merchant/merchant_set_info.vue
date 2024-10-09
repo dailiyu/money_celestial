@@ -246,18 +246,16 @@ const onChange = (e) => {
 			});
 		}
 		try {
+		
 			uni.showLoading({
 				title: "正在入驻中...",
 			})	
 			const phoneNumber=uni.getStorageSync('phoneNumber')
-			 await uploadProfileImg()
-			 console.log('-----');
-			console.log({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value||'https://example.com/image.png',address:address.value});
+			console.log(phoneNumber,1111);
+		
 			 const res= await postMerchantSettleIn({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
 			console.log('-----!!!',res);
-			await upLoadBannerImg(res?.id)
-			await upLoadDetailImg(res?.id)
-			await upLoadProfileImg(res?.id)
+			
 			await userStore.fetchAllDataAction()
 			// console.log('----11',businessRange.value,userStore.merchantInfo.id);
 			//console.log(res);
