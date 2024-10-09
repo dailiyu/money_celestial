@@ -41,9 +41,10 @@
 import { onMounted, ref } from 'vue';
 import { getWalletAddress } from '@/service/point.js'
 import { obscureString } from '@/utils';
+import { onShow } from '@dcloudio/uni-app'
 
 const address = ref('')
-onMounted(async()=>{
+onShow(async()=>{
 	const {results} = await getWalletAddress()
 	address.value = results[0].address
 })
