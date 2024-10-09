@@ -114,7 +114,7 @@ const toRegister = async() => {
 
 	:deep(.uni-easyinput__content-input) {
 		font-size: 24rpx;
-		color: #BABABA;
+		color: #333;
 	}
 
 	.title {

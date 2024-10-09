@@ -107,7 +107,7 @@ const toRegister = ()=>{
 }
 :deep(.uni-easyinput__content-input) {
 	font-size: 24rpx;
-	color: #BABABA;
+	color: #333;
 }
 .forget {
 	font-size: 24rpx;
