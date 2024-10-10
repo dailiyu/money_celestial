@@ -30,7 +30,7 @@
 				<view class="item" @click="toPointAccount">
 					<image class="img" src="@/static/my/credits_account.png"></image>
 					<text class="text">积分账号</text>
-					<div class="text number">{{obscureString(user)}}</div>
+					<div class="text number">{{user?obscureString(user):''}}</div>
 				</view>
 			</view>
 			<view class="services">
@@ -75,7 +75,7 @@
 							帮助中心
 						</view>
 					</view>
-					<view class="service_item">
+					<view class="service_item" @click=" toAboutUs">
 						<image src="@/static/my/us.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							关于我们
@@ -89,10 +89,10 @@
 					</view>
 				</view>
 			</view>
-			<view class="services">
+			<!-- <view class="services">
 				<view class="service_title flex">
 					<image src="@/static/star.png" mode="widthFix" class="star_pic"></image>
-					<view class="">
+					<view class=""> 
 						商家服务
 					</view>
 				</view>
@@ -110,7 +110,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 
 		</view>
 	</view>
@@ -118,7 +118,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAllPoint, getWalletAddress } from '@/service/point.js'
+import { getAllPoint, getPointBindedAccount } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
 import { obscureString } from '@/utils';
 const  userStore = useUserStore()
@@ -146,8 +146,8 @@ const getPointInfo = async()=>{
 	// 可用积分
 	red_points.value = res.red_points
 	// user.value = res.user
-	const {results} = await getWalletAddress()
-	user.value = results[0].address
+	const {points_account} = await getPointBindedAccount()
+	user.value = points_account
 }
 const toLogin = ()=>{
 	uni.navigateTo({
@@ -181,6 +181,11 @@ const toPointAccount = ()=>{
 const toRecord = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/all_records'
+	})
+}
+const toAboutUs = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/about_us'
 	})
 }
 </script>

@@ -11,7 +11,7 @@
 				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title">《绑定须知》</text>
 			</view>
@@ -24,7 +24,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { bindPointAccount, getWalletAddress } from '@/service/point.js'
+import { bindPointAccount, getPointBindedAccount } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 const number = ref('')
 
@@ -32,8 +32,8 @@ const number = ref('')
 
 const address = ref('')
 onMounted(async()=>{
-	const {results} = await getWalletAddress()
-	address.value = results[0].address
+	const {points_account} = await getPointBindedAccount()
+	address.value = points_account
 })
 const isChecked = ref(false)
 const changeCheck = ()=>{
@@ -91,7 +91,7 @@ const confirm = async ()=>{
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color:#333;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;

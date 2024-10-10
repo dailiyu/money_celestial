@@ -26,20 +26,20 @@
 					商家
 				</view>
 			</view>
-			<view class="function_item" @click="toAgent">
-				<view class="img_box flex_center">
-					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
-				</view>
-				<view class="">
-					代理
-				</view>
-			</view>
 			<view class="function_item" @click="toRecommend">
 				<view class="img_box flex_center">
 					<image src="@/static/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
 				</view>
 				<view class="">
 					推荐官
+				</view>
+			</view>
+			<view class="function_item" @click="toAgent">
+				<view class="img_box flex_center">
+					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
+				</view>
+				<view class="">
+					代理
 				</view>
 			</view>
 			<view class="function_item" @click="toMyAccount">

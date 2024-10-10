@@ -9,7 +9,7 @@
 					</view>
 					<view class="flex">
 						<view class="account">
-							{{obscureString(address)}}
+							{{address?obscureString(address):''}}
 						</view>
 						<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 					</view>
@@ -20,7 +20,7 @@
 					</view>
 					<view class="flex">
 						<view class="account">
-							{{obscureString(address)}}
+							{{address?obscureString(address):''}}
 						</view>
 						<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 					</view>
@@ -39,15 +39,15 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getWalletAddress } from '@/service/point.js'
+import { getPointBindedAccount } from '@/service/point.js'
 import { obscureString } from '@/utils';
 import { onShow } from '@dcloudio/uni-app'
 
 const address = ref('')
 onShow(async()=>{
-	const {results} = await getWalletAddress()
-	address.value = results[0].address
-})
+	const {points_account} = await getPointBindedAccount()
+	address.value = points_account
+})     
 const toBindAccount = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/bind_account'

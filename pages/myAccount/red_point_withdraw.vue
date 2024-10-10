@@ -6,10 +6,10 @@
 				<view class="">
 					积分账号
 				</view>
-				<image src="@/static/account.png" mode="widthFix" class="a_pic"></image>
+				<!-- <image src="@/static/account.png" mode="widthFix" class="a_pic"></image> -->
 			</view>
 			<view class="account_box">
-				{{obscureString(account)}}
+				{{account?obscureString(account):''}}
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -36,7 +36,7 @@
 				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title">《提取须知》</text>
 			</view>
@@ -49,7 +49,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAllPoint, withdrawRedPoints, getWalletAddress } from '@/service/point.js'
+import { getAllPoint, withdrawRedPoints } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 
 
@@ -58,15 +58,13 @@ const account = ref('')
 onMounted(async ()=>{
 	
 	getPointInfo()
-	const {results} = await getWalletAddress()
-	account.value = results[0].address
 })
 const pointBalance = ref('')
 const getPointInfo = async()=>{
-	const {red_points} = await getAllPoint()
+	const {red_points, points_account} = await getAllPoint()
 	// 可用积分
 	pointBalance.value = red_points
-	// account.value = user
+	account.value = points_account
 }
 const isChecked = ref(false)
 const number = ref('')
@@ -153,7 +151,7 @@ const confirm = async()=>{
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color:#333;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;

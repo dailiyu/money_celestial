@@ -5,16 +5,19 @@
 			<uni-col :span="2">
 				<view class="title">序号</view>
 			</uni-col>
-			<uni-col :span="6">
+			<uni-col :span="5">
 				<view class="title">提取地址</view>
 			</uni-col>
-			<uni-col :span="5">
+			<uni-col :span="4">
 				<view class="title">提取数量</view>
 			</uni-col>
-			<uni-col :span="4">
-				<view class="title">审核状态</view>
+			<uni-col :span="3">
+				<view class="title">状态</view>
 			</uni-col>
-			<uni-col :span="7">
+			<uni-col :span="4">
+				<view class="title">到账数量</view>
+			</uni-col>
+			<uni-col :span="6">
 				<view class="title">提取时间</view>
 			</uni-col>
 		</uni-row>
@@ -23,16 +26,19 @@
 			<uni-col :span="2">
 				<view>{{index+1}}</view>
 			</uni-col>
-			<uni-col :span="6">
-				<view>{{item.to_user.phone_number}}</view>
-			</uni-col>
 			<uni-col :span="5">
-				<view>{{item.transaction_amount}}</view>
+				<view>{{obscureString(item.from_address)}}</view>
 			</uni-col>
 			<uni-col :span="4">
+				<view>{{item.transaction_amount}}</view>
+			</uni-col>
+			<uni-col :span="3">
 				<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
 			</uni-col>
-			<uni-col :span="7">
+			<uni-col :span="4">
+				<view>{{item.transaction_amount-(item.transaction_amount*3/100)}}</view>
+			</uni-col>
+			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
@@ -84,7 +90,7 @@ const loadMore = ()=>{
 	&:nth-child(2) {
 		background-color: #fff;
 		color: #333;
-		font-size: 27rpx;
+		font-size: 22rpx;
 	}
 }
 .title_row {

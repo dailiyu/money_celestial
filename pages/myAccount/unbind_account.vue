@@ -8,10 +8,10 @@
 				</view>
 			</view>
 			<view class="account_box">
-				{{obscureString(address)}}
+				{{address?obscureString(address):''}}
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title">《解除绑定须知》</text>
 			</view>
@@ -24,7 +24,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { unbindPointAccount, getWalletAddress } from '@/service/point.js'
+import { unbindPointAccount, getPointBindedAccount } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 
 const id = ref('')
@@ -33,8 +33,8 @@ onMounted(async ()=>{
 })
 const address = ref('')
 const getPointAccount = async()=>{
-	const {results} = await getWalletAddress()
-	address.value = results[0].address
+	const {points_account} = await getPointBindedAccount()
+	address.value = points_account
 }
 const isChecked = ref(false)
 const changeCheck = ()=>{
@@ -105,7 +105,7 @@ const confirm = async ()=>{
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color:#333;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;

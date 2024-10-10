@@ -2,17 +2,17 @@
 	<view>
 		<navBar title="推荐官后台" ></navBar>
 		<view class="total_data">
+			<image src="@/static/recommend/verified.png" mode="widthFix" class="verify_pic" v-if="isVerified"></image>
+			<image src="@/static/recommend/verified-not.png" mode="widthFix" class="verify_pic" v-else></image>
+			<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
 			<image src="@/static/recommend/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
 			<view class="data_item">
 				<image src="@/static/recommend/lv1.png" mode="widthFix" class="lv_pic"></image>
 				<view class="lv_name">
 					荣耀推荐官
 				</view>
-				<view class="flex_center">
-					<view class="name">
-						{{info?.name}}
-					</view>
-					<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
+				<view class="name">
+					{{info?.name}}
 				</view>
 				<view class="total_item flex_between">
 					<view class="">
@@ -67,15 +67,20 @@ import { onMounted, ref } from 'vue';
 import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
 import { useUserStore } from '../../store/user';
 import { getGreenPoints } from '@/service/point';
+import { getVertifyMerchantInfo } from '@/service/merchant';
 
  const userStore=  useUserStore()
 const info = ref({})
 const user = ref({})
+const isVerified = ref(false)
 onMounted(async()=>{
 	getPoint()
 	user.value = uni.getStorageSync('userInfo')
 	info.value = await getRecommendOfficerInfo(user.value.phone_number)
 	// getMPQRCode()
+	const phone = uni.getStorageSync('phoneNumber')
+	const {is_verified} = await getVertifyMerchantInfo(phone)
+	isVerified = is_verified
 })
 const points = ref(0)
 const getPoint = async()=>{
@@ -120,6 +125,21 @@ const toqrDetail=()=>{
 .total_data {
 	position: relative;
 	margin-top: 88rpx;
+	.verify_pic {
+		position: absolute;
+		top: 16rpx;
+		left: 30rpx;
+		z-index: 10;
+		width: 206rpx;
+	}
+	.code_pic {
+		position: absolute;
+		top: 86rpx;
+		right: 72rpx;
+		width: 34rpx;
+		z-index: 10;
+		// margin-left: 32rpx;
+	}
 	.agent_pic {
 		width: 100%;
 		display: block;
@@ -151,10 +171,7 @@ const toqrDetail=()=>{
 			color: #FFFFFF;
 			text-align: center;
 		}
-		.code_pic {
-			width: 34rpx;
-			margin-left: 32rpx;
-		}
+		
 		.total_item {
 			padding-top: 40rpx;
 			margin-top: 40rpx;

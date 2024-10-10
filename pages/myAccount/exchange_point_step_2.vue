@@ -31,7 +31,7 @@
 					<view class="s_title">
 						充值账号
 					</view>
-					<uni-easyinput v-model="phone" maxlength="11" type="number" :inputBorder="false" class="uni-input" placeholder="请输入账号" placeholder-class="placeholder_class" >
+					<uni-easyinput v-model="phone" maxlength="11" type="number" :inputBorder="false" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" >
 						<!-- <template #right>
 							<view class="" style="text-align: right;">
 								<view class="error_text">
@@ -157,7 +157,7 @@ const confirm = async()=>{
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color:#333;
 		}
 		:deep(.uni-easyinput__placeholder-class) {
 			font-size: 24rpx;

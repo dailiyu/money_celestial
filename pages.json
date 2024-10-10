@@ -430,6 +430,14 @@
 				"navigationBarTitleText" : "积分记录",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/myAccount/about_us",
+			"style" : 
+			{
+				"navigationBarTitleText" : "关于我们",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

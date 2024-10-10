@@ -52,15 +52,15 @@ export const convertTime = (timeStamp,format='yyyy/MM/dd hh:mm:ss') => {
 		.replace('mm', minutes)
 		.replace('ss', seconds);
 }
-
+	
 //处理地址字符串s
 export const obscureString = (input)=>{
     if (input.length <= 15) {
         return input; // 如果字符串长度小于等于15个字符，则不做处理，直接返回
     }
     
-    const start = input.slice(0, 8); // 获取前8个字符
-    const end = input.slice(-7);     // 获取后7个字符
+    const start = input.slice(0, 5); // 获取前5个字符
+    const end = input.slice(-5);     // 获取后5个字符
     const obscured = start + '******' + end; // 拼接前8个字符 + 6个* + 后7个字符
     
     return obscured;
