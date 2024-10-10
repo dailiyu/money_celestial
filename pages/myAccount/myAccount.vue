@@ -41,10 +41,10 @@
 					</view>
 				</view>
 				<view class="service_bottom flex">
-					<view class="service_item">
+					<view class="service_item" @click="toEdteInfo">
 						<image src="@/static/my/info.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
-							我的信息
+							个人信息
 						</view>
 					</view>
 					<view class="service_item" @click="toRecord">
@@ -53,12 +53,12 @@
 							我的记录
 						</view>
 					</view>
-					<view class="service_item">
+				<!-- 	<view class="service_item">
 						<image src="@/static/my/collect.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							我的收藏
 						</view>
-					</view>
+					</view> -->
 				</view>
 			</view>
 			<view class="services">
@@ -89,7 +89,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="services">
+			<!-- <view class="services">
 				<view class="service_title flex">
 					<image src="@/static/star.png" mode="widthFix" class="star_pic"></image>
 					<view class="">
@@ -110,7 +110,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 
 		</view>
 	</view>
@@ -121,17 +121,23 @@ import { onMounted, ref } from 'vue';
 import { getAllPoint, getWalletAddress } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
 import { obscureString } from '@/utils';
+import { onShow } from '@dcloudio/uni-app'; 
 const  userStore = useUserStore()
 
 const accessToken = uni.getStorageSync('accessToken')
 
-const ionc_url=uni.getStorageSync('userInfo').icon
-const user_name=uni.getStorageSync('userInfo').name
+const ionc_url=ref()
+const user_name=ref()
 
-
+onShow(() => {
+	ionc_url.value= uni.getStorageSync('userInfo').icon
+	user_name.value=uni.getStorageSync('userInfo').name
+});
 
 onMounted(()=>{
 	
+	ionc_url.value= uni.getStorageSync('userInfo').icon
+	user_name.value=uni.getStorageSync('userInfo').name
 	if (accessToken) {
 		getPointInfo()
 	}
@@ -173,6 +179,13 @@ const toPointAvailable = ()=>{
 		url: '/pages/myAccount/point_available'
 	})
 }
+
+const toEdteInfo=()=>{
+	uni.navigateTo({
+		url: '/pages/login/more_info_edit'
+	})
+}
+
 const toPointAccount = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/point_account'
@@ -230,9 +243,10 @@ const toRecord = ()=>{
 					font-family: HarmonyOS_Sans_SC_Bold;
 					font-size: 30rpx;
 					color: #FFFFFF;
+					width: 340rpx;
 				}
 				.logout{
-					margin-left: 300rpx;
+					margin-right: 20rpx;
 					// color: #54b1fd;
 					padding: 12rpx 20rpx;
 					color: #FC5908;

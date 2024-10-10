@@ -256,6 +256,14 @@
 			}
 		},
 		{
+			"path" : "pages/login/more_info_edit",
+			"style" : 
+			{
+				"navigationBarTitleText" : "修改个人信息",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path" : "pages/myAccount/my_point",
 			"style" : 
 			{

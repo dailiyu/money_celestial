@@ -5,7 +5,7 @@
 			<view class="">
 				{{ title }}
 			</view>
-			<view class="skip" v-if="isSkip">
+			<view class="skip" v-if="isSkip" @click="clickRight">
 				<slot name="right"></slot>
 			</view>
 		</view>
