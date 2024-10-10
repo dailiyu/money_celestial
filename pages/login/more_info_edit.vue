@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="完善信息" bgc="#1B46CC" :isSkip="true"  :isShow="true" @clickRight="skip">
+		<navBar title="完善信息" bgc="#1B46CC"  :isShow="true" @clickRight="skip">
 			<template class="skip" #right>
 				跳过
 			</template>
@@ -54,6 +54,7 @@
 					常居地
 				</view>
 					<uni-data-picker 
+										v-model="curData"
 								      :localdata="cityData"
 								      :value="selectedValues"
 									  :clear-icon='false'
@@ -77,14 +78,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { changeUserInfo } from '../../service/uer_profile';
 import { uploadUrl } from '../../service/config';
 import cityDataJson from "@/static/cityData.json"
 import { uploadImage } from '../../utils';
+import { useUserStore } from '../../store/user';
 
+const userStore=useUserStore()
 
+const curData=ref()
 
+const userInfo=ref()
 
 // 绑定选择的值
 const selectedValues = ref([])
@@ -96,12 +101,44 @@ const selectedCity = ref('')
 // 省市数据
 const cityData = ref(cityDataJson)
 
+
+onMounted(()=>{
+	userInfo.value=uni.getStorageSync('userInfo')
+	name.value=userInfo.value.name
+	imagePath.value=userInfo.value.icon
+	gender.value=userInfo.value.gender
+	birthday.value=formatDate(userInfo.value.birthdate)  
+	const  cityName=getCity(userInfo.value.residence)
+	curData.value=findValueByText(cityName)
+})
+
+
+const findValueByText=(text)=> {
+  for (const province of cityDataJson) {
+	 
+    for (const city of province.children) {
+		
+      if (city.text === text) {
+        return city.value;
+      }
+    }
+  }
+  return null;
+}
+
+const getCity=(fullAddress)=>{
+  // 使用空格分割字符串，获取最后一个部分
+  const parts = fullAddress.split(' ');
+  return parts[parts.length - 1];
+}
+
+
 // 当选择器值变化时，处理选中的省和市
 const onChange = (e) => {
   const selected = e.detail.value
   const province = cityData.value.find(item => item.value === selected[0])
   const city = province?.children?.find(item => item.value === selected[1])
-
+	
   // 保存选择的省市名
    selectedProvince.value = e.detail.value[0].text ||''
    selectedCity.value =  e.detail.value[1].text ||''
@@ -187,19 +224,19 @@ const saveMessage=async()=>{
 	})
 	             
 	const phoneNumber=uni.getStorageSync('phoneNumber')
-	 changeUserInfo({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'',birthdate:birthday.value||'',residence: selectedProvince.value+' '+selectedCity.value||''}).then((res)=>{
+	  await/*  */  changeUserInfo({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'',birthdate:birthday.value||'',residence: selectedProvince.value+' '+selectedCity.value||''}).then(async (res)=>{
 		
-		uni.setStorageSync('保存的最新用户信息',res)
+		 uni.setStorageSync('保存的最新用户信息',res)
+		await userStore.fetchAllDataAction()
 		uni.hideLoading()
 		  uni.showToast({
 		  	duration:1000,
 			icon:'success',
 			title:'保存成功'
 		  })
+		 
 		  setTimeout(()=>{
-			  uni.navigateTo({
-			  	url:'/pages/index/index'
-			  })
+			 uni.navigateBack()
 		  },1000)
 	  }).catch((err)=>{
 		  uni.showToast({
@@ -220,6 +257,7 @@ const openCalendar = ()=>{
 }
 const confirm = (e)=>{
 	birthday.value = e.fulldate
+	console.log(birthday.value);
 }
 
 const lat = ref('')
@@ -236,7 +274,14 @@ const getLocation = ()=>{
 	})
 }
 
-
+const formatDate=(dateString)=> {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
+}
 
 
 </script>
