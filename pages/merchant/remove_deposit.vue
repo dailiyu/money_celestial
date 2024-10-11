@@ -80,7 +80,7 @@ const confirm = async()=>{
 		icon:'none',
 		title: '请输入金额'
 	})
-	if (number.value > info.value.amount) return uni.showToast({
+	if (number.value > amount.value) return uni.showToast({
 		icon:'none',
 		title: '可解除余额不足'
 	})
