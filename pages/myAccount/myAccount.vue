@@ -5,7 +5,7 @@
 			<image src="@/static/my/bg_my.png" class="img"></image>
 		</view>
 		<view class="content">
-			<view class="profile" @click="toLogin">
+			<view class="profile" >
 				<view class="avtar">
 				<image class="img" :src="ionc_url" mode=""></image>
 				</view>
@@ -30,7 +30,7 @@
 				<view class="item" @click="toPointAccount">
 					<image class="img" src="@/static/my/credits_account.png"></image>
 					<text class="text">积分账号</text>
-					<div class="text number">{{user?obscureString(user):''}}</div>
+					<div class="text number">{{obscureString(user)}}</div>
 				</view>
 			</view>
 			<view class="services">
@@ -75,7 +75,7 @@
 							帮助中心
 						</view>
 					</view>
-					<view class="service_item" @click=" toAboutUs">
+					<view class="service_item">
 						<image src="@/static/my/us.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							关于我们
@@ -92,7 +92,7 @@
 			<!-- <view class="services">
 				<view class="service_title flex">
 					<image src="@/static/star.png" mode="widthFix" class="star_pic"></image>
-					<view class=""> 
+					<view class="">
 						商家服务
 					</view>
 				</view>
@@ -118,7 +118,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAllPoint, getPointBindedAccount } from '@/service/point.js'
+import { getAllPoint, getWalletAddress } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
 import { obscureString } from '@/utils';
 import { onShow } from '@dcloudio/uni-app'; 
@@ -152,8 +152,8 @@ const getPointInfo = async()=>{
 	// 可用积分
 	red_points.value = res.red_points
 	// user.value = res.user
-	const {points_account} = await getPointBindedAccount()
-	user.value = points_account
+	const {results} = await getWalletAddress()
+	user.value = results[0].address
 }
 const toLogin = ()=>{
 	uni.navigateTo({
@@ -194,11 +194,6 @@ const toPointAccount = ()=>{
 const toRecord = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/all_records'
-	})
-}
-const toAboutUs = ()=>{
-	uni.navigateTo({
-		url: '/pages/myAccount/about_us'
 	})
 }
 </script>
@@ -249,7 +244,7 @@ const toAboutUs = ()=>{
 					font-size: 30rpx;
 					color: #FFFFFF;
 					width: 340rpx;
-				}
+				}       
 				.logout{
 					margin-right: 20rpx;
 					// color: #54b1fd;
