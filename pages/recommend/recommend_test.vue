@@ -111,12 +111,15 @@ export default {
 				title: '提交中'
 			})
 			const username = userStore.userInfo.username
+			
 			const {results} = await getMerchantList()
+				console.log('----',userAddress);
 			const cityName=  await extractCityName(userAddress)
+			
 			console.log("推荐官所在地 ",cityName);
-			const res=await getCitiesDetail(cityName)
-			const cityCode=res.code
-			console.log("推荐官所在城市代码 ",cityCode);
+			// const res=await getCitiesDetail(cityName)
+			// const cityCode=res.code
+			// console.log("推荐官所在城市代码 ",cityCode);
 			const phoneNumber=uni.getStorageSync('phoneNumber')
 			console.log('手机号码',phoneNumber);
 			 await createRecommendOfficer({user:phoneNumber,name:userName, city:cityName})
