@@ -7,12 +7,16 @@
 		<view class="content">
 			<view class="profile" >
 				<view class="avtar">
-				<image class="img" :src="ionc_url" mode=""></image>
+				<image class="img" :src="ionc_url" mode="" v-if="ionc_url"></image>
+				<image class="img" src="@/static/my/avatar.jpg" mode=""></image>
 				</view>
+				<!-- <view class="name" v-if="user">
+					点击登录
+				</view> -->
 				<view class="name">
-					{{user_name||'点击登录'}}
+					{{user_name||'default'}}
 				</view>
-				<view class="logout" @click="logout">
+				<view class="logout"  @click="logout">
 					退出登录
 				</view>
 			</view>

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="完善信息" bgc="#1B46CC" :isSkip="true"  :isShow="true" @clickRight="skip">
+		<navBar title="完善信息" bgc="#1B46CC"  :isShow="true" @clickRight="skip">
 			<template class="skip" #right>
 				跳过
 			</template>
@@ -51,7 +51,7 @@
 			</view>
 			<view class="info_item flex_between" style="flex: 1;" >
 				<view class="title">
-					常居地
+					常居地<text style="color: red;">*</text>
 				</view>
 					<uni-data-picker 
 								      :localdata="cityData"
@@ -82,7 +82,6 @@ import { changeUserInfo } from '../../service/uer_profile';
 import { uploadUrl } from '../../service/config';
 import cityDataJson from "@/static/cityData.json"
 import { uploadImage } from '../../utils';
-
 
 
 
@@ -175,9 +174,9 @@ const saveMessage=async()=>{
 	// 		duration:700
 	// 	})
 	// }
-	if(!name.value||!uploadSuccessUrl.value||!gender.value||!birthday.value||!selectedCity.value) {
+	if(!selectedCity.value) {
 		return uni.showToast({
-			title:"请填入完整信息",
+			title:"常居地为必填项",
 			icon:"fail",
 			duration:700
 		})
@@ -187,7 +186,7 @@ const saveMessage=async()=>{
 	})
 	             
 	const phoneNumber=uni.getStorageSync('phoneNumber')
-	 changeUserInfo({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'',birthdate:birthday.value||'',residence: selectedProvince.value+' '+selectedCity.value||''}).then((res)=>{
+	 changeUserInfo({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'male',birthdate:birthday.value||'2024-10-09',residence: selectedProvince.value+' '+selectedCity.value||''}).then((res)=>{
 		
 		uni.setStorageSync('保存的最新用户信息',res)
 		uni.hideLoading()
@@ -220,6 +219,7 @@ const openCalendar = ()=>{
 }
 const confirm = (e)=>{
 	birthday.value = e.fulldate
+	console.log(birthday.value);
 }
 
 const lat = ref('')
