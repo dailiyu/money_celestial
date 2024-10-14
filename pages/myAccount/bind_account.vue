@@ -13,7 +13,7 @@
 			<view class="radio" @click="changeCheck">
 				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《绑定须知》</text>
+				<text class="c_title" @click.stop="toAgreement">《绑定须知》</text>
 			</view>
 			<view class="btn_full" @click="confirm">
 				绑定
@@ -69,6 +69,11 @@ const confirm = async ()=>{
 			title: '绑定失败'
 		})
 	}
+}
+const toAgreement = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/bind_account_agreement'
+	})
 }
 </script>
 
