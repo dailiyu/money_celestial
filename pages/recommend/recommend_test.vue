@@ -122,7 +122,7 @@ export default {
 			// console.log("推荐官所在城市代码 ",cityCode);
 			const phoneNumber=uni.getStorageSync('phoneNumber')
 			console.log('手机号码',phoneNumber);
-			 await createRecommendOfficer({user:phoneNumber,name:userName, city:cityName})
+			 await createRecommendOfficer({user:phoneNumber,name:userName||'default', city:cityName})
 			
 			uni.hideLoading()
 			uni.redirectTo({
