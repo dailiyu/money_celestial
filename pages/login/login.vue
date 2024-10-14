@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="用户登录" bgc="#1B46CC"></navBar>
+		<navBar title="用户登录" bgc="#1B46CC" :iconShow="false"></navBar>
 		<view class="content">
 			<image src="@/static/logo.png" mode="widthFix" class="logo"></image>
 			<uni-easyinput v-model="moblie" placeholder="请输入手机号" maxlength="11" :inputBorder="false" primaryColor="#1B46CC" type="number">

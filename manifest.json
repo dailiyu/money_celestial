@@ -1,6 +1,6 @@
 {
     "name" : "满仓",
-    "appid" : "__UNI__EFA5E5D",
+    "appid" : "__UNI__6FAB407",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -49,6 +49,14 @@
             /* SDK配置 */
             "sdkConfigs" : {
                 "ad" : {}
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "C:/Users/41730/Documents/WeChat Files/w_anying/FileStorage/File/2024-10/图标/72.png",
+                    "xhdpi" : "C:/Users/41730/Documents/WeChat Files/w_anying/FileStorage/File/2024-10/图标/96.png",
+                    "xxhdpi" : "C:/Users/41730/Documents/WeChat Files/w_anying/FileStorage/File/2024-10/图标/144.png",
+                    "xxxhdpi" : "C:/Users/41730/Documents/WeChat Files/w_anying/FileStorage/File/2024-10/图标/192.png"
+                }
             }
         }
     },

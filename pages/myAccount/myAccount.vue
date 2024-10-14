@@ -136,16 +136,19 @@ const user_name=ref()
 onShow(() => {
 	ionc_url.value= uni.getStorageSync('userInfo').icon
 	user_name.value=uni.getStorageSync('userInfo').name
-});
-
-onMounted(()=>{
-	
-	ionc_url.value= uni.getStorageSync('userInfo').icon
-	user_name.value=uni.getStorageSync('userInfo').name
 	if (accessToken) {
 		getPointInfo()
 	}
-})
+});
+
+// onMounted(()=>{
+	
+// 	ionc_url.value= uni.getStorageSync('userInfo').icon
+// 	user_name.value=uni.getStorageSync('userInfo').name
+// 	if (accessToken) {
+// 		getPointInfo()
+// 	}
+// })
 const green_points = ref(0)
 const red_points = ref(0)
 const user = ref('')
