@@ -8,7 +8,7 @@
 			<view class="profile" >
 				<view class="avtar">
 				<image class="img" :src="ionc_url" mode="" v-if="ionc_url"></image>
-				<image class="img" src="@/static/my/avatar.jpg" mode=""></image>
+				<image class="img" src="@/static/default_avatar.pic.jpg" mode=""></image>
 				</view>
 				<!-- <view class="name" v-if="user">
 					点击登录
