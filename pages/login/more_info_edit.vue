@@ -51,7 +51,7 @@
 			</view>
 			<view class="info_item flex_between" style="flex: 1;" >
 				<view class="title">
-					常居地
+					常居地<text style="color: red;">*</text>
 				</view>
 					<uni-data-picker 
 										v-model="curData"
@@ -223,11 +223,9 @@ const saveMessage=async()=>{
 	// 		duration:700
 	// 	})
 	// }
-	const phoneNumber=uni.getStorageSync('phoneNumber')
-	console.log({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'',birthdate:birthday.value||'',residence: selectedProvince.value+' '+selectedCity.value||''});
-	if(!name.value||!uploadSuccessUrl.value||!gender.value||!birthday.value||!selectedCity.value) {
+	if(!selectedCity.value) {
 		return uni.showToast({
-			title:"请填入完整信息",
+			title:"常居地为必填项",
 			icon:"fail",
 			duration:700
 		})
@@ -236,21 +234,20 @@ const saveMessage=async()=>{
 		title:"正在保存中"              
 	})
 	             
-	
-	
-	  await/*  */  changeUserInfo({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'',birthdate:birthday.value||'',residence: selectedProvince.value+' '+selectedCity.value||''}).then(async (res)=>{
+	const phoneNumber=uni.getStorageSync('phoneNumber')
+	 changeUserInfo({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'male',birthdate:birthday.value||'2024-10-09',residence: selectedProvince.value+' '+selectedCity.value||''}).then((res)=>{
 		
-		 uni.setStorageSync('保存的最新用户信息',res)
-		await userStore.fetchAllDataAction()
+		uni.setStorageSync('保存的最新用户信息',res)
 		uni.hideLoading()
 		  uni.showToast({
 		  	duration:1000,
 			icon:'success',
 			title:'保存成功'
 		  })
-		 
 		  setTimeout(()=>{
-			 uni.navigateBack()
+			  uni.navigateTo({
+			  	url:'/pages/index/index'
+			  })
 		  },1000)
 	  }).catch((err)=>{
 		  uni.showToast({
@@ -262,6 +259,7 @@ const saveMessage=async()=>{
 	  
 	  
 }
+
 
 
 const birthday = ref('')
