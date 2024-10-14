@@ -446,6 +446,7 @@
 				"navigationBarTitleText" : "关于我们",
 				"navigationStyle": "custom"
 			}
+<<<<<<< HEAD
 		},
 		{
 			"path" : "pages/myAccount/helpCenter",
@@ -456,6 +457,57 @@
 			}
 		}
 		
+=======
+		},
+		{
+			"path" : "pages/merchant/point_gift_agreement",
+			"style" : 
+			{
+				"navigationBarTitleText" : "积分赠送须知",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/bind_account_agreement",
+			"style" : 
+			{
+				"navigationBarTitleText" : "绑定须知",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/deposit_agreement",
+			"style" : 
+			{
+				"navigationBarTitleText" : "保证金须知",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/point_withdraw_agreement",
+			"style" : 
+			{
+				"navigationBarTitleText" : "提取须知",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/unbind_account_agreement",
+			"style" : 
+			{
+				"navigationBarTitleText" : "解除绑定须知",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/add_red_point_agreement",
+			"style" : 
+			{
+				"navigationBarTitleText" : "兑换须知",
+				"navigationStyle": "custom"
+			}
+		}
+>>>>>>> e51f4c2231a0beac962f0824732be29c2bac0e28
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

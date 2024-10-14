@@ -34,7 +34,7 @@
 				<view class="item" @click="toPointAccount">
 					<image class="img" src="@/static/my/credits_account.png"></image>
 					<text class="text">积分账号</text>
-					<div class="text number">{{obscureString(user)}}</div>
+					<div class="text number">{{user?obscureString(user):''}}</div>
 				</view>
 			</view>
 			<view class="services">
@@ -122,7 +122,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAllPoint, getWalletAddress } from '@/service/point.js'
+import { getAllPoint, getPointBindedAccount } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
 import { obscureString } from '@/utils';
 import { onShow } from '@dcloudio/uni-app'; 
@@ -156,8 +156,8 @@ const getPointInfo = async()=>{
 	// 可用积分
 	red_points.value = res.red_points
 	// user.value = res.user
-	const {results} = await getWalletAddress()
-	user.value = results[0].address
+	const {points_account} = await getPointBindedAccount()
+	user.value = points_account
 }
 const toLogin = ()=>{
 	uni.navigateTo({
