@@ -73,9 +73,9 @@
 					</view>
 				</view>
 				<view class="service_bottom flex">
-					<view class="service_item">
+					<view class="service_item" @click="toHelpCenter">
 						<image src="@/static/my/help.png" mode="widthFix" class="service_pic"></image>
-						<view class="">
+						<view class="" >
 							帮助中心
 						</view>
 					</view>
@@ -172,6 +172,12 @@ const logout=()=>{
 	})
 }
 
+
+const toHelpCenter=()=>{
+	uni.navigateTo({
+		url:'/pages/myAccount/helpCenter'
+	})
+}
 
 const toMyPoint = ()=>{
 	uni.navigateTo({

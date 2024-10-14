@@ -446,7 +446,16 @@
 				"navigationBarTitleText" : "关于我们",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/myAccount/helpCenter",
+			"style" : 
+			{
+				"navigationBarTitleText" : "帮助中心",
+				"navigationStyle": "custom"
+			}
 		}
+		
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
