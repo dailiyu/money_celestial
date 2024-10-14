@@ -106,10 +106,14 @@ onMounted(()=>{
 	userInfo.value=uni.getStorageSync('userInfo')
 	name.value=userInfo.value.name
 	imagePath.value=userInfo.value.icon
+	uploadSuccessUrl.value=userInfo.value.icon
 	gender.value=userInfo.value.gender
 	birthday.value=formatDate(userInfo.value.birthdate)  
 	const  cityName=getCity(userInfo.value.residence)
+	const provinceName=getProvinceName(userInfo.value.residence)
 	curData.value=findValueByText(cityName)
+	selectedProvince.value=provinceName
+	selectedCity.value=cityName
 })
 
 
@@ -131,6 +135,13 @@ const getCity=(fullAddress)=>{
   const parts = fullAddress.split(' ');
   return parts[parts.length - 1];
 }
+
+const getProvinceName=(fullAddress)=>{
+  // 使用空格分割字符串，获取最后一个部分
+  const parts = fullAddress.split(' ');
+  return parts[0];
+}
+
 
 
 // 当选择器值变化时，处理选中的省和市
@@ -212,6 +223,8 @@ const saveMessage=async()=>{
 	// 		duration:700
 	// 	})
 	// }
+	const phoneNumber=uni.getStorageSync('phoneNumber')
+	console.log({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'',birthdate:birthday.value||'',residence: selectedProvince.value+' '+selectedCity.value||''});
 	if(!name.value||!uploadSuccessUrl.value||!gender.value||!birthday.value||!selectedCity.value) {
 		return uni.showToast({
 			title:"请填入完整信息",
@@ -223,7 +236,8 @@ const saveMessage=async()=>{
 		title:"正在保存中"              
 	})
 	             
-	const phoneNumber=uni.getStorageSync('phoneNumber')
+	
+	
 	  await/*  */  changeUserInfo({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'',birthdate:birthday.value||'',residence: selectedProvince.value+' '+selectedCity.value||''}).then(async (res)=>{
 		
 		 uni.setStorageSync('保存的最新用户信息',res)
