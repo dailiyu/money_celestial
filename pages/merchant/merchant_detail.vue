@@ -31,7 +31,7 @@
 						{{shopInfo.description}}
 					</view>
 				</view>
-				<image src="@/static/star-plain.png" mode="widthFix" class="star_plain"></image>
+				<!-- <image src="@/static/star-plain.png" mode="widthFix" class="star_plain"></image> -->
 			</view>
 			<view class="info_item">
 				<view class="flex" style="margin-bottom: 25rpx;">

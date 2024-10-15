@@ -85,12 +85,12 @@
 							关于我们
 						</view>
 					</view>
-					<view class="service_item">
+					<!-- <view class="service_item">
 						<image src="@/static/my/service.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							联系客服
 						</view>
-					</view>
+					</view> -->
 				</view>
 			</view>
 			<!-- <view class="services">
