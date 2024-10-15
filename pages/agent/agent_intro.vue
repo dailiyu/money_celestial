@@ -63,7 +63,7 @@ const submit = async()=>{
 	}catch(e){
 		uni.showToast({
 			icon: 'none',
-			title: '申请失败'
+			title: e.data.mail[0]
 		})
 	}
 	

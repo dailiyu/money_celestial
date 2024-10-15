@@ -66,7 +66,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="merchant_box" v-if="userInfo.is_shop&&!!shopLists">
+			<view class="merchant_box" v-if="shopLists.name">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
 						<text class="nearby">附近商家</text>
