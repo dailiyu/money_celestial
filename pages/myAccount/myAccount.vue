@@ -79,7 +79,7 @@
 							帮助中心
 						</view>
 					</view>
-					<view class="service_item">
+					<view class="service_item" @click="toAboutUs">
 						<image src="@/static/my/us.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							关于我们
@@ -207,6 +207,11 @@ const toPointAccount = ()=>{
 const toRecord = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/all_records'
+	})
+}
+const toAboutUs = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/about_us'
 	})
 }
 </script>

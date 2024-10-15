@@ -52,10 +52,10 @@
             },
             "icons" : {
                 "android" : {
-                    "hdpi" : "C:/Users/41730/Documents/WeChat Files/w_anying/FileStorage/File/2024-10/图标/72.png",
-                    "xhdpi" : "C:/Users/41730/Documents/WeChat Files/w_anying/FileStorage/File/2024-10/图标/96.png",
-                    "xxhdpi" : "C:/Users/41730/Documents/WeChat Files/w_anying/FileStorage/File/2024-10/图标/144.png",
-                    "xxxhdpi" : "C:/Users/41730/Documents/WeChat Files/w_anying/FileStorage/File/2024-10/图标/192.png"
+                    "hdpi" : "static/icon/72.png",
+                    "xhdpi" : "static/icon/96.png",
+                    "xxhdpi" : "static/icon/144.png",
+                    "xxxhdpi" : "static/icon/192.png"
                 }
             }
         }
