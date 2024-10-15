@@ -30,7 +30,8 @@ import { onMounted, ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app'
 import { createMerchant } from '../../service/merchant';
 import { getCitiesDetail } from '../../service/divisions';
-
+import { useUserStore } from '../../store/user';
+ const userStore =useUserStore()
 const referral_officer = ref('')
 onLoad((options)=>{
 	referral_officer.value = options.referral_officer
@@ -56,7 +57,7 @@ const extractCityName=(location)=> {
 }
 	
 
-const scanCode = () => {
+const scanCode =async () => {
   uni.scanCode({
     onlyFromCamera: true, // 只允许从摄像头扫码
     success: async(res) => {
@@ -72,12 +73,14 @@ const scanCode = () => {
 		uni.showLoading({
 			title:"正在创建商家"
 		})
-	  createMerchant({user:phoneNumber,referral_officer:recommendPhone,city:cityName,name:userName,icon:avatar}).then((res)=>{
+	  createMerchant({user:phoneNumber,referral_officer:recommendPhone,city:cityName,name:userName||'default',icon:avatar||''}).then(async(res)=>{
 			uni.hideLoading()
+			await  userStore.fetchAllDataAction()
 		  uni.showToast({
 		    title: `创建商家成功`, // 显示扫码的结果
 		    icon: 'success'
 		  });
+		
 		  uni.redirectTo({
 		  	url:'/pages/merchant/before_create_shop'
 		  })
