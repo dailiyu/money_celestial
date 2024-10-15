@@ -48,10 +48,10 @@ import { postRegister } from '../../service/uer_profile';
 
 	
 const toRegister = async() => {
-	// if (mobile.value.length !== 11) return uni.showToast({
-	// 	icon: 'none',
-	// 	title: '请输入正确手机号'
-	// })
+	if (mobile.value.length !== 11) return uni.showToast({
+		icon: 'none',
+		title: '请输入11位正确手机号'
+	})
 
 	if (password.value.length < 8 || password2.value.length < 8) return uni.showToast({
 		icon:'none',
@@ -83,8 +83,8 @@ const toRegister = async() => {
 		console.log(err.data);
       uni.showToast({
         duration: 2000,
-        icon: 'error',
-        title: err.data.phone_number[0]
+        icon: 'none',
+        title: err.data.phone_number[0].replace(/\s+/g, '')
       });
     });
   } else {
