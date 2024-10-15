@@ -30,7 +30,7 @@
 			<view class="radio" @click="changeCheck">
 				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《保证金须知》</text>
+				<text class="c_title" @click.stop="toAgreement">《保证金须知》</text>
 			</view>
 			<view class="btn_full" @click="confirm">
 				确认解除
@@ -95,7 +95,11 @@ const confirm = async()=>{
 		title: '解除成功'
 	})
 }
-
+const toAgreement = ()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/deposit_agreement'
+	})
+}
 </script>
 
 <style lang="scss" scoped>

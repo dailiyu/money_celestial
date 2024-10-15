@@ -502,6 +502,14 @@
 				"navigationBarTitleText" : "兑换须知",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/merchant/merchant_settle_agreement",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家入驻须知",
+				"navigationStyle": "custom"
+			}
 		}
 		
 	],
