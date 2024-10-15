@@ -26,20 +26,20 @@
 					商家
 				</view>
 			</view>
-			<view class="function_item" @click="toRecommend">
-				<view class="img_box flex_center">
-					<image src="@/static/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
-				</view>
-				<view class="">
-					推荐官
-				</view>
-			</view>
 			<view class="function_item" @click="toAgent">
 				<view class="img_box flex_center">
 					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
 				</view>
 				<view class="">
 					代理
+				</view>
+			</view>
+			<view class="function_item" @click="toRecommend">
+				<view class="img_box flex_center">
+					<image src="@/static/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
+				</view>
+				<view class="">
+					推荐官
 				</view>
 			</view>
 			<view class="function_item" @click="toMyAccount">
@@ -150,7 +150,6 @@ onMounted(async()=>{
 		await publicStore.fetchAllDataAction(),
 		await userStore.fetchAllDataAction()
 	// }
-	
 	const localCity=uni.getStorageSync('city')
 	city.value=localCity
 	getCategory()
@@ -204,9 +203,13 @@ const toMerchant =async () => {
         uni.navigateTo({
             url: '/pages/merchant/merchant_intro'
         });
-    } else if(userData?.is_seller&&!userData?.is_shop){
+    } else if(userData?.is_seller&&!userData?.is_shop&&userData?.is_merchant_approved){
 		uni.navigateTo({
 			url:'/pages/merchant/before_create_shop'
+		})
+	}else if(userData?.is_seller&&!userData?.is_shop&&!userData?.is_merchant_approved){
+		uni.navigateTo({
+			url:'/pages/merchant/before_create_merchant'
 		})
 	}
 };
