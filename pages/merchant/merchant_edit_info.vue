@@ -11,7 +11,7 @@
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload  amount="1" :imgUrls="avatarImages"  @tempImgPaths="acceptTempProfileImgPath"></upload>
+				<upload  amount="1" :imgUrls="avatarImages"  @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
@@ -19,10 +19,10 @@
 						店铺轮播图
 					</view>
 					<view class="h_text">
-						已选择{{temBannerImgPaths.length}}张
+						已选择{{successBannerImgPaths.length}}张
 					</view>
 				</view>
-				<upload amount="6"  :imgUrls="bannerImages"  @tempImgPaths="acceptTempBannerImgPath"></upload>
+				<upload amount="6"  :imgUrls="bannerImages"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
@@ -36,10 +36,10 @@
 						店铺详情图
 					</view>
 					<view class="h_text">
-						已选择{{temDetailImgPaths.length}}张
+						已选择{{successDetailImgPaths.length}}张
 					</view>
 				</view>
-				<upload amount="6"  :imgUrls="detailImages"    @tempImgPaths="acceptTempDetailImgPath"></upload>
+				<upload amount="6"  :imgUrls="detailImages"    @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload>
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -112,7 +112,6 @@
 
 	import {
 		postBindingStoreCategory,
-		
 		uploadMerchantBanner,
 		uploadMerchantDetail
 	} from '../../service/merchant';
@@ -148,9 +147,9 @@
 	const businessRange = ref('')
 	const code = ref('')
 	const curData=ref()
-	const temBannerImgPaths = ref([])
-	const temProfileImgPaths = ref([])
-	const temDetailImgPaths = ref([])
+	const successBannerImgPaths = ref([])
+	const successProfileImgPaths = ref([])
+	const successDetailImgPaths = ref([])
 	// const range = ref([
 	//     { value: "篮球", text: "篮球" },
 	//     { value: "足球", text: "足球" },
@@ -163,14 +162,13 @@ onMounted(()=>{
 	address.value=shopInfo.address
 	curData.value=findValueByText(shopInfo.city.name)
 	selectedCity.value=shopInfo.city.name
-	 temDetailImgPaths.value=detailImages
-	 temProfileImgPaths.value=avatarImages
-	 temBannerImgPaths.value=bannerImages
-	console.log('---------',temDetailImgPaths.value,temProfileImgPaths.value,temBannerImgPaths.value);
+	 successDetailImgPaths.value=detailImages
+	 successProfileImgPaths.value=avatarImages
+	 successBannerImgPaths.value=bannerImages
+	console.log('---------',successDetailImgPaths.value,successProfileImgPaths.value,successBannerImgPaths.value);
 	console.log(findValueByText(shopInfo.city.name));		
 	console.log(cityDataJson);
 	console.log("本地获取到的商铺信息",shopInfo);
-	
 })
 
 const findValueByText=(text)=> {
@@ -214,7 +212,7 @@ const onChange = (e) => {
 
 
 
-	const range = computed(() => {
+const range = computed(() => {
 		return publicStore.cateGoryList.map((item) => {
 			console.log({
 				value: item.id, // value 为 id
@@ -242,59 +240,51 @@ const onChange = (e) => {
 
 	
 
-	const acceptTempBannerImgPath = async (ImgPaths) => {
-		temBannerImgPaths.value = ImgPaths
-		console.log(temBannerImgPaths.value);
+	const acceptSuccessBannerImgPath = async (ImgPaths) => {
+		successBannerImgPaths.value = ImgPaths
+		console.log('接受到的上传成功Banner地址数组',successBannerImgPaths.value);
 	}
 
-	const acceptTempProfileImgPath = async (ImgPaths) => {
-		temProfileImgPaths.value = ImgPaths
-		console.log('tem', temProfileImgPaths.value);
+	const acceptSuccessProfileImgPath = async (ImgPaths) => {
+		successProfileImgPaths.value = ImgPaths
+		console.log('接受到的上传成功Profile地址数组', successProfileImgPaths.value);
 	}
 
-	const acceptTempDetailImgPath = async (ImgPaths) => {
-		temDetailImgPaths.value = ImgPaths
-		console.log(temDetailImgPaths.value);
+	const acceptSuccessDetailImgPath = async (ImgPaths) => {
+		successDetailImgPaths.value = ImgPaths
+		console.log('接受到的上传Detail成功地址数组',successDetailImgPaths.value);
 	}
 
 
-	//上传商家轮播图
+	//关联商家轮播图
 	const bannerListUrl = ref([])
-	const upLoadBannerImg = async () => {
+	const associatedBannerImg = async () => {
 			const phoneNumber=uni.getStorageSync('phoneNumber')
-		for (let i = 0; i < temBannerImgPaths.value.length; i++) {
-			//逐个向服务器传图片
-			const url = await uploadImage(temBannerImgPaths.value[i])
-	        // await updateShopImg(phoneNumber,{image_url:url,image_type:'banner'})
-			bannerListUrl.value.push({image_url:url,image_type:'banner'})
+		for (let i = 0; i < successBannerImgPaths.value.length; i++) {
+			bannerListUrl.value.push({image_url:successBannerImgPaths.value[i],image_type:'banner'})
 		}
-		console.log('bannerListUrl',bannerListUrl.value);
+		console.log('组成的参数bannerListUrl',bannerListUrl.value);
 	}
 	
-	//上传详情图
+	//关联详情图
 	const detailListUrl = ref([])
-	const upLoadDetailImg = async () => {
-			const phoneNumber=uni.getStorageSync('phoneNumber')
-		for (let i = 0; i < temDetailImgPaths.value.length; i++) {
-			//逐个向服务器传图片
-			const url = await uploadImage(temDetailImgPaths.value[i])
-			// await updateShopImg(phoneNumber,{image_url:url,image_type:'other'})
-			detailListUrl.value.push({image_url:url,image_type:'other'})
+	const associatedDetailImg = async () => {
+		for (let i = 0; i < successDetailImgPaths.value.length; i++) {
+			
+			detailListUrl.value.push({image_url:successDetailImgPaths.value[i],image_type:'other'})
 		}
-		console.log('detailListUrl',detailListUrl.value);
+		console.log('组成的参数detailListUrl',detailListUrl.value);
 	}
 	
 
 
-	//上传店铺头像
+	//关联店铺头像
 	const profileUrl = ref('')
 	const  userProfileUrls=ref([])
-	const uploadProfileImg = async () => {
-		console.log(temProfileImgPaths.value[0]);
-		const url = await uploadImage(temProfileImgPaths.value[0])
-		console.log(url);
-		profileUrl.value = url
-		userProfileUrls.value.push({image_url:url,image_type:'avatar'})
+	const associatedProfileImg = async () => {
+		profileUrl.value = successProfileImgPaths.value[0]
+		userProfileUrls.value.push({image_url:successProfileImgPaths.value[0],image_type:'avatar'})
+		console.log('组成的参数userProfileUrls',userProfileUrls.value);
 	}
 
 
@@ -320,23 +310,25 @@ const onChange = (e) => {
 			!shopName.value,
 			!address.value,
 			!shopIntro.value,
-			temDetailImgPaths.value.length === 0,
-			temProfileImgPaths.value.length === 0,
-			temBannerImgPaths.value.length === 0)
+			successDetailImgPaths.value.length === 0,
+			successProfileImgPaths.value.length === 0,
+			successBannerImgPaths.value.length === 0)
 		console.log(
 			shopIntro.value,
 			shopName.value,
 			address.value,
-			temDetailImgPaths.value.length,
-			temProfileImgPaths.value.length,
-			temBannerImgPaths.value.length)
+			successDetailImgPaths.value.length,
+			successProfileImgPaths.value.length,
+			successBannerImgPaths.value.length)
 		//检查是否有任意一个值为空
 		if (
 			!shopName.value ||
 			!address.value ||
 			!shopIntro.value ||
 			!selectedCity.value||
-			temProfileImgPaths.value.length === 0
+			successProfileImgPaths.value.length === 0||
+			successDetailImgPaths.value.length===0||
+			successBannerImgPaths.value.length===0
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -348,9 +340,9 @@ const onChange = (e) => {
 				title: "正在保存中...",
 			})
 			const phoneNumber=uni.getStorageSync('phoneNumber')
-			await uploadProfileImg()
-			 await upLoadDetailImg()
-			  await upLoadBannerImg()
+			await associatedProfileImg()
+			 await associatedDetailImg()
+			  await associatedBannerImg()
 			console.log({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value||'https://example.com/image.png',address:address.value});
 			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value})
 			console.log('-----!!!',res);
@@ -359,14 +351,6 @@ const onChange = (e) => {
 			console.log('图片列表参数',params);
 		   await updateShopImg(phoneNumber,{images:params})
 			
-		
-	
-		
-			// await upLoadProfileImg()
-			//  await upLoadDetailImg()
-			//  await upLoadBannerImg()
-			// console.log('----11',businessRange.value,userStore.merchantInfo.id);
-			//console.log(res);
 			
 			uni.hideLoading()
 			uni.showToast({

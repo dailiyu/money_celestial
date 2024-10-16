@@ -1,7 +1,7 @@
 import { uploadUrl } from "../service/config";
 
 export const uploadImage = async (filePath) => {
-  console.log(filePath);
+  console.log('图片本地临时地址',filePath);
   const token = uni.getStorageSync('accessToken'); // 获取 token
 // 生成随机数作为文件名，可以结合当前时间戳确保唯一性
   const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
@@ -64,4 +64,4 @@ export const obscureString = (input)=>{
     const obscured = start + '******' + end; // 拼接前8个字符 + 6个* + 后7个字符
     
     return obscured;
-}
+}  

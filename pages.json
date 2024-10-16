@@ -360,6 +360,14 @@
 			}
 		},
 		{
+			"path" : "pages/merchant/before_create_merchant",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家未审核",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path" : "pages/recommend/merchant_list",
 			"style" : 
 			{

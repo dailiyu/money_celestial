@@ -42,6 +42,7 @@
 					代理
 				</view>
 			</view>
+	
 			<view class="function_item" @click="toMyAccount">
 				<view class="img_box flex_center">
 					<image src="@/static/home/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
@@ -134,7 +135,7 @@ import { getShopCategories, getShopInfo, getShopList,getCityShopList } from '@/s
 import { getBannerList } from '@/service/bannner.js'
 import { getRecommendOfficerInfo } from '../../service/recommend';
 import { getUerAccountMessage } from '../../service/uer_profile';
-
+import { onShow } from '@dcloudio/uni-app'
 
 // var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
@@ -143,6 +144,11 @@ const keyword = ref('')
 const publicStore=  usePublicStore()
 const userStore = useUserStore()
 const userInfo = uni.getStorageSync('userInfo')
+
+onShow(async()=>{
+	await userStore.fetchAllDataAction()
+})
+
 onMounted(async()=>{
 	// const accessToken = uni.getStorageSync('accessToken')
 	// console.log(accessToken);
@@ -150,7 +156,6 @@ onMounted(async()=>{
 		await publicStore.fetchAllDataAction(),
 		await userStore.fetchAllDataAction()
 	// }
-	
 	const localCity=uni.getStorageSync('city')
 	city.value=localCity
 	getCategory()
@@ -204,9 +209,13 @@ const toMerchant =async () => {
         uni.navigateTo({
             url: '/pages/merchant/merchant_intro'
         });
-    } else if(userData?.is_seller&&!userData?.is_shop){
+    } else if(userData?.is_seller&&!userData?.is_shop&&userData?.is_merchant_approved){
 		uni.navigateTo({
 			url:'/pages/merchant/before_create_shop'
+		})
+	}else if(userData?.is_seller&&!userData?.is_shop&&!userData?.is_merchant_approved){
+		uni.navigateTo({
+			url:'/pages/merchant/before_create_merchant'
 		})
 	}
 };

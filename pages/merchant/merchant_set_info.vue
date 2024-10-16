@@ -76,9 +76,6 @@
 	} from '../../service/divisions';
 
 	import {
-		uploadImage
-	} from '../../utils';
-	import {
 		usePublicStore
 	} from "@/store/public.js"
 	
@@ -116,7 +113,6 @@
 		});
 	});
 
-
 // 绑定选择的值
 const selectedValues = ref([])
 
@@ -142,7 +138,6 @@ const onChange = (e) => {
 }
 
 
- 
 	const isChecked = ref(false)
 	const changeCheck = () => {
 		isChecked.value = !isChecked.value
@@ -154,61 +149,6 @@ const onChange = (e) => {
 		console.log(e)
 	}
 
-
-	
-
-	const acceptTempBannerImgPath = async (ImgPaths) => {
-		temBannerImgPaths.value = ImgPaths
-		console.log(temBannerImgPaths.value);
-	}
-
-	const acceptTempProfileImgPath = async (ImgPaths) => {
-		temProfileImgPaths.value = ImgPaths
-		console.log('tem', temProfileImgPaths.value);
-	}
-
-	const acceptTempDetailImgPath = async (ImgPaths) => {
-		temDetailImgPaths.value = ImgPaths
-		console.log(temDetailImgPaths.value);
-	}
-
-
-	//上传商家轮播图
-	const bannerListUrl = ref([])
-	const upLoadBannerImg = async (shop) => {
-		for (let i = 0; i < temBannerImgPaths.value.length; i++) {
-			//逐个向服务器传图片
-			const url = await uploadImage(temBannerImgPaths.value[i])
-            await uploadShopImg({image_url:url,image_type:'banner'})
-			bannerListUrl.value.push(url)
-		}
-	}
-
-	//上传详情图
-	const detailListUrl = ref([])
-	const upLoadDetailImg = async (shop) => {
-		for (let i = 0; i < temDetailImgPaths.value.length; i++) {
-			//逐个向服务器传图片
-			const url = await uploadImage(temDetailImgPaths.value[i])
-			await uploadShopImg({image_url:url,image_type:'other'})
-			detailListUrl.value.push(url)
-		}
-	}
-	
-	//头像url与商铺相关联
-	const upLoadProfileImg=async ()=>{
-			await uploadShopImg({image_url:profileUrl.value,image_type:'avatar'})
-	}
-	
-
-	//上传店铺头像
-	const profileUrl = ref('')
-	const uploadProfileImg = async () => {
-		console.log(temProfileImgPaths.value[0]);
-		const url = await uploadImage(temProfileImgPaths.value[0])
-		console.log(url);
-		profileUrl.value = url
-	}
 
 
 
@@ -254,11 +194,9 @@ const onChange = (e) => {
 			console.log(phoneNumber,1111);
 		
 			 const res= await postMerchantSettleIn({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
-			console.log('-----!!!',res);
+			console.log('入驻接口返回的信息',res);
 			
 			await userStore.fetchAllDataAction()
-			// console.log('----11',businessRange.value,userStore.merchantInfo.id);
-			//console.log(res);
 			uni.hideLoading()
 			uni.showToast({
 				title: "入驻成功",
