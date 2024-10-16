@@ -99,7 +99,7 @@ const confirm = async ()=>{
 	}catch(e){
 		uni.showToast({
 			icon: 'none',
-			title: '出错了'
+			title: e.data.error
 		})
 	}
 }

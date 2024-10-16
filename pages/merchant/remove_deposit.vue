@@ -87,13 +87,20 @@ const confirm = async()=>{
 	uni.showLoading({
 		title: '解除中'
 	})
-	await removeDeposit({amount: number.value})
-	getDepositInfo()
-	uni.hideLoading()
-	uni.showToast({
-		icon: 'none',
-		title: '解除成功'
-	})
+	try{
+		await removeDeposit({amount: number.value})
+		getDepositInfo()
+		uni.hideLoading()
+		uni.showToast({
+			icon: 'none',
+			title: '解除成功'
+		})
+	}catch(e){
+		uni.showToast({
+			icon: 'none',
+			title: e.data.error
+		})
+	}
 }
 const toAgreement = ()=>{
 	uni.navigateTo({
