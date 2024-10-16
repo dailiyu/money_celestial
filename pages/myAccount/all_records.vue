@@ -12,7 +12,7 @@
 				<view class="title">类型</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view class="title">提取时间</view>
+				<view class="title">时间</view>
 			</uni-col>
 		</uni-row>
 		

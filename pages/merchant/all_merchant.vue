@@ -62,9 +62,9 @@ const range = ref([])
 const curPage=ref(1)
 const hasNext=ref(false)
 onMounted(async()=>{
-	// let routes = getCurrentPages()
-	// let curParam = routes[routes.length - 1].options;
-	// categoryId.value = curParam.id==0?'':curParam.id
+	let routes = getCurrentPages()
+	let curParam = routes[routes.length - 1].options;
+	categoryId.value = curParam.id==0?'':curParam.id
 
 	// 类目
 	const {results} = await getShopCategories()

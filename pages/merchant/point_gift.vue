@@ -14,32 +14,49 @@
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						赠送数量
+						赠送金额<text style="color: #999;font-size: 24rpx;margin-left: 5rpx;">(CNY)</text>
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" />
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入赠送的价值金额" placeholder-class="placeholder_class" />
 				</view>
 				<view class="info_item flex">
 					<view class="s_title">
 						到账积分
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number}}
+						{{(number/rateCny)*100}}
 					</view>
 				</view>
+			
 				<view class="info_item flex_between">
+					<view class="s_text">
+						最多可赠送积分
+					</view>
+					<view class="s_num">
+						{{totalPoints}}
+					</view>
+				</view>
+				<!-- <view class="info_item flex_between">
 					<view class="s_text">
 						最多可赠送金额
 					</view>
 					<view class="s_num">
 						{{totalPoints}}
 					</view>
-				</view>
+				</view> -->
 				<view class="info_item flex_between">
 					<view class="s_text">
 						消耗
 					</view>
 					<view class="s_num">
-						{{number*0.16}}
+						{{(number/rateCny)*100*0.16}}
+					</view>
+				</view>
+				<view class="info_item flex_between">
+					<view class="s_text">
+						最大可消耗
+					</view>
+					<view class="s_num">
+						{{red_points+balance}}
 					</view>
 				</view>
 				<view class="info_item flex_between">
@@ -72,11 +89,15 @@ import { getDeposit } from '@/service/deposit';
 
 const totalPoints = ref(0)
 const balance = ref(0)
+const rateCny = ref(0)
+const red_points=ref(0)
 onMounted(async()=>{
 	const data = await getAllPoint()
 	const res = await getDeposit()
 	balance.value = res.amount
-	totalPoints.value = data.red_points+(balance.value*6.25)
+	totalPoints.value = (data.red_points+balance.value)*6.25
+	red_points.value=data.red_points
+	rateCny.value = data.rateCny
 })
 
 const address = ref('')

@@ -64,7 +64,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getRecommendOfficerAmount, getAgentShopAmount, getProvinceId } from '@/service/agent.js'
+import { getRecommendOfficerAmount, getAgentShopAmount, getProvinceId, getCity } from '@/service/agent.js'
 import { useUserStore } from '../../store/user';
 import { getGreenPoints } from '@/service/point';
  const userStore=  useUserStore()
@@ -72,6 +72,8 @@ const provinceId = ref()
 onMounted(async()=>{
 	const {results} = await getProvinceId()
 	provinceId.value = results[0].province
+	await getCity()
+	// cityAgent.value = results[0].province_name
 	getShopAmount()
 	getOfficerAmount()
 	getAgentPoint()
@@ -83,7 +85,7 @@ const cityAgent = ref('')
 const getShopAmount = async()=>{
 	const {count, results} = await getAgentShopAmount({code:provinceId.value})
 	merchantAmount.value = count
-	cityAgent.value = results[0]?.city
+	// cityAgent.value = results[0]?.city
 }
 
 const officerAmount = ref(0)

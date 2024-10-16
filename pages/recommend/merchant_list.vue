@@ -2,16 +2,13 @@
 	<view>
 		<navBar title="商家列表"></navBar>
 		<view class="filter_list">
-			<view class="flex_center" style="flex: 1;">
+			<!-- <view class="flex_center" style="flex: 1;">
 				<view class="" style="flex: 1;text-align: right;">
 					<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
 				</view>
-				<!-- <view>
-					类目
-				</view> -->
 				<uni-data-select v-model="category" :localdata="range" placeholder="类目" :clear="false"
 					@change="changeRange"></uni-data-select>
-			</view>
+			</view> -->
 			<view class="flex_center" style="flex: 1;">
 				<view class="">
 					入驻时间

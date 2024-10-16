@@ -27,7 +27,7 @@
 				<view>{{index+1}}</view>
 			</uni-col>
 			<uni-col :span="5">
-				<view>{{obscureString(item.from_address)}}</view>
+				<view>{{obscureString(item.from_address||'--')}}</view>
 			</uni-col>
 			<uni-col :span="4">
 				<view>{{item.transaction_amount}}</view>
@@ -36,7 +36,7 @@
 				<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
 			</uni-col>
 			<uni-col :span="4">
-				<view>{{item.transaction_amount-(item.transaction_amount*3/100)}}</view>
+				<view>{{item.real_amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
@@ -63,12 +63,14 @@ const getRecordList = async()=>{
 	// })
 	status.value = 'loading'
 	const {results} = await getAllRecords({transaction_method:'red_points',transaction_type:'decrease'})
+	const res = await getAllRecords({transaction_method:'gift_green_points'})
+	
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value = results
+	recordList.value = [...results, ...res.results]
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {

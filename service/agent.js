@@ -52,3 +52,8 @@ export  const removeAgentDeposit=async (data)=>{
 export  const getDepositRecord=async ()=>{
 	return http.get('/agent/margin/records/')
 }
+
+// 获取市代
+export  const getCity=async ()=>{
+	return http.get('/agent/city/')
+}

@@ -22,26 +22,30 @@
 			</uni-col>
 		</uni-row>
 		
-		<uni-row v-for="(item, index) in recordList" :key="item.id">
-			<uni-col :span="2">
-				<view>{{index+1}}</view>
-			</uni-col>
-			<uni-col :span="5">
-				<view>{{obscureString(item.from_address)}}</view>
-			</uni-col>
-			<uni-col :span="4">
-				<view>{{item.transaction_amount}}</view>
-			</uni-col>
-			<uni-col :span="3">
-				<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
-			</uni-col>
-			<uni-col :span="4">
-				<view>{{item.transaction_amount-(item.transaction_amount*3/100)}}</view>
-			</uni-col>
-			<uni-col :span="6">
-				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
-			</uni-col>
-		</uni-row>
+		<template v-for="(item, index) in recordList" :key="item.id">
+			<uni-row   v-if="item.transaction_method.indexOf('green_points')!=-1">
+				
+				<uni-col :span="2">
+					<view>{{index+1}}</view>
+				</uni-col>
+				<uni-col :span="5">
+					<view>{{obscureString(item.from_address||'--')}}</view>
+				</uni-col>
+				<uni-col :span="4">
+					<view>{{item.transaction_amount}}</view>
+				</uni-col>
+				<uni-col :span="3">
+					<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
+				</uni-col>
+				<uni-col :span="4">
+					<view>{{item.real_amount||item.transaction_amount}}</view>
+				</uni-col>
+				<uni-col :span="6">
+					<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
+				</uni-col>
+			</uni-row>
+		</template>
+		
 		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
 	</view>
 </template>
@@ -63,13 +67,13 @@ const getRecordList = async()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {results} = await getAllRecords({transaction_method:'green_points', transaction_type: 'decrease'})
+	const {results} = await getAllRecords()
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value.push(...results)
+	recordList.value = [...results]
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {

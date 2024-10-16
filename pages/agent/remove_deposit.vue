@@ -72,15 +72,15 @@ const confirm = async()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	if (!number.value) return uni.showToast({
-		icon: 'none',
-		title: '请输入金额'
-	})
+	// if (!number.value) return uni.showToast({
+	// 	icon: 'none',
+	// 	title: '请输入金额'
+	// })
 	try{
 		uni.showLoading({
 			title: '正在提交',
 		})
-		await removeAgentDeposit({amount: number.value, is_canceled: true})
+		await removeAgentDeposit({amount: amount.value, is_canceled: true})
 		getAmount()
 		uni.hideLoading()
 		uni.showToast({
@@ -89,7 +89,7 @@ const confirm = async()=>{
 		})
 	}catch(e){
 		uni.showToast({
-			title: '解除失败',
+			title: e.data.error,
 			icon: 'none'
 		})
 	}
