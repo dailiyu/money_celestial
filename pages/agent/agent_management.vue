@@ -7,7 +7,7 @@
 				
 				<view class="data_item">
 					<view class="location">
-						<text class="city">{{cityAgent}}</text>
+						<text class="city">{{cityName}}</text>
 						<text>代理</text>
 					</view>
 					<view class="point_box flex">
@@ -64,33 +64,40 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getRecommendOfficerAmount, getAgentShopAmount, getProvinceId, getCity } from '@/service/agent.js'
+import { getRecommendOfficerAmount, getAgentShopAmount, getProvinceId, getCity, getCityMerchantAmount } from '@/service/agent.js'
 import { useUserStore } from '../../store/user';
 import { getGreenPoints } from '@/service/point';
  const userStore=  useUserStore()
-const provinceId = ref()
+// const provinceId = ref()
+const cityId = ref()
 onMounted(async()=>{
-	const {results} = await getProvinceId()
-	provinceId.value = results[0].province
-	await getCity()
-	// cityAgent.value = results[0].province_name
+	const res = await getCity()
+	cityName.value = res.results[0].city_name
+	cityId.value = res.results[0].city
+	// if (!cityName) {
+	// 	const {results} = await getProvinceId()
+	// 	provinceId.value = results[0].province
+	// }
+	
 	getShopAmount()
 	getOfficerAmount()
 	getAgentPoint()
 })
 
 const merchantAmount = ref(0)
-const cityAgent = ref('')
+const cityName = ref('')
 
 const getShopAmount = async()=>{
-	const {count, results} = await getAgentShopAmount({code:provinceId.value})
+	// const {count, results} = await getAgentShopAmount({code:provinceId.value})
+	// merchantAmount.value = count
+	// cityName.value = results[0]?.city
+	const {count} = await getCityMerchantAmount({name:cityName.value})
 	merchantAmount.value = count
-	// cityAgent.value = results[0]?.city
 }
 
 const officerAmount = ref(0)
 const getOfficerAmount = async()=>{
-	const {count} = await getRecommendOfficerAmount({code:provinceId.value})
+	const {count} = await getRecommendOfficerAmount({code:cityId.value})
 	officerAmount.value = count
 }
 const agentPoint = ref(0)
@@ -102,9 +109,9 @@ const getAgentPoint = async()=>{
 
 
 const toMerchantList = ()=>{
-	if (!provinceId.value) return
+	if (!cityName.value) return
 	uni.navigateTo({
-		url: '/pages/agent/merchant_list?provinceId='+provinceId.value
+		url: '/pages/agent/merchant_list?cityName='+cityName.value
 	})
 }
 const toMerchantCode = ()=>{

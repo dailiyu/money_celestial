@@ -2,7 +2,7 @@
 	<view>
 		<view class="shop_list">
 			<view  class="shop_item flex" v-for="item in list" :key="item.id">
-				<image :src="item.icon" mode="aspectFill" class="shop_pic"></image>
+				<image :src="item.avatar" mode="aspectFill" class="shop_pic"></image>
 				<view class="" style="flex: 1;">
 					<view class="shop_name">
 						{{item.name}}
