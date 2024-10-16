@@ -15,8 +15,10 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import { uploadImage } from '../../utils';
+
 // import { defineProps, defineEmits } from 'vue';
-const emit = defineEmits(['tempImgPaths']); 
+const emit = defineEmits(['uploadSuccessfulPaths']); 
 const imageTempPaths=ref([])
 const props = defineProps({
   amount: {
@@ -36,12 +38,17 @@ const chooseImg = async () => {
   // 选择图片
   uni.chooseImage({
     count: Number(props.amount), 
-    success: (res) => {
+    success:async (res) => {
       const tempFilePaths = res.tempFilePaths;
       // 将选择的图片路径赋值给 imagePath 用于页面显示
      imageTempPaths.value=tempFilePaths
+	 let uploadSuccessfulPaths=[]
+	 for(let i=0;i<imageTempPaths.value.length;i++){
+		let path=  await uploadImage(imageTempPaths.value[i])
+		uploadSuccessfulPaths.push(path)
+	 }
 	 // console.log(tempFilePaths);
-		emit('tempImgPaths',tempFilePaths)
+		emit('uploadSuccessfulPaths',uploadSuccessfulPaths)
     },
     fail: (err) => {
       console.log('选择图片失败：', err);

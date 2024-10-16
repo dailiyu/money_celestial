@@ -26,14 +26,6 @@
 					商家
 				</view>
 			</view>
-			<view class="function_item" @click="toAgent">
-				<view class="img_box flex_center">
-					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
-				</view>
-				<view class="">
-					代理
-				</view>
-			</view>
 			<view class="function_item" @click="toRecommend">
 				<view class="img_box flex_center">
 					<image src="@/static/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
@@ -42,6 +34,15 @@
 					推荐官
 				</view>
 			</view>
+			<view class="function_item" @click="toAgent">
+				<view class="img_box flex_center">
+					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
+				</view>
+				<view class="">
+					代理
+				</view>
+			</view>
+	
 			<view class="function_item" @click="toMyAccount">
 				<view class="img_box flex_center">
 					<image src="@/static/home/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
@@ -134,7 +135,7 @@ import { getShopCategories, getShopInfo, getShopList,getCityShopList } from '@/s
 import { getBannerList } from '@/service/bannner.js'
 import { getRecommendOfficerInfo } from '../../service/recommend';
 import { getUerAccountMessage } from '../../service/uer_profile';
-
+import { onShow } from '@dcloudio/uni-app'
 
 // var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
@@ -143,6 +144,11 @@ const keyword = ref('')
 const publicStore=  usePublicStore()
 const userStore = useUserStore()
 const userInfo = uni.getStorageSync('userInfo')
+
+onShow(async()=>{
+	await userStore.fetchAllDataAction()
+})
+
 onMounted(async()=>{
 	// const accessToken = uni.getStorageSync('accessToken')
 	// console.log(accessToken);

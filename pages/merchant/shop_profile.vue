@@ -11,7 +11,7 @@
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload amount="1" @tempImgPaths="acceptTempProfileImgPath"></upload>
+				<upload amount="1" @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
@@ -19,10 +19,10 @@
 						店铺轮播图
 					</view>
 					<view class="h_text">
-						已选择{{temBannerImgPaths.length}}张
+						已选择{{ successBannerImgPaths.length}}张
 					</view>
 				</view>
-				<upload amount="6" @tempImgPaths="acceptTempBannerImgPath"></upload>
+				<upload amount="6" @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
@@ -37,10 +37,10 @@
 						店铺详情图）
 					</view>
 					<view class="h_text">
-						已选择{{temDetailImgPaths.length}}张
+						已选择{{ successDetailImgPaths.length}}张
 					</view>
 				</view>
-				<upload amount="6" @tempImgPaths="acceptTempDetailImgPath"></upload>
+				<upload amount="6" @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload>
 			</view>
 			<view class="shop_info">
 			
@@ -84,9 +84,9 @@
 	import { onLoad } from '@dcloudio/uni-app'
 	const shopIntro = ref('')
 	const userStore = useUserStore()
-	const temBannerImgPaths = ref([])
-	const temProfileImgPaths = ref([])
-	const temDetailImgPaths = ref([])
+	const  successBannerImgPaths = ref([])
+	const  successProfileImgPaths = ref([])
+	const  successDetailImgPaths = ref([])
 	// const range = ref([
 	//     { value: "篮球", text: "篮球" },
 	//     { value: "足球", text: "足球" },
@@ -95,60 +95,51 @@
 
 
 
-	const acceptTempBannerImgPath = async (ImgPaths) => {
-		temBannerImgPaths.value = ImgPaths
-		console.log(temBannerImgPaths.value);
+	const acceptSuccessBannerImgPath = async (ImgPaths) => {
+		 successBannerImgPaths.value = ImgPaths
+		console.log( successBannerImgPaths.value);
 	}
 
-	const acceptTempProfileImgPath = async (ImgPaths) => {
-		temProfileImgPaths.value = ImgPaths
-		console.log('tem', temProfileImgPaths.value);
+	const acceptSuccessProfileImgPath = async (ImgPaths) => {
+		 successProfileImgPaths.value = ImgPaths
+		console.log(' success',  successProfileImgPaths.value);
 	}
 
-	const acceptTempDetailImgPath = async (ImgPaths) => {
-		temDetailImgPaths.value = ImgPaths
-		console.log(temDetailImgPaths.value);
+	const acceptSuccessDetailImgPath = async (ImgPaths) => {
+		 successDetailImgPaths.value = ImgPaths
+		console.log( successDetailImgPaths.value);
 	}
 
 
-	//上传商家轮播图
+	//关联商家轮播图
 	const bannerListUrl = ref([])
-	const upLoadBannerImg = async () => {
+	const associatedBannerImg = async () => {
 			const phoneNumber=uni.getStorageSync('phoneNumber')
-		for (let i = 0; i < temBannerImgPaths.value.length; i++) {
-			//逐个向服务器传图片
-			const url = await uploadImage(temBannerImgPaths.value[i])
-	        // await updateShopImg(phoneNumber,{image_url:url,image_type:'banner'})
-			bannerListUrl.value.push({image_url:url,image_type:'banner'})
+		for (let i = 0; i < successBannerImgPaths.value.length; i++) {
+			bannerListUrl.value.push({image_url:successBannerImgPaths.value[i],image_type:'banner'})
 		}
-		console.log('bannerListUrl',bannerListUrl.value);
+		console.log('组成的参数bannerListUrl',bannerListUrl.value);
 	}
 	
-	//上传详情图
+	//关联详情图
 	const detailListUrl = ref([])
-	const upLoadDetailImg = async () => {
+	const associatedDetailImg = async () => {
 			const phoneNumber=uni.getStorageSync('phoneNumber')
-		for (let i = 0; i < temDetailImgPaths.value.length; i++) {
-			//逐个向服务器传图片
-			const url = await uploadImage(temDetailImgPaths.value[i])
-			// await updateShopImg(phoneNumber,{image_url:url,image_type:'other'})
-			detailListUrl.value.push({image_url:url,image_type:'other'})
+		for (let i = 0; i < successDetailImgPaths.value.length; i++) {
+			detailListUrl.value.push({image_url:successDetailImgPaths.value[i],image_type:'other'})
 		}
-		console.log('detailListUrl',detailListUrl.value);
+		console.log('组成的参数detailListUrl',detailListUrl.value);
 	}
 	
 
 
 
-	//上传店铺头像
+	//关联店铺头像
 	const profileUrl = ref('')
 	const  userProfileUrls=ref([])
-	const uploadProfileImg = async () => {
-		console.log(temProfileImgPaths.value[0]);
-		const url = await uploadImage(temProfileImgPaths.value[0])
-		console.log(url);
-		profileUrl.value = url
-		userProfileUrls.value.push({image_url:url,image_type:'avatar'})
+	const associatedProfileImg = async () => {
+		profileUrl.value = successProfileImgPaths.value[0]
+		userProfileUrls.value.push({image_url:successProfileImgPaths.value[0],image_type:'avatar'})
 	}
 
 
@@ -157,9 +148,9 @@ const saveStoreInfo = async () => {
 		//检查是否有任意一个值为空
 		if (
 			!shopIntro.value ||
-			temProfileImgPaths.value.length === 0||
-			temDetailImgPaths.value.length === 0||
-			temBannerImgPaths.value.length === 0
+			successProfileImgPaths.value.length === 0||
+			successDetailImgPaths.value.length === 0||
+			successBannerImgPaths.value.length === 0
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -171,9 +162,9 @@ const saveStoreInfo = async () => {
 				title: "正在保存中...",
 			})
 			const phoneNumber=uni.getStorageSync('phoneNumber')
-			await uploadProfileImg()
-			 await upLoadDetailImg()
-			  await upLoadBannerImg()
+			await associatedProfileImg()
+			 await associatedDetailImg()
+			  await associatedBannerImg()
 			console.log({merchant:phoneNumber,description:shopIntro.value,avatar:profileUrl.value||'https://example.com/image.png'});
 			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,description:shopIntro.value,avatar:profileUrl.value})
 			console.log('-----!!!',res);

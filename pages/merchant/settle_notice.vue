@@ -77,12 +77,12 @@ const scanCode =async () => {
 			uni.hideLoading()
 			await  userStore.fetchAllDataAction()
 		  uni.showToast({
-		    title: `创建商家成功`, // 显示扫码的结果
-		    icon: 'success'
+		    title: `申请成为商家成功`, // 显示扫码的结果
+		    icon: 'none'
 		  });
 		
 		  uni.redirectTo({
-		  	url:'/pages/merchant/before_create_shop'
+		  	url:'/pages/merchant/before_create_merchant'
 		  })
 	  }).catch((err)=>{
 		  console.log(err);
