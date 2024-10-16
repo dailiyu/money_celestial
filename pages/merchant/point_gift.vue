@@ -130,7 +130,8 @@ const confirm = async()=>{
 		uni.showLoading({
 			title: '赠送中'
 		})
-		await giftPoint({phone_number:address.value, transaction_amount: number.value})
+		console.log(777)
+		await giftPoint({phone_number:address.value, transaction_amount: (number.value/rateCny.value)*100})
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',

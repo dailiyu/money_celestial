@@ -1,15 +1,15 @@
 <template>
 	<view>
-		<navBar title="积分记录"></navBar>
+		<navBar title="可用积分记录"></navBar>
 		<uni-row class="title_row">
 			<uni-col :span="2">
 				<view class="title">序号</view>
 			</uni-col>
 			<uni-col :span="5">
-				<view class="title">提取地址</view>
+				<view class="title">地址</view>
 			</uni-col>
 			<uni-col :span="4">
-				<view class="title">提取数量</view>
+				<view class="title">数量</view>
 			</uni-col>
 			<uni-col :span="3">
 				<view class="title">状态</view>
@@ -18,11 +18,11 @@
 				<view class="title">到账数量</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view class="title">提取时间</view>
+				<view class="title">时间</view>
 			</uni-col>
 		</uni-row>
-		
-		<uni-row v-for="(item, index) in recordList" :key="item.id">
+		<template v-for="(item, index) in recordList" :key="item.id">
+		<uni-row v-if="(item.transaction_method=='gift_green_points'&&item.transaction_type=='decrease')||item.transaction_method=='red_points'">
 			<uni-col :span="2">
 				<view>{{index+1}}</view>
 			</uni-col>
@@ -30,18 +30,19 @@
 				<view>{{obscureString(item.from_address||'--')}}</view>
 			</uni-col>
 			<uni-col :span="4">
-				<view>{{item.transaction_amount}}</view>
+				<view>{{item.transaction_type=='decrease'?'-':' '}}{{item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="3">
 				<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
 			</uni-col>
 			<uni-col :span="4">
-				<view>{{item.real_amount}}</view>
+				<view>{{item.real_amount||item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
+		</template>
 		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
 	</view>
 </template>
@@ -62,15 +63,15 @@ const getRecordList = async()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {results} = await getAllRecords({transaction_method:'red_points',transaction_type:'decrease'})
-	const res = await getAllRecords({transaction_method:'gift_green_points'})
+	const {results} = await getAllRecords()
+	//const res = await getAllRecords({transaction_method:'gift_green_points'})
 	
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value = [...results, ...res.results]
+	recordList.value = [...results]
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {

@@ -1,15 +1,15 @@
 <template>
 	<view>
-		<navBar title="积分记录"></navBar>
+		<navBar title="我的积分记录"></navBar>
 		<uni-row class="title_row">
 			<uni-col :span="2">
 				<view class="title">序号</view>
 			</uni-col>
 			<uni-col :span="5">
-				<view class="title">提取地址</view>
+				<view class="title">地址</view>
 			</uni-col>
 			<uni-col :span="4">
-				<view class="title">提取数量</view>
+				<view class="title">数量</view>
 			</uni-col>
 			<uni-col :span="3">
 				<view class="title">状态</view>
@@ -18,12 +18,12 @@
 				<view class="title">到账数量</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view class="title">提取时间</view>
+				<view class="title">时间</view>
 			</uni-col>
 		</uni-row>
 		
 		<template v-for="(item, index) in recordList" :key="item.id">
-			<uni-row   v-if="item.transaction_method.indexOf('green_points')!=-1">
+			<uni-row   v-if="item.transaction_method=='green_points'||(item.transaction_method=='gift_green_points'&&item.transaction_type=='increase')">
 				
 				<uni-col :span="2">
 					<view>{{index+1}}</view>
