@@ -31,7 +31,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAgentShopList } from '@/service/agent.js'
+import { getAgentShopList, getCityMerchantAmount } from '@/service/agent.js'
 import { getShopCategories } from '@/service/shop.js'
 import { calculateDistances } from "@/utils/distanceSorting.js"
 
@@ -45,12 +45,12 @@ const toSettle = ()=>{
 
 
 const range = ref({})
-const provinceId = ref()
+const cityName = ref()
 onMounted(async()=>{
 	let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 	// let curRoute = routes[routes.length - 1].route; //获取当前页面路由
 	let curParam = routes[routes.length - 1].options;
-	provinceId.value = curParam.provinceId
+	cityName.value = curParam.cityName
 	getShopList()
 	// 类目
 	const {results} = await getShopCategories()
@@ -74,7 +74,7 @@ const getShopList = async()=>{
 	const params = ref({
 		ordering: time.value,
 		category_id: categoryId.value,
-		code: provinceId.value
+		name: cityName.value
 	})
 	// if (categoryId.value) {
 	// 	params.value.category_id = categoryId.value
@@ -83,7 +83,7 @@ const getShopList = async()=>{
 	uni.showLoading({
 		title: '加载中'
 	})
-	const {results} = await getAgentShopList(params.value)
+	const {results} = await getCityMerchantAmount(params.value)
 	// const locaList = results.map(shop => ({ latitude: shop.latitude, longitude: shop.longitude }))
 	// shopList.value = await calculateDistances({latitude: location.lat, longitude: location.lng}, locaList)
 	shopList.value = results
