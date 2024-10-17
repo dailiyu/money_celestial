@@ -80,7 +80,7 @@ onMounted(async()=>{
 	// getMPQRCode()
 	const phone = uni.getStorageSync('phoneNumber')
 	const {is_verified} = await getVertifyMerchantInfo(phone)
-	isVerified = is_verified
+	isVerified.value = is_verified
 })
 const points = ref(0)
 const getPoint = async()=>{

@@ -65,6 +65,7 @@ onMounted(async()=>{
 	let routes = getCurrentPages()
 	let curParam = routes[routes.length - 1].options;
 	categoryId.value = curParam.id==0?'':curParam.id
+	category.value = Number(categoryId.value)
 
 	// 类目
 	const {results} = await getShopCategories()
@@ -76,7 +77,7 @@ onMounted(async()=>{
 		}
 	})
 	range.value=[{text:"全部",value:'',disable:false},...dealData]
-		getList()
+	getList()
 })
 
 const shopLists = ref([])
@@ -110,7 +111,7 @@ const toSettle = ()=>{
 
 const category = ref('')
 const changeRange = (e) => {
-	console.log('当前选择的类目id',e);
+	// console.log('当前选择的类目id',e);
 	categoryId.value = e
 	shopLists.value = []
 	getList()

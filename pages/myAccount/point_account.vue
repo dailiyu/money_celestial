@@ -8,7 +8,7 @@
 						商家码认证
 					</view>
 					<view class="flex">
-						<view class="account">
+						<view class="account" v-if="isVerified">
 							{{address?obscureString(address):''}}
 						</view>
 						<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
@@ -42,11 +42,18 @@ import { onMounted, ref } from 'vue';
 import { getPointBindedAccount } from '@/service/point.js'
 import { obscureString } from '@/utils';
 import { onShow } from '@dcloudio/uni-app'
+import { getVertifyMerchantInfo } from '@/service/merchant';
+
 
 const address = ref('')
+const isVerified = ref(false)
 onShow(async()=>{
 	const {points_account} = await getPointBindedAccount()
 	address.value = points_account
+	
+	const phone = uni.getStorageSync('phoneNumber')
+	const {is_verified} = await getVertifyMerchantInfo(phone)
+	isVerified.value = is_verified
 })     
 const toBindAccount = ()=>{
 	uni.navigateTo({
