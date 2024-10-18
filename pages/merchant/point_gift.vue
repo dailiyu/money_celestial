@@ -23,7 +23,7 @@
 						到账积分
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{(number/rateCny)*100}}
+						{{((number/rateCny)*100).toFixed(4)}}
 					</view>
 				</view>
 			
@@ -135,7 +135,7 @@ const confirm = async()=>{
 			title: '赠送中'
 		})
 		console.log(777)
-		await giftPoint({phone_number:address.value, transaction_amount: (number.value/rateCny.value)*100})
+		await giftPoint({phone_number:address.value, transaction_amount: ((number.value/rateCny.value)*100).toFixed(4)})
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',
