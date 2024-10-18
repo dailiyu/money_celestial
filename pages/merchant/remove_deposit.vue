@@ -2,15 +2,14 @@
 	<view>
 		<navBar title="解除保证金"></navBar>
 		<view class="content">
-			<view class="shop_info">
+			<!-- <view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
 						解除账号
 					</view>
 					<input v-model="address" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" />
-					<!-- <image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image> -->
 				</view>
-			</view>
+			</view> -->
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -72,10 +71,10 @@ const confirm = async()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	if (!address.value) return uni.showToast({
-		icon:'none',
-		title: '请输入地址'
-	})
+	// if (!address.value) return uni.showToast({
+	// 	icon:'none',
+	// 	title: '请输入地址'
+	// })
 	if (!number.value) return uni.showToast({
 		icon:'none',
 		title: '请输入金额'

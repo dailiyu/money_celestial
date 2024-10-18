@@ -153,8 +153,8 @@ onMounted(async()=>{
 	// const accessToken = uni.getStorageSync('accessToken')
 	// console.log(accessToken);
 	// if (accessToken) {
-		await publicStore.fetchAllDataAction(),
-		await userStore.fetchAllDataAction()
+		// await publicStore.fetchAllDataAction()
+		// await userStore.fetchAllDataAction()
 	// }
 	const localCity=uni.getStorageSync('city')
 	city.value=localCity
