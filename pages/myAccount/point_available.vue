@@ -51,18 +51,24 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getAllPoint } from '../../service/point';
+import { onShow } from '@dcloudio/uni-app'
 
-
-onMounted(()=>{
+onShow(()=>{
 	getPoint()
 })
 const redPoint = ref(0)
+const pointsAccount = ref('')
 const getPoint = async()=>{
-	const { red_points } = await getAllPoint()
+	const { red_points, points_account } = await getAllPoint()
 	redPoint.value = red_points
+	pointsAccount.value = points_account
 }
 
 const toWithdrawPoint = ()=>{
+	if (!pointsAccount.value) {
+		toBindPointAccount()
+		return
+	}
 	uni.navigateTo({
 		url: '/pages/myAccount/red_point_withdraw'
 	})
@@ -72,7 +78,16 @@ const toWithdrawRecord = ()=>{
 		url: '/pages/myAccount/red_point_withdraw_record'
 	})
 }
+const toBindPointAccount = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/bind_account'
+	})
+}
 const toStepOne = ()=>{
+	if (!points_account.value) {
+		toBindPointAccount()
+		return
+	}
 	uni.navigateTo({
 		url: '/pages/myAccount/exchange_point_step_1'
 	})

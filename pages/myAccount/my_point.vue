@@ -22,7 +22,24 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+import { getAllPoint } from '@/service/point';
+import { onShow } from '@dcloudio/uni-app'
+
+onShow(()=>{
+	getPoint()
+})
+const pointsAccount = ref('')
+const getPoint = async()=>{
+	const { points_account } = await getAllPoint()
+	pointsAccount.value = points_account
+}
+
 const toWithdrawPoint = ()=>{
+	if (!pointsAccount.value) {
+		toBindPointAccount()
+		return
+	}
 	uni.navigateTo({
 		url: '/pages/myAccount/green_point_withdraw'
 	})
@@ -30,6 +47,11 @@ const toWithdrawPoint = ()=>{
 const toWithdrawRecord = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/green_point_withdraw_record'
+	})
+}
+const toBindPointAccount = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/bind_account'
 	})
 }
 </script>
