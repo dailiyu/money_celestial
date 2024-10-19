@@ -11,8 +11,8 @@
         "nvueStyleCompiler" : "uni-app",
         "compilerVersion" : 3,
         "splashscreen" : {
-            "alwaysShowBeforeRender" : true,
-            "waiting" : true,
+            "alwaysShowBeforeRender" : false,
+            "waiting" : false,
             "autoclose" : true,
             "delay" : 0
         },
@@ -73,6 +73,9 @@
                     "xxhdpi" : "static/icon/144.png",
                     "xxxhdpi" : "static/icon/192.png"
                 }
+            },
+            "splashscreen" : {
+                "androidStyle" : "default"
             }
         }
     },

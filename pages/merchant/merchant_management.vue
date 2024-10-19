@@ -4,6 +4,8 @@
 		<view class="content">
 			<view class="merchant_info flex">
 				<image :src="userStore.shopInfo.avatar" mode="aspectFill" class="head"></image>
+				<image src="@/static/recommend/verified.png"  @click="toUnbindMerchantCode"   mode="widthFix" class="verify_pic" v-if="isVerified"></image>
+				<image src="@/static/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image>
 				<view class="">
 					<view class="name flex">
 						<view class="">
@@ -68,21 +70,25 @@
 
 <script setup>
 	import {
-		onMounted
+		onMounted,
+		ref
 	} from 'vue';
 	import {
 		useUserStore
 	} from '../../store/user';
-
+import { getVertifyMerchantInfo } from '@/service/merchant';
 	const userStore = useUserStore()
-
-	onMounted(() => {
+	const isVerified = ref(false)
+	onMounted(async() => {
 		userStore.getStoreInfoAction()
+		const phone=await uni.getStorageSync('phoneNumber')
+		const {is_verified} = await getVertifyMerchantInfo(phone)
+		isVerified.value = is_verified
 	})
 
 
 	const toEdit = () => {
-		uni.navigateTo({
+		uni.redirectTo({
 			url: '/pages/merchant/merchant_edit_info'
 		})
 	}
@@ -106,12 +112,32 @@
 			url: '/pages/merchant/upload_goods'
 		})
 	}
+	
+	const toMerchantCodeVerify=()=>{
+		uni.navigateTo({
+			url: '/pages/merchant/merchant_code_authentication'
+		})
+	}
+	
+	const  toUnbindMerchantCode=()=>{
+		uni.navigateTo({
+			url: '/pages/myAccount/unbind_merchant_code'
+		})
+	}
+	
 </script>
 
 <style lang="scss" scoped>
 	.merchant_info {
 		padding: 50rpx 42rpx 34rpx;
-
+		position: relative;
+			.verify_pic {
+				position: absolute;
+				top: 16rpx;
+				right: 40rpx;
+				z-index: 10;
+				width: 206rpx;
+			}
 		.head {
 			width: 110rpx;
 			height: 110rpx;

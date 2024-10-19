@@ -1,6 +1,9 @@
 <template>
 	<view class="page">
-		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity"></navBarForIndex>
+		<view class="code-mask"  v-if="isMask" @click="hiddenMask">
+			   <img class="qrCode" v-if="qrCodeUrl" :src="qrCodeUrl" alt="QR Code" />
+		</view>
+		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity" @mask="dealMask"></navBarForIndex>
 		<!-- <view class="search_bar flex_between">
 			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>
 			<view class="location">
@@ -57,7 +60,7 @@
 				<view class="cate_item" v-for="item in categoryList" :key="item.id" @click="toAllMerchant(item.id)">
 					<image :src="item.icon" mode="widthFix" class="cate_img"></image>
 					<view class="">
-						{{item.name}}
+						{{item?.name}}
 					</view>
 				</view>
 				<view class="cate_item" @click="toAllMerchant(0)">
@@ -67,7 +70,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="merchant_box" v-if="shopLists.name">
+			<view class="merchant_box" v-if="shopLists?.name">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
 						<text class="nearby">附近商家</text>
@@ -84,12 +87,12 @@
 						<image :src="shopLists.avatar" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
 							<view class="shop_name">
-								{{shopLists.name}}
+								{{shopLists?.name}}
 							</view>
 							<view class="shop_address flex">
 								<image src="@/static/locate_orange.png" mode="widthFix" class="address_img"></image>
 								<view class="" style="flex: 1;">
-									{{shopLists.address}}
+									{{shopLists?.address}}
 								</view>
 							</view>
 						</view>
@@ -139,7 +142,7 @@ import { onShow } from '@dcloudio/uni-app'
 
 // var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
-
+const isMask=ref(false)
 const keyword = ref('')
 const publicStore=  usePublicStore()
 const userStore = useUserStore()
@@ -161,6 +164,7 @@ onMounted(async()=>{
 	getCategory()
 	getBanner()
 	getShopLists()
+	generateQRCode()
 })
 const city = ref('')
 const getCity = (e)=>{
@@ -170,6 +174,24 @@ const getCity = (e)=>{
 	getShopLists()
 }
 const shopLists = ref({})
+
+const dealMask=(isOpen)=>{
+	isMask.value=isOpen
+}
+
+const hiddenMask=()=>{
+	isMask.value=false
+}
+
+
+// 生成二维码的函数
+const qrCodeUrl=ref()
+const generateQRCode = (url) => {
+	const phoneNumber=uni.getStorageSync('phoneNumber')
+  // 使用在线 API 生成二维码
+  qrCodeUrl.value = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(phoneNumber)}`;
+};
+
 const getShopLists = async()=>{
 	
 	const {results} = await getCityShopList({name: city.value})
@@ -194,26 +216,36 @@ const toSettle = ()=>{
 	})
 }
 const toMerchant =async () => {
+	
 	const phoneNumber= uni.getStorageSync('phoneNumber')
 	const userData=uni.getStorageSync('userInfo')
 	const  shopData=uni.getStorageSync('shopInfo')
+
 	console.log('进入商家前的用户信息',userData);
 	console.log('进入商家前的店铺信息',shopData);
-    if (userData?.is_seller&&userData?.is_shop) {
-        // 已入驻
+	//0 正在审核 1审核通过  -1审核不通过 
+    if (userData?.is_seller&&shopData.state==1) {
+        // 店铺已过审核
         uni.navigateTo({
             url: '/pages/merchant/merchant_management'
         });
     } else if(!userData?.is_seller) {
-        // 未入驻
+        //还没成为商家
         uni.navigateTo({
             url: '/pages/merchant/merchant_intro'
         });
-    } else if(userData?.is_seller&&!userData?.is_shop&&userData?.is_merchant_approved){
+    } else if(userData?.is_seller&&!userData.is_shop){
+		//是商家 首次开通店铺
 		uni.navigateTo({
 			url:'/pages/merchant/before_create_shop'
 		})
-	}else if(userData?.is_seller&&!userData?.is_shop&&!userData?.is_merchant_approved){
+	}else if(userData?.is_seller&&shopData.state==-1){
+		//是商家 审核不通过
+		uni.navigateTo({
+			url:'/pages/merchant/fail_create_shop'
+		})
+	}else if(userData?.is_seller&&shopData?.state==0){
+		//正在审核
 		uni.navigateTo({
 			url:'/pages/merchant/before_create_merchant'
 		})
@@ -275,6 +307,22 @@ const toDetail =async ()=>{
 .page {
 	min-height: 100%;
 	background-color: #FC5908;
+	.code-mask{
+		position: relative;
+		position:fixed;
+		width: 100vw;
+		height: 100vh;
+		z-index: 99;
+		background-color:rgba(0, 0,0,0.4);
+		.qrCode{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
+			padding: 10rpx;
+			background-color: #fff;
+		}
+	}
 }
 .search_bar {
 	padding: 0 26rpx 48rpx;

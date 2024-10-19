@@ -96,6 +96,14 @@
 			}
 		},
 		{
+			"path" : "pages/myAccount/unbind_merchant_code",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商家码认证信息",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path" : "pages/merchant/security_deposit",
 			"style" : 
 			{
@@ -143,6 +151,14 @@
 				"navigationStyle": "custom"
 			}
 		},
+		{
+					"path" : "pages/merchant/fail_create_shop",
+					"style" : 
+					{
+						"navigationBarTitleText" : "店铺审核不通过",
+						"navigationStyle": "custom"
+					}
+				},
 		{
 			"path" : "pages/agent/agent_management",
 			"style" : 

@@ -16,7 +16,7 @@ export const postMerchantSettleIn=(data)=>{
 	return http.post('/shops/',data)
 }
 
-
+/*  */
 //更新店铺信息
 export const changeShopInfo=(merchant,data)=>{
 	return http.patch(`/shops/${merchant}/`,data)

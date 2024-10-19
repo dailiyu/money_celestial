@@ -82,7 +82,7 @@ const scanCode =async () => {
 		  });
 		
 		  uni.redirectTo({
-		  	url:'/pages/merchant/before_create_merchant'
+		  	url:'/pages/merchant/before_create_shop'
 		  })
 	  }).catch((err)=>{
 		  console.log(err);

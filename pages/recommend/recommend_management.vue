@@ -2,8 +2,8 @@
 	<view>
 		<navBar title="推荐官后台" ></navBar>
 		<view class="total_data">
-			<image src="@/static/recommend/verified.png" mode="widthFix" class="verify_pic" v-if="isVerified"></image>
-			<image src="@/static/recommend/verified-not.png" mode="widthFix" class="verify_pic" v-else></image>
+			<image src="@/static/recommend/verified.png"  @click="toUnbindMerchantCode"   mode="widthFix" class="verify_pic" v-if="isVerified"></image>
+			<image src="@/static/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image>
 			<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
 			<image src="@/static/recommend/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
 			<view class="data_item">
@@ -92,6 +92,20 @@ const toMerchantList = ()=>{
 		url: '/pages/recommend/merchant_list'
 	})
 }
+
+const toMerchantCodeVerify=()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/merchant_code_authentication'
+	})
+}
+
+const  toUnbindMerchantCode=()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/unbind_merchant_code'
+	})
+}
+
+
 const toMerchantCode = ()=>{
 	// uni.navigateTo({
 	// 	url: '/pages/recommend/merchant_code_authentication'

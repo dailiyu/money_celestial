@@ -155,12 +155,13 @@
 	//     { value: "足球", text: "足球" },
 	//     { value: "游泳", text: "游泳" },
 	// ])
-onMounted(()=>{
+onMounted(async()=>{
+	await userStore.fetchAllDataAction()
 	shopName.value=shopInfo.name
 	shopIntro.value=shopInfo.description
 	businessRange.value=shopInfo.categories[0]
 	address.value=shopInfo.address
-	curData.value=findValueByText(shopInfo.city.name)
+	curData.value=findValueByText(shopInfo.city)
 	selectedCity.value=shopInfo.city.name
 	 successDetailImgPaths.value=detailImages
 	 successProfileImgPaths.value=avatarImages
@@ -360,7 +361,9 @@ const range = computed(() => {
 			})
 			 await userStore.fetchAllDataAction()
 			setTimeout(() => {
-				uni.navigateBack()
+				uni.redirectTo({
+					url:'/pages/merchant/before_create_merchant'
+				})
 			}, 700)
 
 
