@@ -34,7 +34,10 @@
 				<uni-col :span="4">
 					<view>{{item.transaction_amount}}</view>
 				</uni-col>
-				<uni-col :span="3">
+				<uni-col :span="3" v-if="item.transaction_method=='gift_green_points'">
+					<view>--</view>
+				</uni-col>
+				<uni-col :span="3" v-else>
 					<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
 				</uni-col>
 				<uni-col :span="4">

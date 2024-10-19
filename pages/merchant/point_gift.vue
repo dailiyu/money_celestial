@@ -23,7 +23,7 @@
 						到账积分
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{(number/rateCny)*100}}
+						{{((number/rateCny)*100).toFixed(4)}}
 					</view>
 				</view>
 			
@@ -48,7 +48,7 @@
 						消耗
 					</view>
 					<view class="s_num">
-						{{(number/rateCny)*100*0.16}}
+						{{(Number(number)/Number(rateCny))*100*0.16}}
 					</view>
 				</view>
 				<view class="info_item flex_between">
@@ -56,7 +56,7 @@
 						最大可消耗
 					</view>
 					<view class="s_num">
-						{{red_points+balance}}
+						{{Number(red_points)+Number(balance)}}
 					</view>
 				</view>
 				<view class="info_item flex_between">
@@ -102,10 +102,14 @@ onLoad((options) => {
 });
 
 onMounted(async()=>{
+	const isGiftAgreementCheck = uni.getStorageSync('isGiftAgreementCheck')
+	if (isGiftAgreementCheck) {
+		isChecked.value = true
+	}
 	const data = await getAllPoint()
 	const res = await getDeposit()
 	balance.value = res.amount
-	totalPoints.value = (data.red_points+balance.value)*6.25
+	totalPoints.value = (Number(data.red_points)+Number(balance.value))*6.25
 	red_points.value=data.red_points
 	rateCny.value = data.rateCny
 	
@@ -140,12 +144,16 @@ const confirm = async()=>{
 			title: '赠送中'
 		})
 		console.log(777)
-		await giftPoint({phone_number:address.value, transaction_amount: (number.value/rateCny.value)*100})
+		await giftPoint({phone_number:address.value, transaction_amount: ((number.value/rateCny.value)*100).toFixed(4)})
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',
 			title: '赠送成功'
 		})
+		const isGiftAgreementCheck = uni.getStorageSync('isGiftAgreementCheck')
+		if (!isGiftAgreementCheck) {
+			uni.setStorageSync('isGiftAgreementCheck', true)
+		}
 	}catch(e){
 		uni.showToast({
 			icon: 'none',
