@@ -1,7 +1,6 @@
 <template>
   <view :style="navBarStyle" class="nav_bar">
     <view class="nav_item">
-      <uni-icons type="left" size="20" color="#fff" @click="back" v-if="iconShow"></uni-icons>
 	 <view class="picker-box">
 	 	<uni-data-picker
 							v-model="curPosition"
@@ -11,12 +10,24 @@
 	 				      mode="region"
 	 				      @change="onChange"
 	 				      popup-title="请选择所在地区"
-	 				    ></uni-data-picker>
+	 				    >
+		</uni-data-picker>
 	 </view>
       <view class="name">{{ title }}</view>
-      <view class="skip" v-if="isSkip">
-        <slot name="right"></slot>
-      </view>
+	  <view class="select-box">
+		  <uni-data-select
+		         v-model="selectItem"
+		         :localdata="candidates"
+		         @change="change"
+		  			 placeholder="+"
+		  			 :clear='false'
+		  			 class="select"
+					 :isCustom="true"
+		       ></uni-data-select>
+			 
+	  </view>
+	  
+
     </view>
   </view>
 </template>
@@ -24,6 +35,15 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import cityDataJson from "@/static/cityData.json"
+
+// 定义发射自定义事件
+const emit = defineEmits(['clickRight','changeCity','mask']);
+const candidates=ref([
+          { value: 0, text: "扫一扫" },
+          { value: 1, text: "接收码" },
+        ])
+
+const selectItem=ref()
 // 定义组件的 props
 const props = defineProps({
   title: {
@@ -80,6 +100,34 @@ const onChange = (e) => {
 }
 
 
+const scanCode =async () => {
+  uni.scanCode({
+    onlyFromCamera: true, // 只允许从摄像头扫码
+    success: async(res) => {
+      console.log('扫码结果: ', res.result);
+	  uni.navigateTo({
+	  	url:'/pages/merchant/point_gift?phone='+res.result
+	  })
+  
+    },
+    fail: (err) => {
+      console.error('扫码失败: ', err);
+      uni.showToast({
+        title: '扫码失败',
+        icon: 'none'
+      });
+    }
+  });
+};
+
+const change=(e)=> {
+       if(e==1){
+		   emit('mask',true)
+	   }else{
+		    emit('mask',false)
+			scanCode()
+	   }
+      }
 const findValueByText=(text)=> {
   for (const province of cityDataJson) {
 	 
@@ -113,11 +161,11 @@ const back = () => {
   uni.navigateBack();
 };
 
-// 定义发射自定义事件
-const emit = defineEmits(['clickRight','changeCity']);
+
 const clickRight = () => {
   emit('clickRight');
 };
+
 </script>
 
 <style lang="scss" scoped>
@@ -136,56 +184,108 @@ const clickRight = () => {
   text-align: center;
 }
 
-.nav_item {
-  position: relative;
- 
+.nav_item{
+	position: relative;
+	
+	.select-box{
+	
+		.select{
+			position: absolute;
+			right: 0rpx;
+			top: -20rpx;
+		}
+		
+	}
+	
+	.name{
+		transform: translateX(-90rpx);
+	}
+	.picker-box{
+		width: 200rpx;
+		height: 50rpx;
+		float: left;
+	::v-deep .input-value .text-color {
+	  color: #fff;
+	  font-size: 20rpx;
+	   border: none;
+	}
+	:deep(.arrow-area){
+		display: none;
+	}
+	}
+	
+	
+	:deep(.input-value-border) {
+		border: none;
+	}
+	:deep(.placeholder) {
+		color: #fff;
+	}
+	:deep(.input-arrow) {
+		border-color: #fff;
+	}
+	:deep(.selected-list){
+		color: #000;
+	}
+	:deep(.input-split-line){
+		color: #FC5908;
+	}
+	.uni-icons {
+	  position: absolute;
+	  left: 0;
+	  top: 50%;
+	  transform: translateY(-50%);
+	}
+	
+	uni-text{
+		color: #000;
+	}
+	
+	.skip {
+	  position: absolute;
+	  right: 0;
+	  top: 50%;
+	  transform: translateY(-50%);
+	  font-size: 24rpx;
+	}
+	
+	:deep(.uni-select__selector){
+		color: #000;
+		width: 140rpx;
+	}
+	:deep(.uni-stat__select){
+		width: 100rpx;
+		height: 100rpx;
+		
+	}
+	:deep(.uni-icons ){
+		display: none;
+		
+	}
+	:deep(.uni-select){
+		width: 40rpx;
+		height: 40rpx;
+		border-radius: 50%;
+		padding: 0;
+		align-items: center;
+		justify-content: center;
+	}
+	:deep(.uni-stat__actived ){
+		
+		width: 120rpx;
+	}
+	:deep(.uni-select__input-box){
+		// margin-right: 10rpx;
+		// margin-bottom: 5rpx;
+		
+	}
+	:deep(.uni-select__input-text){
+		color: #fff;
+	}
+	:deep(.uni-select__input-placeholder){
+		font-size: 40rpx;
+	}
 }
 
-.name{
-	transform: translateX(-90rpx);
-}
-.picker-box{
-	width: 200rpx;
-	height: 50rpx;
-	float: left;
-::v-deep .input-value .text-color {
-  color: #fff;
-  font-size: 20rpx;
-   border: none;
-}
 
-}
-:deep(.input-value-border) {
-	border: none;
-}
-:deep(.placeholder) {
-	color: #fff;
-}
-:deep(.input-arrow) {
-	border-color: #fff;
-}
-:deep(.selected-list){
-	color: #000;
-}
-:deep(.input-split-line){
-	color: #FC5908;
-}
-.uni-icons {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-uni-text{
-	color: #000;
-}
-
-.skip {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24rpx;
-}
 </style>

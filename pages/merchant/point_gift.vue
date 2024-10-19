@@ -8,7 +8,7 @@
 						赠送账号
 					</view>
 					<input v-model="address" class="uni-input" maxlength="11" text="number" placeholder="请输入手机号" placeholder-class="placeholder_class" />
-					<!-- <image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image> -->
+					<image  @click="toScanCode" src="@/static/scan.png" mode="widthFix" class="scan_pic" ></image>
 				</view>
 			</view>
 			<view class="shop_info">
@@ -85,12 +85,22 @@ import { onMounted, ref } from 'vue';
 import { giftPoint } from '@/service/point.js'
 import { getAllPoint } from '@/service/point';
 import { getDeposit } from '@/service/deposit';
-
+import { onLoad } from '@dcloudio/uni-app'
 
 const totalPoints = ref(0)
 const balance = ref(0)
 const rateCny = ref(0)
 const red_points=ref(0)
+const address = ref('')
+const number = ref('')
+
+const phone = ref('');
+onLoad((options) => {
+  phone.value = options.phone; // 通过 .value 设置 ref 的值
+  console.log('接收到的参数: ', phone.value);
+  address.value=phone.value
+});
+
 onMounted(async()=>{
 	const isGiftAgreementCheck = uni.getStorageSync('isGiftAgreementCheck')
 	if (isGiftAgreementCheck) {
@@ -102,10 +112,9 @@ onMounted(async()=>{
 	totalPoints.value = (Number(data.red_points)+Number(balance.value))*6.25
 	red_points.value=data.red_points
 	rateCny.value = data.rateCny
+	
 })
 
-const address = ref('')
-const number = ref('')
 
 
 const isChecked = ref(false)
@@ -157,6 +166,24 @@ const toGiftAgreement = ()=>{
 		url: '/pages/merchant/point_gift_agreement'
 	})
 }
+const toScanCode=()=>{
+	uni.scanCode({
+		  onlyFromCamera: true, // 只允许从摄像头扫码
+		  success: async(res) => {
+		    console.log('扫码结果: ', res.result);
+			 address.value=res.result
+		
+		  },
+		  fail: (err) => {
+		    console.error('扫码失败: ', err);
+		    uni.showToast({
+		      title: '扫码失败',
+		      icon: 'none'
+		    });
+		  }
+		});
+}
+
 </script>
 
 <style lang="scss" scoped>

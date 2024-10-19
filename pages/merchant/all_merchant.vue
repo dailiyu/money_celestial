@@ -75,7 +75,7 @@ onMounted(async()=>{
 			disable: false
 		}
 	})
-	range.value=[{text:"全部",value:0,disable:false},...dealData]
+	range.value=[{text:"全部",value:'',disable:false},...dealData]
 		getList()
 })
 

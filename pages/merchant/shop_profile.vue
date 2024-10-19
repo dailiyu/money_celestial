@@ -183,7 +183,7 @@ const saveStoreInfo = async () => {
 			 await userStore.fetchAllDataAction()
 			setTimeout(() => {
 				uni.redirectTo({
-					url:'/pages/merchant/merchant_management'
+					url:'/pages/merchant/before_create_merchant'
 				})
 			}, 700)
 

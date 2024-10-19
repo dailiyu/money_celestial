@@ -2,25 +2,32 @@
 	<view class="page">
 		<navBar title="商家入驻"></navBar>
 		<view class="img-box">
-			<image class="img" src="../../static/success.jpg" mode="aspectFit"></image>
+			<image class="img" src="../../static/fail.jpg" mode="aspectFit"></image>
 		</view>
 		<view class="text-box">
-			<view class="text">店铺信息正在审核中！</view>
+			<view class="text">店铺审核不通过!</view>
+		</view>
+		<view class="text-box">
+			<view class="text">{{userStore.shopInfo.reject_info}}</view>
 		</view>
 		<view class="buttom-box">
-			
+			<view class="buttom" @click="toCreateShop">重新创建店铺</view>
 		</view>
 	</view>
 </template>
 
 <script setup>
-	
+import { onMounted } from 'vue';
+import { useUserStore } from '../../store/user';
+  const userStore=useUserStore()
 	const toCreateShop=async ()=>{
 		uni.redirectTo({
-			url:'merchant_set_info'
+			url:'/pages/merchant/merchant_edit_info'
 		})
 	}
-	
+	onMounted(()=>{
+		console.log(userStore.shopInfo);
+	})
 </script>
 
 <style lang="scss" scoped>
