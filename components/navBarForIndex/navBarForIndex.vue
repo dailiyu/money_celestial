@@ -3,14 +3,17 @@
     <view class="nav_item">
 	 <view class="picker-box">
 	 	<uni-data-picker
-							v-model="curPosition"
-	 				      :localdata="cityData"
-	 				      :value="selectedValues"
-	 					  :clear-icon='false'
-	 				      mode="region"
-	 				      @change="onChange"
-	 				      popup-title="请选择所在地区"
-	 				    >
+			v-model="curPosition"
+	 		:localdata="cityData"
+	 		:value="selectedValues"
+	 		:clear-icon='false'
+	 		mode="region"
+	 		@change="onChange"
+	 		popup-title="请选择所在地区"
+	 	>
+		<view #default>
+			{{selectedCity||'请选择'}}
+		</view>
 		</uni-data-picker>
 	 </view>
       <view class="name">{{ title }}</view>
@@ -72,6 +75,7 @@ const props = defineProps({
 onMounted(()=>{
 	const city=uni.getStorageSync('city')
 	curPosition.value=findValueByText(city)
+	selectedCity.value = city
 })
 
 const curPosition=ref('')
@@ -202,7 +206,15 @@ const clickRight = () => {
 		.select{
 			
 		}
-		
+		:deep(.uni-popper__arrow_bottom) {
+			border-bottom-color: transparent;
+			left: unset;
+			right: 0;
+		}
+		:deep(.uni-select__selector) {
+			left: unset;
+			right: 0;
+		}
 	}
 	
 	.name{
@@ -215,6 +227,7 @@ const clickRight = () => {
 		height: 50rpx;
 		// float: left;
 		line-height: 1.5625rem;
+		text-align: left;
 		::v-deep .input-value .text-color {
 		  color: #fff;
 		  font-size: 20rpx;
