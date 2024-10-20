@@ -75,7 +75,8 @@ const toUnbindAccount = ()=>{
 	})
 }
 const toCode = () => {
-	if(!isVerified){
+	console.log(isVerified.value);
+	if(!isVerified.value){
 		uni.navigateTo({
 				url: '/pages/merchant/merchant_code_authentication'
 		})

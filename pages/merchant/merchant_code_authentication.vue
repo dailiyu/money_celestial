@@ -20,6 +20,8 @@
 <script setup>
 import { ref } from 'vue';
 import { vertifyMerchant } from '@/service/merchant';
+import { useUserStore } from '../../store/user';
+ const userStore=useUserStore()
 const address = ref('')
 
 const confirm = async()=>{
@@ -32,11 +34,13 @@ const confirm = async()=>{
 	})
 	const phoneNumber=uni.getStorageSync('phoneNumber')
     vertifyMerchant(phoneNumber,{verification_account: address.value}).then((res)=>{
+		userStore.fetchAllDataAction()
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'success',
 			title: '认证成功'
 		})
+		uni.navigateBack()
 	}).catch((err)=>{
 		uni.hideLoading()
 		uni.showToast({

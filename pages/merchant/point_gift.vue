@@ -166,23 +166,31 @@ const toGiftAgreement = ()=>{
 		url: '/pages/merchant/point_gift_agreement'
 	})
 }
-const toScanCode=()=>{
-	uni.scanCode({
-		  onlyFromCamera: true, // 只允许从摄像头扫码
-		  success: async(res) => {
-		    console.log('扫码结果: ', res.result);
-			 address.value=res.result
-		
-		  },
-		  fail: (err) => {
-		    console.error('扫码失败: ', err);
-		    uni.showToast({
-		      title: '扫码失败',
-		      icon: 'none'
-		    });
-		  }
-		});
-}
+const toScanCode = () => {
+  uni.scanCode({
+    onlyFromCamera: true, // 只允许从摄像头扫码
+    success: async (res) => {
+      if (res.result) { // 判断是否有有效的扫描结果
+        console.log('扫码结果: ', res.result);
+        address.value = res.result;
+      } else {
+        console.warn('未扫描到有效的二维码');
+        uni.showToast({
+          title: '未扫描到有效的二维码',
+          icon: 'none'
+        });
+      }
+    },
+    fail: (err) => {
+      console.error('扫码失败: ', err);
+      uni.showToast({
+        title: '扫码失败',
+        icon: 'none'
+      });
+    }
+  });
+};
+
 
 </script>
 

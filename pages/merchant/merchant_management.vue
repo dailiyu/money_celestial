@@ -51,6 +51,10 @@
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
+				<view class="list_item flex_between" @click="toMerchantCode">
+					<view class="">商家码认证</view>
+					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+				</view>
 				<!-- <view class="list_item flex_between" @click="toUploadGoods">
 					<view class="">
 						上传产品
@@ -77,15 +81,19 @@
 		useUserStore
 	} from '../../store/user';
 import { getVertifyMerchantInfo } from '@/service/merchant';
+import { onShow } from '@dcloudio/uni-app'
 	const userStore = useUserStore()
 	const isVerified = ref(false)
 	onMounted(async() => {
-		userStore.getStoreInfoAction()
+		
+	})
+
+onShow(async()=>{
+userStore.getStoreInfoAction()
 		const phone=await uni.getStorageSync('phoneNumber')
 		const {is_verified} = await getVertifyMerchantInfo(phone)
 		isVerified.value = is_verified
-	})
-
+})
 
 	const toEdit = () => {
 		uni.redirectTo({
@@ -112,6 +120,19 @@ import { getVertifyMerchantInfo } from '@/service/merchant';
 			url: '/pages/merchant/upload_goods'
 		})
 	}
+	
+	const toMerchantCode=()=>{
+		if(isVerified.value){
+			uni.navigateTo({
+					url: '/pages/myAccount/unbind_merchant_code'
+			})
+		}else{
+			uni.navigateTo({
+					url: '/pages/merchant/merchant_code_authentication'
+			})
+		}
+	}
+	
 	
 	const toMerchantCodeVerify=()=>{
 		uni.navigateTo({
