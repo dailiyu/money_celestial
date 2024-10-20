@@ -188,30 +188,38 @@ const clickRight = () => {
 	position: relative;
 	
 	.select-box{
-	
+		position: absolute;
+		right: 0;
+		top: 4rpx;
 		.select{
-			position: absolute;
-			right: 0rpx;
-			top: -20rpx;
+			
 		}
 		
 	}
 	
 	.name{
-		transform: translateX(-90rpx);
+		// transform: translateX(-90rpx);
 	}
 	.picker-box{
+		position: absolute;
+		left: 0;
 		width: 200rpx;
 		height: 50rpx;
-		float: left;
-	::v-deep .input-value .text-color {
-	  color: #fff;
-	  font-size: 20rpx;
-	   border: none;
-	}
-	:deep(.arrow-area){
-		display: none;
-	}
+		// float: left;
+		line-height: 1.5625rem;
+		::v-deep .input-value .text-color {
+		  color: #fff;
+		  font-size: 20rpx;
+		   border: none;
+		}
+		:deep(.arrow-area){
+			display: none;
+		}
+		:deep(.input-value) {
+			padding: 0;
+			line-height: unset;
+			height: auto;
+		}
 	}
 	
 	
@@ -254,8 +262,8 @@ const clickRight = () => {
 		width: 140rpx;
 	}
 	:deep(.uni-stat__select){
-		width: 100rpx;
-		height: 100rpx;
+		// width: 30rpx;
+		// height: 100rpx;
 		
 	}
 	:deep(.uni-icons ){

@@ -84,7 +84,7 @@ const toBindPointAccount = ()=>{
 	})
 }
 const toStepOne = ()=>{
-	if (!points_account.value) {
+	if (!pointsAccount.value) {
 		toBindPointAccount()
 		return
 	}
