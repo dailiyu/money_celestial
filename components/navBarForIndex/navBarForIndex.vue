@@ -11,6 +11,9 @@
 	 		@change="onChange"
 	 		popup-title="请选择所在地区"
 	 	>
+		<view #default>
+			{{selectedCity||'请选择'}}
+		</view>
 		</uni-data-picker>
 	 </view>
       <view class="name">{{ title }}</view>
@@ -72,6 +75,7 @@ const props = defineProps({
 onMounted(()=>{
 	const city=uni.getStorageSync('city')
 	curPosition.value=findValueByText(city)
+	selectedCity.value = city
 })
 
 const curPosition=ref('')
@@ -223,6 +227,7 @@ const clickRight = () => {
 		height: 50rpx;
 		// float: left;
 		line-height: 1.5625rem;
+		text-align: left;
 		::v-deep .input-value .text-color {
 		  color: #fff;
 		  font-size: 20rpx;
