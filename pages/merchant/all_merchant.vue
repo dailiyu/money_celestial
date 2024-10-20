@@ -56,22 +56,22 @@
 import { onMounted, ref } from 'vue';
 import { getShopList } from '@/service/shop';
 import { getShopCategories, getCityShopList } from '@/service/shop.js';
-
+import { onLoad } from '@dcloudio/uni-app'
 const categoryId = ref('');
 const range = ref([]);
 const curPage = ref(1);
 const hasNext = ref(false);
 
+
+onLoad((options) => {
+   categoryId.value = options.id == 0 ? '' : options.id;
+    category.value =Number(categoryId.value);
+  console.log('接收到的参数:',options.id );
+  
+});
+
+
 onMounted(async () => {
-  let routes = getCurrentPages();
-  let curParam = routes.length > 0 ? routes[routes.length - 1].options : {};
-
-  // 确保 curParam.id 存在才进行后续操作
-  if (curParam && curParam.id !== undefined) {
-    categoryId.value = curParam.id == 0 ? '' : curParam.id;
-    category.value = Number(categoryId.value);
-  }
-
   // 类目
   const { results } = await getShopCategories();
   const dealData = results.map(i => ({
