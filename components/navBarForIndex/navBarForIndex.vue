@@ -11,9 +11,9 @@
 	 		@change="onChange"
 	 		popup-title="请选择所在地区"
 	 	>
-		<view #default>
+		<template #default>
 			{{selectedCity||'请选择'}}
-		</view>
+		</template>
 		</uni-data-picker>
 	 </view>
       <view class="name">{{ title }}</view>
@@ -75,7 +75,6 @@ const props = defineProps({
 onMounted(()=>{
 	const city=uni.getStorageSync('city')
 	curPosition.value=findValueByText(city)
-	selectedCity.value = city
 })
 
 const curPosition=ref('')
