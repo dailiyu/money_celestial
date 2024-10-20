@@ -220,6 +220,7 @@ const clickRight = () => {
 		  font-size: 20rpx;
 		   border: none;
 		}
+		
 		:deep(.arrow-area){
 			display: none;
 		}
