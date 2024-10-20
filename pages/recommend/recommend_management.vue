@@ -17,7 +17,7 @@
 				<view class="total_item flex_between">
 					<view class="">
 						<view class="total_text">
-							已推荐商家数
+							已推荐商店数
 						</view>
 						<view class="total_num">
 							{{userStore.recommendShopList.length||0}}
@@ -39,7 +39,7 @@
 			<view class="list_box">
 				<view class="list_item flex_between" @click="toMerchantList">
 					<view class="">
-						推荐商家列表
+						推荐商店列表
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>

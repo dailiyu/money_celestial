@@ -268,21 +268,25 @@ const toAgent = ()=>{
 	
 }
 const toRecommend =async ()=>{
-	const phoneNumber=uni.getStorageSync('phoneNumber')
-	const data=await getRecommendOfficerInfo(phoneNumber)
-	console.log('进入推荐官页面前的推荐官信息',data);
-	if (data?.is_approved&&data?.is_visible) {
-		uni.navigateTo({
-			url: '/pages/recommend/recommend_management'
-		})
-	} else if(data?.detail) {
-		uni.navigateTo({
-			url: '/pages/recommend/recommend_intro'
-		})
-	} else if(!data?.is_approved){
-		uni.navigateTo({
-			url: '/pages/recommend/before_create_recommend'
-		})
+	try{
+		const phoneNumber=uni.getStorageSync('phoneNumber')
+		const data=await getRecommendOfficerInfo(phoneNumber)
+		console.log('进入推荐官页面前的推荐官信息',data);
+		if (data?.is_approved&&data?.is_visible) {
+			uni.navigateTo({
+				url: '/pages/recommend/recommend_management'
+			})
+		}else if(!data?.is_approved){
+			uni.navigateTo({
+				url: '/pages/recommend/before_create_recommend'
+			})
+		}
+	}catch(e){
+		if(e.data?.detail){
+			uni.navigateTo({
+				url: '/pages/recommend/recommend_intro'
+			})
+		}
 	}
 }
 const toAllMerchant = (id)=>{
