@@ -21,7 +21,7 @@ export const  usePublicStore = defineStore('public', {
 		async getCateGoryListAction(){
 			const res=await getShopCategories()
 			uni.setStorageSync('shopCategories',res.results)
-			console.log(res.results);
+			console.log('商铺类别列表',res.results);
 			this.cateGoryList=res.results
 		},
 		async getMerchantListAction(){

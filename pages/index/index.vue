@@ -150,6 +150,7 @@ const userInfo = uni.getStorageSync('userInfo')
 
 onShow(async()=>{
 	await userStore.fetchAllDataAction()
+	await publicStore.fetchAllDataAction()
 })
 
 onMounted(async()=>{

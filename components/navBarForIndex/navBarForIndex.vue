@@ -100,15 +100,22 @@ const onChange = (e) => {
 }
 
 
-const scanCode =async () => {
+const scanCode = async () => {
   uni.scanCode({
     onlyFromCamera: true, // 只允许从摄像头扫码
-    success: async(res) => {
-      console.log('扫码结果: ', res.result);
-	  uni.navigateTo({
-	  	url:'/pages/merchant/point_gift?phone='+res.result
-	  })
-  
+    success: async (res) => {
+      if (res.result) { // 判断是否有有效的扫描结果
+        console.log('扫码结果: ', res.result);
+        uni.navigateTo({
+          url: '/pages/merchant/point_gift?phone=' + res.result
+        });
+      } else {
+        console.warn('未扫描到有效的二维码');
+        uni.showToast({
+          title: '未扫描到有效的二维码',
+          icon: 'none'
+        });
+      }
     },
     fail: (err) => {
       console.error('扫码失败: ', err);
@@ -119,6 +126,7 @@ const scanCode =async () => {
     }
   });
 };
+
 
 const change=(e)=> {
        if(e==1){

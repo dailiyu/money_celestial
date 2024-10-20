@@ -144,25 +144,22 @@
 	const userStore = useUserStore()
 	const shopIntro = ref()
 	const shopName = ref()
-	const businessRange = ref('')
+	const businessRange = ref()
 	const code = ref('')
 	const curData=ref()
 	const successBannerImgPaths = ref([])
 	const successProfileImgPaths = ref([])
 	const successDetailImgPaths = ref([])
-	// const range = ref([
-	//     { value: "篮球", text: "篮球" },
-	//     { value: "足球", text: "足球" },
-	//     { value: "游泳", text: "游泳" },
-	// ])
+
 onMounted(async()=>{
 	await userStore.fetchAllDataAction()
 	shopName.value=shopInfo.name
 	shopIntro.value=shopInfo.description
 	businessRange.value=shopInfo.categories[0]
+
 	address.value=shopInfo.address
 	curData.value=findValueByText(shopInfo.city)
-	selectedCity.value=shopInfo.city.name
+	selectedCity.value=shopInfo.city
 	 successDetailImgPaths.value=detailImages
 	 successProfileImgPaths.value=avatarImages
 	 successBannerImgPaths.value=bannerImages
@@ -196,15 +193,14 @@ const selectedCity = ref()
 const cityData = ref(cityDataJson)
 
 // 当选择器值变化时，处理选中的省和市
-
 const onChange = (e) => {
   const selected = e.detail.value
   const province = cityData.value.find(item => item.value === selected[0])
   const city = province?.children?.find(item => item.value === selected[1])
 	console.log('选择的城市',curData.value);
   // 保存选择的省市名
-   selectedProvince.value = e.detail.value[0].text ||''
-   selectedCity.value =  e.detail.value[1].text ||''
+   selectedProvince.value =province 
+   selectedCity.value = city 
   // 保存选中的省市值
   console.log( selectedProvince.value,selectedCity.value);
 }
@@ -235,7 +231,7 @@ const range = computed(() => {
 
 	const changeRange = (e) => {
 		businessRange.value = e
-		console.log(e)
+		
 	}
 
 
@@ -307,17 +303,13 @@ const range = computed(() => {
 
 	const saveStoreInfo = async () => {
 	
-		console.log(
-			!shopName.value,
-			!address.value,
-			!shopIntro.value,
-			successDetailImgPaths.value.length === 0,
-			successProfileImgPaths.value.length === 0,
-			successBannerImgPaths.value.length === 0)
+	
 		console.log(
 			shopIntro.value,
 			shopName.value,
 			address.value,
+			selectedCity.value,
+			businessRange.value,
 			successDetailImgPaths.value.length,
 			successProfileImgPaths.value.length,
 			successBannerImgPaths.value.length)
@@ -327,6 +319,7 @@ const range = computed(() => {
 			!address.value ||
 			!shopIntro.value ||
 			!selectedCity.value||
+			!businessRange.value||
 			successProfileImgPaths.value.length === 0||
 			successDetailImgPaths.value.length===0||
 			successBannerImgPaths.value.length===0
@@ -344,9 +337,9 @@ const range = computed(() => {
 			await associatedProfileImg()
 			 await associatedDetailImg()
 			  await associatedBannerImg()
-			console.log({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value||'https://example.com/image.png',address:address.value});
+		
 			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value})
-			console.log('-----!!!',res);
+
 			
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value]
 			console.log('图片列表参数',params);
