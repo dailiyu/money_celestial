@@ -55,29 +55,34 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getShopList } from '@/service/shop';
-import { getShopCategories,getCityShopList } from '@/service/shop.js'
+import { getShopCategories, getCityShopList } from '@/service/shop.js';
 
-const categoryId = ref('')
-const range = ref([])
-const curPage=ref(1)
-const hasNext=ref(false)
-onMounted(async()=>{
-	let routes = getCurrentPages()
-	let curParam = routes[routes.length - 1].options;
-	categoryId.value = curParam.id==0?'':curParam.id
-	category.value=Number(categoryId.value)
-	// 类目
-	const {results} = await getShopCategories()
-	const dealData = results.map(i=>{
-		return {
-			text: i.name,
-			value: i.id,
-			disable: false
-		}
-	})
-	range.value=[{text:"全部",value:'',disable:false},...dealData]
-		getList()
-})
+const categoryId = ref('');
+const range = ref([]);
+const curPage = ref(1);
+const hasNext = ref(false);
+
+onMounted(async () => {
+  let routes = getCurrentPages();
+  let curParam = routes.length > 0 ? routes[routes.length - 1].options : {};
+
+  // 确保 curParam.id 存在才进行后续操作
+  if (curParam && curParam.id !== undefined) {
+    categoryId.value = curParam.id == 0 ? '' : curParam.id;
+    category.value = Number(categoryId.value);
+  }
+
+  // 类目
+  const { results } = await getShopCategories();
+  const dealData = results.map(i => ({
+    text: i.name,
+    value: i.id,
+    disable: false,
+  }));
+
+  range.value = [{ text: "全部", value: '', disable: false }, ...dealData];
+  getList();
+});
 
 const shopLists = ref([])
 const getList = async()=>{
