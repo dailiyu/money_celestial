@@ -34,7 +34,7 @@ export const useUserStore = defineStore('user', {
     async getUserInfoAction() {
 		const phoneNumber=uni.getStorageSync('phoneNumber')
 	  const res = await getUerAccountMessage(phoneNumber);
-	  uni.setStorageSync('userInfo',res)
+	 await uni.setStorageSync('userInfo',res)
 		console.log('根据token获取到的用户信息',res);
     },
 	async getMerchantInfoAction(){
@@ -61,7 +61,7 @@ export const useUserStore = defineStore('user', {
 	  console.log('推荐官的推荐商家列表',res);
 	},
 	async fetchAllDataAction(){
-		this.getUserInfoAction()
+		await this.getUserInfoAction()
 		 // this.getMerchantInfoAction()
 		  this.getStoreInfoAction()
 		  this.getVertifyMerchantInfoAction()

@@ -96,7 +96,7 @@ userStore.getStoreInfoAction()
 })
 
 	const toEdit = () => {
-		uni.redirectTo({
+		uni.navigateTo({
 			url: '/pages/merchant/merchant_edit_info'
 		})
 	}
