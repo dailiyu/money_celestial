@@ -10,7 +10,7 @@
 	 		mode="region"
 	 		@change="onChange"
 	 		popup-title="请选择所在地区"
-	 	>
+	 	> 
 		<template #default>
 			{{selectedCity||'请选择'}}
 		</template>
@@ -38,7 +38,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import cityDataJson from "@/static/cityData.json"
-
+import { onShow } from '@dcloudio/uni-app'
+import { useUserStore } from '../../store/user';
+ const userStore=useUserStore()
 // 定义发射自定义事件
 const emit = defineEmits(['clickRight','changeCity','mask']);
 const candidates=ref([
@@ -47,6 +49,19 @@ const candidates=ref([
         ])
 
 const selectItem=ref()
+
+
+const curPosition=ref('')
+// 绑定选择的值
+const selectedValues = ref([])
+
+// 绑定省市名显示
+const selectedProvince = ref('')
+const selectedCity = ref('')
+
+// 省市数据
+const cityData = ref(cityDataJson)
+
 // 定义组件的 props
 const props = defineProps({
   title: {
@@ -72,21 +87,20 @@ const props = defineProps({
 });
 
 
-onMounted(()=>{
-	const city=uni.getStorageSync('city')
-	curPosition.value=findValueByText(city)
+onShow(async()=>{
+	await userStore.fetchAllDataAction()
+	const userAddress=await uni.getStorageSync('userInfo').residence
+		const userCity=getCityName(userAddress)
+		const cityValue=findValueByText(userCity)
+		const userProvince=getProvinceName(userAddress)
+		selectedCity.value=userCity
+		// const city=uni.getStorageSync('city')
+		curPosition.value=cityValue
+		
+		emit('changeCity', {province:userProvince, city: userCity})
 })
 
-const curPosition=ref('')
-// 绑定选择的值
-const selectedValues = ref([])
 
-// 绑定省市名显示
-const selectedProvince = ref('')
-const selectedCity = ref('')
-
-// 省市数据
-const cityData = ref(cityDataJson)
 
 // 当选择器值变化时，处理选中的省和市
 const onChange = (e) => {
@@ -97,8 +111,7 @@ const onChange = (e) => {
   // 保存选择的省市名
    selectedProvince.value = e.detail.value[0].text ||''
    selectedCity.value =  e.detail.value[1].text ||''
-  // 保存选中的省市值
-  // console.log( selectedProvince.value,selectedCity.value);
+
   emit('changeCity', {province:selectedProvince.value, city: selectedCity.value})
 }
 
@@ -141,7 +154,6 @@ const change=(e)=> {
       }
 const findValueByText=(text)=> {
   for (const province of cityDataJson) {
-	 
     for (const city of province.children) {
 		
       if (city.text === text) {
@@ -150,6 +162,21 @@ const findValueByText=(text)=> {
     }
   }
   return null;
+}
+
+
+const getCityName=(location)=>{
+  // 将输入字符串按空格分割
+  const parts = location.split(' ');
+  // 返回最后一部分作为城市名称
+  return parts[parts.length - 1];
+}
+
+const getProvinceName=(location)=> {
+  // 将输入字符串按空格分割
+  const parts = location.split(' ');
+  // 返回第一部分作为省份名称
+  return parts[0];
 }
 
 
@@ -232,6 +259,7 @@ const clickRight = () => {
 		  font-size: 20rpx;
 		   border: none;
 		}
+		
 		:deep(.arrow-area){
 			display: none;
 		}

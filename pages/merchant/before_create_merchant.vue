@@ -1,6 +1,6 @@
 <template>
 	<view class="page">
-		<navBar title="商家入驻"></navBar>
+		<navBar :isToHome="true" title="商家入驻"></navBar>
 		<view class="img-box">
 			<image class="img" src="../../static/success.jpg" mode="aspectFit"></image>
 		</view>

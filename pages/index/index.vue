@@ -169,7 +169,7 @@ onMounted(async()=>{
 })
 const city = ref('')
 const getCity = (e)=>{
-	console.log(e)
+	
 	city.value = e.city
 	uni.setStorageSync('city',city.value)
 	console.log('当前选择的城市',city.value);
@@ -209,9 +209,7 @@ const bannerList = ref()
 const getBanner = async()=>{
 	bannerList.value = await getBannerList()
 }
-const search = ()=>{
-	console.log(keyword.value)
-}
+
 const toSettle = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_intro'
