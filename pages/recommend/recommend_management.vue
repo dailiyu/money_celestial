@@ -17,10 +17,10 @@
 				<view class="total_item flex_between">
 					<view class="">
 						<view class="total_text">
-							已推荐商店数
+							已推荐店铺数
 						</view>
 						<view class="total_num">
-							{{userStore.recommendShopList.length||0}}
+							{{recommendedShopAmount}}
 						</view>
 					</view>
 					<view class="">
@@ -39,7 +39,7 @@
 			<view class="list_box">
 				<view class="list_item flex_between" @click="toMerchantList">
 					<view class="">
-						推荐商店列表
+						推荐店铺列表
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
@@ -70,17 +70,17 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
-import { useUserStore } from '../../store/user';
+import { getOfficerQRCode, getRecommendOfficerInfo, getRecommendShopList } from '@/service/recommend.js'
 import { getGreenPoints } from '@/service/point';
 import { getVertifyMerchantInfo } from '@/service/merchant';
 
- const userStore=  useUserStore()
+
 const info = ref({})
 const user = ref({})
 const isVerified = ref(false)
 onMounted(async()=>{
 	getPoint()
+	getShopAmount()
 	user.value = uni.getStorageSync('userInfo')
 	info.value = await getRecommendOfficerInfo(user.value.phone_number)
 	// getMPQRCode()
@@ -88,6 +88,12 @@ onMounted(async()=>{
 	const {is_verified} = await getVertifyMerchantInfo(phone)
 	isVerified.value = is_verified
 })
+
+const recommendedShopAmount = ref(0)
+const getShopAmount = async()=>{
+	const res = await getRecommendShopList()
+	recommendedShopAmount.value = res.length
+}
 const points = ref(0)
 const getPoint = async()=>{
 	const {total} = await getGreenPoints()

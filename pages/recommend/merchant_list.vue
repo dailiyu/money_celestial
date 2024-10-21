@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="商家列表"></navBar>
+		<navBar title="店铺列表"></navBar>
 		<view class="filter_list">
 			<!-- <view class="flex_center" style="flex: 1;">
 				<view class="" style="flex: 1;text-align: right;">
