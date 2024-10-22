@@ -23,7 +23,7 @@
 		</uni-row>
 		
 		<template v-for="(item, index) in recordList" :key="item.id">
-			<uni-row   v-if="item.transaction_method=='green_points'||(item.transaction_method=='gift_green_points'&&item.transaction_type=='increase')">
+			<uni-row   v-if="item.transaction_method=='green_points'||item.transaction_method=='gift_green_points_bonus'||(item.transaction_method=='gift_green_points'&&item.transaction_type=='increase')">
 				
 				<uni-col :span="2">
 					<view>{{index+1}}</view>
