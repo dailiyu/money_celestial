@@ -280,6 +280,30 @@
 			}
 		},
 		{
+			"path" : "pages/myAccount/safety",
+			"style" : 
+			{
+				"navigationBarTitleText" : "密码与安全",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+					"path" : "pages/myAccount/change_login_password",
+					"style" : 
+					{
+						"navigationBarTitleText" : "修改登录密码",
+						"navigationStyle": "custom"
+					}
+		},
+		{
+					"path" : "pages/myAccount/change_pay_password",
+					"style" : 
+					{
+						"navigationBarTitleText" : "修改支付密码",
+						"navigationStyle": "custom"
+					}
+		},
+		{
 			"path" : "pages/myAccount/my_point",
 			"style" : 
 			{
@@ -532,6 +556,14 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "商家入驻须知",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/exchange_point_coupon",
+			"style" : 
+			{
+				"navigationBarTitleText" : "积分兑换券",
 				"navigationStyle": "custom"
 			}
 		}

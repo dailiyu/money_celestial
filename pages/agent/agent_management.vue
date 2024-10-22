@@ -21,7 +21,7 @@
 					<view class="flex">
 						<view class="" style="margin-right: 112rpx;">
 							<view class="data_text">
-								商家数量
+								店铺数量
 							</view>
 							<view class="data_num">
 								{{merchantAmount}}
@@ -41,7 +41,7 @@
 			<view class="list_box">
 				<view class="list_item flex_between" @click="toMerchantList">
 					<view class="">
-						商家列表
+						店铺列表
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>

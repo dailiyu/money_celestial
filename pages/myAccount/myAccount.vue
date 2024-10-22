@@ -57,6 +57,18 @@
 							我的记录
 						</view>
 					</view>
+					<view class="service_item" @click="toSafety">
+							<image src="@/static/my/safety_password.jpg" mode="widthFix" class="service_pic"></image>
+							<view class="">
+								密码与安全
+							</view>
+					</view>
+					<view class="service_item" @click="toPointsRedemptionVoucher">
+							<image src="@/static/my/exchange_voucher.jpg" mode="widthFix" class="service_pic"></image>
+							<view class="">
+								积分兑换券
+							</view>
+					</view>
 				<!-- 	<view class="service_item">
 						<image src="@/static/my/collect.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
@@ -175,6 +187,17 @@ const logout=()=>{
 	})
 }
 
+const toSafety=()=>{
+	uni.navigateTo({
+		url:'/pages/myAccount/safety'
+	})
+}
+
+const  toPointsRedemptionVoucher=()=>{
+	uni.navigateTo({
+		url:'/pages/myAccount/exchange_point_coupon'
+	})
+}
 
 const toHelpCenter=()=>{
 	uni.navigateTo({

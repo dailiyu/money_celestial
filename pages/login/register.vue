@@ -6,13 +6,6 @@
 				手机号：
 			</view>
 			<uni-easyinput v-model="mobile" maxlength="11" placeholder="请输入手机号" :inputBorder="false" primaryColor="#1B46CC" type="number" />
-			<!-- <uni-easyinput v-model="code" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
-				<template #right>
-					<view class="send_btn flex_center">
-						发送验证码
-					</view>
-				</template>
-			</uni-easyinput> -->
 			<view class="title">
 				密码：
 			</view>
@@ -23,7 +16,6 @@
 			</view>
 			<uni-easyinput v-model="password2" placeholder="再次输入密码" :inputBorder="false" primaryColor="#1B46CC"
 				type="password" />
-
 			<view class="btn flex_center" @click="toRegister">
 				立即注册
 			</view>

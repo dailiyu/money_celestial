@@ -65,9 +65,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { addRedPoints } from '../../service/point';
 
+const phone = ref('')
+onMounted(()=>{
+	phone.value = uni.getStorageSync('phoneNumber')
+})
 
 const isChecked = ref(false)
 const changeCheck = ()=>{
@@ -76,7 +80,6 @@ const changeCheck = ()=>{
 
 const pop = ref()
 const address = ref('')
-const phone = ref('')
 const order = ref('')
 const confirm = async()=>{
 	if (!isChecked.value) return uni.showToast({

@@ -106,16 +106,18 @@ onMounted(async()=>{
 	if (isGiftAgreementCheck) {
 		isChecked.value = true
 	}
+	getAllData()
+	
+})
+
+const getAllData = async()=>{
 	const data = await getAllPoint()
 	const res = await getDeposit()
 	balance.value = res.amount
 	totalPoints.value = (Number(data.red_points)+Number(balance.value))*6.25
 	red_points.value=data.red_points
 	rateCny.value = data.rateCny
-	
-})
-
-
+}
 
 const isChecked = ref(false)
 const changeCheck = ()=>{
@@ -154,6 +156,7 @@ const confirm = async()=>{
 		if (!isGiftAgreementCheck) {
 			uni.setStorageSync('isGiftAgreementCheck', true)
 		}
+		getAllData()
 	}catch(e){
 		uni.showToast({
 			icon: 'none',
