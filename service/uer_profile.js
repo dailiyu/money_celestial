@@ -28,6 +28,11 @@ export  const postProfileLogin=async (phone_number,password)=>{
 
 
 
+//发放验证码
+export  const sendVerifyCode=async ()=>{
+	return http.get(`/users/send-verify-code/`,{
+	})
+}
 
 
 
