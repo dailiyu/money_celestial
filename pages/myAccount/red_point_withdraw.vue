@@ -40,10 +40,11 @@
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title" @click.stop="toAgreement">《提取须知》</text>
 			</view>
-			<view class="btn_full" @click="confirm">
+			<view class="btn_full" @click="validPassword">
 				提取
 			</view>
 		</view>
+		<validatePasswordPop @confirm="confirm" ref="passwordPop"></validatePasswordPop>
 	</view>
 </template>
 
@@ -87,7 +88,8 @@ const inputNumber = (e)=>{
         number.value = parseFloat(value).toFixed(2);
     }
 }
-const confirm = async()=>{
+const passwordPop = ref()
+const validPassword = ()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
@@ -104,6 +106,11 @@ const confirm = async()=>{
 		icon: 'none',
 		title: '提取数量不可大于积分余额'
 	})
+	
+	passwordPop.value.open()
+}
+const confirm = async()=>{
+	
 	const params = ref({
 		point_account: account.value,
 		transaction_amount: number.value,

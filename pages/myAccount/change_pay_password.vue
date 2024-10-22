@@ -2,7 +2,7 @@
 		<navBar title="修改支付密码" ></navBar>
 	<view class="verify-box">
 			<view class="title">
-				手机号：{{ maskPhoneNumber(phoneNumber) }}
+				手机号：<text style="color: #BABABA;font-size: 20rpx;font-weight: normal;">{{ maskPhoneNumber(phoneNumber) }}</text>
 			</view>
 			<uni-easyinput v-model="verifyCode" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
 				<template #right>
@@ -20,7 +20,7 @@
 <!--            <view>
                 <button @click="onClear" style="background: #ff5500; color: #fff;">清除内容</button>
             </view> -->
-			<view class="password" >输入新密码</view>
+			<view class="password" >输入新密码：</view>
             <view class="body">
                 <yi-code ref="code" :width="600" @onComplete="complete" @onChange="change"></yi-code>
             </view>
@@ -140,6 +140,7 @@ const  startCountdown=()=> {
 		.title {
 			font-size: 24rpx;
 			margin-top: 58rpx;
+			margin-bottom: 20rpx;
 			font-weight: bold;
 		}
 		
@@ -158,6 +159,10 @@ const  startCountdown=()=> {
 			font-size: 21rpx;
 			font-weight: 700;
 		}
+		:deep(.uni-easyinput__content) {
+			border-radius: 100px;
+			padding: 10rpx 14rpx;
+		}
 	}
 	
 	
@@ -167,10 +172,11 @@ const  startCountdown=()=> {
 
     .card {
         width: 720rpx;
-        margin: 30rpx auto;
+        margin: 50rpx auto;
       
         border-radius: 12rpx;
 		.password{
+			font-size: 24rpx;
 			margin-left: 55rpx;
 			font-weight: 600;
 			margin-bottom: -10rpx;
@@ -189,9 +195,13 @@ const  startCountdown=()=> {
             justify-content: center;
             height: 150rpx;
         }
+		:deep(.yi-code .yi-code-show .yi-code-show-item) {
+			border: none;
+			background-color: #fff;
+		}
     }
 	.btn_full{
-		margin-top: 700rpx;
+		margin-top: 400rpx;
 	}
 }
 </style>

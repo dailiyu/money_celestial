@@ -73,10 +73,11 @@
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title" @click.stop="toGiftAgreement">《积分赠送须知》</text>
 			</view>
-			<view class="btn_full" @click="confirm">
+			<view class="btn_full" @click="validPassword">
 				确认赠送
 			</view>
 		</view>
+		<validatePasswordPop @confirm="confirm" ref="passwordPop"></validatePasswordPop>
 	</view>
 </template>
 
@@ -123,7 +124,8 @@ const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = async()=>{
+const passwordPop = ref()
+const validPassword = ()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
@@ -141,11 +143,16 @@ const confirm = async()=>{
 		title: '赠送数量不可超过最多可赠送金额',
 		duration: 3000
 	})
+	
+	passwordPop.value.open()
+}
+const confirm = async(e)=>{
+	
 	try{
 		uni.showLoading({
 			title: '赠送中'
 		})
-		console.log(777)
+		// console.log(777)
 		await giftPoint({phone_number:address.value, transaction_amount: ((number.value/rateCny.value)*100).toFixed(4)})
 		uni.hideLoading()
 		uni.showToast({

@@ -2,7 +2,8 @@
 	<view>
 		<navBar title="代理后台" ></navBar>
 		<!-- <image src="@/static/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image> -->
-		<view class="content">
+		<!-- 已激活 -->
+		<view class="content" v-if="margin_require<depositAmount||margin_require==depositAmount">
 			<view class="total_data">
 				
 				<view class="data_item">
@@ -45,12 +46,6 @@
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
-				<!-- <view class="list_item flex_between" @click="toMerchantCode" v-if="!userStore.vertifyMerchantInfo.is_verified">
-					<view class="">
-						商家码认证
-					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view> -->
 				<view class="list_item flex_between" @click="toSecurityDeposit">
 					<view class="">
 						保证金
@@ -59,21 +54,57 @@
 				</view>
 			</view>
 		</view>
+		<!-- 未激活 -->
+		<view class="content" v-if="margin_require>depositAmount">
+			<view class="total_data">
+				
+				<view class="data_item">
+					<view class="location">
+						<text class="city">{{cityName}}</text>
+						<text>代理</text>
+					</view>
+					<view class="state flex">
+						<view class="sub_title">
+							代理状态：
+						</view>
+						<view class="status">
+							未激活
+						</view>
+					</view>
+					<view class="state flex" style="margin-top: 40rpx;">
+						<view class="sub_title">
+							需增加保证金：
+						</view>
+						<view class="deposit_num">
+							{{margin_require-depositAmount}}
+						</view>
+					</view>
+				</view>
+				
+			</view>
+			<view class="btn_full" @click="toAddDeposit">
+				增加保证金
+			</view>
+		</view>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getRecommendOfficerAmount, getAgentShopAmount, getProvinceId, getCity, getCityMerchantAmount } from '@/service/agent.js'
-import { useUserStore } from '../../store/user';
+import { getRecommendOfficerAmount, getAgentShopAmount, getProvinceId, getCity, getCityMerchantAmount, getAgentDeposit } from '@/service/agent.js'
 import { getGreenPoints } from '@/service/point';
- const userStore=  useUserStore()
+import { onShow } from '@dcloudio/uni-app'
 // const provinceId = ref()
 const cityId = ref()
+const margin_require = ref('')
+onShow(()=>{
+	getAmount()
+})
 onMounted(async()=>{
 	const res = await getCity()
 	cityName.value = res.results[0].city_name
 	cityId.value = res.results[0].city
+	margin_require.value = res.results[0].margin_require
 	// if (!cityName) {
 	// 	const {results} = await getProvinceId()
 	// 	provinceId.value = results[0].province
@@ -82,8 +113,13 @@ onMounted(async()=>{
 	getShopAmount()
 	getOfficerAmount()
 	getAgentPoint()
+	
 })
-
+const depositAmount = ref('')
+const getAmount = async()=>{
+	const res = await getAgentDeposit()
+	depositAmount.value = res.amount
+}
 const merchantAmount = ref(0)
 const cityName = ref('')
 
@@ -114,14 +150,7 @@ const toMerchantList = ()=>{
 		url: '/pages/agent/merchant_list?cityName='+cityName.value
 	})
 }
-const toMerchantCode = ()=>{
-	// uni.navigateTo({
-	// 	url: '/pages/merchant/merchant_code_authentication'
-	// })
-	uni.navigateTo({
-		url: '/pages/merchant/merchant_code_authentication'
-	})
-}
+
 const toSecurityDeposit = ()=>{
 	uni.navigateTo({
 		url: '/pages/agent/security_deposit'
@@ -130,7 +159,11 @@ const toSecurityDeposit = ()=>{
 	// 	url: '/pages/merchant/security_deposit'
 	// })
 }
-
+const toAddDeposit = ()=>{
+	uni.navigateTo({
+		url: '/pages/agent/add_deposit'
+	})
+}
 </script>
 
 <style lang="scss" scoped>
@@ -144,6 +177,7 @@ const toSecurityDeposit = ()=>{
 // 	margin-bottom: 20rpx;
 // }
 .content {
+	min-height: 80vh;
 	background: url('@/static/agent/bg.png') no-repeat;
 	background-size: 100% auto;
 }
@@ -188,6 +222,26 @@ const toSecurityDeposit = ()=>{
 			font-size: 55rpx;
 			color: #FC5908;
 			font-weight: bold;
+		}
+		.state {
+			margin-top: 60rpx;
+			.sub_title {
+				color: #fff;
+				font-size: 30rpx;
+				font-weight: bold;
+			}
+			.status {
+				background-color: #FC5908;
+				border-radius: 100px;
+				color: #fff;
+				font-size: 24rpx;
+				padding: 10rpx 30rpx;
+			}
+			.deposit_num {
+				font-size: 30rpx;
+				color: #FC5908;
+				font-weight: bold;
+			}
 		}
 	}
 }

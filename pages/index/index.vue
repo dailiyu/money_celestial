@@ -162,7 +162,7 @@ onMounted(async()=>{
 	getCategory()
 	getBanner()
 	getShopLists()
-	generateQRCode()
+	// generateQRCode()
 })
 const city = ref('')
 const getCity = (e)=>{

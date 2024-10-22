@@ -17,9 +17,9 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
-const popup = ref('')
+
 onMounted(()=>{
-	popup.value.open()
+	
 })
 const emit = defineEmits(['confirm'])
 const complete = (e)=>{
@@ -29,15 +29,31 @@ const complete = (e)=>{
 		title: '密码不正确'
 	})
 	emit('confirm', e)
+	close()
 }
-
-// const confirm = ()=>{
-// 	if (password.value.length !==6) return uni.showToast({
-// 		icon: 'none',
-// 		title: '请输入完整密码'
-// 	})
-// 	emit('confirm')
-// }
+const popup = ref('')
+const open = ()=>{
+	const trade_psk = uni.getStorageSync('userInfo').trade_psk
+	if (!trade_psk) {
+		uni.showToast({
+			icon: 'none',
+			title: '请先设置支付密码'
+		})
+		setTimeout(()=>{
+			uni.navigateTo({
+				url: '/pages/myAccount/change_pay_password'
+			})
+		}, 1500)
+		return
+	}
+	popup.value.open()
+}
+const close = ()=>{
+	popup.value.close()
+}
+defineExpose({
+  open, close
+})
 </script>
 
 <style lang="scss" scoped>
