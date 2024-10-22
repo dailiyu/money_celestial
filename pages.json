@@ -287,6 +287,22 @@
 				"navigationStyle": "custom"
 			}
 		},
+		{
+					"path" : "pages/myAccount/change_login_password",
+					"style" : 
+					{
+						"navigationBarTitleText" : "修改登录密码",
+						"navigationStyle": "custom"
+					}
+		},
+		{
+					"path" : "pages/myAccount/change_pay_password",
+					"style" : 
+					{
+						"navigationBarTitleText" : "修改支付密码",
+						"navigationStyle": "custom"
+					}
+		},
 			{
 					"path" : "pages/myAccount/points_redemption_voucher",
 					"style" : 
