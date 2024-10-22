@@ -13,7 +13,7 @@ export  const postRegister=async (phone_number,password)=>{
 	})
 }
 
-//部分修改用户信息
+//部分修改用户信息 如果填写trade_psk 交易密码，则必须同时提交verify_code验证码
 export const changeUserInfo=async (userInfo)=>{
 	return http.put(`/users/profile/${userInfo.phone_number}/`,userInfo)
 }
@@ -28,6 +28,11 @@ export  const postProfileLogin=async (phone_number,password)=>{
 
 
 
+//发放验证码 修改密码与修改交易密码需要用到
+export  const sendVerifyCode=async ()=>{
+	return http.get(`/users/send-verify-code/`,{
+	})
+}
 
 
 

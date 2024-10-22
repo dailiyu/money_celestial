@@ -195,7 +195,7 @@ const toSafety=()=>{
 
 const  toPointsRedemptionVoucher=()=>{
 	uni.navigateTo({
-		url:'/pages/myAccount/points_redemption_voucher'
+		url:'/pages/myAccount/exchange_point_coupon'
 	})
 }
 
