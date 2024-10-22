@@ -287,14 +287,6 @@
 				"navigationStyle": "custom"
 			}
 		},
-			{
-					"path" : "pages/myAccount/points_redemption_voucher",
-					"style" : 
-					{
-						"navigationBarTitleText" : "积分兑换券",
-						"navigationStyle": "custom"
-					}
-				},
 		{
 			"path" : "pages/myAccount/my_point",
 			"style" : 
@@ -548,6 +540,14 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "商家入驻须知",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/exchange_point_coupon",
+			"style" : 
+			{
+				"navigationBarTitleText" : "积分兑换券",
 				"navigationStyle": "custom"
 			}
 		}
