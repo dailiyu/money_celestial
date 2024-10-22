@@ -131,9 +131,9 @@
 			}
 
 			.yi-code-show-active {
-				border-color: #ff5500;
+				border-color: #000000;
 				border-width: 2px;
-				animation: myfirst 600ms infinite;
+				animation: myfirst 1000ms infinite;
 				@keyframes myfirst
 				{
 					0%   {opacity: 0.1}

@@ -6,12 +6,15 @@
 				手机号：{{ maskPhoneNumber(phoneNumber) }}
 			</view>
 			
-			<uni-easyinput v-model="code" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
+			<uni-easyinput v-model="verifyCode" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
 				<template #right>
-					<view class="send_btn flex_center">
+					<view class="send_btn flex_center" @click="toSendVerifyCode"  v-if="!isCounting">
 						发送验证码
 					</view>
-				</template>
+					<view class="countdown_time flex_center"  v-if="isCounting">
+						{{countdown}}s
+					</view>
+				</template><!--  -->
 			</uni-easyinput>
 			<view class="title">
 				密码：
@@ -29,32 +32,97 @@
 			</view>
 		</view>
 	</view>
-</template>
+</template>m
 
 <script setup>
 	import { ref } from 'vue';
 import { useUserStore } from '../../store/user';
+import { changeUserInfo, sendVerifyCode } from '../../service/uer_profile';
 	
 	import { onShow } from '@dcloudio/uni-app'
 	 const userStore= useUserStore()
 	const phoneNumber=ref()
 	const password=ref()
 	const ensure_password=ref()
-	const code=ref()
-	const enSure=()=>{
-		
+	const verifyCode=ref('')
+	let countdown = ref(120); // 初始倒计时秒数
+	let countdownInterval; // 定时器
+	let isCounting = ref(false); // 控制倒计时开关
+	const enSure=async()=>{
+		if(!password.value||!ensure_password.value||!verifyCode.value){
+			return uni.showToast({
+			icon:'none',
+			title:'请输入完整内容'
+		  })
+		}
+		if(password.value!==ensure_password.value){
+			return uni.showToast({
+			icon:'none',
+			title:'两次输入密码不一致'
+		  })
+		}
+		uni.showLoading({
+			title:'正在修改中'
+		})
+	  	changeUserInfo({
+		  phone_number:phoneNumber.value,
+		  password:password.value,
+		  verify_code:verifyCode.value
+		  
+	  }).then((res)=>{
+		  console.log('res',res);
+		  uni.hideLoading()
+		  uni.showToast({
+		  	icon:'success',
+			title:'修改成功'
+		  })
+		  uni.clearStorage()
+		  uni.navigateTo({
+		  	url:'/pages/login/login'
+		  })
+	  }).catch((err)=>{
+		  console.log('err',err);
+		  uni.hideLoading()
+		  uni.showToast({
+		  	title:`修改失败,${err.data.error}`
+		  })
+	  })
+	  
 	}
 	
    onShow(async()=>{
      phoneNumber.value=uni.getStorageSync('phoneNumber')
    })
 	
+	const toSendVerifyCode=async()=>{
+		startCountdown()
+		const result=await sendVerifyCode()
+		console.log(result);
+	}
 const  maskPhoneNumber=(phoneNumber)=>{
     if (phoneNumber.length === 11) {
         return phoneNumber.slice(0, 3) + '****' + phoneNumber.slice(-4);
     }
     return 'Invalid phone number';
 }
+
+const  startCountdown=()=> {
+    if (!isCounting.value) {
+        isCounting.value = true;
+        countdown.value = 120;
+        console.log(`倒计时开始: ${countdown.value}秒`);
+        countdownInterval = setInterval(() => {
+            countdown.value=countdown.value-1;
+    
+            if (countdown.value <= 0) {
+                clearInterval(countdownInterval);
+                isCounting.value = false;
+                console.log("倒计时结束");
+            }
+        }, 1000);
+    }
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -86,7 +154,14 @@ const  maskPhoneNumber=(phoneNumber)=>{
 		border-radius: 100px;
 		font-size: 21rpx;
 	}
-
+	.countdown_time{
+		padding: 18rpx 38rpx;
+		color:  #eee;
+		border: 2px solid  #eee;
+		border-radius: 100px;
+		font-size: 21rpx;
+		font-weight: 700;
+	}
 	.btn {
 		width: 100%;
 		height: 95rpx;

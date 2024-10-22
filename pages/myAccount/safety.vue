@@ -48,7 +48,6 @@ const toEditPayPassword=()=>{
 			&:last-child {
 				border-bottom: none;
 			}
-
 			.arrow_pic {
 				width: 12rpx;
 			}
