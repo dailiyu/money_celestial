@@ -13,7 +13,7 @@
 					<image src="@/static/lock-grey.png" mode="widthFix" class="m_pic"></image>
 				</template>
 			</uni-easyinput>
-			<view class="forget">
+			<view class="forget" @click="forgetPassword">
 				忘记密码
 			</view>
 			<view class="l_btn flex_center" @click="login">
@@ -38,7 +38,7 @@ import { useUserStore } from '../../store/user';
  const userStore=   useUserStore()
 const moblie = ref('')
 const password = ref('')
-
+const errorTimes=ref(0)
 const toRegister = ()=>{
 	uni.navigateTo({
 		url: '/pages/login/register'
@@ -66,6 +66,7 @@ const toRegister = ()=>{
 			icon:'success',
 			duration:1000
 		 })
+		 errorTimes.value=0
 		 setTimeout(()=>{
 			uni.navigateTo({
 				url: '/pages/index/index'
@@ -73,18 +74,26 @@ const toRegister = ()=>{
 		 },1000)
 	  }).catch((err)=>{
 		uni.hideLoading()
-		if(err?.data?.error){
-			uni.showToast({
-				duration:2000,
-						icon:'error',
-						title:"登录失败"
-			})
+		errorTimes.value=errorTimes.value+1
+		if(errorTimes.value>3){
+			return uni.showToast({
+			title:`您已多次输入错误的账号或密码，建议找回密码`
+		})
 		}
+		uni.showToast({
+			title:`登录失败,${err.data.error}`
+		})
+		 
 		 
 	  })
 	  
   }
 
+const forgetPassword=()=>{
+	uni.navigateTo({
+		url:'/pages/myAccount/forget_password'
+	})
+}
 
 </script>
 

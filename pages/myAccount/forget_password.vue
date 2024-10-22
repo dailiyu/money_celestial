@@ -3,8 +3,10 @@
 		<navBar title="修改登录密码" ></navBar>
 		<view class="content">
 			<view class="title">
-				手机号：{{ maskPhoneNumber(phoneNumber) }}
-			</view>
+							手机号：
+						</view>
+						<uni-easyinput v-model="phoneNumber" placeholder="请输入11位手机号" :inputBorder="false" primaryColor="#1B46CC"
+							type="password" />
 			
 			<uni-easyinput v-model="verifyCode" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
 				<template #right>
@@ -38,10 +40,9 @@
 	import { ref } from 'vue';
 import { useUserStore } from '../../store/user';
 import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer_profile';
-	
 	import { onShow } from '@dcloudio/uni-app'
 	 const userStore= useUserStore()
-	const phoneNumber=ref()
+	const phoneNumber=ref('')
 	const password=ref()
 	const ensure_password=ref()
 	const verifyCode=ref('')
@@ -49,11 +50,17 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
 	let countdownInterval; // 定时器
 	let isCounting = ref(false); // 控制倒计时开关
 	const enSure=async()=>{
-		if(!password.value||!ensure_password.value||!verifyCode.value){
+		if(!password.value||!ensure_password.value||!verifyCode.value||!phoneNumber.value){
 			return uni.showToast({
 			icon:'none',
 			title:'请输入完整内容'
 		  })
+		}
+		if(phoneNumber.value.length!==11){
+			return uni.showToast({
+				icon:'none',
+				title:'请输入11位合法的手机号'
+			})
 		}
 		if(password.value!==ensure_password.value){
 			return uni.showToast({
@@ -61,14 +68,19 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
 			title:'两次输入密码不一致'
 		  })
 		}
+			if(password.value.length<8){
+					return uni.showToast({
+					icon:'none',
+					title:'密码长度不低于8位'
+				  })
+				}
 		uni.showLoading({
 			title:'正在修改中'
 		})
 	  	changePassword(
-	phoneNumber.value,
-		  password.value,
-		 verifyCode.value
-		  
+		 phoneNumber.value,
+		 password.value,
+		verifyCode.value
 	  ).then((res)=>{
 		  console.log('res',res);
 		  uni.hideLoading()
@@ -91,7 +103,7 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
 	}
 	
    onShow(async()=>{
-     phoneNumber.value=uni.getStorageSync('phoneNumber')
+   
    })
 	
 	const toSendVerifyCode=async()=>{
@@ -105,12 +117,7 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
 		const result=await sendVerifyCode(phoneNumber.value)
 		console.log(result);
 	}
-const  maskPhoneNumber=(phoneNumber)=>{
-    if (phoneNumber.length === 11) {
-        return phoneNumber.slice(0, 3) + '****' + phoneNumber.slice(-4);
-    }
-    return 'Invalid phone number';
-}
+
 
 const  startCountdown=()=> {
     if (!isCounting.value) {

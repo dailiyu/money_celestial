@@ -29,12 +29,19 @@ export  const postProfileLogin=async (phone_number,password)=>{
 
 
 
-//发放验证码 修改密码与修改交易密码需要用到
-export  const sendVerifyCode=async ()=>{
-	return http.get(`/users/send-verify-code/`,{
-	})
+//修改密码
+export  const changePassword=async (phone_number,password,verify_code)=>{
+ return http.post(`/users/change-password`,{
+  phone_number,password,verify_code
+ })
 }
 
+//发放验证码 修改密码与修改交易密码需要用到
+export  const sendVerifyCode=async (phone_number)=>{
+ return http.post(`/users/send-verify-code/`,{
+  phone_number
+ })
+}
 
 
 

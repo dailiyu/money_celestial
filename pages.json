@@ -304,6 +304,14 @@
 					}
 		},
 		{
+					"path" : "pages/myAccount/forget_password",
+					"style" : 
+					{
+						"navigationBarTitleText" : "忘记密码",
+						"navigationStyle": "custom"
+					}
+		},
+		{
 			"path" : "pages/myAccount/my_point",
 			"style" : 
 			{
