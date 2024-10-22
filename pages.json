@@ -566,6 +566,14 @@
 				"navigationBarTitleText" : "积分兑换券",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/myAccount/point_code",
+			"style" : 
+			{
+				"navigationBarTitleText" : "积分码",
+				"navigationStyle": "custom"
+			}
 		}
 		
 	],

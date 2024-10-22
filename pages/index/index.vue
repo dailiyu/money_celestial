@@ -1,9 +1,6 @@
 <template>
 	<view class="page">
-		<view class="code-mask"  v-if="isMask" @click="hiddenMask">
-			   <img class="qrCode" v-if="qrCodeUrl" :src="qrCodeUrl" alt="QR Code" />
-		</view>
-		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity" @mask="dealMask"></navBarForIndex>
+		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity"></navBarForIndex>
 		<!-- <view class="search_bar flex_between">
 			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>
 			<view class="location">
@@ -177,22 +174,12 @@ const getCity = (e)=>{
 }
 const shopLists = ref({})
 
-const dealMask=(isOpen)=>{
-	isMask.value=isOpen
-}
 
 const hiddenMask=()=>{
 	isMask.value=false
 }
 
 
-// 生成二维码的函数
-const qrCodeUrl=ref()
-const generateQRCode = (url) => {
-	const phoneNumber=uni.getStorageSync('phoneNumber')
-  // 使用在线 API 生成二维码
-  qrCodeUrl.value = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(phoneNumber)}`;
-};
 
 const getShopLists = async()=>{
 	
@@ -311,22 +298,7 @@ const toDetail =async ()=>{
 .page {
 	min-height: 100%;
 	background-color: #FC5908;
-	.code-mask{
-		position: relative;
-		position:fixed;
-		width: 100vw;
-		height: 100vh;
-		z-index: 99;
-		background-color:rgba(0, 0,0,0.4);
-		.qrCode{
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%,-50%);
-			padding: 10rpx;
-			background-color: #fff;
-		}
-	}
+	
 }
 .search_bar {
 	padding: 0 26rpx 48rpx;

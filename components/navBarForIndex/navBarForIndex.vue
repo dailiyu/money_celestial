@@ -146,9 +146,12 @@ const scanCode = async () => {
 
 const change=(e)=> {
        if(e==1){
-		   emit('mask',true)
+		   // emit('mask',true)
+		   uni.navigateTo({
+		   	url: '/pages/myAccount/point_code'
+		   })
 	   }else{
-		    emit('mask',false)
+		    // emit('mask',false)
 			scanCode()
 	   }
       }
