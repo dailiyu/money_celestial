@@ -280,6 +280,22 @@
 			}
 		},
 		{
+			"path" : "pages/myAccount/safety",
+			"style" : 
+			{
+				"navigationBarTitleText" : "密码与安全",
+				"navigationStyle": "custom"
+			}
+		},
+			{
+					"path" : "pages/myAccount/points_redemption_voucher",
+					"style" : 
+					{
+						"navigationBarTitleText" : "积分兑换券",
+						"navigationStyle": "custom"
+					}
+				},
+		{
 			"path" : "pages/myAccount/my_point",
 			"style" : 
 			{
