@@ -13,9 +13,17 @@
 				<!-- <view class="name" v-if="user">
 					点击登录
 				</view> -->
-				<view class="name">
-					{{user_name||'default'}}
+				<view class="userInfo_box">
+					<view class="name">
+						{{user_name||'default'}}
+					</view>
+					<div class="phone_box">
+						<image class="img" src="@/static/my/phone.jpg"></image>
+						<view class="number">{{formatPhoneNumber(phoneNumber)}}</view>
+					</div>
+					
 				</view>
+				
 				<view class="logout"  @click="logout">
 					退出登录
 				</view>
@@ -139,13 +147,14 @@ import { useUserStore } from '../../store/user'
 import { obscureString } from '@/utils';
 import { onShow } from '@dcloudio/uni-app'; 
 const  userStore = useUserStore()
-
+const phoneNumber=ref('')
 const accessToken = uni.getStorageSync('accessToken')
 
 const ionc_url=ref()
 const user_name=ref()
 
 onShow(() => {
+	phoneNumber.value=uni.getStorageSync('phoneNumber')
 	ionc_url.value= uni.getStorageSync('userInfo').icon
 	user_name.value=uni.getStorageSync('userInfo').name
 	if (accessToken) {
@@ -237,6 +246,13 @@ const toAboutUs = ()=>{
 		url: '/pages/myAccount/about_us'
 	})
 }
+
+const formatPhoneNumber=(phoneNumber)=>{
+    if (phoneNumber.length === 11) {
+        return `${phoneNumber.slice(0, 3)} ${phoneNumber.slice(3, 7)} ${phoneNumber.slice(7)}`;
+    }
+    return 'Invalid phone number';
+}
 </script>
 
 <style lang="scss">
@@ -279,13 +295,34 @@ const toAboutUs = ()=>{
 						height: 100%;
 					}
 				}
-
-				.name {
-					font-family: HarmonyOS_Sans_SC_Bold;
-					font-size: 30rpx;
-					color: #FFFFFF;
+				
+				.userInfo_box{
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
 					width: 340rpx;
-				}       
+					height: 90rpx;
+					.name {
+						font-family: HarmonyOS_Sans_SC_Bold;
+						font-size: 30rpx;
+						color: #FFFFFF;
+					} 
+					.phone_box{
+						display: flex;
+						justify-content: start;
+						align-items: center;
+						.img{
+							width: 30rpx;
+							height: 30rpx;
+							margin-right: 7rpx;
+						}
+						.number{
+							color: #FFFFFF;
+						}
+					}
+					
+				}
+				      
 				.logout{
 					margin-right: 20rpx;
 					// color: #54b1fd;

@@ -69,6 +69,7 @@ const change = (code) => {
 			title:'请输入验证码'
 		  })
 		}
+		
 		uni.showLoading({
 			title:'正在修改中'
 		})
@@ -85,6 +86,7 @@ const change = (code) => {
 			title:'修改成功'
 		  })
 		await userStore.fetchAllDataAction()
+		uni.navigateBack()
 	  }).catch((err)=>{
 		  console.log('err',err);
 		  uni.hideLoading()
@@ -102,8 +104,14 @@ onShow(async()=>{
    })
 	
 	const toSendVerifyCode=async()=>{
+		if(phoneNumber.value.length!==11){
+			return uni.showToast({
+				icon:'none',
+				title:'请输入正确的手机号码'
+			})
+		}
 		startCountdown()
-		const result=await sendVerifyCode()
+		const result=await sendVerifyCode(phoneNumber.value)
 		console.log(result);
 	}
 	const  maskPhoneNumber=(phoneNumber)=>{
