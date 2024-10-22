@@ -67,7 +67,7 @@
 				保存信息
 			</view>
 		</view>
-		
+
 		<uni-calendar 
 			ref="calendar"
 			:insert="false"
