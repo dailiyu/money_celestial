@@ -120,17 +120,16 @@ const scanCode = async () => {
   uni.scanCode({
     onlyFromCamera: true, // 只允许从摄像头扫码
     success: async (res) => {
-      if (res.result) { // 判断是否有有效的扫描结果
-        console.log('扫码结果: ', res.result);
+      const scanResult = res.result.trim();
+      // 验证是否为有效的11位手机号码
+      if (/^\d{11}$/.test(scanResult)) {
+        console.log('扫码结果: ', scanResult);
         uni.navigateTo({
-          url: '/pages/merchant/point_gift?phone=' + res.result
+          url: '/pages/merchant/point_gift?phone=' + scanResult
         });
       } else {
-        console.warn('未扫描到有效的二维码');
-        uni.showToast({
-          title: '未扫描到有效的二维码',
-          icon: 'none'
-        });
+        // 如果扫码结果无效，继续等待用户重新扫码，不做任何其他操作
+        console.warn('未扫描到有效的11位手机号码');
       }
     },
     fail: (err) => {
@@ -142,6 +141,8 @@ const scanCode = async () => {
     }
   });
 };
+
+
 
 
 const change=(e)=> {

@@ -71,12 +71,12 @@
 								密码与安全
 							</view>
 					</view>
-					<view class="service_item" @click="toPointsRedemptionVoucher">
+				<!-- 	<view class="service_item" @click="toPointsRedemptionVoucher">
 							<image src="@/static/my/exchange_voucher.jpg" mode="widthFix" class="service_pic"></image>
 							<view class="">
 								积分兑换券
 							</view>
-					</view>
+					</view> -->
 				<!-- 	<view class="service_item">
 						<image src="@/static/my/collect.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
@@ -317,6 +317,7 @@ const formatPhoneNumber=(phoneNumber)=>{
 							margin-right: 7rpx;
 						}
 						.number{
+							font-size: 22rpx;
 							color: #FFFFFF;
 						}
 					}
