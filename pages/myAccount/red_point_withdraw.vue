@@ -16,7 +16,7 @@
 					<view class="s_title">
 						提取数量
 					</view>
-					<input v-model="number" type="decimal" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" @input="inputNumber" />
+					<input v-model="number" type="digit" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" @input="inputNumber" />
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">

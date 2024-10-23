@@ -34,7 +34,7 @@ import { onMounted, ref } from 'vue';
 import { getAgentShopList, getCityMerchantAmount } from '@/service/agent.js'
 import { getShopCategories } from '@/service/shop.js'
 import { calculateDistances } from "@/utils/distanceSorting.js"
-
+import { onLoad } from '@dcloudio/uni-app';
 
 
 const toSettle = ()=>{
@@ -46,11 +46,8 @@ const toSettle = ()=>{
 
 const range = ref({})
 const cityName = ref()
-onMounted(async()=>{
-	let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-	// let curRoute = routes[routes.length - 1].route; //获取当前页面路由
-	let curParam = routes[routes.length - 1].options;
-	cityName.value = curParam.cityName
+onLoad(async(options)=>{
+	cityName.value = options.cityName
 	getShopList()
 	// 类目
 	const {results} = await getShopCategories()
@@ -61,7 +58,6 @@ onMounted(async()=>{
 			disable: false
 		}
 	})
-	
 })
 
 const time = ref('created_at')

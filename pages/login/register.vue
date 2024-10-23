@@ -82,7 +82,7 @@ const toRegister = async() => {
   } else {
     uni.showToast({
       duration: 2000,
-      icon: 'fail',
+      icon: 'none',
       title: "密码不一致"
     });
   }
