@@ -77,10 +77,12 @@ const toRegister = ()=>{
 		errorTimes.value=errorTimes.value+1
 		if(errorTimes.value>3){
 			return uni.showToast({
+			icon:"none",
 			title:`您已多次输入错误的账号或密码，建议找回密码`
 		})
 		}
 		uni.showToast({
+			icon:"none",
 			title:`登录失败,${err.data.error}`
 		})
 		 

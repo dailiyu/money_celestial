@@ -180,15 +180,13 @@ const toScanCode = () => {
   uni.scanCode({
     onlyFromCamera: true, // 只允许从摄像头扫码
     success: async (res) => {
-      if (res.result) { // 判断是否有有效的扫描结果
-        console.log('扫码结果: ', res.result);
-        address.value = res.result;
+      const scanResult = res.result.trim();
+      if (scanResult) { // 判断是否有有效的扫描结果
+        console.log('扫码结果: ', scanResult);
+        address.value = scanResult;
       } else {
+        // 不执行其他操作，保持扫码状态
         console.warn('未扫描到有效的二维码');
-        uni.showToast({
-          title: '未扫描到有效的二维码',
-          icon: 'none'
-        });
       }
     },
     fail: (err) => {
@@ -200,7 +198,6 @@ const toScanCode = () => {
     }
   });
 };
-
 
 </script>
 

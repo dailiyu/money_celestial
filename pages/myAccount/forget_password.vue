@@ -6,7 +6,7 @@
 							手机号：
 						</view>
 						<uni-easyinput v-model="phoneNumber" placeholder="请输入11位手机号" :inputBorder="false" primaryColor="#1B46CC"
-							type="password" />
+							/>
 			
 			<uni-easyinput v-model="verifyCode" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
 				<template #right>
