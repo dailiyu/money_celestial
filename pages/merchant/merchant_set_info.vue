@@ -141,7 +141,7 @@ const onChange = (e) => {
 	const isChecked = ref(false)
 	const changeCheck = () => {
 		isChecked.value = !isChecked.value
-		console.log(isChecked.value);
+		// console.log(isChecked.value);
 	}
 
 	const changeRange = (e) => {

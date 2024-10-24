@@ -14,7 +14,7 @@
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						提取数量
+						到账数量
 					</view>
 					<input v-model="number" type="number" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" />
 				</view>
@@ -28,10 +28,10 @@
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
-						到账数量
+						提取数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number?number-(number*3/100):0}}
+						{{number?Number(number)+Number(number)*3/100:''}}
 					</view>
 				</view>
 			</view>
@@ -90,7 +90,7 @@ const validPassword = ()=>{
 		icon:'none',
 		title: '提取数量必须是100的倍数'
 	})
-	if (number.value > pointBalance.value) return uni.showToast({
+	if (Number(number.value)+Number(number.value)*3/100 > pointBalance.value) return uni.showToast({
 		icon: 'none',
 		title: '提取数量不可大于积分余额',
 		duration: 3000
@@ -104,7 +104,7 @@ const confirm = async()=>{
 		uni.showLoading({
 			title: '提取中'
 		})
-		await withdrawGreenPoint({transaction_amount:number.value, point_account:account.value, transaction_type:'decrease', transaction_method: 'green_points'})
+		await withdrawGreenPoint({transaction_amount:Number(number.value)+Number(number.value)*3/100, point_account:account.value, transaction_type:'decrease', transaction_method: 'green_points'})
 		// getPointInfo()
 		uni.hideLoading()
 		uni.showToast({

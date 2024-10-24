@@ -304,13 +304,14 @@ const formatPhoneNumber=(phoneNumber)=>{
 					height: 90rpx;
 					.name {
 						font-family: HarmonyOS_Sans_SC_Bold;
-						font-size: 30rpx;
+						font-size: 36rpx;
 						color: #FFFFFF;
 					} 
 					.phone_box{
 						display: flex;
 						justify-content: start;
 						align-items: center;
+						margin-left: -2rpx;
 						.img{
 							width: 30rpx;
 							height: 30rpx;

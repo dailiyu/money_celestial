@@ -347,10 +347,6 @@ const clickRight = () => {
 		align-items: center;
 		justify-content: center;
 	}
-	:deep(.uni-stat__actived ){
-		
-		width: 120rpx;
-	}
 	:deep(.uni-select__input-box){
 		// margin-right: 10rpx;
 		// margin-bottom: 5rpx;
