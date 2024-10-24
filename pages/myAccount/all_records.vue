@@ -25,13 +25,7 @@
 				<view style="color: #fd8c31;" v-if="item.transaction_type == 'decrease'">-{{item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view v-if="item.transaction_method=='red_points'">可用积分</view>
-				<view v-else-if="item.transaction_method=='merchant_bonus'">商家保证金</view>
-				<view v-else-if="item.transaction_method=='agent_bonus'">代理保证金</view>
-				<view v-else-if="item.transaction_method=='green_points'">我的积分</view>
-				<view v-else-if="item.transaction_method=='gift_green_points'">我的积分赠送</view>
-				<view v-else-if="item.transaction_method=='gift_green_points_bonus'">我的积分</view>
-				<view v-else>--</view>
+				<view>{{transformTypeFilter(item)}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
@@ -44,7 +38,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getAllRecords } from '@/service/point.js'
-import { convertTime, obscureString } from '@/utils/index.js'
+import { convertTime, obscureString,transformTypeFilter } from '@/utils/index.js'
 
 
 onMounted(()=>{

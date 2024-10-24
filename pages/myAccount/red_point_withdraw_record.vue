@@ -6,7 +6,7 @@
 				<view class="title">序号</view>
 			</uni-col>
 			<uni-col :span="5">
-				<view class="title">地址</view>
+				<view class="title">积分类型</view>
 			</uni-col>
 			<uni-col :span="4">
 				<view class="title">数量</view>
@@ -21,13 +21,12 @@
 				<view class="title">时间</view>
 			</uni-col>
 		</uni-row>
-		<template v-for="(item, index) in recordList" :key="item.id">
-		<uni-row v-if="(item.transaction_method=='gift_green_points'&&item.transaction_type=='decrease')||item.transaction_method=='red_points'">
+		<uni-row v-for="(item, index) in recordList" :key="item.id">
 			<uni-col :span="2">
 				<view>{{index+1}}</view>
 			</uni-col>
 			<uni-col :span="5">
-				<view>{{obscureString(item.from_address||'--')}}</view>
+				<view>{{ transformTypeFilter(item)}}</view>
 			</uni-col>
 			<uni-col :span="4">
 				<view>{{item.transaction_type=='decrease'?'-':' '}}{{item.transaction_amount}}</view>
@@ -42,7 +41,6 @@
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
-		</template>
 		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
 	</view>
 </template>
@@ -50,7 +48,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getAllRecords } from '@/service/point.js'
-import { convertTime, obscureString } from '@/utils/index.js'
+import { convertTime, obscureString, transformTypeFilter } from '@/utils/index.js'
 
 onMounted(()=>{
 	getRecordList()
@@ -71,7 +69,11 @@ const getRecordList = async()=>{
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value = [...results]
+	
+	recordList.value = results.filter((item)=>{
+		return (item.transaction_method=='gift_green_points'&&item.transaction_type=='decrease')||
+		item.transaction_method=='red_points'
+	})
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {
@@ -79,6 +81,7 @@ const loadMore = ()=>{
 		getRecordList()
 	}
 }
+
 </script>
 
 <style lang="scss" scoped>

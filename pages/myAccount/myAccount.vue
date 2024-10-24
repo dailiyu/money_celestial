@@ -135,7 +135,10 @@
 					</view>
 				</view>
 			</view> -->
-
+			
+		</view>
+		<view class="vesion">
+			满仓 V{{version}}
 		</view>
 	</view>
 </template>
@@ -152,6 +155,10 @@ const accessToken = uni.getStorageSync('accessToken')
 
 const ionc_url=ref()
 const user_name=ref()
+const version = ref('');
+
+
+
 
 onShow(() => {
 	phoneNumber.value=uni.getStorageSync('phoneNumber')
@@ -160,6 +167,10 @@ onShow(() => {
 	if (accessToken) {
 		getPointInfo()
 	}
+	
+	// #ifdef APP-PLUS
+	version.value = plus.runtime.version
+	// #endif
 });
 
 // onMounted(()=>{
@@ -414,7 +425,12 @@ const formatPhoneNumber=(phoneNumber)=>{
 					}
 				}
 			}
+			
 		}
-
+		.vesion {
+			font-size: 24rpx;
+			color: #ccc;
+			text-align: center;
+		}
 	}
 </style>

@@ -106,7 +106,7 @@ const submit = async()=>{
 		border-radius: 100px;
 		margin-bottom: 50rpx;
 		font-size: 24rpx;
-		color: #b0b0b0;
+		color: #333;
 		padding-left: 54rpx;
 	}
 	:deep(.uni-input-placeholder) {

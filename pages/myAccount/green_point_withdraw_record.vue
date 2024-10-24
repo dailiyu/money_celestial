@@ -6,7 +6,7 @@
 				<view class="title">序号</view>
 			</uni-col>
 			<uni-col :span="5">
-				<view class="title">地址</view>
+				<view class="title">积分类型</view>
 			</uni-col>
 			<uni-col :span="4">
 				<view class="title">数量</view>
@@ -22,32 +22,30 @@
 			</uni-col>
 		</uni-row>
 		
-		<template v-for="(item, index) in recordList" :key="item.id">
-			<uni-row   v-if="item.transaction_method=='green_points'||item.transaction_method=='gift_green_points_bonus'||(item.transaction_method=='gift_green_points'&&item.transaction_type=='increase')">
-				
-				<uni-col :span="2">
-					<view>{{index+1}}</view>
-				</uni-col>
-				<uni-col :span="5">
-					<view>{{obscureString(item.from_address||'--')}}</view>
-				</uni-col>
-				<uni-col :span="4">
-					<view>{{item.transaction_amount}}</view>
-				</uni-col>
-				<uni-col :span="3" v-if="item.transaction_method=='gift_green_points'">
-					<view>--</view>
-				</uni-col>
-				<uni-col :span="3" v-else>
-					<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
-				</uni-col>
-				<uni-col :span="4">
-					<view>{{item.real_amount||item.transaction_amount}}</view>
-				</uni-col>
-				<uni-col :span="6">
-					<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
-				</uni-col>
-			</uni-row>
-		</template>
+		<uni-row v-for="(item, index) in recordList" :key="item.id">
+			
+			<uni-col :span="2">
+				<view>{{index+1}}</view>
+			</uni-col>
+			<uni-col :span="5">
+				<view>{{ transformTypeFilter(item)}}</view>
+			</uni-col>
+			<uni-col :span="4">
+				<view>{{item.transaction_amount}}</view>
+			</uni-col>
+			<uni-col :span="3" v-if="item.transaction_method=='gift_green_points'">
+				<view>--</view>
+			</uni-col>
+			<uni-col :span="3" v-else>
+				<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
+			</uni-col>
+			<uni-col :span="4">
+				<view>{{item.real_amount||item.transaction_amount}}</view>
+			</uni-col>
+			<uni-col :span="6">
+				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
+			</uni-col>
+		</uni-row>
 		
 		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
 	</view>
@@ -57,7 +55,7 @@
 import { onMounted, ref } from 'vue';
 import { getAllRecords } from '@/service/point.js'
 import { getPointsRecords } from '@/service/point';
-import { convertTime, obscureString } from '@/utils/index.js'
+import { convertTime, obscureString, transformTypeFilter } from '@/utils/index.js'
 
 onMounted(()=>{
 	getRecordList()
@@ -76,7 +74,10 @@ const getRecordList = async()=>{
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value = [...results]
+	// recordList.value = [...results]
+	recordList.value = results.filter((item)=>{
+		return item.transaction_method=='green_points'||item.transaction_method=='gift_green_points_bonus'||(item.transaction_method=='gift_green_points'&&item.transaction_type=='increase')||item.transaction_method=='every_green_bonus'
+	})
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {

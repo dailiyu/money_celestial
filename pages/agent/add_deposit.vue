@@ -15,11 +15,11 @@
 					<view class="s_title">
 						增加金额
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入金额" placeholder-class="placeholder_class" />
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入金额" placeholder-class="placeholder_class" disabled />
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_text">
-						保证金余额
+						可用积分余额
 					</view>
 					<view class="s_num">
 						{{amount}}
@@ -41,18 +41,22 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { addAgentDeposit, getAgentDeposit } from '@/service/agent';
+import { getAllPoint } from '@/service/point';
+import { onLoad } from '@dcloudio/uni-app'
 const address = ref('')
 
 
 
-
+onLoad((options)=>{
+	number.value = options.addAmount
+})
 onMounted(()=>{
 	getAmount()
 })
 const amount = ref(0)
 const getAmount = async()=>{
-	const res = await getAgentDeposit()
-	amount.value = res.amount
+	const {red_points} = await getAllPoint()
+	amount.value = red_points
 }
 const scan = ()=>{
 	uni.scanCode({
@@ -72,9 +76,13 @@ const confirm = async ()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	if (!number.value) return uni.showToast({
+	// if (!number.value) return uni.showToast({
+	// 	icon: 'none',
+	// 	title: '请输入金额'
+	// })
+	if (amount.value < number.value) return uni.showToast({
 		icon: 'none',
-		title: '请输入金额'
+		title: '可用积分余额不足，请充值'
 	})
 	try{
 		uni.showLoading({
