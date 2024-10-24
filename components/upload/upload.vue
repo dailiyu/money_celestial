@@ -14,8 +14,8 @@
 	  			x
 	  		</view>
 	  	</view>
-	
-		<image src="@/static/upload.png"   mode="widthFix" class="upload_btn" @click="chooseImg"></image>
+
+		<image src="@/static/upload.png"  v-if="uploadSuccessfulPaths?.length<=props.amount"  mode="widthFix" class="upload_btn" @click="chooseImg"></image>
   </view>
 </template>
 
