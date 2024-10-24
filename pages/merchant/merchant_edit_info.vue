@@ -31,11 +31,13 @@
 							获取验证码
 						</view>
 					</view> -->
-					<view class="info_item flex_between" style="flex: 1;" >
+					<view class="info_item flex_between" style="flex: 1;"  @click="forbiddenTips">
 						<view class="title" style="margin-right: 45rpx;">
 							常居地
 						</view>
-							<uni-data-picker v-model="curData"
+							<uni-data-picker
+												readonly
+							                   v-model="curData"
 										      :localdata="cityData"
 											  :clear-icon='false'
 										      mode="region"
@@ -66,7 +68,7 @@
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload  amount="1" :imgUrls="avatarImages"  @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
+				<upload  amount="1"   :imgWidth="500" :imgHeight="500" :imgUrls="avatarImages"  @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
@@ -77,7 +79,7 @@
 						已选择{{successBannerImgPaths.length}}张
 					</view>
 				</view>
-				<upload amount="6"  :imgUrls="bannerImages"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
+				<upload amount="6"  :imgWidth="750" :imgHeight="418" :imgUrls="bannerImages"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
@@ -197,14 +199,14 @@ const cityData = ref(cityDataJson)
 // 当选择器值变化时，处理选中的省和市
 const onChange = (e) => {
   const selected = e.detail.value
-  const province = cityData.value.find(item => item.value === selected[0])
-  const city = province?.children?.find(item => item.value === selected[1])
+  const province = cityData.value.find(item => item.value === selected[0].value)
+  const city = province?.children?.find(item => item.value === selected[1].value)
 	console.log('选择的城市',curData.value);
   // 保存选择的省市名
-   selectedProvince.value =province 
-   selectedCity.value = city 
+   selectedProvince.value =province.text 
+   selectedCity.value = city.text
   // 保存选中的省市值
-  console.log( selectedProvince.value,selectedCity.value);
+  console.log(selected[0].text,province, city,selectedProvince.value,selectedCity.value);
 }
 
 
@@ -320,7 +322,6 @@ const range = computed(() => {
 			!shopName.value ||
 			!address.value ||
 			!shopIntro.value ||
-			!selectedCity.value||
 			!businessRange.value||
 			successProfileImgPaths.value.length === 0||
 			successBannerImgPaths.value.length===0
@@ -339,7 +340,7 @@ const range = computed(() => {
 			 await associatedDetailImg()
 			  await associatedBannerImg()
 		
-			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value})
+			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value})
 
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value]
 			console.log('图片列表参数',params);
@@ -367,10 +368,16 @@ const range = computed(() => {
 			})
 			//TODO handle the exception
 		}
-
-
-
 	}
+	
+	const forbiddenTips=()=>{
+		uni.showToast({
+			icon:'none',
+			title:'店铺常居地不允许修改'
+		})
+	}
+	
+	
 </script>
 <style lang="scss" scoped>
 .head_box {
