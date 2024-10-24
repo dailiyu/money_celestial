@@ -22,7 +22,7 @@
 						第一张请上传门面照片
 					</view>
 				</view>
-				<upload amount="1"  :imgWidth="750" :imgHeight="418"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
+				<upload amount="6"  :imgWidth="750" :imgHeight="418"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
