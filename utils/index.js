@@ -65,3 +65,42 @@ export const obscureString = (input)=>{
     
     return obscured;
 }  
+
+export const transformTypeFilter = (item)=>{
+	if(item.transaction_method=='gift_green_points'){
+		return '商家赠送'
+	}
+	if(item.transaction_method=='gift_green_points_bonus'){
+		return '推荐奖励'
+	}
+	if(item.transaction_method=='green_points'){
+		if(item.transaction_type=='increase'){
+			return '充值'
+		}
+		else{
+			return '提取'
+		}
+		
+	}
+	if(item.transaction_method=='red_points'){
+		if(item.transaction_type=='increase'){
+			return '充值'
+		}
+		else{
+			return '提取'
+		}
+	}
+	if(item.transaction_method=='agent_bonus'){
+		return '代理增加保证金'
+	}
+	if(item.transaction_method=='merchant_bonus'){
+		return '商家增加保证金'
+	}
+	if(item.transaction_method=='every_red_bonus'){
+		return '释放'
+	}
+	if(item.transaction_method=='every_green_bonus'){
+		return '消耗'
+	}
+	return '--'
+}

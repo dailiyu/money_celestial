@@ -16,10 +16,10 @@
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 			</view>
-			<view class="btns flex_between">
-				<view class="add_btn flex_center" @click="toAdd">
+			<view class="btns flex_center">
+				<!-- <view class="add_btn flex_center" @click="toAdd">
 					增加保证金
-				</view>
+				</view> -->
 				<view class="cancel_btn flex_center" @click="toRemove">
 					解冻保证金
 				</view>

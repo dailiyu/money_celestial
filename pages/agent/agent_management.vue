@@ -3,7 +3,7 @@
 		<navBar title="代理后台" ></navBar>
 		<!-- <image src="@/static/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image> -->
 		<!-- 已激活 -->
-		<view class="content" v-if="margin_require<depositAmount||margin_require==depositAmount">
+		<view class="content" v-if="margin_require&&(margin_require<depositAmount||margin_require==depositAmount)">
 			<view class="total_data">
 				
 				<view class="data_item">
@@ -73,12 +73,20 @@
 					</view>
 					<view class="state flex" style="margin-top: 40rpx;">
 						<view class="sub_title">
-							需增加保证金：
+							共需要保证金：
+						</view>
+						<view class="deposit_num">
+							{{margin_require}}
+						</view>
+					</view>
+					<!-- <view class="state flex" style="margin-top: 40rpx;">
+						<view class="sub_title">
+							还需增加保证金：
 						</view>
 						<view class="deposit_num">
 							{{margin_require-depositAmount}}
 						</view>
-					</view>
+					</view> -->
 				</view>
 				
 			</view>
@@ -161,7 +169,7 @@ const toSecurityDeposit = ()=>{
 }
 const toAddDeposit = ()=>{
 	uni.navigateTo({
-		url: '/pages/agent/add_deposit'
+		url: '/pages/agent/add_deposit?addAmount='+(margin_require.value-depositAmount.value)
 	})
 }
 </script>

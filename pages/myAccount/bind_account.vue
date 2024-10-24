@@ -52,6 +52,10 @@ const confirm = async ()=>{
 		icon:'none',
 		title: '请输入绑定账号'
 	})
+	if (!number.value.length !== 49) return uni.showToast({
+		icon:'none',
+		title: '账号格式有误'
+	})
 	try{
 		uni.showLoading({
 			title: '绑定中'
