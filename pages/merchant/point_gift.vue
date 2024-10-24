@@ -187,6 +187,10 @@ const toScanCode = () => {
       } else {
         // 不执行其他操作，保持扫码状态
         console.warn('未扫描到有效的二维码');
+		uni.showToast({
+			icon:'none',
+			title:'无效二维码，请重新扫码'
+		})
       }
     },
     fail: (err) => {

@@ -143,11 +143,13 @@ const isMask=ref(false)
 const keyword = ref('')
 const publicStore=  usePublicStore()
 const userStore = useUserStore()
-const userInfo = uni.getStorageSync('userInfo')
-
+const userInfo = ref()
+const shopInfo=ref()
 onShow(async()=>{
 	await userStore.fetchAllDataAction()
-	// await publicStore.fetchAllDataAction()
+	await publicStore.fetchAllDataAction()
+	userInfo.value=await  uni.getStorageSync('userInfo')
+	shopInfo.value=await uni.getStorageSync('shopInfo')
 })
 
 onMounted(async()=>{
@@ -205,33 +207,32 @@ const toSettle = ()=>{
 const toMerchant =async () => {
 	
 	const phoneNumber= uni.getStorageSync('phoneNumber')
-	const userData=uni.getStorageSync('userInfo')
-	const  shopData=uni.getStorageSync('shopInfo')
+	console.log(userInfo.value?.is_seller,shopInfo.value.state);
 
-	console.log('进入商家前的用户信息',userData);
-	console.log('进入商家前的店铺信息',shopData);
+	console.log('进入商家前的用户信息',userInfo.value);
+	console.log('进入商家前的店铺信息',shopInfo.value);
 	//0 正在审核 1审核通过  -1审核不通过 
-    if (userData?.is_seller&&shopData.state==1) {
+    if (userInfo.value?.is_seller&&shopInfo.value.state==1) {
         // 店铺已过审核
         uni.navigateTo({
             url: '/pages/merchant/merchant_management'
         });
-    } else if(!userData?.is_seller) {
+    } else if(!userInfo.value?.is_seller) {
         //还没成为商家
         uni.navigateTo({
             url: '/pages/merchant/merchant_intro'
         });
-    } else if(userData?.is_seller&&!userData.is_shop){
+    } else if(userInfo.value?.is_seller&&!userInfo.value?.is_shop){
 		//是商家 首次开通店铺
 		uni.navigateTo({
 			url:'/pages/merchant/before_create_shop'
 		})
-	}else if(userData?.is_seller&&shopData.state==-1){
+	}else if(userInfo.value?.is_seller&&shopInfo.value.state==-1){
 		//是商家 审核不通过
 		uni.navigateTo({
 			url:'/pages/merchant/fail_create_shop'
 		})
-	}else if(userData?.is_seller&&shopData?.state==0){
+	}else if(userInfo.value?.is_seller&&shopInfo.value?.state==0){
 		//正在审核
 		uni.navigateTo({
 			url:'/pages/merchant/before_create_merchant'

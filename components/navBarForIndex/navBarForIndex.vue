@@ -19,6 +19,7 @@
       <view class="name">{{ title }}</view>
 	  <view class="select-box">
 		  <uni-data-select
+		  v-if="userStore.shopInfo.state==1"
 		         v-model="selectItem"
 		         :localdata="candidates"
 		         @change="change"
@@ -27,7 +28,16 @@
 		  			 class="select"
 					 :isCustom="true"
 		       ></uni-data-select>
-			 
+			 <uni-data-select
+					v-else
+			        v-model="selectItem"
+			        :localdata="candidate_noScan"
+			        @change="change"
+			 			 placeholder="+"
+			 			 :clear='false'
+			 			 class="select"
+			 					 :isCustom="true"
+			      ></uni-data-select>
 	  </view>
 	  
 
@@ -45,6 +55,9 @@ import { useUserStore } from '../../store/user';
 const emit = defineEmits(['clickRight','changeCity','mask']);
 const candidates=ref([
           { value: 0, text: "扫一扫" },
+          { value: 1, text: "接收码" },
+        ])
+const candidate_noScan=ref([
           { value: 1, text: "接收码" },
         ])
 
@@ -130,6 +143,10 @@ const scanCode = async () => {
       } else {
         // 如果扫码结果无效，继续等待用户重新扫码，不做任何其他操作
         console.warn('未扫描到有效的11位手机号码');
+		uni.showToast({
+			icon:'none',
+			title:'无效二维码，请重新扫码'
+		})
       }
     },
     fail: (err) => {

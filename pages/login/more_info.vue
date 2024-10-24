@@ -137,6 +137,10 @@ const chooseImg = async () => {
   // 选择图片
   uni.chooseImage({
     count: 1, // 限制用户只能选择一张图片
+	crop:{
+		width:500,
+		height:500
+	},
     success:async (res) => {
       const tempFilePaths = res.tempFilePaths;
       // 将选择的图片路径赋值给 imagePath 用于页面显示

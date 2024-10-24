@@ -2,7 +2,62 @@
 	<view>
 		<navBar title="店铺信息编辑"></navBar>
 		<view class="content">
+			<view class="shop_info">
+					<view class="info_item flex_between">
+						<view class="s_title">
+							店铺名称
+						</view>
+						<input v-model="shopName" class="uni-input" placeholder="请输入商家名称" placeholder-class="placeholder_class" />
+					</view>
+					<view class="info_item flex_between">
+						<view class="s_title">
+							经营范围
+						</view>
+						<!-- <input v-model="businessRange" class="uni-input" placeholder="请输入商家经营的产品或业务" placeholder-class="placeholder_class" /> -->
+						<uni-data-select
+							v-model="businessRange"
+							:localdata="range"
+							placeholder="请选择"
+							:clear="false"
+							@change="changeRange"
+						></uni-data-select>
+					</view>
+					<!-- <view class="info_item flex_between">
+						<view class="s_title">
+							手机验证
+						</view>
+						<input v-model="code" class="uni-input" placeholder="请输入验证码" placeholder-class="placeholder_class" />
+						<view class="validate_code">
+							获取验证码
+						</view>
+					</view> -->
+					<view class="info_item flex_between" style="flex: 1;" >
+						<view class="title" style="margin-right: 45rpx;">
+							常居地
+						</view>
+							<uni-data-picker v-model="curData"
+										      :localdata="cityData"
+											  :clear-icon='false'
+										      mode="region"
+										      @change="onChange"
+										      title="请选择省市"
+										    ></uni-data-picker>
+					</view>
+					<view class="info_item flex_between">
+						<view class="s_title">
+							具体位置
+						</view>
+						<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
+						<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
+					</view>
+				</view >
+			<!-- 	<view class="radio" @click="changeCheck">
+					<radio value="r1" :checked="isChecked" color="#FC5908" />
+					<text class="read">我已阅读并同意</text>
+					<text class="c_title">《商家入驻须知》</text>
+				</view> -->
 			<view class="head_box flex_between" style="align-items: flex-start;">
+				
 				<view class="">
 					<view class="h_title">
 						店铺头像
@@ -41,60 +96,7 @@
 				</view>
 				<upload amount="6"  :imgUrls="detailImages"    @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload>
 			</view>
-			<view class="shop_info">
-				<view class="info_item flex_between">
-					<view class="s_title">
-						店铺名称
-					</view>
-					<input v-model="shopName" class="uni-input" placeholder="请输入商家名称" placeholder-class="placeholder_class" />
-				</view>
-				<view class="info_item flex_between">
-					<view class="s_title">
-						经营范围
-					</view>
-					<!-- <input v-model="businessRange" class="uni-input" placeholder="请输入商家经营的产品或业务" placeholder-class="placeholder_class" /> -->
-					<uni-data-select
-						v-model="businessRange"
-						:localdata="range"
-						placeholder="请选择"
-						:clear="false"
-						@change="changeRange"
-					></uni-data-select>
-				</view>
-				<!-- <view class="info_item flex_between">
-					<view class="s_title">
-						手机验证
-					</view>
-					<input v-model="code" class="uni-input" placeholder="请输入验证码" placeholder-class="placeholder_class" />
-					<view class="validate_code">
-						获取验证码
-					</view>
-				</view> -->
-				<view class="info_item flex_between" style="flex: 1;" >
-					<view class="title" style="margin-right: 45rpx;">
-						常居地
-					</view>
-						<uni-data-picker v-model="curData"
-									      :localdata="cityData"
-										  :clear-icon='false'
-									      mode="region"
-									      @change="onChange"
-									      title="请选择省市"
-									    ></uni-data-picker>
-				</view>
-				<view class="info_item flex_between">
-					<view class="s_title">
-						具体位置
-					</view>
-					<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
-					<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
-				</view>
-			</view>
-		<!-- 	<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
-				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《商家入驻须知》</text>
-			</view> -->
+			
 			<view class="btn_full" @click="saveStoreInfo">
 				保存
 			</view>
@@ -343,9 +345,7 @@ const range = computed(() => {
 			
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value]
 			console.log('图片列表参数',params);
-		   await updateShopImg(phoneNumber,{images:params})
-			
-			
+		   await updateShopImg(phoneNumber,{images:params})	
 			uni.hideLoading()
 			uni.showToast({
 				title: "保存成功",
@@ -394,6 +394,7 @@ const range = computed(() => {
 .shop_info {
 	padding: 0 26rpx;
 	background-color: #fff;
+	margin-bottom: 20rpx;
 	.info_item {
 		padding: 40rpx 8rpx 40rpx 0;
 		border-bottom: 1px solid #E3E3E3;

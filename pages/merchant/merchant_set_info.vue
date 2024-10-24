@@ -48,7 +48,7 @@
 				<text class="c_title" @click.stop="toAgreement">《商家入驻须知》</text>
 			</view>
 			<view class="btn_full" @click="merchantSettleIn">
-				申请入驻
+				下一步
 			</view>
 		</view>
 	</view>
@@ -187,28 +187,31 @@ const onChange = (e) => {
 		}
 		try {
 		
-			uni.showLoading({
-				title: "正在入驻中...",
-			})	
+			// uni.showLoading({
+			// 	title: "正在入驻中...",
+			// })	
 			const phoneNumber=uni.getStorageSync('phoneNumber')
 			console.log(phoneNumber,1111);
-		
-			 const res= await postMerchantSettleIn({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
-			console.log('入驻接口返回的信息',res);
-			
-			await userStore.fetchAllDataAction()
-			uni.hideLoading()
-			uni.showToast({
-				title: "入驻成功",
-				duration: 600,
-				icon: 'success'
-			})
-			
-			setTimeout(() => {
+			await uni.setStorageSync('shopParams',{merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
 				uni.redirectTo({
 					url: '/pages/merchant/shop_profile'
 				})
-			}, 700)
+			//  const res= await postMerchantSettleIn({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
+			// console.log('入驻接口返回的信息',res);
+			
+			// await userStore.fetchAllDataAction()
+			// uni.hideLoading()
+			// uni.showToast({
+			// 	title: "入驻成功",
+			// 	duration: 600,
+			// 	icon: 'success'
+			// })
+			
+			// setTimeout(() => {
+			// 	uni.redirectTo({
+			// 		url: '/pages/merchant/shop_profile'
+			// 	})
+			// }, 700)
 
 
 		} catch (e) {

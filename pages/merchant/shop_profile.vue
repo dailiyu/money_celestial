@@ -49,7 +49,7 @@
 			</view>
 			
 			<view class="btn_full" @click="saveStoreInfo">
-				保存信息
+				申请入驻
 			</view>
 		</view>
 	</view>
@@ -59,6 +59,7 @@
 <script setup>
 	import {
 		computed,
+		onMounted,
 		ref
 	} from 'vue';
 	import {
@@ -93,7 +94,10 @@
 	//     { value: "游泳", text: "游泳" },
 	// ])
 
-
+	onMounted(async()=>{
+		const shopParams=await uni.getStorageSync('shopParams')
+		console.log('第一步传来的店铺信息',shopParams);
+	})
 
 	const acceptSuccessBannerImgPath = async (ImgPaths) => {
 		 successBannerImgPaths.value = ImgPaths
@@ -159,13 +163,16 @@ const saveStoreInfo = async () => {
 		}
 		try {
 			uni.showLoading({
-				title: "正在保存中...",
+				title: "正在入驻中...",
 			})
 			const phoneNumber=uni.getStorageSync('phoneNumber')
 			await associatedProfileImg()
-			 await associatedDetailImg()
-			  await associatedBannerImg()
+			await associatedDetailImg()
+			await associatedBannerImg()
 			console.log({merchant:phoneNumber,description:shopIntro.value,avatar:profileUrl.value||'https://example.com/image.png'});
+			const shopParams=await uni.getStorageSync('shopParams')
+			console.log('第一步传来的店铺信息',shopParams);
+			await postMerchantSettleIn(shopParams)
 			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,description:shopIntro.value,avatar:profileUrl.value})
 			console.log('-----!!!',res);
 			
@@ -176,7 +183,7 @@ const saveStoreInfo = async () => {
 		
 			uni.hideLoading()
 			uni.showToast({
-				title: "保存成功",
+				title: "入驻成功",
 				duration: 600,
 				icon: 'success'
 			})

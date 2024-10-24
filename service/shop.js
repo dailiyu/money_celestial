@@ -22,7 +22,7 @@ export const changeShopInfo=(merchant,data)=>{
 	return http.patch(`/shops/${merchant}/`,data)
 }
 
-//获取商品分类列表
+//获取商店分类列表
 export const getShopCategories= ()=>{
 	return http.get('/shops/categories/')
 }

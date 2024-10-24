@@ -20,9 +20,9 @@ export const useUserStore = defineStore('user', {
 	 
       const { access, refresh } = results;
       // 保存 Token
-      uni.setStorageSync('accessToken', access);
-      uni.setStorageSync('refreshToken', refresh);
-	  uni.setStorageSync('userInfo',results)
+      await uni.setStorageSync('accessToken', access);
+       await uni.setStorageSync('refreshToken', refresh);
+	  await  uni.setStorageSync('userInfo',results)
 	  await uni.setStorageSync('phoneNumber',phone_number)
 	  console.log('登录传入的手机号',phone_number);
 	  const number=  await uni.getStorageSync('phoneNumber')
@@ -40,14 +40,19 @@ export const useUserStore = defineStore('user', {
 	async getMerchantInfoAction(){
 		const res=await getMerchantInfo()
 		console.log('store中获得的商家信息',res);
-		
 	},
 	async getStoreInfoAction(){
 			const phone=uni.getStorageSync('userInfo').phone_number
-			const res=await getShopInfo(phone)
-			this.shopInfo=res
-			console.log('获取到的店铺信息',res);
-			uni.setStorageSync('shopInfo',res)
+			 getShopInfo(phone).then(async(res)=>{
+				this.shopInfo=res
+				console.log('获取到的店铺信息',res);
+				await uni.setStorageSync('shopInfo',res)
+			}).catch(async(err)=>{
+				console.log(err);
+				await uni.removeStorageSync('shopInfo')
+				await uni.setStorageSync('shopInfo',{})
+			})
+			
 	},
 	async getVertifyMerchantInfoAction(){
 		const phoneNumber=uni.getStorageSync('phoneNumber')
@@ -56,9 +61,13 @@ export const useUserStore = defineStore('user', {
 		this.vertifyMerchantInfo=res
 	},
 	async getRecommendShopListAction(){
-	  const res=await getRecommendShopList({})
-	  this.recommendShopList=res
-	  console.log('推荐官的推荐商家列表',res);
+	   getRecommendShopList({}).then(async(res)=>{
+		  this.recommendShopList=res
+		  console.log('推荐官的推荐商家列表',res);
+	   }).catch((err)=>{
+		   console.log('获取推荐官的推荐商家列表失败',err);
+	   })
+	 
 	},
 	async fetchAllDataAction(){
 		await this.getUserInfoAction()

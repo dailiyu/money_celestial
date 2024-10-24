@@ -1,4 +1,4 @@
-export  const uploadUrl="https://maxcang-api.shabiimage.com/api/upload/image/"
+export  const uploadUrl="https://api.maxcang.com/api/upload/image/"
 
 
  

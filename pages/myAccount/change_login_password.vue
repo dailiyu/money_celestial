@@ -2,20 +2,7 @@
 	<view>
 		<navBar title="修改登录密码" ></navBar>
 		<view class="content">
-			<view class="title">
-				手机号：{{ maskPhoneNumber(phoneNumber) }}
-			</view>
 			
-			<uni-easyinput v-model="verifyCode" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
-				<template #right>
-					<view class="send_btn flex_center" @click="toSendVerifyCode"  v-if="!isCounting">
-						发送验证码
-					</view>
-					<view class="countdown_time flex_center"  v-if="isCounting">
-						{{countdown}}s
-					</view>
-				</template><!--  -->
-			</uni-easyinput>
 			<view class="title">
 				密码：
 			</view>
@@ -26,7 +13,20 @@
 			</view>
 			<uni-easyinput v-model="ensure_password" placeholder="再次输入密码" :inputBorder="false" primaryColor="#1B46CC"
 				type="password" />
-
+				<view class="title">
+					手机号：{{ maskPhoneNumber(phoneNumber) }}
+				</view>
+				
+				<uni-easyinput v-model="verifyCode" placeholder="请输入验证码" :inputBorder="false" type="number" primaryColor="#1B46CC">
+					<template #right>
+						<view class="send_btn flex_center" @click="toSendVerifyCode"  v-if="!isCounting">
+							发送验证码
+						</view>
+						<view class="countdown_time flex_center"  v-if="isCounting">
+							{{countdown}}s
+						</view>
+					</template><!--  -->
+				</uni-easyinput>
 			<view class="btn flex_center" @click="enSure">
 				确定
 			</view>
