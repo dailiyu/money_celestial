@@ -115,11 +115,11 @@ const to_merchant_mangment=async()=>{
 
 <style lang="scss" scoped>
 .swiper {
-	height: 311rpx;
+	height: 418rpx;
 }
 .shop_pic {
 	width: 100%;
-	height: 311rpx;
+	height: 418rpx;
 	// background-color: #ccc;
 	display: block;
 }
