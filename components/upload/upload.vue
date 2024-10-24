@@ -1,10 +1,11 @@
 <template>
   <view class="flex">
-	  	<view class="img_box"  v-if="uploadSuccessfulPaths?.length !== 0" >
+	  	<view class="img_box" 
+		 v-if="uploadSuccessfulPaths?.length !== 0" 
+		  v-for="(image, index) in uploadSuccessfulPaths" 
+		  :key="index"  
+		>
 	  		<image 
-	  			  v-if="uploadSuccessfulPaths?.length !== 0" 
-	  			  v-for="(image, index) in uploadSuccessfulPaths" 
-	  			  :key="index"  
 	  			  :src="String(image)" 
 	  			  mode="aspectFill" 
 	  			  class="upload_pic">
