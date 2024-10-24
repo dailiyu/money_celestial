@@ -86,7 +86,7 @@
 					</view>
 					<textarea   v-model="shopIntro" placeholder="请输入商家介绍" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
 				</view>
-				<view class="flex_between" style="margin-bottom: 54rpx;">
+				<!-- <view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
 						店铺详情图
 					</view>
@@ -94,7 +94,7 @@
 						已选择{{successDetailImgPaths.length}}张
 					</view>
 				</view>
-				<upload amount="6"  :imgUrls="detailImages"    @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload>
+				<upload amount="6"  :imgUrls="detailImages"    @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload> -->
 			</view>
 			
 			<view class="btn_full" @click="saveStoreInfo">
@@ -323,7 +323,6 @@ const range = computed(() => {
 			!selectedCity.value||
 			!businessRange.value||
 			successProfileImgPaths.value.length === 0||
-			successDetailImgPaths.value.length===0||
 			successBannerImgPaths.value.length===0
 		) {
 			return uni.showToast({
@@ -342,7 +341,6 @@ const range = computed(() => {
 		
 			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value})
 
-			
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value]
 			console.log('图片列表参数',params);
 		   await updateShopImg(phoneNumber,{images:params})	

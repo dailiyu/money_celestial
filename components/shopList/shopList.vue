@@ -42,7 +42,9 @@ onMounted(async()=>{
 })
 
 
+
 const toDetail = async(index) => {
+	
 	await uni.setStorageSync('selectedShopInfo',props.list[index])
   uni.navigateTo({
     url: '/pages/merchant/merchant_detail'

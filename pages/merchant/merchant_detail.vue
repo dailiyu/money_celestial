@@ -8,7 +8,7 @@
 			</swiper-item>
 		</swiper>
 		<view class="shop_info" v-if="shopInfo.name">
-			<view class="info_item flex">
+			<view class="info_item flex" @click="to_merchant_mangment">
 				<image :src="shopInfo.avatar" mode="aspectFill" class="shop_head"></image>
 				<view class="" style="flex: 1;">
 					<view class="flex">
@@ -73,6 +73,7 @@ import { onMounted, ref } from 'vue';
 // }
 const phone = ref('')
 
+const shopInfo = ref({})
 onMounted(async()=>{
 	// let routes = getCurrentPages()
 	// let curParam = routes[routes.length - 1].options;
@@ -84,7 +85,19 @@ onMounted(async()=>{
 	// getInfo()
 	// getShopBanner()
 })
-const shopInfo = ref({})
+
+const to_merchant_mangment=async()=>{
+	const phoneNumber=await  uni.getStorageSync('phoneNumber')
+	console.log();
+	if(phoneNumber==shopInfo.value.merchant){
+		uni.navigateTo({
+		    url: '/pages/merchant/merchant_management'
+		});
+	}
+	
+}
+
+
 // const getInfo = async()=>{
 // 	uni.showLoading({
 // 		title: '加载中'
