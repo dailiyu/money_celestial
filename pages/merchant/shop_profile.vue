@@ -5,24 +5,24 @@
 			<view class="head_box flex_between" style="align-items: flex-start;">
 				<view class="">
 					<view class="h_title">
-						店铺头像
+						店铺头像(200*200)
 					</view>
 					<view class="h_text" style="margin-top: 42rpx;">
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload amount="1" @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
+				<upload amount="1"  :imgWidth="500" :imgHeight="500" @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺轮播图 <text class="text">(第一张需上传门面图)</text>
+						店铺轮播图(750*418)
 					</view>
-					<view class="h_text">
-						已选择{{ successBannerImgPaths.length}}张
+					<view class="tips_text">
+						第一张请上传门面照片
 					</view>
 				</view>
-				<upload amount="6" @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
+				<upload amount="1"  :imgWidth="750" :imgHeight="418"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="shop_intro">
@@ -31,16 +31,21 @@
 					</view>
 					<textarea v-model="shopIntro" placeholder="请输入店铺介绍" style="width: 100%;height: 146rpx;"
 						placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
-				</view>
+				    </view>
 				<!-- <view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺详情图）
+						店铺门牌号(750*418)）
 					</view>
-					<view class="h_text">
-						已选择{{ successDetailImgPaths.length}}张
+					<view class="tips_text">
+						<view class="">
+							仅做审核使用
+						</view>
+						<view class="">
+							不显示在店铺页面
+						</view>
 					</view>
 				</view>
-				<upload amount="6" @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload> -->
+				<upload amount="6"  :imgWidth="750" :imgHeight="418"  @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload> -->
 			</view>
 			<view class="shop_info">
 				
@@ -123,7 +128,7 @@
 		console.log('组成的参数bannerListUrl',bannerListUrl.value);
 	}
 	
-	//关联详情图
+	//关联门面图
 	const detailListUrl = ref([])
 	const associatedDetailImg = async () => {
 			const phoneNumber=uni.getStorageSync('phoneNumber')
@@ -230,7 +235,13 @@ const saveStoreInfo = async () => {
 			font-size: 24rpx;
 			color: #999999;
 		}
-
+		.tips_text{
+			display: flex;
+			flex-direction: column;
+			align-items: end;
+			font-size: 21rpx;
+			color: #FC5908;
+		}
 		.shop_intro {
 			border-bottom: 1px solid #DDDDDD;
 			margin-bottom: 50rpx;

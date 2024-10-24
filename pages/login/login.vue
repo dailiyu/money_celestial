@@ -13,8 +13,8 @@
 					<image src="@/static/lock-grey.png" mode="widthFix" class="m_pic"></image>
 				</template>
 			</uni-easyinput>
-			<view class="forget" @click="forgetPassword">
-				忘记密码
+			<view class="forget" >
+				<text @click="forgetPassword">忘记密码</text>
 			</view>
 			<view class="l_btn flex_center" @click="login">
 				立即登录

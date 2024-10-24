@@ -7,6 +7,7 @@
 					<view class="shop_name">
 						{{item.name}}
 					</view>
+					
 					<view class="pic_box flex">
 						<image src="@/static/star.png" mode="widthFix" class="star_pic" v-for="(star, i) in 5" :key="i"></image>
 						<view class="point">
@@ -18,6 +19,9 @@
 						<view class="district">
 							{{item.address}}
 						</view>
+					</view>
+					<view class="state" v-if="item.shop_is_bonus!==undefined">
+						{{item.shop_is_bonus?'已奖励':'审核中'}}
 					</view>
 				</view>
 				<!-- <view class="distance">
@@ -53,6 +57,7 @@ const toDetail = (phone) => {
 <style lang="scss" scoped>
 .shop_list {
 	.shop_item {
+		position: relative;
 		padding: 20rpx 44rpx 20rpx 20rpx;
 		background-color: #fff;
 		align-items: flex-end;
@@ -94,6 +99,19 @@ const toDetail = (phone) => {
 		.distance {
 			font-size: 20rpx;
 			color: #FC5908;
+		}
+		.state{
+			position: absolute;
+			right: 20rpx;
+			top: 20rpx;
+			font-size: 20rpx;
+			color: #666;
+			width: 80rpx;
+			height: 40rpx;
+			text-align: center;
+			line-height: 40rpx;
+			border: 1px solid #999; 
+			border-radius: 30rpx;
 		}
 	}
 }
