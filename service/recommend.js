@@ -22,10 +22,6 @@ export  const getOfficerQRCode=async ()=>{
 	return http.get('/referral/qrcode/')
 }
 
-//获取推荐官推荐了哪些商家列表
-export  const getMerchantList=async ()=>{
-	return http.get('/referral/qrcode/')
-}
 
 
 

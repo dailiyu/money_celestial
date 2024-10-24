@@ -84,12 +84,10 @@ import { getVertifyMerchantInfo } from '@/service/merchant';
 import { onShow } from '@dcloudio/uni-app'
 	const userStore = useUserStore()
 	const isVerified = ref(false)
-	onMounted(async() => {
-		
-	})
+	
 
 onShow(async()=>{
-userStore.getStoreInfoAction()
+      await  userStore.getStoreInfoAction()
 		const phone=await uni.getStorageSync('phoneNumber')
 		const {is_verified} = await getVertifyMerchantInfo(phone)
 		isVerified.value = is_verified

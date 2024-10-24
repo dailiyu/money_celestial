@@ -34,6 +34,7 @@ export const useUserStore = defineStore('user', {
     async getUserInfoAction() {
 		const phoneNumber=uni.getStorageSync('phoneNumber')
 	  const res = await getUerAccountMessage(phoneNumber);
+	  await uni.removeStorageSync('userInfo')
 	 await uni.setStorageSync('userInfo',res)
 		console.log('根据token获取到的用户信息',res);
     },
@@ -46,9 +47,10 @@ export const useUserStore = defineStore('user', {
 			 getShopInfo(phone).then(async(res)=>{
 				this.shopInfo=res
 				console.log('获取到的店铺信息',res);
+				await uni.removeStorageSync('shopInfo')
 				await uni.setStorageSync('shopInfo',res)
 			}).catch(async(err)=>{
-				console.log(err);
+				console.log('获取店铺信息失败',err);
 				await uni.removeStorageSync('shopInfo')
 				await uni.setStorageSync('shopInfo',{})
 			})

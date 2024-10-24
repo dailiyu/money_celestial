@@ -16,7 +16,7 @@
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺轮播图
+						店铺轮播图 <text class="text">(第一张需上传门面图)</text>
 					</view>
 					<view class="h_text">
 						已选择{{ successBannerImgPaths.length}}张
@@ -32,7 +32,7 @@
 					<textarea v-model="shopIntro" placeholder="请输入店铺介绍" style="width: 100%;height: 146rpx;"
 						placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
 				</view>
-				<view class="flex_between" style="margin-bottom: 54rpx;">
+				<!-- <view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
 						店铺详情图）
 					</view>
@@ -40,11 +40,9 @@
 						已选择{{ successDetailImgPaths.length}}张
 					</view>
 				</view>
-				<upload amount="6" @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload>
+				<upload amount="6" @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload> -->
 			</view>
 			<view class="shop_info">
-			
-				
 				
 			</view>
 			
@@ -153,7 +151,6 @@ const saveStoreInfo = async () => {
 		if (
 			!shopIntro.value ||
 			successProfileImgPaths.value.length === 0||
-			successDetailImgPaths.value.length === 0||
 			successBannerImgPaths.value.length === 0
 		) {
 			return uni.showToast({
@@ -222,6 +219,11 @@ const saveStoreInfo = async () => {
 
 		.h_title {
 			font-size: 27rpx;
+			.text{
+				margin-left: 5rpx;
+				color: red;
+				font-size: 20rpx;
+			}
 		}
 
 		.h_text {

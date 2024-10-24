@@ -205,18 +205,23 @@ const toSettle = ()=>{
 	})
 }
 const toMerchant =async () => {
-	
+	userInfo.value=await  uni.getStorageSync('userInfo')
+	shopInfo.value=await uni.getStorageSync('shopInfo')
 	const phoneNumber= uni.getStorageSync('phoneNumber')
-	console.log(userInfo.value?.is_seller,shopInfo.value.state);
+	console.log('点击商家前获得的数据',userInfo.value?.is_seller,shopInfo.value.state);
 
 	console.log('进入商家前的用户信息',userInfo.value);
 	console.log('进入商家前的店铺信息',shopInfo.value);
 	//0 正在审核 1审核通过  -1审核不通过 
     if (userInfo.value?.is_seller&&shopInfo.value.state==1) {
         // 店铺已过审核
-        uni.navigateTo({
-            url: '/pages/merchant/merchant_management'
-        });
+        // uni.navigateTo({
+        //     url: '/pages/merchant/merchant_management'
+        // });
+		await uni.setStorageSync('selectedShopInfo',shopInfo.value)
+		  uni.navigateTo({
+		    url: '/pages/merchant/merchant_detail'
+		  });
     } else if(!userInfo.value?.is_seller) {
         //还没成为商家
         uni.navigateTo({
