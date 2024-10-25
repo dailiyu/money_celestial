@@ -31,7 +31,7 @@
 						提取数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number?Number(number)+Number(number)*3/100:''}}
+						{{number?Number(number)/0.97:''}}
 					</view>
 				</view>
 			</view>
@@ -90,7 +90,7 @@ const validPassword = ()=>{
 		icon:'none',
 		title: '提取数量必须是100的倍数'
 	})
-	if (Number(number.value)+Number(number.value)*3/100 > pointBalance.value) return uni.showToast({
+	if (Number(number.value)/0.97 > pointBalance.value) return uni.showToast({
 		icon: 'none',
 		title: '提取数量不可大于积分余额',
 		duration: 3000
@@ -104,7 +104,7 @@ const confirm = async()=>{
 		uni.showLoading({
 			title: '提取中'
 		})
-		await withdrawGreenPoint({transaction_amount:Number(number.value)+Number(number.value)*3/100, point_account:account.value, transaction_type:'decrease', transaction_method: 'green_points'})
+		await withdrawGreenPoint({transaction_amount:Number(number.value)/0.97, point_account:account.value, transaction_type:'decrease', transaction_method: 'green_points'})
 		// getPointInfo()
 		uni.hideLoading()
 		uni.showToast({

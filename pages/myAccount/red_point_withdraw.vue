@@ -31,7 +31,7 @@
 						提取数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number?Number(number)+Number(number)*3/100:''}}
+						{{number?Number(number.value)/0.97:''}}
 					</view>
 				</view>
 			</view>
@@ -102,7 +102,7 @@ const validPassword = ()=>{
 		icon: 'none',
 		title: '请输入提取数量'
 	})
-	if (Number(number.value)+Number(number.value)*3/100 > pointBalance.value) return uni.showToast({
+	if (Number(number.value)/0.97 > pointBalance.value) return uni.showToast({
 		icon: 'none',
 		title: '提取数量不可大于积分余额'
 	})
@@ -113,7 +113,7 @@ const confirm = async()=>{
 	
 	const params = ref({
 		point_account: account.value,
-		transaction_amount: Number(number.value)+Number(number.value)*3/100,
+		transaction_amount: Number(number.value)/0.97,
 		transaction_type: 'decrease',
 		transaction_method: 'red_points'
 	})
