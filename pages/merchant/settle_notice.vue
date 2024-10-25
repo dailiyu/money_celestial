@@ -84,7 +84,7 @@ const scanCode =async () => {
 			uni.hideLoading()
 			await  userStore.fetchAllDataAction()
 		  uni.showToast({
-		    title: `申请成为商家成功`, // 显示扫码的结果
+		    title: `恭喜你，满仓商家注册成功！快去创建店铺吧！`, // 显示扫码的结果
 		    icon: 'none'
 		  });
 		
