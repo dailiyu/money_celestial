@@ -83,10 +83,10 @@ const scanCode =async () => {
 	  createMerchant({user:phoneNumber,referral_officer:recommendPhone,city:cityName,name:userName||'default',icon:avatar||''}).then(async(res)=>{
 			uni.hideLoading()
 			await  userStore.fetchAllDataAction()
-		  uni.showToast({
-		    title: `恭喜你，满仓商家注册成功！快去创建店铺吧！`, // 显示扫码的结果
-		    icon: 'none'
-		  });
+		  // uni.showToast({
+		  //   title: `恭喜你，满仓商家注册成功！快去创建店铺吧！`, // 显示扫码的结果
+		  //   icon: 'none'
+		  // });
 		
 		  uni.redirectTo({
 		  	url:'/pages/merchant/before_create_shop'

@@ -8,7 +8,7 @@
   			</view>
   			<img class="qrCode" :src="qrCodeUrl" alt="QR Code" />
   			<view class="tip">
-  				扫描二维码，支付积分
+  				扫描二维码，成为商家
   			</view>
   		</view>
   	</view>

@@ -15,7 +15,7 @@
 					<view class="s_title">
 						解除金额
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入金额" placeholder-class="placeholder_class" />
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入金额" placeholder-class="placeholder_class" :disabled="canceled_at" />
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_text">
@@ -47,9 +47,14 @@ onMounted(()=>{
 	getDepositInfo()
 })
 const amount = ref(0)
+const canceled_at = ref('')
 const getDepositInfo = async()=>{
 	const res = await getDeposit()
 	amount.value = res.amount
+	canceled_at.value = res.canceled_at
+	if (canceled_at.value) {
+		number.value = res.amount_applying
+	}
 }
 const address = ref('')
 const number = ref('')

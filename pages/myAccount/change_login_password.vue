@@ -84,6 +84,7 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
 		  console.log('err',err);
 		  uni.hideLoading()
 		  uni.showToast({
+			icon:'none',
 		  	title:`修改失败,${err.data.error}`
 		  })
 	  })

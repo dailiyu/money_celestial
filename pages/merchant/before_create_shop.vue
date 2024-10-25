@@ -5,7 +5,10 @@
 			<image class="img" src="../../static/success.jpg" mode="aspectFit"></image>
 		</view>
 		<view class="text-box">
-			<view class="text">恭喜你，已经成为满仓商家！</view>
+			<view class="text">恭喜你，满仓商家注册成功！</view>
+			<view class="text">
+				快去创建店铺吧！
+			</view>
 		</view>
 		<view class="buttom-box">
 			<view class="buttom" @click="toCreateShop">创建店铺</view>
@@ -37,14 +40,16 @@
 }
 
 .text-box {
-  display: flex;
-  justify-content: center; 
-  align-items: center;   
+  // display: flex;
+  // justify-content: center; 
+  // align-items: center;   
 	margin: 72rpx 0;
   width: 100%;
+  font-size: 36rpx;
+  text-align: center;
   .text {
     text-align: center;  
-    font-size: 36rpx;   
+	margin-top: 10rpx;
     color: #333;
 	
   }
