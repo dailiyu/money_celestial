@@ -45,7 +45,7 @@ const props = defineProps({
   }
 });
 onMounted(()=>{
-	 imageTempPaths.value=props.imgUrls||[]
+	 uploadSuccessfulPaths.value=props.imgUrls||[]
 })
 
 
