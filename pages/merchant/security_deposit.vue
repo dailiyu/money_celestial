@@ -9,12 +9,12 @@
 				{{amount||0}}
 			</view>
 			<view class="list_box">
-				<view class="list_item flex_between" @click="toRecord">
+				<!-- <view class="list_item flex_between" @click="toRecord">
 					<view class="">
 						保证金记录
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
+				</view> -->
 			</view>
 			<view class="btns flex_between">
 				<view class="add_btn flex_center" @click="toAdd">
