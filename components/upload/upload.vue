@@ -1,8 +1,8 @@
 <template>
   <view class="flex">
 	  	<view class="img_box" 
-		 v-if="uploadSuccessfulPaths?.length !== 0" 
-		  v-for="(image, index) in uploadSuccessfulPaths" 
+		 v-if="successfulPaths?.length !== 0" 
+		  v-for="(image, index) in successfulPaths" 
 		  :key="index"  
 		>
 	  		<image 
@@ -10,12 +10,12 @@
 	  			  mode="aspectFill" 
 	  			  class="upload_pic">
 	  			</image>
-	  		<view class="delete" @click="deleteImg(index)">
+	  		<view class="delete"   @click="deleteImg(index)">
 	  			x
 	  		</view>
 	  	</view>
 
-		<image src="@/static/upload.png"  v-if="uploadSuccessfulPaths?.length<props.amount"  mode="widthFix" class="upload_btn" @click="chooseImg"></image>
+		<image src="@/static/upload.png"  v-if="successfulPaths?.length<props.amount&&showUpload"  mode="widthFix" class="upload_btn" @click="chooseImg"></image>
   </view>
 </template>
 
@@ -26,6 +26,7 @@ import { uploadImage } from '../../utils';
 // import { defineProps, defineEmits } from 'vue';
 const emit = defineEmits(['uploadSuccessfulPaths']); 
 const imageTempPaths=ref([])
+
 const props = defineProps({
   amount: {
     type: String,
@@ -33,7 +34,7 @@ const props = defineProps({
   },
   imgUrls:{
 	  type:Array,
-	  default:[]
+	  default:()=>{return []}
   },
   imgWidth:{
 	  type:Number,
@@ -42,15 +43,26 @@ const props = defineProps({
   imgHeight:{
   	  type:Number,
   	  default:500
+  },
+  showUpload:{
+	  type:Boolean,
+	  default:true
   }
 });
 onMounted(()=>{
-	 uploadSuccessfulPaths.value=props.imgUrls||[]
+	console.log(props.imgUrls);
+	successfulPaths.value=props.imgUrls||[]
+	console.log(successfulPaths);
 })
 
 
-const uploadSuccessfulPaths=ref([])
+
+
+const successfulPaths=ref([])
 const chooseImg = async () => {
+	
+	
+	
   // 选择图片
   uni.chooseImage({
     count: Number(props.amount), 
@@ -65,10 +77,10 @@ const chooseImg = async () => {
 	 
 	 for(let i=0;i<tempFilePaths.length;i++){
 		let path=  await uploadImage(imageTempPaths.value[i])
-		uploadSuccessfulPaths.value.push(path)
+		successfulPaths.value.push(path)
 	 }
-	 // console.log(tempFilePaths);
-		emit('uploadSuccessfulPaths',uploadSuccessfulPaths.value)
+	 console.log('---',successfulPaths.value);
+		emit('uploadSuccessfulPaths',successfulPaths.value)
     },
     fail: (err) => {
       console.log('选择图片失败：', err);
@@ -78,8 +90,14 @@ const chooseImg = async () => {
 
 
 const  deleteImg=async (index)=>{
-	uploadSuccessfulPaths.value.splice(index,1)
-	emit('uploadSuccessfulPaths',uploadSuccessfulPaths.value)
+	if(!props.showUpload){
+		return uni.showToast({
+			icon:'none',
+			title:"不允许编辑！"
+		})
+	}
+	successfulPaths.value.splice(index,1)
+	emit('uploadSuccessfulPaths',successfulPaths.value)
 }
 
 
