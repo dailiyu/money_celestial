@@ -90,7 +90,7 @@ const clickRight = () => {
 	text-align: center;
 	.nav_item {
 		position: relative;
-		.uni-icons {
+		uni-icons {
 			position: absolute;
 			left: 0;
 			top: 50%;
