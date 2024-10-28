@@ -209,7 +209,7 @@ const toMerchant =async () => {
 	shopInfo.value=await uni.getStorageSync('shopInfo')
 	const phoneNumber= uni.getStorageSync('phoneNumber')
 	console.log('点击商家前获得的数据',userInfo.value?.is_seller,shopInfo.value.state);
-
+/*  */
 	console.log('进入商家前的用户信息',userInfo.value);
 	console.log('进入商家前的店铺信息',shopInfo.value);
 	//0 正在审核 1审核通过  -1审核不通过 
@@ -257,9 +257,19 @@ const toAgent = ()=>{
 			url: '/pages/agent/agent_intro'
 		})
 	}
-	
 }
+
 const toRecommend =async ()=>{
+	const userInfo = uni.getStorageSync('userInfo')
+	if(!userInfo.name||!userInfo.gender||!userInfo.icon||!userInfo.birthdate||!userInfo.residence){
+		uni.showToast({
+			icon:'none',
+			title:'成为推荐官前先完善个人信息'
+		})
+		return uni.navigateTo({
+			url:'/pages/login/more_info_edit'
+		})
+	}
 	try{
 		const phoneNumber=uni.getStorageSync('phoneNumber')
 		const data=await getRecommendOfficerInfo(phoneNumber)
