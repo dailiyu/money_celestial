@@ -86,11 +86,12 @@ const toRegister = async() => {
         });
       }, 2000); // 延迟 2 秒跳转
     }).catch((err) => {
-		console.log(err.data);
+		// console.log(err.data);
+		uni.hideLoading()
       uni.showToast({
         duration: 2000,
         icon: 'none',
-        title: err.data.phone_number[0].replace(/\s+/g, '')
+        title: err.data.error
       });
     });
   } else {

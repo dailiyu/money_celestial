@@ -1,5 +1,5 @@
 const TIME_OUT = 60000;
-const BASE_URL = 'http://192.168.110.47:8000/api';
+const BASE_URL = 'https://api.maxcang.com/api';
 
 class Request {
     request(url, method, data) {
