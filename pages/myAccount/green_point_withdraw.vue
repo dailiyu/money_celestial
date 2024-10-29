@@ -102,7 +102,8 @@ const confirm = async()=>{
 	
 	try{
 		uni.showLoading({
-			title: '提取中'
+			title: '提取中',
+			mask: true
 		})
 		await withdrawGreenPoint({transaction_amount:Number(number.value)/0.97, point_account:account.value, transaction_type:'decrease', transaction_method: 'green_points'})
 		// getPointInfo()

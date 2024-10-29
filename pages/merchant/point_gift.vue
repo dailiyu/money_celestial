@@ -150,7 +150,9 @@ const confirm = async(e)=>{
 	
 	try{
 		uni.showLoading({
-			title: '赠送中'
+			title: '赠送中',
+			mask: true
+			
 		})
 		// console.log(777)
 		await giftPoint({phone_number:address.value, transaction_amount: ((number.value/rateCny.value)*100).toFixed(4)})
