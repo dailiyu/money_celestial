@@ -6,6 +6,16 @@
 				手机号：
 			</view>
 			<uni-easyinput v-model="mobile" maxlength="11" placeholder="请输入手机号" :inputBorder="false" primaryColor="#1B46CC" type="number" />
+			
+			<uni-easyinput v-model="code" maxlength="6" placeholder="请输入验证码" :inputBorder="false" primaryColor="#1B46CC" type="number">
+				<template #right>
+					<view class="send_btn" @click="toSendVerifyCode" v-if="!isCounting">发送验证码</view>
+					<view class="send_btn" v-if="isCounting">
+						{{countdown}}s
+					</view>
+				</template>
+			</uni-easyinput>
+			
 			<view class="title">
 				密码：
 			</view>
@@ -24,12 +34,12 @@
 </template>
 
 <script setup>
-	import { useUserStore } from '../../store/user';
+	import { useUserStore } from '@/store/user';
 	 const userStore=   useUserStore()
 	import {
 		ref
 	} from 'vue';
-import { postRegister } from '../../service/uer_profile';
+import { postRegister, sendVerifyCode } from '@/service/uer_profile';
 	
 	const mobile = ref('')
 	const code = ref('')
@@ -55,9 +65,13 @@ const toRegister = async() => {
 	  })
 	  uni.showLoading({
 	  	title: "正在注册中...",
-	  })
-    postRegister(mobile.value, password.value).then((res) => {
-		console.log('刚注册的用户信息',res);
+	})
+	if (code.value.length !== 6) return uni.showToast({
+		icon: 'none',
+		title: '请输入正确验证码'
+	})
+    postRegister(mobile.value, password.value, code.value).then((res) => {
+		// console.log('刚注册的用户信息',res);
 	uni.hideLoading()
       uni.showToast({
         duration: 2000,
@@ -72,11 +86,12 @@ const toRegister = async() => {
         });
       }, 2000); // 延迟 2 秒跳转
     }).catch((err) => {
-		console.log(err.data);
+		// console.log(err.data);
+		uni.hideLoading()
       uni.showToast({
         duration: 2000,
         icon: 'none',
-        title: err.data.phone_number[0].replace(/\s+/g, '')
+        title: err.data.error
       });
     });
   } else {
@@ -89,8 +104,36 @@ const toRegister = async() => {
 }
 
 	
-	
-	
+let isCounting = ref(false);
+let countdown = ref(60);
+let countdownInterval
+const  startCountdown=()=> {
+    if (!isCounting.value) {
+        isCounting.value = true;
+        countdown.value = 60;
+        // console.log(`倒计时开始: ${countdown.value}秒`);
+        countdownInterval = setInterval(() => {
+            countdown.value=countdown.value-1;
+    
+            if (countdown.value <= 0) {
+                clearInterval(countdownInterval);
+                isCounting.value = false;
+                // console.log("倒计时结束");
+            }
+        }, 1000);
+    }
+}
+const toSendVerifyCode=async()=>{
+	if(mobile.value.length!==11){
+		return uni.showToast({
+			icon:'none',
+			title:'请输入正确的手机号码'
+		})
+	}
+	startCountdown()
+	const result=await sendVerifyCode(mobile.value)
+	// console.log(result);
+}
 </script>
 
 <style lang="scss" scoped>
@@ -116,7 +159,11 @@ const toRegister = async() => {
 	}
 
 	.send_btn {
-		padding: 18rpx 38rpx;
+		width: 176rpx;
+		height: 56rpx;
+		line-height: 56rpx;
+		text-align: center;
+		// padding: 18rpx 38rpx;
 		color: #1B46CC;
 		border: 1px solid #1B46CC;
 		border-radius: 100px;

@@ -33,7 +33,7 @@
 					</view> -->
 					<view class="info_item flex_between" style="flex: 1;"  @click="forbiddenTips">
 						<view class="title" style="margin-right: 45rpx;">
-							常居地
+							所在地
 						</view>
 							<uni-data-picker
 												readonly
@@ -73,7 +73,7 @@
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺轮播图
+						店铺轮播图(750*418)
 					</view>
 					<view class="h_text">
 						已选择{{successBannerImgPaths.length}}张
@@ -82,9 +82,36 @@
 				<upload amount="6"  :imgWidth="750" :imgHeight="418" :imgUrls="bannerImages"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
 			</view>
 			<view class="head_box">
+				<view class="flex_between" style="margin-bottom: 54rpx;">
+					<view class="h_title">
+						店铺营业执照
+					</view>
+				</view>
+				<upload amount="6"  :imgWidth="750" :imgHeight="418" :showUpload="false"  :imgUrls="authfileImages"  ></upload>
+			</view>
+		<view class="shop_info">
+				<view class="info_item flex_between" @click="showTips" >
+					<view class="s_title">
+						营业执照编号
+					</view>
+					<input disabled=""  v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
+				</view>
+			</view >
+				<view class="shop_info">
+						<view class="info_item flex_between">
+							<view class="s_title">
+								赠送百分比
+							</view>
+							<input v-model="proportion_gift"  class="uni-input" placeholder="请输入30到1000之间的整数" placeholder-class="placeholder_class" />
+					<view class="s_title">
+						%
+					</view>
+						</view>
+					</view >
+			<view class="head_box">
 				<view class="shop_intro">
 					<view class="h_title" style="margin-bottom: 34rpx;">
-						企业介绍
+						店铺介绍
 					</view>
 					<textarea   v-model="shopIntro" placeholder="请输入商家介绍" style="width: 100%;height: 146rpx;" placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
 				</view>
@@ -144,29 +171,34 @@
 	const bannerImages =  shopInfo.images.filter(image => image.image_type === "banner").map(image => image.image_url);
 	const detailImages =  shopInfo.images.filter(image => image.image_type === "other").map(image => image.image_url);
 	const avatarImages =  shopInfo.images.filter(image => image.image_type === "avatar").map(image => image.image_url);
+	const authfileImages =  shopInfo.images.filter(image => image.image_type === "authfile").map(image => image.image_url);
 	const publicStore = usePublicStore()
 	const userStore = useUserStore()
 	const shopIntro = ref()
 	const shopName = ref()
+	const business_license=ref('')
+	const proportion_gift=ref(100)
 	const businessRange = ref()
 	const code = ref('')
 	const curData=ref()
 	const successBannerImgPaths = ref([])
 	const successProfileImgPaths = ref([])
 	const successDetailImgPaths = ref([])
-
+	const successAuthfileImgPaths = ref([])
 onMounted(async()=>{
 	await userStore.fetchAllDataAction()
 	shopName.value=shopInfo.name
 	shopIntro.value=shopInfo.description
 	businessRange.value=shopInfo.categories[0]
-
+	business_license.value=shopInfo.license_no
+	proportion_gift.value=shopInfo.consume2coin_bit
 	address.value=shopInfo.address
 	curData.value=findValueByText(shopInfo.city)
 	selectedCity.value=shopInfo.city
 	 successDetailImgPaths.value=detailImages
 	 successProfileImgPaths.value=avatarImages
 	 successBannerImgPaths.value=bannerImages
+	 successAuthfileImgPaths.value=authfileImages
 	console.log('---------',successDetailImgPaths.value,successProfileImgPaths.value,successBannerImgPaths.value);
 	console.log(findValueByText(shopInfo.city.name));		
 	console.log(cityDataJson);
@@ -267,6 +299,18 @@ const range = computed(() => {
 		console.log('组成的参数bannerListUrl',bannerListUrl.value);
 	}
 	
+	
+	
+	//关联营业执照
+		const authfileListUrl = ref([])
+		const associatedAuthfileImg = async () => {
+				const phoneNumber=uni.getStorageSync('phoneNumber')
+			for (let i = 0; i < successAuthfileImgPaths.value.length; i++) {
+				authfileListUrl.value.push({image_url:successAuthfileImgPaths.value[i],image_type:'authfile'})
+			}
+			console.log('组成的参数authfileListUrl',authfileListUrl.value);
+		}
+	
 	//关联详情图
 	const detailListUrl = ref([])
 	const associatedDetailImg = async () => {
@@ -290,8 +334,7 @@ const range = computed(() => {
 
 
 
-	const lat = ref('')
-	const lon = ref('')
+
 	const address = ref('')
 	const getLocation = () => {
 		uni.chooseLocation({
@@ -339,10 +382,10 @@ const range = computed(() => {
 			await associatedProfileImg()
 			 await associatedDetailImg()
 			  await associatedBannerImg()
-		
-			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value})
+		    await associatedAuthfileImg()
+			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
 
-			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value]
+			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value,...authfileListUrl.value]
 			console.log('图片列表参数',params);
 		   await updateShopImg(phoneNumber,{images:params})	
 			uni.hideLoading()
@@ -376,7 +419,12 @@ const range = computed(() => {
 			title:'店铺常居地不允许修改'
 		})
 	}
-	
+	const showTips=()=>{
+		uni.showToast({
+			icon:'none',
+			title:"不允许编辑！"
+		})
+	}
 	
 </script>
 <style lang="scss" scoped>

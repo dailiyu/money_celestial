@@ -7,9 +7,9 @@ export  const getUerAccountMessage=async (phone_number)=>{
 }
 
 //注册账号
-export  const postRegister=async (phone_number,password)=>{
+export  const postRegister=async (phone_number,password,verify_code)=>{
 	return http.post('/users/register/',{
-		phone_number,password
+		phone_number,password,verify_code
 	})
 }
 

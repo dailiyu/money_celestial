@@ -11,7 +11,7 @@
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload amount="1"  :imgWidth="500" :imgHeight="500" @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
+				<upload ref="gf"  amount="1"  :imgWidth="500" :imgHeight="500" @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
@@ -24,6 +24,40 @@
 				</view>
 				<upload amount="6"  :imgWidth="750" :imgHeight="418"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
 			</view>
+				<view class="head_box">
+					<view class="flex_between" style="margin-bottom: 54rpx;">
+						<view class="h_title">
+							店铺营业执照(750*418)
+						</view>
+						<view class="tips_text">
+							<view class="">
+								仅做审核使用
+							</view>
+							<view class="">
+								不显示在店铺页面
+							</view>
+						</view>
+					</view>
+					<upload ref="g11f"  amount="6"  :imgWidth="750" :imgHeight="418"  @uploadSuccessfulPaths="acceptSuccessAuthfileImgPath"></upload>
+				</view>
+		<view class="head_box">
+			<view class="info_item flex_between">
+					<view class="s_title">
+						营业执照编号
+					</view>
+				  <input v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
+			</view>
+		</view>
+		
+			<view class="head_box">
+						<view class="info_item flex_between">
+							<view class="s_title">
+								赠送百分比(%)
+							</view>
+							<input v-model="proportion_gift"  @blur="validateInput" class="uni-input" placeholder="请输入30到1000的整数" placeholder-class="placeholder_class" />
+						
+					   </view>
+			</view>
 			<view class="head_box">
 				<view class="shop_intro">
 					<view class="h_title" style="margin-bottom: 34rpx;">
@@ -32,6 +66,7 @@
 					<textarea v-model="shopIntro" placeholder="请输入店铺介绍" style="width: 100%;height: 146rpx;"
 						placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
 				    </view>
+					
 				<!-- <view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
 						店铺门牌号(750*418)）
@@ -47,9 +82,7 @@
 				</view>
 				<upload amount="6"  :imgWidth="750" :imgHeight="418"  @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload> -->
 			</view>
-			<view class="shop_info">
-				
-			</view>
+		
 			
 			<view class="btn_full" @click="saveStoreInfo">
 				申请入驻
@@ -87,10 +120,15 @@
 	} from '../../store/user';
 	import { onLoad } from '@dcloudio/uni-app'
 	const shopIntro = ref('')
+	const proportion_gift = ref(100);
+	const business_license=ref('')
 	const userStore = useUserStore()
 	const  successBannerImgPaths = ref([])
 	const  successProfileImgPaths = ref([])
 	const  successDetailImgPaths = ref([])
+	const  successAuthfileImgPaths = ref([])
+	
+	
 	// const range = ref([
 	//     { value: "篮球", text: "篮球" },
 	//     { value: "足球", text: "足球" },
@@ -116,8 +154,12 @@
 		 successDetailImgPaths.value = ImgPaths
 		console.log( successDetailImgPaths.value);
 	}
-
-
+	
+	const acceptSuccessAuthfileImgPath = async (ImgPaths) => {
+		 successAuthfileImgPaths.value = ImgPaths
+		console.log( successAuthfileImgPaths.value);
+	}
+	
 	//关联商家轮播图
 	const bannerListUrl = ref([])
 	const associatedBannerImg = async () => {
@@ -138,7 +180,16 @@
 		console.log('组成的参数detailListUrl',detailListUrl.value);
 	}
 	
-
+	//关联营业执照
+		const authfileListUrl = ref([])
+		const associatedAuthfileImg = async () => {
+				const phoneNumber=uni.getStorageSync('phoneNumber')
+			for (let i = 0; i < successAuthfileImgPaths.value.length; i++) {
+				authfileListUrl.value.push({image_url:successAuthfileImgPaths.value[i],image_type:'authfile'})
+			}
+			console.log('组成的参数authfileListUrl',authfileListUrl.value);
+		}
+	
 
 
 	//关联店铺头像
@@ -156,7 +207,8 @@ const saveStoreInfo = async () => {
 		if (
 			!shopIntro.value ||
 			successProfileImgPaths.value.length === 0||
-			successBannerImgPaths.value.length === 0
+			successBannerImgPaths.value.length === 0||
+			successAuthfileImgPaths.value===0
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -171,14 +223,13 @@ const saveStoreInfo = async () => {
 			await associatedProfileImg()
 			await associatedDetailImg()
 			await associatedBannerImg()
+			await associatedAuthfileImg()
 			console.log({merchant:phoneNumber,description:shopIntro.value,avatar:profileUrl.value||'https://example.com/image.png'});
 			const shopParams=await uni.getStorageSync('shopParams')
 			console.log('第一步传来的店铺信息',shopParams);
 			await postMerchantSettleIn(shopParams)
-			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,description:shopIntro.value,avatar:profileUrl.value})
-			console.log('-----!!!',res);
-			
-			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value]
+			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,description:shopIntro.value,avatar:profileUrl.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
+			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value,...authfileListUrl.value]
 			console.log('图片列表参数',params);
 		   await updateShopImg(phoneNumber,{images:params})
 
@@ -211,7 +262,20 @@ const saveStoreInfo = async () => {
 
 	}
 
-	
+	const validateInput = () => {
+	  const intValue = parseInt(proportion_gift.value, 10);
+	  // 检查是否为有效整数并在范围内
+	  if (isNaN(intValue) || intValue < 30 || intValue > 1000) {
+	    uni.showToast({
+	      title: '赠送百分比必须为30到1000的整数',
+	      icon: 'none',
+	      duration: 2000
+	    });
+	    proportion_gift.value = ''; // 清空输入或重置为合适值
+	  } else {
+	    proportion_gift.value = intValue; // 保证为整数
+	  }
+	};
 	
 </script>
 

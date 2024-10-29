@@ -116,7 +116,7 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
 		}
 		startCountdown()
 		const result=await sendVerifyCode(phoneNumber.value)
-		console.log(result);
+		// console.log(result);
 	}
 
 
@@ -124,14 +124,14 @@ const  startCountdown=()=> {
     if (!isCounting.value) {
         isCounting.value = true;
         countdown.value = 120;
-        console.log(`倒计时开始: ${countdown.value}秒`);
+        // console.log(`倒计时开始: ${countdown.value}秒`);
         countdownInterval = setInterval(() => {
             countdown.value=countdown.value-1;
     
             if (countdown.value <= 0) {
                 clearInterval(countdownInterval);
                 isCounting.value = false;
-                console.log("倒计时结束");
+                // console.log("倒计时结束");
             }
         }, 1000);
     }
