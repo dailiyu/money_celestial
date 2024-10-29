@@ -367,7 +367,8 @@ const range = computed(() => {
 			!shopIntro.value ||
 			!businessRange.value||
 			successProfileImgPaths.value.length === 0||
-			successBannerImgPaths.value.length===0
+			successBannerImgPaths.value.length===0||
+			!proportion_gift.value
 		) {
 			return uni.showToast({
 				icon: 'none',

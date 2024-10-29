@@ -120,7 +120,8 @@ const confirm = async()=>{
 	try{
 		uni.showLoading({
 			mask: true,
-			title: '提取中'
+			title: '提取中',
+			mask: true
 		})
 		await withdrawRedPoints(params.value)
 		// getPointInfo()
