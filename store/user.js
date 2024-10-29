@@ -15,22 +15,25 @@ export const useUserStore = defineStore('user', {
     };
   },
   actions: {
-    async loginAction(phone_number, password) {
-      const results = await postProfileLogin(phone_number, password);
+  //   async loginAction(params) {
+  //     const results = await postProfileLogin(params);
+  //    console.log('----',results);
+  //     const { access, refresh } = results;
 	 
-      const { access, refresh } = results;
-      // 保存 Token
-      await uni.setStorageSync('accessToken', access);
-       await uni.setStorageSync('refreshToken', refresh);
-	  await  uni.setStorageSync('userInfo',results)
-	  await uni.setStorageSync('phoneNumber',phone_number)
-	  console.log('登录传入的手机号',phone_number);
-	  const number=  await uni.getStorageSync('phoneNumber')
-	  console.log('----',number);
-	  await this.getUserInfoAction()
-	  console.log('accessToken', access);
-	   console.log('登录成功的用户信息',results);
-    },
+  //     // 保存 Token
+  //     await uni.setStorageSync('accessToken', access);
+  //      await uni.setStorageSync('refreshToken', refresh);
+	 //  await  uni.setStorageSync('userInfo',results)
+	 //  await uni.setStorageSync('phoneNumber',params.phone_number)
+	 //  console.log('登录传入的手机号',params.phone_number);
+	 //  const number=  await uni.getStorageSync('phoneNumber')
+	 //  await this.getUserInfoAction()
+	 //  console.log('accessToken', access);
+	 //   console.log('登录成功的用户信息',results);
+  //   },
+    async saveUserInfoAction(userInfo){
+		this.userInfo=userInfo
+	},
     async getUserInfoAction() {
 		const phoneNumber=uni.getStorageSync('phoneNumber')
 	  const res = await getUerAccountMessage(phoneNumber);

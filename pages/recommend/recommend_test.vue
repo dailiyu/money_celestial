@@ -17,7 +17,7 @@
     	    </view>
     	  </radio-group>
     	  <!-- 答案展示 -->
-    	  <view class="answer" v-if="showAnswers">
+    	  <view class="answer" v-if="true">
     	    正确答案：{{ question.correct_answer }}
     	  </view>
     	</view>

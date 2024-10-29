@@ -21,10 +21,9 @@ export const changeUserInfo=async (data)=>{
 
 
 //登陆
-export  const postProfileLogin=async (phone_number,password)=>{
-	return http.post('/users/login/',{
-		phone_number,password
-	})
+export  const postProfileLogin=async (data)=>{
+	console.log('-----1111');
+	return http.post('/users/login/',data)
 }
 
 

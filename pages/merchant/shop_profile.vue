@@ -208,7 +208,9 @@ const saveStoreInfo = async () => {
 			!shopIntro.value ||
 			successProfileImgPaths.value.length === 0||
 			successBannerImgPaths.value.length === 0||
-			successAuthfileImgPaths.value===0
+			successAuthfileImgPaths.value===0||
+			!business_license.value||
+			!proportion_gift.value
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -228,7 +230,7 @@ const saveStoreInfo = async () => {
 			const shopParams=await uni.getStorageSync('shopParams')
 			console.log('第一步传来的店铺信息',shopParams);
 			await postMerchantSettleIn(shopParams)
-			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,description:shopIntro.value,avatar:profileUrl.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
+			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,description:shopIntro.value,avatar:profileUrl.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value/*  */})
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value,...authfileListUrl.value]
 			console.log('图片列表参数',params);
 		   await updateShopImg(phoneNumber,{images:params})
@@ -251,9 +253,9 @@ const saveStoreInfo = async () => {
 		} catch (e) {
 			console.log(e);
 			uni.showToast({
-				title: "出现错误",
+				title: e.data.error,
 				duration: 1000,
-				icon: 'fail'
+				icon: 'none'
 			})
 			//TODO handle the exception
 		}
