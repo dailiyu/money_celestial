@@ -7,10 +7,8 @@ export  const getUerAccountMessage=async (phone_number)=>{
 }
 
 //注册账号
-export  const postRegister=async (phone_number,password,verify_code)=>{
-	return http.post('/users/register/',{
-		phone_number,password,verify_code
-	})
+export  const postRegister=async (data)=>{
+	return http.post('/users/register/',data)
 }
 
 //部分修改用户信息 如果填写trade_psk 交易密码，则必须同时提交verify_code验证码

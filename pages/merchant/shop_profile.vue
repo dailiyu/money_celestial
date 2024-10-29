@@ -22,12 +22,12 @@
 						第一张请上传门面照片
 					</view>
 				</view>
-				<upload amount="6"  :imgWidth="750" :imgHeight="418"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
+				<upload amount="6"  :imgWidth="750" :imgHeight="500"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
 			</view>
 				<view class="head_box">
 					<view class="flex_between" style="margin-bottom: 54rpx;">
 						<view class="h_title">
-							店铺营业执照(750*418)
+							店铺营业执照(750*500)
 						</view>
 						<view class="tips_text">
 							<view class="">
