@@ -84,7 +84,7 @@ const confirm = async()=>{
 		getAmount()
 		uni.hideLoading()
 		uni.showToast({
-			title: '解除成功',
+			title: '申请成功',
 			icon: 'none'
 		})
 	}catch(e){

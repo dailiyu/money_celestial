@@ -32,7 +32,7 @@
 						最多可赠送积分
 					</view>
 					<view class="s_num">
-						{{totalPoints}}
+						{{totalPoints.toFixed(4)}}
 					</view>
 				</view>
 				<!-- <view class="info_item flex_between">
@@ -48,7 +48,7 @@
 						消耗
 					</view>
 					<view class="s_num">
-						{{(Number(number)/Number(rateCny))*100*0.16}}
+						{{((Number(number)/Number(rateCny))*100*0.16).toFixed(4)}}
 					</view>
 				</view>
 				<view class="info_item flex_between">
