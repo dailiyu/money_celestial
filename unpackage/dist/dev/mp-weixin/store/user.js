@@ -25,6 +25,16 @@ const _sfc_main = {
       });
     };
     const login = async () => {
+      if (!moblie.value)
+        return common_vendor.index.showToast({
+          icon: "none",
+          title: "请输入手机号"
+        });
+      if (!password.value)
+        return common_vendor.index.showToast({
+          icon: "none",
+          title: "请输入密码"
+        });
       common_vendor.index.showLoading({
         title: "登录中"
       });
@@ -63,6 +73,7 @@ const _sfc_main = {
         d: common_vendor.o(($event) => moblie.value = $event),
         e: common_vendor.p({
           placeholder: "请输入手机号",
+          maxlength: "11",
           inputBorder: false,
           primaryColor: "#1B46CC",
           type: "number",
@@ -78,8 +89,7 @@ const _sfc_main = {
           modelValue: password.value
         }),
         i: common_vendor.o(login),
-        j: common_vendor.o(toRegister),
-        k: common_assets._imports_3
+        j: common_vendor.o(toRegister)
       };
     };
   }

@@ -18,7 +18,6 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    var QQMapWX = require("../../static/qqmap/qqmap-wx-jssdk.min.js");
     const keyword = common_vendor.ref("");
     const publicStore = store_public.usePublicStore();
     const userStore = store_user.useUserStore();
@@ -31,28 +30,11 @@ const _sfc_main = {
       common_vendor.index.getLocation({
         geocode: true,
         success(res) {
-          var qqmapsdk = new QQMapWX({
-            key: "YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA"
-            // 必填
-          });
-          qqmapsdk.reverseGeocoder({
-            location: {
-              latitude: res.latitude,
-              longitude: res.longitude
-            },
-            success(address) {
-              const ad_info = address.result.ad_info;
-              common_vendor.index.setStorageSync("address_info", address.result.ad_info);
-              city.value = ad_info.city;
-            },
-            fail(err) {
-              console.log(err);
-              common_vendor.index.showToast({
-                icon: "none",
-                title: "定位失败"
-              });
-            }
-          });
+          console.log(res);
+          if (res.address) {
+            common_vendor.index.setStorageSync("address_info", res.address);
+            city.value = res.address.city;
+          }
         }
       });
       getCategory();

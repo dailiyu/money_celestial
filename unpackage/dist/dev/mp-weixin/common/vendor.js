@@ -1533,7 +1533,7 @@ function populateParameters(fromRes, toRes) {
   let _SDKVersion = SDKVersion;
   const hostLanguage = language.replace(/_/g, "-");
   const parameters = {
-    appId: "",
+    appId: "__UNI__6FAB407",
     appName: "money_celestial",
     appVersion: "1.0.0",
     appVersionCode: "100",
@@ -1677,7 +1677,7 @@ const getAppBaseInfo = {
       hostName: _hostName,
       hostSDKVersion: SDKVersion,
       hostTheme: theme,
-      appId: "",
+      appId: "__UNI__6FAB407",
       appName: "money_celestial",
       appVersion: "1.0.0",
       appVersionCode: "100",
@@ -9195,7 +9195,7 @@ function I(e2) {
 const S = true, b = "mp-weixin", A = I(define_process_env_UNI_SECURE_NETWORK_CONFIG_default), P = b, T = I(""), C = I("[]") || [];
 let O = "";
 try {
-  O = "";
+  O = "__UNI__6FAB407";
 } catch (e2) {
 }
 let E = {};

@@ -17,7 +17,7 @@ const _sfc_main = {
   setup(__props) {
     const userStore = store_user.useUserStore();
     const mobile = common_vendor.ref("");
-    const code = common_vendor.ref("");
+    common_vendor.ref("");
     const password = common_vendor.ref("");
     const password2 = common_vendor.ref("");
     const toRegister = async () => {
@@ -62,37 +62,30 @@ const _sfc_main = {
         }),
         b: common_vendor.o(($event) => mobile.value = $event),
         c: common_vendor.p({
+          maxlength: "11",
           placeholder: "请输入手机号",
           inputBorder: false,
           primaryColor: "#1B46CC",
           type: "number",
           modelValue: mobile.value
         }),
-        d: common_vendor.o(($event) => code.value = $event),
+        d: common_vendor.o(($event) => password.value = $event),
         e: common_vendor.p({
-          placeholder: "请输入验证码",
-          inputBorder: false,
-          type: "number",
-          primaryColor: "#1B46CC",
-          modelValue: code.value
-        }),
-        f: common_vendor.o(($event) => password.value = $event),
-        g: common_vendor.p({
           placeholder: "密码长度最低8位",
           inputBorder: false,
           primaryColor: "#1B46CC",
           type: "password",
           modelValue: password.value
         }),
-        h: common_vendor.o(($event) => password2.value = $event),
-        i: common_vendor.p({
+        f: common_vendor.o(($event) => password2.value = $event),
+        g: common_vendor.p({
           placeholder: "再次输入密码",
           inputBorder: false,
           primaryColor: "#1B46CC",
           type: "password",
           modelValue: password2.value
         }),
-        j: common_vendor.o(toRegister)
+        h: common_vendor.o(toRegister)
       };
     };
   }
