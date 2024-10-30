@@ -107,7 +107,7 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
 		console.log(result);
 	}
 const  maskPhoneNumber=(phoneNumber)=>{
-    if (phoneNumber.length === 11) {
+    if (phoneNumber&&phoneNumber.length === 11) {
         return phoneNumber.slice(0, 3) + '****' + phoneNumber.slice(-4);
     }
     return 'Invalid phone number';

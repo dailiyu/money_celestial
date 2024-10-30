@@ -13,7 +13,7 @@
 					<view class="">
 						保证金记录
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view> -->
 			</view>
 			<view class="btns flex_between">

@@ -2,9 +2,9 @@
 	<view>
 		<navBar title="店铺开通"></navBar>
 		<view class="content">
-		
-			
-		
+
+
+
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -21,17 +21,19 @@
 					<uni-data-select v-model="businessRange" :localdata="range" placeholder="请选择" :clear="false"
 						@change="changeRange"></uni-data-select>
 				</view>
-				<view class="info_item flex_between" style="flex: 1;" >
-					<view class="title" style="margin-right: 45rpx;">
+				<view class="info_item flex_between" style="flex: 1;">
+					<view class="s_title" style="margin-right: 45rpx;">
 						常居地
 					</view>
-						<uni-data-picker 
+					<input v-model="selectedCity" class="uni-input" placeholder="请选择城市"
+						placeholder-class="placeholder_class" disabled @click="selectCity" />
+					<!-- <uni-data-picker 
 									      :localdata="cityData"
 										  :clear-icon='false'
 									      mode="region"
 									      @change="onChange"
 									      title="请选择省市"
-									    ></uni-data-picker>
+									    ></uni-data-picker> -->
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -39,11 +41,12 @@
 					</view>
 					<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择"
 						placeholder-class="placeholder_class" />
-					<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
+					<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic"
+						@click="getLocation"></image>
 				</view>
 			</view>
-			<view class="radio" @click="changeCheck" >
-				<radio value="r1" :checked="isChecked" color="#FC5908"  @click="changeCheck"/>
+			<view class="radio" @click="changeCheck">
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title" @click.stop="toAgreement">《商家入驻须知》</text>
 			</view>
@@ -51,6 +54,8 @@
 				下一步
 			</view>
 		</view>
+
+		<selector-component :show="selectorVisible" key="YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA" referer="满仓生态" bindselect="onSelectCity"></selector-component>
 	</view>
 </template>
 
@@ -78,14 +83,17 @@
 	import {
 		usePublicStore
 	} from "@/store/public.js"
-	
-	import cityDataJson from "@/static/cityData.json"
-	import { onLoad } from '@dcloudio/uni-app'
-	function clear(e){
+
+	// import cityDataJson from "https://static.maxcang.com/appstatic/cityData.json"
+	import {
+		onLoad
+	} from '@dcloudio/uni-app'
+
+	function clear(e) {
 		console.log(e)
 	}
 	const referral_officer = ref('')
-	onLoad((options)=>{
+	onLoad((options) => {
 		referral_officer.value = options.referral_officer
 	})
 	const publicStore = usePublicStore()
@@ -105,7 +113,7 @@
 
 	const range = computed(() => {
 		return publicStore.cateGoryList.map((item) => {
-			
+
 			return {
 				value: item.id, // value 为 id
 				text: item.name, // text 为 name
@@ -113,29 +121,29 @@
 		});
 	});
 
-// 绑定选择的值
-const selectedValues = ref([])
+	// 绑定选择的值
+	const selectedValues = ref([])
 
-// 绑定省市名显示
-const selectedProvince = ref('')
-const selectedCity = ref('')
+	// 绑定省市名显示
+	const selectedProvince = ref('')
+	const selectedCity = ref('')
 
-// 省市数据
-const cityData = ref(cityDataJson)
+	// 省市数据
+	// const cityData = ref(cityDataJson)
 
-// 当选择器值变化时，处理选中的省和市
+	// 当选择器值变化时，处理选中的省和市
 
-const onChange = (e) => {
-  const selected = e.detail.value
-  const province = cityData.value.find(item => item.value === selected[0])
-  const city = province?.children?.find(item => item.value === selected[1])
+	// const onChange = (e) => {
+	//   const selected = e.detail.value
+	//   const province = cityData.value.find(item => item.value === selected[0])
+	//   const city = province?.children?.find(item => item.value === selected[1])
 
-  // 保存选择的省市名
-   selectedProvince.value = e.detail.value[0].text ||''
-   selectedCity.value =  e.detail.value[1].text ||''
-  // 保存选中的省市值
-  console.log( selectedProvince.value,selectedCity.value);
-}
+	//   // 保存选择的省市名
+	//    selectedProvince.value = e.detail.value[0].text ||''
+	//    selectedCity.value =  e.detail.value[1].text ||''
+	//   // 保存选中的省市值
+	//   console.log( selectedProvince.value,selectedCity.value);
+	// }
 
 
 	const isChecked = ref(false)
@@ -161,7 +169,7 @@ const onChange = (e) => {
 				lat.value = res.latitude
 				lon.value = res.longitude
 				address.value = res.address + res.name
-
+				console.log(res)
 			}
 		})
 	}
@@ -172,12 +180,12 @@ const onChange = (e) => {
 			icon: 'none',
 			title: '请阅读完须知后勾选同意'
 		})
-		
+
 		//检查是否有任意一个值为空
 		if (
 			!shopName.value ||
 			!address.value ||
-			!selectedCity.value||
+			!selectedCity.value ||
 			!businessRange.value
 		) {
 			return uni.showToast({
@@ -186,19 +194,25 @@ const onChange = (e) => {
 			});
 		}
 		try {
-		
+
 			// uni.showLoading({
 			// 	title: "正在入驻中...",
 			// })	
-			const phoneNumber=uni.getStorageSync('phoneNumber')
-			console.log(phoneNumber,1111);
-			await uni.setStorageSync('shopParams',{merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
-				uni.redirectTo({
-					url: '/pages/merchant/shop_profile'
-				})
+			const phoneNumber = uni.getStorageSync('phoneNumber')
+			console.log(phoneNumber, 1111);
+			await uni.setStorageSync('shopParams', {
+				merchant: phoneNumber,
+				categories: [businessRange.value],
+				city: selectedCity.value,
+				name: shopName.value,
+				address: address.value
+			})
+			uni.redirectTo({
+				url: '/pages/merchant/shop_profile'
+			})
 			//  const res= await postMerchantSettleIn({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
 			// console.log('入驻接口返回的信息',res);
-			
+
 			// await userStore.fetchAllDataAction()
 			// uni.hideLoading()
 			// uni.showToast({
@@ -206,7 +220,7 @@ const onChange = (e) => {
 			// 	duration: 600,
 			// 	icon: 'success'
 			// })
-			
+
 			// setTimeout(() => {
 			// 	uni.redirectTo({
 			// 		url: '/pages/merchant/shop_profile'
@@ -227,15 +241,28 @@ const onChange = (e) => {
 
 
 	}
-	const toAgreement = ()=>{
+	const toAgreement = () => {
 		uni.navigateTo({
 			url: '/pages/merchant/merchant_settle_agreement'
 		})
 	}
+	
+	const selectorVisible = ref(false)
+	const onSelectCity = (e)=>{
+	    const { province, city } = e.detail;
+		console.log(e)
+	    // this.setData({
+	    //   selectedProvince: province,
+	    //   selectedCity: city,
+	    // });
+	}
+	const selectCity = ()=>{
+		selectorVisible.value = true
+		
+	}
 </script>
 
 <style lang="scss" scoped>
-	
 	.shop_info {
 		padding: 0 26rpx;
 		background-color: #fff;
@@ -309,21 +336,24 @@ const onChange = (e) => {
 	.btn_full {
 		margin-top: 66rpx;
 	}
+
 	.radio {
 		text-align: center;
 		padding: 26rpx 0 38rpx;
+
 		radio {
-			transform:scale(0.6)
+			transform: scale(0.6)
 		}
+
 		.read {
 			font-size: 27rpx;
 			color: #999999;
 		}
+
 		.c_title {
 			font-size: 27rpx;
 			color: #FC5908;
 			font-family: HarmonyOS_Sans_SC_Medium;
 		}
 	}
-
 </style>

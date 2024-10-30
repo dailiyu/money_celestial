@@ -4,8 +4,8 @@
 		<view class="content">
 			<view class="merchant_info flex">
 				<image :src="userStore.shopInfo.avatar" mode="aspectFill" class="head"></image>
-				<image src="@/static/recommend/verified.png"  @click="toUnbindMerchantCode"   mode="widthFix" class="verify_pic" v-if="isVerified"></image>
-				<image src="@/static/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image>
+				<image src="https://static.maxcang.com/appstatic/recommend/verified.png"  @click="toUnbindMerchantCode"   mode="widthFix" class="verify_pic" v-if="isVerified"></image>
+				<image src="https://static.maxcang.com/appstatic/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image>
 				<view class="">
 					<view class="name flex">
 						<view class="">
@@ -18,7 +18,7 @@
 					<view class="flex">
 						<!-- <uni-rate :readonly="true" :value="2" active-color="#fc5908" size="12" /> -->
 						<view class="flex">
-							<!-- <image src="@/static/star.png" mode="widthFix" class="star_pic" v-for="(item, index) in 5" :key="index"></image> -->
+							<!-- <image src="https://static.maxcang.com/appstatic/star.png" mode="widthFix" class="star_pic" v-for="(item, index) in 5" :key="index"></image> -->
 						</view>
 						<!-- <view class="point">
 							5
@@ -31,41 +31,41 @@
 					<view class="">
 						资料编辑
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<view class="list_item flex_between" @click="toPoinGift">
 					<view class="">
 						积分赠送
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<!-- <view class="list_item flex_between" @click="toCode" v-if="!userStore.vertifyMerchantInfo.is_verified">
 					<view class="">
 						商家码认证
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view> -->
 				<view class="list_item flex_between" @click="toSecurityDeposit">
 					<view class="">
 						保证金
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<view class="list_item flex_between" @click="toMerchantCode">
 					<view class="">商家码认证</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<!-- <view class="list_item flex_between" @click="toUploadGoods">
 					<view class="">
 						上传产品
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view> -->
 				<!-- <view class="list_item flex_between">
 					<view class="">
 						编辑产品
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view> -->
 			</view>
 		</view>

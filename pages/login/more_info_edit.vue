@@ -12,7 +12,7 @@
 				</view>
 				<view class="flex_center" @click="chooseImg">
 					<image :src="imagePath" mode="aspectFill" class="head" ></image>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
 				</view>
 			</view>
 			<view class="info_item flex_between">
@@ -35,7 +35,7 @@
 					<view class="email">
 						{{gender?(gender=='male'?'男':'女'):'选择'}}
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
 				</view>
 			</view>
 			<view class="info_item flex_between" @click="openCalendar">
@@ -46,14 +46,14 @@
 					<view class="email">
 						{{birthday}}
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
 				</view>
 			</view>
 			<view class="info_item flex_between" style="flex: 1;" >
 				<view class="title">
 					常居地<text style="color: red;">*</text>
 				</view>
-					<uni-data-picker 
+					<!-- <uni-data-picker 
 										v-model="curData"
 								      :localdata="cityData"
 								      :value="selectedValues"
@@ -61,7 +61,7 @@
 								      mode="region"
 								      @change="onChange"
 								      title="请选择省市"
-								    ></uni-data-picker>
+								    ></uni-data-picker> -->
 			</view>
 			
 			<view class="btn flex_center" @click="saveMessage">
@@ -81,7 +81,7 @@
 import { onMounted, ref } from 'vue';
 import { changeUserInfo } from '../../service/uer_profile';
 import { uploadUrl } from '../../service/config';
-import cityDataJson from "@/static/cityData.json"
+// import cityDataJson from "https://static.maxcang.com/appstatic/cityData.json"
 import { uploadImage } from '../../utils';
 import { useUserStore } from '../../store/user';
 
@@ -99,7 +99,7 @@ const selectedProvince = ref('')
 const selectedCity = ref('')
 
 // 省市数据
-const cityData = ref(cityDataJson)
+// const cityData = ref(cityDataJson)
 
 
 onMounted(()=>{
@@ -111,7 +111,7 @@ onMounted(()=>{
 	birthday.value=formatDate(userInfo.value.birthdate)  
 	const  cityName=getCity(userInfo.value.residence)
 	const provinceName=getProvinceName(userInfo.value.residence)
-	curData.value=findValueByText(cityName)
+	// curData.value=findValueByText(cityName)
 	selectedProvince.value=provinceName
 	selectedCity.value=cityName
 })

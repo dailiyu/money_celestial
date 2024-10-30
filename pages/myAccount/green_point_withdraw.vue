@@ -6,7 +6,7 @@
 				<view class="">
 					积分账号
 				</view>
-				<!-- <image src="@/static/account.png" mode="widthFix" class="a_pic"></image> -->
+				<!-- <image src="https://static.maxcang.com/appstatic/account.png" mode="widthFix" class="a_pic"></image> -->
 			</view>
 			<view class="account_box">
 				{{account?obscureString(account):''}}

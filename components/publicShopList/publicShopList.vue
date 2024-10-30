@@ -9,13 +9,13 @@
 					</view>
 					
 					<view class="pic_box flex">
-						<image src="@/static/star.png" mode="widthFix" class="star_pic" v-for="(star, i) in 5" :key="i"></image>
+						<image src="https://static.maxcang.com/appstatic/star.png" mode="widthFix" class="star_pic" v-for="(star, i) in 5" :key="i"></image>
 						<view class="point">
 							5
 						</view>
 					</view>
 					<view class="flex">
-						<image src="@/static/locate_orange.png" mode="widthFix" class="location_pic"></image>
+						<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="location_pic"></image>
 						<view class="district">
 							{{item.address}}
 						</view>

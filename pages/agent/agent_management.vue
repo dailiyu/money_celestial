@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<navBar title="代理后台" ></navBar>
-		<!-- <image src="@/static/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image> -->
+		<!-- <image src="https://static.maxcang.com/appstatic/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image> -->
 		<!-- 已激活 -->
 		<view class="content" v-if="margin_require&&(margin_require<depositAmount||margin_require==depositAmount)">
 			<view class="total_data">
@@ -44,13 +44,13 @@
 					<view class="">
 						店铺列表
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<view class="list_item flex_between" @click="toSecurityDeposit">
 					<view class="">
 						保证金
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 			</view>
 		</view>
@@ -186,7 +186,7 @@ const toAddDeposit = ()=>{
 // }
 .content {
 	min-height: 80vh;
-	background: url('@/static/agent/bg.png') no-repeat;
+	background: url('https://static.maxcang.com/appstatic/agent/bg.png') no-repeat;
 	background-size: 100% auto;
 }
 .total_data {
