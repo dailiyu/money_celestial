@@ -38,11 +38,11 @@ const props = defineProps({
   },
   imgWidth:{
 	  type:Number,
-	  default:500
+	  default:0
   },
   imgHeight:{
   	  type:Number,
-  	  default:500
+  	  default:0
   },
   showUpload:{
 	  type:Boolean,
@@ -60,16 +60,23 @@ onMounted(()=>{
 
 const successfulPaths=ref([])
 const chooseImg = async () => {
+	console.log(props.imgWidth,props.imgHeight);
 	
+ let cropConfig= {
+		width:props.imgWidth,
+		height:props.imgHeight,
+		quality:100
+	};
 	
-	
+	if(!props.imgWidth&&!props.imgHeight){
+		cropConfig = undefined;
+	} 
+  
   // 选择图片
   uni.chooseImage({
     count: Number(props.amount), 
-	crop:{
-		width:props.imgWidth,
-		height:props.imgHeight
-	},
+	sizeType:'origin',
+	crop:cropConfig,
     success:async (res) => {
       const tempFilePaths = res.tempFilePaths;
       // 将选择的图片路径赋值给 imagePath 用于页面显示
@@ -93,7 +100,7 @@ const  deleteImg=async (index)=>{
 	if(!props.showUpload){
 		return uni.showToast({
 			icon:'none',
-			title:"不允许编辑！"
+			title:"营业执照不允许编辑！"
 		})
 	}
 	successfulPaths.value.splice(index,1)

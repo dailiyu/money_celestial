@@ -16,7 +16,7 @@
 			<view class="radio" >
 				<radio value="r1" :checked="isChecked"   @click="changeCheck"  color="#FC5908" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《商家入驻须知》</text>
+				<text class="c_title" @click="toDetail">《商家入驻须知》</text>
 			</view>
 			<view class="btn_full" @click="scanCode">
 				扫码成为商家
@@ -120,6 +120,18 @@ const toSetInfo = ()=>{
 		url:'/pages/merchant/merchant_set_info?referral_officer='+referral_officer
 	})
 }
+
+
+
+
+const toDetail=()=>{
+	uni.navigateTo({
+		url:'/pages/merchant/merchant_settle_agreement'
+	})
+}
+
+
+
 </script>
 
 <style lang="scss" scoped>

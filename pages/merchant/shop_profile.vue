@@ -5,29 +5,29 @@
 			<view class="head_box flex_between" style="align-items: flex-start;">
 				<view class="">
 					<view class="h_title">
-						店铺头像(200*200)
+						店铺头像(800*800)
 					</view>
 					<view class="h_text" style="margin-top: 42rpx;">
 						可上传店铺照片或LOGO
 					</view>
 				</view>
-				<upload ref="gf"  amount="1"  :imgWidth="500" :imgHeight="500" @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
+				<upload amount="1"  :imgWidth="800" :imgHeight="800" @uploadSuccessfulPaths="acceptSuccessProfileImgPath"></upload>
 			</view>
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺轮播图(750*418)
+						店铺轮播图(900*600)
 					</view>
 					<view class="tips_text">
 						第一张请上传门面照片
 					</view>
 				</view>
-				<upload amount="6"  :imgWidth="750" :imgHeight="500"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
+				<upload amount="6"  :imgWidth="900" :imgHeight="600"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
 			</view>
 				<view class="head_box">
 					<view class="flex_between" style="margin-bottom: 54rpx;">
 						<view class="h_title">
-							店铺营业执照(750*500)
+							店铺营业执照
 						</view>
 						<view class="tips_text">
 							<view class="">
@@ -38,7 +38,7 @@
 							</view>
 						</view>
 					</view>
-					<upload ref="g11f"  amount="6"  :imgWidth="750" :imgHeight="418"  @uploadSuccessfulPaths="acceptSuccessAuthfileImgPath"></upload>
+					<upload ref="g11f"  amount="1"    @uploadSuccessfulPaths="acceptSuccessAuthfileImgPath"></upload>
 				</view>
 		<view class="head_box">
 			<view class="info_item flex_between">

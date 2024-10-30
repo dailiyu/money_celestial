@@ -40,6 +40,14 @@
 			}
 		},
 		{
+			"path" : "pages/merchant/merchant_fail_edit_info",
+			"style" : 
+			{
+				"navigationBarTitleText" : "驳回重写商铺信息",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path" : "pages/merchant/before_create_shop",
 			"style" : 
 			{
