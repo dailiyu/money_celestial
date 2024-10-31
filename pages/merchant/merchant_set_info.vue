@@ -25,15 +25,11 @@
 					<view class="s_title" style="margin-right: 45rpx;">
 						常居地
 					</view>
-					<input v-model="selectedCity" class="uni-input" placeholder="请选择城市"
-						placeholder-class="placeholder_class" disabled @click="selectCity" />
-					<!-- <uni-data-picker 
-									      :localdata="cityData"
-										  :clear-icon='false'
-									      mode="region"
-									      @change="onChange"
-									      title="请选择省市"
-									    ></uni-data-picker> -->
+					<!-- <input v-model="selectedCity" class="uni-input" placeholder="请选择城市"
+						placeholder-class="placeholder_class" disabled @click="selectCity" /> -->
+					<picker @change="bindCityChange"  mode="region">
+						<view class="uni-input">{{selectedCity}}</view>
+					</picker>
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -54,8 +50,8 @@
 				下一步
 			</view>
 		</view>
-
-		<selector-component :show="selectorVisible" key="YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA" referer="满仓生态" bindselect="onSelectCity"></selector-component>
+		
+		
 	</view>
 </template>
 
@@ -101,15 +97,12 @@
 	const shopIntro = ref('')
 	const shopName = ref('')
 	const businessRange = ref('')
-	const code = ref('')
 	const temBannerImgPaths = ref([])
 	const temProfileImgPaths = ref([])
 	const temDetailImgPaths = ref([])
-	// const range = ref([
-	//     { value: "篮球", text: "篮球" },
-	//     { value: "足球", text: "足球" },
-	//     { value: "游泳", text: "游泳" },
-	// ])
+	
+	
+	
 
 	const range = computed(() => {
 		return publicStore.cateGoryList.map((item) => {
@@ -121,29 +114,10 @@
 		});
 	});
 
-	// 绑定选择的值
-	const selectedValues = ref([])
 
 	// 绑定省市名显示
-	const selectedProvince = ref('')
-	const selectedCity = ref('')
+	const selectedCity = ref('选择城市')
 
-	// 省市数据
-	// const cityData = ref(cityDataJson)
-
-	// 当选择器值变化时，处理选中的省和市
-
-	// const onChange = (e) => {
-	//   const selected = e.detail.value
-	//   const province = cityData.value.find(item => item.value === selected[0])
-	//   const city = province?.children?.find(item => item.value === selected[1])
-
-	//   // 保存选择的省市名
-	//    selectedProvince.value = e.detail.value[0].text ||''
-	//    selectedCity.value =  e.detail.value[1].text ||''
-	//   // 保存选中的省市值
-	//   console.log( selectedProvince.value,selectedCity.value);
-	// }
 
 
 	const isChecked = ref(false)
@@ -247,19 +221,10 @@
 		})
 	}
 	
-	const selectorVisible = ref(false)
-	const onSelectCity = (e)=>{
-	    const { province, city } = e.detail;
-		console.log(e)
-	    // this.setData({
-	    //   selectedProvince: province,
-	    //   selectedCity: city,
-	    // });
+	const bindCityChange = (e)=>{
+		selectedCity.value = e.detail.value[1]
 	}
-	const selectCity = ()=>{
-		selectorVisible.value = true
-		
-	}
+	
 </script>
 
 <style lang="scss" scoped>
@@ -273,6 +238,10 @@
 
 			&:last-child {
 				border-bottom: none;
+			}
+			
+			picker {
+				flex: 1;
 			}
 
 			.s_title {

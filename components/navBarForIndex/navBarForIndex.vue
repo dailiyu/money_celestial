@@ -2,13 +2,10 @@
 	<view :style="navBarStyle" class="nav_bar">
 		<view class="nav_item">
 			<view class="picker-box">
-				<!-- <uni-data-picker v-model="curPosition" :localdata="cityData" :value="selectedValues" :clear-icon='false'
-					mode="region" @change="onChange" popup-title="请选择所在地区">
-					<template #default>
-						{{selectedCity||'请选择'}}
-					</template>
-				</uni-data-picker> -->
-				{{selectedCity||'请选择'}}
+				<picker @change="bindCityChange"  mode="region">
+					<view class="uni-input">{{selectedCity||'请选择'}}</view>
+				</picker>
+				<!-- {{selectedCity||'请选择'}} -->
 			</view>
 			<view class="name">{{ title }}</view>
 			<view class="select-box">
@@ -29,7 +26,6 @@
 		computed,
 		onMounted
 	} from 'vue';
-	// import cityDataJson from "https://static.maxcang.com/appstatic/cityData.json"
 	import {
 		onShow
 	} from '@dcloudio/uni-app'
@@ -62,16 +58,9 @@
 	const selectItem = ref()
 
 
-	const curPosition = ref('')
-	// 绑定选择的值
-	const selectedValues = ref([])
-
 	// 绑定省市名显示
-	const selectedProvince = ref('')
 	const selectedCity = ref('')
 
-	// 省市数据
-	// const cityData = ref(cityDataJson)
 
 	// 定义组件的 props
 	const props = defineProps({
@@ -102,11 +91,8 @@
 		await userStore.fetchAllDataAction()
 		const userAddress = await uni.getStorageSync('userInfo').residence
 		const userCity = getCityName(userAddress)
-		// const cityValue = findValueByText(userCity)
 		const userProvince = getProvinceName(userAddress)
 		selectedCity.value = userCity
-		// const city=uni.getStorageSync('city')
-		// curPosition.value = cityValue
 
 		emit('changeCity', {
 			province: userProvince,
@@ -114,23 +100,6 @@
 		})
 	})
 
-
-
-	// 当选择器值变化时，处理选中的省和市
-	// const onChange = (e) => {
-	// 	const selected = e.detail.value
-	// 	const province = cityData.value.find(item => item.value === selected[0])
-	// 	const city = province?.children?.find(item => item.value === selected[1])
-
-	// 	// 保存选择的省市名
-	// 	selectedProvince.value = e.detail.value[0].text || ''
-	// 	selectedCity.value = e.detail.value[1].text || ''
-
-	// 	emit('changeCity', {
-	// 		province: selectedProvince.value,
-	// 		city: selectedCity.value
-	// 	})
-	// }
 
 
 	const scanCode = async () => {
@@ -177,17 +146,6 @@
 			scanCode()
 		}
 	}
-	// const findValueByText = (text) => {
-	// 	for (const province of cityDataJson) {
-	// 		for (const city of province.children) {
-
-	// 			if (city.text === text) {
-	// 				return city.value;
-	// 			}
-	// 		}
-	// 	}
-	// 	return null;
-	// }
 
 
 	const getCityName = (location) => {
@@ -228,6 +186,11 @@
 	const clickRight = () => {
 		emit('clickRight');
 	};
+	
+	const bindCityChange = (e)=>{
+		selectedCity.value = e.detail.value[1]
+		emit('changeCity', {province: e.detail.value[0],city: e.detail.value[1]})
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -298,20 +261,10 @@
 			line-height: 1.5625rem;
 			text-align: left;
 
-			::v-deep .input-value .text-color {
+			::v-deep .uni-input {
 				color: #fff;
-				font-size: 20rpx;
+				font-size: 28rpx;
 				border: none;
-			}
-
-			:deep(.arrow-area) {
-				display: none;
-			}
-
-			:deep(.input-value) {
-				padding: 0;
-				line-height: unset;
-				height: auto;
 			}
 		}
 

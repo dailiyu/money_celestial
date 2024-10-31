@@ -171,7 +171,7 @@ const getCity = (e)=>{
 	
 	city.value = e.city
 	uni.setStorageSync('city',city.value)
-	console.log('当前选择的城市',city.value);
+	// console.log('当前选择的城市',city.value);
 	getShopLists()
 }
 const shopLists = ref({})
@@ -184,7 +184,7 @@ const hiddenMask=()=>{
 
 
 const getShopLists = async()=>{
-	
+	console.log(city.value)
 	const {results} = await getCityShopList({name: city.value})
 	shopLists.value = results[0]
 	console.log('切换城市获取到对应的商店列表',results );
