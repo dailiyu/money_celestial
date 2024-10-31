@@ -33,6 +33,7 @@
 					</view>
 					<view class="s_num">
 						{{totalPoints}}
+						{{totalPoints.toFixed(4)}}
 					</view>
 				</view>
 				<!-- <view class="info_item flex_between">
@@ -57,6 +58,7 @@
 					</view>
 					<view class="s_num">
 						{{Number(red_points)+Number(balance)}}
+						{{(Number(red_points)+Number(balance)).toFixed(4)}}
 					</view>
 				</view>
 				<view class="info_item flex_between">
