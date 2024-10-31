@@ -2,12 +2,13 @@
 	<view :style="navBarStyle" class="nav_bar">
 		<view class="nav_item">
 			<view class="picker-box">
-				<uni-data-picker v-model="curPosition" :localdata="cityData" :value="selectedValues" :clear-icon='false'
+				<!-- <uni-data-picker v-model="curPosition" :localdata="cityData" :value="selectedValues" :clear-icon='false'
 					mode="region" @change="onChange" popup-title="请选择所在地区">
 					<template #default>
 						{{selectedCity||'请选择'}}
 					</template>
-				</uni-data-picker>
+				</uni-data-picker> -->
+				{{selectedCity||'请选择'}}
 			</view>
 			<view class="name">{{ title }}</view>
 			<view class="select-box">
@@ -28,13 +29,19 @@
 		computed,
 		onMounted
 	} from 'vue';
-	import cityDataJson from "@/static/cityData.json"
+	// import cityDataJson from "https://static.maxcang.com/appstatic/cityData.json"
 	import {
 		onShow
 	} from '@dcloudio/uni-app'
 	import {
 		useUserStore
 	} from '../../store/user';
+	
+	defineOptions({
+		options: {
+			styleIsolation: 'shared'
+		}
+	})
 	const userStore = useUserStore()
 	// 定义发射自定义事件
 	const emit = defineEmits(['clickRight', 'changeCity', 'mask']);
@@ -64,7 +71,7 @@
 	const selectedCity = ref('')
 
 	// 省市数据
-	const cityData = ref(cityDataJson)
+	// const cityData = ref(cityDataJson)
 
 	// 定义组件的 props
 	const props = defineProps({
@@ -95,11 +102,11 @@
 		await userStore.fetchAllDataAction()
 		const userAddress = await uni.getStorageSync('userInfo').residence
 		const userCity = getCityName(userAddress)
-		const cityValue = findValueByText(userCity)
+		// const cityValue = findValueByText(userCity)
 		const userProvince = getProvinceName(userAddress)
 		selectedCity.value = userCity
 		// const city=uni.getStorageSync('city')
-		curPosition.value = cityValue
+		// curPosition.value = cityValue
 
 		emit('changeCity', {
 			province: userProvince,
@@ -110,20 +117,20 @@
 
 
 	// 当选择器值变化时，处理选中的省和市
-	const onChange = (e) => {
-		const selected = e.detail.value
-		const province = cityData.value.find(item => item.value === selected[0])
-		const city = province?.children?.find(item => item.value === selected[1])
+	// const onChange = (e) => {
+	// 	const selected = e.detail.value
+	// 	const province = cityData.value.find(item => item.value === selected[0])
+	// 	const city = province?.children?.find(item => item.value === selected[1])
 
-		// 保存选择的省市名
-		selectedProvince.value = e.detail.value[0].text || ''
-		selectedCity.value = e.detail.value[1].text || ''
+	// 	// 保存选择的省市名
+	// 	selectedProvince.value = e.detail.value[0].text || ''
+	// 	selectedCity.value = e.detail.value[1].text || ''
 
-		emit('changeCity', {
-			province: selectedProvince.value,
-			city: selectedCity.value
-		})
-	}
+	// 	emit('changeCity', {
+	// 		province: selectedProvince.value,
+	// 		city: selectedCity.value
+	// 	})
+	// }
 
 
 	const scanCode = async () => {
@@ -170,17 +177,17 @@
 			scanCode()
 		}
 	}
-	const findValueByText = (text) => {
-		for (const province of cityDataJson) {
-			for (const city of province.children) {
+	// const findValueByText = (text) => {
+	// 	for (const province of cityDataJson) {
+	// 		for (const city of province.children) {
 
-				if (city.text === text) {
-					return city.value;
-				}
-			}
-		}
-		return null;
-	}
+	// 			if (city.text === text) {
+	// 				return city.value;
+	// 			}
+	// 		}
+	// 	}
+	// 	return null;
+	// }
 
 
 	const getCityName = (location) => {
@@ -208,7 +215,7 @@
 
 	// 计算导航栏样式
 	const navBarStyle = computed(() => ({
-		paddingTop: `calc(${statusBarHeight.value} + 60rpx)`,
+		paddingTop: `calc(${statusBarHeight.value} + 80rpx)`,
 		backgroundColor: props.bgc
 	}));
 
@@ -249,21 +256,38 @@
 
 			.select {}
 
-			:deep(.uni-popper__arrow_bottom) {
-				border-bottom-color: transparent;
-				left: unset;
-				right: 0;
+			:deep(.uni-icons) {
+				display: none;
 			}
-
+			:deep(.uni-select) {
+				border: none;
+				padding: 0;
+				height: fit-content;
+			}
+			:deep(.uni-select__input-text) {
+				color: #fff;
+				height: 50rpx;
+				width: 50rpx;
+				border-radius: 50%;
+				border: 1px solid #fff;
+			}
+			:deep(.uni-select__selector-item) {
+				color: #333;
+			}
 			:deep(.uni-select__selector) {
+				width: 150rpx;
 				left: unset;
 				right: 0;
 			}
+			:deep(.uni-popper__arrow_bottom) {
+				left: unset;
+				right: 10%;
+			}
+			:deep(.uni-select__input-box) {
+				height: fit-content;
+			}
 		}
 
-		.name {
-			// transform: translateX(-90rpx);
-		}
 
 		.picker-box {
 			position: absolute;
@@ -291,34 +315,6 @@
 			}
 		}
 
-
-		:deep(.input-value-border) {
-			border: none;
-		}
-
-		:deep(.placeholder) {
-			color: #fff;
-		}
-
-		:deep(.input-arrow) {
-			border-color: #fff;
-		}
-
-		:deep(.selected-list) {
-			color: #000;
-		}
-
-		:deep(.input-split-line) {
-			color: #FC5908;
-		}
-
-		.uni-icons {
-			position: absolute;
-			left: 0;
-			top: 50%;
-			transform: translateY(-50%);
-		}
-
 		uni-text {
 			color: #000;
 		}
@@ -329,45 +325,6 @@
 			top: 50%;
 			transform: translateY(-50%);
 			font-size: 24rpx;
-		}
-
-		:deep(.uni-select__selector) {
-			color: #000;
-			width: 140rpx;
-		}
-
-		:deep(.uni-stat__select) {
-			// width: 30rpx;
-			// height: 100rpx;
-
-		}
-
-		:deep(.uni-icons) {
-			display: none;
-
-		}
-
-		:deep(.uni-select) {
-			width: 40rpx;
-			height: 40rpx;
-			border-radius: 50%;
-			padding: 0;
-			align-items: center;
-			justify-content: center;
-		}
-
-		:deep(.uni-select__input-box) {
-			// margin-right: 10rpx;
-			// margin-bottom: 5rpx;
-
-		}
-
-		:deep(.uni-select__input-text) {
-			color: #fff;
-		}
-
-		:deep(.uni-select__input-placeholder) {
-			font-size: 40rpx;
 		}
 	}
 </style>

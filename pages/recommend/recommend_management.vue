@@ -2,12 +2,12 @@
 	<view>
 		<navBar title="推荐官后台" ></navBar>
 		<view class="total_data">
-			<image src="@/static/recommend/verified.png"  @click="toUnbindMerchantCode"   mode="widthFix" class="verify_pic" v-if="isVerified"></image>
-			<image src="@/static/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image>
-			<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
-			<image src="@/static/recommend/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
+			<image src="https://static.maxcang.com/appstatic/recommend/verified.png"  @click="toUnbindMerchantCode"   mode="widthFix" class="verify_pic" v-if="isVerified"></image>
+			<image src="https://static.maxcang.com/appstatic/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image>
+			<image src="https://static.maxcang.com/appstatic/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
+			<image src="https://static.maxcang.com/appstatic/recommend/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
 			<view class="data_item">
-				<image src="@/static/recommend/lv1.png" mode="widthFix" class="lv_pic"></image>
+				<image src="https://static.maxcang.com/appstatic/recommend/lv1.png" mode="widthFix" class="lv_pic"></image>
 				<view class="lv_name">
 					荣耀推荐官
 				</view>
@@ -41,25 +41,25 @@
 					<view class="">
 						推荐店铺列表
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<view class="list_item flex_between" @click="toMerchantCode">
 					<view class="">
 						商家码认证
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<!-- <view class="list_item flex_between" @click="toMerchantCode" v-if="!userStore.vertifyMerchantInfo.is_verified">
 					<view class="">
 						商家码认证
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view> -->
 				<!-- <view class="list_item flex_between" @click="toSecurityDeposit">
 					<view class="">
 						保证金
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view> -->
 			</view>
 		</view>

@@ -21,7 +21,7 @@
 						@change="changeRange"
 					></uni-data-select>
 					<!-- <input v-model="address" class="uni-input" placeholder="选择商品分类" placeholder-class="placeholder_class" />
-					<image src="@/static/arrow-right.png" mode="widthFix" class="lo_pic"></image> -->
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="lo_pic"></image> -->
 				</view>
 			</view>
 			<view class="head_box">

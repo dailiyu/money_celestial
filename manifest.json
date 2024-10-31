@@ -68,10 +68,10 @@
             },
             "icons" : {
                 "android" : {
-                    "hdpi" : "static/icon/72.png",
-                    "xhdpi" : "static/icon/96.png",
-                    "xxhdpi" : "static/icon/144.png",
-                    "xxxhdpi" : "static/icon/192.png"
+                    "hdpi" : "https://static.maxcang.com/appstatic/icon/72.png",
+                    "xhdpi" : "https://static.maxcang.com/appstatic/icon/96.png",
+                    "xxhdpi" : "https://static.maxcang.com/appstatic/icon/144.png",
+                    "xxxhdpi" : "https://static.maxcang.com/appstatic/icon/192.png"
                 }
             },
             "splashscreen" : {
@@ -91,7 +91,7 @@
         "usingComponents" : true,
         "permission" : {
             "scope.userLocation" : {
-                "desc" : "获取当前城市"
+                "desc" : "你的位置信息将用于小程序定位"
             }
         }
     },

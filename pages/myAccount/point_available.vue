@@ -21,25 +21,25 @@
 					<view class="">
 						兑换商品
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view> -->
 				<!-- <view class="list_item flex_between">
 					<view class="">
 						兑换商品
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<view class="list_item flex_between" @click="toWithdrawPoint">
 					<view class="">
 						提取积分
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view> -->
 				<view class="list_item flex_between" @click="toWithdrawRecord">
 					<view class="">
 						积分记录
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 			</view>
 			

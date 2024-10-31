@@ -35,7 +35,7 @@
 						<view class="title" style="margin-right: 45rpx;">
 							所在地
 						</view>
-							<uni-data-picker
+							<!-- <uni-data-picker
 												readonly
 							                   v-model="curData"
 										      :localdata="cityData"
@@ -43,14 +43,14 @@
 										      mode="region"
 										      @change="onChange"
 										      title="请选择省市"
-										    ></uni-data-picker>
+										    ></uni-data-picker> -->
 					</view>
 					<view class="info_item flex_between">
 						<view class="s_title">
 							具体位置
 						</view>
 						<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
-						<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
+						<!-- <image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
 					</view>
 				</view >
 			<!-- 	<view class="radio" @click="changeCheck">
@@ -166,7 +166,7 @@
 		usePublicStore
 	} from "@/store/public.js"
 
-	import cityDataJson from "@/static/cityData.json"
+	// import cityDataJson from "https://static.maxcang.com/appstatic/cityData.json"
 	const shopInfo=uni.getStorageSync('shopInfo')
 	const bannerImages =  shopInfo.images.filter(image => image.image_type === "banner").map(image => image.image_url);
 	const detailImages =  shopInfo.images.filter(image => image.image_type === "other").map(image => image.image_url);

@@ -597,7 +597,10 @@
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"usingComponents": {
+		    "selector-component": "plugin://citySelector/selector-component"
+		}
 	},
 	"uniIdRouter": {},
 	"condition" : { 
@@ -609,5 +612,11 @@
 				"query": "" 
 			}
 		]
+	},
+	"plugins": {
+		"citySelector": {
+			 "version": "1.0.2",
+			 "provider": "wx63ffb7b7894e99ae"
+		 }
 	}
 }

@@ -15,7 +15,7 @@
 	  		</view>
 	  	</view>
 
-		<image src="@/static/upload.png"  v-if="successfulPaths?.length<props.amount&&showUpload"  mode="widthFix" class="upload_btn" @click="chooseImg"></image>
+		<image src="https://static.maxcang.com/appstatic/upload.png"  v-if="successfulPaths?.length<props.amount&&showUpload"  mode="widthFix" class="upload_btn" @click="chooseImg"></image>
   </view>
 </template>
 

@@ -5,13 +5,13 @@
 					<view class="">
 						修改登录密码
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<view class="list_item flex_between" @click="toEditPayPassword">
 					<view class="">
 						修改支付密码
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 
 			</view>

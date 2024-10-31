@@ -8,7 +8,7 @@
 						增加账号
 					</view>
 					<input v-model="address" class="uni-input" placeholder="请输入接收地址" placeholder-class="placeholder_class" />
-					<image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image>
+					<image src="https://static.maxcang.com/appstatic/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image>
 				</view>
 			</view>
 			<view class="shop_info">

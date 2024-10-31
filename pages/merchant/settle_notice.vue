@@ -13,10 +13,10 @@
 					本条款的签约双方为满仓服务的实际运营商***号信息咨询有限公司(下称“满仓”)与使用满仓相关服务的使用人(下称“用户”或“您”)，本条款是您与满仓之间关于您使用满仓提供的各项服务所订立的服务条款，具有正式书面合同的效力。本条款为《满仓用户服务协议》》(包括但不限于所附的《满仓隐私政策》)的必要组成部分。《满仓用户服务协议》将同时适用于满仓的各项服务。如本条款与《满仓用户服务协议》文本内容存在冲突之处，则以时间上最新发布的内容为准，发布时间相同的，以本条款为准。本条款有待明确、存在歧义或未规定之处均以《满仓用户服务协议》中的规定为准。您理解并同意，满仓将根据《满仓用户服务协议》的约定，对本条款或各项服务规则不时地进行修改更新。修改更新内容的发布和实施均适用《满仓用户服务协议》的相关约定。
 				</view>
 			</view>
-			<view class="radio" >
-				<radio value="r1" :checked="isChecked"   @click="changeCheck"  color="#FC5908" />
+			<view class="radio" @click="changeCheck">
+				<radio value="r1" :checked="isChecked" @click="changeCheck" color="#FC5908" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title" @click="toDetail">《商家入驻须知》</text>
+				<text class="c_title" @click.stop="toAgreement">《商家入驻须知》</text>
 			</view>
 			<view class="btn_full" @click="scanCode">
 				扫码成为商家
@@ -120,18 +120,11 @@ const toSetInfo = ()=>{
 		url:'/pages/merchant/merchant_set_info?referral_officer='+referral_officer
 	})
 }
-
-
-
-
-const toDetail=()=>{
+const toAgreement = ()=>{
 	uni.navigateTo({
-		url:'/pages/merchant/merchant_settle_agreement'
+		url: '/pages/merchant/merchant_settle_agreement'
 	})
 }
-
-
-
 </script>
 
 <style lang="scss" scoped>
