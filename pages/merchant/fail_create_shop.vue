@@ -22,7 +22,7 @@ import { useUserStore } from '../../store/user';
   const userStore=useUserStore()
 	const toCreateShop=async ()=>{
 		uni.redirectTo({
-			url:'/pages/merchant/merchant_edit_info'
+			url:'/pages/merchant/merchant_fail_edit_info'
 		})
 	}
 	onMounted(()=>{

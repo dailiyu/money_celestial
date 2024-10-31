@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="店铺信息编辑"></navBar>
+		<navBar title="更新店铺信息"></navBar>
 		<view class="content">
 			<view class="shop_info">
 					<view class="info_item flex_between">
@@ -32,19 +32,25 @@
 						</view>
 					</view> -->
 					<view class="info_item flex_between" style="flex: 1;"  @click="forbiddenTips">
-						<view class="s_title" style="margin-right: 45rpx;">
+						<view class="title" style="margin-right: 45rpx;">
 							所在地
 						</view>
-						<picker @change="bindCityChange"  mode="region">
-							<view class="uni-input">{{selectedCity}}</view>
-						</picker>
+							<uni-data-picker
+												readonly
+							                   v-model="curData"
+										      :localdata="cityData"
+											  :clear-icon='false'
+										      mode="region"
+										      @change="onChange"
+										      title="请选择省市"
+										    ></uni-data-picker>
 					</view>
 					<view class="info_item flex_between">
 						<view class="s_title">
 							具体位置
 						</view>
-						<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
-						<!-- <image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
+						<input v-model="address" class="uni-input"  placeholder-class="placeholder_class" />
+						<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
 					</view>
 				</view >
 			<!-- 	<view class="radio" @click="changeCheck">
@@ -81,14 +87,14 @@
 						店铺营业执照
 					</view>
 				</view>
-				<upload amount="6"   :showUpload="false"  :imgUrls="authfileImages"  ></upload>
+				<upload amount="1"  :imgWidth="0" :imgHeight="0"  @uploadSuccessfulPaths="acceptSuccessAuthfileImgPath"   :imgUrls="authfileImages"  ></upload>
 			</view>
 		<view class="shop_info">
-				<view class="info_item flex_between" @click="showTips" >
+				<view class="info_item flex_between" >
 					<view class="s_title">
-						营业执照编号
+						营业执照编号   
 					</view>
-					<input disabled=""  v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
+					<input  v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
 				</view>
 			</view >
 				<view class="shop_info">
@@ -96,7 +102,7 @@
 							<view class="s_title">
 								赠送百分比
 							</view>
-							<input v-model="proportion_gift"  class="uni-input" placeholder="请输入30到1000之间的整数" placeholder-class="placeholder_class" />
+							<input v-model="proportion_gift"    class="uni-input" placeholder="请输入30到1000之间的整数" placeholder-class="placeholder_class" />
 					<view class="s_title">
 						%
 					</view>
@@ -160,6 +166,7 @@
 		usePublicStore
 	} from "@/store/public.js"
 
+	import cityDataJson from "@/static/cityData.json"
 	const shopInfo=uni.getStorageSync('shopInfo')
 	const bannerImages =  shopInfo.images.filter(image => image.image_type === "banner").map(image => image.image_url);
 	const detailImages =  shopInfo.images.filter(image => image.image_type === "other").map(image => image.image_url);
@@ -186,23 +193,64 @@ onMounted(async()=>{
 	business_license.value=shopInfo.license_no
 	proportion_gift.value=shopInfo.consume2coin_bit
 	address.value=shopInfo.address
+	curData.value=findValueByText(shopInfo.city)
 	selectedCity.value=shopInfo.city
 	 successDetailImgPaths.value=detailImages
 	 successProfileImgPaths.value=avatarImages
 	 successBannerImgPaths.value=bannerImages
 	 successAuthfileImgPaths.value=authfileImages
+	console.log('---------',successDetailImgPaths.value,successProfileImgPaths.value,successBannerImgPaths.value);
+	console.log(findValueByText(shopInfo.city.name));		
+	console.log(cityDataJson);
+	console.log("本地获取到的商铺信息",shopInfo);
 })
 
+const findValueByText=(text)=> {
+  for (const province of cityDataJson) {
+	 
+    for (const city of province.children) {
+		
+      if (city.text === text) {
+        return city.value;
+      }
+    }
+  }
+  return null;
+}
 
+// 绑定选择的值
+const selectedValues = ref([])
 
 // 绑定省市名显示
+const selectedProvince = ref('')
 const selectedCity = ref()
+
+// 省市数据
+const cityData = ref(cityDataJson)
+
+// 当选择器值变化时，处理选中的省和市
+const onChange = (e) => {
+  const selected = e.detail.value
+  const province = cityData.value.find(item => item.value === selected[0].value)
+  const city = province?.children?.find(item => item.value === selected[1].value)
+	console.log('选择的城市',curData.value);
+  // 保存选择的省市名
+   selectedProvince.value =province.text 
+   selectedCity.value = city.text
+  // 保存选中的省市值
+  console.log(selected[0].text,province, city,selectedProvince.value,selectedCity.value);
+}
+
+
 
 
 
 const range = computed(() => {
 		return publicStore.cateGoryList.map((item) => {
-			
+			console.log({
+				value: item.id, // value 为 id
+				text: item.name, // text 为 name
+			});
 			return {
 				value: item.id, // value 为 id
 				text: item.name, // text 为 name
@@ -227,16 +275,23 @@ const range = computed(() => {
 
 	const acceptSuccessBannerImgPath = async (ImgPaths) => {
 		successBannerImgPaths.value = ImgPaths
+		console.log('接受到的上传成功Banner地址数组',successBannerImgPaths.value);
 	}
 
 	const acceptSuccessProfileImgPath = async (ImgPaths) => {
 		successProfileImgPaths.value = ImgPaths
+		console.log('接受到的上传成功Profile地址数组', successProfileImgPaths.value);
 	}
 
 	const acceptSuccessDetailImgPath = async (ImgPaths) => {
 		successDetailImgPaths.value = ImgPaths
+		console.log('接受到的上传Detail成功地址数组',successDetailImgPaths.value);
 	}
 
+	const acceptSuccessAuthfileImgPath = async (ImgPaths) => {
+		 successAuthfileImgPaths.value = ImgPaths
+		console.log( successAuthfileImgPaths.value);
+	}
 
 	//关联商家轮播图
 	const bannerListUrl = ref([])
@@ -245,6 +300,7 @@ const range = computed(() => {
 		for (let i = 0; i < successBannerImgPaths.value.length; i++) {
 			bannerListUrl.value.push({image_url:successBannerImgPaths.value[i],image_type:'banner'})
 		}
+		console.log('组成的参数bannerListUrl',bannerListUrl.value);
 	}
 	
 	
@@ -256,6 +312,7 @@ const range = computed(() => {
 			for (let i = 0; i < successAuthfileImgPaths.value.length; i++) {
 				authfileListUrl.value.push({image_url:successAuthfileImgPaths.value[i],image_type:'authfile'})
 			}
+			console.log('组成的参数authfileListUrl',authfileListUrl.value);
 		}
 	
 	//关联详情图
@@ -265,6 +322,7 @@ const range = computed(() => {
 			
 			detailListUrl.value.push({image_url:successDetailImgPaths.value[i],image_type:'other'})
 		}
+		console.log('组成的参数detailListUrl',detailListUrl.value);
 	}
 	
 
@@ -275,6 +333,7 @@ const range = computed(() => {
 	const associatedProfileImg = async () => {
 		profileUrl.value = successProfileImgPaths.value[0]
 		userProfileUrls.value.push({image_url:successProfileImgPaths.value[0],image_type:'avatar'})
+		console.log('组成的参数userProfileUrls',userProfileUrls.value);
 	}
 
 
@@ -296,6 +355,15 @@ const range = computed(() => {
 	const saveStoreInfo = async () => {
 	
 	
+		console.log(
+			shopIntro.value,
+			shopName.value,
+			address.value,
+			selectedCity.value,
+			businessRange.value,
+			successDetailImgPaths.value.length,
+			successProfileImgPaths.value.length,
+			successBannerImgPaths.value.length)
 		//检查是否有任意一个值为空
 		if (
 			!shopName.value ||
@@ -304,7 +372,9 @@ const range = computed(() => {
 			!businessRange.value||
 			successProfileImgPaths.value.length === 0||
 			successBannerImgPaths.value.length===0||
-			!proportion_gift.value
+			successAuthfileImgPaths.value.length==0||
+			!proportion_gift.value||
+			!business_license.value
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -323,6 +393,7 @@ const range = computed(() => {
 			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
 
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value,...authfileListUrl.value]
+			console.log('图片列表参数',params);
 		   await updateShopImg(phoneNumber,{images:params})	
 			uni.hideLoading()
 			uni.showToast({
@@ -339,6 +410,7 @@ const range = computed(() => {
 
 
 		} catch (e) {
+			console.log(e);
 			uni.showToast({
 				title: "出现错误",
 				duration: 1000,
@@ -354,16 +426,13 @@ const range = computed(() => {
 			title:'店铺常居地不允许修改'
 		})
 	}
-
 	const showTips=()=>{
 		uni.showToast({
 			icon:'none',
-			title:"营业执照编号不允许编辑！"
+			title:"不允许编辑！"
 		})
 	}
-	const bindCityChange = (e)=>{
-		selectedCity.value = e.detail.value[1]
-	}
+	
 </script>
 <style lang="scss" scoped>
 .head_box {
@@ -391,9 +460,6 @@ const range = computed(() => {
 		border-bottom: 1px solid #E3E3E3;
 		&:last-child {
 			border-bottom: none;
-		}
-		picker {
-			flex: 1;
 		}
 		.s_title {
 			font-size: 27rpx;
