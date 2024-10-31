@@ -1,6 +1,10 @@
 <template>
 	<view>
-		<navBar title="完善信息" bgc="#1B46CC" :isSkip="true" @skip="skip"></navBar>
+		<navBar title="完善信息" bgc="#1B46CC"  :isShow="true" @clickRight="skip">
+			<template class="skip" #right>
+				跳过
+			</template>
+		</navBar>
 		<view class="content">
 			<view class="info_item flex_between">
 				<view class="title">
@@ -17,12 +21,12 @@
 				</view>
 				<uni-easyinput class="uni-mt-5" v-model="name" ></uni-easyinput>
 			</view>
-			<view class="info_item flex_between">
+	<!-- 		<view class="info_item flex_between">
 				<view class="title">
 					邮箱
 				</view>
 				<uni-easyinput class="uni-mt-5" v-model="email" ></uni-easyinput>
-			</view>
+			</view> -->
 			<view class="info_item flex_between">
 				<view class="title">
 					性别
@@ -45,23 +49,25 @@
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
 				</view>
 			</view>
-			<view class="info_item flex_between" style="flex: 1;" @click="getLocation">
+			<view class="info_item flex_between" style="flex: 1;" >
 				<view class="title">
-					常居地
+					常居地<text style="color: red;">*</text>
 				</view>
-				<view class="flex_center" style="flex: 1;justify-content: flex-end;">
-					<view class="email" style="flex: 1;">
-						{{address}}
-					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
-				</view>
+					<uni-data-picker 
+								      :localdata="cityData"
+								      :value="selectedValues"
+									  :clear-icon='false'
+								      mode="region"
+								      @change="onChange"
+								      title="请选择省市"
+								    ></uni-data-picker>
 			</view>
 			
 			<view class="btn flex_center" @click="saveMessage">
 				保存信息
 			</view>
 		</view>
-		
+
 		<uni-calendar 
 			ref="calendar"
 			:insert="false"
@@ -72,9 +78,36 @@
 
 <script setup>
 import { ref } from 'vue';
-import loginVue from './login.vue';
 import { changeUserInfo } from '../../service/uer_profile';
 import { uploadUrl } from '../../service/config';
+import cityDataJson from "@/static/cityData.json"
+import { uploadImage } from '../../utils';
+
+
+
+// 绑定选择的值
+const selectedValues = ref([])
+
+// 绑定省市名显示
+const selectedProvince = ref('')
+const selectedCity = ref('')
+
+// 省市数据
+const cityData = ref(cityDataJson)
+
+// 当选择器值变化时，处理选中的省和市
+const onChange = (e) => {
+  const selected = e.detail.value
+  const province = cityData.value.find(item => item.value === selected[0])
+  const city = province?.children?.find(item => item.value === selected[1])
+
+  // 保存选择的省市名
+   selectedProvince.value = e.detail.value[0].text ||''
+   selectedCity.value =  e.detail.value[1].text ||''
+  // 保存选中的省市值
+  console.log( selectedProvince.value,selectedCity.value);
+}
+
 
 const skip = ()=>{
 	uni.reLaunch({
@@ -104,13 +137,18 @@ const chooseImg = async () => {
   // 选择图片
   uni.chooseImage({
     count: 1, // 限制用户只能选择一张图片
-    success: (res) => {
+	crop:{
+		width:500,
+		height:500
+	},
+    success:async (res) => {
       const tempFilePaths = res.tempFilePaths;
       // 将选择的图片路径赋值给 imagePath 用于页面显示
       imagePath.value = tempFilePaths[0]; 
       console.log('-----选择的图片路径：', tempFilePaths[0]);
       // 调用上传图片方法
-      uploadImage(tempFilePaths[0]);
+      const url=await uploadImage(tempFilePaths[0]);
+	  uploadSuccessUrl.value=url
     },
     fail: (err) => {
       console.log('选择图片失败：', err);
@@ -119,43 +157,6 @@ const chooseImg = async () => {
 };
 
 const token = uni.getStorageSync('accessToken'); // UniApp 中使用 uni.getStorageSync 代替 localStorage.getItem
-
-// 上传图片
-function uploadImage(filePath) {
-  console.log(filePath);
-  
-  // 生成随机数作为文件名，可以结合当前时间戳确保唯一性
-  const randomFileName = `file_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
-
-  uni.uploadFile({
-    url: uploadUrl, // 上传接口 URL
-    filePath: filePath, // 需要上传的文件路径
-    name: 'image_url', // 后台接收文件的字段名 (根据实际需求)
-    header: {
-      'Authorization': `Bearer ${token}`, // 将 JWT Token 添加到 Authorization 请求头中
-      'Content-Type': 'multipart/form-data'
-    },
-    formData: {
-      'file_name': randomFileName // 生成的随机文件名
-    },
-    success: (uploadFileRes) => {
-      if (uploadFileRes.statusCode === 201) {
-        const data = JSON.parse(uploadFileRes.data); // 解析返回的数据
-        console.log('上传成功！');
-        console.log('上传的图片 URL:', data);
-        uploadSuccessUrl.value = data.image_url;
-      } else {
-        console.log('上传失败，状态码：', uploadFileRes.statusCode);
-      }
-    },
-    fail: (err) => {
-      console.log(err);
-      console.error('上传文件出错:', err);
-    }
-  });
-}
-
-
 
 
 	  
@@ -169,15 +170,30 @@ const validateEmail=(email)=> {
 	  
 	  
 const saveMessage=async()=>{
-	console.log(validateEmail(email.value));
-	if(!validateEmail(email.value)){
+	// console.log(validateEmail(email.value));
+	// if(!validateEmail(email.value)){
+	// 	return uni.showToast({
+	// 		title:"请输入正确的邮箱",
+	// 		icon:"fail",
+	// 		duration:700
+	// 	})
+	// }
+	if(!selectedCity.value) {
 		return uni.showToast({
-			title:"请输入正确的邮箱",
+			title:"常居地为必填项",
 			icon:"fail",
 			duration:700
 		})
 	}
-	  changeUserInfo(name.value,uploadSuccessUrl.value,gender.value,birthday.value,address.value,email.value).then((res)=>{
+	uni.showLoading({
+		title:"正在保存中"              
+	})
+	             
+	const phoneNumber=uni.getStorageSync('phoneNumber')
+	 changeUserInfo({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'male',birthdate:birthday.value||'2024-10-09',residence: selectedProvince.value+' '+selectedCity.value||''}).then((res)=>{
+		
+		uni.setStorageSync('保存的最新用户信息',res)
+		uni.hideLoading()
 		  uni.showToast({
 		  	duration:1000,
 			icon:'success',
@@ -207,6 +223,7 @@ const openCalendar = ()=>{
 }
 const confirm = (e)=>{
 	birthday.value = e.fulldate
+	console.log(birthday.value);
 }
 
 const lat = ref('')

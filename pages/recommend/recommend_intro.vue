@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="推荐官" ></navBar>
 		<view class="content">
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/recommend-intro.jpg" mode="widthFix" class="merchant_intro"></image>
+			<image src="@/static/recommend/recommend-intro.jpg" mode="widthFix" class="merchant_intro"></image>
 			<view class="btn_full" @click="toNext">
 				我要成为推荐官
 			</view>
@@ -12,7 +12,7 @@
 
 <script setup>
 const toNext = ()=>{
-	uni.navigateTo({
+	uni.redirectTo({
 		// url: '/pages/recommend/recommend_management'
 		url: '/pages/recommend/recommend_test'
 	})

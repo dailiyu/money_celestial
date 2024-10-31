@@ -1,51 +1,14 @@
 <template>
 	<view>
-		<navBar title="商家入驻"></navBar>
+		<navBar title="店铺开通"></navBar>
 		<view class="content">
-			<view class="head_box flex_between" style="align-items: flex-start;">
-				<view class="">
-					<view class="h_title">
-						商家头像（200*200）
-					</view>
-					<view class="h_text" style="margin-top: 42rpx;">
-						可上传店铺照片或LOGO
-					</view>
-				</view>
-				<upload :amount="1" @tempImgPaths="acceptTempProfileImgPath"></upload>
-			</view>
-			<view class="head_box">
-				<view class="flex_between" style="margin-bottom: 54rpx;">
-					<view class="h_title">
-						商家轮播图（750*340）
-					</view>
-					<view class="h_text">
-						已选择{{temBannerImgPaths.length}}张
-					</view>
-				</view>
-				<upload amount="6" @tempImgPaths="acceptTempBannerImgPath"></upload>
-			</view>
-			<view class="head_box">
-				<view class="shop_intro">
-					<view class="h_title" style="margin-bottom: 34rpx;">
-						企业介绍
-					</view>
-					<textarea v-model="shopIntro" placeholder="请输入商家介绍" style="width: 100%;height: 146rpx;"
-						placeholder-style="font-size: 24rpx;color:#aaaaaa;" />
-				</view>
-				<view class="flex_between" style="margin-bottom: 54rpx;">
-					<view class="h_title">
-						商家详情图（750*340）
-					</view>
-					<view class="h_text">
-						已选择{{temDetailImgPaths.length}}张
-					</view>
-				</view>
-				<upload :amount="6" @tempImgPaths="acceptTempDetailImgPath"></upload>
-			</view>
+		
+			
+		
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						商家名称
+						店铺名称
 					</view>
 					<input v-model="shopName" class="uni-input" placeholder="请输入商家名称"
 						placeholder-class="placeholder_class" />
@@ -58,15 +21,17 @@
 					<uni-data-select v-model="businessRange" :localdata="range" placeholder="请选择" :clear="false"
 						@change="changeRange"></uni-data-select>
 				</view>
-				<view class="info_item flex_between">
-					<view class="s_title">
-						手机验证
+				<view class="info_item flex_between" style="flex: 1;" >
+					<view class="title" style="margin-right: 45rpx;">
+						常居地
 					</view>
-					<input v-model="code" class="uni-input" placeholder="请输入验证码"
-						placeholder-class="placeholder_class" />
-					<view class="validate_code">
-						获取验证码
-					</view>
+						<uni-data-picker 
+									      :localdata="cityData"
+										  :clear-icon='false'
+									      mode="region"
+									      @change="onChange"
+									      title="请选择省市"
+									    ></uni-data-picker>
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -74,16 +39,16 @@
 					</view>
 					<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择"
 						placeholder-class="placeholder_class" />
-					<image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image>
+					<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
 				</view>
 			</view>
-			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+			<view class="radio" @click="changeCheck" >
+				<radio value="r1" :checked="isChecked" color="#FC5908"  @click="changeCheck"/>
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《商家入驻须知》</text>
+				<text class="c_title" @click.stop="toAgreement">《商家入驻须知》</text>
 			</view>
 			<view class="btn_full" @click="merchantSettleIn">
-				申请入驻
+				下一步
 			</view>
 		</view>
 	</view>
@@ -96,7 +61,6 @@
 	} from 'vue';
 	import {
 		postBindingStoreCategory,
-		
 		uploadMerchantBanner,
 		uploadMerchantDetail
 	} from '../../service/merchant';
@@ -112,12 +76,14 @@
 	} from '../../service/divisions';
 
 	import {
-		uploadImage
-	} from '../../utils';
-	import {
 		usePublicStore
 	} from "@/store/public.js"
+	
+	import cityDataJson from "@/static/cityData.json"
 	import { onLoad } from '@dcloudio/uni-app'
+	function clear(e){
+		console.log(e)
+	}
 	const referral_officer = ref('')
 	onLoad((options)=>{
 		referral_officer.value = options.referral_officer
@@ -139,10 +105,7 @@
 
 	const range = computed(() => {
 		return publicStore.cateGoryList.map((item) => {
-			console.log({
-				value: item.id, // value 为 id
-				text: item.name, // text 为 name
-			});
+			
 			return {
 				value: item.id, // value 为 id
 				text: item.name, // text 为 name
@@ -150,81 +113,41 @@
 		});
 	});
 
+// 绑定选择的值
+const selectedValues = ref([])
+
+// 绑定省市名显示
+const selectedProvince = ref('')
+const selectedCity = ref('')
+
+// 省市数据
+const cityData = ref(cityDataJson)
+
+// 当选择器值变化时，处理选中的省和市
+
+const onChange = (e) => {
+  const selected = e.detail.value
+  const province = cityData.value.find(item => item.value === selected[0])
+  const city = province?.children?.find(item => item.value === selected[1])
+
+  // 保存选择的省市名
+   selectedProvince.value = e.detail.value[0].text ||''
+   selectedCity.value =  e.detail.value[1].text ||''
+  // 保存选中的省市值
+  console.log( selectedProvince.value,selectedCity.value);
+}
 
 
 	const isChecked = ref(false)
 	const changeCheck = () => {
 		isChecked.value = !isChecked.value
+		// console.log(isChecked.value);
 	}
 
 	const changeRange = (e) => {
 		businessRange.value = e
 		console.log(e)
 	}
-
-
-	const toSetInfo = () => {
-		if (!isChecked.value) return uni.showToast({
-			icon: 'none',
-			title: '请阅读完须知后勾选同意'
-		})
-		uni.navigateTo({
-			url: '/pages/merchant/merchant_set_info'
-		})
-	}
-	const toManagement = () => {
-		uni.navigateTo({
-			url: '/pages/merchant/merchant_management'
-		})
-	}
-
-	const acceptTempBannerImgPath = async (ImgPaths) => {
-		temBannerImgPaths.value = ImgPaths
-		console.log(temBannerImgPaths.value);
-	}
-
-	const acceptTempProfileImgPath = async (ImgPaths) => {
-		temProfileImgPaths.value = ImgPaths
-		console.log('tem', temProfileImgPaths.value);
-	}
-
-	const acceptTempDetailImgPath = async (ImgPaths) => {
-		temDetailImgPaths.value = ImgPaths
-		console.log(temDetailImgPaths.value);
-	}
-
-
-	//上传商家轮播图
-	const bannerListUrl = ref([])
-	const upLoadBannerImg = async (shop) => {
-		for (let i = 0; i < temBannerImgPaths.value.length; i++) {
-			//逐个向服务器传图片
-			const url = await uploadImage(temBannerImgPaths.value[i])
-            await uploadShopImg(url, 'banner',shop)
-			bannerListUrl.value.push(url)
-		}
-	}
-
-	//上传详情图
-	const detailListUrl = ref([])
-	const upLoadDetailImg = async (shop) => {
-		for (let i = 0; i < temDetailImgPaths.value.length; i++) {
-			//逐个向服务器传图片
-			const url = await uploadImage(temDetailImgPaths.value[i])
-			await uploadShopImg(url, 'avatar',shop)
-			detailListUrl.value.push(url)
-		}
-	}
-
-	//上传店铺头像
-	const profileUrl = ref('')
-	const uploadProfileImg = async () => {
-		console.log(temProfileImgPaths.value[0]);
-		const url = await uploadImage(temProfileImgPaths.value[0])
-		console.log(url);
-		profileUrl.value = url
-	}
-
 
 
 
@@ -249,28 +172,13 @@
 			icon: 'none',
 			title: '请阅读完须知后勾选同意'
 		})
-		console.log(
-			!shopName.value,
-			!address.value,
-			!shopIntro.value,
-			temDetailImgPaths.value.length === 0,
-			temProfileImgPaths.value.length === 0,
-			temBannerImgPaths.value.length === 0)
-		console.log(
-			shopIntro.value,
-			shopName.value,
-			address.value,
-			temDetailImgPaths.value.length,
-			temProfileImgPaths.value.length,
-			temBannerImgPaths.value.length)
+		
 		//检查是否有任意一个值为空
 		if (
 			!shopName.value ||
 			!address.value ||
-			!shopIntro.value ||
-			temDetailImgPaths.value.length.length === 0 ||
-			temBannerImgPaths.value.length === 0 ||
-			temProfileImgPaths.value.length === 0
+			!selectedCity.value||
+			!businessRange.value
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -278,34 +186,32 @@
 			});
 		}
 		try {
-			uni.showLoading({
-				title: "正在入驻中...",
-			})
-			 const cityDetail=await getCitiesDetail()
-			const {location}=await uni.getStorageSync('address_info')
-			await uploadProfileImg()
-			console.log('-----');
-			console.log(shopName.value,shopIntro.value,[businessRange.value],profileUrl.value,address.value,location.lat,location.lng,cityDetail[0].id);
-			 const res= await postMerchantSettleIn(shopName.value,shopIntro.value,[businessRange.value],profileUrl.value,address.value,location.lat,location.lng,cityDetail[0].id )
-		console.log('-----!!!',res);
 		
-			await upLoadDetailImg(res?.id)
-			await upLoadBannerImg(res?.id)
-			// console.log('----11',businessRange.value,userStore.merchantInfo.id);
-			//console.log(res);
-			await userStore.fetchAllDataAction()
-			uni.hideLoading()
-			uni.showToast({
-				title: "入驻成功",
-				duration: 600,
-				icon: 'success'
-			})
-			// await userStore.fetchAllDataAction()
-			setTimeout(() => {
-				uni.navigateTo({
-					url: '/pages/merchant/merchant_management'
+			// uni.showLoading({
+			// 	title: "正在入驻中...",
+			// })	
+			const phoneNumber=uni.getStorageSync('phoneNumber')
+			console.log(phoneNumber,1111);
+			await uni.setStorageSync('shopParams',{merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
+				uni.redirectTo({
+					url: '/pages/merchant/shop_profile'
 				})
-			}, 700)
+			//  const res= await postMerchantSettleIn({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
+			// console.log('入驻接口返回的信息',res);
+			
+			// await userStore.fetchAllDataAction()
+			// uni.hideLoading()
+			// uni.showToast({
+			// 	title: "入驻成功",
+			// 	duration: 600,
+			// 	icon: 'success'
+			// })
+			
+			// setTimeout(() => {
+			// 	uni.redirectTo({
+			// 		url: '/pages/merchant/shop_profile'
+			// 	})
+			// }, 700)
 
 
 		} catch (e) {
@@ -313,7 +219,7 @@
 			uni.showToast({
 				title: "出现错误",
 				duration: 1000,
-				icon: 'fail'
+				icon: 'error'
 			})
 			//TODO handle the exception
 		}
@@ -321,29 +227,15 @@
 
 
 	}
+	const toAgreement = ()=>{
+		uni.navigateTo({
+			url: '/pages/merchant/merchant_settle_agreement'
+		})
+	}
 </script>
 
 <style lang="scss" scoped>
-	.head_box {
-		background-color: #fff;
-		padding: 34rpx 48rpx 34rpx;
-		margin-bottom: 20rpx;
-
-		.h_title {
-			font-size: 27rpx;
-		}
-
-		.h_text {
-			font-size: 24rpx;
-			color: #999999;
-		}
-
-		.shop_intro {
-			border-bottom: 1px solid #DDDDDD;
-			margin-bottom: 50rpx;
-		}
-	}
-
+	
 	.shop_info {
 		padding: 0 26rpx;
 		background-color: #fff;
@@ -433,4 +325,5 @@
 			font-family: HarmonyOS_Sans_SC_Medium;
 		}
 	}
+
 </style>

@@ -4,8 +4,9 @@
 		<view class="uni-stat-box" :class="{'uni-stat__actived': current}">
 			<view class="uni-select" :class="{'uni-select--disabled':disabled}">
 				<view class="uni-select__input-box" @click="toggleSelector">
-					<view v-if="current" class="uni-select__input-text">{{textShow}}</view>
-					<view v-else class="uni-select__input-text uni-select__input-placeholder">{{typePlaceholder}}</view>
+					<view v-if="current&&!isCustom" class="uni-select__input-text">{{textShow}}</view>
+					<view v-if="isCustom" class="uni-select__input-text">+</view>
+					<view v-if='!current&&!isCustom' class="uni-select__input-text uni-select__input-placeholder">{{typePlaceholder}}</view>
 					<view v-if="current && clear && !disabled" @click.stop="clearVal">
 						<uni-icons type="clear" color="#c0c4cc" size="24" />
 					</view>
@@ -20,9 +21,10 @@
 						<view class="uni-select__selector-empty" v-if="mixinDatacomResData.length === 0">
 							<text>{{emptyTips}}</text>
 						</view>
-						<view v-else class="uni-select__selector-item" v-for="(item,index) in mixinDatacomResData" :key="index"
-							@click="change(item)">
-							<text :class="{'uni-select__selector__disabled': item.disable}">{{formatItemName(item)}}</text>
+						<view v-else class="uni-select__selector-item" v-for="(item,index) in mixinDatacomResData"
+							:key="index" @click="change(item)">
+							<text
+								:class="{'uni-select__selector__disabled': item.disable}">{{formatItemName(item)}}</text>
 						</view>
 					</scroll-view>
 				</view>
@@ -99,6 +101,10 @@
 			placement: {
 				type: String,
 				default: 'bottom'
+			},
+			isCustom: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {

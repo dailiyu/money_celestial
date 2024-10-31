@@ -6,17 +6,17 @@
 				<view class="">
 					积分账号
 				</view>
-				<image src="@/static/account.png" mode="widthFix" class="a_pic"></image>
+				<!-- <image src="@/static/account.png" mode="widthFix" class="a_pic"></image> -->
 			</view>
 			<view class="account_box">
-				{{account}}
+				{{account?obscureString(account):''}}
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						提取数量
+						到账数量
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" />
+					<input v-model="number" type="digit" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" @input="inputNumber" />
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
@@ -28,52 +28,68 @@
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
-						到账数量
+						提取数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number||0}}
+						{{number?Number(number.value)/0.97:''}}
 					</view>
 				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《提取须知》</text>
+				<text class="c_title" @click.stop="toAgreement">《提取须知》</text>
 			</view>
-			<view class="btn_full" @click="confirm">
+			<view class="btn_full" @click="validPassword">
 				提取
 			</view>
 		</view>
+		<validatePasswordPop @confirm="confirm" ref="passwordPop"></validatePasswordPop>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { withdrawPoint, getAllPoint } from '@/service/point.js'
+import { getAllPoint, withdrawRedPoints } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
-import { useUserStore } from '../../store/user'
- const  userStore = useUserStore()
 
-const number = ref('')
+
 
 const account = ref('')
-const pointBalance = ref('')
-account.value = userStore.userInfo.username
 onMounted(async ()=>{
 	
 	getPointInfo()
-	
 })
+const pointBalance = ref('')
 const getPointInfo = async()=>{
-	const {green_points} = await getAllPoint()
+	const {red_points, points_account} = await getAllPoint()
 	// 可用积分
-	pointBalance.value = green_points
+	pointBalance.value = red_points
+	account.value = points_account
 }
 const isChecked = ref(false)
+
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = async()=>{
+const number = ref('')
+const inputNumber = (e)=>{
+	// number.value = Math.floor(e.detail.value * 100) / 100
+	const value = e.detail.value;
+      
+      // 正则表达式允许输入数字和最多两位小数
+    const regex = /^\d+(\.\d{0,2})?$/;
+      
+      // 仅当输入值符合正则表达式时才更新数据
+    if (regex.test(value) || value === '') {
+        number.value = value;
+    } else {
+        // 如果输入不合法，截断小数点后两位
+        number.value = parseFloat(value).toFixed(2);
+    }
+}
+const passwordPop = ref()
+const validPassword = ()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
@@ -86,19 +102,44 @@ const confirm = async()=>{
 		icon: 'none',
 		title: '请输入提取数量'
 	})
-	if (number.value > pointBalance.value) return uni.showToast({
+	if (Number(number.value)/0.97 > pointBalance.value) return uni.showToast({
 		icon: 'none',
-		title: '积分余额不足'
+		title: '提取数量不可大于积分余额'
 	})
-	uni.showLoading({
-		title: '提取中'
+	
+	passwordPop.value.open()
+}
+const confirm = async()=>{
+	
+	const params = ref({
+		point_account: account.value,
+		transaction_amount: Number(number.value)/0.97,
+		transaction_type: 'decrease',
+		transaction_method: 'red_points'
 	})
-	await withdrawPoint({points:number.value})
-	getPointInfo()
-	uni.hideLoading()
-	uni.showToast({
-		icon: 'none',
-		title: '提取成功'
+	try{
+		uni.showLoading({
+			mask: true,
+			title: '提取中',
+			mask: true
+		})
+		await withdrawRedPoints(params.value)
+		// getPointInfo()
+		uni.hideLoading()
+		uni.showToast({
+			icon: 'none',
+			title: '请等待审核'
+		})
+	}catch(e){
+		uni.showToast({
+			icon: 'none',
+			title: '提取失败'
+		})
+	}
+}
+const toAgreement = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/point_withdraw_agreement'
 	})
 }
 </script>
@@ -139,7 +180,7 @@ const confirm = async()=>{
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color:#333;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;

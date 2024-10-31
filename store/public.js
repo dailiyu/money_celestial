@@ -20,7 +20,8 @@ export const  usePublicStore = defineStore('public', {
 	actions: {
 		async getCateGoryListAction(){
 			const res=await getShopCategories()
-			console.log(res.results);
+			uni.setStorageSync('shopCategories',res.results)
+			console.log('商铺类别列表',res.results);
 			this.cateGoryList=res.results
 		},
 		async getMerchantListAction(){
@@ -31,14 +32,11 @@ export const  usePublicStore = defineStore('public', {
 		async getStoreListAction(){
 			const res=await getShopList()
 			const {location}=await uni.getStorageSync('address_info')
-			this.storeList=res?.results||[]
-			this.ascShopList=await sortShopsByDistance({latitude:location.lat,longitude:location.lng},this.storeList,'asc')
-			this.descShopList= await sortShopsByDistance({latitude:location.lat,longitude:location.lng},this.storeList,'desc')
+			
 		},
-		
 		async fetchAllDataAction(){
 			this.getCateGoryListAction()
-			this.getStoreListAction()
+			// this.getStoreListAction()
 		}
 		
 	}

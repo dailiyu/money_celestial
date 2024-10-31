@@ -1,9 +1,9 @@
 {
-    "name" : "money_celestial",
-    "appid" : "__UNI__6FAB407",
+    "name" : "满仓",
+    "appid" : "__UNI__EFA5E5D",
     "description" : "",
-    "versionName" : "1.0.0",
-    "versionCode" : "100",
+    "versionName" : "2.4.03",
+    "versionCode" : 2403,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -11,13 +11,23 @@
         "nvueStyleCompiler" : "uni-app",
         "compilerVersion" : 3,
         "splashscreen" : {
-            "alwaysShowBeforeRender" : true,
-            "waiting" : true,
-            "autoclose" : true,
+            "alwaysShowBeforeRender" : false,
+            "waiting" : false,
+            "autoclose" : false,
             "delay" : 0
         },
         /* 模块配置 */
-        "modules" : {},
+        "modules" : {
+            "Barcode" : {},
+            "Bluetooth" : {},
+            "Camera" : {},
+            "FaceID" : {},
+            "FacialRecognitionVerify" : {},
+            "Fingerprint" : {},
+            "Geolocation" : {},
+            "SQLite" : {},
+            "VideoPlayer" : {}
+        },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
@@ -39,12 +49,34 @@
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
                 ],
-                "abiFilters" : [ "armeabi-v7a", "arm64-v8a", "x86" ]
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a", "x86" ],
+                "minSdkVersion" : 21
             },
             /* ios打包配置 */
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false
+            },
             /* SDK配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {},
+                "geolocation" : {
+                    "system" : {
+                        "__platform__" : [ "ios", "android" ]
+                    }
+                },
+                "push" : {}
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "static/icon/72.png",
+                    "xhdpi" : "static/icon/96.png",
+                    "xxhdpi" : "static/icon/144.png",
+                    "xxxhdpi" : "static/icon/192.png"
+                }
+            },
+            "splashscreen" : {
+                "androidStyle" : "common"
+            }
         }
     },
     /* 快应用特有相关 */

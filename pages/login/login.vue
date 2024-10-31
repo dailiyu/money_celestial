@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="用户登录" bgc="#1B46CC"></navBar>
+		<navBar title="用户登录" bgc="#1B46CC" :iconShow="false"></navBar>
 		<view class="content">
 			<image src="@/static/logo.png" mode="widthFix" class="logo"></image>
 			<uni-easyinput v-model="moblie" placeholder="请输入手机号" maxlength="11" :inputBorder="false" primaryColor="#1B46CC" type="number">
@@ -13,8 +13,8 @@
 					<image src="@/static/lock-grey.png" mode="widthFix" class="m_pic"></image>
 				</template>
 			</uni-easyinput>
-			<view class="forget">
-				忘记密码
+			<view class="forget" >
+				<text @click="forgetPassword">忘记密码</text>
 			</view>
 			<view class="l_btn flex_center" @click="login">
 				立即登录
@@ -35,9 +35,22 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '../../store/user';
- const userStore=   useUserStore()
+import { postProfileLogin, getUerAccountMessage } from '@/service/uer_profile.js';
+import { onShow } from '@dcloudio/uni-app'; 
+const userStore=   useUserStore()
 const moblie = ref('')
 const password = ref('')
+const errorTimes=ref(0)
+const version = ref('');
+
+
+/*  */
+onShow(()=>{
+	version.value = uni.getSystemInfoSync().appVersionCode
+	console.log(version.value);
+	
+})
+
 
 const toRegister = ()=>{
 	uni.navigateTo({
@@ -54,37 +67,57 @@ const toRegister = ()=>{
 	  	icon: 'none',
 	  	title: '请输入密码'
 	  })
-
 	  uni.showLoading({
 	  	title: '登录中'
 	  })
-	  userStore.loginAction(moblie.value,password.value).then((res)=>{
+	  
+	  postProfileLogin({phone_number:moblie.value,password:password.value,version:version.value}).then(async(res)=>{
+		  console.log('登录成功的用户信息',res);
+		  const { access, refresh } = res;
+		  // 保存 Token
+		  await uni.setStorageSync('accessToken', access);
+		   await uni.setStorageSync('refreshToken', refresh);
+		    console.log('accessToken', access);
+		  await uni.setStorageSync('phoneNumber',moblie.value)
+		  console.log('登录传入的手机号',moblie.value);
+		  await userStore.getUserInfoAction()
+		   
 		  uni.hideLoading()
 		 uni.showToast({
 		 	title:'登录成功',
 			icon:'success',
 			duration:1000
 		 })
+		 errorTimes.value=0
 		 setTimeout(()=>{
-			uni.reLaunch({
+			uni.navigateTo({
 				url: '/pages/index/index'
 			})
 		 },1000)
-		
 	  }).catch((err)=>{
 		uni.hideLoading()
-		if(err?.data?.error){
-			uni.showToast({
-				duration:2000,
-						icon:'error',
-						title:"登录失败"
-			})
+		errorTimes.value=errorTimes.value+1
+		if(errorTimes.value>3){
+			return uni.showToast({
+			icon: 'none',
+			title:`您已多次输入错误的账号或密码，建议找回密码`
+		})
 		}
+		uni.showToast({
+			icon: 'none',
+			title:`登录失败,${err.data.error}`
+		})
+		 
 		 
 	  })
 	  
   }
 
+const forgetPassword=()=>{
+	uni.navigateTo({
+		url:'/pages/myAccount/forget_password'
+	})
+}
 
 </script>
 
@@ -107,7 +140,7 @@ const toRegister = ()=>{
 }
 :deep(.uni-easyinput__content-input) {
 	font-size: 24rpx;
-	color: #BABABA;
+	color: #333;
 }
 .forget {
 	font-size: 24rpx;

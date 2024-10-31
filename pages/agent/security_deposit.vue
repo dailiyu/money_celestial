@@ -6,22 +6,22 @@
 				我的保证金
 			</view>
 			<view class="number flex_center">
-				10,203.02
+				{{amount}}
 			</view>
 			<view class="list_box">
-				<view class="list_item flex_between" @click="toRecord">
+				<!-- <view class="list_item flex_between" @click="toRecord">
 					<view class="">
 						保证金记录
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
+				</view> -->
 			</view>
-			<view class="btns flex_between">
-				<view class="add_btn flex_center" @click="toAdd">
+			<view class="btns flex_center">
+				<!-- <view class="add_btn flex_center" @click="toAdd">
 					增加保证金
-				</view>
+				</view> -->
 				<view class="cancel_btn flex_center" @click="toRemove">
-					解除保证金
+					解冻保证金
 				</view>
 			</view>
 		</view>
@@ -29,6 +29,19 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+import { getAgentDeposit } from '@/service/agent';
+import { onShow } from '@dcloudio/uni-app'
+
+
+onMounted(async()=>{
+	
+})
+const amount = ref(0)
+onShow(async()=>{
+	const res = await getAgentDeposit()
+	amount.value = res.amount
+})
 const toRecord = ()=>{
 	uni.navigateTo({
 		url: '/pages/agent/deposit_record'

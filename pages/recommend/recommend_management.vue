@@ -2,35 +2,35 @@
 	<view>
 		<navBar title="推荐官后台" ></navBar>
 		<view class="total_data">
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
+			<image src="@/static/recommend/verified.png"  @click="toUnbindMerchantCode"   mode="widthFix" class="verify_pic" v-if="isVerified"></image>
+			<image src="@/static/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image>
+			<image src="@/static/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
+			<image src="@/static/recommend/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
 			<view class="data_item">
-				<image src="https://max.q6z4kzhr.uk/media/category_icons/lv1.png" mode="widthFix" class="lv_pic"></image>
+				<image src="@/static/recommend/lv1.png" mode="widthFix" class="lv_pic"></image>
 				<view class="lv_name">
 					荣耀推荐官
 				</view>
-				<view class="flex_center">
-					<view class="name">
-						{{info?.results&&info?.results[0]?.owner?.username}}
-					</view>
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/code.png" mode="widthFix" class="code_pic" @click="getQRCode"></image>
+				<view class="name">
+					{{info?.name}}
 				</view>
-				<view class="total_item flex_center">
+				<view class="total_item flex_between">
 					<view class="">
 						<view class="total_text">
-							已推荐商家数
+							已推荐店铺数
 						</view>
 						<view class="total_num">
-							{{info.count||0}}
+							{{recommendedShopAmount}}
 						</view>
 					</view>
-					<!-- <view class="">
+					<view class="">
 						<view class="total_text">
 							已获得积分
 						</view>
 						<view class="total_num">
-							15,328,872,819
+							{{points}}
 						</view>
-					</view> -->
+					</view>
 				</view>
 			</view>
 		</view>
@@ -39,7 +39,7 @@
 			<view class="list_box">
 				<view class="list_item flex_between" @click="toMerchantList">
 					<view class="">
-						推荐商家列表
+						推荐店铺列表
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
@@ -49,12 +49,18 @@
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
-				<view class="list_item flex_between" @click="toSecurityDeposit">
+				<!-- <view class="list_item flex_between" @click="toMerchantCode" v-if="!userStore.vertifyMerchantInfo.is_verified">
+					<view class="">
+						商家码认证
+					</view>
+					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+				</view> -->
+				<!-- <view class="list_item flex_between" @click="toSecurityDeposit">
 					<view class="">
 						保证金
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		
@@ -64,26 +70,66 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getOfficerQRCode, getRecommendOfficerInfo } from '@/service/recommend.js'
+import { getOfficerQRCode, getRecommendOfficerInfo, getRecommendShopList } from '@/service/recommend.js'
+import { getGreenPoints } from '@/service/point';
+import { getVertifyMerchantInfo } from '@/service/merchant';
+
+
 const info = ref({})
+const user = ref({})
+const isVerified = ref(false)
 onMounted(async()=>{
-	info.value = await getRecommendOfficerInfo()
+	getPoint()
+	getShopAmount()
+	user.value = uni.getStorageSync('userInfo')
+	info.value = await getRecommendOfficerInfo(user.value.phone_number)
 	// getMPQRCode()
+	const phone = uni.getStorageSync('phoneNumber')
+	const {is_verified} = await getVertifyMerchantInfo(phone)
+	isVerified.value = is_verified
 })
 
+const recommendedShopAmount = ref(0)
+const getShopAmount = async()=>{
+	const res = await getRecommendShopList()
+	recommendedShopAmount.value = res.length
+}
+const points = ref(0)
+const getPoint = async()=>{
+	const {total} = await getGreenPoints()
+	points.value = total
+}
 const toMerchantList = ()=>{
 	uni.navigateTo({
 		url: '/pages/recommend/merchant_list'
 	})
 }
-const toMerchantCode = ()=>{
-	// uni.navigateTo({
-	// 	url: '/pages/recommend/merchant_code_authentication'
-	// })
+
+const toMerchantCodeVerify=()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_code_authentication'
 	})
 }
+
+const  toUnbindMerchantCode=()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/unbind_merchant_code'
+	})
+}
+
+
+	const toMerchantCode=()=>{
+		if(isVerified.value){
+			uni.navigateTo({
+					url: '/pages/myAccount/unbind_merchant_code'
+			})
+		}else{
+			uni.navigateTo({
+					url: '/pages/merchant/merchant_code_authentication'
+			})
+		}
+	}
+	
 const toSecurityDeposit = ()=>{
 	// uni.navigateTo({
 	// 	url: '/pages/recommend/security_deposit'
@@ -92,23 +138,38 @@ const toSecurityDeposit = ()=>{
 		url: '/pages/merchant/security_deposit'
 	})
 }
-const qrcode = ref('')
-const getQRCode = async()=>{
-	if (!qrcode.value) {
-		const {image_url} = await getOfficerQRCode({path: '/pages/merchant/settle_notice'})
-		qrcode.value = image_url
-	}
-	uni.previewImage({
-		urls: [qrcode.value],
-		current: qrcode.value
+
+const toqrDetail=()=>{
+	uni.navigateTo({
+		url:'/pages/recommend/qrcodeDetail'
 	})
 }
+
+
+
+
+
 </script>
 
 <style lang="scss" scoped>
 .total_data {
 	position: relative;
 	margin-top: 88rpx;
+	.verify_pic {
+		position: absolute;
+		top: 16rpx;
+		left: 30rpx;
+		z-index: 10;
+		width: 206rpx;
+	}
+	.code_pic {
+		position: absolute;
+		top: 86rpx;
+		right: 72rpx;
+		width: 34rpx;
+		z-index: 10;
+		// margin-left: 32rpx;
+	}
 	.agent_pic {
 		width: 100%;
 		display: block;
@@ -140,10 +201,7 @@ const getQRCode = async()=>{
 			color: #FFFFFF;
 			text-align: center;
 		}
-		.code_pic {
-			width: 34rpx;
-			margin-left: 32rpx;
-		}
+		
 		.total_item {
 			padding-top: 40rpx;
 			margin-top: 40rpx;

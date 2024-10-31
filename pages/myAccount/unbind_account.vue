@@ -8,12 +8,12 @@
 				</view>
 			</view>
 			<view class="account_box">
-				{{account}}
+				{{address?obscureString(address):''}}
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《解除绑定须知》</text>
+				<text class="c_title" @click.stop="toAgreement">《解除绑定须知》</text>
 			</view>
 			<view class="btn_full" @click="confirm">
 				解除绑定
@@ -24,20 +24,18 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { unbindPointAccount } from '@/service/point.js'
+import { unbindPointAccount, getPointBindedAccount } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
-import { useUserStore } from '../../store/user'
-const  userStore = useUserStore()
 
-
-const account = ref('')
 const id = ref('')
-// 积分账号
-account.value = userStore.userInfo.username
 onMounted(async ()=>{
-	
+	getPointAccount()
 })
-
+const address = ref('')
+const getPointAccount = async()=>{
+	const {points_account} = await getPointBindedAccount()
+	address.value = points_account
+}
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
@@ -47,7 +45,7 @@ const confirm = async ()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	if (!account.value) return uni.showToast({
+	if (!address.value) return uni.showToast({
 		icon:'none',
 		title: '未绑定积分账号，请先绑定'
 	})
@@ -61,13 +59,18 @@ const confirm = async ()=>{
 			icon: 'none',
 			title: '解绑成功'
 		})
-		account.value = ''
+		address.value = ''
 	}catch(e){
 		uni.showToast({
 			icon: 'none',
 			title: '解绑失败'
 		})
 	}
+}
+const toAgreement = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/unbind_account_agreement'
+	})
 }
 </script>
 
@@ -107,7 +110,7 @@ const confirm = async ()=>{
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color:#333;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;

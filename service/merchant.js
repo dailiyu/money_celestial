@@ -2,6 +2,25 @@ import  {http} from "./index"
 
 
 
+
+//创建商家
+export const createMerchant=async (data)=>{
+	return http.post('/merchant/',data)
+}
+
+
+
+//验证商家码
+export const vertifyMerchant=async (user,data)=>{
+	return http.put(`/merchant/code/verifications/${user}/`,data)
+}
+
+//查看验证商家码信息
+export const getVertifyMerchantInfo=async (user)=>{
+	return http.get(`/merchant/code/verifications/${user}/`)
+}
+
+
 export const getMerchantInfo=async ()=>{
 	return http.get('/merchant/get/')
 }
@@ -97,10 +116,6 @@ export const getStoreList=()=>{
 }
 
 
-// 商家码认证
-export const merchantCodeAuthentication=(data)=>{
-	return http.post('/users/merchant/code/verification/', data)
-}
 
 
 

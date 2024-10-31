@@ -1,12 +1,14 @@
 <template>
 	<view>
 		<navBar title="代理后台" ></navBar>
-		<view class="content">
+		<!-- <image src="@/static/agent/agent-bg.png" mode="widthFix" class="agent_pic"></image> -->
+		<!-- 已激活 -->
+		<view class="content" v-if="margin_require&&(margin_require<depositAmount||margin_require==depositAmount)">
 			<view class="total_data">
-				<image src="https://max.q6z4kzhr.uk/media/category_icons/agent-bg.png" mode="widthFix" class="agent_pic"></image>
+				
 				<view class="data_item">
 					<view class="location">
-						<text class="city">{{cityAgent}}</text>
+						<text class="city">{{cityName}}</text>
 						<text>代理</text>
 					</view>
 					<view class="point_box flex">
@@ -20,7 +22,7 @@
 					<view class="flex">
 						<view class="" style="margin-right: 112rpx;">
 							<view class="data_text">
-								商家数量
+								店铺数量
 							</view>
 							<view class="data_num">
 								{{merchantAmount}}
@@ -40,13 +42,7 @@
 			<view class="list_box">
 				<view class="list_item flex_between" @click="toMerchantList">
 					<view class="">
-						商家列表
-					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
-				<view class="list_item flex_between" @click="toMerchantCode">
-					<view class="">
-						商家码认证
+						店铺列表
 					</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
@@ -58,79 +54,149 @@
 				</view>
 			</view>
 		</view>
+		<!-- 未激活 -->
+		<view class="content" v-if="margin_require>depositAmount">
+			<view class="total_data">
+				
+				<view class="data_item">
+					<view class="location">
+						<text class="city">{{cityName}}</text>
+						<text>代理</text>
+					</view>
+					<view class="state flex">
+						<view class="sub_title">
+							代理状态：
+						</view>
+						<view class="status">
+							未激活
+						</view>
+					</view>
+					<view class="state flex" style="margin-top: 40rpx;">
+						<view class="sub_title">
+							共需要保证金：
+						</view>
+						<view class="deposit_num">
+							{{margin_require}}
+						</view>
+					</view>
+					<!-- <view class="state flex" style="margin-top: 40rpx;">
+						<view class="sub_title">
+							还需增加保证金：
+						</view>
+						<view class="deposit_num">
+							{{margin_require-depositAmount}}
+						</view>
+					</view> -->
+				</view>
+				
+			</view>
+			<view class="btn_full" @click="toAddDeposit">
+				增加保证金
+			</view>
+		</view>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAgentShopAmount, getRecommendOfficerAmount } from '@/service/agent.js'
-import { getRecords } from '@/service/deposit';
-
-
-onMounted(()=>{
+import { getRecommendOfficerAmount, getAgentShopAmount, getProvinceId, getCity, getCityMerchantAmount, getAgentDeposit } from '@/service/agent.js'
+import { getGreenPoints } from '@/service/point';
+import { onShow } from '@dcloudio/uni-app'
+// const provinceId = ref()
+const cityId = ref()
+const margin_require = ref('')
+onShow(()=>{
+	getAmount()
+})
+onMounted(async()=>{
+	const res = await getCity()
+	cityName.value = res.results[0].city_name
+	cityId.value = res.results[0].city
+	margin_require.value = res.results[0].margin_require
+	// if (!cityName) {
+	// 	const {results} = await getProvinceId()
+	// 	provinceId.value = results[0].province
+	// }
+	
 	getShopAmount()
 	getOfficerAmount()
 	getAgentPoint()
+	
 })
-
+const depositAmount = ref('')
+const getAmount = async()=>{
+	const res = await getAgentDeposit()
+	depositAmount.value = res.amount
+}
 const merchantAmount = ref(0)
-const cityAgent = ref('')
+const cityName = ref('')
 
 const getShopAmount = async()=>{
-	const {count, results} = await getAgentShopAmount()
+	// const {count, results} = await getAgentShopAmount({code:provinceId.value})
+	// merchantAmount.value = count
+	// cityName.value = results[0]?.city
+	const {count} = await getCityMerchantAmount({name:cityName.value})
 	merchantAmount.value = count
-	cityAgent.value = results[0].city
 }
 
 const officerAmount = ref(0)
 const getOfficerAmount = async()=>{
-	const result = await getRecommendOfficerAmount()
-	officerAmount.value = result.count
+	const {count} = await getRecommendOfficerAmount({code:cityId.value})
+	officerAmount.value = count
 }
 const agentPoint = ref(0)
 const getAgentPoint = async()=>{
-	const {total_amount} = await getRecords({transaction_type:'bonus'})
-	agentPoint.value = total_amount
+	const {total} = await getGreenPoints()
+	agentPoint.value = total
 }
 
 
 
 const toMerchantList = ()=>{
+	if (!cityName.value) return
 	uni.navigateTo({
-		url: '/pages/agent/merchant_list'
-	})
-}
-const toMerchantCode = ()=>{
-	// uni.navigateTo({
-	// 	url: '/pages/merchant/merchant_code_authentication'
-	// })
-	uni.navigateTo({
-		url: '/pages/merchant/merchant_code_authentication'
-	})
-}
-const toSecurityDeposit = ()=>{
-	// uni.navigateTo({
-	// 	url: '/pages/agent/security_deposit'
-	// })
-	uni.navigateTo({
-		url: '/pages/merchant/security_deposit'
+		url: '/pages/agent/merchant_list?cityName='+cityName.value
 	})
 }
 
+const toSecurityDeposit = ()=>{
+	uni.navigateTo({
+		url: '/pages/agent/security_deposit'
+	})
+	// uni.navigateTo({
+	// 	url: '/pages/merchant/security_deposit'
+	// })
+}
+const toAddDeposit = ()=>{
+	uni.navigateTo({
+		url: '/pages/agent/add_deposit?addAmount='+(margin_require.value-depositAmount.value)
+	})
+}
 </script>
 
 <style lang="scss" scoped>
+// .agent_pic {
+// 	position: absolute;
+// 	top: 0;
+// 	left: 0;
+// 	z-index: -1;
+// 	width: 100%;
+// 	display: block;
+// 	margin-bottom: 20rpx;
+// }
+.content {
+	min-height: 80vh;
+	background: url('@/static/agent/bg.png') no-repeat;
+	background-size: 100% auto;
+}
 .total_data {
-	position: relative;
-	.agent_pic {
-		width: 100%;
-		display: block;
-		margin-bottom: 20rpx;
-	}
+	// position: relative;
 	.data_item {
-		position: absolute;
-		top: 113rpx;
-		left: 44rpx;
+		// position: absolute;
+		// top: 113rpx;
+		// left: 44rpx;
+		padding: 60rpx 44rpx 0;
+		margin-bottom: 280rpx;
 		.location {
 			font-size: 49rpx;
 			color: #FC5908;
@@ -140,30 +206,50 @@ const toSecurityDeposit = ()=>{
 			}
 		}
 		.point_box {
-			border: 1rpx solid #AAAAAA;
+			border: 1rpx solid #fff;
 			font-size: 21rpx;
 			font-weight: bold;
 			margin-bottom: 46rpx;
 			width: fit-content;
 			.point_text {
-				background-color: #AAAAAA;
-				color: #fff;
+				background-color: #fff;
+				color: #0E3360;
 				padding: 8rpx 14rpx;
 			}
 			.point_num {
 				padding: 8rpx 38rpx;
-				color: #AAAAAA;
+				color: #fff;
 			}
 		}
 		.data_text {
 			margin-bottom: 20rpx;
 			font-size: 24rpx;
-			color: #6B6B6B;
+			color: #fff;
 		}
 		.data_num {
 			font-size: 55rpx;
 			color: #FC5908;
 			font-weight: bold;
+		}
+		.state {
+			margin-top: 60rpx;
+			.sub_title {
+				color: #fff;
+				font-size: 30rpx;
+				font-weight: bold;
+			}
+			.status {
+				background-color: #FC5908;
+				border-radius: 100px;
+				color: #fff;
+				font-size: 24rpx;
+				padding: 10rpx 30rpx;
+			}
+			.deposit_num {
+				font-size: 30rpx;
+				color: #FC5908;
+				font-weight: bold;
+			}
 		}
 	}
 }

@@ -1,13 +1,19 @@
 const TIME_OUT = 60000;
-const BASE_URL = 'https://max.q6z4kzhr.uk/api';
-
+// const BASE_URL = 'https://api.maxcang.com/api';
+const BASE_URL = 'http://192.168.110.47:8000/api'
 class Request {
     request(url, method, data) {
         return new Promise((resolve, reject) => {
             const accessToken = uni.getStorageSync('accessToken');
-            const headers = {};
+            let headers = {};
             if (accessToken) {
                 headers['Authorization'] = `Bearer ${accessToken}`;
+				if(url=='/users/register/'&&method=='POST'){
+					headers = {};
+				}
+				if(url=='/users/login/'&&method=='POST'){
+					headers = {};
+				}
             }
 
             uni.request({

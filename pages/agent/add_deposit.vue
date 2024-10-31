@@ -2,35 +2,34 @@
 	<view>
 		<navBar title="增加保证金"></navBar>
 		<view class="content">
-			<view class="shop_info">
+			<!-- <view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
 						增加账号
 					</view>
 					<input v-model="address" class="uni-input" placeholder="请输入接收地址" placeholder-class="placeholder_class" />
-					<image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image>
 				</view>
-			</view>
+			</view> -->
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
 						增加金额
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入金额" placeholder-class="placeholder_class" />
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入金额" placeholder-class="placeholder_class" disabled />
 				</view>
 				<view class="info_item flex_between">
 					<view class="s_text">
-						保证金余额
+						可用积分余额
 					</view>
 					<view class="s_num">
-						1100010
+						{{amount}}
 					</view>
 				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《保证金须知》</text>
+				<text class="c_title" @click.stop="toAgreement">《保证金须知》</text>
 			</view>
 			<view class="btn_full" @click="confirm">
 				确认增加
@@ -40,10 +39,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { addAgentDeposit, getAgentDeposit } from '@/service/agent';
+import { getAllPoint } from '@/service/point';
+import { onLoad } from '@dcloudio/uni-app'
 const address = ref('')
-const number = ref('')
 
+
+
+onLoad((options)=>{
+	number.value = options.addAmount
+})
+onMounted(()=>{
+	getAmount()
+})
+const amount = ref(0)
+const getAmount = async()=>{
+	const {red_points} = await getAllPoint()
+	amount.value = red_points
+}
 const scan = ()=>{
 	uni.scanCode({
 		scanType: ['qrCode'],
@@ -53,13 +67,45 @@ const scan = ()=>{
 	})
 }
 const isChecked = ref(false)
+const number = ref('')
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = ()=>{
+const confirm = async ()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
+	})
+	// if (!number.value) return uni.showToast({
+	// 	icon: 'none',
+	// 	title: '请输入金额'
+	// })
+	if (amount.value < number.value) return uni.showToast({
+		icon: 'none',
+		title: '可用积分余额不足，请充值'
+	})
+	try{
+		uni.showLoading({
+			title: '正在提交',
+		})
+		await addAgentDeposit({amount: number.value})
+		getAmount()
+		uni.hideLoading()
+		uni.showToast({
+			title: '增加成功',
+			icon: 'none'
+		})
+	}catch(e){
+		uni.showToast({
+			title: '增加失败',
+			icon: 'none'
+		})
+	}
+}
+
+const toAgreement = ()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/deposit_agreement'
 	})
 }
 </script>
@@ -83,7 +129,7 @@ const confirm = ()=>{
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color:#333;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;

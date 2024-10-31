@@ -2,15 +2,15 @@
 	<view>
 		<navBar title="增加保证金"></navBar>
 		<view class="content">
-			<view class="shop_info">
+			<!-- <view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
 						增加账号
 					</view>
 					<input v-model="address" class="uni-input" placeholder="请输入手机号" placeholder-class="placeholder_class" />
-					<!-- <image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image> -->
+					<image src="@/static/scan.png" mode="widthFix" class="scan_pic" @click="scan"></image>
 				</view>
-			</view>
+			</view> -->
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
@@ -28,9 +28,9 @@
 				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《保证金须知》</text>
+				<text class="c_title" @click.stop="toAgreement">《保证金须知》</text>
 			</view>
 			<view class="btn_full" @click="confirm">
 				确认增加
@@ -41,8 +41,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { addDeposit } from '@/service/deposit.js'
-import { getAllPoint } from '@/service/point';
+import { addDeposit, getDeposit } from '@/service/deposit.js'
 const address = ref('')
 const number = ref('')
 
@@ -55,15 +54,19 @@ const scan = ()=>{
 	})
 }
 
-
+const toAgreement = ()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/deposit_agreement'
+	})
+}
 
 onMounted(()=>{
 	getDepositInfo()
 })
 const amount = ref(0)
 const getDepositInfo = async()=>{
-	const {collateral} = await getAllPoint()
-	amount.value = collateral
+	const res = await getDeposit()
+	amount.value = res.amount
 }
 const isChecked = ref(false)
 const changeCheck = ()=>{
@@ -74,10 +77,10 @@ const confirm = async ()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	if (!address.value) return uni.showToast({
-		icon:'none',
-		title: '请输入账号'
-	})
+	// if (!address.value) return uni.showToast({
+	// 	icon:'none',
+	// 	title: '请输入账号'
+	// })
 	if (!number.value) return uni.showToast({
 		icon:'none',
 		title: '请输入金额'
@@ -86,7 +89,7 @@ const confirm = async ()=>{
 		uni.showLoading({
 			title: '正在提交'
 		})
-		await addDeposit({amount:number.value, to_user:address.value})
+		await addDeposit({amount:number.value})
 		getDepositInfo()
 		uni.hideLoading()
 		uni.showToast({
@@ -96,7 +99,7 @@ const confirm = async ()=>{
 	}catch(e){
 		uni.showToast({
 			icon: 'none',
-			title: '出错了'
+			title: e.data.error
 		})
 	}
 }
@@ -122,7 +125,7 @@ const confirm = async ()=>{
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color:#333;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;

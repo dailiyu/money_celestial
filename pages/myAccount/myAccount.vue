@@ -2,32 +2,47 @@
 	<navBar title="我的账户"></navBar>
 	<view class="page">
 		<view class="img-box">
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/bg_my.png" class="img"></image>
+			<image src="@/static/my/bg_my.png" class="img"></image>
 		</view>
 		<view class="content">
-			<view class="profile" @click="toLogin">
+			<view class="profile" >
 				<view class="avtar">
-				<image class="img" :src="userStore.userInfo.icon" mode=""></image>
+				<image class="img" :src="ionc_url" mode="" v-if="ionc_url"></image>
+				<image class="img" src="@/static/default_avatar.pic.jpg" mode=""></image>
 				</view>
-				<view class="name">
-					{{userStore.userInfo.username||'点击登录'}}
+				<!-- <view class="name" v-if="user">
+					点击登录
+				</view> -->
+				<view class="userInfo_box">
+					<view class="name">
+						{{user_name||'default'}}
+					</view>
+					<div class="phone_box">
+						<image class="img" src="@/static/my/phone.jpg"></image>
+						<view class="number">{{formatPhoneNumber(phoneNumber)}}</view>
+					</div>
+					
+				</view>
+				
+				<view class="logout"  @click="logout">
+					退出登录
 				</view>
 			</view>
 			<view class="points-box">
 				<view class="item" @click="toMyPoint">
-					<image class="img" src="https://max.q6z4kzhr.uk/media/category_icons/my_credits.png"></image>
+					<image class="img" src="@/static/my/my_credits.png"></image>
 					<text class="text">我的积分</text>
 					<div class="text number">{{green_points}}</div>
 				</view>
 				<view class="item" @click="toPointAvailable">
-					<image class="img" src="https://max.q6z4kzhr.uk/media/category_icons/available_credits.png"></image>
+					<image class="img" src="@/static/my/available_credits.png"></image>
 					<text class="text">可用积分</text>
-					<div class=" number">{{red_points}}</div>
+					<div class="text number">{{red_points}}</div>
 				</view>
 				<view class="item" @click="toPointAccount">
-					<image class="img" src="https://max.q6z4kzhr.uk/media/category_icons/credits_account.png"></image>
+					<image class="img" src="@/static/my/credits_account.png"></image>
 					<text class="text">积分账号</text>
-					<div class="text number">{{user}}</div>
+					<div class="text number">{{user?obscureString(user):''}}</div>
 				</view>
 			</view>
 			<view class="services">
@@ -38,24 +53,36 @@
 					</view>
 				</view>
 				<view class="service_bottom flex">
-					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/info.png" mode="widthFix" class="service_pic"></image>
+					<view class="service_item" @click="toEdteInfo">
+						<image src="@/static/my/info.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
-							我的信息
+							个人信息
 						</view>
 					</view>
-					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/record.png" mode="widthFix" class="service_pic"></image>
+					<view class="service_item" @click="toRecord">
+						<image src="@/static/my/record.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							我的记录
 						</view>
 					</view>
-					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/collect.png" mode="widthFix" class="service_pic"></image>
+					<view class="service_item" @click="toSafety">
+							<image src="@/static/my/safety_password.jpg" mode="widthFix" class="service_pic"></image>
+							<view class="">
+								密码与安全
+							</view>
+					</view>
+				<!-- 	<view class="service_item" @click="toPointsRedemptionVoucher">
+							<image src="@/static/my/exchange_voucher.jpg" mode="widthFix" class="service_pic"></image>
+							<view class="">
+								积分兑换券
+							</view>
+					</view> -->
+				<!-- 	<view class="service_item">
+						<image src="@/static/my/collect.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							我的收藏
 						</view>
-					</view>
+					</view> -->
 				</view>
 			</view>
 			<view class="services">
@@ -66,27 +93,27 @@
 					</view>
 				</view>
 				<view class="service_bottom flex">
-					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/help.png" mode="widthFix" class="service_pic"></image>
-						<view class="">
+					<view class="service_item" @click="toHelpCenter">
+						<image src="@/static/my/help.png" mode="widthFix" class="service_pic"></image>
+						<view class="" >
 							帮助中心
 						</view>
 					</view>
-					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/us.png" mode="widthFix" class="service_pic"></image>
+					<view class="service_item" @click="toAboutUs">
+						<image src="@/static/my/us.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							关于我们
 						</view>
 					</view>
-					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/service.png" mode="widthFix" class="service_pic"></image>
+					<!-- <view class="service_item">
+						<image src="@/static/my/service.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							联系客服
 						</view>
-					</view>
+					</view> -->
 				</view>
 			</view>
-			<view class="services">
+			<!-- <view class="services">
 				<view class="service_title flex">
 					<image src="@/static/star.png" mode="widthFix" class="star_pic"></image>
 					<view class="">
@@ -95,37 +122,65 @@
 				</view>
 				<view class="service_bottom flex">
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/995bb45a9bf04bc43cdee130bc9efeb.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/settle.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							我要入驻
 						</view>
 					</view>
 					<view class="service_item">
-						<image src="https://max.q6z4kzhr.uk/media/category_icons/entrance.png" mode="widthFix" class="service_pic"></image>
+						<image src="@/static/my/entrance.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							商家入口
 						</view>
 					</view>
 				</view>
-			</view>
-
+			</view> -->
+			
+		</view>
+		<view class="vesion">
+			满仓 V{{version}}
 		</view>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getAllPoint } from '@/service/point.js'
+import { getAllPoint, getPointBindedAccount } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
- const  userStore = useUserStore()
-
+import { obscureString } from '@/utils';
+import { onShow } from '@dcloudio/uni-app'; 
+const  userStore = useUserStore()
+const phoneNumber=ref('')
 const accessToken = uni.getStorageSync('accessToken')
-onMounted(()=>{
-	
+
+const ionc_url=ref()
+const user_name=ref()
+const version = ref('');
+
+
+
+
+onShow(() => {
+	phoneNumber.value=uni.getStorageSync('phoneNumber')
+	ionc_url.value= uni.getStorageSync('userInfo').icon
+	user_name.value=uni.getStorageSync('userInfo').name
 	if (accessToken) {
 		getPointInfo()
 	}
-})
+	
+	// #ifdef APP-PLUS
+	version.value = plus.runtime.version
+	// #endif
+});
+
+// onMounted(()=>{
+	
+// 	ionc_url.value= uni.getStorageSync('userInfo').icon
+// 	user_name.value=uni.getStorageSync('userInfo').name
+// 	if (accessToken) {
+// 		getPointInfo()
+// 	}
+// })
 const green_points = ref(0)
 const red_points = ref(0)
 const user = ref('')
@@ -135,13 +190,41 @@ const getPointInfo = async()=>{
 	green_points.value = res.green_points
 	// 可用积分
 	red_points.value = res.red_points
-	user.value = res.user
+	// user.value = res.user
+	const {points_account} = await getPointBindedAccount()
+	user.value = points_account
 }
 const toLogin = ()=>{
 	uni.navigateTo({
 		url: '/pages/login/login'
 	})
 }
+
+const logout=()=>{
+	uni.clearStorageSync()
+	uni.redirectTo({
+		url: '/pages/login/login'
+	})
+}
+
+const toSafety=()=>{
+	uni.navigateTo({
+		url:'/pages/myAccount/safety'
+	})
+}
+
+const  toPointsRedemptionVoucher=()=>{
+	uni.navigateTo({
+		url:'/pages/myAccount/exchange_point_coupon'
+	})
+}
+
+const toHelpCenter=()=>{
+	uni.navigateTo({
+		url:'/pages/myAccount/helpCenter'
+	})
+}
+
 const toMyPoint = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/my_point'
@@ -152,10 +235,34 @@ const toPointAvailable = ()=>{
 		url: '/pages/myAccount/point_available'
 	})
 }
+
+const toEdteInfo=()=>{
+	uni.navigateTo({
+		url: '/pages/login/more_info_edit'
+	})
+}
+
 const toPointAccount = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/point_account'
 	})
+}
+const toRecord = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/all_records'
+	})
+}
+const toAboutUs = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/about_us'
+	})
+}
+
+const formatPhoneNumber=(phoneNumber)=>{
+    if (phoneNumber.length === 11) {
+        return `${phoneNumber.slice(0, 3)} ${phoneNumber.slice(3, 7)} ${phoneNumber.slice(7)}`;
+    }
+    return 'Invalid phone number';
 }
 </script>
 
@@ -199,11 +306,44 @@ const toPointAccount = ()=>{
 						height: 100%;
 					}
 				}
-
-				.name {
-					font-family: HarmonyOS_Sans_SC_Bold;
-					font-size: 30rpx;
-					color: #FFFFFF;
+				
+				.userInfo_box{
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					width: 340rpx;
+					height: 90rpx;
+					.name {
+						font-family: HarmonyOS_Sans_SC_Bold;
+						font-size: 36rpx;
+						color: #FFFFFF;
+					} 
+					.phone_box{
+						display: flex;
+						justify-content: start;
+						align-items: center;
+						margin-left: -2rpx;
+						.img{
+							width: 30rpx;
+							height: 30rpx;
+							margin-right: 7rpx;
+						}
+						.number{
+							font-size: 22rpx;
+							color: #FFFFFF;
+						}
+					}
+					
+				}
+				      
+				.logout{
+					margin-right: 20rpx;
+					// color: #54b1fd;
+					padding: 12rpx 20rpx;
+					color: #FC5908;
+					font-size: 21rpx;
+					background-color: #fff;
+					border-radius: 100px;
 				}
 			}
 
@@ -214,10 +354,13 @@ const toPointAccount = ()=>{
 				width: 684rpx;
 				height: 270rpx;
 				margin-top: 15rpx;
-				background-image: url('https://max.q6z4kzhr.uk/media/category_icons/bg_credit.png');
+				background-image: url('@/static/my/bg_credit.png');
 				background-size: cover;
+				padding: 0 10rpx;
 
 				.item {
+					flex: 1;
+					
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
@@ -229,12 +372,15 @@ const toPointAccount = ()=>{
 					}
 
 					.text {
+						width: 100%;
 						font-family: HarmonyOS_Sans_SC;
 						margin-top: 15rpx;
 						font-size: 24rpx;
 						color: #333333;
 						text-align: center;
-
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
 					}
 
 					.number {
@@ -279,7 +425,12 @@ const toPointAccount = ()=>{
 					}
 				}
 			}
+			
 		}
-
+		.vesion {
+			font-size: 24rpx;
+			color: #ccc;
+			text-align: center;
+		}
 	}
 </style>

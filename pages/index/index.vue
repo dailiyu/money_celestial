@@ -1,7 +1,7 @@
 <template>
 	<view class="page">
-		<navBar :iconShow="false" title="满仓"></navBar>
-		<view class="search_bar flex_between">
+		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity"></navBarForIndex>
+		<!-- <view class="search_bar flex_between">
 			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>
 			<view class="location">
 				{{city?city:'定位中'}}
@@ -11,7 +11,7 @@
 					<view class="search_btn flex_center" @click.stop="search" >搜索</view>
 				</template>
 			</uni-search-bar>
-		</view>
+		</view> -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-color="#a4b8ab" indicator-active-color="#fc5908" :circular="true" class="swiper">
 			<swiper-item v-for="item in bannerList" :key="item.id">
 				<image :src="item.image_url" mode="widthFix" class="swipe_img"></image>
@@ -20,31 +20,32 @@
 		<view class="function_list flex_between">
 			<view class="function_item" @click="toMerchant">
 				<view class="img_box flex_center">
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/cart.png" mode="widthFix" class="img_item"></image>
+					<image src="@/static/home/cart.png" mode="widthFix" class="img_item"></image>
 				</view>
 				<view class="" >
 					商家
 				</view>
 			</view>
-			<view class="function_item" @click="toAgent">
-				<view class="img_box flex_center">
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/bag_KK6aQAP.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
-				</view>
-				<view class="">
-					代理
-				</view>
-			</view>
 			<view class="function_item" @click="toRecommend">
 				<view class="img_box flex_center">
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
+					<image src="@/static/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
 				</view>
 				<view class="">
 					推荐官
 				</view>
 			</view>
+			<view class="function_item" @click="toAgent">
+				<view class="img_box flex_center">
+					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
+				</view>
+				<view class="">
+					代理
+				</view>
+			</view>
+	
 			<view class="function_item" @click="toMyAccount">
 				<view class="img_box flex_center">
-					<image src="https://max.q6z4kzhr.uk/media/category_icons/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
+					<image src="@/static/home/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
 				</view>
 				<view class="">
 					我的账户
@@ -53,14 +54,20 @@
 		</view>
 		<view class="content">
 			<view class="cate_list flex_between" v-if="categoryList.length">
-				<view class="cate_item" v-for="item in categoryList" :key="item.id">
+				<view class="cate_item" v-for="item in categoryList" :key="item.id" @click="toAllMerchant(item.id)">
 					<image :src="item.icon" mode="widthFix" class="cate_img"></image>
 					<view class="">
-						{{item.name}}
+						{{item?.name}}
+					</view>
+				</view>
+				<view class="cate_item" @click="toAllMerchant(0)">
+					<image src="@/static/home/all.png" mode="widthFix" class="cate_img"></image>
+					<view class="">
+						全部类目
 					</view>
 				</view>
 			</view>
-			<view class="merchant_box" v-if="userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0">
+			<view class="merchant_box" v-if="shopLists?.name">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
 						<text class="nearby">附近商家</text>
@@ -74,23 +81,23 @@
 				</view>
 				<view class="shop_list">
 					<view class="shop_item flex_between" @click="toDetail">
-						<image src="" mode="aspectFill" class="shop_img"></image>
+						<image :src="shopLists.avatar" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
 							<view class="shop_name">
-								{{publicStore.ascShopList[0]?.name}}
+								{{shopLists?.name}}
 							</view>
 							<view class="shop_address flex">
 								<image src="@/static/locate_orange.png" mode="widthFix" class="address_img"></image>
 								<view class="" style="flex: 1;">
-									{{publicStore.ascShopList[0]?.address}}
+									{{shopLists?.address}}
 								</view>
 							</view>
 						</view>
-						<view class="distance">
-							{{publicStore.ascShopList[0]?.distance/1000}}km
-						</view>
+						<!-- <view class="distance">
+							{{shopLists.ascShopList[0]?.distance/1000}}km
+						</view> -->
 					</view>
-					<view class="more" @click="toAllMerchant">
+					<view class="more" @click="toAllMerchant(0)">
 						点击查看更多
 					</view>
 				</view>
@@ -113,9 +120,9 @@
 			</swiper-item>
 		</swiper> -->
 		<view class="content">
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/shop.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/benefit.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="https://max.q6z4kzhr.uk/media/category_icons/earn.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="@/static/home/shop.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="@/static/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="@/static/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
 		</view>
 	</view>
 </template>
@@ -124,60 +131,64 @@
 import { onMounted, ref } from 'vue';
 import {usePublicStore} from "@/store/public.js"
 import { useUserStore } from '../../store/user';
-import { getShopCategories } from '@/service/shop';
+import { getShopCategories, getShopInfo, getShopList,getCityShopList } from '@/service/shop';
 import { getBannerList } from '@/service/bannner.js'
+import { getRecommendOfficerInfo } from '../../service/recommend';
+import { getUerAccountMessage } from '../../service/uer_profile';
+import { onShow } from '@dcloudio/uni-app'
 
 // var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
-
+const isMask=ref(false)
 const keyword = ref('')
 const publicStore=  usePublicStore()
 const userStore = useUserStore()
+const userInfo = ref()
+const shopInfo=ref()
+onShow(async()=>{
+	await userStore.fetchAllDataAction()
+	await publicStore.fetchAllDataAction()
+	userInfo.value=await  uni.getStorageSync('userInfo')
+	shopInfo.value=await uni.getStorageSync('shopInfo')
+})
 
-const city = ref('')
 onMounted(async()=>{
-	const accessToken = uni.getStorageSync('accessToken')
-	if (accessToken) {
-		await publicStore.fetchAllDataAction(),
-		await userStore.fetchAllDataAction()
-	}
-	
-	uni.getLocation({
-		geocode: true,
-		success(res) {
-			console.log(res)
-			if (res.address) {
-				uni.setStorageSync('address_info', res.address)
-				city.value = res.address.city
-			}
-			
-			// var qqmapsdk = new QQMapWX({
-			//     key: 'YQRBZ-P4SKQ-2L55P-4NYXP-XK6TH-LXBVA' // 必填
-			// });
-			// qqmapsdk.reverseGeocoder({
-			// 	location: {
-			// 		latitude: res.latitude,
-			// 		longitude: res.longitude
-			// 	},
-			// 	success(address){
-			// 		const ad_info = address.result.ad_info
-			// 		uni.setStorageSync('address_info', address.result.ad_info)
-				
-			// 		city.value = ad_info.city
-			// 	},
-			// 	fail(err){
-			// 		console.log(err)
-			// 		uni.showToast({
-			// 			icon: 'none',
-			// 			title: '定位失败'
-			// 		})
-			// 	}
-			// })
-		}
-	})
+	// const accessToken = uni.getStorageSync('accessToken')
+	// console.log(accessToken);
+	// if (accessToken) {
+		// await publicStore.fetchAllDataAction()
+		// await userStore.fetchAllDataAction()
+	// }
+	const localCity=uni.getStorageSync('city')
+	city.value=localCity
 	getCategory()
 	getBanner()
+	getShopLists()
+	// generateQRCode()
 })
+const city = ref('')
+const getCity = (e)=>{
+	
+	city.value = e.city
+	uni.setStorageSync('city',city.value)
+	console.log('当前选择的城市',city.value);
+	getShopLists()
+}
+const shopLists = ref({})
+
+
+const hiddenMask=()=>{
+	isMask.value=false
+}
+
+
+
+const getShopLists = async()=>{
+	
+	const {results} = await getCityShopList({name: city.value})
+	shopLists.value = results[0]
+	console.log('切换城市获取到对应的商店列表',results );
+}
 const categoryList = ref([])
 const getCategory = async()=>{
 	const {results} = await getShopCategories()
@@ -187,32 +198,57 @@ const bannerList = ref()
 const getBanner = async()=>{
 	bannerList.value = await getBannerList()
 }
-const search = ()=>{
-	console.log(keyword.value)
-}
+
 const toSettle = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_intro'
 	})
 }
-const toMerchant = () => {
-    if (userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0) {
-        console.log(userStore.storeInfo);
-        // 已入驻
-        uni.navigateTo({
-            url: '/pages/merchant/merchant_management'
-        });
-    } else {
-        // 未入驻
+const toMerchant =async () => {
+	userInfo.value=await  uni.getStorageSync('userInfo')
+	shopInfo.value=await uni.getStorageSync('shopInfo')
+	const phoneNumber= uni.getStorageSync('phoneNumber')
+	console.log('点击商家前获得的数据',userInfo.value?.is_seller,shopInfo.value.state);
+/*  */
+	console.log('进入商家前的用户信息',userInfo.value);
+	console.log('进入商家前的店铺信息',shopInfo.value);
+	//0 正在审核 1审核通过  -1审核不通过 
+    if (userInfo.value?.is_seller&&shopInfo.value.state==1) {
+        // 店铺已过审核
+        // uni.navigateTo({
+        //     url: '/pages/merchant/merchant_management'
+        // });
+		await uni.setStorageSync('selectedShopInfo',shopInfo.value)
+		  uni.navigateTo({
+		    url: '/pages/merchant/merchant_detail'
+		  });
+    } else if(!userInfo.value?.is_seller) {
+        //还没成为商家
         uni.navigateTo({
             url: '/pages/merchant/merchant_intro'
         });
-    }
+    } else if(userInfo.value?.is_seller&&!userInfo.value?.is_shop){
+		//是商家 首次开通店铺
+		uni.navigateTo({
+			url:'/pages/merchant/before_create_shop'
+		})
+	}else if(userInfo.value?.is_seller&&shopInfo.value.state==-1){
+		//是商家 审核不通过
+		uni.navigateTo({
+			url:'/pages/merchant/fail_create_shop'
+		})
+	}else if(userInfo.value?.is_seller&&shopInfo.value?.state==0){
+		//正在审核
+		uni.navigateTo({
+			url:'/pages/merchant/before_create_merchant'
+		})
+	}
 };
 
 
 const toAgent = ()=>{
-	if (userStore.userInfo.is_province_agent || userStore.userInfo.is_city_agent) {
+	const userInfo = uni.getStorageSync('userInfo')
+	if (userInfo && (userInfo.is_province_agent||userInfo.is_city_agent)) {
 		uni.navigateTo({
 			url: '/pages/agent/agent_management'
 		})
@@ -221,22 +257,43 @@ const toAgent = ()=>{
 			url: '/pages/agent/agent_intro'
 		})
 	}
-	
 }
-const toRecommend = ()=>{
-	if (userStore.userInfo.is_referral_officer) {
-		uni.navigateTo({
-			url: '/pages/recommend/recommend_management'
+
+const toRecommend =async ()=>{
+	const userInfo = uni.getStorageSync('userInfo')
+	if(!userInfo.name||!userInfo.gender||!userInfo.icon||!userInfo.birthdate||!userInfo.residence){
+		uni.showToast({
+			icon:'none',
+			title:'成为推荐官前先完善个人信息'
 		})
-	} else {
-		uni.navigateTo({
-			url: '/pages/recommend/recommend_intro'
+		return uni.navigateTo({
+			url:'/pages/login/more_info_edit'
 		})
 	}
+	try{
+		const phoneNumber=uni.getStorageSync('phoneNumber')
+		const data=await getRecommendOfficerInfo(phoneNumber)
+		console.log('进入推荐官页面前的推荐官信息',data);
+		if (data?.is_approved&&data?.is_visible) {
+			uni.navigateTo({
+				url: '/pages/recommend/recommend_management'
+			})
+		}else if(!data?.is_approved){
+			uni.navigateTo({
+				url: '/pages/recommend/before_create_recommend'
+			})
+		}
+	}catch(e){
+		if(e.data?.detail){
+			uni.navigateTo({
+				url: '/pages/recommend/recommend_intro'
+			})
+		}
+	}
 }
-const toAllMerchant = ()=>{
+const toAllMerchant = (id)=>{
 	uni.navigateTo({
-		url: '/pages/merchant/all_merchant'
+		url: '/pages/merchant/all_merchant?id='+id
 	})
 }
 
@@ -245,9 +302,10 @@ const toMyAccount = ()=>{
 		url: '/pages/myAccount/myAccount'
 	})
 }
-const toDetail = ()=>{
+const toDetail =async ()=>{
+	await uni.setStorageSync('selectedShopInfo',shopLists.value)
 	uni.navigateTo({
-		url: '/pages/merchant/merchant_detail'
+		url: '/pages/merchant/merchant_detail?city='+city.value
 	})
 }
 </script>
@@ -256,6 +314,7 @@ const toDetail = ()=>{
 .page {
 	min-height: 100%;
 	background-color: #FC5908;
+	
 }
 .search_bar {
 	padding: 0 26rpx 48rpx;
@@ -263,16 +322,14 @@ const toDetail = ()=>{
 		width: 43rpx;
 		margin-right: 18rpx;
 	}
-	.location {
+	.location {  
 		color: #fff;
 		font-size: 24rpx;
 		margin-right: 30rpx;
 	}
-	uni-search-bar {
-		flex: 1;
-	}
 	:deep(.uni-searchbar) {
 		padding: 0;
+		flex: 1;
 	}
 	:deep(.uni-searchbar__box) {
 		height: 60rpx;

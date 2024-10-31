@@ -1,4 +1,5 @@
-page, view {
+* {
+	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
@@ -53,7 +54,7 @@ page {
 }
 .uni-input {
 	font-size: 24rpx;
-	color: #999999;
+	color: #333;
 }
 image {
 	height: 1rpx;

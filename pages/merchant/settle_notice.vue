@@ -13,13 +13,13 @@
 					本条款的签约双方为满仓服务的实际运营商***号信息咨询有限公司(下称“满仓”)与使用满仓相关服务的使用人(下称“用户”或“您”)，本条款是您与满仓之间关于您使用满仓提供的各项服务所订立的服务条款，具有正式书面合同的效力。本条款为《满仓用户服务协议》》(包括但不限于所附的《满仓隐私政策》)的必要组成部分。《满仓用户服务协议》将同时适用于满仓的各项服务。如本条款与《满仓用户服务协议》文本内容存在冲突之处，则以时间上最新发布的内容为准，发布时间相同的，以本条款为准。本条款有待明确、存在歧义或未规定之处均以《满仓用户服务协议》中的规定为准。您理解并同意，满仓将根据《满仓用户服务协议》的约定，对本条款或各项服务规则不时地进行修改更新。修改更新内容的发布和实施均适用《满仓用户服务协议》的相关约定。
 				</view>
 			</view>
-			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+			<view class="radio" >
+				<radio value="r1" :checked="isChecked"   @click="changeCheck"  color="#FC5908" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《商家入驻须知》</text>
+				<text class="c_title" @click="toDetail">《商家入驻须知》</text>
 			</view>
-			<view class="btn_full" @click="toSetInfo">
-				扫码提交资料
+			<view class="btn_full" @click="scanCode">
+				扫码成为商家
 			</view>
 		</view>
 	</view>
@@ -28,6 +28,10 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app'
+import { createMerchant } from '../../service/merchant';
+import { getCitiesDetail } from '../../service/divisions';
+import { useUserStore } from '../../store/user';
+ const userStore =useUserStore()
 const referral_officer = ref('')
 onLoad((options)=>{
 	referral_officer.value = options.referral_officer
@@ -35,8 +39,77 @@ onLoad((options)=>{
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
+	console.log(isChecked.value);
+	
+}
+function extractIdFromUrl(url) {
+    // 使用正则表达式匹配最后一个斜杠后面的数字
+    const match = url.match(/\/(\d+)\/?$/);
+    // 如果匹配成功，返回匹配的数字，否则返回null
+    return match ? match[1] : null;
 }
 
+const extractCityName=(location)=> {
+  // 使用空格分割字符串，获取最后一个部分（市名）
+  const parts = location.split(' ');
+  
+  // 返回最后一个元素，假设市名总是最后一部分
+  return parts[parts.length - 1];
+}
+	
+
+const scanCode =async () => {
+	if(!isChecked.value){
+		return uni.showToast({
+			icon:'none',
+			title:'请勾选商家入驻须知'
+		})
+	}
+  uni.scanCode({
+    onlyFromCamera: true, // 只允许从摄像头扫码
+    success: async(res) => {
+      console.log('扫码结果: ', extractIdFromUrl(res.result));
+	  const recommendPhone=extractIdFromUrl(res.result)
+	  const phoneNumber=uni.getStorageSync('phoneNumber')
+	  const address=uni.getStorageSync('userInfo').residence
+	  const userName=uni.getStorageSync('userInfo').name
+	  const avatar=uni.getStorageSync('userInfo').icon
+	  const cityName=extractCityName(address)
+	  const cityInfo=await getCitiesDetail(cityName)
+	console.log(recommendPhone,phoneNumber,address,cityName,userName,cityInfo);
+		uni.showLoading({
+			title:"正在创建商家"
+		})
+	  createMerchant({user:phoneNumber,referral_officer:recommendPhone,city:cityName,name:userName||'default',icon:avatar||''}).then(async(res)=>{
+			uni.hideLoading()
+			await  userStore.fetchAllDataAction()
+		  // uni.showToast({
+		  //   title: `恭喜你，满仓商家注册成功！快去创建店铺吧！`, // 显示扫码的结果
+		  //   icon: 'none'
+		  // });
+		
+		  uni.redirectTo({
+		  	url:'/pages/merchant/before_create_shop'
+		  })
+	  }).catch((err)=>{
+		  console.log(err);
+		  	uni.hideLoading()
+		  uni.showToast({
+		    title: `创建商家失败`, // 显示扫码的结果
+		    icon: 'fail'
+		  })
+	  })
+     
+    },
+    fail: (err) => {
+      console.error('扫码失败: ', err);
+      uni.showToast({
+        title: '扫码失败',
+        icon: 'none'
+      });
+    }
+  });
+};
 
 const toSetInfo = ()=>{
 	if (!isChecked.value) return uni.showToast({
@@ -47,6 +120,14 @@ const toSetInfo = ()=>{
 		url:'/pages/merchant/merchant_set_info?referral_officer='+referral_officer
 	})
 }
+
+
+const toDetail=()=>{
+	uni.navigateTo({
+		url:'/pages/merchant/merchant_settle_agreement'
+	})
+}
+
 </script>
 
 <style lang="scss" scoped>

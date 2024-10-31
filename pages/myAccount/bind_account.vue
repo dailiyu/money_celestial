@@ -7,13 +7,13 @@
 					<view class="s_title">
 						绑定账号
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入你的积分账号" placeholder-class="placeholder_class" />
+					<input v-model="number" type="text" class="uni-input" placeholder="请输入你的积分账号" placeholder-class="placeholder_class" />
 				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
 				<text class="read">我已阅读并同意</text>
-				<text class="c_title">《绑定须知》</text>
+				<text class="c_title" @click.stop="toAgreement">《绑定须知》</text>
 			</view>
 			<view class="btn_full" @click="confirm">
 				绑定
@@ -24,19 +24,17 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { bindPointAccount } from '@/service/point.js'
+import { bindPointAccount, getPointBindedAccount } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
-import { useUserStore } from '../../store/user'
-const  userStore = useUserStore()
 const number = ref('')
 
-const account = ref('')
-// 积分账号
-account.value = userStore.userInfo.username
-onMounted(async ()=>{
-	
-})
 
+
+const address = ref('')
+onMounted(async()=>{
+	const {points_account} = await getPointBindedAccount()
+	address.value = points_account
+})
 const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
@@ -46,20 +44,24 @@ const confirm = async ()=>{
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
 	})
-	// if (account.value) return uni.showToast({
-	// 	icon:'none',
-	// 	title: '已绑定积分账号，无法再绑定'
-	// })
+	if (address.value) return uni.showToast({
+		icon:'none',
+		title: '已绑定积分账号，无法再绑定'
+	})
 	if (!number.value) return uni.showToast({
 		icon:'none',
 		title: '请输入绑定账号'
+	})
+	if (number.value.length !== 49) return uni.showToast({
+		icon:'none',
+		title: '账号格式有误'
 	})
 	try{
 		uni.showLoading({
 			title: '绑定中'
 		})
 		await bindPointAccount({points_account: number.value})
-		account.value = number.value
+		address.value = number.value
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',
@@ -71,6 +73,11 @@ const confirm = async ()=>{
 			title: '绑定失败'
 		})
 	}
+}
+const toAgreement = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/bind_account_agreement'
+	})
 }
 </script>
 
@@ -93,7 +100,7 @@ const confirm = async ()=>{
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color:#333;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;

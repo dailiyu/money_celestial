@@ -1,14 +1,19 @@
 <template>
 	<view>
 		<navBar title="门店详情"></navBar>
-		<image src="" mode="widthFix" class="shop_pic"></image>
-		<view class="shop_info">
-			<view class="info_item flex">
-				<image src="" mode="aspectFill" class="shop_head"></image>
+		
+		<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-active-color="#FC5908" circular v-if="swiperList.length">
+			<swiper-item v-for="item in swiperList" :key="item.id">
+				<image :src="item" mode="widthFix" class="shop_pic"></image>
+			</swiper-item>
+		</swiper>
+		<view class="shop_info" v-if="shopInfo.name">
+			<view class="info_item flex" @click="to_merchant_mangment">
+				<image :src="shopInfo.avatar" mode="aspectFill" class="shop_head"></image>
 				<view class="" style="flex: 1;">
 					<view class="flex">
 						<view class="shop_name">
-							佛山英朗达百货超市西城店
+							{{shopInfo.name}}
 						</view>
 						<view class="level">
 							Lv.5
@@ -16,60 +21,106 @@
 					</view>
 					<view class="rate_box flex">
 						<view class="flex">
-							<image src="@/static/star.png" mode="widthFix" class="star_pic"></image>
+							<image src="@/static/star.png" mode="widthFix" class="star_pic" v-for="(item, index) in 5" :key="index"></image>
 						</view>
 						<view class="point">
-							4.9
+							5
 						</view>
 					</view>
 					<view class="note">
-						本店主要经营各类百货商品、生鲜蛋肉类产品
+						{{shopInfo.description}}
 					</view>
 				</view>
-				<image src="@/static/star-plain.png" mode="widthFix" class="star_plain"></image>
+				<!-- <image src="@/static/star-plain.png" mode="widthFix" class="star_plain"></image> -->
 			</view>
 			<view class="info_item">
-				<view class="flex">
+				<view class="flex" style="margin-bottom: 25rpx;">
 					<image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic"></image>
 					<view class="address">
-						浙江省金华市永康西城服装产业园区工厂区68号
+						{{shopInfo.address}}
 					</view>
 				</view>
-				<view class="time_box flex">
+				<!-- <view class="time_box flex">
 					<image src="@/static/time.png" mode="widthFix" class="time_pic"></image>
 					<view class="time_text">
 						营业时间：09:00-19:00
 					</view>
-				</view>
+				</view> -->
 				<view class="flex">
 					<image src="@/static/phone.png" mode="widthFix" class="phone_pic"></image>
 					<view class="time_text">
-						联系方式：18642222222
+						联系方式：{{shopInfo.merchant}}
 					</view>
 				</view>
 			</view>
 		</view>
-		<uni-segmented-control :current="current" :values="items" style-type="text" active-color="#FC5908" @clickItem="onClickItem" />
-		<goodsList></goodsList>
+		<!-- <uni-segmented-control :current="current" :values="items" style-type="text" active-color="#FC5908" @clickItem="onClickItem" />
+		<goodsList></goodsList> -->
 	</view>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-const current = ref(0)
-const items = ref(['本店商品', '商家介绍', '评价'])
-const onClickItem = (e)=>{
-	if (current.value !== e.currentIndex) {
-		current.value = e.currentIndex
+import { onMounted, ref } from 'vue';
+// import { getShopImages, getShopInfo } from '../../service/shop';
+
+
+// const current = ref(0)
+// const items = ref(['本店商品', '商家介绍', '评价'])
+// const onClickItem = (e)=>{
+// 	if (current.value !== e.currentIndex) {
+// 		current.value = e.currentIndex
+// 	}
+// }
+const phone = ref('')
+
+const shopInfo = ref({})
+onMounted(async()=>{
+	// let routes = getCurrentPages()
+	// let curParam = routes[routes.length - 1].options;
+	// phone.value = curParam.phone
+	shopInfo.value=await uni.getStorageSync('selectedShopInfo')
+	const bannerImages =  shopInfo.value.images.filter(image => image.image_type === "banner").map(image => image.image_url);
+	swiperList.value=bannerImages
+	console.log('店铺详情的轮播图',swiperList.value);
+	// getInfo()
+	// getShopBanner()
+})
+
+const to_merchant_mangment=async()=>{
+	const phoneNumber=await  uni.getStorageSync('phoneNumber')
+	console.log();
+	if(phoneNumber==shopInfo.value.merchant){
+		uni.navigateTo({
+		    url: '/pages/merchant/merchant_management'
+		});
 	}
+	
 }
+
+
+// const getInfo = async()=>{
+// 	uni.showLoading({
+// 		title: '加载中'
+// 	})
+// 	const res = await getShopInfo(phone.value)
+// 	uni.hideLoading()
+// 	shopInfo.value = res
+// }
+ const swiperList = ref([])
+// const getShopBanner = async()=>{
+// 	const {results} = await getShopImages({shop: phone.value, image_type:'banner'})
+// 	swiperList.value = results
+// }
 </script>
 
 <style lang="scss" scoped>
+.swiper {
+	height: 418rpx;
+}
 .shop_pic {
 	width: 100%;
-	height: 311rpx;
-	background-color: #ccc;
+	height: 418rpx;
+	// background-color: #ccc;
 	display: block;
 }
 .shop_info {
@@ -83,7 +134,7 @@ const onClickItem = (e)=>{
 		.shop_head {
 			width: 112rpx;
 			height: 112rpx;
-			background-color: #ccc;
+			// background-color: #ccc;
 			margin-right: 30rpx;
 			border-radius: 50%;
 		}
@@ -129,7 +180,7 @@ const onClickItem = (e)=>{
 			color: #1B46CC;
 		}
 		.time_box {
-			margin: 25rpx 0;
+			margin-bottom: 25rpx;
 			.time_pic {
 				width: 20rpx;
 				margin-right: 10rpx;

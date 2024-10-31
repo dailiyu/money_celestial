@@ -1,44 +1,61 @@
 <template>
 	<view>
-		<navBar title="提取记录"></navBar>
+		<navBar title="我的积分记录"></navBar>
 		<uni-row class="title_row">
-			<uni-col :span="3">
+			<uni-col :span="2">
 				<view class="title">序号</view>
 			</uni-col>
-			<uni-col :span="9">
-				<view class="title">提取地址</view>
+			<uni-col :span="5">
+				<view class="title">积分类型</view>
+			</uni-col>
+			<uni-col :span="4">
+				<view class="title">数量</view>
+			</uni-col>
+			<uni-col :span="3">
+				<view class="title">状态</view>
+			</uni-col>
+			<uni-col :span="4">
+				<view class="title">到账数量</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view class="title">提取数量</view>
-			</uni-col>
-			<uni-col :span="6">
-				<view class="title">提取时间</view>
+				<view class="title">时间</view>
 			</uni-col>
 		</uni-row>
 		
 		<uni-row v-for="(item, index) in recordList" :key="item.id">
-			<uni-col :span="3">
+			
+			<uni-col :span="2">
 				<view>{{index+1}}</view>
 			</uni-col>
-			<uni-col :span="9">
-				<view>{{item.from_user}}</view>
+			<uni-col :span="5">
+				<view>{{ transformTypeFilter(item)}}</view>
 			</uni-col>
-			<uni-col :span="6">
-				<view>{{item.amount}}</view>
+			<uni-col :span="4">
+				<view>{{item.transaction_amount}}</view>
+			</uni-col>
+			<uni-col :span="3" v-if="item.transaction_method=='gift_green_points'">
+				<view>--</view>
+			</uni-col>
+			<uni-col :span="3" v-else>
+				<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
+			</uni-col>
+			<uni-col :span="4">
+				<view>{{item.real_amount||item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
+		
 		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getWithdrawRecord } from '@/service/point.js'
-import { getRecords } from '../../service/deposit';
-import { convertTime, obscureString } from '@/utils/index.js'
+import { getAllRecords } from '@/service/point.js'
+import { getPointsRecords } from '@/service/point';
+import { convertTime, obscureString, transformTypeFilter } from '@/utils/index.js'
 
 onMounted(()=>{
 	getRecordList()
@@ -51,13 +68,16 @@ const getRecordList = async()=>{
 	// 	page: page.value
 	// })
 	status.value = 'loading'
-	const {transactions, total_amount} = await getRecords({transaction_type:'green_point'})
+	const {results} = await getAllRecords()
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {
 	// 	status.value = 'more'
 	// }
-	recordList.value.push(...transactions)
+	// recordList.value = [...results]
+	recordList.value = results.filter((item)=>{
+		return item.transaction_method=='green_points'||item.transaction_method=='gift_green_points_bonus'||(item.transaction_method=='gift_green_points'&&item.transaction_type=='increase')||item.transaction_method=='every_green_bonus'
+	})
 }
 const loadMore = ()=>{
 	if (status.value == 'more') {
@@ -78,7 +98,7 @@ const loadMore = ()=>{
 	&:nth-child(2) {
 		background-color: #fff;
 		color: #333;
-		font-size: 27rpx;
+		font-size: 22rpx;
 	}
 }
 .title_row {

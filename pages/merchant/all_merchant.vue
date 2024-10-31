@@ -1,20 +1,25 @@
 <template>
 	<view>
-		<navBar title="全部商家"></navBar>
+		<navBar title="全部商铺"></navBar>
 		<view class="filter_list flex_between">
-			<view class="flex_center" @click="getType">
-				<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
+			<view class="flex_center" style="flex: 1;">
+				<!-- <image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
 				<view>
 					类目
+				</view> -->
+				<view class="" style="flex: 1;text-align: right;">
+					<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
 				</view>
+				<uni-data-select v-model="category" :localdata="range" placeholder="类目" :clear="false"
+					@change="changeRange"></uni-data-select>
 			</view>
-			<view>
+			<view style="flex: 1; text-align: center;">
 				热门
 			</view>
-			<view>
+			<view style="flex: 1; text-align: center;">
 				好评
 			</view>
-			<view class="flex_center">
+			<!-- <view class="flex_center">
 				<view class="">
 					距离
 				</view>
@@ -26,7 +31,7 @@
 					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<view class="content">
 		<!-- 	<view class="settle_box flex_between">
@@ -39,57 +44,88 @@
 					我要入驻
 				</view>
 			</view> -->
-			<shopList :sort='distance' :shopType="index==0?-1:range[index-1].value"></shopList>
+			<shopList :list="shopLists"></shopList>
+		</view>
+		<view class="load-more" @click="loadMore"  v-if="hasNext">
+			加载更多...
 		</view>
 	</view>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import {usePublicStore} from "@/store/public.js"
-const publicStore=  usePublicStore()
+import { onMounted, ref } from 'vue';
+import { getShopList } from '@/service/shop';
+import { getShopCategories, getCityShopList } from '@/service/shop.js';
+import { onLoad } from '@dcloudio/uni-app'
+const categoryId = ref('');
+const range = ref([]);
+const curPage = ref(1);
+const hasNext = ref(false);
 
-const range = computed(() => {
-		return publicStore.cateGoryList.map((item) => {
-			console.log({
-				value: item.id, // value 为 id
-				text: item.name, // text 为 name
-			});
-			return {
-				value: item.id, // value 为 id
-				text: item.name, // text 为 name
-			};
-		});
-	});
-	
-	const categoryTextList = computed(() => {
-			return publicStore.cateGoryList.map((item) => {
-				return item.name
-			});
-		});
-	
 
-const index=ref(0)
-const getType = ()=>{
-	uni.showActionSheet({
-		itemList: ['全部',...categoryTextList.value],
-		success(res) {
-			index.value=res.tapIndex
-			
-		}
+onLoad((options) => {
+   categoryId.value = options.id == 0 ? '' : options.id;
+    category.value =Number(categoryId.value);
+  console.log('接收到的参数:',options.id );
+  
+});
+
+
+onMounted(async () => {
+  // 类目
+  const { results } = await getShopCategories();
+  const dealData = results.map(i => ({
+    text: i.name,
+    value: i.id,
+    disable: false,
+  }));
+
+  range.value = [{ text: "全部", value: '', disable: false }, ...dealData];
+  getList();
+});
+
+const shopLists = ref([])
+const getList = async()=>{
+	const city=uni.getStorageSync('city')
+	const params = ref({
+		category: categoryId.value,
+		name:city,
+		page:curPage.value
 	})
+	uni.showLoading({
+		title: '加载中'
+	})
+	const {results,next} = await getCityShopList(params.value)
+	shopLists.value.push(...results)
+	if(!!next){
+		hasNext.value=true
+		curPage.value=curPage.value+1
+	}else{
+		hasNext.value=false
+	}
+	
+	uni.hideLoading()
 }
+
 const toSettle = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_intro'
 	})
 }
 
-const distance = ref('asc')
+const category = ref('')
+const changeRange = (e) => {
+	
+	categoryId.value = e
+	shopLists.value = []
+	getList()
+	
+}
 
 
-
-
+const loadMore=async()=>{
+	await getList()
+}
 
 </script>
 
@@ -111,6 +147,32 @@ const distance = ref('asc')
 			margin-top: 6rpx;
 		}
 	}
+	uni-data-select {
+		flex: 1;
+	}
+	:deep(.uni-select) {
+		padding: 0;
+		border: none;
+	}
+	
+	:deep(.uni-select__input-box) {
+		height: fit-content;
+		justify-content: flex-start;
+	}
+	
+	:deep(.uni-select__input-placeholder) {
+		font-size: 30rpx;
+		color: #333;
+	}
+	
+	:deep(.uni-select__input-text) {
+		width: fit-content;
+		font-size: 30rpx;
+		color: #333;
+	}
+	:deep(.uni-select__selector){
+		width: 200%;
+	}
 }
 .settle_box {
 	padding: 24rpx 32rpx 24rpx 46rpx;
@@ -131,5 +193,8 @@ const distance = ref('asc')
 		border-radius: 100px;
 	}
 }
-
+.load-more{
+	width: 750rpx;
+	text-align: center;
+}
 </style>
