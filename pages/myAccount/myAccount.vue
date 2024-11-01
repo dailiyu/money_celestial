@@ -22,8 +22,8 @@
 						<view class="number">{{obscurePhoneNumber(phoneNumber)}}</view>
 					</div>
 				</view>
-				<image src="https://static.maxcang.com/appstatic/recommend/verified.png" mode="widthFix" class="verify_pic"></image>
-				<!-- <image src="https://static.maxcang.com/appstatic/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image> -->
+				<image src="https://static.maxcang.com/appstatic/recommend/verified.png" v-if="isVerified" mode="widthFix" class="verify_pic"></image>
+				<image src="https://static.maxcang.com/appstatic/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image>
 			</view>
 			<view class="points-box">
 				<view class="item" @click="toMyPoint">
@@ -146,9 +146,11 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getAllPoint, getPointBindedAccount } from '@/service/point.js'
+
 import { useUserStore } from '../../store/user'
 import { obscureString, obscurePhoneNumber } from '@/utils';
 import { onShow } from '@dcloudio/uni-app'; 
+import { getVertifyMerchantInfo } from '../../service/merchant';
 const  userStore = useUserStore()
 const phoneNumber=ref('')
 const accessToken = uni.getStorageSync('accessToken')
@@ -156,11 +158,12 @@ const accessToken = uni.getStorageSync('accessToken')
 const ionc_url=ref()
 const user_name=ref()
 const version = ref('');
+const isVerified = ref(false)
+	
 
 
 
-
-onShow(() => {
+onShow(async() => {
 	phoneNumber.value=uni.getStorageSync('phoneNumber')
 	ionc_url.value= uni.getStorageSync('userInfo').icon
 	user_name.value=uni.getStorageSync('userInfo').name
@@ -171,6 +174,11 @@ onShow(() => {
 	// #ifdef APP-PLUS
 	version.value = plus.runtime.version
 	// #endif
+	await  userStore.getStoreInfoAction()
+	const phone=await uni.getStorageSync('phoneNumber')
+	const {is_verified} = await getVertifyMerchantInfo(phone)
+	isVerified.value = is_verified
+	
 });
 
 // onMounted(()=>{
@@ -264,6 +272,13 @@ const formatPhoneNumber=(phoneNumber)=>{
     }
     return 'Invalid phone number';
 }
+
+
+const toMerchantCodeVerify=()=>{
+		uni.navigateTo({
+			url: '/pages/merchant/merchant_code_authentication'
+		})
+	}
 </script>
 
 <style lang="scss">
@@ -337,6 +352,7 @@ const formatPhoneNumber=(phoneNumber)=>{
 				
 				.verify_pic {
 					width: 206rpx;
+					margin-right: 50rpx;
 				}
 				
 			}
