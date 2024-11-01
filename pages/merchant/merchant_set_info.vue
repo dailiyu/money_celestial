@@ -23,7 +23,7 @@
 				</view>
 				<view class="info_item flex_between" style="flex: 1;">
 					<view class="s_title" style="margin-right: 45rpx;">
-						常居地
+						所在地
 					</view>
 					<!-- <input v-model="selectedCity" class="uni-input" placeholder="请选择城市"
 						placeholder-class="placeholder_class" disabled @click="selectCity" /> -->

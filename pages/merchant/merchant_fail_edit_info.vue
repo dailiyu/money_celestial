@@ -31,19 +31,13 @@
 							获取验证码
 						</view>
 					</view> -->
-					<view class="info_item flex_between" style="flex: 1;"  @click="forbiddenTips">
-						<view class="title" style="margin-right: 45rpx;">
+					<view class="info_item flex_between" style="flex: 1;"  >
+						<view class="s_title" style="margin-right: 45rpx;">
 							所在地
 						</view>
-							<uni-data-picker
-												readonly
-							                   v-model="curData"
-										      :localdata="cityData"
-											  :clear-icon='false'
-										      mode="region"
-										      @change="onChange"
-										      title="请选择省市"
-										    ></uni-data-picker>
+						<picker @change="bindCityChange"   mode="region">
+							<view class="uni-input">{{selectedCity}}</view>
+						</picker>
 					</view>
 					<view class="info_item flex_between">
 						<view class="s_title">
@@ -390,7 +384,7 @@ const range = computed(() => {
 			 await associatedDetailImg()
 			  await associatedBannerImg()
 		    await associatedAuthfileImg()
-			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
+			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value,city: selectedCity.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
 
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value,...authfileListUrl.value]
 			console.log('图片列表参数',params);
@@ -420,12 +414,7 @@ const range = computed(() => {
 		}
 	}
 	
-	const forbiddenTips=()=>{
-		uni.showToast({
-			icon:'none',
-			title:'店铺常居地不允许修改'
-		})
-	}
+	
 	const showTips=()=>{
 		uni.showToast({
 			icon:'none',
@@ -433,6 +422,13 @@ const range = computed(() => {
 		})
 	}
 	
+	
+	const bindCityChange = (e)=>{
+		selectedCity.value = e.detail.value[1]
+		console.log('选择的城市',e.detail.value[1])
+	}
+
+
 </script>
 <style lang="scss" scoped>
 .head_box {
