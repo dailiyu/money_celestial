@@ -53,14 +53,9 @@
 				<view class="title">
 					常居地<text style="color: red;">*</text>
 				</view>
-					<!-- <uni-data-picker 
-								      :localdata="cityData"
-								      :value="selectedValues"
-									  :clear-icon='false'
-								      mode="region"
-								      @change="onChange"
-								      title="请选择省市"
-								    ></uni-data-picker> -->
+				<picker @change="bindCityChange"  mode="region">
+					<view class="uni-input">{{selectedCity||'请选择'}}</view>
+				</picker>
 			</view>
 			
 			<view class="btn flex_center" @click="saveMessage">
@@ -80,33 +75,13 @@
 import { ref } from 'vue';
 import { changeUserInfo } from '../../service/uer_profile';
 import { uploadUrl } from '../../service/config';
-// import cityDataJson from "https://static.maxcang.com/appstatic/cityData.json"
 import { uploadImage } from '../../utils';
 
 
 
-// 绑定选择的值
-const selectedValues = ref([])
-
 // 绑定省市名显示
 const selectedProvince = ref('')
 const selectedCity = ref('')
-
-// 省市数据
-const cityData = ref(cityDataJson)
-
-// 当选择器值变化时，处理选中的省和市
-const onChange = (e) => {
-  const selected = e.detail.value
-  const province = cityData.value.find(item => item.value === selected[0])
-  const city = province?.children?.find(item => item.value === selected[1])
-
-  // 保存选择的省市名
-   selectedProvince.value = e.detail.value[0].text ||''
-   selectedCity.value =  e.detail.value[1].text ||''
-  // 保存选中的省市值
-  console.log( selectedProvince.value,selectedCity.value);
-}
 
 
 const skip = ()=>{
@@ -241,7 +216,10 @@ const getLocation = ()=>{
 }
 
 
-
+const bindCityChange = (e)=>{
+	selectedCity.value = e.detail.value[1]
+	selectedProvince.value = e.detail.value[0]
+}
 
 </script>
 

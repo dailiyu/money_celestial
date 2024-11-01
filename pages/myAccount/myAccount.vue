@@ -19,14 +19,11 @@
 					</view>
 					<div class="phone_box">
 						<image class="img" src="https://static.maxcang.com/appstatic/my/phone.jpg"></image>
-						<view class="number">{{formatPhoneNumber(phoneNumber)}}</view>
+						<view class="number">{{obscurePhoneNumber(phoneNumber)}}</view>
 					</div>
-					
 				</view>
-				
-				<view class="logout"  @click="logout">
-					退出登录
-				</view>
+				<image src="https://static.maxcang.com/appstatic/recommend/verified.png" mode="widthFix" class="verify_pic"></image>
+				<!-- <image src="https://static.maxcang.com/appstatic/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image> -->
 			</view>
 			<view class="points-box">
 				<view class="item" @click="toMyPoint">
@@ -39,11 +36,11 @@
 					<text class="text">可用积分</text>
 					<div class="text number">{{red_points}}</div>
 				</view>
-				<view class="item" @click="toPointAccount">
+				<!-- <view class="item" @click="toPointAccount">
 					<image class="img" src="https://static.maxcang.com/appstatic/my/credits_account.png"></image>
 					<text class="text">积分账号</text>
 					<div class="text number">{{user?obscureString(user):''}}</div>
-				</view>
+				</view> -->
 			</view>
 			<view class="services">
 				<view class="service_title flex">
@@ -135,8 +132,11 @@
 					</view>
 				</view>
 			</view> -->
-			
+			<view class="logout btn_full"  @click="logout">
+				退出登录
+			</view>
 		</view>
+		
 		<view class="vesion">
 			满仓 V{{version}}
 		</view>
@@ -147,7 +147,7 @@
 import { onMounted, ref } from 'vue';
 import { getAllPoint, getPointBindedAccount } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
-import { obscureString } from '@/utils';
+import { obscureString, obscurePhoneNumber } from '@/utils';
 import { onShow } from '@dcloudio/uni-app'; 
 const  userStore = useUserStore()
 const phoneNumber=ref('')
@@ -333,18 +333,12 @@ const formatPhoneNumber=(phoneNumber)=>{
 							color: #FFFFFF;
 						}
 					}
-					
 				}
-				      
-				.logout{
-					margin-right: 20rpx;
-					// color: #54b1fd;
-					padding: 12rpx 20rpx;
-					color: #FC5908;
-					font-size: 21rpx;
-					background-color: #fff;
-					border-radius: 100px;
+				
+				.verify_pic {
+					width: 206rpx;
 				}
+				
 			}
 
 			.points-box {
@@ -425,7 +419,10 @@ const formatPhoneNumber=(phoneNumber)=>{
 					}
 				}
 			}
-			
+			.logout{
+				font-size: 30rpx;
+				margin-top: 50rpx;
+			}
 		}
 		.vesion {
 			font-size: 24rpx;

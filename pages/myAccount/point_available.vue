@@ -8,10 +8,10 @@
 			<view class="number flex_center">
 				{{redPoint}}
 			</view>
-			<view class="btns flex_between">
-				<view class="cancel_btn flex_center" @click="toStepOne">
+			<view class="btns flex_center">
+				<!-- <view class="cancel_btn flex_center" @click="toStepOne">
 					增加积分
-				</view>
+				</view> -->
 				<view class="add_btn flex_center" @click="toWithdrawPoint">
 					提取积分
 				</view>

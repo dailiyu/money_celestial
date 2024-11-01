@@ -119,11 +119,11 @@
 				<image src="" mode="widthFix" class="swipe_img"></image>
 			</swiper-item>
 		</swiper> -->
-		<view class="content">
+		<!-- <view class="content">
 			<image src="https://static.maxcang.com/appstatic/home/shop.jpg" mode="widthFix" class="shop_pic"></image>
 			<image src="https://static.maxcang.com/appstatic/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
 			<image src="https://static.maxcang.com/appstatic/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -312,9 +312,8 @@ const toDetail =async ()=>{
 
 <style lang="scss" scoped>
 .page {
-	min-height: 100%;
+	min-height: 100vh;
 	background-color: #FC5908;
-	
 }
 .search_bar {
 	padding: 0 26rpx 48rpx;
@@ -387,7 +386,7 @@ const toDetail =async ()=>{
 	}
 }
 .content {
-	padding: 0 22rpx;
+	padding: 0 22rpx 22rpx;
 	.cate_list {
 		background-color: #fff;
 		border-radius: 38rpx;

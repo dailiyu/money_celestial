@@ -32,18 +32,12 @@
 						</view>
 					</view> -->
 					<view class="info_item flex_between" style="flex: 1;"  @click="forbiddenTips">
-						<view class="title" style="margin-right: 45rpx;">
+						<view class="s_title" style="margin-right: 45rpx;">
 							所在地
 						</view>
-							<uni-data-picker
-												readonly
-							                   v-model="curData"
-										      :localdata="cityData"
-											  :clear-icon='false'
-										      mode="region"
-										      @change="onChange"
-										      title="请选择省市"
-										    ></uni-data-picker>
+						<picker @change="bindCityChange"  mode="region">
+							<view class="uni-input">{{selectedCity||'请选择'}}</view>
+						</picker>
 					</view>
 					<view class="info_item flex_between">
 						<view class="s_title">
@@ -166,7 +160,6 @@
 		usePublicStore
 	} from "@/store/public.js"
 
-	import cityDataJson from "@/static/cityData.json"
 	const shopInfo=uni.getStorageSync('shopInfo')
 	const bannerImages =  shopInfo.images.filter(image => image.image_type === "banner").map(image => image.image_url);
 	const detailImages =  shopInfo.images.filter(image => image.image_type === "other").map(image => image.image_url);
@@ -193,53 +186,19 @@ onMounted(async()=>{
 	business_license.value=shopInfo.license_no
 	proportion_gift.value=shopInfo.consume2coin_bit
 	address.value=shopInfo.address
-	curData.value=findValueByText(shopInfo.city)
 	selectedCity.value=shopInfo.city
 	 successDetailImgPaths.value=detailImages
 	 successProfileImgPaths.value=avatarImages
 	 successBannerImgPaths.value=bannerImages
 	 successAuthfileImgPaths.value=authfileImages
 	console.log('---------',successDetailImgPaths.value,successProfileImgPaths.value,successBannerImgPaths.value);
-	console.log(findValueByText(shopInfo.city.name));		
-	console.log(cityDataJson);
 	console.log("本地获取到的商铺信息",shopInfo);
 })
 
-const findValueByText=(text)=> {
-  for (const province of cityDataJson) {
-	 
-    for (const city of province.children) {
-		
-      if (city.text === text) {
-        return city.value;
-      }
-    }
-  }
-  return null;
-}
-
-// 绑定选择的值
-const selectedValues = ref([])
 
 // 绑定省市名显示
-const selectedProvince = ref('')
 const selectedCity = ref()
 
-// 省市数据
-const cityData = ref(cityDataJson)
-
-// 当选择器值变化时，处理选中的省和市
-const onChange = (e) => {
-  const selected = e.detail.value
-  const province = cityData.value.find(item => item.value === selected[0].value)
-  const city = province?.children?.find(item => item.value === selected[1].value)
-	console.log('选择的城市',curData.value);
-  // 保存选择的省市名
-   selectedProvince.value =province.text 
-   selectedCity.value = city.text
-  // 保存选中的省市值
-  console.log(selected[0].text,province, city,selectedProvince.value,selectedCity.value);
-}
 
 
 
@@ -431,6 +390,9 @@ const range = computed(() => {
 			icon:'none',
 			title:"不允许编辑！"
 		})
+	}
+	const bindCityChange = (e)=>{
+		selectedCity.value = e.detail.value[1]
 	}
 	
 </script>

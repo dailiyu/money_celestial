@@ -42,7 +42,7 @@
 				</view>
 		<view class="head_box">
 			<view class="info_item flex_between">
-					<view class="s_title">
+					<view class="h_title">
 						营业执照编号
 					</view>
 				  <input v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
@@ -51,7 +51,7 @@
 		
 			<view class="head_box">
 						<view class="info_item flex_between">
-							<view class="s_title">
+							<view class="h_title">
 								赠送百分比(%)
 							</view>
 							<input v-model="proportion_gift"  @blur="validateInput" class="uni-input" placeholder="请输入30到1000的整数" placeholder-class="placeholder_class" />

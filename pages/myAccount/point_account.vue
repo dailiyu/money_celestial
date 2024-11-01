@@ -8,9 +8,9 @@
 						商家码认证
 					</view>
 					<view class="flex">
-						<view class="account" v-if="isVerified">
+						<!-- <view class="account" v-if="isVerified">
 							{{merchantCodeAccount?obscureString(merchantCodeAccount):''}}
-						</view>
+						</view> -->
 						<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 					</view>
 				</view>
@@ -19,9 +19,9 @@
 						{{address?'解绑':'绑定'}}账号
 					</view>
 					<view class="flex">
-						<view class="account">
+						<!-- <view class="account">
 							{{address?obscureString(address):''}}
-						</view>
+						</view> -->
 						<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 					</view>
 				</view>
