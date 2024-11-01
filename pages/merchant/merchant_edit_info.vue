@@ -35,7 +35,7 @@
 						<view class="s_title" style="margin-right: 45rpx;">
 							所在地
 						</view>
-						<picker @change="bindCityChange"  mode="region">
+						<picker @change="bindCityChange"  disabled mode="region">
 							<view class="uni-input">{{selectedCity}}</view>
 						</picker>
 					</view>
@@ -351,7 +351,7 @@ const range = computed(() => {
 	const forbiddenTips=()=>{
 		uni.showToast({
 			icon:'none',
-			title:'店铺常居地不允许修改'
+			title:'店铺所在地不允许修改'
 		})
 	}
 

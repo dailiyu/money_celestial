@@ -12,7 +12,6 @@
 			// #ifdef APP-PLUS
 			plus.navigator.closeSplashscreen();
 			// #endif
-			
 		},
 		onShow: function() {
 			console.log('App Show')

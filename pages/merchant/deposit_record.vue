@@ -60,7 +60,7 @@ const getRecordList = async ()=>{
 	// 	status.value = 'more'
 	// }
 	recordList.value = results
-}
+} 
 const loadMore = ()=>{
 	if (status.value == 'more') {
 		page.value++
