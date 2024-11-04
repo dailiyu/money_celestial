@@ -35,10 +35,23 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '../../store/user';
- const userStore=   useUserStore()
+import { postProfileLogin, getUerAccountMessage } from '@/service/uer_profile.js';
+import { onShow } from '@dcloudio/uni-app'; 
+const userStore=   useUserStore()
 const moblie = ref('')
 const password = ref('')
 const errorTimes=ref(0)
+const version = ref('');
+
+
+/*  */
+onShow(()=>{
+	version.value = uni.getSystemInfoSync().appVersionCode
+	console.log(version.value);
+	
+})
+
+
 const toRegister = ()=>{
 	uni.navigateTo({
 		url: '/pages/login/register'
@@ -54,12 +67,21 @@ const toRegister = ()=>{
 	  	icon: 'none',
 	  	title: '请输入密码'
 	  })
-
 	  uni.showLoading({
 	  	title: '登录中'
 	  })
-	  userStore.loginAction(moblie.value,password.value).then((res)=>{
+	  
+	  postProfileLogin({phone_number:moblie.value,password:password.value,version:version.value}).then(async(res)=>{
 		  console.log('登录成功的用户信息',res);
+		  const { access, refresh } = res;
+		  // 保存 Token
+		  await uni.setStorageSync('accessToken', access);
+		   await uni.setStorageSync('refreshToken', refresh);
+		    console.log('accessToken', access);
+		  await uni.setStorageSync('phoneNumber',moblie.value)
+		  console.log('登录传入的手机号',moblie.value);
+		  await userStore.getUserInfoAction()
+		   
 		  uni.hideLoading()
 		 uni.showToast({
 		 	title:'登录成功',

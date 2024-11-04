@@ -39,15 +39,20 @@
 	import {
 		ref
 	} from 'vue';
-import { postRegister, sendVerifyCode } from '@/service/uer_profile';
+import { postRegister, sendVerifyCode,postProfileLogin } from '@/service/uer_profile';
+import { onShow } from '@dcloudio/uni-app'; 
 	
 	const mobile = ref('')
 	const code = ref('')
 	const password = ref('')
 	const password2 = ref('')
+	const version = ref('');
 	
+onShow(()=>{
+	version.value = uni.getSystemInfoSync().appVersionCode
+	console.log(version.value);
 	
-
+})
 	
 const toRegister = async() => {
 	if (mobile.value.length !== 11) return uni.showToast({
@@ -70,7 +75,8 @@ const toRegister = async() => {
 		icon: 'none',
 		title: '请输入正确验证码'
 	})
-    postRegister(mobile.value, password.value, code.value).then((res) => {
+
+    postRegister({phone_number:mobile.value,password:password.value,verify_code:code.value}).then(async(res) => {
 		// console.log('刚注册的用户信息',res);
 	uni.hideLoading()
       uni.showToast({
@@ -78,15 +84,24 @@ const toRegister = async() => {
         icon: 'success',
         title: "注册成功"
       });
-      userStore.loginAction(mobile.value, password.value);
-	  uni.setStorageSync('phoneNumber',mobile.value)
+   //    userStore.loginAction(mobile.value, password.value);
+	  // uni.setStorageSync('phoneNumber',mobile.value)
+	 const result=await postProfileLogin({phone_number:mobile.value,password:password.value,version:version.value})
+	 const { access, refresh } = result;
+	 // 保存 Token
+	 await uni.setStorageSync('accessToken', access);
+	  await uni.setStorageSync('refreshToken', refresh);
+	   console.log('accessToken', access);
+	 await uni.setStorageSync('phoneNumber',mobile.value)
+	 console.log('登录传入的手机号',mobile.value);
+	 await userStore.getUserInfoAction()
       setTimeout(() => {
         uni.navigateTo({
           url: '/pages/login/more_info'
         });
       }, 2000); // 延迟 2 秒跳转
     }).catch((err) => {
-		// console.log(err.data);
+		 console.log(err);
 		uni.hideLoading()
       uni.showToast({
         duration: 2000,
@@ -105,12 +120,12 @@ const toRegister = async() => {
 
 	
 let isCounting = ref(false);
-let countdown = ref(60);
+let countdown = ref(120);
 let countdownInterval
 const  startCountdown=()=> {
     if (!isCounting.value) {
         isCounting.value = true;
-        countdown.value = 60;
+        countdown.value = 120;
         // console.log(`倒计时开始: ${countdown.value}秒`);
         countdownInterval = setInterval(() => {
             countdown.value=countdown.value-1;

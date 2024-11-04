@@ -5,8 +5,11 @@
 <script>
 	export default {
 		onLaunch: function() {
+			// if (uni.getSystemInfoSync().platform === 'android' || uni.getSystemInfoSync().platform === 'devtools') {
+			//     // 在这里调用Android平台的关闭启动屏幕的API
+			//     
+			// }
 			// #ifdef APP-PLUS
-			 // 在这里调用Android平台的关闭启动屏幕的API
 			plus.navigator.closeSplashscreen();
 			// #endif
 			

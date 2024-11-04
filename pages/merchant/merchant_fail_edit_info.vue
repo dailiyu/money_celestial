@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="店铺信息编辑"></navBar>
+		<navBar title="更新店铺信息"></navBar>
 		<view class="content">
 			<view class="shop_info">
 					<view class="info_item flex_between">
@@ -49,7 +49,7 @@
 						<view class="s_title">
 							具体位置
 						</view>
-						<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
+						<input v-model="address" class="uni-input"  placeholder-class="placeholder_class" />
 						<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
 					</view>
 				</view >
@@ -87,14 +87,14 @@
 						店铺营业执照
 					</view>
 				</view>
-				<upload amount="6"   :showUpload="false"  :imgUrls="authfileImages"  ></upload>
+				<upload amount="1"  :imgWidth="0" :imgHeight="0"  @uploadSuccessfulPaths="acceptSuccessAuthfileImgPath"   :imgUrls="authfileImages"  ></upload>
 			</view>
 		<view class="shop_info">
-				<view class="info_item flex_between" @click="showTips" >
+				<view class="info_item flex_between" >
 					<view class="s_title">
-						营业执照编号
+						营业执照编号   
 					</view>
-					<input disabled=""  v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
+					<input  v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
 				</view>
 			</view >
 				<view class="shop_info">
@@ -102,7 +102,7 @@
 							<view class="s_title">
 								赠送百分比
 							</view>
-							<input v-model="proportion_gift"  class="uni-input" placeholder="请输入30到1000之间的整数" placeholder-class="placeholder_class" />
+							<input v-model="proportion_gift"    class="uni-input" placeholder="请输入30到1000之间的整数" placeholder-class="placeholder_class" />
 					<view class="s_title">
 						%
 					</view>
@@ -288,6 +288,10 @@ const range = computed(() => {
 		console.log('接受到的上传Detail成功地址数组',successDetailImgPaths.value);
 	}
 
+	const acceptSuccessAuthfileImgPath = async (ImgPaths) => {
+		 successAuthfileImgPaths.value = ImgPaths
+		console.log( successAuthfileImgPaths.value);
+	}
 
 	//关联商家轮播图
 	const bannerListUrl = ref([])
@@ -368,7 +372,9 @@ const range = computed(() => {
 			!businessRange.value||
 			successProfileImgPaths.value.length === 0||
 			successBannerImgPaths.value.length===0||
-			!proportion_gift.value
+			successAuthfileImgPaths.value.length==0||
+			!proportion_gift.value||
+			!business_license.value
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -420,11 +426,10 @@ const range = computed(() => {
 			title:'店铺常居地不允许修改'
 		})
 	}
-
 	const showTips=()=>{
 		uni.showToast({
 			icon:'none',
-			title:"营业执照编号不允许编辑！"
+			title:"不允许编辑！"
 		})
 	}
 	
