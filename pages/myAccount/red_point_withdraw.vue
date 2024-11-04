@@ -31,7 +31,7 @@
 						提取数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number?Number(number.value)/0.97:''}}
+						{{number?Number(number)/0.97:''}}
 					</view>
 				</view>
 			</view>
