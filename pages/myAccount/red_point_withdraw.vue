@@ -16,7 +16,7 @@
 					<view class="s_title">
 						到账数量
 					</view>
-					<input v-model="number" type="digit" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" @input="inputNumber" />
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" />
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
@@ -31,7 +31,7 @@
 						提取数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number?Number(number.value)/0.97:''}}
+						{{number?Number(number)/0.97:''}}
 					</view>
 				</view>
 			</view>
@@ -73,21 +73,7 @@ const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
 const number = ref('')
-const inputNumber = (e)=>{
-	// number.value = Math.floor(e.detail.value * 100) / 100
-	const value = e.detail.value;
-      
-      // 正则表达式允许输入数字和最多两位小数
-    const regex = /^\d+(\.\d{0,2})?$/;
-      
-      // 仅当输入值符合正则表达式时才更新数据
-    if (regex.test(value) || value === '') {
-        number.value = value;
-    } else {
-        // 如果输入不合法，截断小数点后两位
-        number.value = parseFloat(value).toFixed(2);
-    }
-}
+
 const passwordPop = ref()
 const validPassword = ()=>{
 	if (!isChecked.value) return uni.showToast({

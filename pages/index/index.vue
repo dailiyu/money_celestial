@@ -88,7 +88,7 @@
 							</view>
 							<view class="shop_address flex">
 								<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="address_img"></image>
-								<view class="" style="flex: 1;">
+								<view class="" style="flex: 1;" @click.stop="openLocation(item)">
 									{{shopLists?.address}}
 								</view>
 							</view>
@@ -188,6 +188,17 @@ const getShopLists = async()=>{
 	const {results} = await getCityShopList({name: city.value})
 	shopLists.value = results[0]
 	console.log('切换城市获取到对应的商店列表',results );
+}
+const openLocation = ()=>{
+	const item = shopLists.value
+	if (!item.latitude || !item.longitude) return uni.showToast({
+		icon: 'none',
+		title: '获取店铺位置失败'
+	})
+	uni.openLocation({
+		latitude: item.latitude,
+		longitude: item.longitude
+	})
 }
 const categoryList = ref([])
 const getCategory = async()=>{

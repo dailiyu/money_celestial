@@ -65,10 +65,14 @@ const getPoint = async()=>{
 }
 
 const toWithdrawPoint = ()=>{
-	if (!pointsAccount.value) {
-		toBindPointAccount()
-		return
-	}
+	// if (!pointsAccount.value) {
+	// 	toBindPointAccount()
+	// 	return
+	// }
+	if (redPoint.value==0) return uni.showToast({
+		icon: 'none',
+		title: '暂无可提取积分'
+	})
 	uni.navigateTo({
 		url: '/pages/myAccount/red_point_withdraw'
 	})
