@@ -200,7 +200,7 @@ const saveMessage=async()=>{
 			title:'保存成功'
 		  })
 		  setTimeout(()=>{
-			  uni.navigateTo({
+			  uni.reLaunch({
 			  	url:'/pages/index/index'
 			  })
 		  },1000)

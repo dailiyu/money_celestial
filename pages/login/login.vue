@@ -90,7 +90,7 @@ const toRegister = ()=>{
 		 })
 		 errorTimes.value=0
 		 setTimeout(()=>{
-			uni.navigateTo({
+			uni.redirectTo({
 				url: '/pages/index/index'
 			})
 		 },1000)

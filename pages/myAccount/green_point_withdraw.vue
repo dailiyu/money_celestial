@@ -115,7 +115,7 @@ const confirm = async()=>{
 	}catch(e){
 		uni.showToast({
 			icon: 'none',
-			title: '提取失败'
+			title: e.data.error
 		})
 	}
 	
