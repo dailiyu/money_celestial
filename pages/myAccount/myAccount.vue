@@ -7,9 +7,10 @@
 		<view class="content">
 			<view class="profile" >
 				<view class="avtar">
-				<image class="img" :src="ionc_url" mode="" v-if="ionc_url"></image>
+				<image class="img" :src="icon_url" mode="" v-if="icon_url"></image>
 				<image class="img" src="https://static.maxcang.com/appstatic/default_avatar.pic.jpg" mode=""></image>
 				</view>
+				
 				<!-- <view class="name" v-if="user">
 					点击登录
 				</view> -->
@@ -155,7 +156,7 @@ const  userStore = useUserStore()
 const phoneNumber=ref('')
 const accessToken = uni.getStorageSync('accessToken')
 
-const ionc_url=ref()
+const icon_url=ref()
 const user_name=ref()
 const version = ref('');
 const isVerified = ref(false)
@@ -165,7 +166,7 @@ const isVerified = ref(false)
 
 onShow(async() => {
 	phoneNumber.value=uni.getStorageSync('phoneNumber')
-	ionc_url.value= uni.getStorageSync('userInfo').icon
+	icon_url.value= uni.getStorageSync('userInfo').icon
 	user_name.value=uni.getStorageSync('userInfo').name
 	if (accessToken) {
 		getPointInfo()
@@ -183,7 +184,7 @@ onShow(async() => {
 
 // onMounted(()=>{
 	
-// 	ionc_url.value= uni.getStorageSync('userInfo').icon
+// 	icon_url.value= uni.getStorageSync('userInfo').icon
 // 	user_name.value=uni.getStorageSync('userInfo').name
 // 	if (accessToken) {
 // 		getPointInfo()

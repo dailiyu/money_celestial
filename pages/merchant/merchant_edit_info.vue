@@ -44,8 +44,15 @@
 							具体位置
 						</view>
 						<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
-						<!-- <image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
+						<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image>
 					</view>
+					<view class="info_item flex_between">
+					<view class="s_title">
+						门牌号&nbsp;&nbsp;
+					</view>
+					<input v-model="extra_address" class="uni-input" placeholder="非必填,用于补充具体位置信息"
+						placeholder-class="placeholder_class" />
+				</view>
 				</view >
 			<!-- 	<view class="radio" @click="changeCheck">
 					<radio value="r1" :checked="isChecked" color="#FC5908" />
@@ -169,11 +176,10 @@
 	const userStore = useUserStore()
 	const shopIntro = ref()
 	const shopName = ref()
+	const extra_address=ref('')
 	const business_license=ref('')
 	const proportion_gift=ref(100)
 	const businessRange = ref()
-	const code = ref('')
-	const curData=ref()
 	const successBannerImgPaths = ref([])
 	const successProfileImgPaths = ref([])
 	const successDetailImgPaths = ref([])
@@ -279,7 +285,8 @@ const range = computed(() => {
 
 
 
-
+	const lat = ref('')
+	const lon = ref('')
 	const address = ref('')
 	const getLocation = () => {
 		uni.chooseLocation({
@@ -320,7 +327,8 @@ const range = computed(() => {
 			 await associatedDetailImg()
 			  await associatedBannerImg()
 		    await associatedAuthfileImg()
-			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
+			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value+extra_address.value,latitude:lat.value,
+				longitude:lon.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
 
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value,...authfileListUrl.value]
 		   await updateShopImg(phoneNumber,{images:params})	
