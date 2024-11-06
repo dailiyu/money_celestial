@@ -322,9 +322,11 @@ const toRecommend =async ()=>{
 			icon:'none',
 			title:'成为推荐官前先完善个人信息'
 		})
-		return uni.navigateTo({
+		return setTimeout(() => {
+			uni.navigateTo({
 			url:'/pages/login/more_info_edit'
 		})
+		}, 1000);
 	}
 	try{
 		const phoneNumber=uni.getStorageSync('phoneNumber')
