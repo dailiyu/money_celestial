@@ -28,7 +28,7 @@
 					<!-- <input v-model="selectedCity" class="uni-input" placeholder="请选择城市"
 						placeholder-class="placeholder_class" disabled @click="selectCity" /> -->
 					<picker @change="bindCityChange"  mode="region">
-						<view class="uni-input">{{selectedCity}}</view>
+						<view class="uni-input">{{selectedCity||'请选择所在地'}}</view>
 					</picker>
 				</view>
 				<view class="info_item flex_between">
@@ -123,8 +123,7 @@
 
 
 	// 绑定省市名显示
-	const selectedCity = ref('选择城市')
-
+	const selectedCity = ref('')
 
 
 	const isChecked = ref(false)
