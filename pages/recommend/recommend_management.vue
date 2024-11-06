@@ -28,7 +28,7 @@
 							已获得积分
 						</view>
 						<view class="total_num">
-							{{points}}
+							{{points.toFixed(4)}}
 						</view>
 					</view>
 				</view>

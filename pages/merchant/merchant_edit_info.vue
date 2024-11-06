@@ -95,7 +95,7 @@
 					<view class="s_title">
 						统一社会信用代码
 					</view>
-					<input disabled=""  v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
+					<input disabled  v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
 				</view>
 			</view >
 				<view class="shop_info">
