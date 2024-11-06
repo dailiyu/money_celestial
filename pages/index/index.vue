@@ -136,9 +136,16 @@ import { getBannerList } from '@/service/bannner.js'
 import { getRecommendOfficerInfo } from '../../service/recommend';
 import { getUerAccountMessage } from '../../service/uer_profile';
 import { onShow } from '@dcloudio/uni-app'
+import { onShareAppMessage } from '@dcloudio/uni-app'
 
 // var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
+onShareAppMessage(()=>{
+	return {
+	  title: '满仓生态',
+	  path: '/pages/index/index',  // 分享路径
+	}
+})
 const isMask=ref(false)
 const keyword = ref('')
 const publicStore=  usePublicStore()
