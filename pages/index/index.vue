@@ -218,6 +218,18 @@ const toSettle = ()=>{
 	})
 }
 const toMerchant =async () => {
+	if (!token){
+		uni.showToast({
+			icon:'none',
+			title:'请登录!'
+		})
+		
+	  return  setTimeout(()=>{
+		  uni.navigateTo({
+		  			url:'/pages/login/login'
+		  		})
+	  },700)
+	}
 	userInfo.value=await  uni.getStorageSync('userInfo')
 	shopInfo.value=await uni.getStorageSync('shopInfo')
 	const phoneNumber= uni.getStorageSync('phoneNumber')
@@ -260,6 +272,18 @@ const toMerchant =async () => {
 
 
 const toAgent = ()=>{
+		if (!token){
+			uni.showToast({
+				icon:'none',
+				title:'请登录!'
+			})
+			
+		  return  setTimeout(()=>{
+			  uni.navigateTo({
+			  			url:'/pages/login/login'
+			  		})
+		  },700)
+		}
 	const userInfo = uni.getStorageSync('userInfo')
 	if (userInfo && (userInfo.is_province_agent||userInfo.is_city_agent)) {
 		uni.navigateTo({
@@ -273,12 +297,18 @@ const toAgent = ()=>{
 }
 
 const toRecommend =async ()=>{
-	if (!token) {
-		uni.navigateTo({
-			url: '/pages/recommend/recommend_intro'
-		})
-		return
-	}
+		if (!token){
+			uni.showToast({
+				icon:'none',
+				title:'请登录!'
+			})
+			
+		  return  setTimeout(()=>{
+			  uni.navigateTo({
+			  			url:'/pages/login/login'
+			  		})
+		  },700)
+		}
 	const userInfo = uni.getStorageSync('userInfo')
 	if(!userInfo.name||!userInfo.gender||!userInfo.icon||!userInfo.birthdate||!userInfo.residence){
 		uni.showToast({
@@ -317,6 +347,18 @@ const toAllMerchant = (id)=>{
 }
 
 const toMyAccount = ()=>{
+	if (!token){
+		uni.showToast({
+			icon:'none',
+			title:'请登录!'
+		})
+		
+	  return  setTimeout(()=>{
+		  uni.navigateTo({
+		  			url:'/pages/login/login'
+		  		})
+	  },700)
+	}
 	uni.navigateTo({
 		url: '/pages/myAccount/myAccount'
 	})

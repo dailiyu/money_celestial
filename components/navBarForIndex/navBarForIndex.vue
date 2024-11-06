@@ -8,7 +8,7 @@
 				<!-- {{selectedCity||'请选择'}} -->
 			</view>
 			<view class="name">{{ title }}</view>
-			<view class="select-box">
+			<view class="select-box" v-if="token">
 				<uni-data-select v-if="userStore.shopInfo.state==1" v-model="selectItem" :localdata="candidates"
 					@change="change" placeholder="+" :clear='false' class="select" :isCustom="true"></uni-data-select>
 				<uni-data-select v-else v-model="selectItem" :localdata="candidate_noScan" @change="change"
@@ -41,6 +41,7 @@
 	const userStore = useUserStore()
 	// 定义发射自定义事件
 	const emit = defineEmits(['clickRight', 'changeCity', 'mask']);
+	const token = uni.getStorageSync('accessToken')
 	const candidates = ref([{
 			value: 0,
 			text: "扫一扫"
