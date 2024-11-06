@@ -103,12 +103,12 @@
 							关于我们
 						</view>
 					</view>
-					<!-- <view class="service_item">
+					<view class="service_item" @click="toService">
 						<image src="https://static.maxcang.com/appstatic/my/service.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							联系客服
 						</view>
-					</view> -->
+					</view>
 				</view>
 			</view>
 			<!-- <view class="services">
@@ -249,6 +249,23 @@ const toEdteInfo=()=>{
 	uni.navigateTo({
 		url: '/pages/login/more_info_edit'
 	})
+}
+
+
+const toService=()=>{
+	uni.showModal({
+		content:'官方QQ客服：3833194083',
+		confirmText:'复制',
+		confirmColor:'#FC5908',
+		success:(success)=>{
+			if(success.confirm){
+				uni.setClipboardData({data:'3833194083'
+				})
+				
+			}
+		},
+	}
+)
 }
 
 const toPointAccount = ()=>{

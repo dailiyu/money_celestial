@@ -1,6 +1,6 @@
 <template>
 	<view class="page">
-		<navBar title="积分码"></navBar>
+		<navBar title="接收码"></navBar>
 		<view class="content">
 			<view class="code_box">
 				<view>
