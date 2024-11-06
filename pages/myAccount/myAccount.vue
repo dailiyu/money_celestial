@@ -138,9 +138,9 @@
 			</view>
 		</view>
 		
-		<view class="vesion">
+		<!-- <view class="vesion">
 			满仓 V{{version}}
-		</view>
+		</view> -->
 	</view>
 </template>
 
