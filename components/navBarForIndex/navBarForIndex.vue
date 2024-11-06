@@ -87,7 +87,7 @@
 	});
 
 
-	onShow(async () => {
+	onMounted(async () => {
 		await userStore.fetchAllDataAction()
 		const userAddress = await uni.getStorageSync('userInfo').residence
 		const userCity = getCityName(userAddress)
@@ -147,7 +147,7 @@
 		}
 	}
 
-
+ 
 	const getCityName = (location) => {
 		// 将输入字符串按空格分割
 		const parts = location.split(' ');

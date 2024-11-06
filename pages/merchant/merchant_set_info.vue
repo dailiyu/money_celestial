@@ -10,7 +10,7 @@
 					<view class="s_title">
 						店铺名称
 					</view>
-					<input v-model="shopName" class="uni-input" placeholder="请输入商家名称"
+					<input v-model="shopName" class="uni-input" placeholder="请与门面保持一致"
 						placeholder-class="placeholder_class" />
 				</view>
 				<view class="info_item flex_between">

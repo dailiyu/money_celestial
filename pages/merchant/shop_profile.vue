@@ -43,7 +43,7 @@
 		<view class="head_box">
 			<view class="info_item flex_between">
 					<view class="h_title">
-						营业执照编号
+						统一社会信用代码
 					</view>
 				  <input v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
 			</view>
@@ -215,6 +215,12 @@ const saveStoreInfo = async () => {
 			return uni.showToast({
 				icon: 'none',
 				title: '请填入完整信息',
+			});
+		}
+		if(successBannerImgPaths.value.length<3){
+			return uni.showToast({
+				icon: 'none',
+				title: '轮播图至少为3张',
 			});
 		}
 		try {
