@@ -7,7 +7,7 @@
 						<view class="s_title">
 							店铺名称
 						</view>
-						<input v-model="shopName" class="uni-input" placeholder="请输入商家名称" placeholder-class="placeholder_class" />
+						<input v-model="shopName" class="uni-input" placeholder="请与门面保持一致" placeholder-class="placeholder_class" />
 					</view>
 					<view class="info_item flex_between">
 						<view class="s_title">
@@ -44,8 +44,15 @@
 							具体位置
 						</view>
 						<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
-						<!-- <image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
+						<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image>
 					</view>
+					<view class="info_item flex_between">
+					<view class="s_title">
+						门牌号&nbsp;&nbsp;
+					</view>
+					<input v-model="extra_address" class="uni-input" placeholder="非必填,用于补充具体位置信息"
+						placeholder-class="placeholder_class" />
+				</view>
 				</view >
 			<!-- 	<view class="radio" @click="changeCheck">
 					<radio value="r1" :checked="isChecked" color="#FC5908" />
@@ -69,8 +76,8 @@
 					<view class="h_title">
 						店铺轮播图(900*600)
 					</view>
-					<view class="h_text">
-						已选择{{successBannerImgPaths.length}}张
+					<view class="tips_text">
+						第一张请上传门面照片
 					</view>
 				</view>
 				<upload amount="6"  :imgWidth="900" :imgHeight="600" :imgUrls="bannerImages"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
@@ -86,7 +93,7 @@
 		<view class="shop_info">
 				<view class="info_item flex_between" @click="showTips" >
 					<view class="s_title">
-						营业执照编号
+						统一社会信用代码
 					</view>
 					<input disabled=""  v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
 				</view>
@@ -169,11 +176,10 @@
 	const userStore = useUserStore()
 	const shopIntro = ref()
 	const shopName = ref()
+	const extra_address=ref('')
 	const business_license=ref('')
 	const proportion_gift=ref(100)
 	const businessRange = ref()
-	const code = ref('')
-	const curData=ref()
 	const successBannerImgPaths = ref([])
 	const successProfileImgPaths = ref([])
 	const successDetailImgPaths = ref([])
@@ -279,7 +285,8 @@ const range = computed(() => {
 
 
 
-
+	const lat = ref('')
+	const lon = ref('')
 	const address = ref('')
 	const getLocation = () => {
 		uni.chooseLocation({
@@ -311,6 +318,13 @@ const range = computed(() => {
 				title: '请填入完整信息',
 			});
 		}
+		if(successBannerImgPaths.value.length<3){
+			return uni.showToast({
+				icon: 'none',
+				title: '轮播图至少为3张',
+			});
+		}
+
 		try {
 			uni.showLoading({
 				title: "正在保存中...",
@@ -320,7 +334,8 @@ const range = computed(() => {
 			 await associatedDetailImg()
 			  await associatedBannerImg()
 		    await associatedAuthfileImg()
-			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
+			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value+extra_address.value,latitude:lat.value,
+				longitude:lon.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
 
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value,...authfileListUrl.value]
 		   await updateShopImg(phoneNumber,{images:params})	
@@ -373,6 +388,13 @@ const range = computed(() => {
 	.h_title {
 		font-size: 27rpx;
 	}
+	.tips_text{
+			display: flex;
+			flex-direction: column;
+			align-items: end;
+			font-size: 21rpx;
+			color: #FC5908;
+		}
 	.h_text {
 		font-size: 24rpx;
 		color: #999999;

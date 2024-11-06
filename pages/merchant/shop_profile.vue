@@ -43,7 +43,7 @@
 		<view class="head_box">
 			<view class="info_item flex_between">
 					<view class="h_title">
-						营业执照编号
+						统一社会信用代码
 					</view>
 				  <input v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
 			</view>
@@ -54,7 +54,7 @@
 							<view class="h_title">
 								赠送百分比(%)
 							</view>
-							<input v-model="proportion_gift"  @blur="validateInput" class="uni-input" placeholder="请输入30到1000的整数" placeholder-class="placeholder_class" />
+							<input v-model="proportion_gift"  @blur="validateInput" class="uni-input" placeholder="请输入1到1000的整数" placeholder-class="placeholder_class" />
 						
 					   </view>
 			</view>
@@ -217,6 +217,12 @@ const saveStoreInfo = async () => {
 				title: '请填入完整信息',
 			});
 		}
+		if(successBannerImgPaths.value.length<3){
+			return uni.showToast({
+				icon: 'none',
+				title: '轮播图至少为3张',
+			});
+		}
 		try {
 			uni.showLoading({
 				title: "正在入驻中...",
@@ -267,9 +273,9 @@ const saveStoreInfo = async () => {
 	const validateInput = () => {
 	  const intValue = parseInt(proportion_gift.value, 10);
 	  // 检查是否为有效整数并在范围内
-	  if (isNaN(intValue) || intValue < 30 || intValue > 1000) {
+	  if (isNaN(intValue) || intValue < 1 || intValue > 1000) {
 	    uni.showToast({
-	      title: '赠送百分比必须为30到1000的整数',
+	      title: '赠送百分比必须为1到1000的整数',
 	      icon: 'none',
 	      duration: 2000
 	    });

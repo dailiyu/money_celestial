@@ -10,7 +10,7 @@
 					<view class="s_title">
 						店铺名称
 					</view>
-					<input v-model="shopName" class="uni-input" placeholder="请输入商家名称"
+					<input v-model="shopName" class="uni-input" placeholder="请与门面保持一致"
 						placeholder-class="placeholder_class" />
 				</view>
 				<view class="info_item flex_between">
@@ -35,14 +35,21 @@
 					<view class="s_title">
 						具体位置
 					</view>
-					<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择"
+					<input v-model="address" class="uni-input" placeholder="点击地图选择"
 						placeholder-class="placeholder_class" />
 					<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic"
 						@click="getLocation"></image>
 				</view>
+				<view class="info_item flex_between">
+					<view class="s_title">
+						门牌号&nbsp;&nbsp;
+					</view>
+					<input v-model="extra_address" class="uni-input" placeholder="非必填,用于补充具体位置信息"
+						placeholder-class="placeholder_class" />
+				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
+				<radio value="r1" :checked="isChecked" color="#FC5908"  />
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title" @click.stop="toAgreement">《商家入驻须知》</text>
 			</view>
@@ -100,7 +107,7 @@
 	const temBannerImgPaths = ref([])
 	const temProfileImgPaths = ref([])
 	const temDetailImgPaths = ref([])
-	
+	const extra_address=ref('')
 	
 	
 
@@ -179,7 +186,9 @@
 				categories: [businessRange.value],
 				city: selectedCity.value,
 				name: shopName.value,
-				address: address.value
+				address: address.value+extra_address.value,
+				latitude:lat.value,
+				longitude:lon.value
 			})
 			uni.redirectTo({
 				url: '/pages/merchant/shop_profile'
