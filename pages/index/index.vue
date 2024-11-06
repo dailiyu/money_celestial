@@ -145,7 +145,9 @@ const publicStore=  usePublicStore()
 const userStore = useUserStore()
 const userInfo = ref()
 const shopInfo=ref()
+const token = uni.getStorageSync('accessToken')
 onShow(async()=>{
+	if (!token) return
 	await userStore.fetchAllDataAction()
 	await publicStore.fetchAllDataAction()
 	userInfo.value=await  uni.getStorageSync('userInfo')
@@ -271,6 +273,12 @@ const toAgent = ()=>{
 }
 
 const toRecommend =async ()=>{
+	if (!token) {
+		uni.navigateTo({
+			url: '/pages/recommend/recommend_intro'
+		})
+		return
+	}
 	const userInfo = uni.getStorageSync('userInfo')
 	if(!userInfo.name||!userInfo.gender||!userInfo.icon||!userInfo.birthdate||!userInfo.residence){
 		uni.showToast({
