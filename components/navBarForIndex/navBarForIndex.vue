@@ -5,7 +5,7 @@
 				<picker @change="bindCityChange"  mode="region">
 					<view class="uni-input">{{selectedCity||'请选择'}}</view>
 				</picker>
-				<!-- {{selectedCity||'请选择'}} -->
+		
 			</view>
 			<view class="name">{{ title }}</view>
 			<view class="select-box" v-if="token">
