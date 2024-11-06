@@ -2,9 +2,10 @@
 	<view :style="navBarStyle" class="nav_bar">
 		<view class="nav_item">
 			<view class="picker-box">
-				<picker @change="bindCityChange"  mode="region">
+				<picker @columnchange="bindProvinceChange" @change="bindCityChange"  mode="multiSelector" :range="cityData" range-key="name">
 					<view class="uni-input">{{selectedCity||'请选择'}}</view>
 				</picker>
+				
 				<!-- {{selectedCity||'请选择'}} -->
 			</view>
 			<view class="name">{{ title }}</view>
@@ -33,6 +34,10 @@
 		useUserStore
 	} from '../../store/user';
 	
+	import 
+		cityDataMp
+	 from '@/static/cityDataMp.js';
+	
 	defineOptions({
 		options: {
 			styleIsolation: 'shared'
@@ -57,7 +62,8 @@
 	}, ])
 
 	const selectItem = ref()
-
+	
+	const cityData = ref([cityDataMp.data, cityDataMp.data[0].cityData])
 
 	// 绑定省市名显示
 	const selectedCity = ref('')
@@ -189,8 +195,25 @@
 	};
 	
 	const bindCityChange = (e)=>{
-		selectedCity.value = e.detail.value[1]
-		emit('changeCity', {province: e.detail.value[0],city: e.detail.value[1]})
+		// console.log(e)
+		let provinceIndex = e.detail.value[0];
+		let cityIndex = e.detail.value[1];
+		let cityName = cityDataMp.data[provinceIndex].cityData[cityIndex].name
+		selectedCity.value = cityName
+		emit('changeCity', {city: cityName})
+	}
+	
+	const bindProvinceChange = (e)=>{
+		// console.log(e)
+		if(e.detail.column==0){
+			let provinceIndex = e.detail.value;
+			let cityIndex = e.detail.value[1];
+			cityData.value[1] = cityDataMp.data[provinceIndex].cityData;
+		}
+		
+		
+		//selectedCity.value = e.detail.value[1]
+		//emit('changeCity', {province: e.detail.value[0],city: e.detail.value[1]})
 	}
 </script>
 
@@ -234,6 +257,11 @@
 				width: 50rpx;
 				border-radius: 50%;
 				border: 1px solid #fff;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 34rpx;
+				line-height: 0;
 			}
 			:deep(.uni-select__selector-item) {
 				color: #333;
