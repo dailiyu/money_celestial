@@ -16,7 +16,7 @@
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺轮播图<text style="color: #999;font-size: 24rpx;">（至少上传3张）</text>
+						店铺轮播图<text style="color: #999;font-size: 20rpx;">（至少上传3张）</text>
 					</view>
 					<view class="tips_text">
 						第一张请上传门面照片
@@ -27,11 +27,11 @@
 				<view class="head_box">
 					<view class="flex_between" style="margin-bottom: 54rpx;">
 						<view class="h_title">
-							店铺营业执照
+							统一社会信用代码
 						</view>
 						<view class="tips_text">
 							<view class="">
-								仅做审核使用
+								仅用于后台审核
 							</view>
 							<view class="">
 								不显示在店铺页面
@@ -43,9 +43,9 @@
 		<view class="head_box">
 			<view class="info_item flex_between">
 					<view class="s_title">
-						营业执照编号
+						统一社会信用代码
 					</view>
-				  <input v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
+				  <input v-model="business_license" class="uni-input" placeholder="请输入统一社会信用代码" placeholder-class="placeholder_class" />
 			</view>
 		</view>
 		
@@ -54,7 +54,7 @@
 							<view class="s_title">
 								赠送百分比(%)
 							</view>
-							<input v-model="proportion_gift"  @blur="validateInput" class="uni-input" placeholder="请输入30到1000的整数" placeholder-class="placeholder_class" />
+							<input v-model="proportion_gift"  @blur="validateInput" class="uni-input" placeholder="请输入1到1000的整数" placeholder-class="placeholder_class" />
 						
 					   </view>
 			</view>
@@ -267,9 +267,9 @@ const saveStoreInfo = async () => {
 	const validateInput = () => {
 	  const intValue = parseInt(proportion_gift.value, 10);
 	  // 检查是否为有效整数并在范围内
-	  if (isNaN(intValue) || intValue < 30 || intValue > 1000) {
+	  if (isNaN(intValue) || intValue < 1 || intValue > 1000) {
 	    uni.showToast({
-	      title: '赠送百分比必须为30到1000的整数',
+	      title: '赠送百分比必须为1到1000的整数',
 	      icon: 'none',
 	      duration: 2000
 	    });
@@ -296,7 +296,13 @@ const saveStoreInfo = async () => {
 				font-size: 20rpx;
 			}
 		}
-
+		.tips_text{
+			display: flex;
+			flex-direction: column;
+			align-items: end;
+			font-size: 21rpx;
+			color: #FC5908;
+		}
 		.h_text {
 			font-size: 24rpx;
 			color: #999999;

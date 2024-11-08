@@ -18,8 +18,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { obscurePhoneNumber } from '../../utils';
-
-
 onMounted(()=>{
 	generateQRCode()
 })

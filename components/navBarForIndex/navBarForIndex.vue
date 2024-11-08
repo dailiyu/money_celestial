@@ -44,12 +44,12 @@
 		},
 		{
 			value: 1,
-			text: "接收码"
+			text: "积分码"
 		},
 	])
 	const candidate_noScan = ref([{
 		value: 1,
-		text: "接收码"
+		text: "积分码"
 	}, ])
 
 	const selectItem = ref()
@@ -91,7 +91,7 @@
 	});
 
 
-	onShow(async () => {
+	onMounted(async () => {
 		await userStore.fetchAllDataAction()
 		const userAddress = await uni.getStorageSync('userInfo').residence
 		const userCity = getCityName(userAddress)
@@ -265,6 +265,32 @@
 			// transform: translateX(-90rpx);
 		}
 
+		// .picker-box {
+		// 	position: absolute;
+		// 	left: 0;
+		// 	width: 200rpx;
+		// 	height: 50rpx;
+		// 	// float: left;
+		// 	line-height: 1.5625rem;
+		// 	text-align: left;
+
+		// 	::v-deep .input-value .text-color {
+		// 		color: #fff;
+		// 		font-size: 20rpx;
+		// 		border: none;
+		// 	}
+
+		// 	:deep(.arrow-area) {
+		// 		display: none;
+		// 	}
+
+		// 	:deep(.input-value) {
+		// 		padding: 0;
+		// 		line-height: unset;
+		// 		height: auto;
+		// 	}
+		// }
+
 		.picker-box {
 			position: absolute;
 			left: 0;
@@ -274,22 +300,13 @@
 			line-height: 1.5625rem;
 			text-align: left;
 
-			::v-deep .input-value .text-color {
+			::v-deep .uni-input {
 				color: #fff;
-				font-size: 20rpx;
+				font-size: 28rpx;
 				border: none;
 			}
-
-			:deep(.arrow-area) {
-				display: none;
-			}
-
-			:deep(.input-value) {
-				padding: 0;
-				line-height: unset;
-				height: auto;
-			}
 		}
+
 
 
 		:deep(.input-value-border) {

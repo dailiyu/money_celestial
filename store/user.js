@@ -36,10 +36,14 @@ export const useUserStore = defineStore('user', {
 	},
     async getUserInfoAction() {
 		const phoneNumber=uni.getStorageSync('phoneNumber')
-	  const res = await getUerAccountMessage(phoneNumber);
-	  await uni.removeStorageSync('userInfo')
-	 await uni.setStorageSync('userInfo',res)
-		console.log('根据token获取到的用户信息',res);
+	   getUerAccountMessage(phoneNumber).then(async(res)=>{
+		   await uni.removeStorageSync('userInfo')
+		   await uni.setStorageSync('userInfo',res)
+		   		console.log('根据token获取到的用户信息',res);
+	   }).catch((err)=>{
+		   console.log('获取用户信息错误信息',err);
+	   })
+	 
     },
 	async getMerchantInfoAction(){
 		const res=await getMerchantInfo()
