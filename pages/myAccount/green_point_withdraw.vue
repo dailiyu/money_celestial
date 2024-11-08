@@ -6,10 +6,10 @@
 				<view class="">
 					积分账号
 				</view>
-				<!-- <image src="@/static/account.png" mode="widthFix" class="a_pic"></image> -->
+				<image src="https://static.maxcang.com/appstatic/scan.png" mode="widthFix" class="a_pic" @click="scanQRCode"></image>
 			</view>
 			<view class="account_box">
-				{{account?obscureString(account):''}}
+				<input v-model="account" class="uni-input" placeholder="请输入积分账号" placeholder-class="placeholder_class" />
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -31,7 +31,7 @@
 						提取数量
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number?Number(number)/0.97:''}}
+						{{number?(Number(number)/0.97).toFixed(4):''}}
 					</view>
 				</view>
 			</view>
@@ -80,7 +80,7 @@ const validPassword = ()=>{
 	})
 	if (!account.value) return uni.showToast({
 		icon:'none',
-		title: '请先绑定积分账号'
+		title: '请先输入积分账号'
 	})
 	if (!number.value) return uni.showToast({
 		icon: 'none',
@@ -105,7 +105,7 @@ const confirm = async()=>{
 			title: '提取中',
 			mask: true
 		})
-		await withdrawGreenPoint({transaction_amount:Number(number.value)/0.97, point_account:account.value, transaction_type:'decrease', transaction_method: 'green_points'})
+		await withdrawGreenPoint({transaction_amount:Number(number.value)/0.97, point_account:account.value, transaction_type:'decrease', transaction_method: 'green_points', address: account.value})
 		// getPointInfo()
 		uni.hideLoading()
 		uni.showToast({
@@ -125,6 +125,16 @@ const toAgreement = ()=>{
 		url: '/pages/myAccount/point_withdraw_agreement'
 	})
 }
+
+const scanQRCode = ()=>{
+	uni.scanCode({
+		onlyFromCamera: true,
+		scanType: ['qrCode'],
+		success(res) {
+			account.value = JSON.parse(res.result).data.accountId
+		}
+	})
+}
 </script>
 
 <style lang="scss" scoped>
@@ -138,7 +148,7 @@ const toAgreement = ()=>{
 	}
 }
 .account_box {
-	padding: 34rpx 0;
+	padding: 34rpx 26rpx;
 	font-size: 24rpx;
 	color: #999999;
 	background-color: #fff;

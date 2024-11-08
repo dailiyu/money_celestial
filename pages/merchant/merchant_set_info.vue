@@ -300,7 +300,10 @@ const onChange = (e) => {
 			:deep(.uni-select__input-text) {
 				width: fit-content;
 				font-size: 24rpx;
-				color: #999999;
+				color: #000;
+			}
+			:deep(.uni-icons) {
+				color: #000 !important;
 			}
 		}
 

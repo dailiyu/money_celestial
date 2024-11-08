@@ -84,7 +84,7 @@ const confirm = async()=>{
 		getAmount()
 		uni.hideLoading()
 		uni.showToast({
-			title: '申请成功',
+			title: '申请已提交，保证金将在14天后解冻',
 			icon: 'none'
 		})
 	}catch(e){

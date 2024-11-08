@@ -73,7 +73,7 @@
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺轮播图(900*600)
+						店铺轮播图<text style="color: #999;font-size: 24rpx;">（至少上传3张）</text>
 					</view>
 					<view class="h_text">
 						已选择{{successBannerImgPaths.length}}张
@@ -499,7 +499,10 @@ const range = computed(() => {
 		:deep(.uni-select__input-text) {
 			width: fit-content;
 			font-size: 24rpx;
-			color: #999999;
+			color: #000;
+		}
+		:deep(.uni-icons) {
+			color: #000 !important;
 		}
 	}
 	
