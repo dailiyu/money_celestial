@@ -4,11 +4,7 @@
   	<view class="content">
   		<view class="code_box">
   			<view>
-<<<<<<< HEAD
   					{{obscurePhoneNumber(phone)}}
-=======
-  				{{obscurePhoneNumber(phone)}}
->>>>>>> 56274d0099f0211c0a2075032618925379772586
   			</view>
   			<img class="qrCode" :src="qrCodeUrl" alt="QR Code" />
   			<view class="tip">
@@ -23,12 +19,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getOfficerQRCode } from '@/service/recommend.js';
-<<<<<<< HEAD
 import { obscurePhoneNumber } from '../../utils';
-=======
-import { obscurePhoneNumber } from '@/utils/index.js'
-
->>>>>>> 56274d0099f0211c0a2075032618925379772586
 const qrCodeUrl = ref('');
 const phone = uni.getStorageSync('phoneNumber')
 onMounted(async () => {
