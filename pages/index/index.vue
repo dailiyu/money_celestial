@@ -119,11 +119,11 @@
 				<image src="" mode="widthFix" class="swipe_img"></image>
 			</swiper-item>
 		</swiper> -->
-		<view class="content">
+		<!-- <view class="content">
 			<image src="@/static/home/shop.jpg" mode="widthFix" class="shop_pic"></image>
 			<image src="@/static/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
 			<image src="@/static/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -317,7 +317,7 @@ const toCityAgentRank = ()=>{
 
 <style lang="scss" scoped>
 .page {
-	min-height: 100%;
+	min-height: 100vh;
 	background-color: #FC5908;
 	
 }
@@ -392,7 +392,7 @@ const toCityAgentRank = ()=>{
 	}
 }
 .content {
-	padding: 0 22rpx;
+	padding: 0 22rpx 22rpx;
 	.cate_list {
 		background-color: #fff;
 		border-radius: 38rpx;

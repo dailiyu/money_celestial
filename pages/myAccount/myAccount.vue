@@ -281,23 +281,6 @@ const formatPhoneNumber=(phoneNumber)=>{
     return 'Invalid phone number';
 }
 
-const toService=()=>{
-	uni.showModal({
-		content:'官方QQ客服：3833194083',
-		confirmText:'复制',
-		confirmColor:'#FC5908',
-		success:(success)=>{
-			if(success.confirm){
-				uni.setClipboardData({data:'3833194083'
-				})
-				
-			}
-		},
-	}
-)
-}
-
-
 
 </script>
 
