@@ -308,7 +308,8 @@ const toDetail =async ()=>{
 		url: '/pages/merchant/merchant_detail?city='+city.value
 	})
 }
-const toCityAgentRank = ()=>{
+const toCityAgentRank = (item)=>{
+	if (item.title !== 'agent-rank') return
 	uni.navigateTo({
 		url: '/pages/agent/city_agent_rank'
 	})
