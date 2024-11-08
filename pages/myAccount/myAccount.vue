@@ -19,7 +19,7 @@
 					</view>
 					<div class="phone_box">
 						<image class="img" src="@/static/my/phone.jpg"></image>
-						<view class="number">{{formatPhoneNumber(phoneNumber)}}</view>
+						<view class="number">{{obscurePhoneNumber(phoneNumber)}}</view>
 					</div>
 					
 				</view>
@@ -147,7 +147,7 @@
 import { onMounted, ref } from 'vue';
 import { getAllPoint, getPointBindedAccount } from '@/service/point.js'
 import { useUserStore } from '../../store/user'
-import { obscureString } from '@/utils';
+import { obscureString, obscurePhoneNumber } from '@/utils';
 import { onShow } from '@dcloudio/uni-app'; 
 const  userStore = useUserStore()
 const phoneNumber=ref('')

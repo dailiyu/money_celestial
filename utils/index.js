@@ -66,9 +66,8 @@ export const obscureString = (input)=>{
     return obscured;
 }  
 
-
 export const obscurePhoneNumber = (input)=>{
-    if (input.length <= 10) {
+    if (input.length < 11) {
         return input; // 如果字符串长度小于等于15个字符，则不做处理，直接返回
     }
     
@@ -77,9 +76,7 @@ export const obscurePhoneNumber = (input)=>{
     const obscured = start + '****' + end; // 拼接前8个字符 + 6个* + 后7个字符
     
     return obscured;
-}
-
-
+} 
 
 export const transformTypeFilter = (item)=>{
 	if(item.transaction_method=='gift_green_points'){
