@@ -15,7 +15,7 @@
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title" @click.stop="toAgreement">《绑定须知》</text>
 			</view>
-			<view class="btn_full" @click="confirm">
+			<view class="btn_full" @click="validPassword">
 				绑定
 			</view>
 		</view>
