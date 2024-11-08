@@ -5,7 +5,7 @@
 			<image class="img" src="../../static/success.jpg" mode="aspectFit"></image>
 		</view>
 		<view class="text-box">
-			<view class="text">店铺信息正在审核中！</view>
+			<view class="text">店铺信息已提交，请等待审核！</view>
 		</view>
 		<view class="buttom-box">
 			

@@ -32,7 +32,7 @@
 					<view class="s_title">
 						具体位置
 					</view>
-					<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择"
+					<input v-model="address" class="uni-input" placeholder="请输入店铺具体地址"
 						placeholder-class="placeholder_class" />
 					<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
 				</view>
@@ -318,10 +318,10 @@
 			:deep(.uni-select__input-text) {
 				width: fit-content;
 				font-size: 24rpx;
-				color: #000;
+				color: #000000;
 			}
-			:deep(.uni-icons) {
-				color: #000 !important;
+			:deep(.uni-select__input-placeholder){
+				color: #999999;
 			}
 		}
 

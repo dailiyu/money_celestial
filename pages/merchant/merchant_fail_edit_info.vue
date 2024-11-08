@@ -36,7 +36,6 @@
 							所在地
 						</view>
 							<uni-data-picker
-												
 							                   v-model="curData"
 										      :localdata="cityData"
 											  :clear-icon='false'
@@ -391,6 +390,13 @@ const range = computed(() => {
 				title: '请填入完整信息',
 			});
 		}
+		
+		if(successBannerImgPaths.value.length<3){
+					return uni.showToast({
+						icon: 'none',
+						title: '店铺轮播图至少上传3张',
+					});
+				}
 		try {
 			uni.showLoading({
 				title: "正在保存中...",
@@ -539,6 +545,9 @@ const range = computed(() => {
 		:deep(.uni-select__input-text) {
 			width: fit-content;
 			font-size: 24rpx;
+			color: #000;
+		}
+		:deep(.uni-select__input-placeholder){
 			color: #999999;
 		}
 	}
