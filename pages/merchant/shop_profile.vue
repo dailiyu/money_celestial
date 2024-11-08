@@ -16,11 +16,7 @@
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-<<<<<<< HEAD
 						店铺轮播图 <text style="font-size: 20rpx;">(至少上传3张)</text>
-=======
-						店铺轮播图<text style="color: #999;font-size: 20rpx;">（至少上传3张）</text>
->>>>>>> 56274d0099f0211c0a2075032618925379772586
 					</view>
 					<view class="tips_text">
 						第一张请上传门面照片

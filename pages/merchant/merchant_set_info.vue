@@ -22,7 +22,7 @@
 						@change="changeRange"></uni-data-select>
 				</view>
 				<view class="info_item flex_between" style="flex: 1;">
-					<view class="title" style="margin-right: 45rpx;">
+					<view class="s_title" style="margin-right: 45rpx;">
 						所在地
 					</view>
 					<uni-data-picker :localdata="cityData" :clear-icon='false' mode="region" @change="onChange"
@@ -212,7 +212,7 @@
 				name: shopName.value,
 				address: address.value
 			})
-			uni.redirectTo({
+			uni.navigateTo({
 				url: '/pages/merchant/shop_profile'
 			})
 			//  const res= await postMerchantSettleIn({merchant:phoneNumber,categories:[businessRange.value],city:selectedCity.value,name:shopName.value,address:address.value})
