@@ -13,7 +13,7 @@
 			</uni-search-bar>
 		</view> -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-color="#a4b8ab" indicator-active-color="#fc5908" :circular="true" class="swiper">
-			<swiper-item v-for="item in bannerList" :key="item.id">
+			<swiper-item v-for="item in bannerList" :key="item.id" @click="toCityAgentRank(item)">
 				<image :src="item.image_url" mode="widthFix" class="swipe_img"></image>
 			</swiper-item>
 		</swiper>
@@ -306,6 +306,11 @@ const toDetail =async ()=>{
 	await uni.setStorageSync('selectedShopInfo',shopLists.value)
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_detail?city='+city.value
+	})
+}
+const toCityAgentRank = ()=>{
+	uni.navigateTo({
+		url: '/pages/agent/city_agent_rank'
 	})
 }
 </script>

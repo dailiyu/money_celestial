@@ -112,9 +112,9 @@ const toMerchantCodeVerify=()=>{
 }
 
 const  toUnbindMerchantCode=()=>{
-	uni.navigateTo({
-		url: '/pages/myAccount/unbind_merchant_code'
-	})
+	// uni.navigateTo({
+	// 	url: '/pages/myAccount/unbind_merchant_code'
+	// })
 }
 
 

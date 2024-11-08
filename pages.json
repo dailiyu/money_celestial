@@ -600,6 +600,14 @@
 				"navigationBarTitleText" : "积分码",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/agent/city_agent_rank",
+			"style" : 
+			{
+				"navigationBarTitleText" : "代理争夺战",
+				"navigationStyle": "custom"
+			}
 		}
 		
 	],
