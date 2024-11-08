@@ -75,8 +75,8 @@
 					<view class="h_title">
 						店铺轮播图 <text style="font-size: 20rpx;">(至少上传3张)</text>
 					</view>
-					<view class="h_text">
-						已选择{{successBannerImgPaths.length}}张
+					<view class="tips_text">
+						第一张请上传门面照片
 					</view>
 				</view>
 				<upload amount="6"  :imgWidth="900" :imgHeight="600" :imgUrls="bannerImages"  @uploadSuccessfulPaths="acceptSuccessBannerImgPath"></upload>
@@ -84,11 +84,9 @@
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺营业执照
+						店铺营业执照照片
 					</view>
-					<view class="tips_text">
-						第一张请上传门面照片
-					</view>
+					
 				</view>
 				<upload amount="6"   :showUpload="false"  :imgUrls="authfileImages"  ></upload>
 			</view>
@@ -378,6 +376,12 @@ const range = computed(() => {
 				title: '请填入完整信息',
 			});
 		}
+		if(successBannerImgPaths.value.length<3){
+					return uni.showToast({
+						icon: 'none',
+						title: '店铺轮播图至少上传3张',
+					});
+				}
 		try {
 			uni.showLoading({
 				title: "正在保存中...",
@@ -420,14 +424,14 @@ const range = computed(() => {
 	const forbiddenTips=()=>{
 		uni.showToast({
 			icon:'none',
-			title:'店铺常居地不允许修改'
+			title:'店铺所在地不允许修改'
 		})
 	}
 
 	const showTips=()=>{
 		uni.showToast({
 			icon:'none',
-			title:"营业执照编号不允许编辑！"
+			title:"统一社会信用代码不允许编辑！"
 		})
 	}
 	
@@ -526,6 +530,9 @@ const range = computed(() => {
 		:deep(.uni-select__input-text) {
 			width: fit-content;
 			font-size: 24rpx;
+			color: #000000;
+		}
+		:deep(.uni-select__input-placeholder){
 			color: #999999;
 		}
 	}

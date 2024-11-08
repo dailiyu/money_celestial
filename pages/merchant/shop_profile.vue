@@ -5,7 +5,7 @@
 			<view class="head_box flex_between" style="align-items: flex-start;">
 				<view class="">
 					<view class="h_title">
-						店铺头像(800*800)
+						店铺头像
 					</view>
 					<view class="h_text" style="margin-top: 42rpx;">
 						可上传店铺照片或LOGO
@@ -16,7 +16,7 @@
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺轮播图(900*600)
+						店铺轮播图 <text style="font-size: 20rpx;">(至少上传3张)</text>
 					</view>
 					<view class="tips_text">
 						第一张请上传门面照片
@@ -27,7 +27,7 @@
 				<view class="head_box">
 					<view class="flex_between" style="margin-bottom: 54rpx;">
 						<view class="h_title">
-							统一社会信用代码
+							店铺营业执照照片
 						</view>
 						<view class="tips_text">
 							<view class="">
@@ -217,6 +217,12 @@ const saveStoreInfo = async () => {
 				title: '请填入完整信息',
 			});
 		}
+		if(successBannerImgPaths.value.length<3){
+			return uni.showToast({
+				icon: 'none',
+				title: '店铺轮播图至少上传3张',
+			});
+		}
 		try {
 			uni.showLoading({
 				title: "正在入驻中...",
@@ -386,6 +392,7 @@ const saveStoreInfo = async () => {
 				font-size: 24rpx;
 				color: #999999;
 			}
+			
 		}
 
 	}
