@@ -15,10 +15,11 @@
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title" @click.stop="toAgreement">《绑定须知》</text>
 			</view>
-			<view class="btn_full" @click="confirm">
+			<view class="btn_full" @click="validPassword">
 				绑定
 			</view>
 		</view>
+		<validatePasswordPop @confirm="confirm" ref="passwordPop"></validatePasswordPop>
 	</view>
 </template>
 
@@ -39,7 +40,8 @@ const isChecked = ref(false)
 const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
-const confirm = async ()=>{
+const passwordPop = ref()
+const validPassword = ()=>{
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
@@ -56,6 +58,11 @@ const confirm = async ()=>{
 		icon:'none',
 		title: '账号格式有误'
 	})
+	
+	passwordPop.value.open()
+}
+const confirm = async ()=>{
+	
 	try{
 		uni.showLoading({
 			title: '绑定中'
