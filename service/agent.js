@@ -62,3 +62,8 @@ export  const getCity=async ()=>{
 export  const getCityMerchantAmount=async (data)=>{
 	return http.get('/divisions/city_shops/', data)
 }
+
+// 获取全国城市代理列表
+export  const getAllCityAgentRank=async ()=>{
+	return http.get('/divisions/city_agent_list')
+}

@@ -56,12 +56,12 @@
 		},
 		{
 			value: 1,
-			text: "接收码"
+			text: "积分码"
 		},
 	])
 	const candidate_noScan = ref([{
 		value: 1,
-		text: "接收码"
+		text: "积分码"
 	}, ])
 
 	const selectItem = ref()

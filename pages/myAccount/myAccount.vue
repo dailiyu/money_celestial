@@ -322,7 +322,7 @@ const toMerchantCodeVerify=()=>{
 			margin: 0 32rpx;
 
 			.profile {
-				width: 750rpx;
+				// width: 750rpx;
 				display: flex;
 				align-items: center;
 
@@ -370,7 +370,7 @@ const toMerchantCodeVerify=()=>{
 				
 				.verify_pic {
 					width: 206rpx;
-					margin-right: 50rpx;
+					// margin-right: 50rpx;
 				}
 				
 			}
