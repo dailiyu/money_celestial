@@ -4,7 +4,7 @@
 		<view class="content">
 			<view class="code_box">
 				<view>
-					{{phone}}
+					{{obscurePhoneNumber(phone)}}
 				</view>
 				<img class="qrCode" :src="qrCodeUrl" alt="QR Code" />
 				<view class="tip">
@@ -17,7 +17,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-
+import { obscurePhoneNumber } from '../../utils';
 onMounted(()=>{
 	generateQRCode()
 })

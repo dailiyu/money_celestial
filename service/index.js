@@ -26,6 +26,7 @@ class Request {
                     if (res.statusCode === 200 || res.statusCode === 201) {
                         resolve(res.data);
                     } else if (res.statusCode === 401) {
+                        console.log(url,res.statusCode)
                         // 如果是 401，尝试刷新 token
                         this.refreshToken().then((newAccessToken) => {
                             headers['Authorization'] = `Bearer ${newAccessToken}`;

@@ -36,7 +36,7 @@
 							所在地
 						</view>
 							<uni-data-picker
-												readonly
+												
 							                   v-model="curData"
 										      :localdata="cityData"
 											  :clear-icon='false'
@@ -73,7 +73,7 @@
 			<view class="head_box">
 				<view class="flex_between" style="margin-bottom: 54rpx;">
 					<view class="h_title">
-						店铺轮播图(900*600)
+						店铺轮播图 <text style="font-size: 20rpx;">(至少上传3张)</text>
 					</view>
 					<view class="h_text">
 						已选择{{successBannerImgPaths.length}}张
@@ -86,15 +86,18 @@
 					<view class="h_title">
 						店铺营业执照
 					</view>
+					<view class="tips_text">
+						第一张请上传门面照片
+					</view>
 				</view>
 				<upload amount="6"   :showUpload="false"  :imgUrls="authfileImages"  ></upload>
 			</view>
 		<view class="shop_info">
 				<view class="info_item flex_between" @click="showTips" >
 					<view class="s_title">
-						营业执照编号
+						统一社会信用代码
 					</view>
-					<input disabled=""  v-model="business_license" class="uni-input" placeholder="请输入营业执照编号" placeholder-class="placeholder_class" />
+					<input disabled=""  v-model="business_license" class="uni-input" placeholder="请输入统一社会信用代码" placeholder-class="placeholder_class" />
 				</view>
 			</view >
 				<view class="shop_info">
@@ -102,7 +105,7 @@
 							<view class="s_title">
 								赠送百分比
 							</view>
-							<input v-model="proportion_gift"  class="uni-input" placeholder="请输入30到1000之间的整数" placeholder-class="placeholder_class" />
+							<input v-model="proportion_gift"  @blur="validateInput" class="uni-input" placeholder="请输入1到1000之间的整数" placeholder-class="placeholder_class" />
 					<view class="s_title">
 						%
 					</view>
@@ -428,6 +431,23 @@ const range = computed(() => {
 		})
 	}
 	
+	const validateInput = () => {
+		  const intValue = parseInt(proportion_gift.value, 10);
+		  // 检查是否为有效整数并在范围内
+		  if (isNaN(intValue) || intValue < 1 || intValue > 1000) {
+		    uni.showToast({
+		      title: '赠送百分比必须为1到1000的整数',
+		      icon: 'none',
+		      duration: 2000
+		    });
+		    proportion_gift.value = ''; // 清空输入或重置为合适值
+		  } else {
+		    proportion_gift.value = intValue; // 保证为整数
+		  }
+		};
+	
+	
+	
 </script>
 <style lang="scss" scoped>
 .head_box {
@@ -437,6 +457,13 @@ const range = computed(() => {
 	.h_title {
 		font-size: 27rpx;
 	}
+	.tips_text{
+			display: flex;
+			flex-direction: column;
+			align-items: end;
+			font-size: 21rpx;
+			color: #FC5908;
+		}
 	.h_text {
 		font-size: 24rpx;
 		color: #999999;

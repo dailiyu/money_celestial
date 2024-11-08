@@ -112,6 +112,16 @@
 			}
 		},
 		{
+			"path" : "pages/webView/location",
+			"style" : 
+			{
+				"navigationBarTitleText" : "腾讯地图",
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "#000"
+				
+			}
+		},
+		{
 			"path" : "pages/merchant/security_deposit",
 			"style" : 
 			{

@@ -90,7 +90,7 @@ const toRegister = ()=>{
 		 })
 		 errorTimes.value=0
 		 setTimeout(()=>{
-			uni.navigateTo({
+			uni.redirectTo({
 				url: '/pages/index/index'
 			})
 		 },1000)
@@ -105,9 +105,9 @@ const toRegister = ()=>{
 		}
 		uni.showToast({
 			icon: 'none',
-			title:`登录失败,${err.data.error}`
+			title:`登录失败,${err?.data?.error}`
 		})
-		 
+		 console.log('登录错误信息',err);
 		 
 	  })
 	  
