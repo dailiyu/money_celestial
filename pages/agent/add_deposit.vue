@@ -97,7 +97,7 @@ const confirm = async ()=>{
 		})
 	}catch(e){
 		uni.showToast({
-			title: '增加失败',
+			title: e.data.error,
 			icon: 'none'
 		})
 	}
