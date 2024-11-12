@@ -117,7 +117,7 @@
 			{
 				"navigationBarTitleText" : "腾讯地图",
 				"navigationStyle": "default",
-				"navigationBarTextStyle": "#000"
+				"navigationBarTextStyle": "black"
 				
 			}
 		},

@@ -1,8 +1,19 @@
+// #ifndef MP-WEIXIN
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
+// #endif
+
+// #ifdef MP-WEIXIN
+view {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+// #endif
+
 .flex_center {
 	display: flex;
 	align-items: center;

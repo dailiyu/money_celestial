@@ -90,12 +90,22 @@ const clickRight = () => {
 	text-align: center;
 	.nav_item {
 		position: relative;
+		// #ifndef MP-WEIXIN
 		.uni-icons {
 			position: absolute;
 			left: 0;
 			top: 50%;
 			transform: translateY(-50%);
 		}
+		// #endif
+		// #ifdef MP-WEIXIN
+		uni-icons {
+			position: absolute;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		// #endif
 		.skip {
 			position: absolute;
 			right: 0;

@@ -35,6 +35,11 @@
 	import {
 		useUserStore
 	} from '../../store/user';
+	defineOptions({
+		options: {
+			styleIsolation: 'shared'
+		}
+	})
 	const userStore = useUserStore()
 	// 定义发射自定义事件
 	const emit = defineEmits(['clickRight', 'changeCity', 'mask']);
@@ -208,7 +213,7 @@
 
 	// 计算导航栏样式
 	const navBarStyle = computed(() => ({
-		paddingTop: `calc(${statusBarHeight.value} + 60rpx)`,
+		paddingTop: `calc(${statusBarHeight.value} + 80rpx)`,
 		backgroundColor: props.bgc
 	}));
 
@@ -259,37 +264,41 @@
 				left: unset;
 				right: 0;
 			}
+			
+			// #ifdef MP-WEIXIN
+			:deep(.uni-icons) {
+				display: none;
+			}
+			:deep(.uni-select) {
+				border: none;
+				padding: 0;
+				height: fit-content;
+			}
+			:deep(.uni-select__input-text) {
+				color: #fff;
+				height: 50rpx;
+				width: 50rpx;
+				border-radius: 50%;
+				border: 1px solid #fff;
+			}
+			:deep(.uni-select__selector-item) {
+				color: #333;
+			}
+			:deep(.uni-select__selector) {
+				width: 150rpx;
+				left: unset;
+				right: 0;
+			}
+			:deep(.uni-popper__arrow_bottom) {
+				left: unset;
+				right: 10%;
+			}
+			:deep(.uni-select__input-box) {
+				height: fit-content;
+			}
+			// #endif
 		}
 
-		.name {
-			// transform: translateX(-90rpx);
-		}
-
-		// .picker-box {
-		// 	position: absolute;
-		// 	left: 0;
-		// 	width: 200rpx;
-		// 	height: 50rpx;
-		// 	// float: left;
-		// 	line-height: 1.5625rem;
-		// 	text-align: left;
-
-		// 	::v-deep .input-value .text-color {
-		// 		color: #fff;
-		// 		font-size: 20rpx;
-		// 		border: none;
-		// 	}
-
-		// 	:deep(.arrow-area) {
-		// 		display: none;
-		// 	}
-
-		// 	:deep(.input-value) {
-		// 		padding: 0;
-		// 		line-height: unset;
-		// 		height: auto;
-		// 	}
-		// }
 
 		.picker-box {
 			position: absolute;
@@ -306,40 +315,11 @@
 				border: none;
 			}
 		}
-
-
-
-		:deep(.input-value-border) {
-			border: none;
-		}
-
-		:deep(.placeholder) {
-			color: #fff;
-		}
-
-		:deep(.input-arrow) {
-			border-color: #fff;
-		}
-
-		:deep(.selected-list) {
-			color: #000;
-		}
-
-		:deep(.input-split-line) {
-			color: #FC5908;
-		}
-
-		.uni-icons {
-			position: absolute;
-			left: 0;
-			top: 50%;
-			transform: translateY(-50%);
-		}
-
+		
 		uni-text {
 			color: #000;
 		}
-
+		
 		.skip {
 			position: absolute;
 			right: 0;
@@ -347,23 +327,53 @@
 			transform: translateY(-50%);
 			font-size: 24rpx;
 		}
-
+		
+		// #ifndef MP-WEIXIN
+		:deep(.input-value-border) {
+			border: none;
+		}
+		
+		:deep(.placeholder) {
+			color: #fff;
+		}
+		
+		:deep(.input-arrow) {
+			border-color: #fff;
+		}
+		
+		:deep(.selected-list) {
+			color: #000;
+		}
+		
+		:deep(.input-split-line) {
+			color: #FC5908;
+		}
+		
+		.uni-icons {
+			position: absolute;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		
+		
+		
 		:deep(.uni-select__selector) {
 			color: #000;
 			width: 140rpx;
 		}
-
+		
 		:deep(.uni-stat__select) {
 			// width: 30rpx;
 			// height: 100rpx;
-
+		
 		}
-
+		
 		:deep(.uni-icons) {
 			display: none;
-
+		
 		}
-
+		
 		:deep(.uni-select) {
 			width: 40rpx;
 			height: 40rpx;
@@ -372,19 +382,21 @@
 			align-items: center;
 			justify-content: center;
 		}
-
+		
 		:deep(.uni-select__input-box) {
 			// margin-right: 10rpx;
 			// margin-bottom: 5rpx;
-
+		
 		}
-
+		
 		:deep(.uni-select__input-text) {
 			color: #fff;
 		}
-
+		
 		:deep(.uni-select__input-placeholder) {
 			font-size: 40rpx;
 		}
+		// #endif
+
 	}
 </style>

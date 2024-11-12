@@ -48,7 +48,7 @@
 				</view> -->
 				<view class="flex">
 					<image src="@/static/phone.png" mode="widthFix" class="phone_pic"></image>
-					<view class="time_text">
+					<view class="time_text" @click="dial">
 						联系方式：{{shopInfo.merchant}}
 					</view>
 				</view>
@@ -111,6 +111,11 @@ const to_merchant_mangment=async()=>{
 // 	const {results} = await getShopImages({shop: phone.value, image_type:'banner'})
 // 	swiperList.value = results
 // }
+const dial = ()=>{
+	uni.makePhoneCall({
+		phoneNumber: shopInfo.value.merchant
+	})
+}
 </script>
 
 <style lang="scss" scoped>
