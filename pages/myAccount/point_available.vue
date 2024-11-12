@@ -8,14 +8,26 @@
 			<view class="number flex_center">
 				{{redPoint}}
 			</view>
+			
+			// #ifndef MP-WEIXIN
 			<view class="btns flex_between">
+			// #endif
+			
+			// #ifdef MP-WEIXIN
+			<view class="btns flex_center">
+			// #endif
+				
+				// #ifndef MP-WEIXIN
 				<view class="cancel_btn flex_center" @click="toStepOne">
 					增加积分
 				</view>
+				// #endif
+				
 				<view class="add_btn flex_center" @click="toWithdrawPoint">
 					提取积分
 				</view>
 			</view>
+			
 			<view class="list_box">
 				<!-- <view class="list_item flex_between">
 					<view class="">

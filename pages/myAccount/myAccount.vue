@@ -39,11 +39,13 @@
 					<text class="text">可用积分</text>
 					<div class="text number">{{red_points}}</div>
 				</view>
+				// #ifndef MP-WEIXIN
 				<view class="item" @click="toPointAccount">
 					<image class="img" src="@/static/my/credits_account.png"></image>
 					<text class="text">积分账号</text>
 					<div class="text number">{{user?obscureString(user):''}}</div>
 				</view>
+				// #endif
 			</view>
 			<view class="services">
 				<view class="service_title flex">
@@ -68,7 +70,7 @@
 					<view class="service_item" @click="toSafety">
 							<image src="@/static/my/safety_password.jpg" mode="widthFix" class="service_pic"></image>
 							<view class="">
-								密码与安全
+								密码安全
 							</view>
 					</view>
 				<!-- 	<view class="service_item" @click="toPointsRedemptionVoucher">
