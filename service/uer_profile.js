@@ -41,6 +41,10 @@ export  const sendVerifyCode=async (phone_number)=>{
 }
 
 
+export  const getUpdateMessage=async ()=>{
+ return http.get('/users/app-version')
+}
+
 
 
 

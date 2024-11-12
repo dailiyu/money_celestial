@@ -134,7 +134,7 @@ import { useUserStore } from '../../store/user';
 import { getShopCategories, getShopInfo, getShopList,getCityShopList } from '@/service/shop';
 import { getBannerList } from '@/service/bannner.js'
 import { getRecommendOfficerInfo } from '../../service/recommend';
-import { getUerAccountMessage } from '../../service/uer_profile';
+import { getUerAccountMessage, getUpdateMessage } from '../../service/uer_profile';
 import { onShow } from '@dcloudio/uni-app'
 
 // var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
@@ -150,6 +150,25 @@ onShow(async()=>{
 	await publicStore.fetchAllDataAction()
 	userInfo.value=await  uni.getStorageSync('userInfo')
 	shopInfo.value=await uni.getStorageSync('shopInfo')
+	
+	// #ifdef APP-PLUS
+	let versionInfo =  await getUpdateMessage();
+	console.log(versionInfo);
+	console.log(uni.getSystemInfoSync().appVersionCode)
+	
+	if(versionInfo.version>uni.getSystemInfoSync().appVersionCode){
+		uni.showModal({
+			title:"当前有新版本，请点击更新",
+			confirmText:"立即更新",
+			success: (e) => {
+				if(e.confirm){
+					plus.runtime.openURL(versionInfo.url);
+				}
+			}
+		})
+	}
+	// #endif
+	
 })
 
 onMounted(async()=>{
