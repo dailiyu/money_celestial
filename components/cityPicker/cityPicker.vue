@@ -13,7 +13,10 @@ const cityData = ref([cityDataMp.data, cityDataMp.data[0].cityData])
 
 const selectedCity = ref('')
 const userAddress = uni.getStorageSync('userInfo').residence
-selectedCity.value = userAddress.split(' ')[1]
+if (userAddress) {
+	selectedCity.value = userAddress.split(' ')[1]
+}
+
 
 const emit = defineEmits(['changeCity']);
 const bindCityChange = (e)=>{

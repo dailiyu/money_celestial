@@ -145,7 +145,11 @@ const publicStore=  usePublicStore()
 const userStore = useUserStore()
 const userInfo = ref()
 const shopInfo=ref()
+const token = uni.getStorageSync('accessToken')
 onShow(async()=>{
+	// #ifdef MP-WEIXIN
+	if (!token) return
+	// #endif
 	await userStore.fetchAllDataAction()
 	await publicStore.fetchAllDataAction()
 	userInfo.value=await  uni.getStorageSync('userInfo')
@@ -224,6 +228,21 @@ const toSettle = ()=>{
 	})
 }
 const toMerchant =async () => {
+	// #ifdef MP-WEIXIN
+	if (!token){
+		uni.showToast({
+			icon:'none',
+			title:'请登录!'
+		})
+		
+	  return  setTimeout(()=>{
+		  uni.navigateTo({
+		  			url:'/pages/login/login'
+		  		})
+	  },700)
+	}
+	// #endif
+	
 	userInfo.value=await  uni.getStorageSync('userInfo')
 	shopInfo.value=await uni.getStorageSync('shopInfo')
 	const phoneNumber= uni.getStorageSync('phoneNumber')
@@ -266,6 +285,20 @@ const toMerchant =async () => {
 
 
 const toAgent = ()=>{
+	// #ifdef MP-WEIXIN
+	if (!token){
+		uni.showToast({
+			icon:'none',
+			title:'请登录!'
+		})
+		
+	  return  setTimeout(()=>{
+		  uni.navigateTo({
+		  			url:'/pages/login/login'
+		  		})
+	  },700)
+	}
+	// #endif
 	const userInfo = uni.getStorageSync('userInfo')
 	if (userInfo && (userInfo.is_province_agent||userInfo.is_city_agent)) {
 		uni.navigateTo({
@@ -279,6 +312,20 @@ const toAgent = ()=>{
 }
 
 const toRecommend =async ()=>{
+	// #ifdef MP-WEIXIN
+	if (!token){
+		uni.showToast({
+			icon:'none',
+			title:'请登录!'
+		})
+		
+	  return  setTimeout(()=>{
+		  uni.navigateTo({
+		  			url:'/pages/login/login'
+		  		})
+	  },700)
+	}
+	// #endif
 	const userInfo = uni.getStorageSync('userInfo')
 	if(!userInfo.name||!userInfo.gender||!userInfo.icon||!userInfo.birthdate||!userInfo.residence){
 		uni.showToast({
@@ -317,6 +364,20 @@ const toAllMerchant = (id)=>{
 }
 
 const toMyAccount = ()=>{
+	// #ifdef MP-WEIXIN
+	if (!token){
+		uni.showToast({
+			icon:'none',
+			title:'请登录!'
+		})
+		
+	  return  setTimeout(()=>{
+		  uni.navigateTo({
+		  			url:'/pages/login/login'
+		  		})
+	  },700)
+	}
+	// #endif
 	uni.navigateTo({
 		url: '/pages/myAccount/myAccount'
 	})

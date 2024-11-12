@@ -8,7 +8,7 @@
 				<cityPicker @changeCity="bindCityChange"></cityPicker>
 			</view>
 			<view class="name">{{ title }}</view>
-			<view class="select-box">
+			<view class="select-box" v-if="token">
 				<uni-data-select v-if="userStore.shopInfo.state==1" v-model="selectItem" :localdata="candidates"
 					@change="change" placeholder="+" :clear='false' class="select" :isCustom="true"></uni-data-select>
 				<uni-data-select v-else v-model="selectItem" :localdata="candidate_noScan" @change="change"
@@ -36,6 +36,8 @@
 		cityDataMp
 	from '@/static/cityDataMp.js';
 	const cityData = ref([cityDataMp.data, cityDataMp.data[0].cityData])
+	
+	const token = uni.getStorageSync('accessToken')
 	defineOptions({
 		options: {
 			styleIsolation: 'shared'
