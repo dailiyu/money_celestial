@@ -2,12 +2,10 @@
 	<view :style="navBarStyle" class="nav_bar">
 		<view class="nav_item">
 			<view class="picker-box">
-				<uni-data-picker v-model="curPosition" :localdata="cityData" :value="selectedValues" :clear-icon='false'
-					mode="region" @change="onChange" popup-title="请选择所在地区">
-					<template #default>
-						{{selectedCity||'请选择'}}
-					</template>
-				</uni-data-picker>
+				<!-- <picker @columnchange="bindProvinceChange" @change="bindCityChange"  mode="multiSelector" :range="cityData" range-key="name">
+					<view class="uni-input">{{selectedCity||'请选择'}}</view>
+				</picker> -->
+				<cityPicker @changeCity="bindCityChange"></cityPicker>
 			</view>
 			<view class="name">{{ title }}</view>
 			<view class="select-box">
@@ -28,13 +26,16 @@
 		computed,
 		onMounted
 	} from 'vue';
-	import cityDataJson from "@/static/cityData.json"
 	import {
 		onShow
 	} from '@dcloudio/uni-app'
 	import {
 		useUserStore
 	} from '../../store/user';
+	import 
+		cityDataMp
+	from '@/static/cityDataMp.js';
+	const cityData = ref([cityDataMp.data, cityDataMp.data[0].cityData])
 	defineOptions({
 		options: {
 			styleIsolation: 'shared'
@@ -60,16 +61,6 @@
 	const selectItem = ref()
 
 
-	const curPosition = ref('')
-	// 绑定选择的值
-	const selectedValues = ref([])
-
-	// 绑定省市名显示
-	const selectedProvince = ref('')
-	const selectedCity = ref('')
-
-	// 省市数据
-	const cityData = ref(cityDataJson)
 
 	// 定义组件的 props
 	const props = defineProps({
@@ -95,40 +86,6 @@
 		}
 	});
 
-
-	onMounted(async () => {
-		await userStore.fetchAllDataAction()
-		const userAddress = await uni.getStorageSync('userInfo').residence
-		const userCity = getCityName(userAddress)
-		const cityValue = findValueByText(userCity)
-		const userProvince = getProvinceName(userAddress)
-		selectedCity.value = userCity
-		// const city=uni.getStorageSync('city')
-		curPosition.value = cityValue
-
-		emit('changeCity', {
-			province: userProvince,
-			city: userCity
-		})
-	})
-
-
-
-	// 当选择器值变化时，处理选中的省和市
-	const onChange = (e) => {
-		const selected = e.detail.value
-		const province = cityData.value.find(item => item.value === selected[0])
-		const city = province?.children?.find(item => item.value === selected[1])
-
-		// 保存选择的省市名
-		selectedProvince.value = e.detail.value[0].text || ''
-		selectedCity.value = e.detail.value[1].text || ''
-
-		emit('changeCity', {
-			province: selectedProvince.value,
-			city: selectedCity.value
-		})
-	}
 
 
 	const scanCode = async () => {
@@ -175,32 +132,7 @@
 			scanCode()
 		}
 	}
-	const findValueByText = (text) => {
-		for (const province of cityDataJson) {
-			for (const city of province.children) {
 
-				if (city.text === text) {
-					return city.value;
-				}
-			}
-		}
-		return null;
-	}
-
-
-	const getCityName = (location) => {
-		// 将输入字符串按空格分割
-		const parts = location.split(' ');
-		// 返回最后一部分作为城市名称
-		return parts[parts.length - 1];
-	}
-
-	const getProvinceName = (location) => {
-		// 将输入字符串按空格分割
-		const parts = location.split(' ');
-		// 返回第一部分作为省份名称
-		return parts[0];
-	}
 
 
 	// 定义响应式变量
@@ -226,6 +158,10 @@
 	const clickRight = () => {
 		emit('clickRight');
 	};
+	
+	const bindCityChange = (e)=>{
+		emit('changeCity', e)
+	}
 </script>
 
 <style lang="scss" scoped>

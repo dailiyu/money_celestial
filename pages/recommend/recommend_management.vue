@@ -80,13 +80,15 @@ const user = ref({})
 const isVerified = ref(false)
 onMounted(async()=>{
 	getPoint()
-	getShopAmount()
+	// getShopAmount()
 	user.value = uni.getStorageSync('userInfo')
 	info.value = await getRecommendOfficerInfo(user.value.phone_number)
+	recommendedShopAmount.value = info.value.approved_merchants
 	// getMPQRCode()
 	const phone = uni.getStorageSync('phoneNumber')
 	const {is_verified} = await getVertifyMerchantInfo(phone)
 	isVerified.value = is_verified
+	
 })
 
 const recommendedShopAmount = ref(0)

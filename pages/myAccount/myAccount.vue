@@ -137,9 +137,11 @@
 			</view> -->
 			
 		</view>
+		// #ifndef MP-WEIXIN
 		<view class="vesion">
 			满仓 V{{version}}
 		</view>
+		// #endif
 	</view>
 </template>
 
