@@ -541,7 +541,7 @@ const range = computed(() => {
 				align-items: center;
 				width: 400rpx;
 				.time-picker{
-					height: 40rpx;
+				
 					padding: 0 40rpx;
 					display: flex;
 					font-size: 24rpx;
