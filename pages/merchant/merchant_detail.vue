@@ -36,7 +36,7 @@
 			<view class="info_item">
 				<view class="flex" style="margin-bottom: 25rpx;">
 					<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic"></image>
-					<view class="address">
+					<view class="address" @click.stop="openLocation(shopInfo)">
 						{{shopInfo.address}}
 					</view>
 				</view>
@@ -115,6 +115,18 @@ const dial = ()=>{
 	uni.makePhoneCall({
 		phoneNumber: shopInfo.value.merchant
 	})
+}
+const openLocation = (item)=>{
+	// #ifdef MP-WEIXIN
+	if (!item.latitude || !item.longitude) return uni.showToast({
+		icon: 'none',
+		title: '获取位置失败'
+	})
+	uni.openLocation({
+		latitude: item.latitude,
+		longitude: item.longitude
+	})
+	// #endif
 }
 </script>
 

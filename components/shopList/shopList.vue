@@ -15,7 +15,7 @@
 					</view>
 					<view class="flex">
 						<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="location_pic"></image>
-						<view class="district">
+						<view class="district" @click.stop="openLocation(item)">
 							{{item.address}}
 						</view>
 					</view>
@@ -56,6 +56,18 @@ const toDetail = async(index) => {
     url: '/pages/merchant/merchant_detail'
   });
 };
+const openLocation = (item)=>{
+	// #ifdef MP-WEIXIN
+	if (!item.latitude || !item.longitude) return uni.showToast({
+		icon: 'none',
+		title: '获取位置失败'
+	})
+	uni.openLocation({
+		latitude: item.latitude,
+		longitude: item.longitude
+	})
+	// #endif
+}
 </script>
 
 
