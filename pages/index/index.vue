@@ -80,7 +80,7 @@
 					</view> -->
 				</view>
 				<view class="shop_list">
-					<view class="shop_item flex_between" v-for="(shop,index) in shopLists"  @click="toDetail(shop)">
+					<view class="shop_item flex_between" v-for="(shop,index) in shopLists" :key="index"  @click="toDetail(shop)">
 						<image :src="shop.avatar" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
 							<view class="shop_name">
@@ -181,7 +181,10 @@ onMounted(async()=>{
 		// await publicStore.fetchAllDataAction()
 		// await userStore.fetchAllDataAction()
 	// }
+	const userInfo = uni.getStorageSync('userInfo')
 	const localCity=uni.getStorageSync('city')
+	city.value=localCity
+	city.value=localCity||(userInfo.residence)?.split(' ')[1]||''
 	city.value=localCity
 	getCategory()
 	getBanner()
@@ -235,7 +238,6 @@ const getList = async()=>{
 }
 
 const dealScrolltolower = async () => {
-  console.log(111) 
 	if (hasNext.value) {
     await getList();
   } else {
@@ -420,10 +422,16 @@ const toDetail =async (shop)=>{
 	})
 }
 const toCityAgentRank = (item)=>{
-	if (item.title !== 'agent-rank') return
-	uni.navigateTo({
-		url: '/pages/agent/city_agent_rank'
-	})
+	if (item.title == 'agent-rank') {
+		uni.navigateTo({
+			url: '/pages/agent/city_agent_rank'
+		})
+	}
+	else if (item.title == 'merchant-settle') {
+		uni.navigateTo({
+			url: '/pages/merchant/merchant_settle_process'
+		})
+	}
 }
 </script>
 

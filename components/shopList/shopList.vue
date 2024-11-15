@@ -20,6 +20,12 @@
 						</view>
 					</view>
 				</view>
+				<view :class="['percentage', {'red':!item.consume2coin_bit||item.consume2coin_bit>100||item.consume2coin_bit==100, 'orange':item.consume2coin_bit&&item.consume2coin_bit<100}]">
+					<image src="https://static.maxcang.com/appstatic/merchant/hot.png" mode="widthFix" class="hot_pic" v-if="!item.consume2coin_bit||item.consume2coin_bit>100||item.consume2coin_bit==100"></image>
+					<view class="">
+						<text style="font-weight: bold;">{{item.consume2coin_bit||'100'}}</text>%赠送
+					</view>
+				</view>
 				<!-- <view class="distance">
 					{{item.distance/1000}}km
 				</view> -->
@@ -98,6 +104,26 @@ const toDetail = async(index) => {
 		.distance {
 			font-size: 20rpx;
 			color: #FC5908;
+		}
+		.percentage {
+			position: relative;
+			color: #fff;
+			font-size: 26rpx;
+			padding: 6rpx 18rpx;
+			border-radius: 100px;
+			margin-top: 10rpx;
+			&.red {
+				background: linear-gradient(to bottom, #fd770b, #fb4706);
+			}
+			&.orange {
+				background: linear-gradient(to bottom, #ffbc15, #ff850d);
+			}
+			.hot_pic {
+				position: absolute;
+				left: -16rpx;
+				top: -24rpx;
+				width: 70rpx;
+			}
 		}
 	}
 }

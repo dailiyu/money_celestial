@@ -608,6 +608,14 @@
 				"navigationBarTitleText" : "代理争夺战",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/merchant/merchant_settle_process",
+			"style" : 
+			{
+				"navigationBarTitleText" : "入驻审核标准",
+				"navigationStyle": "custom"
+			}
 		}
 		
 	],
