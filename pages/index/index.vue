@@ -139,7 +139,15 @@ import { getBannerList } from '@/service/bannner.js'
 import { getRecommendOfficerInfo } from '../../service/recommend';
 import { getUerAccountMessage, getUpdateMessage } from '../../service/uer_profile';
 import { onShow } from '@dcloudio/uni-app'
-
+// #ifdef MP-WEIXIN
+import { onShareAppMessage } from '@dcloudio/uni-app'
+onShareAppMessage(()=>{
+	return {
+	  title: '满仓生态',
+	  path: '/pages/index/index',  // 分享路径
+	}
+})
+// #endif
 // var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
 
 const isMask=ref(false)
