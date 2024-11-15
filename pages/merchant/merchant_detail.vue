@@ -40,16 +40,16 @@
 						{{shopInfo.address}}
 					</view>
 				</view>
-				<!-- <view class="time_box flex">
+				<view class="time_box flex">
 					<image src="https://static.maxcang.com/appstatic/time.png" mode="widthFix" class="time_pic"></image>
-					<view class="time_text">
-						营业时间：09:00-19:00
+					<view class="time_text" v-if="shopInfo.business_time1">
+						营业时间：{{shopInfo?.business_time1}}-{{shopInfo?.business_time2  }}
 					</view>
-				</view> -->
+				</view>
 				<view class="flex">
 					<image src="https://static.maxcang.com/appstatic/phone.png" mode="widthFix" class="phone_pic"></image>
 					<view class="time_text" @click="dial">
-						联系方式：{{shopInfo.merchant}}
+						联系方式：{{shopInfo?.tel||shopInfo.merchant}}
 					</view>
 				</view>
 			</view>

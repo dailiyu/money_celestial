@@ -6,6 +6,7 @@
 		  :key="index"  
 		>
 	  		<image 
+				 @click="isForbiddenDelete"
 	  			  :src="String(image)" 
 	  			  mode="aspectFill" 
 	  			  class="upload_pic">
@@ -107,6 +108,14 @@ const  deleteImg=async (index)=>{
 	emit('uploadSuccessfulPaths',successfulPaths.value)
 }
 
+const isForbiddenDelete=()=>{
+	if(!props.showUpload){
+		return uni.showToast({
+			icon:'none',
+			title:"营业执照不允许编辑！"
+		})
+	}
+}
 
 
 // const uploadPic = () => {

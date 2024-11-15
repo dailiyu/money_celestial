@@ -214,7 +214,10 @@
 			!shopName.value ||
 			!address.value ||
 			!selectedCity.value ||
-			!businessRange.value
+			!businessRange.value||
+			!end_time.value||
+			!start_time.value||
+			!phone_number.value
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -289,6 +292,7 @@
 			border-bottom: 1px solid #E3E3E3;
 			.picker-box{
 				display: flex;
+				align-items: center;
 				width: 400rpx;
 				.time-picker{
 					height: 40rpx;

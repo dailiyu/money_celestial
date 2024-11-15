@@ -102,8 +102,7 @@
 					</view>
 					
 				</view>
-				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:14rpx 0;color: #777777;"  v-if="!hasNext">没有更多数据了</view>
-				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:10rpx 0;color: #385ed2;" v-else >上拉加载更多</view>
+				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:10rpx 0;color: #385ed2;" v-if="hasNext" >上拉加载更多</view>
 			</view>
 		</view>
 		<!-- <view class="headline flex_between">
@@ -202,14 +201,12 @@ onMounted(async()=>{
 	city.value=localCity
 	getCategory()
 	getBanner()
-	shopLists.value=[]
-	getList()
+
 	console.log(city.value)
 	// generateQRCode()
 })
 const city = ref('')
 const getCity = (e)=>{
-	
 	city.value = e.city
 	uni.setStorageSync('city',city.value)
 	console.log('当前选择的城市',city.value);
@@ -244,6 +241,7 @@ const getList = async()=>{
 	// })
 	const {results,next} = await getCityShopList(params.value)
 	shopLists.value.push(...results)
+	console.log('111',results)
 	if(!!next){
 		hasNext.value=true
 		curPage.value=curPage.value+1
