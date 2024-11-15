@@ -194,14 +194,12 @@ onMounted(async()=>{
 	city.value=localCity
 	getCategory()
 	getBanner()
-	shopLists.value=[]
-	getList()
+
 	console.log(city.value)
 	// generateQRCode()
 })
 const city = ref('')
 const getCity = (e)=>{
-	
 	city.value = e.city
 	uni.setStorageSync('city',city.value)
 	console.log('当前选择的城市',city.value);
@@ -236,6 +234,7 @@ const getList = async()=>{
 	// })
 	const {results,next} = await getCityShopList(params.value)
 	shopLists.value.push(...results)
+	console.log('111',results)
 	if(!!next){
 		hasNext.value=true
 		curPage.value=curPage.value+1

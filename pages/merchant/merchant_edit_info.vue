@@ -107,14 +107,22 @@
 				</view>
 				<upload amount="6"   :showUpload="false"  :imgUrls="authfileImages"  ></upload>
 			</view>
-		<view class="shop_info">
-				<view class="info_item flex_between" @click="showTips" >
-					<view class="s_title">
-						统一社会信用代码
-					</view>
-					<input disabled=""  v-model="business_license" class="uni-input" placeholder="请输入统一社会信用代码" placeholder-class="placeholder_class" />
+		<view class="shop_info" @click="showTips">
+			<view class="info_item flex_between">
+				<view class="s_title">
+				统一社会信用代码
 				</view>
-			</view >
+				<!-- <input
+				disabled
+				v-model="business_license"
+				class="uni-input"
+				placeholder="请输入统一社会信用代码"
+				placeholder-class="placeholder_class"
+				/> -->
+				<text 	class="uni-input">{{ business_license }}</text>
+			</view>
+		</view>
+
 				<view class="shop_info">
 						<view class="info_item flex_between">
 							<view class="s_title">
@@ -461,6 +469,7 @@ const range = computed(() => {
 	}
 
 	const showTips=()=>{
+		console.log('1111')
 		uni.showToast({
 			icon:'none',
 			title:"统一社会信用代码不允许编辑！"
