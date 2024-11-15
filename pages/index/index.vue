@@ -152,7 +152,7 @@ onShow(async()=>{
 	// #endif
 	await userStore.fetchAllDataAction()
 	await publicStore.fetchAllDataAction()
-	userInfo.value=await  uni.getStorageSync('userInfo')
+	userInfo.value= uni.getStorageSync('userInfo')
 	shopInfo.value=await uni.getStorageSync('shopInfo')
 	
 	// #ifdef APP-PLUS
@@ -182,8 +182,9 @@ onMounted(async()=>{
 		// await publicStore.fetchAllDataAction()
 		// await userStore.fetchAllDataAction()
 	// }
+	const userInfo = uni.getStorageSync('userInfo')
 	const localCity=uni.getStorageSync('city')
-	city.value=localCity
+	city.value=localCity||(userInfo.residence)?.split(' ')[1]||''
 	getCategory()
 	getBanner()
 	getShopLists()

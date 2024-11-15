@@ -23,7 +23,7 @@
     	</view>
     	
     	<button @click="submitAnswers" v-if="!showAnswers" class="btn_full">提交答案</button>
-    	<button @click="showCorrectAnswers" v-if="!showAnswers && isSubmitted" class="btn_plain">查看答案</button>
+    	<!-- <button @click="showCorrectAnswers" v-if="!showAnswers && isSubmitted" class="btn_plain">查看答案</button> -->
     	<button @click="resetQuiz" v-if="showAnswers" class="btn_full">重新答题</button>
     </view>
   </view>
@@ -97,9 +97,10 @@ export default {
       if (incorrectQuestions.value.length > 0) {
         // 有答错的题目
         uni.showToast({
-          title: '有答错的题目，点击查看答案！',
+          title: '有答错的题目，请重新答题！',
           icon: 'none'
         });
+		showAnswers.value = true
       } else {
         uni.showToast({
           title: '恭喜，全部正确！',
