@@ -93,6 +93,12 @@
 								</view>
 							</view>
 						</view>
+						<view :class="['percentage', {'red':!shop.consume2coin_bit||shop.consume2coin_bit>100||shop.consume2coin_bit==100, 'orange':shop.consume2coin_bit&&shop.consume2coin_bit<100}]">
+							<image src="https://static.maxcang.com/appstatic/merchant/hot.png" mode="widthFix" class="hot_pic" v-if="!shop.consume2coin_bit||shop.consume2coin_bit>100||shop.consume2coin_bit==100"></image>
+							<view class="">
+								<text style="font-weight: bold;">{{shop.consume2coin_bit||'100'}}</text>%赠送
+							</view>
+						</view>
 					</view>
 					
 				</view>
@@ -587,6 +593,26 @@ const toCityAgentRank = (item)=>{
 							width: 20rpx;
 							margin-right: 10rpx;
 						}
+					}
+				}
+				.percentage {
+					position: relative;
+					color: #fff;
+					font-size: 26rpx;
+					padding: 6rpx 18rpx;
+					border-radius: 100px;
+					// margin-top: 10rpx;
+					&.red {
+						background: linear-gradient(to bottom, #fd770b, #fb4706);
+					}
+					&.orange {
+						background: linear-gradient(to bottom, #ffbc15, #ff850d);
+					}
+					.hot_pic {
+						position: absolute;
+						left: -16rpx;
+						top: -24rpx;
+						width: 70rpx;
 					}
 				}
 				.distance {
