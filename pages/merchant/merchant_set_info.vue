@@ -21,8 +21,25 @@
 					<uni-data-select v-model="businessRange" :localdata="range" placeholder="请选择" :clear="false"
 						@change="changeRange"></uni-data-select>
 				</view>
+				<view class="info_item flex_between">
+					<view class="s_title">
+						联系方式
+					</view>
+					<input v-model="phone_number" class="uni-input" placeholder="请输入联系手机号"
+						placeholder-class="placeholder_class" />
+						
+				</view>
+				<view class="info_item flex_between" style="justify-content:start">
+					<view class="s_title">
+						营业时间
+					</view>
+					<view class="picker-box">
+						<picker class="time-picker" @change="changeStartTime"  mode="time" :style="{color:start_time=='00:00'?'#999':'#000'}">{{start_time||'开店时间'}}</picker>一
+						<picker class="time-picker" @change="changeEndTime"   mode="time" :style="{color:end_time=='00:00'?'#999':'#000'}">{{end_time||'关店时间'}}</picker>
+					</view>
+				</view>
 				<view class="info_item flex_between" style="flex: 1;">
-					<view class="s_title" style="margin-right: 45rpx;">
+					<view class="s_title"  style="margin-right: 45rpx;">
 						所在地
 					</view>
 					<uni-data-picker :localdata="cityData" :clear-icon='false' mode="region" @change="onChange"
@@ -96,9 +113,12 @@
 	const publicStore = usePublicStore()
 	const userStore = useUserStore()
 	const shopIntro = ref('')
+	const phone_number=ref('')
 	const shopName = ref('')
 	const businessRange = ref('')
 	const code = ref('')
+	const end_time=ref('00:00')
+	const start_time=ref('00:00')
 	const temBannerImgPaths = ref([])
 	const temProfileImgPaths = ref([])
 	const temDetailImgPaths = ref([])
@@ -155,7 +175,16 @@
 	}
 
 
+	const changeStartTime=(event)=>{
+		start_time.value=event.detail.value
+	}
+	
+	const changeEndTime=(event)=>{
+			
+			end_time.value=event.detail.value
+		}
 
+ 
 
 	const lat = ref('')
 	const lon = ref('')
@@ -210,7 +239,10 @@
 				categories: [businessRange.value],
 				city: selectedCity.value,
 				name: shopName.value,
-				address: address.value
+				address: address.value,
+				business_time1:start_time.value,
+				business_time2:end_time.value,
+				tel:phone_number.value
 			})
 			uni.navigateTo({
 				url: '/pages/merchant/shop_profile'
@@ -261,7 +293,26 @@
 		.info_item {
 			padding: 40rpx 8rpx 40rpx 0;
 			border-bottom: 1px solid #E3E3E3;
-
+			.picker-box{
+				display: flex;
+				width: 400rpx;
+				.time-picker{
+					height: 40rpx;
+					padding: 0 40rpx;
+					display: flex;
+					font-size: 24rpx;
+					color: #000;
+					&:first-child{
+						padding-left: 0;
+					}
+				}
+				
+			}
+			:deep(.uni-data-tree){
+				flex: 1;
+				 width: 520rpx;
+			}
+			
 			&:last-child {
 				border-bottom: none;
 			}

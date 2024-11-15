@@ -35,7 +35,7 @@
 	import 
 		cityDataMp
 	from '@/static/cityDataMp.js';
-	const cityData = ref([cityDataMp.data, cityDataMp.data[0].cityData])
+	const cityData = ref([cityDataMp?.data, cityDataMp?.data[0].cityData])
 	
 	const token = uni.getStorageSync('accessToken')
 	defineOptions({

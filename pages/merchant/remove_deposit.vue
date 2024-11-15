@@ -21,7 +21,7 @@
 					<view class="s_text">
 						可解除余额
 					</view>
-					<view class="s_num">
+					<view class="s_num"> 
 						{{amount}}
 					</view>
 				</view>

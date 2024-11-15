@@ -31,6 +31,23 @@
 							获取验证码
 						</view>
 					</view> -->
+					<view class="info_item flex_between">
+					<view class="s_title">
+						联系方式
+					</view>
+					<input v-model="phone_number" class="uni-input" placeholder="请输入联系手机号"
+						placeholder-class="placeholder_class" />
+						
+				</view>
+				<view class="info_item flex_between" style="justify-content:start">
+					<view class="s_title">
+						营业时间
+					</view>
+					<view class="picker-box">
+						<picker class="time-picker" @change="changeStartTime"  mode="time" :style="{color:start_time=='00:00'?'#999':'#000'}">{{start_time||'开店时间'}}</picker>一
+						<picker class="time-picker" @change="changeEndTime"   mode="time" :style="{color:end_time=='00:00'?'#999':'#000'}">{{end_time||'关店时间'}}</picker>
+					</view>
+				</view>
 					<view class="info_item flex_between" style="flex: 1;"  @click="forbiddenTips">
 						<view class="s_title" style="margin-right: 45rpx;">
 							所在地
@@ -182,6 +199,9 @@
 	const businessRange = ref()
 	const code = ref('')
 	const curData=ref()
+	const end_time=ref('00:00')
+	const start_time=ref('00:00')
+	const phone_number=ref('')
 	const successBannerImgPaths = ref([])
 	const successProfileImgPaths = ref([])
 	const successDetailImgPaths = ref([])
@@ -194,6 +214,9 @@ onMounted(async()=>{
 	business_license.value=shopInfo.license_no
 	proportion_gift.value=shopInfo.consume2coin_bit
 	address.value=shopInfo.address
+	start_time.value=shopInfo.business_time1
+	end_time.value=shopInfo.business_time2
+	phone_number.value=shopInfo.tel
 	curData.value=findValueByText(shopInfo.city)
 	selectedCity.value=shopInfo.city
 	 successDetailImgPaths.value=detailImages
@@ -271,6 +294,14 @@ const range = computed(() => {
 		
 	}
 
+	const changeStartTime=(event)=>{
+		start_time.value=event.detail.value
+	}
+	
+	const changeEndTime=(event)=>{
+			
+			end_time.value=event.detail.value
+		}
 
 	
 
@@ -391,7 +422,8 @@ const range = computed(() => {
 			 await associatedDetailImg()
 			  await associatedBannerImg()
 		    await associatedAuthfileImg()
-			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value})
+			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value,business_time1:start_time.value,
+				business_time2:end_time.value,tel:phone_number.value})
 
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value,...authfileListUrl.value]
 			console.log('图片列表参数',params);
@@ -484,6 +516,28 @@ const range = computed(() => {
 	.info_item {
 		padding: 40rpx 8rpx 40rpx 0;
 		border-bottom: 1px solid #E3E3E3;
+
+		.picker-box{
+				display: flex;
+				width: 400rpx;
+				.time-picker{
+					height: 40rpx;
+					padding: 0 40rpx;
+					display: flex;
+					font-size: 24rpx;
+					color: #000;
+					&:first-child{
+						padding-left: 0;
+					}
+				}
+				
+			}
+			:deep(.uni-data-tree){
+				flex: 1;
+				 width: 520rpx;
+			}
+			
+
 		&:last-child {
 			border-bottom: none;
 		}
