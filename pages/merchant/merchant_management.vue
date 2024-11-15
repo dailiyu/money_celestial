@@ -56,7 +56,7 @@
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<view class="list_item flex_between" @click="toMerchantDetail">
-					<view class="">店铺详情</view>
+					<view class="">门店详情预览</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
 				<!-- <view class="list_item flex_between" @click="toUploadGoods">

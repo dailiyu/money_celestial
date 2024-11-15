@@ -10,15 +10,18 @@
 import { ref } from 'vue';
 import cityDataMp from '@/static/cityDataMp.js';
 const cityData = ref([cityDataMp.data, cityDataMp.data[0].cityData])
-
+const emit = defineEmits(['changeCity']);
 const selectedCity = ref('')
 const userAddress = uni.getStorageSync('userInfo').residence
-if (userAddress) {
-	selectedCity.value = userAddress.split(' ')[1]
+const loaclCity=uni.getStorageSync('city')
+if (userAddress||loaclCity) {
+	selectedCity.value = loaclCity||userAddress.split(' ')[1]
+	 emit('changeCity', {city: selectedCity.value })
 }
 
 
-const emit = defineEmits(['changeCity']);
+
+
 const bindCityChange = (e)=>{
 	// console.log(e)
 	let provinceIndex = e.detail.value[0];
