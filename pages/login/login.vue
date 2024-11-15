@@ -22,12 +22,14 @@
 			<view class="r_btn flex_center" @click="toRegister">
 				注册新用户
 			</view>
-			<!-- <view class="wx_btn flex_center">
+			// #ifdef MP-WEIXIN
+			<button class="wx_btn flex_center" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
 				<image src="@/static/wechat.png" mode="widthFix" class="wx_logo"></image>
 				<view class="">
 					微信一键登录
 				</view>
-			</view> -->
+			</button>
+			// #endif
 		</view>
 	</view>
 </template>
@@ -35,8 +37,9 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '../../store/user';
-import { postProfileLogin, getUerAccountMessage } from '@/service/uer_profile.js';
+import { postProfileLogin, getUerAccountMessage, getSessionKey, wxLogin } from '@/service/uer_profile.js';
 import { onShow } from '@dcloudio/uni-app'; 
+
 const userStore=   useUserStore()
 const moblie = ref('')
 const password = ref('')
@@ -119,6 +122,53 @@ const forgetPassword=()=>{
 	})
 }
 
+const getPhoneNumber = (e)=>{
+	const {encryptedData, iv} = e.detail
+	
+	uni.login({
+        provider: 'weixin',
+        success: async (loginRes) => {
+          const code = loginRes.code;
+		  const {session_key} = await getSessionKey({code})
+		  
+
+          // 向服务器发送 code、iv、encryptedData 等信息
+          try {
+			uni.showLoading({
+				mask: true
+			})
+			const res = await wxLogin({session_key, encryptedData, iv})
+			// console.log(res)
+			const { access, refresh, user_id } = res;
+			 // 保存 Token
+			 await uni.setStorageSync('accessToken', access);
+			  await uni.setStorageSync('refreshToken', refresh);
+			   console.log('accessToken', access);
+			 await uni.setStorageSync('phoneNumber',user_id)
+			 console.log('登录传入的手机号',user_id);
+			 await userStore.getUserInfoAction()
+			  
+			 uni.hideLoading()
+			uni.showToast({
+				title:'登录成功',
+						icon:'success',
+						duration:1000
+			})
+			errorTimes.value=0
+			setTimeout(()=>{
+				uni.redirectTo({
+				url: '/pages/index/index'
+			})
+			},1000)
+          } catch (err) {
+			uni.showToast({
+				icon: 'none',
+				title: err.data.error
+			})
+          }
+        }
+    });
+}
 </script>
 
 <style lang="scss" scoped>

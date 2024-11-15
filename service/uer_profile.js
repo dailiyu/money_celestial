@@ -47,6 +47,11 @@ export  const getUpdateMessage=async ()=>{
 
 
 
+export  const getSessionKey=async (data)=>{
+ return http.post('/users/get_session_key', data)
+}
 
 
-
+export  const wxLogin=async (data)=>{
+ return http.post('/users/wxapp_phone_login', data)
+}
