@@ -41,7 +41,7 @@
 					</view>
 				</view>
 				<view class="time_box flex">
-					<image src="@/static/time.png" mode="widthFix" class="time_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/time.png" mode="widthFix" class="time_pic"></image>
 					<view class="time_text" v-if="shopInfo.business_time1">
 						营业时间：{{shopInfo?.business_time1}}-{{shopInfo?.business_time2  }}
 					</view>

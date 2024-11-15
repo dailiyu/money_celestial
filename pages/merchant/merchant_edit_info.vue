@@ -408,7 +408,10 @@ const range = computed(() => {
 			!businessRange.value||
 			successProfileImgPaths.value.length === 0||
 			successBannerImgPaths.value.length===0||
-			!proportion_gift.value
+			!proportion_gift.value||
+			!end_time.value||
+			!start_time.value||
+			!phone_number.value
 		) {
 			return uni.showToast({
 				icon: 'none',
@@ -531,6 +534,7 @@ const range = computed(() => {
 		
 		.picker-box{
 				display: flex;
+				align-items: center;
 				width: 400rpx;
 				.time-picker{
 					height: 40rpx;

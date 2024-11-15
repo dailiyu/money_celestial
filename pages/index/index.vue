@@ -102,8 +102,7 @@
 					</view>
 					
 				</view>
-				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:14rpx 0;color: #777777;"  v-if="!hasNext">没有更多数据了</view>
-				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:10rpx 0;color: #385ed2;" v-else >上拉加载更多</view>
+				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:10rpx 0;color: #385ed2;" v-if="hasNext" >上拉加载更多</view>
 			</view>
 		</view>
 		<!-- <view class="headline flex_between">
