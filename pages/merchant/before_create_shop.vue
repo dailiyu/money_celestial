@@ -2,7 +2,7 @@
 	<view class="page">
 		<navBar title="商家入驻"></navBar>
 		<view class="img-box">
-			<image class="img" src="../../static/success.jpg" mode="aspectFit"></image>
+			<image class="img" src="https://static.maxcang.com/appstatic/success.jpg" mode="aspectFit"></image>
 		</view>
 		<view class="text-box">
 			<view class="text">恭喜你，满仓商家注册成功！</view>

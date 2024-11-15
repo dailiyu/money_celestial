@@ -2,7 +2,7 @@
 	<view class="page">
 		<navBar title="推荐官"></navBar>
 		<view class="img-box">
-			<image class="img" src="../../static/success.jpg" mode="aspectFit"></image>
+			<image class="img" src="https://static.maxcang.com/appstatic/success.jpg" mode="aspectFit"></image>
 		</view>
 		<view class="text-box">
 			<view class="text">已经申请成为推荐官，正在审核中！</view>

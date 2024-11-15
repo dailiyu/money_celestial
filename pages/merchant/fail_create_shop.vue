@@ -2,7 +2,7 @@
 	<view class="page">
 		<navBar title="商家入驻"></navBar>
 		<view class="img-box">
-			<image class="img" src="../../static/fail.jpg" mode="aspectFit"></image>
+			<image class="img" src="https://static.maxcang.com/appstatic/fail.jpg" mode="aspectFit"></image>
 		</view>
 		<view class="text-box">
 			<view class="text">店铺审核不通过!</view>
