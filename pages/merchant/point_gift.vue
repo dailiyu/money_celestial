@@ -8,7 +8,7 @@
 						赠送账号
 					</view>
 					<input v-model="address" class="uni-input" maxlength="11" text="number" placeholder="请输入手机号" placeholder-class="placeholder_class" />
-					<image  @click="toScanCode" src="@/static/scan.png" mode="widthFix" class="scan_pic" ></image>
+					<image  @click="toScanCode" src="https://static.maxcang.com/appstatic/scan.png" mode="widthFix" class="scan_pic" ></image>
 				</view>
 			</view>
 			<view class="shop_info">

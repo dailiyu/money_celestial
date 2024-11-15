@@ -2,7 +2,7 @@
 	<scroll-view @scrolltolower="dealScrolltolower"  :scroll-y="true" class="page">
 		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity"></navBarForIndex>
 		<!-- <view class="search_bar flex_between">
-			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>
+			<image src="https://static.maxcang.com/appstatic/locate.png" mode="widthFix" class="locate_img"></image>
 			<view class="location">
 				{{city?city:'定位中'}}
 			</view>
@@ -20,7 +20,7 @@
 		<view class="function_list flex_between">
 			<view class="function_item" @click="toMerchant">
 				<view class="img_box flex_center">
-					<image src="@/static/home/cart.png" mode="widthFix" class="img_item"></image>
+					<image src="https://static.maxcang.com/appstatic/home/cart.png" mode="widthFix" class="img_item"></image>
 				</view>
 				<view class="" >
 					商家
@@ -28,7 +28,7 @@
 			</view>
 			<view class="function_item" @click="toRecommend">
 				<view class="img_box flex_center">
-					<image src="@/static/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
+					<image src="https://static.maxcang.com/appstatic/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
 				</view>
 				<view class="">
 					推荐官
@@ -36,7 +36,7 @@
 			</view>
 			<view class="function_item" @click="toAgent">
 				<view class="img_box flex_center">
-					<image src="@/static/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
+					<image src="https://static.maxcang.com/appstatic/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
 				</view>
 				<view class="">
 					代理
@@ -45,7 +45,7 @@
 	
 			<view class="function_item" @click="toMyAccount">
 				<view class="img_box flex_center">
-					<image src="@/static/home/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
+					<image src="https://static.maxcang.com/appstatic/home/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
 				</view>
 				<view class="">
 					我的账户
@@ -61,7 +61,7 @@
 					</view>
 				</view>
 				<view class="cate_item" @click="toAllMerchant(0)">
-					<image src="@/static/home/all.png" mode="widthFix" class="cate_img"></image>
+					<image src="https://static.maxcang.com/appstatic/home/all.png" mode="widthFix" class="cate_img"></image>
 					<view class="">
 						全部类目
 					</view>
@@ -123,9 +123,9 @@
 			</swiper-item>
 		</swiper> -->
 		<!-- <view class="content">
-			<image src="@/static/home/shop.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="@/static/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="@/static/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="https://static.maxcang.com/appstatic/home/shop.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="https://static.maxcang.com/appstatic/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
+			<image src="https://static.maxcang.com/appstatic/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
 		</view> -->
 	</scroll-view>
 </template>

@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="商家" ></navBar>
 		<view class="content">
-			<image src="@/static/merchant/merchant-intro.jpg" mode="widthFix" class="merchant_intro"></image>
+			<image src="https://static.maxcang.com/appstatic/merchant/merchant-intro.jpg" mode="widthFix" class="merchant_intro"></image>
 			<view class="btn_full" @click="toNotice">
 				我要入驻
 			</view>

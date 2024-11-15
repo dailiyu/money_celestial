@@ -3,12 +3,12 @@
 		<navBar title="全部商铺"></navBar>
 		<view class="filter_list flex_between">
 			<view class="flex_center" style="flex: 1;">
-				<!-- <image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
+				<!-- <image src="https://static.maxcang.com/appstatic/category.png" mode="widthFix" class="type_pic"></image>
 				<view>
 					类目
 				</view> -->
 				<view class="" style="flex: 1;text-align: right;">
-					<image src="@/static/category.png" mode="widthFix" class="type_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/category.png" mode="widthFix" class="type_pic"></image>
 				</view>
 				<uni-data-select v-model="category" :localdata="range" placeholder="类目" :clear="false"
 					@change="changeRange"></uni-data-select>
@@ -24,12 +24,12 @@
 					距离
 				</view>
 				<view class="" @click="distance='asc'" v-if="distance=='desc'">
-					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill"></image>
-					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-active.png" mode="widthFix" class="arrow_fill"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-inactive.png" mode="widthFix" class="arrow_fill"></image>
 				</view>
 				<view class="" @click="distance='desc'" v-if="distance=='asc'">
-					<image src="@/static/arrow-inactive.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
-					<image src="@/static/arrow-active.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-inactive.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-active.png" mode="widthFix" class="arrow_fill" style="transform: rotate(180deg);"></image>
 				</view>
 			</view> -->
 		</view>

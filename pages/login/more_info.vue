@@ -12,7 +12,7 @@
 				</view>
 				<view class="flex_center" @click="chooseImg">
 					<image :src="imagePath" mode="aspectFill" class="head" ></image>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
 				</view>
 			</view>
 			<view class="info_item flex_between">
@@ -35,7 +35,7 @@
 					<view class="email">
 						{{gender?(gender=='male'?'男':'女'):'选择'}}
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
 				</view>
 			</view>
 			<view class="info_item flex_between" @click="openCalendar">
@@ -46,7 +46,7 @@
 					<view class="email">
 						{{birthday}}
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
 				</view>
 			</view>
 			<view class="info_item flex_between" style="flex: 1;" >

@@ -39,7 +39,7 @@ const generateQRCode = (url) => {
 .page {
 	height: 100vh;
 	// background-color: #FC5908;
-	background: url('@/static/my/code_bg.png') no-repeat;
+	background: url('https://static.maxcang.com/appstatic/my/code_bg.png') no-repeat;
 	background-size: 100% 100%;
 	.content {
 		padding: 84rpx 76rpx;

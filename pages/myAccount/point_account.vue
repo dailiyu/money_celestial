@@ -11,7 +11,7 @@
 						<view class="account" v-if="isVerified">
 							{{merchantCodeAccount?obscureString(merchantCodeAccount):''}}
 						</view>
-						<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+						<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 					</view>
 				</view>
 				<view class="list_item flex_between" @click="toBindAccount">
@@ -22,14 +22,14 @@
 						<view class="account">
 							{{address?obscureString(address):''}}
 						</view>
-						<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+						<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 					</view>
 				</view>
 				<!-- <view class="list_item flex_between" @click="toUnbindAccount">
 					<view class="">
 						解除绑定
 					</view>
-					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view> -->
 			</view>
 		</view>
