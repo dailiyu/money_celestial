@@ -8,7 +8,7 @@
 			</swiper-item>
 		</swiper>
 		<view class="shop_info" v-if="shopInfo.name">
-			<view class="info_item flex" @click="to_merchant_mangment">
+			<view class="info_item flex">
 				<image :src="shopInfo.avatar" mode="aspectFill" class="shop_head"></image>
 				<view class="" style="flex: 1;">
 					<view class="flex">
