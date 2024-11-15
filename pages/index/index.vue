@@ -1,5 +1,5 @@
 <template>
-	<view class="page">
+	<scroll-view @scrolltolower="dealScrolltolower"  :scroll-y="true" class="page">
 		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity"></navBarForIndex>
 		<!-- <view class="search_bar flex_between">
 			<image src="@/static/locate.png" mode="widthFix" class="locate_img"></image>
@@ -67,7 +67,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="merchant_box" v-if="shopLists?.name">
+			<view class="merchant_box" v-if="shopLists.length!==0">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
 						<text class="nearby">附近商家</text>
@@ -80,27 +80,24 @@
 					</view> -->
 				</view>
 				<view class="shop_list">
-					<view class="shop_item flex_between" @click="toDetail">
-						<image :src="shopLists.avatar" mode="aspectFill" class="shop_img"></image>
+					<view class="shop_item flex_between" v-for="(shop,index) in shopLists"  @click="toDetail(shop)">
+						<image :src="shop.avatar" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
 							<view class="shop_name">
-								{{shopLists?.name}}
+								{{shop?.name}}
 							</view>
 							<view class="shop_address flex">
-								<image src="@/static/locate_orange.png" mode="widthFix" class="address_img"></image>
-								<view class="" style="flex: 1;">
-									{{shopLists?.address}}
+								<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="address_img"></image>
+								<view class="" style="flex: 1;" @click.stop="openLocation(item)">
+									{{shop?.address}}
 								</view>
 							</view>
 						</view>
-						<!-- <view class="distance">
-							{{shopLists.ascShopList[0]?.distance/1000}}km
-						</view> -->
 					</view>
-					<view class="more" @click="toAllMerchant(0)">
-						点击查看更多
-					</view>
+					
 				</view>
+				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:14rpx 0;color: #777777;"  v-if="!hasNext">没有更多数据了</view>
+				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:10rpx 0;color: #385ed2;" v-else >上拉加载更多</view>
 			</view>
 		</view>
 		<!-- <view class="headline flex_between">
@@ -124,7 +121,7 @@
 			<image src="@/static/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
 			<image src="@/static/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
 		</view> -->
-	</view>
+	</scroll-view>
 </template>
 
 <script setup>
@@ -145,6 +142,8 @@ const publicStore=  usePublicStore()
 const userStore = useUserStore()
 const userInfo = ref()
 const shopInfo=ref()
+const curPage = ref(1);
+const hasNext = ref(false);
 const token = uni.getStorageSync('accessToken')
 onShow(async()=>{
 	// #ifdef MP-WEIXIN
@@ -186,7 +185,7 @@ onMounted(async()=>{
 	city.value=localCity
 	getCategory()
 	getBanner()
-	getShopLists()
+	getList()
 	// generateQRCode()
 })
 const city = ref('')
@@ -195,9 +194,9 @@ const getCity = (e)=>{
 	city.value = e.city
 	uni.setStorageSync('city',city.value)
 	console.log('当前选择的城市',city.value);
-	getShopLists()
+	getList()
 }
-const shopLists = ref({})
+const shopLists = ref([])
 
 
 const hiddenMask=()=>{
@@ -206,12 +205,44 @@ const hiddenMask=()=>{
 
 
 
-const getShopLists = async()=>{
+// const getShopLists = async()=>{
 	
-	const {results} = await getCityShopList({name: city.value})
-	shopLists.value = results[0]
-	console.log('切换城市获取到对应的商店列表',results );
+// 	const {results} = await getCityShopList({name: city.value})
+// 	shopLists.value = results[0]
+// 	console.log('切换城市获取到对应的商店列表',results );
+// }
+
+const getList = async()=>{
+	const city=uni.getStorageSync('city')
+	const params = ref({
+		category: '',
+		name:city,
+		page:curPage.value
+	})
+	uni.showLoading({
+		title: '加载中'
+	})
+	const {results,next} = await getCityShopList(params.value)
+	shopLists.value.push(...results)
+	if(!!next){
+		hasNext.value=true
+		curPage.value=curPage.value+1
+	}else{
+		hasNext.value=false
+	}
+	
+	uni.hideLoading()
 }
+
+const dealScrolltolower = async () => {
+  console.log(111) 
+	if (hasNext.value) {
+    await getList();
+  } else {
+    console.log('没有更多数据了');
+  }
+};
+
 const categoryList = ref([])
 const getCategory = async()=>{
 	const {results} = await getShopCategories()
@@ -253,13 +284,13 @@ const toMerchant =async () => {
 	//0 正在审核 1审核通过  -1审核不通过 
     if (userInfo.value?.is_seller&&shopInfo.value.state==1) {
         // 店铺已过审核
-        // uni.navigateTo({
-        //     url: '/pages/merchant/merchant_management'
-        // });
-		await uni.setStorageSync('selectedShopInfo',shopInfo.value)
-		  uni.navigateTo({
-		    url: '/pages/merchant/merchant_detail'
-		  });
+        uni.navigateTo({
+            url: '/pages/merchant/merchant_management'
+        });
+		// await uni.setStorageSync('selectedShopInfo',shopInfo.value)
+		//   uni.navigateTo({
+		//     url: '/pages/merchant/merchant_detail'
+		//   });
     } else if(!userInfo.value?.is_seller) {
         //还没成为商家
         uni.navigateTo({
@@ -382,8 +413,8 @@ const toMyAccount = ()=>{
 		url: '/pages/myAccount/myAccount'
 	})
 }
-const toDetail =async ()=>{
-	await uni.setStorageSync('selectedShopInfo',shopLists.value)
+const toDetail =async (shop)=>{
+	await uni.setStorageSync('selectedShopInfo',shop)
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_detail?city='+city.value
 	})
@@ -398,7 +429,7 @@ const toCityAgentRank = (item)=>{
 
 <style lang="scss" scoped>
 .page {
-	min-height: 100vh;
+	height: 100vh;
 	background-color: #FC5908;
 	
 }

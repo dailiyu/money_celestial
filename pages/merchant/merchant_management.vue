@@ -55,6 +55,10 @@
 					<view class="">商家码认证</view>
 					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
+				<view class="list_item flex_between" @click="toMerchantDetail">
+					<view class="">店铺详情</view>
+					<image src="@/static/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+				</view>
 				<!-- <view class="list_item flex_between" @click="toUploadGoods">
 					<view class="">
 						上传产品
@@ -131,6 +135,13 @@ onShow(async()=>{
 		}
 	}
 	
+
+	const toMerchantDetail=async()=>{
+		await uni.setStorageSync('selectedShopInfo',userStore.shopInfo)
+		  uni.navigateTo({
+		    url: '/pages/merchant/merchant_detail'
+		  });
+	}
 	
 	const toMerchantCodeVerify=()=>{
 		uni.navigateTo({
