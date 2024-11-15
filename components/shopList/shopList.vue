@@ -23,7 +23,7 @@
 				<view :class="['percentage', {'red':!item.consume2coin_bit||item.consume2coin_bit>100||item.consume2coin_bit==100, 'orange':item.consume2coin_bit&&item.consume2coin_bit<100}]">
 					<image src="https://static.maxcang.com/appstatic/merchant/hot.png" mode="widthFix" class="hot_pic" v-if="!item.consume2coin_bit||item.consume2coin_bit>100||item.consume2coin_bit==100"></image>
 					<view class="">
-						<text style="font-weight: bold;">{{item.consume2coin_bit||'100'}}</text>%赠送
+						<text style="font-weight: bold;font-size: 30rpx;">{{item.consume2coin_bit||'100'}}</text>%赠送
 					</view>
 				</view>
 				<!-- <view class="distance">
