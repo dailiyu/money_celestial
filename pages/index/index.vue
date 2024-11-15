@@ -80,7 +80,7 @@
 					</view> -->
 				</view>
 				<view class="shop_list">
-					<view class="shop_item flex_between" v-for="(shop,index) in shopLists"  @click="toDetail(shop)">
+					<view class="shop_item flex_between" v-for="(shop,index) in shopLists" :key="index"  @click="toDetail(shop)">
 						<image :src="shop.avatar" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
 							<view class="shop_name">
@@ -91,6 +91,12 @@
 								<view class="" style="flex: 1;" @click.stop="openLocation(item)">
 									{{shop?.address}}
 								</view>
+							</view>
+						</view>
+						<view :class="['percentage', {'red':!shop.consume2coin_bit||shop.consume2coin_bit>100||shop.consume2coin_bit==100, 'orange':shop.consume2coin_bit&&shop.consume2coin_bit<100}]">
+							<image src="https://static.maxcang.com/appstatic/merchant/hot.png" mode="widthFix" class="hot_pic" v-if="!shop.consume2coin_bit||shop.consume2coin_bit>100||shop.consume2coin_bit==100"></image>
+							<view class="">
+								<text style="font-weight: bold;">{{shop.consume2coin_bit||'100'}}</text>%赠送
 							</view>
 						</view>
 					</view>
@@ -181,7 +187,10 @@ onMounted(async()=>{
 		// await publicStore.fetchAllDataAction()
 		// await userStore.fetchAllDataAction()
 	// }
+	const userInfo = uni.getStorageSync('userInfo')
 	const localCity=uni.getStorageSync('city')
+	city.value=localCity
+	city.value=localCity||(userInfo.residence)?.split(' ')[1]||''
 	city.value=localCity
 	getCategory()
 	getBanner()
@@ -422,10 +431,16 @@ const toDetail =async (shop)=>{
 	})
 }
 const toCityAgentRank = (item)=>{
-	if (item.title !== 'agent-rank') return
-	uni.navigateTo({
-		url: '/pages/agent/city_agent_rank'
-	})
+	if (item.title == 'agent-rank') {
+		uni.navigateTo({
+			url: '/pages/agent/city_agent_rank'
+		})
+	}
+	else if (item.title == 'merchant-settle') {
+		uni.navigateTo({
+			url: '/pages/merchant/merchant_settle_process'
+		})
+	}
 }
 </script>
 
@@ -578,6 +593,26 @@ const toCityAgentRank = (item)=>{
 							width: 20rpx;
 							margin-right: 10rpx;
 						}
+					}
+				}
+				.percentage {
+					position: relative;
+					color: #fff;
+					font-size: 26rpx;
+					padding: 6rpx 18rpx;
+					border-radius: 100px;
+					// margin-top: 10rpx;
+					&.red {
+						background: linear-gradient(to bottom, #fd770b, #fb4706);
+					}
+					&.orange {
+						background: linear-gradient(to bottom, #ffbc15, #ff850d);
+					}
+					.hot_pic {
+						position: absolute;
+						left: -16rpx;
+						top: -24rpx;
+						width: 70rpx;
 					}
 				}
 				.distance {
