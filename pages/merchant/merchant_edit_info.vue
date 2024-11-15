@@ -53,7 +53,7 @@
 							所在地
 						</view>
 							<uni-data-picker
-												
+							                  readonly
 							                   v-model="curData"
 										      :localdata="cityData"
 											  :clear-icon='false'

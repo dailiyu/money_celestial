@@ -188,7 +188,9 @@ onMounted(async()=>{
 	city.value=localCity
 	getCategory()
 	getBanner()
+	shopLists.value=[]
 	getList()
+	console.log(city.value)
 	// generateQRCode()
 })
 const city = ref('')
@@ -197,6 +199,7 @@ const getCity = (e)=>{
 	city.value = e.city
 	uni.setStorageSync('city',city.value)
 	console.log('当前选择的城市',city.value);
+	shopLists.value=[]
 	getList()
 }
 const shopLists = ref([])
@@ -222,9 +225,9 @@ const getList = async()=>{
 		name:city,
 		page:curPage.value
 	})
-	uni.showLoading({
-		title: '加载中'
-	})
+	// uni.showLoading({
+	// 	title: '加载中'
+	// })
 	const {results,next} = await getCityShopList(params.value)
 	shopLists.value.push(...results)
 	if(!!next){
@@ -234,7 +237,7 @@ const getList = async()=>{
 		hasNext.value=false
 	}
 	
-	uni.hideLoading()
+	// uni.hideLoading()
 }
 
 const dealScrolltolower = async () => {
