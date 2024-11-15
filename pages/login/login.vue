@@ -2,15 +2,15 @@
 	<view>
 		<navBar title="用户登录" bgc="#1B46CC" :iconShow="false"></navBar>
 		<view class="content">
-			<image src="@/static/logo.png" mode="widthFix" class="logo"></image>
+			<image src="https://static.maxcang.com/appstatic/logo.png" mode="widthFix" class="logo"></image>
 			<uni-easyinput v-model="moblie" placeholder="请输入手机号" maxlength="11" :inputBorder="false" primaryColor="#1B46CC" type="number">
 				<template #left>
-					<image src="@/static/phone-grey.png" mode="widthFix" class="m_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/phone-grey.png" mode="widthFix" class="m_pic"></image>
 				</template>
 			</uni-easyinput>
 			<uni-easyinput v-model="password" placeholder="请输入密码" :inputBorder="false" type="password" primaryColor="#1B46CC">
 				<template #left>
-					<image src="@/static/lock-grey.png" mode="widthFix" class="m_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/lock-grey.png" mode="widthFix" class="m_pic"></image>
 				</template>
 			</uni-easyinput>
 			<view class="forget" >
@@ -24,7 +24,7 @@
 			</view>
 			// #ifdef MP-WEIXIN
 			<button class="wx_btn flex_center" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
-				<image src="@/static/wechat.png" mode="widthFix" class="wx_logo"></image>
+				<image src="https://static.maxcang.com/appstatic/wechat.png" mode="widthFix" class="wx_logo"></image>
 				<view class="">
 					微信一键登录
 				</view>

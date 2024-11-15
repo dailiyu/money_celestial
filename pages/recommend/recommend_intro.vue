@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="推荐官" ></navBar>
 		<view class="content">
-			<image src="@/static/recommend/recommend-intro.jpg" mode="widthFix" class="merchant_intro"></image>
+			<image src="https://static.maxcang.com/appstatic/recommend/recommend-intro.jpg" mode="widthFix" class="merchant_intro"></image>
 			<view class="btn_full" @click="toNext">
 				我要成为推荐官
 			</view>

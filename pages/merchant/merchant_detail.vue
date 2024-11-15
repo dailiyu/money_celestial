@@ -21,7 +21,7 @@
 					</view>
 					<view class="rate_box flex">
 						<view class="flex">
-							<image src="@/static/star.png" mode="widthFix" class="star_pic" v-for="(item, index) in 5" :key="index"></image>
+							<image src="https://static.maxcang.com/appstatic/star.png" mode="widthFix" class="star_pic" v-for="(item, index) in 5" :key="index"></image>
 						</view>
 						<view class="point">
 							5
@@ -31,11 +31,11 @@
 						{{shopInfo.description}}
 					</view>
 				</view>
-				<!-- <image src="@/static/star-plain.png" mode="widthFix" class="star_plain"></image> -->
+				<!-- <image src="https://static.maxcang.com/appstatic/star-plain.png" mode="widthFix" class="star_plain"></image> -->
 			</view>
 			<view class="info_item">
 				<view class="flex" style="margin-bottom: 25rpx;">
-					<image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic"></image>
 					<view class="address">
 						{{shopInfo.address}}
 					</view>
@@ -47,7 +47,7 @@
 					</view>
 				</view>
 				<view class="flex">
-					<image src="@/static/phone.png" mode="widthFix" class="phone_pic"></image>
+					<image src="https://static.maxcang.com/appstatic/phone.png" mode="widthFix" class="phone_pic"></image>
 					<view class="time_text" @click="dial">
 						联系方式：{{shopInfo?.tel||shopInfo.merchant}}
 					</view>

@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="增加积分" :isShow="true" :isSkip="true">
 			<template class="skip" #right>
-				<image src="@/static/record.png" mode="widthFix" class="record_pic" @click="toRecord"></image>
+				<image src="https://static.maxcang.com/appstatic/record.png" mode="widthFix" class="record_pic" @click="toRecord"></image>
 			</template>
 		</navBar>
 		<view class="content">
@@ -13,7 +13,7 @@
 				<view class="copy_text">
 					{{obscureString(address)}}
 				</view>
-				<image src="@/static/copy.png" mode="widthFix" class="copy_pic" @click="copy"></image>
+				<image src="https://static.maxcang.com/appstatic/copy.png" mode="widthFix" class="copy_pic" @click="copy"></image>
 			</view>
 			<view class="text_box">
 				<view class="">

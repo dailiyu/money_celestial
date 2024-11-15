@@ -2,7 +2,7 @@
 	<view>
 		<navBar title="代理" ></navBar>
 		<view class="content">
-			<image src="@/static/agent/agent-intro.jpg" mode="widthFix" class="merchant_intro"></image>
+			<image src="https://static.maxcang.com/appstatic/agent/agent-intro.jpg" mode="widthFix" class="merchant_intro"></image>
 			<view class="btn_full" @click="openPop">
 				申请代理
 			</view>
@@ -74,8 +74,6 @@ const submit = async()=>{
 .content {
 	position: relative;
 	padding-top: 60rpx;
-	// background: url('@/static/merchant-intro.jpg') no-repeat;
-	// background-size: 100% 100%;
 	padding: 0;
 	.merchant_intro {
 		width: 100%;

@@ -66,7 +66,7 @@
 							具体位置
 						</view>
 						<input v-model="address" class="uni-input"  placeholder-class="placeholder_class" />
-						<!-- <image src="@/static/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
+						<!-- <image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
 					</view>
 				</view >
 			<!-- 	<view class="radio" @click="changeCheck">
