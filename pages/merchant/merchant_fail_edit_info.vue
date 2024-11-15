@@ -523,6 +523,9 @@ const range = computed(() => {
 		border-bottom: 1px solid #DDDDDD;
 		margin-bottom: 50rpx;
 	}
+	:deep(.uni-textarea-textarea){
+		color: #333;
+	}
 }
 .shop_info {
 	padding: 0 26rpx;
@@ -598,7 +601,7 @@ const range = computed(() => {
 		:deep(.uni-select__input-text) {
 			width: fit-content;
 			font-size: 24rpx;
-			color: #000;
+			color: #333;
 		}
 		:deep(.uni-select__input-placeholder){
 			color: #999999;

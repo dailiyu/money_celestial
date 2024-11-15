@@ -44,8 +44,8 @@
 						营业时间
 					</view>
 					<view class="picker-box">
-						<picker class="time-picker" @change="changeStartTime"  mode="time" :style="{color:start_time=='00:00'?'#999':'#000'}">{{start_time||'开店时间'}}</picker>一
-						<picker class="time-picker" @change="changeEndTime"   mode="time" :style="{color:end_time=='00:00'?'#999':'#000'}">{{end_time||'关店时间'}}</picker>
+						<picker class="time-picker" @change="changeStartTime"  mode="time" :style="{color:start_time=='00:00'?'#999':'#333'}">{{start_time||'开店时间'}}</picker>一
+						<picker class="time-picker" @change="changeEndTime"   mode="time" :style="{color:end_time=='00:00'?'#999':'#333'}">{{end_time||'关店时间'}}</picker>
 					</view>
 				</view>
 					<view class="info_item flex_between" style="flex: 1;"  @click="forbiddenTips">
@@ -508,6 +508,9 @@ const range = computed(() => {
 		border-bottom: 1px solid #DDDDDD;
 		margin-bottom: 50rpx;
 	}
+	:deep(.uni-textarea-textarea){
+		color: #333;
+	}
 }
 .shop_info {
 	padding: 0 26rpx;
@@ -516,7 +519,7 @@ const range = computed(() => {
 	.info_item {
 		padding: 40rpx 8rpx 40rpx 0;
 		border-bottom: 1px solid #E3E3E3;
-
+		
 		.picker-box{
 				display: flex;
 				width: 400rpx;
@@ -584,11 +587,12 @@ const range = computed(() => {
 		:deep(.uni-select__input-text) {
 			width: fit-content;
 			font-size: 24rpx;
-			color: #000000;
+			color: #333;
 		}
 		:deep(.uni-select__input-placeholder){
 			color: #999999;
 		}
+		
 	}
 	
 }
