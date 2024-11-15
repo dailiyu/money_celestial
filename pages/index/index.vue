@@ -88,7 +88,7 @@
 							</view>
 							<view class="shop_address flex">
 								<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="address_img"></image>
-								<view class="" style="flex: 1;" @click.stop="openLocation(item)">
+								<view class="" style="flex: 1;" @click.stop="openLocation(shop)">
 									{{shop?.address}}
 								</view>
 							</view>
@@ -450,6 +450,18 @@ const toCityAgentRank = (item)=>{
 		})
 	}
 }
+const openLocation = (item)=>{
+	// #ifdef MP-WEIXIN
+	if (!item.latitude || !item.longitude) return uni.showToast({
+		icon: 'none',
+		title: '获取位置失败'
+	})
+	uni.openLocation({
+		latitude: item.latitude,
+		longitude: item.longitude
+	})
+	// #endif
+}
 </script>
 
 <style lang="scss" scoped>
@@ -580,6 +592,7 @@ const toCityAgentRank = (item)=>{
 			.shop_item {
 				padding: 20rpx 0;
 				border-bottom: 1px solid #e1e1e1;
+				align-items: flex-start;
 				.shop_img {
 					width: 114rpx;
 					height: 114rpx;
@@ -606,7 +619,7 @@ const toCityAgentRank = (item)=>{
 				.percentage {
 					position: relative;
 					color: #fff;
-					font-size: 26rpx;
+					font-size: 22rpx;
 					padding: 6rpx 18rpx;
 					border-radius: 100px;
 					// margin-top: 10rpx;
@@ -619,7 +632,7 @@ const toCityAgentRank = (item)=>{
 					.hot_pic {
 						position: absolute;
 						left: -16rpx;
-						top: -24rpx;
+						top: -20rpx;
 						width: 70rpx;
 					}
 				}

@@ -66,7 +66,9 @@
 							具体位置
 						</view>
 						<input v-model="address" class="uni-input"  placeholder-class="placeholder_class" />
-						<!-- <image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
+						// #ifdef MP-WEIXIN
+						<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image>
+						// #endif
 					</view>
 				</view >
 			<!-- 	<view class="radio" @click="changeCheck">
@@ -378,6 +380,8 @@ const range = computed(() => {
 
 
 
+	const lat = ref('')
+	const lon = ref('')
 	const address = ref('')
 	const getLocation = () => {
 		uni.chooseLocation({
@@ -385,7 +389,7 @@ const range = computed(() => {
 				lat.value = res.latitude
 				lon.value = res.longitude
 				address.value = res.address + res.name
-
+		
 			}
 		})
 	}

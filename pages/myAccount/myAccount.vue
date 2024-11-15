@@ -311,7 +311,7 @@ const formatPhoneNumber=(phoneNumber)=>{
 			margin: 0 32rpx;
 
 			.profile {
-				width: 750rpx;
+				// width: 750rpx;
 				display: flex;
 				align-items: center;
 
