@@ -24,9 +24,9 @@
 			</view>
 			// #ifdef MP-WEIXIN
 			<button class="wx_btn flex_center" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
-				<image src="https://static.maxcang.com/appstatic/wechat.png" mode="widthFix" class="wx_logo"></image>
+				<!-- <image src="https://static.maxcang.com/appstatic/wechat.png" mode="widthFix" class="wx_logo"></image> -->
 				<view class="">
-					微信一键登录
+					一键获取手机号
 				</view>
 			</button>
 			// #endif

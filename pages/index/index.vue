@@ -96,7 +96,7 @@
 						<view :class="['percentage', {'red':!shop.consume2coin_bit||shop.consume2coin_bit>100||shop.consume2coin_bit==100, 'orange':shop.consume2coin_bit&&shop.consume2coin_bit<100}]">
 							<image src="https://static.maxcang.com/appstatic/merchant/hot.png" mode="widthFix" class="hot_pic" v-if="!shop.consume2coin_bit||shop.consume2coin_bit>100||shop.consume2coin_bit==100"></image>
 							<view class="">
-								<text style="font-weight: bold;font-size: 26rpx;">{{shop.consume2coin_bit||'100'}}</text>%赠送
+								<text style="font-weight: bold;font-size: 28rpx;">{{shop.consume2coin_bit||'100'}}</text>%赠送
 							</view>
 						</view>
 					</view>
@@ -617,8 +617,8 @@ const openLocation = (item)=>{
 				.percentage {
 					position: relative;
 					color: #fff;
-					font-size: 22rpx;
-					padding: 6rpx 18rpx;
+					font-size: 20rpx;
+					padding: 4rpx 18rpx 4rpx 14rpx;
 					border-radius: 100px;
 					// margin-top: 10rpx;
 					&.red {

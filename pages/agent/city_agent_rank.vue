@@ -62,16 +62,18 @@ onMounted(async()=>{
 		bottom: 0;
 		left: 0;
 		right: 0;
-		height: calc(100vh - 770rpx);
+		height: calc(100vh - 730rpx);
 		overflow: hidden;
 		overflow-y: scroll;
 		.desc {
 			font-size: 28rpx;
 			color: #FFFFFF;
-			margin-bottom: 20rpx;
+			margin-bottom: 14rpx;
 			font-weight: bold;
 		}
 		.titles {
+			position: sticky;
+			top: 0;
 			font-size: 36rpx;
 			color: #A80205;
 			font-weight: bold;
@@ -82,19 +84,20 @@ onMounted(async()=>{
 				background-color: #F7E3AA;
 				border-radius: 20rpx;
 				margin-right: 14rpx;
-				padding: 18rpx 0;
+				padding: 14rpx 0;
 			}
 			.title_status {
 				flex: 4;
 				background-color: #F7E3AA;
 				border-radius: 20rpx;
-				padding: 18rpx 0;
+				padding: 14rpx 0;
 			}
 		}
 		.list_box {
 			padding: 20rpx 40rpx;
 			.list_item {
 				line-height: 64rpx;
+				font-weight: bold;
 				.list_city {
 					flex: 3;
 					font-size: 32rpx;
@@ -104,7 +107,7 @@ onMounted(async()=>{
 					flex: 4;
 					font-size: 34rpx;
 					color: #F7E3AA;
-					font-weight: bold;
+					
 				}
 			}
 		}
