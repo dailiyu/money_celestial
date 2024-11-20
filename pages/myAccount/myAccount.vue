@@ -73,6 +73,12 @@
 								密码安全
 							</view>
 					</view>
+					<view class="service_item" @click="toPointCode">
+							<image src="https://static.maxcang.com/appstatic/my/qrcode.png" mode="widthFix" class="service_pic"></image>
+							<view class="">
+								积分码
+							</view>
+					</view>
 				<!-- 	<view class="service_item" @click="toPointsRedemptionVoucher">
 							<image src="https://static.maxcang.com/appstatic/my/exchange_voucher.jpg" mode="widthFix" class="service_pic"></image>
 							<view class="">
@@ -216,6 +222,13 @@ const toSafety=()=>{
 		url:'/pages/myAccount/safety'
 	})
 }
+
+const toPointCode=()=>{
+	uni.navigateTo({
+					url: '/pages/myAccount/point_code'
+				})
+}
+
 
 const  toPointsRedemptionVoucher=()=>{
 	uni.navigateTo({
@@ -433,11 +446,13 @@ const formatPhoneNumber=(phoneNumber)=>{
 					}
 				}
 				.service_bottom {
-					padding-left: 26rpx;
+					display: flex;
+					justify-content: space-around;
+					align-items: center;
 					.service_item {
 						font-size: 21rpx;
 						text-align: center;
-						margin-right: 60rpx;
+						
 						.service_pic {
 							width: 84rpx;
 							height: 84rpx;

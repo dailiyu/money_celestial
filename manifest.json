@@ -89,10 +89,14 @@
             "minified" : true
         },
         "usingComponents" : true,
+		"requiredPrivateInfos" : [ "chooseLocation", "getLocation" ],
         "permission" : {
             "scope.userLocation" : {
                 "desc" : "获取当前城市"
-            }
+            },
+			"scope.chooseLocation" : {
+			    "desc" : "获取当前城市"
+			}
         }
     },
     "mp-alipay" : {

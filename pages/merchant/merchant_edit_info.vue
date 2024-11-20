@@ -66,9 +66,10 @@
 						<view class="s_title">
 							具体位置
 						</view>
-						<input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
+						<!-- <input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" /> -->
+						<view @click="forbiddenTip" class="uni-input">{{ address }}</view>
 						// #ifdef MP-WEIXIN
-						<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image>
+						<!-- <image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
 						// #endif
 					</view>
 				</view >
@@ -209,8 +210,8 @@
 	const businessRange = ref()
 	const code = ref('')
 	const curData=ref()
-	const end_time=ref('00:00')
-	const start_time=ref('00:00')
+	const end_time=ref('10:00')
+	const start_time=ref('22:00')
 	const phone_number=ref('')
 	const successBannerImgPaths = ref([])
 	const successProfileImgPaths = ref([])
@@ -235,7 +236,6 @@ onMounted(async()=>{
 	 successAuthfileImgPaths.value=authfileImages
 	console.log('---------',successDetailImgPaths.value,successProfileImgPaths.value,successBannerImgPaths.value);
 	console.log(findValueByText(shopInfo.city.name));		
-	console.log(cityDataJson);
 	console.log("本地获取到的商铺信息",shopInfo);
 })
 
@@ -276,7 +276,12 @@ const onChange = (e) => {
 }
 
 
-
+const forbiddenTip=()=>{
+	uni.showToast({
+		title:'不允许修改！',
+		icon:'none'
+	})
+}
 
 
 const range = computed(() => {
@@ -380,16 +385,17 @@ const range = computed(() => {
 	const lat = ref('')
 	const lon = ref('')
 	const address = ref('')
-	const getLocation = () => {
-		uni.chooseLocation({
-			success(res) {
-				lat.value = res.latitude
-				lon.value = res.longitude
-				address.value = res.address + res.name
-
-			}
-		})
-	}
+	const getLocation = async () => {
+  console.log(111);
+  try {
+    const res = await uni.chooseLocation();
+    lat.value = res.latitude;
+    lon.value = res.longitude;
+    address.value = res.address + res.name;
+  } catch (err) {
+    console.error('获取位置失败', err);
+  }
+};
 
 
 	const saveStoreInfo = async () => {
