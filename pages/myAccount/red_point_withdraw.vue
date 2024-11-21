@@ -129,15 +129,40 @@ const toAgreement = ()=>{
 	})
 }
 
-const scanQRCode = ()=>{
-	uni.scanCode({
-		onlyFromCamera: true,
-		scanType: ['qrCode'],
-		success(res) {
-			account.value = JSON.parse(res.result).data.accountId
-		}
-	})
-}
+const scanQRCode = () => {
+    uni.scanCode({
+        onlyFromCamera: true,
+        scanType: ['qrCode'],
+        success(res) {
+            try {
+                const walletAddress = JSON.parse(res.result).data.accountId;
+                const walletAddressRegex = /^Dn[a-zA-Z0-9]{47}$/; // 匹配 Dn 开头后跟 47 位数字或字母
+                
+                if (walletAddress && walletAddressRegex.test(walletAddress)) {
+                    account.value = walletAddress;
+                } else {
+                    uni.showToast({
+                        title: '请扫描正确的二维码',
+                        icon: 'none'
+                    });
+                }
+            } catch (error) {
+                uni.showToast({
+                    title: '无效的二维码',
+                    icon: 'none'
+                });
+            }
+        },
+        fail() {
+            uni.showToast({
+                title: '扫描失败，请重试',
+                icon: 'none'
+            });
+        }
+    });
+};
+
+
 </script>
 
 <style lang="scss" scoped>

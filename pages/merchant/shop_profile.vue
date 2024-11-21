@@ -45,7 +45,7 @@
 					<view class="h_title">
 						统一社会信用代码
 					</view>
-				  <input v-model="business_license" class="uni-input" placeholder="请输入统一社会信用代码" placeholder-class="placeholder_class" />
+				  <input v-model="business_license"  @blur="valiCreditCodedateInput" class="uni-input" placeholder="请输入统一社会信用代码" placeholder-class="placeholder_class" />
 			</view>
 		</view>
 		
@@ -285,6 +285,23 @@ const saveStoreInfo = async () => {
 	  }
 	};
 	
+	const valiCreditCodedateInput = () => {
+  const licenseValue = business_license.value.trim(); // 获取输入值并去除多余空格
+
+  // 检查是否为18位
+  if (licenseValue.length !== 18) {
+    uni.showToast({
+      title: '统一社会信用代码长度必须为18位',
+      icon: 'none',
+      duration: 2000
+    });
+    business_license.value = ''; // 清空输入或重置为合适值
+  } else {
+    business_license.value = licenseValue; // 确保输入被更新为修正后的值
+  }
+};
+
+
 </script>
 
 
