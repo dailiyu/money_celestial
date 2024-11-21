@@ -9,7 +9,7 @@
 				<image src="https://static.maxcang.com/appstatic/scan.png" mode="widthFix" class="a_pic" @click="scanQRCode"></image>
 			</view>
 			<view class="account_box">
-				<input v-model="account" class="uni-input" placeholder="请输入积分账号" placeholder-class="placeholder_class" />
+				<input v-model="account" class="uni-input" placeholder="请输入Dn开头的49位积分账号" placeholder-class="placeholder_class" />
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -82,6 +82,10 @@ const validPassword = ()=>{
 	if (!account.value) return uni.showToast({
 		icon:'none',
 		title: '请先输入积分账号'
+	})
+	if (account.value.length!==49) return uni.showToast({
+		icon:'none',
+		title: '请输入正确的积分账号'
 	})
 	if (!number.value) return uni.showToast({
 		icon: 'none',

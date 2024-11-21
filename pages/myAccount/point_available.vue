@@ -1,9 +1,9 @@
 <template>
 	<view>
-		<navBar title="可用积分"></navBar>
+		<navBar title="能量积分"></navBar>
 		<view class="content">
 			<view class="c_title">
-				当前可用积分
+				当前能量积分
 			</view>
 			<view class="number flex_center">
 				{{redPoint}}

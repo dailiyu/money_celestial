@@ -113,7 +113,7 @@ const to_merchant_mangment=async()=>{
 // }
 const dial = ()=>{
 	uni.makePhoneCall({
-		phoneNumber: shopInfo.value.merchant
+		phoneNumber: shopInfo.value.tel
 	})
 }
 const openLocation = (item)=>{
