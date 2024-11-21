@@ -9,7 +9,7 @@
 				<image src="https://static.maxcang.com/appstatic/scan.png" mode="widthFix" class="a_pic" @click="scanQRCode"></image>
 			</view>
 			<view class="account_box">
-				<input v-model="account" class="uni-input" placeholder="请输入Dn开头的49位积分账号" placeholder-class="placeholder_class" />
+				<textarea v-model="account" class="uni-input" placeholder="请输入Dn开头的49位积分账号" placeholder-class="placeholder_class" auto-height></textarea>
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -157,7 +157,7 @@ const scanQRCode = ()=>{
 	color: #999999;
 	background-color: #fff;
 	margin-bottom: 30rpx;
-	text-align: center;
+	// text-align: center;
 }
 .shop_info {
 	padding: 0 26rpx;

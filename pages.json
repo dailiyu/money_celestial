@@ -616,6 +616,14 @@
 				"navigationBarTitleText" : "入驻审核标准",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/myAccount/exchange_point_banner_detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
 		}
 		
 	],
