@@ -34,8 +34,8 @@
 			</view> -->
 		</view>
 		<view class="content">
-			<view class="settle_box flex_between">
-				<view class="c_text">
+			<view class="settle_box flex_between" v-if="rollingMerchantsList">
+				<view class="c_text"  >
 					<text>
 						恭喜【<text class="company">{{ rollingMerchantsList.name }}</text>】成功入驻
 					</text>

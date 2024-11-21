@@ -168,21 +168,21 @@ onShow(async()=>{
 	shopInfo.value=await uni.getStorageSync('shopInfo')
 	
 	// #ifdef APP-PLUS
-	let versionInfo =  await getUpdateMessage();
-	console.log(versionInfo);
-	console.log(uni.getSystemInfoSync().appVersionCode)
+	// let versionInfo =  await getUpdateMessage();
+	// console.log(versionInfo);
+	// console.log(uni.getSystemInfoSync().appVersionCode)
 	
-	if(versionInfo.version>uni.getSystemInfoSync().appVersionCode){
-		uni.showModal({
-			title:"当前有新版本，请点击更新",
-			confirmText:"立即更新",
-			success: (e) => {
-				if(e.confirm){
-					plus.runtime.openURL(versionInfo.url);
-				}
-			}
-		})
-	}
+	// if(versionInfo.version>uni.getSystemInfoSync().appVersionCode){
+	// 	uni.showModal({
+	// 		title:"当前有新版本，请点击更新",
+	// 		confirmText:"立即更新",
+	// 		success: (e) => {
+	// 			if(e.confirm){
+	// 				plus.runtime.openURL(versionInfo.url);
+	// 			}
+	// 		}
+	// 	})
+	// }
 	// #endif
 	
 })
