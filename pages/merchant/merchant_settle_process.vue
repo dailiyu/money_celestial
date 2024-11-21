@@ -18,5 +18,6 @@
 <style lang="scss" scoped>
 .pic {
 	width: 100%;
+	display: block;
 }
 </style>

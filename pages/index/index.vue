@@ -447,6 +447,10 @@ const toCityAgentRank = (item)=>{
 		uni.navigateTo({
 			url: '/pages/merchant/merchant_settle_process'
 		})
+	} else if (item.title == 'exchange-point') {
+		uni.navigateTo({
+			url: '/pages/myAccount/exchange_point_banner_detail'
+		})
 	}
 }
 const openLocation = (item)=>{
