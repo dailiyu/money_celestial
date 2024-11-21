@@ -208,8 +208,8 @@
 	const businessRange = ref()
 	const code = ref('')
 	const curData=ref()
-	const end_time=ref('00:00')
-	const start_time=ref('00:00')
+	const end_time=ref('10:00')
+	const start_time=ref('22:00')
 	const phone_number=ref('')
 	const successBannerImgPaths = ref([])
 	const successProfileImgPaths = ref([])
@@ -389,7 +389,10 @@ const range = computed(() => {
 				lat.value = res.latitude
 				lon.value = res.longitude
 				address.value = res.address + res.name
-		
+				const addressObj = extractProvinceAndCity(res.address);
+				selectedProvince.value = addressObj.province || "";
+				selectedCity.value = addressObj.city || "";
+				curData.value = findValueByText( selectedCity.value);
 			}
 		})
 	}
@@ -503,7 +506,28 @@ const range = computed(() => {
 		  }
 		};
 	
-	
+	const extractProvinceAndCity = (address) => {
+  // 匹配全国的省、自治区、特别行政区、市、地区、自治州、盟、县、自治县、旗、自治旗
+  const regex =
+    /(.*?(省|自治区|特别行政区))?(.*?(市|地区|自治州|盟|县|自治县|旗|自治旗))/;
+  const match = address.match(regex);
+
+  if (match) {
+    let province = match[1] || ""; // 提取省、自治区、特别行政区
+    let city = match[3] || ""; // 提取市、地区、自治州、盟、县、自治县等
+
+    // 特殊处理直辖市
+    const directCities = ["北京市", "上海市", "天津市", "重庆市"];
+    if (directCities.includes(city)) {
+      province = city; // 直辖市的省和市相同
+    }
+
+    return { province: province.trim(), city: city.trim() };
+  }
+
+  return { province: "", city: "" }; // 如果无法匹配，返回空值
+};
+
 	
 	
 </script>

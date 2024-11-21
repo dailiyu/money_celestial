@@ -89,6 +89,7 @@
 
 
 	const scanCode = async () => {
+
 		uni.scanCode({
 			onlyFromCamera: true, // 只允许从摄像头扫码
 			success: async (res) => {

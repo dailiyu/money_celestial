@@ -34,16 +34,16 @@
 			</view> -->
 		</view>
 		<view class="content">
-		<!-- 	<view class="settle_box flex_between">
+			<view class="settle_box flex_between">
 				<view class="c_text">
 					<text>
-						恭喜【<text class="company">佛山英朗电器有限公司</text>】成功入驻
+						恭喜【<text class="company">{{ rollingMerchantsList.name }}</text>】成功入驻
 					</text>
 				</view>
-				<view class="s_text" @click="toSettle">
+				<!-- <view class="s_text" @click="toSettle">
 					我要入驻
-				</view>
-			</view> -->
+				</view> -->
+			</view>
 			<shopList :list="shopLists"></shopList>
 		</view>
 		<view class="load-more" @click="loadMore"  v-if="hasNext">
@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted,onUnmounted, ref } from 'vue';
 import { getShopList } from '@/service/shop';
 import { getShopCategories, getCityShopList } from '@/service/shop.js';
 import { onLoad } from '@dcloudio/uni-app'
@@ -61,7 +61,9 @@ const categoryId = ref('');
 const range = ref([]);
 const curPage = ref(1);
 const hasNext = ref(false);
-
+const shopLists = ref([])
+const rollingMerchantsList = ref(null);
+let interval = null;
 
 onLoad((options) => {
    categoryId.value = options.id == 0 ? '' : options.id;
@@ -81,10 +83,41 @@ onMounted(async () => {
   }));
 
   range.value = [{ text: "全部", value: '', disable: false }, ...dealData];
-  getList();
+  await getList();
+  startRolling()
 });
 
-const shopLists = ref([])
+onUnmounted(() => {
+	stopRolling
+});
+
+
+
+
+// 独立的启动定时器函数
+const startRolling = () => {
+  if (interval) clearInterval(interval); // 确保没有重复定时器
+  interval = setInterval(() => {
+    if (shopLists.value.length > 0) {
+      // 如果不足10个，取全部；否则取前10个
+      const availableList = shopLists.value.length <= 10
+        ? shopLists.value
+        : shopLists.value.slice(0, 10);
+      // 随机选取一个
+      rollingMerchantsList.value = availableList[Math.floor(Math.random() * availableList.length)];
+    }
+  }, 3000); // 每隔3秒
+};
+
+// 独立的停止定时器函数
+const stopRolling = () => {
+  if (interval) {
+    clearInterval(interval);
+    interval = null;
+  }
+};
+
+
 const getList = async()=>{
 	const city=uni.getStorageSync('city')
 	const params = ref({

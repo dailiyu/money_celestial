@@ -1,5 +1,5 @@
 <template>
-	<scroll-view @scrolltolower="dealScrolltolower"  :scroll-y="true" class="page">
+	<scroll-view   :scroll-y="true" class="page">
 		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity"></navBarForIndex>
 		<!-- <view class="search_bar flex_between">
 			<image src="https://static.maxcang.com/appstatic/locate.png" mode="widthFix" class="locate_img"></image>
@@ -79,7 +79,7 @@
 						我要入驻
 					</view> -->
 				</view>
-				<view class="shop_list">
+				<scroll-view   :show-scrollbar="false" @scrolltolower="dealScrolltolower"  :scroll-y="true" class="shop_list">
 					<view class="shop_item flex_between" v-for="(shop,index) in shopLists" :key="index"  @click="toDetail(shop)">
 						<image :src="shop.avatar" mode="aspectFill" class="shop_img"></image>
 						<view class="shop_info">
@@ -101,7 +101,7 @@
 						</view>
 					</view>
 					
-				</view>
+				</scroll-view >
 				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:10rpx 0;color: #385ed2;" v-if="hasNext" >上拉加载更多</view>
 			</view>
 		</view>
@@ -586,7 +586,12 @@ const openLocation = (item)=>{
 				border-radius: 100px;
 			}
 		}
+	
+		
 		.shop_list {
+			$device-width: 750;
+			height: calc(100vh - 790rpx); 
+			overflow-y: scroll;
 			.shop_item {
 				padding: 20rpx 0;
 				border-bottom: 1px solid #e1e1e1;
