@@ -36,7 +36,7 @@
 				</view>
 				<view class="item" @click="toPointAvailable">
 					<image class="img" src="https://static.maxcang.com/appstatic/my/available_credits.png"></image>
-					<text class="text">可用积分</text>
+					<text class="text">能量积分</text>
 					<div class="text number">{{red_points}}</div>
 				</view>
 				// #ifndef MP-WEIXIN
