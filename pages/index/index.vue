@@ -210,6 +210,7 @@ const getCity = (e)=>{
 	city.value = e.city
 	uni.setStorageSync('city',city.value)
 	console.log('当前选择的城市',city.value);
+	curPage.value=1
 	shopLists.value=[]
 	getList()
 }

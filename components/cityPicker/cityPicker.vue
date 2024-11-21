@@ -8,7 +8,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import cityDataMp from '@/static/cityDataMp.js';
+import cityDataMp from '/static/cityDataMp.js';
+console.log(cityDataMp,0);
 const cityData = ref([cityDataMp?.data, cityDataMp?.data[0].cityData])
 const emit = defineEmits(['changeCity']);
 const selectedCity = ref('')

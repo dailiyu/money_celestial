@@ -52,7 +52,6 @@ function extractIdFromUrl(url) {
 const extractCityName=(location)=> {
   // 使用空格分割字符串，获取最后一个部分（市名）
   const parts = location.split(' ');
-  
   // 返回最后一个元素，假设市名总是最后一部分
   return parts[parts.length - 1];
 }

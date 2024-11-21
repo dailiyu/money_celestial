@@ -192,7 +192,8 @@ const saveMessage=async()=>{
 	const phoneNumber=uni.getStorageSync('phoneNumber')
 	 changeUserInfo({phone_number:phoneNumber,name:name.value||'',icon:uploadSuccessUrl.value||'',gender:gender.value||'male',birthdate:birthday.value||'2024-10-09',residence: selectedProvince.value+' '+selectedCity.value||''}).then((res)=>{
 		
-		uni.setStorageSync('保存的最新用户信息',res)
+		console.log(res);
+		uni.setStorageSync('userInfo',res)
 		uni.hideLoading()
 		  uni.showToast({
 		  	duration:1000,
