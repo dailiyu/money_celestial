@@ -151,6 +151,7 @@ defineExpose({
 .item {
   margin-left: 20rpx;
   margin-bottom: 10rpx;
+  font-size: 30rpx;
 }
 
 .highlight {

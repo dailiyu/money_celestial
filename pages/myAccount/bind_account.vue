@@ -74,6 +74,7 @@ const confirm = async ()=>{
 			icon: 'none',
 			title: '绑定成功'
 		})
+		uni.navigateBack()
 	}catch(e){
 		uni.showToast({
 			icon: 'none',

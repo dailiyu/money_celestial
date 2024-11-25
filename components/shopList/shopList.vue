@@ -13,7 +13,7 @@
 							5
 						</view>
 					</view>
-					<view class="flex">
+					<view class="flex" style="align-items: flex-start;">
 						<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="location_pic"></image>
 						<view class="district" @click.stop="openLocation(item)">
 							{{item.address}}
