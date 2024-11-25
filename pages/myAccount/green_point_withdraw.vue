@@ -3,13 +3,16 @@
 		<navBar title="提取积分"></navBar>
 		<view class="content">
 			<view class="a_title flex_between">
-				<view class="">
-					积分账号
+				<view class="flex_center">
+					<view class="">
+						积分账号
+					</view>
+					<image src="https://static.maxcang.com/appstatic/my/tips.png" mode="widthFix" class="tip_pic" @click="openPop"></image>
 				</view>
 				<image src="https://static.maxcang.com/appstatic/scan.png" mode="widthFix" class="a_pic" @click="scanQRCode"></image>
 			</view>
 			<view class="account_box">
-				<textarea v-model="account" class="uni-input" placeholder="请输入Dn开头的49位积分账号" placeholder-class="placeholder_class" auto-height></textarea>
+				<textarea v-model="account" class="uni-input" placeholder="请输入Dn开头的49位积分账号或扫描接收码" placeholder-class="placeholder_class" auto-height></textarea>
 			</view>
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -45,6 +48,7 @@
 			</view>
 		</view>
 		<validatePasswordPop @confirm="confirm" ref="passwordPop"></validatePasswordPop>
+		<scanStepPop ref="stepPop"></scanStepPop>
 	</view>
 </template>
 
@@ -119,7 +123,8 @@ const confirm = async()=>{
 	}catch(e){
 		uni.showToast({
 			icon: 'none',
-			title: e.data.error
+			title: e.data.error,
+			duration: 2000
 		})
 	}
 	
@@ -163,17 +168,24 @@ const scanQRCode = () => {
     });
 };
 
-
+const stepPop = ref()
+const openPop = ()=>{
+	stepPop.value.open()
+}
 </script>
 
 <style lang="scss" scoped>
 .a_title {
 	font-size: 27rpx;
-	padding: 22rpx 35rpx;
+	padding: 22rpx 26rpx;
 	.a_pic {
 		width: 32rpx;
 		height: 1rpx;
 		display: block;
+	}
+	.tip_pic {
+		width: 26rpx;
+		margin-left: 16rpx;
 	}
 }
 .account_box {
