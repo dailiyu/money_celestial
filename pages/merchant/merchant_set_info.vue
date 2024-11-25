@@ -39,15 +39,17 @@
             <picker
               class="time-picker"
               @change="changeStartTime"
-              mode="time"
+              mode="multiSelector"
               :style="{ color: start_time == '00:00' ? '#999' : '#333' }"
+			  :range="timeRange"
               >{{ start_time || "开店时间" }}</picker
             >一
             <picker
               class="time-picker"
               @change="changeEndTime"
-              mode="time"
+              mode="multiSelector"
               :style="{ color: end_time == '00:00' ? '#999' : '#333' }"
+			  :range="timeRange"
               >{{ end_time || "关店时间" }}</picker
             >
           </view>
@@ -208,12 +210,16 @@ const changeRange = (e) => {
   console.log(e);
 };
 
+const timeRange = ref([
+    ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
+    ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']
+])
 const changeStartTime = (event) => {
-  start_time.value = event.detail.value;
+  start_time.value = timeRange.value[0][event.detail.value[0]] + ':' + timeRange.value[1][event.detail.value[1]];
 };
 
 const changeEndTime = (event) => {
-  end_time.value = event.detail.value;
+  end_time.value = timeRange.value[0][event.detail.value[0]] + ':' + timeRange.value[1][event.detail.value[1]];
 };
 
 const findValueByText = (text) => {

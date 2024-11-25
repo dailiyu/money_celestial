@@ -98,7 +98,7 @@ const submit = async()=>{
 		margin-bottom: 80rpx;
 		text-align: center;
 	}
-	:deep(uni-input) {
+	:deep(input) {
 		height: 76rpx;
 		background-color: #f8f8f8;
 		border-radius: 100px;
