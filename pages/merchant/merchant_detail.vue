@@ -209,7 +209,7 @@ const openLocation = (item)=>{
 			color: #999999;
 		}
 		.phone_pic {
-			width: 20rpx;
+			width: 21rpx;
 			margin-right: 10rpx;
 		}
 	}

@@ -1,8 +1,8 @@
 <template>
-    <navBar title="关于我们"></navBar>
+    <navBar title="更新日志"></navBar>
         <view class="update-page" style="background-color: #fff; margin: 22rpx 24rpx;">
       <view class="header">
-        尊敬的满仓用户：
+        满仓2.7.0更新日志：
       </view>
       <view class="content">
         <view class="section">
@@ -53,6 +53,7 @@
     font-size: 36rpx;
     font-weight: bold;
     margin-bottom: 20rpx;
+    color: #FC5908;
   }
   
   .content {
@@ -71,6 +72,7 @@
     font-size: 30rpx;
     font-weight: bold;
     margin-bottom: 10rpx;
+    color: #FC5908;
   }
   
   .item {
@@ -84,7 +86,7 @@
   }
   
   .footer {
-    margin-top: 30rpx;
+    margin-top: 100rpx;
     font-size: 28rpx;
     color: #888;
   }
