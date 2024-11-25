@@ -35,7 +35,7 @@
 					<view class="s_title">
 						联系方式
 					</view>
-					<input v-model="phone_number" class="uni-input" placeholder="请输入联系手机号"
+					<input v-model="phone_number" @blur="valiPhoneNumberInput" class="uni-input" placeholder="请输入联系手机号"
 						placeholder-class="placeholder_class" />
 						
 				</view>
@@ -223,8 +223,8 @@ onMounted(async()=>{
 	business_license.value=shopInfo.license_no
 	proportion_gift.value=shopInfo.consume2coin_bit
 	address.value=shopInfo.address
-	start_time.value=shopInfo.business_time1
-	end_time.value=shopInfo.business_time2
+	start_time.value=shopInfo.business_time1||'00:00'
+	end_time.value=shopInfo.business_time2||'00:00'
 	phone_number.value=shopInfo.tel
 	curData.value=findValueByText(shopInfo.city)
 	selectedCity.value=shopInfo.city
@@ -530,7 +530,6 @@ const range = computed(() => {
 
 const valiCreditCodedateInput = () => {
   const licenseValue = business_license.value.trim(); // 获取输入值并去除多余空格
-
   // 检查是否为18位
   if (licenseValue.length !== 18) {
     uni.showToast({
@@ -545,6 +544,23 @@ const valiCreditCodedateInput = () => {
 };
 
 	
+const valiPhoneNumberInput = () => {
+	console.log(1111);
+	
+  const telValue = phone_number.value.trim(); // 获取输入值并去除多余空格
+  // 检查是否为11位
+  if (telValue.length !== 11) {
+    uni.showToast({
+      title: '请输入正确手机号',
+      icon: 'none',
+      duration: 2000
+    });
+    phone_number.value = ''; // 清空输入或重置为合适值
+  } else {
+    phone_number.value = telValue; // 确保输入被更新为修正后的值
+  }
+};
+
 </script>
 <style lang="scss" scoped>
 .head_box {

@@ -27,6 +27,7 @@
           <view class="s_title"> 联系方式 </view>
           <input
             v-model="phone_number"
+            @blur="valiPhoneNumberInput"
             class="uni-input"
             placeholder="请输入联系手机号"
             placeholder-class="placeholder_class"
@@ -315,6 +316,22 @@ const toAgreement = () => {
     url: "/pages/merchant/merchant_settle_agreement",
   });
 };
+
+const valiPhoneNumberInput = () => {
+  const telValue = phone_number.value.trim(); // 获取输入值并去除多余空格
+  // 检查是否为11位
+  if (telValue.length !== 11) {
+    uni.showToast({
+      title: '请输入正确手机号',
+      icon: 'none',
+      duration: 2000
+    });
+    phone_number.value = ''; // 清空输入或重置为合适值
+  } else {
+    phone_number.value = telValue; // 确保输入被更新为修正后的值
+  }
+};
+
 </script>
 
 <style lang="scss" scoped>
