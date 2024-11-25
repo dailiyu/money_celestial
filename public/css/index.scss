@@ -72,3 +72,6 @@ page {
 image {
 	height: 1rpx;
 }
+::-webkit-scrollbar {
+    display: none; /* 隐藏滚动条 */
+}
