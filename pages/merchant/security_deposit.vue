@@ -2,8 +2,11 @@
 	<view>
 		<navBar title="保证金"></navBar>
 		<view class="content">
-			<view class="c_title">
-				我的保证金
+			<view class="c_title flex">
+				<view class="">
+					我的保证金
+				</view>
+				<image src="https://static.maxcang.com/appstatic/my/tips.png" mode="widthFix" class="tip_pic" @click="openPop"></image>
 			</view>
 			<view class="number flex_center">
 				{{amount||0}}
@@ -25,6 +28,7 @@
 				</view>
 			</view>
 		</view>
+		<depositPop ref="tipPop"></depositPop>
 	</view>
 </template>
 
@@ -52,6 +56,11 @@ onShow(async()=>{
 	const res = await getDeposit()
 	amount.value = res.amount
 })
+
+const tipPop = ref()
+const openPop = ()=>{
+	tipPop.value.open()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -60,6 +69,10 @@ onShow(async()=>{
 	padding-left: 36rpx;
 	padding-top: 22rpx;
 	margin-bottom: 20rpx;
+	.tip_pic {
+		width: 26rpx;
+		margin-left: 16rpx;
+	}
 }
 .number {
 	padding: 37rpx 0;

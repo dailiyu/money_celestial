@@ -115,7 +115,7 @@ const getAllData = async()=>{
 	const data = await getAllPoint()
 	const res = await getDeposit()
 	balance.value = res.amount
-	totalPoints.value = (Number(data.red_points)+Number(balance.value))*6.25
+	totalPoints.value = (Number(data.red_points)+Number(balance.value))*625
 	red_points.value=data.red_points
 	rateCny.value = data.rateCny
 }

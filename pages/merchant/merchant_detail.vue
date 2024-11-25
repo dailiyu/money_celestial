@@ -34,7 +34,7 @@
 				<!-- <image src="https://static.maxcang.com/appstatic/star-plain.png" mode="widthFix" class="star_plain"></image> -->
 			</view>
 			<view class="info_item">
-				<view class="flex" style="margin-bottom: 25rpx;">
+				<view class="flex" style="margin-bottom: 25rpx;align-items: flex-start;">
 					<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic"></image>
 					<view class="address" @click.stop="openLocation(shopInfo)">
 						{{shopInfo.address}}
@@ -193,6 +193,7 @@ const openLocation = (item)=>{
 			margin-right: 10rpx;
 		}
 		.address {
+			flex: 1;
 			font-size: 20rpx;
 			color: #1B46CC;
 		}
