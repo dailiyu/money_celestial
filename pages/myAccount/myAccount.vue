@@ -119,6 +119,12 @@
 							联系客服
 						</view>
 					</view>
+					<view class="service_item" @click="toUpdateLog">
+						<image src="https://static.maxcang.com/appstatic/my/update_log.png" mode="widthFix" class="service_pic"></image>
+						<view class="">
+							更新日志
+						</view>
+					</view>
 				</view>
 			</view>
 			<!-- <view class="services">
@@ -275,6 +281,11 @@ const toService=()=>{
 )
 }
 
+const toUpdateLog=()=>{
+	uni.navigateTo({
+		url:'/pages/myAccount/update_log',
+	})
+}
 const toPointAccount = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/point_account'

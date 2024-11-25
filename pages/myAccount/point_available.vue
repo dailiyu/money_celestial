@@ -2,8 +2,11 @@
 	<view>
 		<navBar title="能量积分"></navBar>
 		<view class="content">
-			<view class="c_title">
+			<view class="top_box">
+				<view class="c_title">
 				当前能量积分
+			</view>
+			<image src="https://static.maxcang.com/appstatic/my/tips.png" mode="widthFix" class="tip_pic" @click="openPop"></image>
 			</view>
 			<view class="number flex_center">
 				{{redPoint}}
@@ -56,7 +59,7 @@
 			</view>
 			
 		</view>
-		
+		<pointsTipspop ref="tipsPop"></pointsTipspop>
 	</view>
 </template>
 
@@ -68,12 +71,17 @@ import { onShow } from '@dcloudio/uni-app'
 onShow(()=>{
 	getPoint()
 })
+const tipsPop = ref()
 const redPoint = ref(0)
 const pointsAccount = ref('')
 const getPoint = async()=>{
 	const { red_points, points_account } = await getAllPoint()
 	redPoint.value = red_points
 	pointsAccount.value = points_account
+}
+
+const openPop = ()=>{
+	tipsPop.value.open()
 }
 
 const toWithdrawPoint = ()=>{
@@ -111,12 +119,22 @@ const toStepOne = ()=>{
 </script>
 
 <style lang="scss" scoped>
-.c_title {
+
+.top_box{
+	display: flex;
+	align-items: center;
+	.c_title {
 	font-size: 27rpx;
 	padding-left: 36rpx;
 	padding-top: 22rpx;
 	margin-bottom: 20rpx;
 }
+.tip_pic {
+		width: 26rpx;
+		margin-left: 16rpx;
+	}
+}
+
 .number {
 	padding: 37rpx 0;
 	background-color: #fff;
