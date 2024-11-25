@@ -7,7 +7,11 @@
 				</picker> -->
 				<cityPicker @changeCity="bindCityChange"></cityPicker>
 			</view>
-			<view class="name">{{ title }}</view>
+			<view class="name"><image
+				class="title_logo"
+				src="../../static/title_logo.png"
+				mode="aspectFit"
+			/></view>
 			<view class="select-box" v-if="token">
 				<uni-data-select v-if="userStore.shopInfo.state==1" v-model="selectItem" :localdata="candidates"
 					@change="change" placeholder="+" :clear='false' class="select" :isCustom="true"></uni-data-select>
@@ -183,7 +187,10 @@
 
 	.nav_item {
 		position: relative;
-
+		.title_logo{
+			height: 42rpx;
+			
+		}
 		.select-box {
 			position: absolute;
 			right: 0;

@@ -334,6 +334,11 @@ const formatDate=(dateString)=> {
 			font-size: 24rpx;
 			color: #1B46CC;
 		}
+		:deep(.input-value){
+				width: 469rpx;
+			}
+		
+		
 	}
 	.btn {
 		width: 100%;

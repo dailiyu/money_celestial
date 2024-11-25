@@ -595,7 +595,7 @@ const openLocation = (item)=>{
 		
 		.shop_list {
 			$device-width: 750;
-			height: calc(100vh - 790rpx); 
+			height: calc(100vh  - 880rpx);
 			overflow-y: scroll;
 			.shop_item {
 				padding: 20rpx 0;
