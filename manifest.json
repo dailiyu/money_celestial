@@ -2,8 +2,8 @@
     "name" : "满仓",
     "appid" : "__UNI__EFA5E5D",
     "description" : "",
-    "versionName" : "2.5.00",
-    "versionCode" : 2500,
+    "versionName" : "2.7.00",
+    "versionCode" : 2700,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -64,7 +64,13 @@
                         "__platform__" : [ "ios", "android" ]
                     }
                 },
-                "push" : {}
+                "push" : {},
+                "share" : {
+                    "weixin" : {
+                        "appid" : "",
+                        "UniversalLinks" : ""
+                    }
+                }
             },
             "icons" : {
                 "android" : {

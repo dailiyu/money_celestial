@@ -280,6 +280,8 @@ const merchantSettleIn = async () => {
       address: address.value,
       business_time1: start_time.value,
       business_time2: end_time.value,
+	  latitude:Number(lat.value),
+	  longitude:Number(lon.value),
       tel: phone_number.value,
     });
     uni.navigateTo({

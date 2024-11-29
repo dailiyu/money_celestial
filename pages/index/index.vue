@@ -1,6 +1,7 @@
 <template>
 	<scroll-view   :scroll-y="true" class="page">
 		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity"></navBarForIndex>
+		
 		<!-- <view class="search_bar flex_between">
 			<image src="https://static.maxcang.com/appstatic/locate.png" mode="widthFix" class="locate_img"></image>
 			<view class="location">
@@ -293,6 +294,17 @@ const toMerchant =async () => {
 	// #endif
 	
 	userInfo.value=await  uni.getStorageSync('userInfo')
+	if(!userInfo?.value.name||!userInfo?.value.gender||!userInfo?.value.icon||!userInfo?.value.birthdate||!userInfo?.value.residence){
+		uni.showToast({
+			icon:'none',
+			title:'请先完善个人信息'
+		})
+		return uni.navigateTo({
+			url:'/pages/login/more_info_edit'
+		})
+	}
+
+
 	shopInfo.value=await uni.getStorageSync('shopInfo')
 	const phoneNumber= uni.getStorageSync('phoneNumber')
 	console.log('点击商家前获得的数据',userInfo.value?.is_seller,shopInfo.value.state);
@@ -305,10 +317,6 @@ const toMerchant =async () => {
         uni.navigateTo({
             url: '/pages/merchant/merchant_management'
         });
-		// await uni.setStorageSync('selectedShopInfo',shopInfo.value)
-		//   uni.navigateTo({
-		//     url: '/pages/merchant/merchant_detail'
-		//   });
     } else if(!userInfo.value?.is_seller) {
         //还没成为商家
         uni.navigateTo({
@@ -349,6 +357,17 @@ const toAgent = ()=>{
 	}
 	// #endif
 	const userInfo = uni.getStorageSync('userInfo')
+	if(!userInfo?.name||!userInfo?.gender||!userInfo?.icon||!userInfo?.birthdate||!userInfo?.residence){
+		uni.showToast({
+			icon:'none',
+			title:'请先完善个人信息'
+		})
+		return uni.navigateTo({
+			url:'/pages/login/more_info_edit'
+		})
+	}
+
+
 	if (userInfo && (userInfo.is_province_agent||userInfo.is_city_agent)) {
 		uni.navigateTo({
 			url: '/pages/agent/agent_management'
@@ -376,7 +395,7 @@ const toRecommend =async ()=>{
 	}
 	// #endif
 	const userInfo = uni.getStorageSync('userInfo')
-	if(!userInfo.name||!userInfo.gender||!userInfo.icon||!userInfo.birthdate||!userInfo.residence){
+	if(!userInfo?.name||!userInfo?.gender||!userInfo?.icon||!userInfo?.birthdate||!userInfo?.residence){
 		uni.showToast({
 			icon:'none',
 			title:'成为推荐官前先完善个人信息'

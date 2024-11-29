@@ -79,7 +79,7 @@ const scanCode =async () => {
 		uni.showLoading({
 			title:"正在创建商家"
 		})
-	  createMerchant({user:phoneNumber,referral_officer:recommendPhone,city:cityName,name:userName||'default',icon:avatar||''}).then(async(res)=>{
+	  createMerchant({user:phoneNumber,referral_officer:recommendPhone,city:cityName||'',name:userName||'default',icon:avatar||''}).then(async(res)=>{
 			uni.hideLoading()
 			await  userStore.fetchAllDataAction()
 		  // uni.showToast({

@@ -226,6 +226,8 @@ onMounted(async()=>{
 	start_time.value=shopInfo.business_time1||'00:00'
 	end_time.value=shopInfo.business_time2||'00:00'
 	phone_number.value=shopInfo.tel
+	lon.value=shopInfo.longitude
+	lat.value=shopInfo.latitude
 	curData.value=findValueByText(shopInfo.city)
 	selectedCity.value=shopInfo.city
 	 successDetailImgPaths.value=detailImages
@@ -448,7 +450,8 @@ const range = computed(() => {
 			  await associatedBannerImg()
 		    await associatedAuthfileImg()
 			 const res= await changeShopInfo(phoneNumber,{merchant:phoneNumber,city: selectedCity.value,categories:[businessRange.value],name:shopName.value,description:shopIntro.value,avatar:profileUrl.value,address:address.value,license_no:business_license.value,consume2coin_bit:proportion_gift.value,business_time1:start_time.value,
-				business_time2:end_time.value,tel:phone_number.value})
+				business_time2:end_time.value,tel:phone_number.value, latitude:Number(lat.value),
+				longitude:Number(lon.value),})
 
 			const params=[...bannerListUrl.value,...detailListUrl.value,...userProfileUrls.value,...authfileListUrl.value]
 			console.log('图片列表参数',params);
@@ -545,7 +548,7 @@ const valiCreditCodedateInput = () => {
 
 	
 const valiPhoneNumberInput = () => {
-	console.log(1111);
+
 	
   const telValue = phone_number.value.trim(); // 获取输入值并去除多余空格
   // 检查是否为11位
