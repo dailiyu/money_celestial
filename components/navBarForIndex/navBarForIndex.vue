@@ -10,7 +10,7 @@
 			<view class="name"><image
 				class="title_logo"
 				src="../../static/title_logo.png"
-				mode="aspectFit"
+				mode="widthFix"
 			/></view>
 			<view class="select-box" v-if="token">
 				<uni-data-select v-if="userStore.shopInfo.state==1" v-model="selectItem" :localdata="candidates"
@@ -188,8 +188,8 @@
 	.nav_item {
 		position: relative;
 		.title_logo{
-			height: 42rpx;
-			
+			// height: 42rpx;
+			width: 186rpx;
 		}
 		.select-box {
 			position: absolute;

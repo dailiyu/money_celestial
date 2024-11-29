@@ -300,7 +300,7 @@ const toMerchant =async () => {
 	console.log('进入商家前的用户信息',userInfo.value);
 	console.log('进入商家前的店铺信息',shopInfo.value);
 	//0 正在审核 1审核通过  -1审核不通过 
-    if (userInfo.value?.is_seller&&shopInfo.value.state==1) {
+    if (userInfo.value?.is_seller&&shopInfo.value.state>0) {
         // 店铺已过审核
         uni.navigateTo({
             url: '/pages/merchant/merchant_management'
