@@ -72,6 +72,7 @@ const changeCheck = ()=>{
 	isChecked.value = !isChecked.value
 }
 const confirm = async ()=>{
+	console.log(1)
 	if (!isChecked.value) return uni.showToast({
 		icon:'none',
 		title: '请阅读完须知后勾选同意'
@@ -80,7 +81,7 @@ const confirm = async ()=>{
 	// 	icon: 'none',
 	// 	title: '请输入金额'
 	// })
-	if (amount.value < number.value) return uni.showToast({
+	if (amount.value*1 < number.value*1) return uni.showToast({
 		icon: 'none',
 		title: '可用积分余额不足，请充值'
 	})
@@ -94,6 +95,9 @@ const confirm = async ()=>{
 		uni.showToast({
 			title: '增加成功',
 			icon: 'none'
+		})
+		uni.redirectTo({
+			url: '/pages/agent/security_deposit'
 		})
 	}catch(e){
 		uni.showToast({

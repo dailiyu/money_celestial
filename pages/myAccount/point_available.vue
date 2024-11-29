@@ -68,6 +68,13 @@ import { onMounted, ref } from 'vue';
 import { getAllPoint } from '../../service/point';
 import { onShow } from '@dcloudio/uni-app'
 
+onMounted(()=>{
+	const isShowPointsTipspop = uni.getStorageSync('isShowPointsTipspop')
+	if (isShowPointsTipspop!==1) {
+		tipsPop.value.open()
+		uni.setStorageSync('isShowPointsTipspop', 1)
+	}
+})
 onShow(()=>{
 	getPoint()
 })
