@@ -64,7 +64,13 @@
                         "__platform__" : [ "ios", "android" ]
                     }
                 },
-                "push" : {}
+                "push" : {},
+                "share" : {
+                    "weixin" : {
+                        "appid" : "",
+                        "UniversalLinks" : ""
+                    }
+                }
             },
             "icons" : {
                 "android" : {

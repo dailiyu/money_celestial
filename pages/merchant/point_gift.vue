@@ -167,6 +167,7 @@ const confirm = async(e)=>{
 		}
 		getAllData()
 	}catch(e){
+		console.log(e)
 		uni.showToast({
 			icon: 'none',
 			title: '赠送失败'

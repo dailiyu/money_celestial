@@ -55,11 +55,12 @@ onMounted(() => {
 
 // 方法
 const back = () => {
-
+	console.log(props.isToHome)
+	
 	if(!props.isToHome){
 		 uni.navigateBack();
 	}else{
-		uni.navigateTo({
+		uni.reLaunch({
 			url:'/pages/index/index'
 		})
 	}

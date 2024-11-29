@@ -81,11 +81,12 @@
         </view>
         <view class="info_item flex_between">
           <view class="s_title"> 具体位置 </view>
-          <!-- <input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" /> -->
-          <view @click="forbiddenTip" class="uni-input">{{ address }}</view>
+          <input v-model="address" class="uni-input" placeholder="输入地址或点击地图选择" placeholder-class="placeholder_class" />
+          <!-- <view @click="forbiddenTip" class="uni-input">{{ address }}</view> -->
+        
           // #ifdef MP-WEIXIN
-          <!-- <image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image> -->
-          // #endif
+          <image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic" @click="getLocation"></image>
+         //  #endif
         </view>
       </view>
       <!-- 	<view class="radio" @click="changeCheck">
@@ -247,18 +248,15 @@ onMounted(async () => {
   start_time.value = shopInfo.business_time1 || "00:00";
   end_time.value = shopInfo.business_time2 || "00:00";
   phone_number.value = shopInfo.tel;
+  lon.value=shopInfo.longitude;
+  lat.value=shopInfo.latitude;
   curData.value = findValueByText(shopInfo.city);
   selectedCity.value = shopInfo.city;
   successDetailImgPaths.value = detailImages;
   successProfileImgPaths.value = avatarImages;
   successBannerImgPaths.value = bannerImages;
   successAuthfileImgPaths.value = authfileImages;
-  console.log(
-    "---------",
-    successDetailImgPaths.value,
-    successProfileImgPaths.value,
-    successBannerImgPaths.value
-  );
+
   console.log(findValueByText(shopInfo.city.name));
   console.log("本地获取到的商铺信息", shopInfo);
 });
@@ -484,6 +482,8 @@ const saveStoreInfo = async () => {
       business_time1: start_time.value,
       business_time2: end_time.value,
       tel: phone_number.value,
+      latitude:Number(lat.value),
+      longitude:Number(lon.value),
     });
 
     const params = [
@@ -525,7 +525,7 @@ const forbiddenTips = () => {
 };
 
 const showTips = () => {
-  console.log("1111");
+
   uni.showToast({
     icon: "none",
     title: "统一社会信用代码不允许编辑！",

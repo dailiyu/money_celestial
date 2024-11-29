@@ -20,6 +20,26 @@
 			url:'merchant_set_info'
 		})
 	}
+	// #ifdef APP-PLUS
+		// 拦截返回操作
+		import { onBackPress } from '@dcloudio/uni-app';
+		onBackPress((options) => {
+			uni.reLaunch({
+								url: '/pages/index/index' // 首页路径
+							});
+			// console.log(111122);
+			// if (options.from === 'navigateBack') {
+			// 	console.log('navigateBack');
+			// 	// 如果是右滑返回或物理返回，跳转到首页
+			// 	uni.reLaunch({
+			// 		url: '/pages/index/index' // 首页路径
+			// 	});
+			// 	return true; // 阻止默认返回
+			// }
+			 return true; // 允许其他情况继续执行返回
+		});
+	// #endif
+	
 	
 </script>
 
