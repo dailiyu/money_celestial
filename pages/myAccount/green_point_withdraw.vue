@@ -56,7 +56,7 @@
 import { onMounted, ref } from 'vue';
 import { getPointBindedAccount, withdrawGreenPoint } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
-
+import {substrateAddressValidator} from '../../utils/index'
 const number = ref()
 
 const account = ref('')
@@ -86,7 +86,7 @@ const validPassword = ()=>{
 		icon:'none',
 		title: '请先输入积分账号'
 	})
-	if (account.value.length!==49) return uni.showToast({
+	if (!substrateAddressValidator(account.value)) return uni.showToast({
 		icon:'none',
 		title: '请输入正确的积分账号'
 	})
