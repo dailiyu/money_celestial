@@ -8,7 +8,7 @@
 			<view class="profile" >
 				<view class="avtar">
 				<image class="img" :src="ionc_url" mode="" v-if="ionc_url"></image>
-				<image class="img" src="https://static.maxcang.com/appstatic/default_avatar.pic.jpg" mode=""></image>
+				<image class="img" src="https://static.maxcang.com/appstatic/avatar_default.png" mode=""></image>
 				</view>
 				<!-- <view class="name" v-if="user">
 					点击登录
@@ -21,9 +21,7 @@
 						<image class="img" src="https://static.maxcang.com/appstatic/my/phone.jpg"></image>
 						<view class="number">{{obscurePhoneNumber(phoneNumber)}}</view>
 					</div>
-					
 				</view>
-				
 				<view class="logout"  @click="logout">
 					退出登录
 				</view>
@@ -168,13 +166,9 @@ import { onShow } from '@dcloudio/uni-app';
 const  userStore = useUserStore()
 const phoneNumber=ref('')
 const accessToken = uni.getStorageSync('accessToken')
-
 const ionc_url=ref()
 const user_name=ref()
 const version = ref('');
-
-
-
 
 onShow(() => {
 	phoneNumber.value=uni.getStorageSync('phoneNumber')

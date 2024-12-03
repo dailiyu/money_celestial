@@ -56,7 +56,7 @@
 import { onMounted, ref } from 'vue';
 import { getAllPoint, withdrawRedPoints } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
-
+import {substrateAddressValidator} from '../../utils/index'
 
 
 const account = ref('')
@@ -87,7 +87,7 @@ const validPassword = ()=>{
 		icon:'none',
 		title: '请先输入积分账号'
 	})
-	if (account.value.length!==49) return uni.showToast({
+	if (!substrateAddressValidator(account.value)) return uni.showToast({
 		icon:'none',
 		title: '请输入正确的积分账号'
 	})
@@ -117,7 +117,7 @@ const confirm = async()=>{
 			title: '提取中',
 			mask: true
 		})
-		await withdrawRedPoints(params.value)
+		 await withdrawRedPoints(params.value)
 		// getPointInfo()
 		uni.hideLoading()
 		uni.showToast({
