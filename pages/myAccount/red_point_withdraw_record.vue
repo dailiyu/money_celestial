@@ -32,7 +32,9 @@
 				<view>{{item.transaction_type=='decrease'?'-':' '}}{{item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="3">
-				<view>{{item.is_allowed&&item.is_processed?'已审核':'待审核'}}</view>
+				<view v-if="item.is_allowed==0">未审核</view>
+				<view v-if="item.is_allowed==1">审核通过</view>
+				<view v-if="item.is_allowed==-1">驳回</view>
 			</uni-col>
 			<uni-col :span="4">
 				<view>{{item.real_amount||item.transaction_amount}}</view>

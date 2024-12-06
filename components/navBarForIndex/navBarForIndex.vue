@@ -13,7 +13,7 @@
 				mode="widthFix"
 			/></view>
 			<view class="select-box" v-if="token">
-				<uni-data-select v-if="userStore.shopInfo.state==1" v-model="selectItem" :localdata="candidates"
+				<uni-data-select v-if="userStore.shopInfo.state>0" v-model="selectItem" :localdata="candidates"
 					@change="change" placeholder="+" :clear='false' class="select" :isCustom="true"></uni-data-select>
 				<uni-data-select v-else v-model="selectItem" :localdata="candidate_noScan" @change="change"
 					placeholder="+" :clear='false' class="select" :isCustom="true"></uni-data-select>

@@ -19,7 +19,8 @@
 					</view>
 					<div class="phone_box">
 						<image class="img" src="https://static.maxcang.com/appstatic/my/phone.jpg"></image>
-						<view class="number">{{obscurePhoneNumber(phoneNumber)}}</view>
+						<view class="number" v-if="!isShowNumber" @click="isShowNumber=true">{{obscurePhoneNumber(phoneNumber)}}</view>
+						<view class="number" v-if="isShowNumber" @click="isShowNumber=false">{{phoneNumber}}</view>
 					</div>
 				</view>
 				<view class="logout"  @click="logout">
@@ -330,7 +331,7 @@ const formatPhoneNumber=(phoneNumber)=>{
     return 'Invalid phone number';
 }
 
-
+const isShowNumber = ref(false)
 </script>
 
 <style lang="scss">

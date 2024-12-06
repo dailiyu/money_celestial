@@ -7,7 +7,7 @@
 		<view class="text-box">
 			<view class="text">恭喜你，满仓商家注册成功！</view>
 			<view class="text">
-				快去创建店铺吧！
+				请前往小程序创建店铺吧！
 			</view>
 		</view>
 		<view class="buttom-box">
