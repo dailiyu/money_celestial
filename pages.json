@@ -474,15 +474,6 @@
 			}
 		},
 		{
-			"path" : "pages/myAccount/api",
-			"style" : 
-			{
-				"navigationBarTitleText" : "满仓Api",
-				"navigationStyle": "default",
-				"navigationBarBackgroundColor": "black"
-			}
-		},
-		{
 			"path" : "pages/myAccount/green_point_withdraw_record",
 			"style" : 
 			{
@@ -640,6 +631,15 @@
 			{
 				"navigationBarTitleText" : "",
 				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/api",
+			"style" : 
+			{
+				"navigationBarTitleText" : "满仓Api",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#000"
 			}
 		}
 		

@@ -31,7 +31,7 @@
 				<view>{{ transformTypeFilter(item)}}</view>
 			</uni-col>
 			<uni-col :span="4">
-				<view>{{item.transaction_amount.toFixed(4)}}</view>
+				<view>{{(item.transaction_amount*1).toFixed(4)}}</view>
 			</uni-col>
 			<uni-col :span="3" v-if="item.transaction_method=='gift_green_points'">
 				<view>--</view>
@@ -42,7 +42,7 @@
 				<view v-if="item.is_allowed==-1">驳回</view>
 			</uni-col>
 			<uni-col :span="4">
-				<view>{{(item.real_amount||item.transaction_amount).toFixed(4)}}</view>
+				<view>{{((item.real_amount||item.transaction_amount)*1).toFixed(4)}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>

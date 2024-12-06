@@ -6,8 +6,14 @@
 		</view>
 		<view class="text-box">
 			<view class="text">恭喜你，满仓商家注册成功！</view>
+			
 			<view class="text">
+				<!-- #ifndef MP-WEIXIN -->
 				请前往小程序创建店铺吧！
+				<!-- #endif -->
+				<!-- #ifdef MP-WEIXIN -->
+				请创建店铺吧！
+				<!-- #endif -->
 			</view>
 		</view>
 		<view class="buttom-box">
