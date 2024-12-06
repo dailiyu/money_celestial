@@ -14,7 +14,6 @@ export const uploadImage = async (filePath) => {
       header: {
         'Authorization': `Bearer ${token}`, // JWT Token 添加到 Authorization 请求头
       },
-	 
       success: (uploadFileRes) => {
         if (uploadFileRes.statusCode == 201) {
           const data = JSON.parse(uploadFileRes.data); // 解析返回的数据
@@ -115,4 +114,27 @@ export const transformTypeFilter = (item)=>{
 		return '消耗'
 	}
 	return '--'
+}
+
+
+import { decodeAddress } from '@polkadot/util-crypto'
+
+export function substrateAddressValidator(address) {
+    try {
+      const cleanedAddress = deleteAddressDn(address); // 删除 Dn 前缀
+      console.log(cleanedAddress)
+      decodeAddress(cleanedAddress); // 解码地址，验证合法性
+      return true; // 如果没有异常抛出，则地址合法
+    } catch (error) {
+
+      return false; // 解码失败，地址不合法
+    }
+}
+
+// 辅助函数：删除 Dn 前缀
+function deleteAddressDn(address) {
+  if (address.startsWith('Dn')) {
+    return address.slice(2); // 删除前两位 "Dn"
+  }
+  return address; // 无需处理
 }
