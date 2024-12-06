@@ -124,6 +124,17 @@
 							更新日志
 						</view>
 					</view>
+					
+					
+				</view>
+				<view v-if="api_auth" class="service_bottom flex" style="margin-top: 20rpx;">
+					<view class="service_item" @click="toApi">
+						<image src="https://static.maxcang.com/appstatic/my/update_log.png" mode="widthFix" class="service_pic"></image>
+						<view class="">
+							Api调用
+						</view>
+					</view>
+					<view style="width: 410rpx;"></view>
 				</view>
 			</view>
 			<!-- <view class="services">
@@ -190,11 +201,13 @@ const accessToken = uni.getStorageSync('accessToken')
 const ionc_url=ref()
 const user_name=ref()
 const version = ref('');
+const api_auth = ref(0);
 
 onShow(() => {
 	phoneNumber.value=uni.getStorageSync('phoneNumber')
 	ionc_url.value= uni.getStorageSync('userInfo').icon
 	user_name.value=uni.getStorageSync('userInfo').name
+	api_auth.value = uni.getStorageSync('userInfo').is_api
 	if (accessToken) {
 		getPointInfo()
 	}
@@ -321,6 +334,12 @@ const toRecord = ()=>{
 const toAboutUs = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/about_us'
+	})
+}
+
+const toApi = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/api'
 	})
 }
 

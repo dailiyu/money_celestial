@@ -28,7 +28,7 @@
 			</view>
 			<view class="list_box">
 				<view class="list_item flex_between" @click="toEdit">
-					<view class="">
+					<view class="" >
 						资料编辑
 					</view>
 					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
@@ -98,6 +98,7 @@ onShow(async()=>{
 })
 
 	const toEdit = () => {
+		
 		uni.navigateTo({
 			url: '/pages/merchant/merchant_edit_info'
 		})

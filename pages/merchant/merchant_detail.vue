@@ -45,6 +45,10 @@
 					<view class="time_text" v-if="shopInfo.business_time1">
 						营业时间：{{shopInfo?.business_time1}}-{{shopInfo?.business_time2  }}
 					</view>
+					<view class="time_text" v-else>
+						营业时间：未提供
+					</view>
+					
 				</view>
 				<view class="flex">
 					<image src="https://static.maxcang.com/appstatic/phone.png" mode="widthFix" class="phone_pic"></image>
