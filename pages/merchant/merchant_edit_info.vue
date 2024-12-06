@@ -1,7 +1,9 @@
 <template>
   <view>
     <navBar title="店铺信息编辑"></navBar>
+	<view v-if="shopInfo.state==2"  style="width: 100%;height: 100vh;position: fixed;opacity: 0;z-index: 99;"></view>
     <view class="content">
+		<view v-if="shopInfo.state==2" style="color:red; font-size: 24rpx;padding-bottom: 14rpx;margin-left: 26rpx;">您已提交资料，请等待审核。</view>
       <view class="shop_info">
         <view class="info_item flex_between">
           <view class="s_title"> 店铺名称 </view>
@@ -182,7 +184,8 @@
 				<upload amount="6"  :imgUrls="detailImages"    @uploadSuccessfulPaths="acceptSuccessDetailImgPath"></upload> -->
       </view>
 
-      <view class="btn_full" @click="saveStoreInfo"> 保存 </view>
+      <view class="btn_full" @click="saveStoreInfo" v-if="shopInfo.state!==2"> 保存 </view>
+		<view class="btn_full disable "  v-if="shopInfo.state==2"> 请等待审核 </view>
     </view>
   </view>
 </template>
@@ -672,5 +675,9 @@ const valiPhoneNumberInput = () => {
 }
 .btn_full {
   margin-top: 66rpx;
+  &.disable{
+	  background-color: #dddddd;
+  }
 }
+
 </style>
