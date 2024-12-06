@@ -95,7 +95,7 @@
             "minified" : true
         },
         "usingComponents" : true,
-        "requiredPrivateInfos" : [ "chooseLocation", "getLocation" ],
+        "requiredPrivateInfos" : [ "chooseLocation", "getFuzzyLocation" ],
         "permission" : {
             "scope.chooseLocation" : {
                 "desc" : "获取当前城市"

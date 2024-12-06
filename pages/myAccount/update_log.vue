@@ -50,14 +50,14 @@
   }
   
   .header {
-    font-size: 36rpx;
     font-weight: bold;
     margin-bottom: 20rpx;
     color: #FC5908;
+	font-size: 24rpx;
   }
   
   .content {
-    font-size: 28rpx;
+	font-size: 24rpx;
   }
   
   .section {
@@ -69,7 +69,7 @@
   }
   
   .title {
-    font-size: 30rpx;
+	font-size: 24rpx;
     font-weight: bold;
     margin-bottom: 10rpx;
     color: #FC5908;
@@ -87,7 +87,7 @@
   
   .footer {
     margin-top: 100rpx;
-    font-size: 28rpx;
+    font-size: 24rpx;
     color: #888;
   }
   </style>

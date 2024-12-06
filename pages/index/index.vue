@@ -139,6 +139,7 @@ import { getBannerList } from '@/service/bannner.js'
 import { getRecommendOfficerInfo } from '../../service/recommend';
 import { getUerAccountMessage, getUpdateMessage } from '../../service/uer_profile';
 import { onShow } from '@dcloudio/uni-app'
+
 // #ifdef MP-WEIXIN
 import { onShareAppMessage } from '@dcloudio/uni-app'
 onShareAppMessage(()=>{
@@ -192,7 +193,7 @@ onMounted(async()=>{
 	// const accessToken = uni.getStorageSync('accessToken')
 	// console.log(accessToken);
 	// if (accessToken) {
-		// await publicStore.fetchAllDataAction()
+		// await publicStore.fetchAllDataAction() 
 		// await userStore.fetchAllDataAction()
 	// }
 	const userInfo = uni.getStorageSync('userInfo')
@@ -203,7 +204,7 @@ onMounted(async()=>{
 	getCategory()
 	getBanner()
 
-	console.log(city.value)
+	
 	// generateQRCode()
 })
 const city = ref('')

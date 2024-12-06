@@ -3,9 +3,9 @@
 		<navBar title="关于我们"></navBar>
 		<view class="content">
 			<view class="" style="background-color: #fff; padding: 42rpx 48rpx;">
-				<view class="title">
+				<!-- <view class="title">
 					关于满仓
-				</view>
+				</view> -->
 				<view class="detail">
 					满仓是全球首个将区块链技术应用于商业生态的平台，通过创新模式，为消费者和商家提供了一个全新的价值交换环境，引领了数字经济时代的全新消费模式。
 				</view>

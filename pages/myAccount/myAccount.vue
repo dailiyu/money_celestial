@@ -156,6 +156,26 @@
 			满仓 V{{version}}
 		</view>
 		// #endif
+		
+		<uni-popup ref="contactPop" borderRadius="30rpx" background-color="#fff">
+			<view class="step_pop">
+				<view class="title">
+					联系客服
+				</view>
+				<view class="top_content flex_center">
+					<view class="">
+						3833194083
+					</view>
+					<image src="https://static.maxcang.com/appstatic/copy.png" mode="widthFix" class="copy_pic" @click="copy"></image>
+				</view>
+				<view class="desc">
+					更多问题请联系满仓客服QQ
+				</view>
+				<view class="btn_plain" @click="closeContactPop">
+					确定
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -265,22 +285,29 @@ const toEdteInfo=()=>{
 	})
 }
 
+const contactPop = ref()
 const toService=()=>{
-	uni.showModal({
-		content:'官方QQ客服：3833194083',
-		confirmText:'复制',
-		confirmColor:'#FC5908',
-		success:(success)=>{
-			if(success.confirm){
-				uni.setClipboardData({data:'3833194083'
-				})
+	contactPop.value.open()
+	// uni.showModal({
+	// 	content:'官方QQ客服：3833194083',
+	// 	confirmText:'复制',
+	// 	confirmColor:'#FC5908',
+	// 	success:(success)=>{
+	// 		if(success.confirm){
+	// 			uni.setClipboardData({data:'3833194083'
+	// 			})
 				
-			}
-		},
-	}
-)
+	// 		}
+	// 	},
+	// }
+// )
 }
-
+const closeContactPop = ()=>{
+	contactPop.value.close()
+}
+const copy = ()=>{
+	uni.setClipboardData({data:'3833194083'})
+}
 const toUpdateLog=()=>{
 	uni.navigateTo({
 		url:'/pages/myAccount/update_log',
@@ -479,6 +506,35 @@ const formatPhoneNumber=(phoneNumber)=>{
 			font-size: 24rpx;
 			color: #ccc;
 			text-align: center;
+		}
+		
+		.step_pop {
+			width: 566rpx;
+			padding: 64rpx;
+			text-align: center;
+			.title {
+				font-size: 36rpx;
+				color: #FC5908;
+				line-height: 28rpx;
+				font-weight: bold;
+				margin-bottom: 50rpx;
+			}
+			.top_content {
+				font-size: 42rpx;
+				// line-height: 28rpx;
+				margin-bottom: 58rpx;
+				.copy_pic {
+					width: 27rpx;
+					margin-left: 10rpx;
+				}
+			}
+			.desc {
+				font-size: 28rpx;
+				margin-bottom: 64rpx;
+			}
+			.btn_plain {
+				width: 340rpx;
+			}
 		}
 	}
 </style>
