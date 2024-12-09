@@ -11,11 +11,15 @@
 			</view>
 		</view>
 		<view class="buttom-box">
+			
 			// #ifdef MP-WEIXIN
 					<view class="buttom" @click="toCreateShop">创建店铺</view>
 			// #endif
 			// #ifdef APP-PLUS
 					<view class="buttom" @click="toMiniProgram">创建店铺</view>
+			// #endif
+			// #ifdef H5
+			<view class="buttom" @click="toMiniProgram">创建店铺</view>
 			// #endif
 		</view>
 	</view>

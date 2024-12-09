@@ -21,14 +21,26 @@
 import { ref } from 'vue';
 import { vertifyMerchant } from '@/service/merchant';
 import { useUserStore } from '../../store/user';
+import { substrateAddressValidator } from '../../utils';
+
  const userStore=useUserStore()
 const address = ref('')
 
 const confirm = async()=>{
-	if (!address.value) return uni.showToast({
-		icon:'none',
-		title: '请输入商家码地址'
-	})
+	if (!address.value){
+		return uni.showToast({
+			icon:'none',
+			title: '请输入商家码地址'
+		})
+	}
+	
+	if(!substrateAddressValidator(address.value)){
+		 console.log(substrateAddressValidator(address.value));
+		return uni.showToast({
+			icon:'none',
+			title: '请输入正确商家码地址'
+		})
+	}
 	uni.showLoading({
 		title: '认证中'
 	})

@@ -120,21 +120,26 @@ export const transformTypeFilter = (item)=>{
 import { decodeAddress } from '@polkadot/util-crypto'
 
 export function substrateAddressValidator(address) {
-    try {
-      const cleanedAddress = deleteAddressDn(address); // 删除 Dn 前缀
-      console.log(cleanedAddress)
-      decodeAddress(cleanedAddress); // 解码地址，验证合法性
-      return true; // 如果没有异常抛出，则地址合法
-    } catch (error) {
-
-      return false; // 解码失败，地址不合法
+  try {
+    // 检查地址是否以 'Dn' 开头，如果不是，直接返回 false
+    if (!address.startsWith('Dn')) {
+      return false;
     }
+    
+    // 删除 'Dn' 前缀
+    const cleanedAddress = deleteAddressDn(address);
+    
+    // 解码地址，验证合法性
+    decodeAddress(cleanedAddress); 
+    
+    return true; // 如果没有异常抛出，则地址合法
+  } catch (error) {
+    return false; // 解码失败，地址不合法
+  }
 }
 
 // 辅助函数：删除 Dn 前缀
 function deleteAddressDn(address) {
-  if (address.startsWith('Dn')) {
-    return address.slice(2); // 删除前两位 "Dn"
-  }
-  return address; // 无需处理
+  return address.slice(2); // 删除前两位 "Dn"
 }
+
