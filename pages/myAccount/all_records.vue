@@ -25,7 +25,7 @@
 				<view style="color: #fd8c31;" v-if="item.transaction_type == 'decrease'">-{{item.transaction_amount}}</view>
 			</uni-col>
 			<uni-col :span="6">
-				<view>{{transformTypeFilter(item)}}</view>
+				<view>{{transformTypeFilter(item)}} {{ item.is_allowed==-1?"(驳回)":""}}</view>
 			</uni-col>
 			<uni-col :span="6">
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>

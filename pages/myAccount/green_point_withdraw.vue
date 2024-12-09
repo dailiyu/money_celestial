@@ -70,6 +70,7 @@ const getPointInfo = async()=>{
 	// account.value = user
 	// 可用积分 
 	account.value = points_account
+	pointBalance.value = green_points
 }
 const isChecked = ref(false)
 const changeCheck = ()=>{
