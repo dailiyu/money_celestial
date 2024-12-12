@@ -13,35 +13,45 @@
 	</view>
 </template>
 
-<script setup>
-	
-	const toCreateShop=async ()=>{
-		uni.redirectTo({
-			url:'merchant_set_info'
-		})
-	}
-	// #ifdef APP-PLUS
-		// 拦截返回操作
-		import { onBackPress } from '@dcloudio/uni-app';
-		onBackPress((options) => {
-			uni.reLaunch({
-								url: '/pages/index/index' // 首页路径
-							});
-			// console.log(111122);
-			// if (options.from === 'navigateBack') {
-			// 	console.log('navigateBack');
-			// 	// 如果是右滑返回或物理返回，跳转到首页
-			// 	uni.reLaunch({
-			// 		url: '/pages/index/index' // 首页路径
-			// 	});
-			// 	return true; // 阻止默认返回
-			// }
-			 return true; // 允许其他情况继续执行返回
-		});
+
+<script>
+export default {
+
+
+  // 页面方法：跳转到商家设置页面
+  methods: {
+    toCreateShop() {
+      uni.redirectTo({
+        url: 'merchant_set_info'
+      });
+    }
+  },
+
+  // #ifdef APP-PLUS
+  // 拦截返回操作（仅限 APP 平台）
+  onBackPress(options) {
+    uni.reLaunch({
+      url: '/pages/index/index' // 首页路径
+    });
+    return true; // 阻止返回操作
+  },
+  // #endif
+
+	//  #ifdef MP-WEIXIN
+
+	onUnload() {
+	    console.log('小程序页面卸载');
+	    // 小程序卸载页面时跳转到首页
+	   uni.navigateBack({
+		   delta:2
+	   })
+	  }
 	// #endif
-	
-	
+
+}
 </script>
+
+
 
 <style lang="scss" scoped>
 

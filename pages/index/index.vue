@@ -315,6 +315,9 @@ const toMerchant =async () => {
 	//0 正在审核 1审核通过  -1审核不通过 
     if (userInfo.value?.is_seller&&shopInfo.value.state>0) {
         // 店铺已过审核
+	await uni.setStorageSync(
+			"prePageIsHome",true
+		)
         uni.navigateTo({
             url: '/pages/merchant/merchant_management'
         });

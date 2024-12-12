@@ -31,16 +31,11 @@
 						{{shopInfo.description}}
 					</view>
 				</view>
-				<!-- <image src="https://static.maxcang.com/appstatic/star-plain.png" mode="widthFix" class="star_plain"></image> -->
+				
 			</view>
 			<view class="info_item">
-				<view class="flex" style="margin-bottom: 25rpx;align-items: flex-start;">
-					<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic"></image>
-					<view class="address" @click.stop="openLocation(shopInfo)">
-						{{shopInfo.address}}
-					</view>
-				</view>
-				<view class="time_box flex">
+				<view class="time_phone_box">
+					<view class="time_box flex">
 					<image src="https://static.maxcang.com/appstatic/time.png" mode="widthFix" class="time_pic"></image>
 					<view class="time_text" v-if="shopInfo.business_time1">
 						营业时间：{{shopInfo?.business_time1}}-{{shopInfo?.business_time2  }}
@@ -50,12 +45,29 @@
 					</view>
 					
 				</view>
-				<view class="flex">
-					<image src="https://static.maxcang.com/appstatic/phone.png" mode="widthFix" class="phone_pic"></image>
+				<view class="flex ">
+					<image   src="https://static.maxcang.com/appstatic/phone.png" mode="widthFix" class="phone_pic"></image>
 					<view class="time_text" @click="dial">
 						联系方式：{{shopInfo?.tel||shopInfo.merchant}}
 					</view>
 				</view>
+				</view>
+				<view class="address_function">
+					<view class="flex address_box" style="margin-bottom: 25rpx;align-items: flex-start;">
+					<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic"></image>
+					<view class="address" @click.stop="openLocation(shopInfo)">
+						{{shopInfo.address}}
+					</view>
+				</view>
+				<view class="function_box">
+					<image  class="img" @click.stop="openLocation(shopInfo)" src="https://static.maxcang.com/appstatic/navigate.png" mode="widthFix" ></image>
+					<image  class="img star" src="https://static.maxcang.com/appstatic/star_grey_outline.png" mode="widthFix" ></image>
+					<!-- <image  class="img" src="https://static.maxcang.com/appstatic/star_full.png" mode="widthFix" ></image> -->
+					
+				</view>
+				</view>
+			
+				
 			</view>
 		</view>
 		<!-- <uni-segmented-control :current="current" :values="items" style-type="text" active-color="#FC5908" @clickItem="onClickItem" />
@@ -149,6 +161,34 @@ const openLocation = (item)=>{
 	background-color: #fff;
 	margin-bottom: 40rpx;
 	.info_item {
+		.time_phone_box{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 63rpx;
+			margin-top: 38rpx;
+			padding-right: 55rpx;
+		}
+		.address_function{
+			display: flex;
+			align-items: center;
+			height: 50rpx;
+			.function_box{
+				width:200rpx ;
+				height: 100%;
+				display: flex;
+				justify-content: space-between;
+				margin-left: 57rpx;
+				// align-items: center;
+				.img{
+					width: 38rpx;
+            
+				}
+				.star{
+					margin-right: 22rpx;
+				}
+			}
+		}
 		&:last-child {
 			margin-top: 20rpx;
 		}
@@ -189,22 +229,27 @@ const openLocation = (item)=>{
 			font-size: 22rpx;
 			color: #999999;
 		}
-		.star_plain {
-			width: 24rpx;
-		}
+	
 		.lo_pic {
 			width: 20rpx;
 			margin-right: 10rpx;
 		}
+		.address_box{
+			width: 480rpx;
+			word-wrap: break-word;
+			padding-right: 50rpx;
+			border-right: 1rpx #E3E3E3 solid;
+		}
 		.address {
 			flex: 1;
 			font-size: 20rpx;
-			color: #1B46CC;
+			line-height: 30rpx;
+			text-align: left;
+			color: #A7A7A7;
 		}
 		.time_box {
-			margin-bottom: 25rpx;
 			.time_pic {
-				width: 20rpx;
+				width: 26rpx;
 				margin-right: 10rpx;
 			}
 		}
@@ -213,8 +258,9 @@ const openLocation = (item)=>{
 			color: #999999;
 		}
 		.phone_pic {
-			width: 21rpx;
+			width: 27rpx;
 			margin-right: 10rpx;
+			
 		}
 	}
 }

@@ -35,7 +35,6 @@ const confirm = async()=>{
 	}
 	
 	if(!substrateAddressValidator(address.value)){
-		 console.log(substrateAddressValidator(address.value));
 		return uni.showToast({
 			icon:'none',
 			title: '请输入正确商家码地址'

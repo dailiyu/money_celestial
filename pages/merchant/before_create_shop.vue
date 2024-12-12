@@ -25,7 +25,7 @@
 					<view class="buttom" @click="toMiniProgram">创建店铺</view>
 			// #endif
 			// #ifdef H5
-			<view class="buttom" @click="toMiniProgram">创建店铺</view>
+			<view class="buttom" @click="toCreateShop">创建店铺</view>
 			// #endif
 		</view>
 	</view>
@@ -40,13 +40,18 @@
 				});
 			};
 		// #endif
-	
+	// #ifdef H5
+			const toCreateShop = () => {
+				uni.redirectTo({
+					url: '/pages/merchant/merchant_set_info' // 目标页面路径
+				});
+			};
+		// #endif
 	
 	// #ifdef APP-PLUS
 	const toMiniProgram=()=>{
 			plus.runtime.openURL("weixin://dl/business/?appid=wx06423884fa78e5ba&path=pages/index/index")
 	}
-	
 	// #endif
 	
 </script>
