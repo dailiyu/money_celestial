@@ -12,6 +12,7 @@ export  const getRecommendShopList=async (data)=>{
 }
 
 
+
 //成为推荐官
 export  const createRecommendOfficer=async (data)=>{
 	return http.post('/referral/officers/', data)

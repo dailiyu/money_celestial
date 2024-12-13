@@ -99,7 +99,10 @@
         "permission" : {
             "scope.chooseLocation" : {
                 "desc" : "获取当前城市"
-            }
+            },
+			"scope.userFuzzyLocation": {
+			    "desc": "需要获取您的模糊位置以提供位置相关服务"
+			 }
         }
     },
     "mp-alipay" : {

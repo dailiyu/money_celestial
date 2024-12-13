@@ -73,6 +73,19 @@
 				</view> -->
 			</view>
 		</view>
+		<uni-popup ref="contactPop" borderRadius="30rpx" background-color="#fff">
+			<view class="step_pop">
+				<view class="title">
+					提示
+				</view>
+				<view class="desc">
+					您的店铺定位暂未完善，请到小程序商家后台->资料编辑->具体位置，使用定位功能完善位置信息。
+				</view>
+				<view class="btn_plain" @click="closeContactPop">
+					好的
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -88,14 +101,27 @@ import { getVertifyMerchantInfo } from '@/service/merchant';
 import { onShow } from '@dcloudio/uni-app'
 	const userStore = useUserStore()
 	const isVerified = ref(false)
-	
+	const contactPop = ref()
 
 onShow(async()=>{
       await  userStore.getStoreInfoAction()
 		const phone=await uni.getStorageSync('phoneNumber')
 		const {is_verified} = await getVertifyMerchantInfo(phone)
 		isVerified.value = is_verified
+		const pages = getCurrentPages();
+		
+		const prePageIsHome=uni.getStorageSync("prePageIsHome")
+		console.log(prePageIsHome);
+		
+		if(userStore.shopInfo.latitude==0&&prePageIsHome){
+			contactPop.value.open()
+		}
 })
+
+const closeContactPop = ()=>{
+	uni.setStorageSync('prePageIsHome',false)
+	contactPop.value.close()
+}
 
 	const toEdit = () => {
 		
@@ -224,4 +250,33 @@ onShow(async()=>{
 			}
 		}
 	}
+	.step_pop {
+			width: 566rpx;
+			padding: 64rpx;
+			text-align: center;
+			.title {
+				font-size: 36rpx;
+				color: #FC5908;
+				line-height: 28rpx;
+				font-weight: bold;
+				margin-bottom: 50rpx;
+			}
+			.top_content {
+				font-size: 42rpx;
+				// line-height: 28rpx;
+				margin-bottom: 58rpx;
+				.copy_pic {
+					width: 27rpx;
+					margin-left: 10rpx;
+				}
+			}
+			.desc {
+				font-size: 28rpx;
+				margin-bottom: 64rpx;
+				text-align: left;
+			}
+			.btn_plain {
+				width: 340rpx;
+			}
+		}
 </style>
