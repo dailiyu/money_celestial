@@ -87,9 +87,15 @@
 							<view class="shop_name">
 								{{shop?.name}}
 							</view>
+							<view class="pic_box flex">
+								<image src="https://static.maxcang.com/appstatic/star.png" mode="widthFix" class="star_pic" v-for="(star, i) in 5" :key="i"></image>
+								<view class="point">
+									5
+								</view>
+							</view>
 							<view class="shop_address flex">
 								<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="address_img"></image>
-								<view class="" style="flex: 1;" @click.stop="openLocation(shop)">
+								<view class="detail" style="flex: 1;" @click.stop="openLocation(shop)">
 									{{shop?.address}}
 								</view>
 							</view>
@@ -614,16 +620,17 @@ const openLocation = (item)=>{
 	
 		
 		.shop_list {
-			$device-width: 750;
+			// $device-width: 750;
 			height: calc(100vh  - 880rpx);
 			overflow-y: scroll;
 			.shop_item {
 				padding: 20rpx 0;
 				border-bottom: 1px solid #e1e1e1;
-				align-items: flex-start;
+				// align-items: flex-start;
+				flex-wrap: nowrap;
 				.shop_img {
-					width: 114rpx;
-					height: 114rpx;
+					width: 126rpx;
+					height: 126rpx;
 					margin-right: 22rpx;
 					// background-color: #ccc;
 					border-radius: 5px;
@@ -633,14 +640,32 @@ const openLocation = (item)=>{
 					
 					.shop_name {
 						font-size: 24rpx;
-						margin-bottom: 36rpx;
+						margin-bottom: 20rpx;
+						font-weight: bold;
+					}
+					.pic_box {
+						margin: 10rpx 0 20rpx;
+						.star_pic {
+							width: 22rpx;
+						}
+						.point {
+							font-size: 20rpx;
+							color: #FC5908;
+							margin-left: 20rpx;
+						}
 					}
 					.shop_address {
 						font-size: 18rpx;
 						color: #385ed2;
+						width: 340rpx;
 						.address_img {
 							width: 20rpx;
 							margin-right: 10rpx;
+						}
+						.detail {
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
 						}
 					}
 				}

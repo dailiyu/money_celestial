@@ -46,6 +46,26 @@
 				</view>
 				// #endif
 			</view>
+			<view class="collect_box flex_between">
+				<view class="collect_item flex_between">
+					<view class="flex">
+						<image src="https://static.maxcang.com/appstatic/my/collect-orange.png" mode="widthFix" class="collect_pic"></image>
+						<view class="">
+							我的收藏
+						</view>
+					</view>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+				</view>
+				<view class="collect_item flex_between">
+					<view class="flex">
+						<image src="https://static.maxcang.com/appstatic/my/view-record.png" mode="widthFix" class="collect_pic"></image>
+						<view class="">
+							浏览记录
+						</view>
+					</view>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+				</view>
+			</view>
 			<view class="services">
 				<view class="service_title flex">
 					<image src="https://static.maxcang.com/appstatic/star.png" mode="widthFix" class="star_pic"></image>
@@ -479,6 +499,27 @@ const isShowNumber = ref(false)
 					}
 				}
 
+			}
+			.collect_box {
+				font-size: 24rpx;
+				.collect_item {
+					padding: 30rpx;
+					margin-top: 30rpx;
+					margin-right: 30rpx;
+					background-color: #fff;
+					border-radius: 20rpx;
+					flex: 1;
+					&:last-child {
+						margin-right: 0;
+					}
+					.collect_pic {
+						width: 34rpx;
+						margin-right: 14rpx;
+					}
+					.arrow_pic {
+						width: 10rpx;
+					}
+				}
 			}
 			.services {
 				background-color: #FFFFFF;
