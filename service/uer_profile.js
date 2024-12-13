@@ -55,3 +55,31 @@ export  const getSessionKey=async (data)=>{
 export  const wxLogin=async (data)=>{
  return http.post('/users/wxapp_phone_login', data)
 }
+
+
+export  const favoriteShopsList=async ()=>{
+ return http.get('/users/favorite-shops/')
+}
+
+//favoriteShopsAdd({shop:"18138524553"}
+export  const favoriteShopsAdd=async (data)=>{
+ return http.post('/users/favorite-shops/', data)
+}
+
+
+//favoriteShopsDelete(1);
+export  const favoriteShopsDelete=async (id)=>{
+ return http.delete(`/users/favorite-shops/${id}/`)
+}
+
+export  const browserShopsList=async (data)=>{
+ return http.get('/users/browser-history/', data)
+}
+
+export  const browserShopAdd=async (data)=>{
+ return http.post('/users/browser-history/', data)
+}
+
+export  const browserShopDelete=async (id)=>{
+ return http.post(`/users/browser-history/${id}/`)
+}
