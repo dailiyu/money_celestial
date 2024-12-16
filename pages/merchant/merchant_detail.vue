@@ -144,6 +144,15 @@ const openLocation = (item)=>{
 	})
 	// #endif
 }
+// #ifdef MP-WEIXIN
+import { onShareAppMessage } from '@dcloudio/uni-app'
+onShareAppMessage(()=>{
+	return {
+	  title: shopInfo.value.name,
+	  path: '/pages/merchant/merchant_detail',  // 分享路径
+	}
+})
+// #endif
 </script>
 
 <style lang="scss" scoped>

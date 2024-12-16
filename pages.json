@@ -641,6 +641,14 @@
 				"navigationStyle": "default",
 				"navigationBarBackgroundColor": "#000"
 			}
+		},
+		{
+			"path" : "pages/myAccount/my_collection",
+			"style" : 
+			{
+				"navigationBarTitleText" : "浏览记录",
+				"navigationStyle": "custom"
+			}
 		}
 		
 	],

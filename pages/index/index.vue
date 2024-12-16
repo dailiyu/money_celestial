@@ -549,7 +549,12 @@ const openLocation = (item)=>{
 		height: 300rpx;
 		// background-color: #ccc;
 	}
+	
 }
+:deep(.uni-swiper-dot) {
+		width: 10rpx;
+		height: 10rpx;
+	}
 .function_list {
 	padding: 36rpx 46rpx;
 	.function_item {
@@ -678,6 +683,7 @@ const openLocation = (item)=>{
 					font-size: 20rpx;
 					padding: 4rpx 18rpx 4rpx 14rpx;
 					border-radius: 100px;
+					white-space: nowrap;
 					// margin-top: 10rpx;
 					&.red {
 						background: linear-gradient(to bottom, #fd770b, #fb4706);

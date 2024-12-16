@@ -47,7 +47,7 @@
 				// #endif
 			</view>
 			<view class="collect_box flex_between">
-				<view class="collect_item flex_between">
+				<view class="collect_item flex_between" @click="toCollect">
 					<view class="flex">
 						<image src="https://static.maxcang.com/appstatic/my/collect-orange.png" mode="widthFix" class="collect_pic"></image>
 						<view class="">
@@ -371,6 +371,13 @@ const formatPhoneNumber=(phoneNumber)=>{
 }
 
 const isShowNumber = ref(false)
+
+
+const toCollect = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/my_collection'
+	})
+}
 </script>
 
 <style lang="scss">
