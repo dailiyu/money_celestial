@@ -85,3 +85,12 @@ export  const browserShopAdd=async (data)=>{
 export  const browserShopDelete=async (id)=>{
  return http.delete(`/users/browser-history/${id}/`)
 }
+
+//每天签到
+export  const sign_data=async ()=>{
+ return http.get(`/orders/sign_data`)
+}
+//每天签到数据
+export  const sign=async ()=>{
+ return http.post(`/orders/sign`)
+}
