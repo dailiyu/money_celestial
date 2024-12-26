@@ -20,15 +20,18 @@
 						</view>
 					</view>
 				</view>
-				<view :class="['percentage', {'red':!item.consume2coin_bit||item.consume2coin_bit>100||item.consume2coin_bit==100, 'orange':item.consume2coin_bit&&item.consume2coin_bit<100}]">
-					<image src="https://static.maxcang.com/appstatic/merchant/hot.png" mode="widthFix" class="hot_pic" v-if="!item.consume2coin_bit||item.consume2coin_bit>100||item.consume2coin_bit==100"></image>
-					<view class="">
-						<text style="font-weight: bold;font-size: 30rpx;">{{item.consume2coin_bit||'100'}}</text>%赠送
+				<view class="">
+					<view :class="['percentage', {'red':!item.consume2coin_bit||item.consume2coin_bit>100||item.consume2coin_bit==100, 'orange':item.consume2coin_bit&&item.consume2coin_bit<100}]">
+						<image src="https://static.maxcang.com/appstatic/merchant/hot.png" mode="widthFix" class="hot_pic" v-if="!item.consume2coin_bit||item.consume2coin_bit>100||item.consume2coin_bit==100"></image>
+						<view class="">
+							<text style="font-weight: bold;font-size: 30rpx;">{{item.consume2coin_bit||'100'}}</text>%赠送
+						</view>
+					</view>
+					<view class="distance">
+						<!-- {{item.distance/1000}}km -->
+						{{item.distance}}
 					</view>
 				</view>
-				<!-- <view class="distance">
-					{{item.distance/1000}}km
-				</view> -->
 			</view>
 		</view>
 	</view>
@@ -51,17 +54,15 @@ onMounted(async()=>{
 
 const toDetail = async(index) => {
 	
-	await uni.setStorageSync('selectedShopInfo',props.list[index])
+	// await uni.setStorageSync('selectedShopInfo',props.list[index])
+	uni.$mc.shopInfo = props.list[index]
   uni.navigateTo({
     url: '/pages/merchant/merchant_detail'
   });
 };
 const openLocation = (item)=>{
 	// #ifdef MP-WEIXIN
-	if (!item.latitude || !item.longitude) return uni.showToast({
-		icon: 'none',
-		title: '获取位置失败'
-	})
+	if (!item.latitude || !item.longitude) return
 	uni.openLocation({
 		latitude: item.latitude,
 		longitude: item.longitude
@@ -114,8 +115,10 @@ const openLocation = (item)=>{
 			flex: 1;
 		}
 		.distance {
-			font-size: 20rpx;
+			font-size: 22rpx;
 			color: #FC5908;
+			text-align: center;
+			margin-top: 40rpx;
 		}
 		.percentage {
 			position: relative;

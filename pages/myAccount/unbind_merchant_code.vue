@@ -28,6 +28,7 @@ onMounted(async ()=>{
 	const phoneNumber=uni.getStorageSync('phoneNumber')
 	const res=await getVertifyMerchantInfo(phoneNumber)
 	merchantCodeAccount.value=res.verification_account
+	
 })
 
 const address = ref('')
@@ -71,6 +72,8 @@ const toAgreement = ()=>{
 		url: '/pages/myAccount/unbind_account_agreement'
 	})
 }
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -147,4 +150,5 @@ const toAgreement = ()=>{
 		font-family: HarmonyOS_Sans_SC_Medium;
 	}
 }
+
 </style>

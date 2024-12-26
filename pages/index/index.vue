@@ -68,6 +68,11 @@
 					</view>
 				</view>
 			</view>
+			<view class="daily_entrance flex_between">
+				<image src="https://static.maxcang.com/appstatic/daily-sign.png" mode="widthFix" class="entrance_item" @click="toSign"></image>
+				<image src="https://static.maxcang.com/appstatic/invite-bonus.png" mode="widthFix" class="entrance_item" @click="toTip"></image>
+				<image src="https://static.maxcang.com/appstatic/merchant-list.png" mode="widthFix" class="entrance_item" @click="toTip"></image>
+			</view>
 			<view class="merchant_box" v-if="shopLists.length!==0">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
@@ -134,6 +139,8 @@
 			<image src="https://static.maxcang.com/appstatic/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
 		</view> -->
 	</scroll-view>
+	
+	<signPop></signPop>
 </template>
 
 <script setup>
@@ -462,6 +469,7 @@ const toMyAccount = ()=>{
 }
 const toDetail =async (shop)=>{
 	await uni.setStorageSync('selectedShopInfo',shop)
+	uni.$mc.shopInfo  = shop;
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_detail?city='+city.value
 	})
@@ -484,15 +492,24 @@ const toCityAgentRank = (item)=>{
 }
 const openLocation = (item)=>{
 	// #ifdef MP-WEIXIN
-	if (!item.latitude || !item.longitude) return uni.showToast({
-		icon: 'none',
-		title: '获取位置失败'
-	})
+	if (!item.latitude || !item.longitude) return
 	uni.openLocation({
 		latitude: item.latitude,
 		longitude: item.longitude
 	})
 	// #endif
+}
+
+const toSign = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/everyday_sign'
+	})
+}
+const toTip = ()=>{
+	uni.showToast({
+		icon: 'none',
+		title: '敬请期待'
+	})
 }
 </script>
 
@@ -594,6 +611,17 @@ const openLocation = (item)=>{
 			}
 			.cate_img {
 				width: 86rpx;
+			}
+		}
+	}
+	.daily_entrance {
+		margin-bottom: 20rpx;
+		.entrance_item {
+			flex: 1;
+			height: 1rpx;
+			margin-right: 24rpx;
+			&:last-child {
+				margin-right: 0;
 			}
 		}
 	}

@@ -12,6 +12,9 @@
 			// #ifdef APP-PLUS
 			plus.navigator.closeSplashscreen();
 			// #endif
+			
+			uni.$mc = {};//全局对象
+			
 		},
 		onShow: function() {
 			console.log('App Show')

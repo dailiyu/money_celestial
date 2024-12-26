@@ -33,6 +33,7 @@ onMounted(()=>{
 	wx.getFuzzyLocation({
 		success(res){
 			console.log('-------',res.latitude, res.longitude)
+			uni.setStorageSync('currentLocation', {latitude:res.latitude, longitude:res.longitude})
 			const url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${res.latitude},${res.longitude}&key=${key}`
 			uni.request({
 				url,

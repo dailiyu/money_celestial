@@ -57,6 +57,7 @@ import { onMounted,onUnmounted, ref } from 'vue';
 import { getShopList } from '@/service/shop';
 import { getShopCategories, getCityShopList } from '@/service/shop.js';
 import { onLoad } from '@dcloudio/uni-app'
+import { updatedShopData } from '@/utils/distanceSorting';
 const categoryId = ref('');
 const range = ref([]);
 const curPage = ref(1);
@@ -129,7 +130,16 @@ const getList = async()=>{
 		title: '加载中'
 	})
 	const {results,next} = await getCityShopList(params.value)
+	// #ifdef MP-WEIXIN
+	const currentLocation = uni.getStorageSync('currentLocation')
+	const sortRes = await updatedShopData(results)
+	shopLists.value.push(...sortRes)
+	// #endif
+	
+	// #ifndef MP-WEIXIN
 	shopLists.value.push(...results)
+	// #endif
+	
 	if(!!next){
 		hasNext.value=true
 		curPage.value=curPage.value+1

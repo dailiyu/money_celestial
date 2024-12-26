@@ -57,8 +57,9 @@ export  const wxLogin=async (data)=>{
 }
 
 
-export  const favoriteShopsList=async ()=>{
- return http.get('/users/favorite-shops/')
+export  const favoriteShopsList=async (category_id='',ordering="", page=1)=>{
+ //ordering： -shop__consume2coin_bit 降序  shop__consume2coin_bit 增序
+ return http.get("/users/favorite-shops/",{search:category_id,ordering, page})
 }
 
 //favoriteShopsAdd({shop:"18138524553"}
@@ -72,8 +73,9 @@ export  const favoriteShopsDelete=async (id)=>{
  return http.delete(`/users/favorite-shops/${id}/`)
 }
 
-export  const browserShopsList=async (data)=>{
- return http.get('/users/browser-history/', data)
+export  const browserShopsList=async (category_id='',ordering="", page=1)=>{
+ //ordering： -shop__consume2coin_bit 降序  shop__consume2coin_bit 增序
+ return http.get('/users/browser-history/', {search:category_id,ordering,page})
 }
 
 export  const browserShopAdd=async (data)=>{
@@ -81,5 +83,5 @@ export  const browserShopAdd=async (data)=>{
 }
 
 export  const browserShopDelete=async (id)=>{
- return http.post(`/users/browser-history/${id}/`)
+ return http.delete(`/users/browser-history/${id}/`)
 }

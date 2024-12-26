@@ -2,8 +2,8 @@
     "name" : "满仓",
     "appid" : "__UNI__EFA5E5D",
     "description" : "",
-    "versionName" : "2.8.00",
-    "versionCode" : 2800,
+    "versionName" : "2.9.00",
+    "versionCode" : 2900,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -100,9 +100,9 @@
             "scope.chooseLocation" : {
                 "desc" : "获取当前城市"
             },
-			"scope.userFuzzyLocation": {
-			    "desc": "需要获取您的模糊位置以提供位置相关服务"
-			 }
+            "scope.userFuzzyLocation" : {
+                "desc" : "需要获取您的模糊位置以提供位置相关服务"
+            }
         }
     },
     "mp-alipay" : {

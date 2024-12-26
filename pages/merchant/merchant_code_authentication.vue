@@ -14,15 +14,38 @@
 				认证
 			</view>
 		</view>
+		
+		<uni-popup ref="contactPop" borderRadius="30rpx" background-color="#fff">
+			<view class="step_pop">
+				<view class="title">
+					提示
+				</view>
+				<!-- <view class="top_content flex_center">
+					<view class="">
+						3833194083
+					</view>
+					<image src="https://static.maxcang.com/appstatic/copy.png" mode="widthFix" class="copy_pic" @click="copy"></image>
+				</view> -->
+				<view class="desc">
+					商家码绑定后无法自行手动解除，如需解绑请联系客服，确认需求后一般 7 个工作日内处理。请谨慎操作。
+				</view>
+				<view class="btn_plain" @click="closeContactPop">
+					确定
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { vertifyMerchant } from '@/service/merchant';
 import { useUserStore } from '../../store/user';
 import { substrateAddressValidator } from '../../utils';
 
+onMounted(()=>{
+	contactPop.value.open()
+})
  const userStore=useUserStore()
 const address = ref('')
 
@@ -61,6 +84,11 @@ const confirm = async()=>{
 	})
 	
 }
+
+const contactPop = ref()
+const closeContactPop = ()=>{
+	contactPop.value.close()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -93,5 +121,34 @@ const confirm = async()=>{
 }
 .btn_full {
 	margin-top: 56rpx;
+}
+.step_pop {
+	width: 566rpx;
+	padding: 64rpx;
+	text-align: center;
+	.title {
+		font-size: 36rpx;
+		color: #FC5908;
+		line-height: 28rpx;
+		font-weight: bold;
+		margin-bottom: 50rpx;
+	}
+	.top_content {
+		font-size: 42rpx;
+		// line-height: 28rpx;
+		margin-bottom: 58rpx;
+		.copy_pic {
+			width: 27rpx;
+			margin-left: 10rpx;
+		}
+	}
+	.desc {
+		font-size: 28rpx;
+		margin-bottom: 64rpx;
+		text-align: left;
+	}
+	.btn_plain {
+		width: 340rpx;
+	}
 }
 </style>

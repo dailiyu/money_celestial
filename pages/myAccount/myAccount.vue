@@ -56,7 +56,7 @@
 					</view>
 					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
-				<view class="collect_item flex_between">
+				<view class="collect_item flex_between" @click="toBrowseRecord">
 					<view class="flex">
 						<image src="https://static.maxcang.com/appstatic/my/view-record.png" mode="widthFix" class="collect_pic"></image>
 						<view class="">
@@ -138,12 +138,12 @@
 							联系客服
 						</view>
 					</view>
-					<view class="service_item" @click="toUpdateLog">
+					<!-- <view class="service_item" @click="toUpdateLog">
 						<image src="https://static.maxcang.com/appstatic/my/update_log.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
 							更新日志
 						</view>
-					</view>
+					</view> -->
 					
 					
 				</view>
@@ -378,6 +378,11 @@ const toCollect = ()=>{
 		url: '/pages/myAccount/my_collection'
 	})
 }
+const toBrowseRecord = ()=>{
+	uni.navigateTo({
+		url: '/pages/myAccount/browse_record'
+	})
+}
 </script>
 
 <style lang="scss">
@@ -547,12 +552,15 @@ const toCollect = ()=>{
 				}
 				.service_bottom {
 					display: flex;
-					justify-content: space-around;
+					// justify-content: space-around;
 					align-items: center;
 					.service_item {
 						font-size: 21rpx;
 						text-align: center;
-						
+						padding: 0 40rpx;
+						&:last-child {
+							padding-right: 0;
+						}
 						.service_pic {
 							width: 84rpx;
 							height: 84rpx;

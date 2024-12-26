@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="我的收藏"></navBar>
+		<navBar title="浏览记录"></navBar>
 		<view class="filter_list">
 			<view class="flex_center" style="flex: 1;">
 				<view class="" style="flex: 1;text-align: right;">
@@ -28,14 +28,14 @@
 			</view>
 		</view>
 		<view class="content">
-			<swipeShopList :list="shopList" @delete="del" rightText="取消收藏" iconSrc="https://static.maxcang.com/appstatic/my/del-collect.png"></swipeShopList>
+			<swipeShopList :list="shopList" @delete="del" iconSrc="https://static.maxcang.com/appstatic/my/delete.png"></swipeShopList>
 		</view>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { favoriteShopsList } from '@/service/uer_profile.js'
+import { browserShopsList, browserShopDelete } from '@/service/uer_profile.js'
 import { getShopCategories } from '@/service/shop.js'
 import { calculateDistances } from "@/utils/distanceSorting.js"
 import { favoriteShopsDelete } from '@/service/uer_profile.js'
@@ -67,20 +67,19 @@ onMounted(async()=>{
 const time = ref('')
 const categoryId = ref('')
 const shopList = ref([])
-const page = ref(1)
 const count = ref(0)
 const {location} = uni.getStorageSync('address_info')
 const getShopList = async()=>{
 	const params = ref({
-		ordering: time.value,	
-		category_id: categoryId.value,
+		// ordering: time.value,	
+		categories: categoryId.value
 	})
 	uni.showLoading({
 		title: '加载中',
 		mask: true
 	})
 	try {
-		const res = await favoriteShopsList(categoryId.value,time.value,page.value)
+		const res = await browserShopsList(categoryId.value,time.value)
 		// console.log(res)
 		shopList.value = [...shopList.value, ...res.results]
 		count.value = res.count
@@ -104,19 +103,18 @@ const changeRange = (e) => {
 	getShopList()
 }
 const del = async(item)=>{
-	
 	try {
 		uni.showLoading({
 			mask: true
 		})
-		await favoriteShopsDelete(item.shop_detail.favorited)
-		uni.hideLoading();
+		await browserShopDelete(item.id)
+		uni.hideLoading()
+		getShopList()
+		shopList.value = []
 		uni.showToast({
 			title: '取消收藏',
 			icon: 'none'
 		})
-		shopList.value = []
-		getShopList()
 	} catch (e) {
 		uni.showToast({
 			title: e.data.detail,
@@ -124,7 +122,6 @@ const del = async(item)=>{
 		})
 	}
 }
-
 onReachBottom(() => {
   if (count.value > shopList.value.length) {
 	  page++

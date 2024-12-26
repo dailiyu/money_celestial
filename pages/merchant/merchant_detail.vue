@@ -60,9 +60,9 @@
 					</view>
 				</view>
 				<view class="function_box">
-					<image  class="img" @click.stop="openLocation(shopInfo)" src="https://static.maxcang.com/appstatic/navigate.png" mode="widthFix" ></image>
-					<image  class="img star" src="https://static.maxcang.com/appstatic/star_grey_outline.png" mode="widthFix" ></image>
-					<!-- <image  class="img" src="https://static.maxcang.com/appstatic/star_full.png" mode="widthFix" ></image> -->
+					<image  class="img" @click.stop="openLocation(shopInfo)" src="https://static.maxcang.com/appstatic/navigate.png" mode="widthFix" v-if="shopInfo.latitude&&shopInfo.longitude"></image>
+					<image  class="img star" src="https://static.maxcang.com/appstatic/star_grey_outline.png" mode="widthFix" @click="addCollect" v-if="!shopInfo.favorited"></image>
+					<image  class="img" src="https://static.maxcang.com/appstatic/star_full.png" mode="widthFix" @click="delCollect" v-else></image>
 					
 				</view>
 				</view>
@@ -77,6 +77,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import { favoriteShopsAdd, favoriteShopsDelete, browserShopAdd } from '@/service/uer_profile.js'
 // import { getShopImages, getShopInfo } from '../../service/shop';
 
 
@@ -91,15 +92,20 @@ const phone = ref('')
 
 const shopInfo = ref({})
 onMounted(async()=>{
-	// let routes = getCurrentPages()
-	// let curParam = routes[routes.length - 1].options;
+	const pages = getCurrentPages();
+	      
+	      // 获取上一页
+	//const prevPage = pages[pages.length - 2];
 	// phone.value = curParam.phone
-	shopInfo.value=await uni.getStorageSync('selectedShopInfo')
+	//console.log(prevPage.$vm)
+	
+	shopInfo.value=uni.$mc.shopInfo;
 	const bannerImages =  shopInfo.value.images.filter(image => image.image_type === "banner").map(image => image.image_url);
 	swiperList.value=bannerImages
 	console.log('店铺详情的轮播图',swiperList.value);
 	// getInfo()
 	// getShopBanner()
+	browserShopAdd({shop:shopInfo.value.merchant})
 })
 
 const to_merchant_mangment=async()=>{
@@ -134,13 +140,17 @@ const dial = ()=>{
 }
 const openLocation = (item)=>{
 	// #ifdef MP-WEIXIN
-	if (!item.latitude || !item.longitude) return uni.showToast({
-		icon: 'none',
-		title: '获取位置失败'
-	})
+	if (!item.latitude || !item.longitude) return
 	uni.openLocation({
 		latitude: item.latitude,
 		longitude: item.longitude
+	})
+	// #endif
+	
+	// #ifndef MP-WEIXIN
+	uni.showToast({
+		icon: 'none',
+		title: '请前往小程序进行导航'
 	})
 	// #endif
 }
@@ -153,6 +163,47 @@ onShareAppMessage(()=>{
 	}
 })
 // #endif
+
+const addCollect = async()=>{
+	try {
+		uni.showLoading({
+			mask: true
+		})
+		const {id} = await favoriteShopsAdd({shop:shopInfo.value.merchant})
+		
+		shopInfo.value.favorited = id
+		uni.hideLoading()
+		uni.showToast({
+			title: '收藏成功',
+			icon: 'none'
+		})
+	} catch (e) {
+		uni.showToast({
+			title: e.data.detail,
+			icon: 'none'
+		})
+	}
+}
+const delCollect = async()=>{
+	try {
+		uni.showLoading({
+			mask: true
+		})
+		await favoriteShopsDelete(shopInfo.value.favorited)
+		
+		shopInfo.value.favorited = false
+		uni.hideLoading()
+		uni.showToast({
+			title: '取消收藏',
+			icon: 'none'
+		})
+	} catch (e) {
+		uni.showToast({
+			title: e.data.detail,
+			icon: 'none'
+		})
+	}
+}
 </script>
 
 <style lang="scss" scoped>
@@ -186,16 +237,16 @@ onShareAppMessage(()=>{
 				width:200rpx ;
 				height: 100%;
 				display: flex;
-				justify-content: space-between;
-				margin-left: 57rpx;
+				justify-content: center;
+				// margin-left: 57rpx;
 				// align-items: center;
 				.img{
 					width: 38rpx;
-            
+					margin-left: 57rpx;
 				}
-				.star{
-					margin-right: 22rpx;
-				}
+				// .star{
+				// 	margin-right: 22rpx;
+				// }
 			}
 		}
 		&:last-child {

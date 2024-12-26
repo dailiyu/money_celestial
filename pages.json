@@ -647,6 +647,24 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "浏览记录",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/myAccount/browse_record",
+			"style" : 
+			{
+				"navigationBarTitleText" : "浏览记录",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/myAccount/everyday_sign",
+			"style" : 
+			{
+				"navigationBarTitleText" : "每日签到",
 				"navigationStyle": "custom"
 			}
 		}
