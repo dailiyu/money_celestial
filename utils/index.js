@@ -93,6 +93,9 @@ export const transformTypeFilter = (item)=>{
 		}
 		
 	}
+	if(item.transaction_method=='everyday_sign'){
+		return '签到奖励'
+	}
 	if(item.transaction_method=='red_points'){
 		if(item.transaction_type=='increase'){
 			return '充值'
@@ -143,3 +146,10 @@ function deleteAddressDn(address) {
   return address.slice(2); // 删除前两位 "Dn"
 }
 
+
+export function isToday(date) {
+  const today = new Date();
+  const compareDate = new Date(date);
+ 
+  return today.toDateString() === compareDate.toDateString();
+}

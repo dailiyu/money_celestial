@@ -61,6 +61,7 @@
 				</view>
 				<view class="function_box">
 					<image  class="img" @click.stop="openLocation(shopInfo)" src="https://static.maxcang.com/appstatic/navigate.png" mode="widthFix" v-if="shopInfo.latitude&&shopInfo.longitude"></image>
+					<image src="https://static.maxcang.com/appstatic/copy.png" mode="widthFix" class="copy_pic" @click="copy" v-else></image>
 					<image  class="img star" src="https://static.maxcang.com/appstatic/star_grey_outline.png" mode="widthFix" @click="addCollect" v-if="!shopInfo.favorited"></image>
 					<image  class="img" src="https://static.maxcang.com/appstatic/star_full.png" mode="widthFix" @click="delCollect" v-else></image>
 					
@@ -204,6 +205,11 @@ const delCollect = async()=>{
 		})
 	}
 }
+const copy = ()=>{
+	uni.setClipboardData({
+		data: shopInfo.value.address
+	})
+}
 </script>
 
 <style lang="scss" scoped>
@@ -243,6 +249,10 @@ const delCollect = async()=>{
 				.img{
 					width: 38rpx;
 					margin-left: 57rpx;
+				}
+				.copy_pic {
+					width: 30rpx;
+					height: 30rpx;
 				}
 				// .star{
 				// 	margin-right: 22rpx;

@@ -31,7 +31,18 @@
 					<view class="" >
 						资料编辑
 					</view>
-					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					<view class="flex">
+						<view class="approval_state" v-if="shopInfo.state>0">
+							审核通过
+						</view>
+						<view class="approval_state" v-else-if="shopInfo.state<0">
+							审核驳回
+						</view>
+						<view class="approval_state" v-else-if="shopInfo.state==0">
+							审核中
+						</view>
+						<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+					</view>
 				</view>
 				<view class="list_item flex_between" @click="toPoinGift">
 					<view class="">
@@ -102,6 +113,10 @@ import { onShow } from '@dcloudio/uni-app'
 	const userStore = useUserStore()
 	const isVerified = ref(false)
 	const contactPop = ref()
+	const shopInfo = ref({})
+	onMounted(()=>{
+		shopInfo.value = uni.getStorageSync('shopInfo')
+	})
 
 onShow(async()=>{
       await  userStore.getStoreInfoAction()
@@ -243,6 +258,13 @@ const closeContactPop = ()=>{
 
 			&:last-child {
 				border-bottom: none;
+			}
+			
+			.approval_state {
+				font-size: 22rpx;
+				color: #666;
+				margin-right: 10rpx;
+				font-weight: normal;
 			}
 
 			.arrow_pic {

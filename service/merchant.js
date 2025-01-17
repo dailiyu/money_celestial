@@ -115,6 +115,14 @@ export const getStoreList=()=>{
 	return http.get('/merchant/stores/list/')
 }
 
+export const getTotalRanking=(data)=>{
+	return http.get('/stats/total-rankings/', data)
+}
+
+export const getNewRanking=(data)=>{
+	return http.get('/stats/rankings/', data)
+}
+
 
 
 

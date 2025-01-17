@@ -78,7 +78,7 @@ const getRecordList = async()=>{
 	// }
 	// recordList.value = [...results]
 	recordList.value = results.filter((item)=>{
-		return item.transaction_method=='green_points'||item.transaction_method=='gift_green_points_bonus'||(item.transaction_method=='gift_green_points'&&item.transaction_type=='increase')||item.transaction_method=='every_green_bonus'
+		return item.transaction_method=='green_points'||item.transaction_method=='gift_green_points_bonus'||(item.transaction_method=='gift_green_points'&&item.transaction_type=='increase')||item.transaction_method=='every_green_bonus'||item.transaction_method=='everyday_sign'
 	})
 }
 const loadMore = ()=>{

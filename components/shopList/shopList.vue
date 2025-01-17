@@ -3,7 +3,7 @@
 		<view class="shop_list">
 			<view  class="shop_item flex" @click="toDetail(index)" v-for="(item,index) in list" :key="item.merchant">
 				<image :src="item.avatar" mode="aspectFill" class="shop_pic"></image>
-				<view class="" style="flex: 1;">
+				<view class="shop_info">
 					<view class="shop_name">
 						{{item.name}}
 					</view>
@@ -81,6 +81,7 @@ const openLocation = (item)=>{
 		align-items: flex-end;
 		align-items: flex-start;
 		margin-bottom: 16rpx;
+		flex-wrap: nowrap;
 		&:last-child {
 			margin-bottom: 0;
 		}
@@ -91,34 +92,40 @@ const openLocation = (item)=>{
 			// background-color: #ccc;
 			border-radius: 6px;
 		}
-		.shop_name {
-			font-size: 26rpx;
-		}
-		.pic_box {
-			margin: 10rpx 0 20rpx;
-			.star_pic {
-				width: 22rpx;
+		.shop_info {
+			flex-wrap: nowrap;
+			flex: 1;
+			min-width: 10px;
+			.shop_name {
+				font-size: 26rpx;
 			}
-			.point {
+			.pic_box {
+				margin: 10rpx 0 14rpx;
+				.star_pic {
+					width: 22rpx;
+				}
+				.point {
+					font-size: 20rpx;
+					color: #FC5908;
+					margin-left: 20rpx;
+				}
+			}
+			.location_pic {
+				width: 22rpx;
+				margin-right: 20rpx;
+			}
+			.district {
+				font-size: 20rpx;
+				color: #1B46CC;
+				flex: 1;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			.distance {
 				font-size: 20rpx;
 				color: #FC5908;
-				margin-left: 20rpx;
 			}
-		}
-		.location_pic {
-			width: 22rpx;
-			margin-right: 20rpx;
-		}
-		.district {
-			font-size: 20rpx;
-			color: #1B46CC;
-			flex: 1;
-		}
-		.distance {
-			font-size: 22rpx;
-			color: #FC5908;
-			text-align: center;
-			margin-top: 40rpx;
 		}
 		.percentage {
 			position: relative;

@@ -667,6 +667,38 @@
 				"navigationBarTitleText" : "每日签到",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/merchant/merchant_rank",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/merchant_rank_new",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/merchant_sale_rank",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/merchant/rank_rules",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
 		}
 		
 	],

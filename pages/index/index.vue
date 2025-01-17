@@ -71,7 +71,7 @@
 			<view class="daily_entrance flex_between">
 				<image src="https://static.maxcang.com/appstatic/daily-sign.png" mode="widthFix" class="entrance_item" @click="toSign"></image>
 				<image src="https://static.maxcang.com/appstatic/invite-bonus.png" mode="widthFix" class="entrance_item" @click="toTip"></image>
-				<image src="https://static.maxcang.com/appstatic/merchant-list.png" mode="widthFix" class="entrance_item" @click="toTip"></image>
+				<image src="https://static.maxcang.com/appstatic/merchant-list.png" mode="widthFix" class="entrance_item" @click="toRank"></image>
 			</view>
 			<view class="merchant_box" v-if="shopLists.length!==0">
 				<view class="merchant_top flex_between">
@@ -509,6 +509,11 @@ const toTip = ()=>{
 	uni.showToast({
 		icon: 'none',
 		title: '敬请期待'
+	})
+}
+const toRank = ()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/merchant_rank'
 	})
 }
 </script>
