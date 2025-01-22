@@ -123,6 +123,10 @@ export const getNewRanking=(data)=>{
 	return http.get('/stats/rankings/', data)
 }
 
+export const getMerchantDetail=(data)=>{
+	return http.get(`/shops/${data}/`)
+}
+
 
 
 

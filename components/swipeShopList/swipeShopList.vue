@@ -74,10 +74,10 @@ onMounted(async()=>{
 
 const toDetail = async(item) => {
 	
-  await uni.setStorageSync('selectedShopInfo',item.shop_detail)
-  uni.$mc.shopInfo  = item.shop_detail;
+  // await uni.setStorageSync('selectedShopInfo',item.shop_detail)
+  // uni.$mc.shopInfo  = item.shop_detail;
   uni.navigateTo({
-    url: '/pages/merchant/merchant_detail'
+    url: '/pages/merchant/merchant_detail?phone='+item.merchant
   });
 };
 const openLocation = (item)=>{

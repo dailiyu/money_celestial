@@ -179,9 +179,10 @@ const closeContactPop = ()=>{
 	
 
 	const toMerchantDetail=async()=>{
-		await uni.setStorageSync('selectedShopInfo',userStore.shopInfo)
+		// await uni.setStorageSync('selectedShopInfo',userStore.shopInfo)
+		const phone=await uni.getStorageSync('phoneNumber')
 		  uni.navigateTo({
-		    url: '/pages/merchant/merchant_detail'
+		    url: '/pages/merchant/merchant_detail?phone='+phone
 		  });
 	}
 	

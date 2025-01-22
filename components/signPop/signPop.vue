@@ -12,7 +12,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 onMounted(()=>{
-	open()
+	// open()
 })
 const signPopup = ref()
 const open = ()=>{
@@ -26,6 +26,7 @@ const toSign = ()=>{
 		url: '/pages/myAccount/everyday_sign'
 	})
 }
+defineExpose({open, close})
 </script>
 
 <style lang="scss" scoped>

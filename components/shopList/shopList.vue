@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="shop_list">
-			<view  class="shop_item flex" @click="toDetail(index)" v-for="(item,index) in list" :key="item.merchant">
+			<view  class="shop_item flex" @click="toDetail(item)" v-for="(item,index) in list" :key="item.merchant">
 				<image :src="item.avatar" mode="aspectFill" class="shop_pic"></image>
 				<view class="shop_info">
 					<view class="shop_name">
@@ -52,12 +52,12 @@ onMounted(async()=>{
 
 
 
-const toDetail = async(index) => {
+const toDetail = async(item) => {
 	
 	// await uni.setStorageSync('selectedShopInfo',props.list[index])
-	uni.$mc.shopInfo = props.list[index]
+	// uni.$mc.shopInfo = props.list[index]
   uni.navigateTo({
-    url: '/pages/merchant/merchant_detail'
+    url: '/pages/merchant/merchant_detail?phone='+item.merchant
   });
 };
 const openLocation = (item)=>{

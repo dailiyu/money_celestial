@@ -87,16 +87,16 @@
 					</view>
 				</view>
 				<view class="rank_title flex_between">
-					<view class="">
+					<view class="" style="width: 60rpx; margin-right: 10rpx;">
 						排名
 					</view>
-					<view class="">
+					<view class="" style="flex: 1;">
 						商家
 					</view>
-					<view class="">
+					<view class="" style="flex: 1;">
 						所属城市
 					</view>
-					<view class="">
+					<view class="" style="flex: 1;">
 						总积分
 					</view>
 				</view>
@@ -111,13 +111,13 @@
 						<view class="list_no" v-else>
 							{{index+1}}
 						</view>
-						<view class="">
+						<view class="item" @click="toDetail(item.shop_id)">
 							{{item.shop_name}}
 						</view>
-						<view class="">
+						<view class="item">
 							{{item.city_name}}
 						</view>
-						<view class="">
+						<view class="item">
 							{{item.total_score}}
 						</view>
 					</view>
@@ -169,6 +169,11 @@ const toSale = ()=>{
 const toRule = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/rank_rules'
+	})
+}
+const toDetail = (phone)=>{
+	uni.navigateTo({
+		url: '/pages/merchant/merchant_detail?phone='+phone
 	})
 }
 </script>
@@ -308,6 +313,7 @@ uni-icons {
 				}
 				.list_pic {
 					position: relative;
+					margin-right: 20rpx;
 					.g_pic {
 						width: 50rpx;
 					}
@@ -321,8 +327,16 @@ uni-icons {
 					}
 				}
 				.list_no {
+					width: 50rpx;
 					font-size: 26rpx;
 					color: #FFD8A9;
+					margin-right: 20rpx;
+				}
+				.item {
+					flex: 1;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
 			}
 		}

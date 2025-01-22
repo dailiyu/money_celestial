@@ -140,7 +140,7 @@
 		</view> -->
 	</scroll-view>
 	
-	<signPop></signPop>
+	<signPop ref="isShowSignPop"></signPop>
 </template>
 
 <script setup>
@@ -152,6 +152,8 @@ import { getBannerList } from '@/service/bannner.js'
 import { getRecommendOfficerInfo } from '../../service/recommend';
 import { getUerAccountMessage, getUpdateMessage } from '../../service/uer_profile';
 import { onShow } from '@dcloudio/uni-app'
+import { isToday } from '@/utils/index.js'
+import { sign_data } from '@/service/uer_profile';
 
 // #ifdef MP-WEIXIN
 import { onShareAppMessage } from '@dcloudio/uni-app'
@@ -202,6 +204,7 @@ onShow(async()=>{
 	
 })
 
+const isShowSignPop = ref()
 onMounted(async()=>{
 	// const accessToken = uni.getStorageSync('accessToken')
 	// console.log(accessToken);
@@ -219,6 +222,13 @@ onMounted(async()=>{
 
 	
 	// generateQRCode()
+	const res = await sign_data()
+	const signData = [...res.list]
+	if (signData.length&&isToday(signData[0].sign_date)) {
+		isShowSignPop.value.close()
+	} else {
+		isShowSignPop.value.open()
+	}
 })
 const city = ref('')
 const getCity = (e)=>{
@@ -468,10 +478,10 @@ const toMyAccount = ()=>{
 	})
 }
 const toDetail =async (shop)=>{
-	await uni.setStorageSync('selectedShopInfo',shop)
-	uni.$mc.shopInfo  = shop;
+	// await uni.setStorageSync('selectedShopInfo',shop)
+	// uni.$mc.shopInfo  = shop;
 	uni.navigateTo({
-		url: '/pages/merchant/merchant_detail?city='+city.value
+		url: '/pages/merchant/merchant_detail?phone='+shop.merchant
 	})
 }
 const toCityAgentRank = (item)=>{

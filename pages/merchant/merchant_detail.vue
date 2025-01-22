@@ -79,6 +79,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { favoriteShopsAdd, favoriteShopsDelete, browserShopAdd } from '@/service/uer_profile.js'
+import { onLoad } from '@dcloudio/uni-app'
+import { getMerchantDetail } from '@/service/merchant.js'
 // import { getShopImages, getShopInfo } from '../../service/shop';
 
 
@@ -92,22 +94,30 @@ import { favoriteShopsAdd, favoriteShopsDelete, browserShopAdd } from '@/service
 const phone = ref('')
 
 const shopInfo = ref({})
-onMounted(async()=>{
-	const pages = getCurrentPages();
-	      
-	      // 获取上一页
-	//const prevPage = pages[pages.length - 2];
-	// phone.value = curParam.phone
-	//console.log(prevPage.$vm)
-	
-	shopInfo.value=uni.$mc.shopInfo;
+onLoad(async(option)=>{
+	phone.value = option.phone
+	const res = await getMerchantDetail(phone.value)
+	shopInfo.value=res;
 	const bannerImages =  shopInfo.value.images.filter(image => image.image_type === "banner").map(image => image.image_url);
 	swiperList.value=bannerImages
-	console.log('店铺详情的轮播图',swiperList.value);
-	// getInfo()
-	// getShopBanner()
 	browserShopAdd({shop:shopInfo.value.merchant})
 })
+// onMounted(async()=>{
+// 	const pages = getCurrentPages();
+	      
+// 	      // 获取上一页
+// 	//const prevPage = pages[pages.length - 2];
+// 	// phone.value = curParam.phone
+// 	//console.log(prevPage.$vm)
+	
+// 	shopInfo.value=uni.$mc.shopInfo;
+// 	const bannerImages =  shopInfo.value.images.filter(image => image.image_type === "banner").map(image => image.image_url);
+// 	swiperList.value=bannerImages
+// 	console.log('店铺详情的轮播图',swiperList.value);
+// 	// getInfo()
+// 	// getShopBanner()
+// 	browserShopAdd({shop:shopInfo.value.merchant})
+// })
 
 const to_merchant_mangment=async()=>{
 	const phoneNumber=await  uni.getStorageSync('phoneNumber')
