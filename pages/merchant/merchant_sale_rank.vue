@@ -8,7 +8,7 @@
 				<image src="https://static.maxcang.com/appstatic/merchant/btn_2.png" mode="widthFix" class="btn_item"></image>
 			</view> -->
 			<image src="https://static.maxcang.com/appstatic/merchant/month-top3.png" mode="widthFix" class="top_3"></image>
-			<view class="rule_box flex_between">
+			<view class="rule_box" style="text-align: right;">
 				<!-- <uni-data-select
 				  v-model="value"
 				  :localdata="range"

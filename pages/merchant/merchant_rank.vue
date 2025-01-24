@@ -8,7 +8,7 @@
 				<image src="https://static.maxcang.com/appstatic/merchant/btn_2.png" mode="widthFix" class="btn_item" @click="toSale"></image>
 			</view>
 			<image src="https://static.maxcang.com/appstatic/merchant/month-top3.png" mode="widthFix" class="top_3"></image>
-			<view class="rule_box flex_between">
+			<view class="rule_box" style="text-align: right;">
 				<!-- <uni-data-select
 				  v-model="value"
 				  :localdata="range"
@@ -66,7 +66,8 @@
 						月榜
 					</view>
 				</view>
-				<view class="circle_box flex_between">
+				<image src="https://static.maxcang.com/appstatic/merchant/bonus.png" mode="widthFix" style="width: 100%;margin: 10rpx 0;"></image>
+				<!-- <view class="circle_box flex_between">
 					<view class="">
 						<image src="https://static.maxcang.com/appstatic/merchant/circle1.png" mode="widthFix" class="circle_1"></image>
 						<view>
@@ -85,7 +86,7 @@
 							Top3:精英微章
 						</view>
 					</view>
-				</view>
+				</view> -->
 				<view class="rank_title flex_between">
 					<view class="" style="width: 60rpx; margin-right: 10rpx;">
 						排名
