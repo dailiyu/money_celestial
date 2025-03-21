@@ -92,7 +92,7 @@ import { getMerchantDetail } from '@/service/merchant.js'
 // 	}
 // }
 const phone = ref('')
-
+const token = uni.getStorageSync('accessToken')
 const shopInfo = ref({})
 onLoad(async(option)=>{
 	phone.value = option.phone
@@ -176,6 +176,12 @@ onShareAppMessage(()=>{
 // #endif
 
 const addCollect = async()=>{
+	if (!token) {
+		return uni.showToast({
+			icon: 'none',
+			title: '请先登录!'
+		})
+	}
 	try {
 		uni.showLoading({
 			mask: true

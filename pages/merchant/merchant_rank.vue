@@ -241,7 +241,7 @@ uni-icons {
 		.top_pic {
 			position: relative;
 			z-index: 10;
-			width: 186rpx;
+			width: 182rpx;
 		}
 		.top_head {
 			position: absolute;

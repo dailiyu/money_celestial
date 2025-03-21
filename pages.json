@@ -699,9 +699,40 @@
 				"navigationBarTitleText" : "",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/points/points",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
 		}
 		
 	],
+	"tabBar": {
+		"selectedColor": "#f05a24",
+	    "list": [
+	      {
+	        "pagePath": "pages/index/index",
+	        "text": "首页",
+	        "iconPath": "static/home.png",
+	        "selectedIconPath": "static/home_active.png"
+	      },
+		 {
+		   "pagePath": "pages/points/points",
+		   "text": "积分",
+		   "iconPath": "static/points.png",
+		   "selectedIconPath": "static/points_active.png"
+		 },
+	      {
+	        "pagePath": "pages/myAccount/myAccount",
+	        "text": "我的",
+	        "iconPath": "static/myself.png",
+	        "selectedIconPath": "static/myself_active.png"
+	      }
+	    ]
+	  },
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",

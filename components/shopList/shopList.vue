@@ -39,7 +39,7 @@
 
 <script setup>
 import { computed, onMounted, watch } from "vue";
-
+const token = uni.getStorageSync('accessToken')
  const props=defineProps({
 	list: {
 		type: Array,
@@ -53,7 +53,7 @@ onMounted(async()=>{
 
 
 const toDetail = async(item) => {
-	
+
 	// await uni.setStorageSync('selectedShopInfo',props.list[index])
 	// uni.$mc.shopInfo = props.list[index]
   uni.navigateTo({

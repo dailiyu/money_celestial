@@ -93,7 +93,7 @@ const toRegister = ()=>{
 		 })
 		 errorTimes.value=0
 		 setTimeout(()=>{
-			uni.redirectTo({
+			uni.switchTab({
 				url: '/pages/index/index'
 			})
 		 },1000)
@@ -156,7 +156,7 @@ const getPhoneNumber = (e)=>{
 			})
 			errorTimes.value=0
 			setTimeout(()=>{
-				uni.redirectTo({
+				uni.switchTab({
 				url: '/pages/index/index'
 			})
 			},1000)

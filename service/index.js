@@ -16,7 +16,6 @@ class Request {
 					headers = {};
 				}
             }
-
             uni.request({
                 url: BASE_URL + url,
                 method: method || "GET",
@@ -50,7 +49,7 @@ class Request {
                                 }
                             });
                         }).catch((err) => {
-                            this.logout();  // 刷新 token 失败，执行登出
+                           // this.logout();  // 刷新 token 失败，执行登出
                             reject(err);
                         });
                     } else {

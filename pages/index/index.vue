@@ -18,7 +18,7 @@
 				<image :src="item.image_url" mode="widthFix" class="swipe_img"></image>
 			</swiper-item>
 		</swiper>
-		<view class="function_list flex_between">
+		<!-- <view class="function_list flex_between">
 			<view class="function_item" @click="toMerchant">
 				<view class="img_box flex_center">
 					<image src="https://static.maxcang.com/appstatic/home/cart.png" mode="widthFix" class="img_item"></image>
@@ -52,7 +52,7 @@
 					我的账户
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="content">
 			<view class="cate_list flex_between" v-if="categoryList.length">
 				<view class="cate_item" v-for="item in categoryList" :key="item.id" @click="toAllMerchant(item.id)">
@@ -68,8 +68,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="daily_entrance flex_between">
-				<image src="https://static.maxcang.com/appstatic/daily-sign.png" mode="widthFix" class="entrance_item" @click="toSign"></image>
+			<view class="daily_entrance ">
+				<image src="https://static.maxcang.com/appstatic/daily-sign.png" mode="widthFix" class="entrance_item" @click="toSign"  ></image>
 				<image src="https://static.maxcang.com/appstatic/invite-bonus.png" mode="widthFix" class="entrance_item" @click="toTip"></image>
 				<image src="https://static.maxcang.com/appstatic/merchant-list.png" mode="widthFix" class="entrance_item" @click="toRank"></image>
 			</view>
@@ -140,7 +140,7 @@
 		</view> -->
 	</scroll-view>
 	
-	<signPop ref="isShowSignPop"></signPop>
+	<!-- <signPop ref="isShowSignPop"></signPop> -->
 </template>
 
 <script setup>
@@ -176,14 +176,22 @@ const curPage = ref(1);
 const hasNext = ref(false);
 const token = uni.getStorageSync('accessToken')
 onShow(async()=>{
+	console.log('----------11111')
 	// #ifdef MP-WEIXIN
 	if (!token) return
 	// #endif
+	
 	await userStore.fetchAllDataAction()
 	await publicStore.fetchAllDataAction()
 	userInfo.value=await  uni.getStorageSync('userInfo')
 	shopInfo.value=await uni.getStorageSync('shopInfo')
-	
+	//const res = await sign_data()
+	// 确保 res 存在，并且 list 是数组
+	// const signData = Array.isArray(res?.list) ? res.list : []
+	// if (signData?.length&&isToday(signData[0]?.sign_date)){
+	// 	 isShowSignPop.value.close()
+	// }
+
 	// #ifdef APP-PLUS
 	// let versionInfo =  await getUpdateMessage();
 	// console.log(versionInfo);
@@ -205,31 +213,33 @@ onShow(async()=>{
 })
 
 const isShowSignPop = ref()
-onMounted(async()=>{
-	// const accessToken = uni.getStorageSync('accessToken')
-	// console.log(accessToken);
-	// if (accessToken) {
-		// await publicStore.fetchAllDataAction() 
-		// await userStore.fetchAllDataAction()
-	// }
-	const userInfo = uni.getStorageSync('userInfo')
-	const localCity=uni.getStorageSync('city')
-	city.value=localCity
-	city.value=localCity||(userInfo.residence)?.split(' ')[1]||''
-	city.value=localCity
-	getCategory()
-	getBanner()
 
+onMounted(async () => {
+	try {
+		// 读取本地存储的数据
+		const userInfo = uni.getStorageSync('userInfo')
+		const localCity = uni.getStorageSync('city')
+		city.value = localCity || (userInfo?.residence?.split(' ')[1] || '')
+		// 获取分类和 Banner 数据
+		getCategory()
+		getBanner()
+		// 获取签到数据
+		//const res = await sign_data()
+		// 确保 res 存在，并且 list 是数组
+		//const signData = Array.isArray(res?.list) ? res.list : []
 	
-	// generateQRCode()
-	const res = await sign_data()
-	const signData = [...res.list]
-	if (signData.length&&isToday(signData[0].sign_date)) {
-		isShowSignPop.value.close()
-	} else {
-		isShowSignPop.value.open()
+		// 判断签到弹窗是否显示
+		// if ((signData.length > 0 && isToday(signData[0]?.sign_date)) || !token) {
+		// 	isShowSignPop.value.close()
+		// } else {
+		// 	isShowSignPop.value.open()
+		// }
+	} catch (error) {
+		console.error('获取签到数据失败:', error)
 	}
 })
+
+
 const city = ref('')
 const getCity = (e)=>{
 	city.value = e.city
@@ -478,6 +488,7 @@ const toMyAccount = ()=>{
 	})
 }
 const toDetail =async (shop)=>{
+
 	// await uni.setStorageSync('selectedShopInfo',shop)
 	// uni.$mc.shopInfo  = shop;
 	uni.navigateTo({
@@ -511,9 +522,17 @@ const openLocation = (item)=>{
 }
 
 const toSign = ()=>{
-	uni.navigateTo({
-		url: '/pages/myAccount/everyday_sign'
-	})
+	if(token){
+		uni.navigateTo({
+			url: '/pages/myAccount/everyday_sign'
+		})
+	}else{
+		uni.showToast({
+			icon:'none',
+			title:"请先登录"
+		})
+	}
+	
 }
 const toTip = ()=>{
 	uni.showToast({
@@ -611,6 +630,7 @@ const toRank = ()=>{
 }
 .content {
 	padding: 0 22rpx 22rpx;
+	margin-top: 15rpx;
 	.cate_list {
 		background-color: #fff;
 		border-radius: 38rpx;
@@ -630,10 +650,13 @@ const toRank = ()=>{
 		}
 	}
 	.daily_entrance {
+		display: flex;
+		justify-content: start;
 		margin-bottom: 20rpx;
 		.entrance_item {
-			flex: 1;
-			height: 1rpx;
+			// flex: 1;
+			// height: 1rpx;
+			width: 235rpx;
 			margin-right: 24rpx;
 			&:last-child {
 				margin-right: 0;

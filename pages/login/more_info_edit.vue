@@ -159,7 +159,7 @@ const onChange = (e) => {
 
 
 const skip = ()=>{
-	uni.reLaunch({
+	uni.switchTab({
 		url: '/pages/index/index'
 	})
 }
@@ -249,7 +249,7 @@ const saveMessage=async()=>{
 			title:'保存成功'
 		  })
 		  setTimeout(()=>{
-			  uni.navigateTo({
+			  uni.switchTab({
 			  	url:'/pages/index/index'
 			  })
 		  },1000)

@@ -169,7 +169,7 @@ const getSignData = async()=>{
 }
 
 const toSign = async(item, index)=>{
-	if (signData.value.length&&isToday(signData.value[0].sign_date)) return uni.showToast({
+	if (signData.value?.length&&isToday(signData.value[0].sign_date)) return uni.showToast({
 		icon: 'none',
 		title: '今日已签到，不可重复签到'
 	})

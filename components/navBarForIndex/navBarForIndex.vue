@@ -38,7 +38,7 @@
 	} from '../../store/user';
 	import 
 		cityDataMp
-	from '@/static/cityDataMp.js';
+	from '/static/cityDataMp.js';
 	const cityData = ref([cityDataMp?.data, cityDataMp?.data[0].cityData])
 	
 	const token = uni.getStorageSync('accessToken')
