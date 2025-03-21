@@ -76,7 +76,7 @@
 			<view class="merchant_box" v-if="shopLists.length!==0">
 				<view class="merchant_top flex_between">
 					<view class="flex_between">
-						<text class="nearby">附近商家</text>
+						<text class="nearby">我的附近</text>
 						<view class="hit">
 							热门榜
 						</view>
@@ -174,8 +174,9 @@ const userInfo = ref()
 const shopInfo=ref()
 const curPage = ref(1);
 const hasNext = ref(false);
-const token = uni.getStorageSync('accessToken')
+let token = uni.getStorageSync('accessToken')
 onShow(async()=>{
+	token = uni.getStorageSync('accessToken')
 	console.log('----------11111')
 	// #ifdef MP-WEIXIN
 	if (!token) return

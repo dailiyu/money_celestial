@@ -1,14 +1,29 @@
 <template>
   <view class="page">
-  	<navBar title="推荐官二维码"></navBar>
+  	
+	
+	
+	
   	<view class="content">
+		<view class="title">第一步</view>
+		<view class="code_box">
+			
+			<img class="qrCode" src="https://static.maxcang.com/appstatic/merchantqrcode.png" alt="QR Code" />
+			<view class="tip">
+				<view>微信扫一扫</view>
+				<view>进入商家申请页面</view>
+			</view>
+		</view>
+		
+		
+		<view class="title next" >第二步</view>
   		<view class="code_box">
   			<view>
   					{{obscurePhoneNumber(phone)}}
   			</view>
   			<img class="qrCode" :src="qrCodeUrl" alt="QR Code" />
   			<view class="tip">
-  				扫描二维码，成为商家
+  				在商家入驻页面 扫描邀请码获得入驻资格
   			</view>
   		</view>
   	</view>
@@ -42,8 +57,18 @@ const generateQRCode = (url) => {
 	background: url('https://static.maxcang.com/appstatic/my/code_bg.png') no-repeat;
 	background-size: 100% 100%;
 	.content {
-		padding: 84rpx 76rpx;
+		padding: 0 76rpx;
 	}
+}
+.title{
+	&.next{
+		border-top: 1rpx solid rgba(2555, 255, 255, 0.4);
+		padding: 30rpx 0;
+		margin-top: 50rpx;
+	}
+	text-align: center;
+	font-size: 40rpx;
+	margin: 0 20rpx;
 }
 .code_box {
 	background-color: #fff;
@@ -53,10 +78,10 @@ const generateQRCode = (url) => {
 	font-size: 30rpx;
 	color: #918E8F;
 	.qrCode {
-		width: 350rpx;
-		height: 350rpx;
+		width: 300rpx;
+		height: 300rpx;
 		text-align: center;
-		margin: 50rpx auto 60rpx;
+		
 	}
 }
 </style>

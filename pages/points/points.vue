@@ -78,7 +78,7 @@ const toSend = () => {
 		scanCode()
 	}else{
 		uni.showToast({
-			title: '请前往我的-商家服务-开通商家服务',
+			title: '商户服务未绑定开通',
 			icon: 'none'
 		})
 	}

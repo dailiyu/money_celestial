@@ -1,25 +1,21 @@
 <template>
 	<view>
-		<navBar title="完善信息" bgc="#1B46CC"  :isShow="true" @clickRight="skip">
-			<template class="skip" #right>
-				跳过
-			</template>
-		</navBar>
+		
 		<view class="content">
 			<view class="info_item flex_between">
 				<view class="title">
 					头像
 				</view>
-				<view class="flex_center" @click="chooseImg">
+				<button open-type="chooseAvatar" class="flex_center chooseAvatar" @chooseavatar="chooseImg">
 					<image :src="imagePath" mode="aspectFill" class="head" ></image>
 					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pix"></image>
-				</view>
+				</button>
 			</view>
 			<view class="info_item flex_between">
 				<view class="title">
 					昵称
 				</view>
-				<uni-easyinput class="uni-mt-5" v-model="name" ></uni-easyinput>
+				<uni-easyinput type="nickname" class="uni-mt-5" v-model="name" ></uni-easyinput>
 			</view>
 	<!-- 		<view class="info_item flex_between">
 				<view class="title">
@@ -182,7 +178,7 @@ const getGender = ()=>{
 	})
 }
 
-const chooseImg = async () => {
+const chooseImgInapp = async () => {
   // 选择图片
   uni.chooseImage({
     count: 1, // 限制用户只能选择一张图片
@@ -203,6 +199,18 @@ const chooseImg = async () => {
       console.log('选择图片失败：', err);
     }
   });
+};
+
+const chooseImg = async (res) => {
+	console.log('-----选择图片：', res);
+  // 选择图片
+  	const tempFilePaths = res.detail.avatarUrl;
+	// 将选择的图片路径赋值给 imagePath 用于页面显示
+	imagePath.value = tempFilePaths; 
+	console.log('-----选择的图片路径：', tempFilePaths);
+	// 调用上传图片方法
+	const url=await uploadImage(tempFilePaths);
+	uploadSuccessUrl.value=url
 };
 
 const token = uni.getStorageSync('accessToken'); // UniApp 中使用 uni.getStorageSync 代替 localStorage.getItem
@@ -227,10 +235,27 @@ const saveMessage=async()=>{
 	// 		duration:700
 	// 	})
 	// }
+	
+	if(!name.value) {
+		return uni.showToast({
+			title:"昵称为必填项",
+			icon:"error",
+			duration:700
+		})
+	}
+
+	if(!imagePath.value) {
+		return uni.showToast({
+			title:"头像为必填项",
+			icon:"error",
+			duration:700
+		})
+	}
+
 	if(!selectedCity.value) {
 		return uni.showToast({
 			title:"常居地为必填项",
-			icon:"fail",
+			icon:"error",
 			duration:700
 		})
 	}
@@ -348,6 +373,17 @@ const formatDate=(dateString)=> {
 		color: #fff;
 		margin-top: 200rpx;
 		font-size: 30rpx;
+	}
+	.chooseAvatar{
+		display: inline-flex;
+		border:0;
+		text-align: right;
+		justify-content: flex-end;
+		margin: 0;
+		padding: 0;
+		&::after{
+			border: none;
+		}
 	}
 	
 }

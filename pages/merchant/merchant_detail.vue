@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="门店详情"></navBar>
+		
 		
 		<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-active-color="#FC5908" circular v-if="swiperList.length">
 			<swiper-item v-for="item in swiperList" :key="item.id">

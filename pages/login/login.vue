@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<navBar title="用户登录" bgc="#1B46CC" :iconShow="false"></navBar>
+		
 		<view class="content">
 			<image src="https://static.maxcang.com/appstatic/logo.png" mode="widthFix" class="logo"></image>
 			<uni-easyinput v-model="moblie" placeholder="请输入手机号" maxlength="11" :inputBorder="false" primaryColor="#1B46CC" type="number">
@@ -93,9 +93,16 @@ const toRegister = ()=>{
 		 })
 		 errorTimes.value=0
 		 setTimeout(()=>{
-			uni.switchTab({
-				url: '/pages/index/index'
-			})
+			let currentPage = getCurrentPages();
+			currentPage = currentPage[0];
+			if(currentPage.route == 'pages/myAccount/myAccount'){
+				uni.navigateBack()	
+			}
+			else{
+				uni.switchTab({
+					url: '/pages/index/index'
+				})
+			}
 		 },1000)
 	  }).catch((err)=>{
 		uni.hideLoading()
@@ -155,10 +162,18 @@ const getPhoneNumber = (e)=>{
 						duration:1000
 			})
 			errorTimes.value=0
+			let currentPage = getCurrentPages();
+			currentPage = currentPage[0];
+			
 			setTimeout(()=>{
-				uni.switchTab({
-				url: '/pages/index/index'
-			})
+				if(currentPage.route == 'pages/myAccount/myAccount'){
+					uni.navigateBack()	
+				}
+				else{
+					uni.switchTab({
+						url: '/pages/index/index'
+					})
+				}
 			},1000)
           } catch (err) {
 			uni.showToast({

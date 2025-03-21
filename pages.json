@@ -12,7 +12,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "用户登录",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#1B46CC"
 			}
 		},
 		{
@@ -198,7 +199,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "推荐官后台",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -206,7 +208,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "推荐官二维码",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -254,7 +257,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "我的账户",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -262,7 +266,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "门店详情",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -294,7 +299,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "修改个人信息",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor":"#1B46CC"
 			}
 		},
 		{

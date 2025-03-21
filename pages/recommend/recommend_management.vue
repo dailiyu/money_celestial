@@ -1,11 +1,13 @@
 <template>
 	<view>
-		<navBar title="推荐官后台" ></navBar>
+		
 		<view class="total_data">
 			<image src="https://static.maxcang.com/appstatic/recommend/verified.png"  @click="toUnbindMerchantCode"   mode="widthFix" class="verify_pic" v-if="isVerified"></image>
 			<image src="https://static.maxcang.com/appstatic/recommend/verified-not.png"  @click="toMerchantCodeVerify" mode="widthFix" class="verify_pic" v-else></image>
 			<image src="https://static.maxcang.com/appstatic/recommend/code.png" mode="widthFix" class="code_pic" @click="toqrDetail"></image>
-			<image src="https://static.maxcang.com/appstatic/recommend/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
+			<view style="padding: 20rpx;">
+				<image src="https://static.maxcang.com/appstatic/recommend/recommend_bg.png" mode="widthFix" class="agent_pic"></image>
+			</view>
 			<view class="data_item">
 				<image src="https://static.maxcang.com/appstatic/recommend/lv1.png" mode="widthFix" class="lv_pic"></image>
 				<view class="lv_name">
@@ -37,6 +39,15 @@
 		<view class="content">
 			
 			<view class="list_box">
+				
+				
+				
+				<view class="list_item flex_between" @click="toqrDetail">
+					<view class="">
+						邀请商家
+					</view>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+				</view>
 				<view class="list_item flex_between" @click="toMerchantList">
 					<view class="">
 						推荐店铺列表
@@ -49,6 +60,14 @@
 					</view>
 					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
 				</view>
+
+				<view class="list_item flex_between" @click="toMerchantRequestlist">
+					<view class="">
+						商家入驻审核标准
+					</view>
+					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
+				</view>
+
 				<!-- <view class="list_item flex_between" @click="toMerchantCode" v-if="!userStore.vertifyMerchantInfo.is_verified">
 					<view class="">
 						商家码认证
@@ -90,6 +109,12 @@ onMounted(async()=>{
 	isVerified.value = is_verified
 	
 })
+
+const toMerchantRequestlist = ()=>{
+	uni.navigateTo({
+		url: '/pages/merchant/merchant_settle_process'
+	})
+}
 
 const recommendedShopAmount = ref(0)
 const getShopAmount = async()=>{
@@ -173,8 +198,10 @@ const toqrDetail=()=>{
 		// margin-left: 32rpx;
 	}
 	.agent_pic {
+		box-shadow: 2px 2px 10rpx 4px rgba(0, 0, 0, 0.3);
 		width: 100%;
 		display: block;
+		border-radius: 20rpx;
 		// margin-bottom: 20rpx;
 	}
 	.data_item {

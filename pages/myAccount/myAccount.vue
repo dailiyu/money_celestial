@@ -1,8 +1,9 @@
 <template>
-  <navBar title="我的账户"></navBar>
+  
   <view class="page">
     <view class="img-box">
       <image
+        
         src="https://file.shabiimage.com/appstatic/my/bg_my.png"
         class="img"
       ></image>
@@ -43,7 +44,7 @@
         </view>
         <view class="logout" @click="logout"> 退出登录 </view>
       </view>
-      <view class="profile" v-if="!token">
+      <view class="profile" v-if="!token" @click="toLogin">
         <view class="avtar">
           <image
             class="img"
@@ -53,16 +54,11 @@
         </view>
 
         <view class="userInfo_box">
-          <view class="name"> 未登录 </view>
-          <div class="phone_box">
-            <image
-              class="img"
-              src="https://static.maxcang.com/appstatic/my/phone.jpg"
-            ></image>
-          </div>
+          <view class="name" style="margin-top: 20rpx;"> 未登录 </view>
+          
         </view>
 
-        <view class="logout" @click="login"> 点击登录 </view>
+        <view class="logout" > 点击登录 </view>
       </view>
 
       <view class="points-box">
@@ -181,17 +177,17 @@
 					</view> -->
         </view>
       </view>
-      <view class="services" v-if="token">
+      <view class="services" v-if="token||showShopPage">
         <view class="service_title flex">
           <image
             src="https://static.maxcang.com/appstatic/star.png"
             mode="widthFix"
             class="star_pic"
           ></image>
-          <view class=""> 商家服务 </view>
+          <view class="" > 满仓生态 </view>
         </view>
         <view class="service_bottom flex">
-          <view class="service_item" @click="toMerchant">
+          <view class="service_item" @click="toMerchant" v-if="showShopPage">
             <image
               src="@/static/merchant.png"
               mode="widthFix"
@@ -252,6 +248,14 @@
             ></image>
             <view class=""> 联系客服 </view>
           </view>
+		  <view class="service_item" @click="toApi"  v-if="api_auth">
+		    <image
+		      src="https://static.maxcang.com/appstatic/my/update_log.png"
+		      mode="widthFix"
+		      class="service_pic"
+		    ></image>
+		    <view class=""> Api调用 </view>
+		  </view>
           <!-- <view class="service_item" @click="toUpdateLog">
 						<image src="https://static.maxcang.com/appstatic/my/update_log.png" mode="widthFix" class="service_pic"></image>
 						<view class="">
@@ -259,21 +263,7 @@
 						</view>
 					</view> -->
         </view>
-        <view
-          v-if="api_auth"
-          class="service_bottom flex"
-          style="margin-top: 20rpx"
-        >
-          <view class="service_item" @click="toApi">
-            <image
-              src="https://static.maxcang.com/appstatic/my/update_log.png"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> Api调用 </view>
-          </view>
-          <view style="width: 410rpx"></view>
-        </view>
+        
       </view>
     </view>
     // #ifndef MP-WEIXIN
@@ -305,7 +295,7 @@ import { getAllPoint, getPointBindedAccount } from "@/service/point.js";
 import { getRecommendOfficerInfo } from "@/service/recommend";
 import { useUserStore } from "../../store/user";
 import { obscureString, obscurePhoneNumber } from "@/utils";
-import { onShow } from "@dcloudio/uni-app";
+import { onShow,onLoad } from "@dcloudio/uni-app";
 const userStore = useUserStore();
 const phoneNumber = ref("");
 const accessToken = uni.getStorageSync("accessToken");
@@ -313,11 +303,20 @@ const ionc_url = ref();
 const user_name = ref();
 const version = ref("");
 const api_auth = ref(0);
-const shopInfo = ref();
-const token = uni.getStorageSync("accessToken");
+const shopInfo = ref({});
+let token = ref('');
 const userInfo = uni.getStorageSync("userInfo");
+const showShopPage = ref(false);
+
+onLoad((e)=>{
+  if(e.recommand){
+    showShopPage.value = true;
+  }
+});
+
 onShow(() => {
 	console.log('--------====',userInfo?.is_seller)
+  token.value = uni.getStorageSync("accessToken");
   phoneNumber.value = uni.getStorageSync("phoneNumber");
   ionc_url.value = uni.getStorageSync("userInfo").icon;
   user_name.value = uni.getStorageSync("userInfo").name;
@@ -325,6 +324,13 @@ onShow(() => {
   if (accessToken) {
     getPointInfo();
   }
+  
+  shopInfo.value =  uni.getStorageSync("shopInfo");
+  if(showShopPage.value&&shopInfo.value.merchant){
+    showShopPage.value = true;
+  }
+
+  
 
   // #ifdef APP-PLUS
   version.value = plus.runtime.version;
@@ -333,7 +339,7 @@ onShow(() => {
 
 const toMerchant = async () => {
   // #ifdef MP-WEIXIN
-  if (!token) {
+  if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -349,13 +355,20 @@ const toMerchant = async () => {
     !userInfo?.value.birthdate ||
     !userInfo?.value.residence
   ) {
-    uni.showToast({
-      icon: "none",
-      title: "请先完善个人信息",
-    });
-    return uni.navigateTo({
-      url: "/pages/login/more_info_edit",
-    });
+    
+    let modelRes = await uni.showModal({
+      title:"提示",
+      content:'请先完善头像、昵称与地址才可申请相关服务'
+    })
+
+    if(modelRes.confirm){
+      uni.navigateTo({
+        url: "/pages/login/more_info_edit",
+      });
+      
+    }
+    return;
+    
   }
 
   shopInfo.value = await uni.getStorageSync("shopInfo");
@@ -398,9 +411,9 @@ const toMerchant = async () => {
   }
 };
 
-const toAgent = () => {
+const toAgent = async   () => {
   // #ifdef MP-WEIXIN
-  if (!token) {
+  if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -415,13 +428,18 @@ const toAgent = () => {
     !userInfo?.birthdate ||
     !userInfo?.residence
   ) {
-    uni.showToast({
-      icon: "none",
-      title: "请先完善个人信息",
-    });
-    return uni.navigateTo({
-      url: "/pages/login/more_info_edit",
-    });
+    let modelRes = await uni.showModal({
+      title:"提示",
+      content:'请先完善头像、昵称与地址才可申请相关服务'
+    })
+
+    if(modelRes.confirm){
+      uni.navigateTo({
+        url: "/pages/login/more_info_edit",
+      });
+    }
+    return;
+   
   }
 
   if (userInfo && (userInfo.is_province_agent || userInfo.is_city_agent)) {
@@ -436,7 +454,7 @@ const toAgent = () => {
 };
 
 const toRecommend = async () => {
-  if (!token) {
+  if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -451,13 +469,20 @@ const toRecommend = async () => {
     !userInfo?.birthdate ||
     !userInfo?.residence
   ) {
-    uni.showToast({
-      icon: "none",
-      title: "成为推荐官前先完善个人信息",
-    });
-    return uni.navigateTo({
-      url: "/pages/login/more_info_edit",
-    });
+
+    let modelRes = await uni.showModal({
+      title:"提示",
+      content:'请先完善头像、昵称与地址才可申请相关服务'
+    })
+
+    if(modelRes.confirm){
+      uni.navigateTo({
+        url: "/pages/login/more_info_edit",
+      });
+    }
+
+    return;
+    
   }
   try {
     const phoneNumber = uni.getStorageSync("phoneNumber");
@@ -512,15 +537,10 @@ const logout = () => {
   });
 };
 
-const login = () => {
-  uni.clearStorageSync();
-  uni.redirectTo({
-    url: "/pages/login/login",
-  });
-};
+
 
 const toSafety = () => {
-	if (!token) {
+	if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -532,7 +552,7 @@ const toSafety = () => {
 };
 
 const toPointCode = () => {
-	if (!token) {
+	if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -556,7 +576,7 @@ const toHelpCenter = () => {
 };
 
 const toMyPoint = () => {
-  if (!token) {
+  if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -567,7 +587,7 @@ const toMyPoint = () => {
   });
 };
 const toPointAvailable = () => {
-  if (!token) {
+  if (!token.value ) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -579,7 +599,7 @@ const toPointAvailable = () => {
 };
 
 const toEdteInfo = () => {
-  if (!token) {
+  if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -619,7 +639,7 @@ const toUpdateLog = () => {
   });
 };
 const toPointAccount = () => {
-  if (!token) {
+  if (!token.value ) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -630,7 +650,7 @@ const toPointAccount = () => {
   });
 };
 const toRecord = () => {
-  if (!token) {
+  if (!token.value ) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -665,7 +685,7 @@ const formatPhoneNumber = (phoneNumber) => {
 const isShowNumber = ref(false);
 
 const toCollect = () => {
-  if (!token) {
+  if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -676,7 +696,7 @@ const toCollect = () => {
   });
 };
 const toBrowseRecord = () => {
-  if (!token) {
+  if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -695,8 +715,9 @@ const toBrowseRecord = () => {
 
   .img-box {
     width: 750rpx;
-    height: 250rpx;
-
+    height: 300rpx;
+   
+    
     .img {
       width: 100%;
       height: 100%;
