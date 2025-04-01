@@ -326,7 +326,7 @@ onShow(() => {
   }
   
   shopInfo.value =  uni.getStorageSync("shopInfo");
-  if(showShopPage.value&&shopInfo.value.merchant){
+  if(shopInfo.value&&shopInfo.value.merchant){
     showShopPage.value = true;
   }
 

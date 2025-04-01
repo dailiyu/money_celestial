@@ -158,7 +158,7 @@ const toSettle = ()=>{
 
 const category = ref('')
 const changeRange = (e) => {
-	
+	curPage.value = 1;
 	categoryId.value = e
 	shopLists.value = []
 	getList()
