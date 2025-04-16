@@ -31,6 +31,7 @@
 				<view>{{convertTime(item.created_at, 'yyyy-MM-dd hh:mm:ss')}}</view>
 			</uni-col>
 		</uni-row>
+		
 		<uni-load-more :status="status" @clickLoadMore="loadMore"></uni-load-more>
 	</view>
 </template>
@@ -38,35 +39,68 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getAllRecords } from '@/service/point.js'
-import { convertTime, obscureString,transformTypeFilter } from '@/utils/index.js'
-
+import { convertTime, obscureString, transformTypeFilter } from '@/utils/index.js'
+import { onReachBottom } from '@dcloudio/uni-app'
 
 onMounted(()=>{
-	getRecordList()
+	// 首次进入页面时，加载第一页数据，然后自动加载第二页
+	getRecordList().then(() => {
+		// 如果第一页加载后状态为"more"，则自动加载第二页
+		if (status.value === 'more') {
+			page.value++
+			getRecordList(true)
+		}
+	})
 })
 
 const recordList = ref([])
 const status = ref('loading')
 const page = ref(1)
-const getRecordList = async ()=>{
-	// const params = ref({
-	// 	page: page.value
-	// })
+const pageSize = ref(10) // 每页加载的记录数量
+
+const getRecordList = async (isLoadMore = false) => {
 	status.value = 'loading'
-	const {results} = await getAllRecords()
-	// if (total_amount == transactions.length) {
-		status.value = 'no-more'
-	// } else {
-	// 	status.value = 'more'
-	// }
-	recordList.value = results
-}
-const loadMore = ()=>{
-	if (status.value == 'more') {
-		page.value++
-		getRecordList()
+	const params = {
+		page: page.value,
+		page_size: pageSize.value
+	}
+	
+	try {
+		const { results, total_count } = await getAllRecords(params)
+		
+		if (isLoadMore) {
+			// 加载更多时，将新数据添加到现有列表
+			recordList.value = [...recordList.value, ...results]
+		} else {
+			// 首次加载或刷新时，替换整个列表
+			recordList.value = results
+		}
+		
+		// 判断是否还有更多数据
+		if (recordList.value.length >= total_count) {
+			status.value = 'no-more'
+		} else {
+			status.value = 'more'
+		}
+	} catch (error) {
+		console.error('获取记录失败:', error)
+		status.value = 'fail'
 	}
 }
+
+const loadMore = () => {
+	if (status.value === 'more') {
+		page.value++
+		getRecordList(true)
+	}
+}
+
+// 监听页面滚动到底部
+onReachBottom(() => {
+	if (status.value === 'more') {
+		loadMore()
+	}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -91,3 +125,4 @@ const loadMore = ()=>{
 }
 
 </style>
+
