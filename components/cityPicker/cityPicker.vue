@@ -1,6 +1,6 @@
 <template>
-	<view v-if="cityDataMp">
-		
+	
+	<view v-if="cityData.length">
 		<picker @columnchange="bindProvinceChange" @change="bindCityChange"  mode="multiSelector" :range="cityData" range-key="name">
 			<view class="uni-input">{{selectedCity||'请选择'}}</view>
 		</picker>
@@ -9,21 +9,27 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import cityDataMp from '/static/cityDataMp.js';
+
 import { tencentMapKey } from '@/service/config';
-console.log(cityDataMp,0)
-const cityData = ref([cityDataMp?.data, cityDataMp?.data[0].cityData])
+import cityDataMp from '/utils/cityDataMp.js';
+
+const cityData = ref([])
 const emit = defineEmits(['changeCity']);
 const selectedCity = ref('')
 const userAddress = uni.getStorageSync('userInfo').residence
 const loaclCity=uni.getStorageSync('city')
+
 onMounted(()=>{
+	
+	cityData.value = [cityDataMp?.data, cityDataMp?.data[0].cityData]
+	
 	// #ifndef MP-WEIXIN
 	if (userAddress||loaclCity) {
 		selectedCity.value = loaclCity||userAddress.split(' ')[1]
 		emit('changeCity', {city: selectedCity.value })
 	}
 	// #endif
+	
 	
 	// #ifdef MP-WEIXIN
 	const curLatitude = ref()

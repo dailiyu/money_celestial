@@ -61,9 +61,11 @@ const submit = async()=>{
 			title: '申请成功，请等待后台审核'
 		})
 	}catch(e){
+		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',
-			title: e.data.mail[0]
+			title: JSON.stringify(e),
+			duration: 3000
 		})
 	}
 	

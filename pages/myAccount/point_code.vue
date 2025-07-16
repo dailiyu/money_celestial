@@ -1,6 +1,5 @@
 <template>
 	<view class="page">
-		<navBar title="积分码"></navBar>
 		<view class="content">
 			<view class="code_box">
 				<view>
@@ -26,7 +25,8 @@ const phone = uni.getStorageSync('phoneNumber')
 const qrCodeUrl=ref()
 const generateQRCode = (url) => {
   // 使用在线 API 生成二维码
-  qrCodeUrl.value = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(phone)}`;
+  const qrcode_data='https://maxcang.com/given/'+phone
+  qrCodeUrl.value = `https://api.2dcode.biz/v1/create-qr-code?data=${encodeURIComponent(qrcode_data)}`;
 };
 </script>
 

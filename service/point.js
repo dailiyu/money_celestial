@@ -66,3 +66,14 @@ export  const getAllRecords=async (data)=>{
 export  const getGreenPoints=async ()=>{
 	return http.get('/orders/users/total_gift_green_points_bonus/')
 }
+
+export  const wechatpay=async (data)=>{
+	return http.post(`/orders/pay/wechat/`,data)
+   }
+   
+
+   // 获取积分交易记录
+export const getPointsTransactions = async (params = {}) => {
+	return http.get('/orders/points/transactions/', params)
+}
+   

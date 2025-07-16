@@ -2,7 +2,7 @@
 	<view :style="navBarStyle" class="nav_bar">
 		<view class="nav_item">
 			<view class="picker-box">
-				<!-- <picker @columnchange="bindProvinceChange" @change="bindCityChange"  mode="multiSelector" :range="cityData" range-key="name">
+			<!-- 	<picker @columnchange="bindProvinceChange" @change="bindCityChange"  mode="multiSelector" :range="cityData" range-key="name">
 					<view class="uni-input">{{selectedCity||'请选择'}}</view>
 				</picker> -->
 				<cityPicker @changeCity="bindCityChange"></cityPicker>

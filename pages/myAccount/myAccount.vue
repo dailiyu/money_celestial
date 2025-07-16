@@ -1,289 +1,197 @@
 <template>
-  
   <view class="page">
-    <view class="img-box">
+    <!-- 顶部橙色背景区域 -->
+    <view class="header-bg">
       <image
-        
-        src="https://file.shabiimage.com/appstatic/my/bg_my.png"
-        class="img"
+        src="https://static.maxcang.com/appstatic/my/myAccount/top_orange_bg.png"
+        class="header-bg-img"
       ></image>
+      
+      <!-- 用户信息区域 -->
+      <view class="user-profile" @click="handleUserProfileClick">
+        <view class="avatar">
+          <image class="avatar-img" :src="ionc_url" mode="aspectFill" v-if="ionc_url"></image>
+          <image
+            class="avatar-img"
+            src="https://static.maxcang.com/appstatic/my/maxcang_avatar.png"
+            mode="aspectFill"
+            v-else
+          ></image>
+        </view>
+        <view class="user-info">
+          <view class="username" v-if="token">
+            {{ user_name || "AAA建材王总" }}
+            <image
+              class="edit-icon"
+              src="https://static.maxcang.com/appstatic/my/myAccount/edit_icon.png"
+              @click.stop="toEdteInfo"
+            ></image>
+          </view>
+          <view class="username" v-else>
+            点击登录
+            <image
+              class="login-icon"
+              src="https://static.maxcang.com/appstatic/my/myAccount/right_arrow_white.png"
+            ></image>
+          </view>
+          <view class="user-id" v-if="token">ID: {{ user_id || "3023202" }}</view>
+          <view class="user-id" v-else>登录后查看个人信息</view>
+        </view>
+      </view>
     </view>
+
+    <!-- 内容区域 -->
     <view class="content">
-      <view class="profile" v-if="token">
-        <view class="avtar">
-          <image class="img" :src="ionc_url" mode="" v-if="ionc_url"></image>
-          <image
-            class="img"
-            src="https://static.maxcang.com/appstatic/avatar_default.png"
-            mode=""
-          ></image>
-        </view>
-
-        <view class="userInfo_box">
-          <view class="name">
-            {{ user_name || "default" }}
+      <!-- 绿色积分卡片 -->
+      <view class="points-card green-card">
+        <image
+          class="card-bg"
+          src="https://static.maxcang.com/appstatic/my/myAccount/my_points_card_bg.png"
+        ></image>
+        <view class="card-content">
+          <view class="card-header">
+            <view class="card-title">绿色积分</view>
+            <view class="card-detail" @click="handlePointDetailClick">
+              积分详情
+              <image
+                class="arrow-icon"
+                src="https://static.maxcang.com/appstatic/my/myAccount/right_arrow_white.png"
+              ></image>
+            </view>
           </view>
-          <div class="phone_box">
-            <image
-              class="img"
-              src="https://static.maxcang.com/appstatic/my/phone.jpg"
-            ></image>
-            <view
-              class="number"
-              v-if="!isShowNumber"
-              @click="isShowNumber = true"
-              >{{ obscurePhoneNumber(phoneNumber) }}</view
-            >
-            <view
-              class="number"
-              v-if="isShowNumber"
-              @click="isShowNumber = false"
-              >{{ phoneNumber }}</view
-            >
-          </div>
-        </view>
-        <view class="logout" @click="logout"> 退出登录 </view>
-      </view>
-      <view class="profile" v-if="!token" @click="toLogin">
-        <view class="avtar">
-          <image
-            class="img"
-            src="https://static.maxcang.com/appstatic/avatar_default.png"
-            mode=""
-          ></image>
-        </view>
-
-        <view class="userInfo_box">
-          <view class="name" style="margin-top: 20rpx;"> 未登录 </view>
-          
-        </view>
-
-        <view class="logout" > 点击登录 </view>
-      </view>
-
-      <view class="points-box">
-        <view class="item" @click="toMyPoint">
-          <image
-            class="img"
-            src="https://static.maxcang.com/appstatic/my/my_credits.png"
-          ></image>
-          <text class="text">我的积分</text>
-          <div class="text number">{{ green_points }}</div>
-        </view>
-        <view class="item" @click="toPointAvailable">
-          <image
-            class="img"
-            src="https://static.maxcang.com/appstatic/my/available_credits.png"
-          ></image>
-          <text class="text">能量积分</text>
-          <div class="text number">{{ red_points }}</div>
-        </view>
-        // #ifndef MP-WEIXIN
-        <view class="item" @click="toPointAccount">
-          <image
-            class="img"
-            src="https://static.maxcang.com/appstatic/my/credits_account.png"
-          ></image>
-          <text class="text">积分账号</text>
-          <div class="text number">{{ user ? obscureString(user) : "" }}</div>
-        </view>
-        // #endif
-      </view>
-      <view class="collect_box flex_between">
-        <view class="collect_item flex_between" @click="toCollect">
-          <view class="flex">
-            <image
-              src="https://static.maxcang.com/appstatic/my/collect-orange.png"
-              mode="widthFix"
-              class="collect_pic"
-            ></image>
-            <view class=""> 我的收藏 </view>
-          </view>
-          <image
-            src="https://static.maxcang.com/appstatic/arrow-right.png"
-            mode="widthFix"
-            class="arrow_pic"
-          ></image>
-        </view>
-        <view class="collect_item flex_between" @click="toBrowseRecord">
-          <view class="flex">
-            <image
-              src="https://static.maxcang.com/appstatic/my/view-record.png"
-              mode="widthFix"
-              class="collect_pic"
-            ></image>
-            <view class=""> 浏览记录 </view>
-          </view>
-          <image
-            src="https://static.maxcang.com/appstatic/arrow-right.png"
-            mode="widthFix"
-            class="arrow_pic"
-          ></image>
-        </view>
-      </view>
-      <view class="services">
-        <view class="service_title flex">
-          <image
-            src="https://static.maxcang.com/appstatic/star.png"
-            mode="widthFix"
-            class="star_pic"
-          ></image>
-          <view class=""> 我的服务 </view>
-        </view>
-        <view class="service_bottom flex">
-          <view class="service_item" @click="toEdteInfo">
-            <image
-              src="https://static.maxcang.com/appstatic/my/info.png"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> 个人信息 </view>
-          </view>
-          <view class="service_item" @click="toRecord">
-            <image
-              src="https://static.maxcang.com/appstatic/my/record.png"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> 我的记录 </view>
-          </view>
-          <view class="service_item" @click="toSafety">
-            <image
-              src="https://static.maxcang.com/appstatic/my/safety_password.jpg"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> 密码安全 </view>
-          </view>
-          <view class="service_item" @click="toPointCode">
-            <image
-              src="https://static.maxcang.com/appstatic/my/qrcode.png"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> 积分码 </view>
-          </view>
-          <!-- 	<view class="service_item" @click="toPointsRedemptionVoucher">
-							<image src="https://static.maxcang.com/appstatic/my/exchange_voucher.jpg" mode="widthFix" class="service_pic"></image>
-							<view class="">
-								积分兑换券
-							</view>
-					</view> -->
-          <!-- 	<view class="service_item">
-						<image src="https://static.maxcang.com/appstatic/my/collect.png" mode="widthFix" class="service_pic"></image>
-						<view class="">
-							我的收藏
-						</view>
-					</view> -->
-        </view>
-      </view>
-      <view class="services" v-if="token||showShopPage">
-        <view class="service_title flex">
-          <image
-            src="https://static.maxcang.com/appstatic/star.png"
-            mode="widthFix"
-            class="star_pic"
-          ></image>
-          <view class="" > 满仓生态 </view>
-        </view>
-        <view class="service_bottom flex">
-          <view class="service_item" @click="toMerchant" v-if="showShopPage">
-            <image
-              src="@/static/merchant.png"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> {{userInfo?.is_seller?'商家':'加入商家'}} </view>
-          </view>
-		  <view class="service_item" @click="toRecommend">
-		    <image
-		      src="@/static/recomand.png"
-		      mode="widthFix"
-		      class="service_pic"
-		    ></image>
-		    <view class=""> 推荐官 </view>
-		  </view>
-          <view class="service_item" @click="toAgent">
-            <image
-              src="@/static/agency.png"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> 代理 </view>
+          <view class="points-amount">{{ token ? formatPointsRaw(green_points) : '--' }}</view>
+          <view class="points-stats">
+            <view class="stat-item">
+              <view class="stat-label">昨日获得积分</view>
+              <view class="stat-value">{{ token ? '+' + formatNumber(yesterday_points) : '--' }}</view>
+            </view>
+            <view class="stat-item">
+              <view class="stat-label">本月获得积分</view>
+              <view class="stat-value">{{ token ? '+' + formatNumber(month_points) : '--' }}</view>
+            </view>
           </view>
        
         </view>
       </view>
-      <view class="services">
-        <view class="service_title flex">
-          <image
-            src="https://static.maxcang.com/appstatic/star.png"
-            mode="widthFix"
-            class="star_pic"
-          ></image>
-          <view class=""> 平台服务 </view>
-        </view>
-        <view class="service_bottom flex">
-          <view class="service_item" @click="toHelpCenter">
-            <image
-              src="https://static.maxcang.com/appstatic/my/help.png"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> 帮助中心 </view>
-          </view>
-          <view class="service_item" @click="toAboutUs">
-            <image
-              src="https://static.maxcang.com/appstatic/my/us.png"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> 关于我们 </view>
-          </view>
-          <view class="service_item" @click="toService">
-            <image
-              src="https://static.maxcang.com/appstatic/my/service.png"
-              mode="widthFix"
-              class="service_pic"
-            ></image>
-            <view class=""> 联系客服 </view>
-          </view>
-		  <view class="service_item" @click="toApi"  v-if="api_auth">
-		    <image
-		      src="https://static.maxcang.com/appstatic/my/update_log.png"
-		      mode="widthFix"
-		      class="service_pic"
-		    ></image>
-		    <view class=""> Api调用 </view>
-		  </view>
-          <!-- <view class="service_item" @click="toUpdateLog">
-						<image src="https://static.maxcang.com/appstatic/my/update_log.png" mode="widthFix" class="service_pic"></image>
-						<view class="">
-							更新日志
-						</view>
-					</view> -->
-        </view>
-        
-      </view>
-    </view>
-    // #ifndef MP-WEIXIN
-    <view class="vesion"> 满仓 V{{ version }} </view>
-    // #endif
 
+      <!-- D9能量卡片 -->
+      <view class="energy-card">
+        <image
+          class="card-bg"
+          src="https://static.maxcang.com/appstatic/my/myAccount/d9_energy_card_bg.png"
+        ></image>
+        <view class="card-content">
+          <view class="card-header">
+            <view class="card-title">D9能量</view>
+            <view class="card-detail" @click="handleEnergyDetailClick">
+              能量详情
+              <image
+                class="arrow-icon"
+                src="https://static.maxcang.com/appstatic/my/myAccount/right_arrow_white.png"
+              ></image>
+            </view>
+          </view>
+          <view class="energy-amount">{{ token ? formatPointsRaw(red_points) : '--' }}</view>
+          <view class="energy-stats">
+            <view class="stat-item">
+              <view class="stat-label">昨日转化能量</view>
+              <view class="stat-value">{{ token ? '+' + formatNumber(yesterday_energy) : '--' }}</view>
+            </view>
+            <view class="stat-item">
+              <view class="stat-label">本月转化能量</view>
+              <view class="stat-value">{{ token ? '+' + formatNumber(month_energy) : '--' }}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 收藏和浏览记录 -->
+      <view class="action-buttons">
+        <view class="action-btn" @click="toCollect">
+          <image
+            class="action-icon"
+            src="https://static.maxcang.com/appstatic/my/myAccount/my_collection_icon.png"
+          ></image>
+          <text class="action-text">我的收藏</text>
+          <image
+            class="arrow-right"
+            src="https://static.maxcang.com/appstatic/my/myAccount/right_arrow_white.png"
+          ></image>
+        </view>
+        <view class="action-btn" @click="toBrowseRecord">
+          <image
+            class="action-icon"
+            src="https://static.maxcang.com/appstatic/my/myAccount/browse_record_icon.png"
+          ></image>
+          <text class="action-text">浏览记录</text>
+          <image
+            class="arrow-right"
+            src="https://static.maxcang.com/appstatic/my/myAccount/right_arrow_white.png"
+          ></image>
+        </view>
+      </view>
+
+      <!-- 服务菜单 -->
+      <view class="service-menu">
+        <view class="service-item" @click="toHelpCenter">
+          <image
+            class="service-icon"
+            src="https://static.maxcang.com/appstatic/my/myAccount/help_center_icon.png"
+          ></image>
+          <text class="service-text">帮助中心</text>
+          <image
+            class="arrow-right"
+            src="https://static.maxcang.com/appstatic/my/myAccount/right_arrow_gray.png"
+          ></image>
+        </view>
+        <view class="service-item" @click="toAboutUs">
+          <image
+            class="service-icon"
+            src="https://static.maxcang.com/appstatic/my/myAccount/about_us_icon.png"
+          ></image>
+          <text class="service-text">关于我们</text>
+          <image
+            class="arrow-right"
+            src="https://static.maxcang.com/appstatic/my/myAccount/right_arrow_gray.png"
+          ></image>
+        </view>
+        <view class="service-item" @click="toService">
+          <image
+            class="service-icon"
+            src="https://static.maxcang.com/appstatic/my/myAccount/customer_service_icon.png"
+          ></image>
+          <text class="service-text">联系客服</text>
+          <image
+            class="arrow-right"
+            src="https://static.maxcang.com/appstatic/my/myAccount/right_arrow_gray.png"
+          ></image>
+        </view>
+      </view>
+
+      <!-- 版本信息 -->
+      <view class="version-info">
+        版本号：{{ version || '1.0.0' }}
+      </view>
+    
+    </view>
+
+   
+
+    <!-- 联系客服弹窗 -->
     <uni-popup ref="contactPop" borderRadius="30rpx" background-color="#fff">
-      <view class="step_pop">
-        <view class="title"> 联系客服 </view>
-        <view class="top_content flex_center">
-          <view class=""> 3833194083 </view>
+      <view class="contact-popup">
+        <view class="popup-title">联系客服</view>
+        <view class="popup-content">
+          <view class="qq-number">3833194083</view>
           <image
             src="https://static.maxcang.com/appstatic/copy.png"
             mode="widthFix"
-            class="copy_pic"
+            class="copy-icon"
             @click="copy"
           ></image>
         </view>
-        <view class="desc"> 更多问题请联系满仓客服QQ </view>
-        <view class="btn_plain" @click="closeContactPop"> 确定 </view>
+        <view class="popup-desc">更多问题请联系满仓客服QQ</view>
+        <view class="popup-btn" @click="closeContactPop">确定</view>
       </view>
     </uni-popup>
   </view>
@@ -295,236 +203,157 @@ import { getAllPoint, getPointBindedAccount } from "@/service/point.js";
 import { getRecommendOfficerInfo } from "@/service/recommend";
 import { useUserStore } from "../../store/user";
 import { obscureString, obscurePhoneNumber } from "@/utils";
-import { onShow,onLoad } from "@dcloudio/uni-app";
+import { onShow, onLoad } from "@dcloudio/uni-app";
+
 const userStore = useUserStore();
 const phoneNumber = ref("");
-const accessToken = uni.getStorageSync("accessToken");
 const ionc_url = ref();
 const user_name = ref();
+const user_id = ref();
 const version = ref("");
 const api_auth = ref(0);
 const shopInfo = ref({});
-let token = ref('');
-const userInfo = uni.getStorageSync("userInfo");
+const token = ref('');
 const showShopPage = ref(false);
 
-onLoad((e)=>{
-  if(e.recommand){
+// 积分和能量数据
+const green_points = ref(10000000000);
+const red_points = ref(10000);
+const yesterday_points = ref(100000);
+const month_points = ref(100000000);
+const yesterday_energy = ref(0.23);
+const month_energy = ref(10.023);
+
+onLoad((e) => {
+  if (e.recommand) {
     showShopPage.value = true;
   }
 });
 
 onShow(() => {
-	console.log('--------====',userInfo?.is_seller)
   token.value = uni.getStorageSync("accessToken");
   phoneNumber.value = uni.getStorageSync("phoneNumber");
-  ionc_url.value = uni.getStorageSync("userInfo").icon;
-  user_name.value = uni.getStorageSync("userInfo").name;
-  api_auth.value = uni.getStorageSync("userInfo").is_api;
-  if (accessToken) {
+  const userInfo = uni.getStorageSync("userInfo");
+  ionc_url.value = userInfo?.icon;
+  user_name.value = userInfo?.name;
+  console.log('onShow - userInfo:', userInfo);
+  console.log('onShow - token:', token.value);
+  user_id.value = userInfo?.phone_number || "3023202";
+  api_auth.value = userInfo?.is_api;
+  
+  if (token.value) {
     getPointInfo();
   }
   
-  shopInfo.value =  uni.getStorageSync("shopInfo");
-  if(shopInfo.value&&shopInfo.value.merchant){
+  shopInfo.value = uni.getStorageSync("shopInfo");
+  if (shopInfo.value && shopInfo.value.merchant) {
     showShopPage.value = true;
   }
-
-  
 
   // #ifdef APP-PLUS
   version.value = plus.runtime.version;
   // #endif
+  
+  // #ifdef MP-WEIXIN
+  try {
+    const accountInfo = wx.getAccountInfoSync();
+    version.value = accountInfo.miniProgram.version || '1.0.0';
+  } catch (error) {
+    version.value = '1.0.0';
+  }
+  // #endif
+  
+  // #ifdef MP-ALIPAY
+  try {
+    my.getSystemInfo({
+      success: (res) => {
+        version.value = res.version || '1.0.0';
+      },
+      fail: () => {
+        version.value = '1.0.0';
+      }
+    });
+  } catch (error) {
+    version.value = '1.0.0';
+  }
+  // #endif
+  
+  // #ifdef MP-BAIDU || MP-TOUTIAO || MP-QQ
+  version.value = '1.0.0'; // 其他小程序平台使用默认版本号
+  // #endif
+  
+  // #ifdef MP-WEIXIN
+  try {
+    const accountInfo = wx.getAccountInfoSync();
+    version.value = accountInfo.miniProgram.version || '1.0.0';
+  } catch (error) {
+    version.value = '1.0.0';
+  }
+  // #endif
+  
+  // #ifdef MP-ALIPAY
+  try {
+    my.getSystemInfo({
+      success: (res) => {
+        version.value = res.version || '1.0.0';
+      },
+      fail: () => {
+        version.value = '1.0.0';
+      }
+    });
+  } catch (error) {
+    version.value = '1.0.0';
+  }
+  // #endif
+  
+  // #ifdef MP-BAIDU || MP-TOUTIAO || MP-QQ
+  version.value = '1.0.0'; // 其他小程序平台使用默认版本号
+  // #endif
 });
 
-const toMerchant = async () => {
-  // #ifdef MP-WEIXIN
-  if (!token.value) {
-    return uni.showToast({
-      icon: "none",
-      title: "请登录!",
-    });
+// 格式化数字显示
+const formatNumber = (num) => {
+  if (num >= 1000000000) {
+    return (num / 1000000000).toFixed(2) + "B";
+  } else if (num >= 1000000) {
+    return (num / 1000000).toFixed(2) + "M";
+  } else if (num >= 1000) {
+    return (num / 1000).toFixed(2) + "K";
   }
-  // #endif
-
-  userInfo.value = await uni.getStorageSync("userInfo");
-  if (
-    !userInfo?.value.name ||
-    !userInfo?.value.gender ||
-    !userInfo?.value.icon ||
-    !userInfo?.value.birthdate ||
-    !userInfo?.value.residence
-  ) {
-    
-    let modelRes = await uni.showModal({
-      title:"提示",
-      content:'请先完善头像、昵称与地址才可申请相关服务'
-    })
-
-    if(modelRes.confirm){
-      uni.navigateTo({
-        url: "/pages/login/more_info_edit",
-      });
-      
-    }
-    return;
-    
-  }
-
-  shopInfo.value = await uni.getStorageSync("shopInfo");
-  const phoneNumber = uni.getStorageSync("phoneNumber");
-  console.log(
-    "点击商家前获得的数据",
-    userInfo.value?.is_seller,
-    shopInfo.value.state
-  );
-  /*  */
-  console.log("进入商家前的用户信息", userInfo.value);
-  console.log("进入商家前的店铺信息", shopInfo.value);
-  //0 正在审核 1审核通过  -1审核不通过
-  if (userInfo.value?.is_seller && shopInfo.value.state > 0) {
-    // 店铺已过审核
-    await uni.setStorageSync("prePageIsHome", true);
-    uni.navigateTo({
-      url: "/pages/merchant/merchant_management",
-    });
-  } else if (!userInfo.value?.is_seller) {
-    //还没成为商家
-    uni.navigateTo({
-      url: "/pages/merchant/merchant_intro",
-    });
-  } else if (userInfo.value?.is_seller && !userInfo.value?.is_shop) {
-    //是商家 首次开通店铺
-    uni.navigateTo({
-      url: "/pages/merchant/before_create_shop",
-    });
-  } else if (userInfo.value?.is_seller && shopInfo.value.state == -1) {
-    //是商家 审核不通过
-    uni.navigateTo({
-      url: "/pages/merchant/fail_create_shop",
-    });
-  } else if (userInfo.value?.is_seller && shopInfo.value?.state == 0) {
-    //正在审核
-    uni.navigateTo({
-      url: "/pages/merchant/before_create_merchant",
-    });
-  }
+  return parseFloat(num).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const toAgent = async   () => {
-  // #ifdef MP-WEIXIN
-  if (!token.value) {
-    return uni.showToast({
-      icon: "none",
-      title: "请登录!",
-    });
-  }
-  // #endif
-
-  if (
-    !userInfo?.name ||
-    !userInfo?.gender ||
-    !userInfo?.icon ||
-    !userInfo?.birthdate ||
-    !userInfo?.residence
-  ) {
-    let modelRes = await uni.showModal({
-      title:"提示",
-      content:'请先完善头像、昵称与地址才可申请相关服务'
-    })
-
-    if(modelRes.confirm){
-      uni.navigateTo({
-        url: "/pages/login/more_info_edit",
-      });
-    }
-    return;
-   
-  }
-
-  if (userInfo && (userInfo.is_province_agent || userInfo.is_city_agent)) {
-    uni.navigateTo({
-      url: "/pages/agent/agent_management",
-    });
-  } else {
-    uni.navigateTo({
-      url: "/pages/agent/agent_intro",
-    });
-  }
+// 格式化绿色积分原数值显示（不使用K、M、B缩写）
+const formatPointsRaw = (num) => {
+  return parseFloat(num).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const toRecommend = async () => {
-  if (!token.value) {
-    return uni.showToast({
-      icon: "none",
-      title: "请登录!",
-    });
-  }
-
-  const userInfo = uni.getStorageSync("userInfo");
-  if (
-    !userInfo?.name ||
-    !userInfo?.gender ||
-    !userInfo?.icon ||
-    !userInfo?.birthdate ||
-    !userInfo?.residence
-  ) {
-
-    let modelRes = await uni.showModal({
-      title:"提示",
-      content:'请先完善头像、昵称与地址才可申请相关服务'
-    })
-
-    if(modelRes.confirm){
-      uni.navigateTo({
-        url: "/pages/login/more_info_edit",
-      });
-    }
-
-    return;
-    
-  }
-  try {
-    const phoneNumber = uni.getStorageSync("phoneNumber");
-
-    const data = await getRecommendOfficerInfo(phoneNumber);
-
-    if (data?.is_approved && data?.is_visible) {
-      uni.navigateTo({
-        url: "/pages/recommend/recommend_management",
-      });
-    } else if (!data?.is_approved) {
-      console.log("进入推荐官页面222", userInfo);
-      uni.navigateTo({
-        url: "/pages/recommend/before_create_recommend",
-      });
-    }
-  } catch (e) {
-    if (e.data?.detail) {
-      uni.navigateTo({
-        url: "/pages/recommend/recommend_intro",
-      });
-    }
-  }
-};
-
-onMounted(()=>{
-
-})
-const green_points = ref(0);
-const red_points = ref(0);
-const user = ref("");
 const getPointInfo = async () => {
-  const res = await getAllPoint();
-  // 我的积分
-  green_points.value = res.green_points;
-  // 可用积分
-  red_points.value = res.red_points;
-  // user.value = res.user
-  const { points_account } = await getPointBindedAccount();
-  user.value = points_account;
+  try {
+    const res = await getAllPoint();
+    green_points.value = res.green_points || 10000000000;
+    red_points.value = res.red_points || 10000;
+  } catch (error) {
+    console.error("获取积分信息失败:", error);
+  }
 };
+
+const handleUserProfileClick = () => {
+  console.log('点击用户信息区域, token值:', token.value);
+  if (!token.value) {
+    toLogin();
+  }
+};
+
+const showLoginToast = () => {
+  uni.showToast({
+    icon: "none",
+    title: "请先登录!",
+  });
+};
+
 const toLogin = () => {
+  console.log('跳转到登录页');
   uni.navigateTo({
     url: "/pages/login/login",
   });
@@ -537,41 +366,50 @@ const logout = () => {
   });
 };
 
-
-
-const toSafety = () => {
-	if (!token.value) {
+const toEdteInfo = () => {
+  if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
     });
   }
+  // uni.navigateTo({
+  //   url: "/pages/login/more_info_edit",
+  // });
   uni.navigateTo({
-    url: "/pages/myAccount/safety",
-  });
+  url: '/pages/myAccount/edit_info'
+});
 };
 
-const toPointCode = () => {
-	if (!token.value) {
-    return uni.showToast({
+// 处理积分详情点击
+const handlePointDetailClick = () => {
+  console.log('点击积分详情, token值:', token.value);
+  if (!token.value) {
+    uni.showToast({
       icon: "none",
-      title: "请登录!",
+      title: "请先登录!",
     });
+    return;
   }
+  console.log('跳转到绿色积分页面');
   uni.navigateTo({
-    url: "/pages/myAccount/point_code",
+    url: "/pages/myAccount/my_point",
   });
 };
 
-const toPointsRedemptionVoucher = () => {
+// 处理能量详情点击
+const handleEnergyDetailClick = () => {
+  console.log('点击能量详情, token值:', token.value);
+  if (!token.value) {
+    uni.showToast({
+      icon: "none",
+      title: "请先登录!",
+    });
+    return;
+  }
+  console.log('跳转到D9能量页面');
   uni.navigateTo({
-    url: "/pages/myAccount/exchange_point_coupon",
-  });
-};
-
-const toHelpCenter = () => {
-  uni.navigateTo({
-    url: "/pages/myAccount/helpCenter",
+    url: "/pages/myAccount/point_available",
   });
 };
 
@@ -586,8 +424,9 @@ const toMyPoint = () => {
     url: "/pages/myAccount/my_point",
   });
 };
+
 const toPointAvailable = () => {
-  if (!token.value ) {
+  if (!token.value) {
     return uni.showToast({
       icon: "none",
       title: "请登录!",
@@ -597,92 +436,6 @@ const toPointAvailable = () => {
     url: "/pages/myAccount/point_available",
   });
 };
-
-const toEdteInfo = () => {
-  if (!token.value) {
-    return uni.showToast({
-      icon: "none",
-      title: "请登录!",
-    });
-  }
-  uni.navigateTo({
-    url: "/pages/login/more_info_edit",
-  });
-};
-
-const contactPop = ref();
-const toService = () => {
-  contactPop.value.open();
-  // uni.showModal({
-  // 	content:'官方QQ客服：3833194083',
-  // 	confirmText:'复制',
-  // 	confirmColor:'#FC5908',
-  // 	success:(success)=>{
-  // 		if(success.confirm){
-  // 			uni.setClipboardData({data:'3833194083'
-  // 			})
-
-  // 		}
-  // 	},
-  // }
-  // )
-};
-const closeContactPop = () => {
-  contactPop.value.close();
-};
-const copy = () => {
-  uni.setClipboardData({ data: "3833194083" });
-};
-const toUpdateLog = () => {
-  uni.navigateTo({
-    url: "/pages/myAccount/update_log",
-  });
-};
-const toPointAccount = () => {
-  if (!token.value ) {
-    return uni.showToast({
-      icon: "none",
-      title: "请登录!",
-    });
-  }
-  uni.navigateTo({
-    url: "/pages/myAccount/point_account",
-  });
-};
-const toRecord = () => {
-  if (!token.value ) {
-    return uni.showToast({
-      icon: "none",
-      title: "请登录!",
-    });
-  }
-  uni.navigateTo({
-    url: "/pages/myAccount/all_records",
-  });
-};
-const toAboutUs = () => {
-  uni.navigateTo({
-    url: "/pages/myAccount/about_us",
-  });
-};
-
-const toApi = () => {
-  uni.navigateTo({
-    url: "/pages/myAccount/api",
-  });
-};
-
-const formatPhoneNumber = (phoneNumber) => {
-  if (phoneNumber.length === 11) {
-    return `${phoneNumber.slice(0, 3)} ${phoneNumber.slice(
-      3,
-      7
-    )} ${phoneNumber.slice(7)}`;
-  }
-  return "Invalid phone number";
-};
-
-const isShowNumber = ref(false);
 
 const toCollect = () => {
   if (!token.value) {
@@ -695,6 +448,7 @@ const toCollect = () => {
     url: "/pages/myAccount/my_collection",
   });
 };
+
 const toBrowseRecord = () => {
   if (!token.value) {
     return uni.showToast({
@@ -706,224 +460,457 @@ const toBrowseRecord = () => {
     url: "/pages/myAccount/browse_record",
   });
 };
+
+const toHelpCenter = () => {
+  uni.navigateTo({
+    url: "/pages/myAccount/helpCenter",
+  });
+};
+
+const toAboutUs = () => {
+  uni.navigateTo({
+    url: "/pages/myAccount/about_us",
+  });
+};
+
+const contactPop = ref();
+const toService = () => {
+  contactPop.value.open();
+};
+
+const closeContactPop = () => {
+  contactPop.value.close();
+};
+
+const copy = () => {
+  uni.setClipboardData({ data: "3833194083" });
+};
+
+onMounted(() => {
+  // 初始化完成
+});
 </script>
 
 <style lang="scss">
 .page {
-  height: 100vh;
-  width: 750rpx;
+  width: 100%;
+  min-height: 100vh;
+  // background: linear-gradient(180deg, #FF7A00 0%, #F5F5F5 45%);
+  padding-bottom: 120rpx;
+}
 
-  .img-box {
-    width: 750rpx;
-    height: 300rpx;
-   
+/* 顶部背景区域 */
+.header-bg {
+  position: relative;
+  width: 100%;
+  height: 505rpx;
+  background: linear-gradient(135deg, #FF7A00 0%, #FF9500 50%, #FFB800 100%);
+  background-image: url('https://static.maxcang.com/appstatic/my/myAccount/top_orange_bg.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  
+  .header-bg-img {
+    display: none;
+  }
+  
+  .user-profile {
+    position: absolute;
+    top: 171rpx;
+    left: 0;
+    right: 0;
+    height: 151rpx;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 0 40rpx;
     
-    .img {
-      width: 100%;
-      height: 100%;
-      // transform: translateY(-180rpx);
+    .avatar {
+      width: 149rpx;
+      height: 151rpx;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 30rpx;
+      border: 4rpx solid rgba(255, 255, 255, 0.3);
+      
+      .avatar-img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    
+    .user-info {
+      flex: 1;
+      
+      .username {
+        display: flex;
+        align-items: center;
+        font-size: 45rpx;
+        font-weight: bold;
+        color: #FFFFFF;
+        margin-bottom: 10rpx;
+        
+        .edit-icon {
+          width: 26rpx;
+          height: 26rpx;
+          margin-left: 15rpx;
+        }
+        
+        .login-icon {
+          width: 20rpx;
+          height: 20rpx;
+          margin-left: 15rpx;
+        }
+      }
+      
+      .user-id {
+        font-size: 24rpx;
+        color: #FFFFFF;
+      }
     }
   }
+}
 
-  .content {
-    transform: translateY(-250rpx);
-    padding: 0;
-    margin: 0 32rpx;
+/* 内容区域 */
+.content {
+  padding: 0 30rpx;
+  margin-top: -150rpx;
+  position: relative;
+  z-index: 3;
+}
 
-    .profile {
-      // width: 750rpx;
+/* 绿色积分卡片 */
+.points-card.green-card {
+  position: relative;
+  width: 692rpx;
+  height: 279rpx;
+  margin-bottom: 15rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  // background: linear-gradient(135deg, #CDF1EA 0%, #2AC2A4 100%);
+
+  
+  .card-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0; // background
+
+  }
+  
+  .card-content {
+    position: relative;
+    z-index: 2;
+    padding: 30rpx;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    .card-header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-
-      .avtar {
-        width: 110rpx;
-        height: 110rpx;
-        border-radius: 50%;
-        // background-color: blue;
-        margin-right: 40rpx;
-        margin-left: 20rpx;
-        overflow: hidden;
-        .img {
-          width: 100%;
-          height: 100%;
-        }
+      margin-bottom: 20rpx;
+      
+      .card-title {
+        font-size: 28rpx;
+        color: #2AC2A4;
+        font-weight: 500;
       }
-
-      .userInfo_box {
+      
+      .card-detail {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 340rpx;
-        height: 90rpx;
-        .name {
-          font-family: HarmonyOS_Sans_SC_Bold;
-          font-size: 36rpx;
-          color: #ffffff;
-        }
-        .phone_box {
-          display: flex;
-          justify-content: start;
-          align-items: center;
-          margin-left: -2rpx;
-          .img {
-            width: 30rpx;
-            height: 30rpx;
-            margin-right: 7rpx;
-          }
-          .number {
-            font-size: 22rpx;
-            color: #ffffff;
-          }
-        }
-      }
-
-      .logout {
-        margin-right: 20rpx;
-        // color: #54b1fd;
-        padding: 12rpx 20rpx;
-        color: #fc5908;
-        font-size: 21rpx;
-        background-color: #fff;
-        border-radius: 100px;
-      }
-    }
-
-    .points-box {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      width: 684rpx;
-      height: 270rpx;
-      margin-top: 35rpx;
-      background-image: url("https://file.shabiimage.com/appstatic/my/bg_credit.png");
-      background-size: cover;
-      padding: 0 10rpx;
-
-      .item {
-        flex: 1;
-
-        display: flex;
-        flex-direction: column;
+        align-items: center;
         justify-content: center;
-        align-items: center;
-
-        .img {
-          height: 75rpx;
-          width: 75rpx;
-        }
-
-        .text {
-          width: 100%;
-          font-family: HarmonyOS_Sans_SC;
-          margin-top: 15rpx;
-          font-size: 24rpx;
-          color: #333333;
-          text-align: center;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        }
-
-        .number {
-          font-family: HarmonyOS_Sans_SC;
-          font-size: 18rpx;
-          color: #888888;
-          text-align: center;
-        }
-      }
-    }
-    .collect_box {
-      font-size: 24rpx;
-      .collect_item {
-        padding: 30rpx;
-        margin-top: 30rpx;
-        margin-right: 30rpx;
-        background-color: #fff;
-        border-radius: 20rpx;
-        flex: 1;
-        &:last-child {
-          margin-right: 0;
-        }
-        .collect_pic {
-          width: 34rpx;
-          margin-right: 14rpx;
-        }
-        .arrow_pic {
+        font-size: 18rpx;
+        color: #FFFFFF;
+        // background: rgba(255, 255, 255, 0.3);
+        padding: 8rpx 15rpx;
+        border-radius: 15rpx;
+        width: 132rpx;
+        height: 36rpx;
+        background: #2AC2A4;
+        border-radius: 18rpx 18rpx 18rpx 18rpx;
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+        
+        .arrow-icon {
           width: 10rpx;
+          height: 17rpx;
+          margin-left: 8rpx;
+          pointer-events: none;
         }
       }
     }
-    .services {
-      background-color: #ffffff;
-      box-shadow: 1rpx 0rpx 15rpx 0rpx #f8f8f8;
-      border-radius: 20rpx;
-      padding: 20rpx;
-      margin-top: 30rpx;
-      .service_title {
-        font-size: 27rpx;
-        padding-left: 7rpx;
-        border-bottom: 1px solid #dddddd;
-        margin-bottom: 30rpx;
-        padding-bottom: 20rpx;
-        .star_pic {
-          width: 40rpx;
-          margin-right: 20rpx;
-        }
-      }
-      .service_bottom {
-        display: flex;
-        // justify-content: space-around;
-        align-items: center;
-        .service_item {
-          font-size: 21rpx;
-          text-align: center;
-          padding: 0 40rpx;
-          &:last-child {
-            padding-right: 0;
-          }
-          .service_pic {
-            width: 84rpx;
-            height: 84rpx;
-            border-radius: 50%;
-            margin-bottom: 16rpx;
-          }
-        }
-      }
-    }
-  }
-  .vesion {
-    font-size: 24rpx;
-    color: #ccc;
-    text-align: center;
-  }
-
-  .step_pop {
-    width: 566rpx;
-    padding: 64rpx;
-    text-align: center;
-    .title {
-      font-size: 36rpx;
-      color: #fc5908;
-      line-height: 28rpx;
+    
+    .points-amount {
+      font-size: 48rpx;
       font-weight: bold;
-      margin-bottom: 50rpx;
+      color: #2AC2A4;
+      margin-bottom: 30rpx;
     }
-    .top_content {
-      font-size: 42rpx;
-      // line-height: 28rpx;
-      margin-bottom: 58rpx;
-      .copy_pic {
-        width: 27rpx;
-        margin-left: 10rpx;
+    
+    .points-stats {
+      display: flex;
+      width: 350rpx;
+      justify-content: space-between;
+      flex: 1;
+      
+      .stat-item {
+        .stat-label {
+          font-size: 22rpx;
+          color: #2AC2A4;
+          margin-bottom: 8rpx;
+        }
+        
+        .stat-value {
+          font-size: 26rpx;
+          color: #2AC2A4;
+          font-weight: 600;
+        }
       }
     }
-    .desc {
-      font-size: 28rpx;
-      margin-bottom: 64rpx;
+    
+    .d9-logo {
+      position: absolute;
+      right: 30rpx;
+      bottom: 30rpx;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 12rpx 20rpx;
+      border-radius: 50rpx;
+      
+      text {
+        font-size: 20rpx;
+        color: #2AC2A4;
+      }
     }
-    .btn_plain {
-      width: 340rpx;
+  }
+}
+
+/* D9能量卡片 */
+.energy-card {
+  position: relative;
+  width: 692rpx;
+  height: 279rpx;
+  margin-bottom: 30rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  
+  .card-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  
+  .card-content {
+    position: relative;
+    z-index: 2;
+    padding: 30rpx;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20rpx;
+      
+      .card-title {
+        font-size: 28rpx;
+        color: #FC5908;
+        font-weight: 500;
+      }
+      
+      .card-detail {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18rpx;
+        color: #FFFFFF;
+        // background: rgba(255, 255, 255, 0.2);
+        padding: 8rpx 15rpx;
+        border-radius: 15rpx;
+        width: 132rpx;
+        height: 36rpx;
+        background: #FC5908;
+        border-radius: 18rpx 18rpx 18rpx 18rpx;
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+        
+        .arrow-icon {
+          width: 10rpx;
+          height: 17rpx;
+          margin-left: 8rpx;
+          pointer-events: none;
+        }
+      }
     }
+    
+    .energy-amount {
+      font-size: 48rpx;
+      font-weight: bold;
+      color: #FC5908;
+      margin-bottom: 30rpx;
+    }
+    
+    .energy-stats {
+      display: flex;
+      width: 350rpx;
+      justify-content: space-between;
+      flex: 1;
+      
+      .stat-item {
+        .stat-label {
+          font-size: 22rpx;
+          color: #FC5908;
+          margin-bottom: 8rpx;
+        }
+        
+        .stat-value {
+          font-size: 26rpx;
+          color: #FC5908;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+/* 操作按钮 */
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+  
+  .action-btn {
+    width: 337rpx;
+    height: 99rpx;
+    background: linear-gradient(90deg, #FD8F36 0%, #FC5908 100%);
+    border-radius: 30rpx;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+    padding: 31rpx 44rpx;
+    
+    .action-icon {
+      width: 35rpx;
+height: 34rpx;
+      margin-right: 15rpx;
+    }
+    
+    .action-text {
+      flex: 1;
+      font-size: 24rpx;
+color: #FFFFFF;
+      
+    }
+    
+    .arrow-right {
+      width: 10rpx;
+      height: 17rpx;
+    }
+  }
+}
+
+/* 服务菜单 */
+.service-menu {
+  width: 692rpx;
+  height: 331rpx;
+  background: #FFFFFF;
+  border-radius: 30rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 40rpx;
+  
+  .service-item {
+    display: flex;
+    align-items: center;
+    height: 110rpx;
+    padding: 52rpx 46rpx;
+    border-bottom: 1rpx solid #F5F5F5;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .service-icon {
+      width: 30rpx;
+      height: 30rpx;
+      margin-right: 20rpx;
+    }
+    
+    .service-text {
+      flex: 1;
+      font-size: 24rpx;
+      color: #333333;
+    }
+    
+    .arrow-right {
+      width: 10rpx;
+      height: 17rpx;
+    }
+  }
+}
+
+/* 版本信息 */
+.version-info {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
+  margin-bottom: 40rpx;
+}
+
+
+
+/* 联系客服弹窗 */
+.contact-popup {
+  width: 566rpx;
+  padding: 64rpx;
+  text-align: center;
+  
+  .popup-title {
+    font-size: 36rpx;
+    color: #FF7A00;
+    font-weight: bold;
+    margin-bottom: 50rpx;
+  }
+  
+  .popup-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42rpx;
+    margin-bottom: 58rpx;
+    
+    .copy-icon {
+      width: 27rpx;
+      margin-left: 10rpx;
+    }
+  }
+  
+  .popup-desc {
+    font-size: 28rpx;
+    color: #666666;
+    margin-bottom: 64rpx;
+  }
+  
+  .popup-btn {
+    width: 340rpx;
+    height: 80rpx;
+    // background: #FF7A00;
+    color: #FFFFFF;
+    border-radius: 40rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28rpx;
+    margin: 0 auto;
   }
 }
 </style>

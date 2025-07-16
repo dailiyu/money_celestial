@@ -17,6 +17,14 @@
 			}
 		},
 		{
+			"path" : "pages/store/store_search",
+			"style" : 
+			{
+				"navigationBarTitleText" : "店铺搜索",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path" : "pages/merchant/merchant_intro",
 			"style" : 
 			{
@@ -256,8 +264,7 @@
 			"path" : "pages/myAccount/myAccount",
 			"style" : 
 			{
-				"navigationBarTitleText" : "我的账户",
-				"navigationStyle": "default",
+				"navigationStyle": "custom",
 				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
@@ -300,7 +307,7 @@
 			{
 				"navigationBarTitleText" : "修改个人信息",
 				"navigationStyle": "default",
-				"navigationBarBackgroundColor":"#1B46CC"
+				"navigationBarBackgroundColor":"#FC5908"
 			}
 		},
 		{
@@ -308,7 +315,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "密码与安全",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -316,7 +324,8 @@
 					"style" : 
 					{
 						"navigationBarTitleText" : "修改登录密码",
-						"navigationStyle": "custom"
+						"navigationStyle": "default",
+						"navigationBarBackgroundColor": "#FC5908"
 					}
 		},
 		{
@@ -324,7 +333,8 @@
 					"style" : 
 					{
 						"navigationBarTitleText" : "修改支付密码",
-						"navigationStyle": "custom"
+						"navigationStyle": "default",
+						"navigationBarBackgroundColor": "#FC5908"
 					}
 		},
 		{
@@ -339,16 +349,18 @@
 			"path" : "pages/myAccount/my_point",
 			"style" : 
 			{
-				"navigationBarTitleText" : "我的积分",
-				"navigationStyle": "custom"
+				"navigationBarTitleText" : "绿色积分",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor":"#2AC2A4"
 			}
 		},
 		{
 			"path" : "pages/myAccount/point_available",
 			"style" : 
 			{
-				"navigationBarTitleText" : "可用积分",
-				"navigationStyle": "custom"
+				"navigationBarTitleText" : "D9能量",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor":"#FC5908"
 			}
 		},
 		{
@@ -356,15 +368,17 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "积分账号",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
 			"path" : "pages/myAccount/bind_account",
 			"style" : 
 			{
-				"navigationBarTitleText" : "积分账号",
-				"navigationStyle": "custom"
+				"navigationBarTitleText" : "绑定账号",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -459,16 +473,18 @@
 			"path" : "pages/myAccount/exchange_point_step_1",
 			"style" : 
 			{
-				"navigationBarTitleText" : "兑换积分",
-				"navigationStyle": "custom"
+				"navigationBarTitleText" : "充值D9能量",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
 			"path" : "pages/myAccount/exchange_point_step_2",
 			"style" : 
 			{
-				"navigationBarTitleText" : "兑换积分",
-				"navigationStyle": "custom"
+				"navigationBarTitleText" : "充值D9能量",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -476,31 +492,35 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "提取积分",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
 			"path" : "pages/myAccount/green_point_withdraw_record",
 			"style" : 
 			{
-				"navigationBarTitleText" : "提取记录",
-				"navigationStyle": "custom"
+				"navigationBarTitleText" : "积分记录",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#2AC2A4"
 			}
 		},
 		{
 			"path" : "pages/myAccount/red_point_withdraw",
 			"style" : 
 			{
-				"navigationBarTitleText" : "提取记录",
-				"navigationStyle": "custom"
+				"navigationBarTitleText" : "提取D9能量",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
 			"path" : "pages/myAccount/red_point_withdraw_record",
 			"style" : 
 			{
-				"navigationBarTitleText" : "提取记录",
-				"navigationStyle": "custom"
+				"navigationBarTitleText" : "能量记录",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC6412"
 			}
 		},
 		{
@@ -524,7 +544,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "关于我们",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -532,7 +553,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "帮助中心",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -548,7 +570,9 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "绑定须知",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -564,7 +588,9 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "提取须知",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -612,7 +638,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "积分码",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -641,8 +668,7 @@
 		},
 		{
 			"path" : "pages/myAccount/api",
-			"style" : 
-			{
+			"style": {
 				"navigationBarTitleText" : "满仓Api",
 				"navigationStyle": "default",
 				"navigationBarBackgroundColor": "#000"
@@ -652,9 +678,10 @@
 			"path" : "pages/myAccount/my_collection",
 			"style" : 
 			{
-				"navigationBarTitleText" : "浏览记录",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText" : "我的收藏",
+				"navigationStyle": "default",
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#FC5908"
 			}
 		},
 		{
@@ -662,7 +689,9 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "浏览记录",
-				"navigationStyle": "custom",
+				"navigationStyle": "default",
+				"navigationBarTextStyle":"white",
+				"navigationBarBackgroundColor":"#FC5908",
 				"enablePullDownRefresh": true
 			}
 		},
@@ -672,6 +701,15 @@
 			{
 				"navigationBarTitleText" : "每日签到",
 				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/myAccount/edit_info",
+			"style" : 
+			{
+				"navigationBarTitleText" : "编辑信息",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -713,11 +751,97 @@
 				"navigationBarTitleText" : "",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path" : "pages/bannerPage/newMaxCang",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/points/pay",
+			"style" : 
+			{
+				"navigationBarTitleText" : "支付领积分",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor":"#ff0036"
+			}
+		},
+		{
+			"path": "pages/discovery/discovery",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/discovery/hamster_group",
+			"style": {
+				"navigationBarTitleText": "仓鼠交流群",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/discovery/exchange_zone",
+			"style": {
+				"navigationBarTitleText": "兑换专区",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
+			}
+		},
+		{
+			"path": "pages/discovery/exchange_detail",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/discovery/product_detail",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/discovery/exchange_order",
+			"style": {
+				"navigationBarTitleText": "订单",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
+			}
+		},
+		{
+			"path": "pages/discovery/pending_verification_order_detail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
+			}
+		},
+		{
+			"path": "pages/discovery/exchanged_order_detail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
+			}
+		},
+		{
+			"path": "pages/discovery/refund_success_order_detail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
+			}
 		}
 		
 	],
 	"tabBar": {
-		"selectedColor": "#f05a24",
+		"color": "#B5B5B6",
+		"selectedColor": "#FC5908",
 	    "list": [
 	      {
 	        "pagePath": "pages/index/index",
@@ -726,10 +850,10 @@
 	        "selectedIconPath": "static/home_active.png"
 	      },
 		 {
-		   "pagePath": "pages/points/points",
-		   "text": "积分",
-		   "iconPath": "static/points.png",
-		   "selectedIconPath": "static/points_active.png"
+		  "pagePath": "pages/discovery/discovery",
+		  "text": "发现",
+		  "iconPath": "static/discovery.png",
+		  "selectedIconPath": "static/discovery_active.png"
 		 },
 	      {
 	        "pagePath": "pages/myAccount/myAccount",

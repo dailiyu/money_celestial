@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="提取积分"></navBar>
 		<view class="content">
 			<view class="a_title flex_between">
 				<view class="flex_center">
@@ -17,9 +16,9 @@
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						到账数量
+						提取数量
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" />
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入提取数量" placeholder-class="placeholder_class" />
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
@@ -31,15 +30,15 @@
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
-						提取数量
+						预计到账
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number?(Number(number)/0.97).toFixed(4):''}}
+						{{number?(Number(number) * 0.97).toFixed(2):''}}
 					</view>
 				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click.stop="changeCheck" />
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title" @click.stop="toAgreement">《提取须知》</text>
 			</view>
@@ -57,7 +56,6 @@ import { onMounted, ref } from 'vue';
 import { getAllPoint, withdrawRedPoints } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 import {substrateAddressValidator} from '../../utils/index'
-
 
 const account = ref('')
 onMounted(async ()=>{
@@ -95,7 +93,7 @@ const validPassword = ()=>{
 		icon: 'none',
 		title: '请输入提取数量'
 	})
-	if (Number(number.value)/0.97 > pointBalance.value) return uni.showToast({
+	if (Number(number.value) > pointBalance.value) return uni.showToast({
 		icon: 'none',
 		title: '提取数量不可大于积分余额'
 	})
@@ -106,7 +104,7 @@ const confirm = async()=>{
 	
 	const params = ref({
 		point_account: account.value,
-		transaction_amount: Number(number.value)/0.97,
+		transaction_amount: Number(number.value),
 		transaction_type: 'decrease',
 		transaction_method: 'red_points',
 		address: account.value
@@ -118,16 +116,21 @@ const confirm = async()=>{
 			mask: true
 		})
 		 await withdrawRedPoints(params.value)
-		// getPointInfo()
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',
 			title: '请等待审核'
 		})
+		
+		// 提取成功后清空表单和重置状态
+		number.value = ''
+		isChecked.value = false
+		getPointInfo()
 	}catch(e){
+		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',
-			title: e.data.error
+			title: e.data?.error || '提取失败，请重试'
 		})
 	}
 }
@@ -179,12 +182,40 @@ const openPop = ()=>{
 </script>
 
 <style lang="scss" scoped>
+// 全局样式类
+.flex_between {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.flex_center {
+	display: flex;
+	align-items: center;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+}
+
+// 页面容器
+.content {
+	padding: 30rpx;
+	background: #f5f5f5;
+	min-height: 100vh;
+}
+
 .a_title {
 	font-size: 27rpx;
 	padding: 22rpx 26rpx;
+	background: #fff;
+	border-radius: 20rpx;
+	margin-bottom: 20rpx;
+	
 	.a_pic {
 		width: 32rpx;
-		height: 1rpx;
+		height: 32rpx;
 		display: block;
 	}
 	.tip_pic {
@@ -197,16 +228,23 @@ const openPop = ()=>{
 	font-size: 24rpx;
 	color: #999999;
 	background-color: #fff;
+	border-radius: 20rpx;
 	margin-bottom: 30rpx;
-	// text-align: center;
-	uni-textarea {
-		// height: fit-content;
+	
+	.uni-input {
+		width: 100%;
+		min-height: 80rpx;
+		line-height: 1.5;
+		color: #333;
+		font-size: 24rpx;
 	}
 }
 .shop_info {
 	padding: 0 26rpx;
 	background-color: #fff;
-	margin-bottom: 23rpx;
+	border-radius: 20rpx;
+	margin-bottom: 30rpx;
+	
 	.info_item {
 		padding: 40rpx 8rpx 40rpx 0;
 		border-bottom: 1px solid #E3E3E3;
@@ -216,47 +254,82 @@ const openPop = ()=>{
 		.s_title {
 			font-size: 27rpx;
 			margin-right: 40rpx;
+			color: #333;
+			font-weight: 500;
 		}
 		.uni-input {
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#333;
+			color: #333;
+			text-align: right;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color: #aaaaaa;
 		}
 		.scan_pic {
 			width: 38rpx;
 		}
 		.s_text {
 			font-size: 27rpx;
-			font-weight: bold;
-			color: #999999;
+			font-weight: 500;
+			color: #333;
 			margin-right: 34rpx;
 		}
 		.s_num {
 			font-size: 24rpx;
 			color: #FC5908;
+			font-weight: 500;
 		}
 	}
-	
 }
 .radio {
-	// text-align: center;
-	padding: 26rpx 0 38rpx;
+	padding: 26rpx 30rpx 38rpx;
+	display: flex;
+	align-items: center;
+	
 	radio {
-		transform:scale(0.6)
+		transform: scale(0.8);
+		margin-right: 10rpx;
 	}
 	.read {
 		font-size: 27rpx;
-		color: #999999;
+		color: #666;
+		margin-right: 8rpx;
 	}
 	.c_title {
 		font-size: 27rpx;
 		color: #FC5908;
-		font-family: HarmonyOS_Sans_SC_Medium;
+		font-weight: 500;
 	}
+}
+
+// 添加按钮样式
+.btn_full {
+	width: 100%;
+	height: 88rpx;
+	background: linear-gradient(90deg, #FC5908 0%, #FF7A3D 100%);
+	border-radius: 44rpx;
+	color: #FFFFFF;
+	font-size: 32rpx;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 40rpx;
+	box-shadow: 0 8rpx 20rpx rgba(252, 89, 8, 0.3);
+	transition: all 0.3s ease;
+	
+	&:active {
+		transform: scale(0.98);
+		box-shadow: 0 4rpx 10rpx rgba(252, 89, 8, 0.4);
+	}
+}
+
+// 添加占位符样式
+.placeholder_class {
+	color: #aaaaaa !important;
+	font-size: 24rpx !important;
 }
 </style>

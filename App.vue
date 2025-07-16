@@ -3,6 +3,7 @@
 
 </template>
 <script>
+	
 	export default {
 		onLaunch: function() {
 			// if (uni.getSystemInfoSync().platform === 'android' || uni.getSystemInfoSync().platform === 'devtools') {
@@ -15,6 +16,7 @@
 			
 			uni.$mc = {};//全局对象
 			
+			console.log(uni.$mc);
 		},
 		onShow: function() {
 			console.log('App Show')

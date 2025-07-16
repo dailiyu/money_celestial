@@ -1,157 +1,191 @@
 <template>
-	<view>
-		
-		
-		<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-active-color="#FC5908" circular v-if="swiperList.length">
-			<swiper-item v-for="item in swiperList" :key="item.id">
-				<image :src="item" mode="widthFix" class="shop_pic"></image>
-			</swiper-item>
-		</swiper>
-		<view class="shop_info" v-if="shopInfo.name">
-			<view class="info_item flex">
-				<image :src="shopInfo.avatar" mode="aspectFill" class="shop_head"></image>
-				<view class="" style="flex: 1;">
-					<view class="flex">
-						<view class="shop_name">
-							{{shopInfo.name}}
-						</view>
-						<view class="level">
-							Lv.5
-						</view>
-					</view>
-					<view class="rate_box flex">
-						<view class="flex">
-							<image src="https://static.maxcang.com/appstatic/star.png" mode="widthFix" class="star_pic" v-for="(item, index) in 5" :key="index"></image>
-						</view>
-						<view class="point">
-							5
-						</view>
-					</view>
-					<view class="note">
-						{{shopInfo.description}}
-					</view>
-				</view>
-				
+	  <view class="page">
+    <!-- 轮播图区域 -->
+		<view class="swiper-section">
+			<swiper 
+				class="banner-swiper" 
+				:indicator-dots="true" 
+				:autoplay="true" 
+				:interval="3000" 
+				:duration="1000" 
+				indicator-active-color="#FC5908" 
+				circular 
+				v-if="swiperList.length"
+			>
+				<swiper-item v-for="item in swiperList" :key="item">
+					<image :src="item" mode="aspectFill" class="banner-image"></image>
+				</swiper-item>
+			</swiper>
+		</view>
+
+		<!-- 商家信息区域 -->
+		<view class="shop-info-section" v-if="shopInfo.name">
+			<!-- 商家名称和收藏 -->
+			<view class="shop-header">
+				<text class="shop-name">{{ shopInfo.name }}</text>
+				<image 
+					class="favorite-icon" 
+					:src="shopInfo.favorited ? 'https://static.maxcang.com/appstatic/merchant/favorited.png' : 'https://static.maxcang.com/appstatic/merchant/unfavorited.png'"
+					@click="shopInfo.favorited ? delCollect() : addCollect()"
+				></image>
 			</view>
-			<view class="info_item">
-				<view class="time_phone_box">
-					<view class="time_box flex">
-					<image src="https://static.maxcang.com/appstatic/time.png" mode="widthFix" class="time_pic"></image>
-					<view class="time_text" v-if="shopInfo.business_time1">
-						营业时间：{{shopInfo?.business_time1}}-{{shopInfo?.business_time2  }}
-					</view>
-					<view class="time_text" v-else>
-						营业时间：未提供
-					</view>
-					
+
+			<!-- 评分和消费人数 -->
+			<view class="rating-section">
+				<view class="stars">
+					<image 
+						class="star" 
+						src="https://static.maxcang.com/appstatic/star.png" 
+						v-for="(item, index) in 5" 
+						:key="index"
+					></image>
 				</view>
-				<view class="flex ">
-					<image   src="https://static.maxcang.com/appstatic/phone.png" mode="widthFix" class="phone_pic"></image>
-					<view class="time_text" @click="dial">
-						联系方式：{{shopInfo?.tel||shopInfo.merchant}}
-					</view>
-				</view>
-				</view>
-				<view class="address_function">
-					<view class="flex address_box" style="margin-bottom: 25rpx;align-items: flex-start;">
-					<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="lo_pic"></image>
-					<view class="address" @click.stop="openLocation(shopInfo)">
-						{{shopInfo.address}}
-					</view>
-				</view>
-				<view class="function_box">
-					<image  class="img" @click.stop="openLocation(shopInfo)" src="https://static.maxcang.com/appstatic/navigate.png" mode="widthFix" v-if="shopInfo.latitude&&shopInfo.longitude"></image>
-					<image src="https://static.maxcang.com/appstatic/copy.png" mode="widthFix" class="copy_pic" @click="copy" v-else></image>
-					<image  class="img star" src="https://static.maxcang.com/appstatic/star_grey_outline.png" mode="widthFix" @click="addCollect" v-if="!shopInfo.favorited"></image>
-					<image  class="img" src="https://static.maxcang.com/appstatic/star_full.png" mode="widthFix" @click="delCollect" v-else></image>
-					
-				</view>
-				</view>
+				<text class="rating-score">{{ shopInfo.rating || '4.9' }}</text>
+				<text class="consumer-count">300人消费</text>
+			</view>
+
+			<!-- 营业时间 -->
+			<text class="business-hours">
+				营业时间：{{ shopInfo.business_time1 && shopInfo.business_time2 ? 
+					`${shopInfo.business_time1}-${shopInfo.business_time2}` : 
+					'09:00-19:00' }}
+			</text>
+
+			<!-- 地址和功能按钮 -->
+			<view class="address-actions">
+				<text class="shop-address" @click="openLocation(shopInfo)">
+					{{ shopInfo.address }}
+				</text>
+				                <!-- 导航按钮 -->
+                <view class="action-button" @click="openLocation(shopInfo)">
+                  <image 
+                    class="action-icon" 
+                    src="https://static.maxcang.com/appstatic/merchant/device_coin.png"
+                  ></image>
+                </view>
+                <!-- 分隔线 -->
+                <view class="divider"></view>
+                <!-- 电话按钮 -->
+                <view class="action-button" @click="dial">
+                  <image 
+                    class="action-icon" 
+                    src="https://static.maxcang.com/appstatic/merchant/phone_icon.png"
+                  ></image>
+                </view>
+			</view>
+
+			<!-- 付款功能 -->
+			<view class="payment-section" @click="handlePayment">
+				<image class="payment-icon" src="https://static.maxcang.com/appstatic/merchant/payment_icon.png"></image>
+				<text class="payment-text">付款</text>
+				<image class="arrow-right" src="https://static.maxcang.com/appstatic/merchant/gray_arrow_right.png"></image>
+			</view>
+
+			<!-- 店铺商品展示 -->
+			<text class="goods-title">店铺商品展示</text>
 			
-				
+			<!-- 商品列表 -->
+			<view class="goods-section" v-if="shopInfo.products && shopInfo.products.length > 0">
+				<view 
+					class="goods-item" 
+					v-for="(product, index) in displayProducts" 
+					:key="product.id"
+					@click="goToExchangeDetail(product)"
+				>
+					<view class="goods-card">
+						<view class="goods-image-container">
+							<image 
+								v-if="getProductImage(product)"
+								class="goods-image" 
+								:src="getProductImage(product)"
+								mode="aspectFill"
+							></image>
+							<view v-else class="goods-image-placeholder">
+								<view class="change-badge">
+									<image class="change-icon" src="https://static.maxcang.com/appstatic/merchant/change_icon.png"></image>
+								</view>
+							</view>
+							<!-- 兑换状态图标 -->
+							<view v-if="product.redeem_status === 2" class="redeem-status-badge">
+								<image class="redeem-status-icon" src="https://static.maxcang.com/appstatic/merchant/change_icon.png"></image>
+							</view>
+						</view>
+						<view class="goods-info">
+							<text class="goods-name">{{ product.name }}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+			<!-- 无商品状态 -->
+			<view v-else class="no-products">
+				<text class="no-products-text">暂无商品</text>
 			</view>
 		</view>
-		<!-- <uni-segmented-control :current="current" :values="items" style-type="text" active-color="#FC5908" @clickItem="onClickItem" />
-		<goodsList></goodsList> -->
 	</view>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { favoriteShopsAdd, favoriteShopsDelete, browserShopAdd } from '@/service/uer_profile.js'
 import { onLoad } from '@dcloudio/uni-app'
 import { getMerchantDetail } from '@/service/merchant.js'
-// import { getShopImages, getShopInfo } from '../../service/shop';
 
-
-// const current = ref(0)
-// const items = ref(['本店商品', '商家介绍', '评价'])
-// const onClickItem = (e)=>{
-// 	if (current.value !== e.currentIndex) {
-// 		current.value = e.currentIndex
-// 	}
-// }
 const phone = ref('')
 const token = uni.getStorageSync('accessToken')
 const shopInfo = ref({})
-onLoad(async(option)=>{
-	phone.value = option.phone
-	const res = await getMerchantDetail(phone.value)
-	shopInfo.value=res;
-	const bannerImages =  shopInfo.value.images.filter(image => image.image_type === "banner").map(image => image.image_url);
-	swiperList.value=bannerImages
-	browserShopAdd({shop:shopInfo.value.merchant})
-})
-// onMounted(async()=>{
-// 	const pages = getCurrentPages();
-	      
-// 	      // 获取上一页
-// 	//const prevPage = pages[pages.length - 2];
-// 	// phone.value = curParam.phone
-// 	//console.log(prevPage.$vm)
-	
-// 	shopInfo.value=uni.$mc.shopInfo;
-// 	const bannerImages =  shopInfo.value.images.filter(image => image.image_type === "banner").map(image => image.image_url);
-// 	swiperList.value=bannerImages
-// 	console.log('店铺详情的轮播图',swiperList.value);
-// 	// getInfo()
-// 	// getShopBanner()
-// 	browserShopAdd({shop:shopInfo.value.merchant})
-// })
+const swiperList = ref([])
 
-const to_merchant_mangment=async()=>{
-	const phoneNumber=await  uni.getStorageSync('phoneNumber')
-	console.log();
-	if(phoneNumber==shopInfo.value.merchant){
-		uni.navigateTo({
-		    url: '/pages/merchant/merchant_management'
-		});
+// 显示的商品列表（最多显示6个）
+const displayProducts = computed(() => {
+	if (!shopInfo.value.products) return [];
+	return shopInfo.value.products.slice(0, 6);
+})
+
+// 获取商品图片
+const getProductImage = (product) => {
+	if (!product.images || product.images.length === 0) return null;
+	
+	// 优先获取Banner类型图片
+	const bannerImage = product.images.find(img => img.image_type_display === 'Banner');
+	if (bannerImage && bannerImage.image_url) {
+		return bannerImage.image_url;
 	}
 	
+	// 如果没有Banner图片，使用第一张图片
+	if (product.images[0] && product.images[0].image_url) {
+		return product.images[0].image_url;
+	}
+	
+	return null;
 }
 
+onLoad(async(option) => {
+	phone.value = option.phone
+	const res = await getMerchantDetail(phone.value)
+	shopInfo.value = res;
+	console.log('商家详情数据:', res);
+	console.log('商品列表:', res.products);
+	
+	const bannerImages = shopInfo.value.images.filter(image => image.image_type === "banner").map(image => image.image_url);
+	swiperList.value = bannerImages
+	browserShopAdd({shop: shopInfo.value.merchant})
+})
 
-// const getInfo = async()=>{
-// 	uni.showLoading({
-// 		title: '加载中'
-// 	})
-// 	const res = await getShopInfo(phone.value)
-// 	uni.hideLoading()
-// 	shopInfo.value = res
-// }
- const swiperList = ref([])
-// const getShopBanner = async()=>{
-// 	const {results} = await getShopImages({shop: phone.value, image_type:'banner'})
-// 	swiperList.value = results
-// }
-const dial = ()=>{
+// 拨打电话
+const dial = () => {
 	uni.makePhoneCall({
-		phoneNumber: shopInfo.value.tel
+		phoneNumber: shopInfo.value.tel || shopInfo.value.merchant
 	})
 }
-const openLocation = (item)=>{
+
+// 打开地图导航
+const openLocation = (item) => {
 	// #ifdef MP-WEIXIN
-	if (!item.latitude || !item.longitude) return
+	if (!item.latitude || !item.longitude) {
+		copy();
+		return;
+	}
 	uni.openLocation({
 		latitude: item.latitude,
 		longitude: item.longitude
@@ -165,17 +199,16 @@ const openLocation = (item)=>{
 	})
 	// #endif
 }
-// #ifdef MP-WEIXIN
-import { onShareAppMessage } from '@dcloudio/uni-app'
-onShareAppMessage(()=>{
-	return {
-	  title: shopInfo.value.name,
-	  path: '/pages/merchant/merchant_detail',  // 分享路径
-	}
-})
-// #endif
 
-const addCollect = async()=>{
+// 复制地址
+const copy = () => {
+	uni.setClipboardData({
+		data: shopInfo.value.address
+	})
+}
+
+// 添加收藏
+const addCollect = async() => {
 	if (!token) {
 		return uni.showToast({
 			icon: 'none',
@@ -186,8 +219,7 @@ const addCollect = async()=>{
 		uni.showLoading({
 			mask: true
 		})
-		const {id} = await favoriteShopsAdd({shop:shopInfo.value.merchant})
-		
+		const {id} = await favoriteShopsAdd({shop: shopInfo.value.merchant})
 		shopInfo.value.favorited = id
 		uni.hideLoading()
 		uni.showToast({
@@ -195,19 +227,21 @@ const addCollect = async()=>{
 			icon: 'none'
 		})
 	} catch (e) {
+		uni.hideLoading()
 		uni.showToast({
-			title: e.data.detail,
+			title: e.data.detail || '收藏失败',
 			icon: 'none'
 		})
 	}
 }
-const delCollect = async()=>{
+
+// 取消收藏
+const delCollect = async() => {
 	try {
 		uni.showLoading({
 			mask: true
 		})
 		await favoriteShopsDelete(shopInfo.value.favorited)
-		
 		shopInfo.value.favorited = false
 		uni.hideLoading()
 		uni.showToast({
@@ -215,146 +249,325 @@ const delCollect = async()=>{
 			icon: 'none'
 		})
 	} catch (e) {
+		uni.hideLoading()
 		uni.showToast({
-			title: e.data.detail,
+			title: e.data.detail || '操作失败',
 			icon: 'none'
 		})
 	}
 }
-const copy = ()=>{
-	uni.setClipboardData({
-		data: shopInfo.value.address
+
+// 处理付款
+const handlePayment = () => {
+	uni.showToast({
+		title: '付款功能开发中',
+		icon: 'none'
 	})
 }
+
+// 跳转到商品详情页
+const goToExchangeDetail = (product) => {
+	// 根据redeem_status决定跳转到不同页面
+	if (product.redeem_status === 2) {
+		// redeem_status为2时，跳转到兑换详情页
+		uni.navigateTo({
+			url: `/pages/discovery/exchange_detail?id=${product.id}`
+		});
+	} else {
+		// redeem_status不为2时，跳转到商品详情页
+		uni.navigateTo({
+			url: `/pages/discovery/product_detail?id=${product.id}`
+		});
+	}
+}
+
+// #ifdef MP-WEIXIN
+import { onShareAppMessage } from '@dcloudio/uni-app'
+onShareAppMessage(() => {
+	return {
+		title: shopInfo.value.name,
+		path: '/pages/merchant/merchant_detail',
+	}
+})
+// #endif
 </script>
 
 <style lang="scss" scoped>
-.swiper {
-	height: 418rpx;
+.page {
+	width: 100%;
+	min-height: 100vh;
+	background-color: #F5F5F5;
 }
-.shop_pic {
+
+/* 轮播图区域 */
+.swiper-section {
 	width: 100%;
 	height: 418rpx;
-	// background-color: #ccc;
-	display: block;
+	background-color: #000000;
 }
-.shop_info {
-	padding: 24rpx 50rpx 30rpx 66rpx;
-	background-color: #fff;
+
+.banner-swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.banner-image {
+	width: 100%;
+	height: 100%;
+}
+
+/* 商家信息区域 */
+.shop-info-section {
+	padding: 46rpx 64rpx 0;
+}
+
+/* 商家头部 */
+.shop-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 19rpx;
+}
+
+.shop-name {
+	font-size: 30rpx;
+	font-weight: 500;
+	color: #000000;
+	line-height: 30rpx;
+	max-width: 500rpx;
+}
+
+.favorite-icon {
+	width: 38rpx;
+	height: 37rpx;
+}
+
+/* 评分区域 */
+.rating-section {
+	display: flex;
+	align-items: center;
+	margin-bottom: 21rpx;
+}
+
+.stars {
+	display: flex;
+	margin-right: 19rpx;
+}
+
+.star {
+	width: 16rpx;
+	height: 15rpx;
+	margin-right: 3rpx;
+}
+
+.rating-score {
+	font-size: 19rpx;
+	font-weight: 500;
+	color: #FC5908;
+	line-height: 19rpx;
+	margin-right: 15rpx;
+}
+
+.consumer-count {
+	font-size: 18rpx;
+	font-weight: 300;
+	color: #919191;
+	line-height: 18rpx;
+}
+
+/* 营业时间 */
+.business-hours {
+	font-weight: 400;
+	font-size: 21rpx;
+	color: #919191;
+	line-height: 21rpx;
+	margin-bottom: 23rpx;
+}
+
+/* 地址和功能区域 */
+.address-actions {
+	display: flex;
+	align-items: center;
+	margin-bottom: 45rpx;
+}
+
+.shop-address {
+	flex: 1;
+	font-weight: 400;
+	font-size: 21rpx;
+	color: #919191;
+	line-height: 31rpx;
+	max-width: 335rpx;
+	margin-right: 132rpx;
+}
+
+.action-button {
+	width: 58rpx;
+	height: 58rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.action-icon {
+	width: 58rpx;
+	height: 58rpx;
+}
+
+.divider {
+	width: 1rpx;
+	height: 53rpx;
+	background-color: #E3E3E3;
+	margin: 0 30rpx;
+}
+
+/* 付款区域 */
+.payment-section {
+	display: flex;
+	align-items: center;
+	background-color: #FFFFFF;
+	border-radius: 30rpx;
+	width: 692rpx;
+	height: 108rpx;
+	margin: 0 -34rpx 46rpx;
+	padding: 0 35rpx;
+	box-shadow: 0 2rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.payment-icon {
+	width: 50rpx;
+	height: 50rpx;
+	margin-right: 23rpx;
+}
+
+.payment-text {
+	flex: 1;
+	font-size: 30rpx;
+	font-weight: 500;
+	color: #000000;
+	line-height: 45rpx;
+}
+
+.arrow-right {
+	width: 17rpx;
+	height: 30rpx;
+}
+
+/* 商品标题 */
+.goods-title {
+	font-size: 27rpx;
+	color: #000000;
+	line-height: 27rpx;
+	margin-bottom: 0;
+}
+
+/* 商品展示区域 */
+.goods-section {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 28rpx -18rpx 0;
+	padding-bottom: 156rpx;
+}
+
+.goods-item {
+	width: 318rpx;
+	cursor: pointer;
+	transition: transform 0.2s ease;
 	margin-bottom: 40rpx;
-	.info_item {
-		.time_phone_box{
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			margin-bottom: 63rpx;
-			margin-top: 38rpx;
-			padding-right: 55rpx;
-		}
-		.address_function{
-			display: flex;
-			align-items: center;
-			height: 50rpx;
-			.function_box{
-				width:200rpx ;
-				height: 100%;
-				display: flex;
-				justify-content: center;
-				// margin-left: 57rpx;
-				// align-items: center;
-				.img{
-					width: 38rpx;
-					margin-left: 57rpx;
-				}
-				.copy_pic {
-					width: 30rpx;
-					height: 30rpx;
-				}
-				// .star{
-				// 	margin-right: 22rpx;
-				// }
-			}
-		}
-		&:last-child {
-			margin-top: 20rpx;
-		}
-		.shop_head {
-			width: 112rpx;
-			height: 112rpx;
-			// background-color: #ccc;
-			margin-right: 30rpx;
-			border-radius: 50%;
-		}
-		.shop_name {
-			font-size: 26rpx;
-			font-weight: bold;
-		}
-		.level {
-			padding: 6rpx 14rpx;
-			background-color: #fc5908;
-			margin-left: 12rpx;
-			color: #fff;
-			border-radius: 100px;
-			font-weight: bold;
-			font-size: 20rpx;
-		}
-		.rate_box {
-			margin: 14rpx 0;
-			.star_pic {
-				width: 22rpx;
-				display: block;
-			}
-			.point {
-				font-size: 16rpx;
-				color: #fc5908;
-				margin-left: 20rpx;
-				font-weight: 500;
-			}
-		}
-		.note {
-			font-size: 22rpx;
-			color: #999999;
-		}
 	
-		.lo_pic {
-			width: 20rpx;
-			margin-right: 10rpx;
-		}
-		.address_box{
-			width: 480rpx;
-			word-wrap: break-word;
-			padding-right: 50rpx;
-			border-right: 1rpx #E3E3E3 solid;
-		}
-		.address {
-			flex: 1;
-			font-size: 20rpx;
-			line-height: 30rpx;
-			text-align: left;
-			color: #A7A7A7;
-		}
-		.time_box {
-			.time_pic {
-				width: 26rpx;
-				margin-right: 10rpx;
-			}
-		}
-		.time_text {
-			font-size: 20rpx;
-			color: #999999;
-		}
-		.phone_pic {
-			width: 27rpx;
-			margin-right: 10rpx;
-			
-		}
+	&:active {
+		transform: scale(0.98);
 	}
 }
-:deep(.segmented-control) {
-	background-color: #fff;
-	font-size: 27rpx;
+
+.goods-card {
+	background-color: #FFFFFF;
+	border-radius: 19rpx;
+	overflow: hidden;
+	height: 380rpx;
 }
-:deep(.segmented-control__text) {
-	font-size: 27rpx;
+
+.goods-image-container {
+	width: 100%;
+	height: 319rpx;
+	position: relative;
+}
+
+.goods-image {
+	width: 100%;
+	height: 100%;
+}
+
+.goods-image-placeholder {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(135deg, #FFE5D6 0%, #FFF5F0 100%);
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.change-badge {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 58rpx;
+	height: 58rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.change-icon {
+	width: 58rpx;
+	height: 58rpx;
+}
+
+.redeem-status-badge {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 58rpx;
+	height: 58rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.redeem-status-icon {
+	width: 58rpx;
+	height: 58rpx;
+}
+
+.goods-name {
+	font-size: 23rpx;
+	font-weight: 500;
+	color: #000000;
+	line-height: 45rpx;
+	padding: 19rpx 0 0 25rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* 无商品状态 */
+.no-products {
+	text-align: center;
+	padding: 80rpx 0;
+	margin-top: 28rpx;
+}
+
+.no-products-text {
+	font-size: 28rpx;
+	color: #999999;
+}
+
+/* 适配不同屏幕 */
+@media screen and (max-width: 750rpx) {
+	.payment-section {
+		width: calc(100% + 68rpx);
+	}
 }
 </style>

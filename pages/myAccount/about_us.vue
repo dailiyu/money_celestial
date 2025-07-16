@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="关于我们"></navBar>
 		<view class="content">
 			<view class="" style="background-color: #fff; padding: 42rpx 48rpx;">
 				<!-- <view class="title">

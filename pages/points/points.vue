@@ -67,6 +67,9 @@ const toReceive = () => {
 }
 
 const toSend = () => {
+  // uni.navigateTo({
+  //   url: '/pages/points/pay'
+  // })
 	 if (!token) {
 	    return uni.showToast({
 	      icon: "none",

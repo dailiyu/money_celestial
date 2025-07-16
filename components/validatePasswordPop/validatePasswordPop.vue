@@ -5,7 +5,7 @@
 				<view class="title">
 					验证支付密码
 				</view>
-				<yi-code :maxlength="6" hide="*" @onComplete="complete"></yi-code>
+				<yi-code ref="codeRef" :maxlength="6" hide="*" @onComplete="complete"></yi-code>
 				<!-- <view class="btn_plain" @click="confirm">
 					确定
 				</view> -->
@@ -32,6 +32,8 @@ const complete = (e)=>{
 	close()
 }
 const popup = ref('')
+const codeRef = ref('')
+
 const open = ()=>{
 	const trade_psk = uni.getStorageSync('userInfo').trade_psk
 	if (!trade_psk) {
@@ -47,12 +49,32 @@ const open = ()=>{
 		return
 	}
 	popup.value.open()
+	// 打开弹窗时清空输入框
+	setTimeout(() => {
+		if (codeRef.value && codeRef.value.clear) {
+			codeRef.value.clear()
+		}
+	}, 100)
 }
+
 const close = ()=>{
 	popup.value.close()
+	// 关闭弹窗时清空输入框
+	setTimeout(() => {
+		if (codeRef.value && codeRef.value.clear) {
+			codeRef.value.clear()
+		}
+	}, 100)
 }
+// 清空输入框的方法
+const clearCode = () => {
+  if (codeRef.value && codeRef.value.clear) {
+    codeRef.value.clear()
+  }
+}
+
 defineExpose({
-  open, close
+  open, close, clearCode
 })
 </script>
 

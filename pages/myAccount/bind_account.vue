@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="绑定账号"></navBar>
 		<view class="content">
 			<view class="shop_info">
 				<view class="info_item flex_between">
@@ -11,7 +10,7 @@
 				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click.stop="changeCheck" />
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title" @click.stop="toAgreement">《绑定须知》</text>
 			</view>

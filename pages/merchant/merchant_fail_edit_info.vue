@@ -199,7 +199,6 @@
 	import {
 		getCitiesDetail
 	} from '../../service/divisions';
-
 	import {
 		uploadImage
 	} from '../../utils';

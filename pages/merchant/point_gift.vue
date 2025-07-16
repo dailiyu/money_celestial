@@ -16,7 +16,7 @@
 					<view class="s_title">
 						赠送金额<text style="color: #999;font-size: 24rpx;margin-left: 5rpx;">(CNY)</text>
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入赠送的价值金额" placeholder-class="placeholder_class" />
+					<input v-model="number" type="digit" class="uni-input" placeholder="请输入赠送的价值金额" placeholder-class="placeholder_class" />
 				</view>
 				<view class="info_item flex">
 					<view class="s_title">

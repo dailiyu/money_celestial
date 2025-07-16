@@ -1,6 +1,4 @@
 <template>
-	<navBar title="修改支付密码"></navBar>
-	
 	<view class="page">
 		<view class="card">
 			<!--            <view>

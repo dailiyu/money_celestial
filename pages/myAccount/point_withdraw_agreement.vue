@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="提取须知"></navBar>
 		<view class="content">
 			<view class="notices">
 				<view class="n_title">
@@ -262,11 +261,18 @@ const back = () => {
 </script>
 
 <style lang="scss" scoped>
+.content {
+	padding: 30rpx;
+	background-color: #f5f5f5;
+	min-height: 100vh;
+}
+
 .notices {
-	height: 72vh;
+	height: 70vh;
 	background-color: #fff;
 	padding: 44rpx 38rpx 54rpx;
 	overflow-y: scroll; 
+	border-radius: 20rpx;
 	.n_title {
 		color: #FC5908;
 		font-size: 36rpx;
@@ -275,13 +281,29 @@ const back = () => {
 		font-weight: bold;
 	}
 	.n_content {
-		font-size: 21rpx;
-		line-height: 35rpx;
+		font-size: 24rpx;
+		line-height: 40rpx;
 		text-indent: 2em;
 		margin-top: 20rpx;
+		color: #333;
 	}
 }
+
 .btn_full {
-	margin-top: 50rpx;
+	margin-top: 30rpx;
+	background: linear-gradient(135deg, #FC5908 0%, #FF7A47 100%);
+	color: white;
+	padding: 28rpx;
+	border-radius: 44rpx;
+	text-align: center;
+	font-size: 32rpx;
+	font-weight: bold;
+	box-shadow: 0 8rpx 24rpx rgba(252, 89, 8, 0.3);
+	transition: all 0.3s ease;
+	
+	&:active {
+		transform: translateY(2rpx);
+		box-shadow: 0 4rpx 12rpx rgba(252, 89, 8, 0.3);
+	}
 }
 </style>

@@ -52,5 +52,41 @@ export const getCityShopList=(data)=>{
 	return http.get('/divisions/city_shops', data)
 }
 
+// 搜索店铺
+export const searchShops = (params) => {
+	return http.get('/search/', params)
+}
+
+// 获取城市兑换商品列表
+export const getCityExchangeProducts = (params) => {
+	return http.get('/divisions/city_exchange_center/', params)
+}
+
+// 获取商品详情
+export const getProductDetail = (id) => {
+	return http.get(`/products/${id}/`)
+}
+
+// 兑换商品
+export const redeemProduct = (data) => {
+	return http.post('/orders/redeem/product/', data)
+}
+
+// 获取订单列表
+export const getOrderList = (params) => {
+	return http.get('/orders/', params)
+}
+
+// 获取订单详情
+export const getOrderDetail = (id) => {
+	return http.get(`/orders/${id}`)
+}
+
+// 申请退款
+export const applyRefund = (orderId) => {
+	return http.put(`/orders/redeem/refund/${orderId}/`, {})
+}
+
+
 
 

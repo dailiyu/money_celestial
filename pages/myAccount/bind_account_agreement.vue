@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="绑定须知"></navBar>
 		<view class="content">
 			<view class="notices">
 				<view class="n_title">
@@ -10,7 +9,7 @@
 					重要提示： 
 				</view>
 				<view class="n_content">
-					本协议为您（以下简称“用户”）与满仓平台及其关联公司（以下简称“满仓”或“平台”）就D9账号绑定及使用相关服务而签订的法律文件。请您在申请绑定D9账号前，仔细阅读并理解本协议的全部内容，尤其是有关免责条款、法律适用和争议解决的条款。当您点击“同意”或“接受”本协议，即视为您已充分理解并同意本协议的所有条款内容。本协议一经签署立即生效。
+					本协议为您（以下简称"用户"）与满仓平台及其关联公司（以下简称"满仓"或"平台"）就D9账号绑定及使用相关服务而签订的法律文件。请您在申请绑定D9账号前，仔细阅读并理解本协议的全部内容，尤其是有关免责条款、法律适用和争议解决的条款。当您点击"同意"或"接受"本协议，即视为您已充分理解并同意本协议的所有条款内容。本协议一经签署立即生效。
 				</view>
 				<view class="n_content">
 					第一章 定义与解释
@@ -19,7 +18,7 @@
 					1. D9账号：指用户在D9平台注册的账号，该账号用于在D9生态系统内进行身份认证、交易操作、账户管理等活动，并可在满仓平台进行绑定，以便用户通过满仓平台访问、操作D9账号。
 				</view>
 				<view class="n_content">
-					2. 满仓平台：指由满仓公司（下称“平台”）运营的，为用户与商家、D9系统之间提供交易信息展示、撮合交易及技术支持的电子商务平台，包括但不限于满仓APP、满仓客户端、满仓小程序等。
+					2. 满仓平台：指由满仓公司（下称"平台"）运营的，为用户与商家、D9系统之间提供交易信息展示、撮合交易及技术支持的电子商务平台，包括但不限于满仓APP、满仓客户端、满仓小程序等。
 				</view>
 				<view class="n_content">
 					3. 绑定服务：指满仓平台为用户提供的将D9账号与满仓平台账号进行绑定的服务，通过绑定，用户可在满仓平台内查询、管理、操作其D9账号，并使用D9平台的部分功能或服务。
@@ -259,11 +258,18 @@ const back = () => {
 </script>
 
 <style lang="scss" scoped>
+.content {
+	padding: 30rpx;
+	background-color: #f5f5f5;
+	min-height: 100vh;
+}
+
 .notices {
-	height: 72vh;
+	height: 70vh;
 	background-color: #fff;
 	padding: 44rpx 38rpx 54rpx;
 	overflow-y: scroll; 
+	border-radius: 20rpx;
 	.n_title {
 		color: #FC5908;
 		font-size: 36rpx;
@@ -272,13 +278,29 @@ const back = () => {
 		font-weight: bold;
 	}
 	.n_content {
-		font-size: 21rpx;
-		line-height: 35rpx;
+		font-size: 24rpx;
+		line-height: 40rpx;
 		text-indent: 2em;
 		margin-top: 20rpx;
+		color: #333;
 	}
 }
+
 .btn_full {
-	margin-top: 50rpx;
+	margin-top: 30rpx;
+	background: linear-gradient(135deg, #FC5908 0%, #FF7A47 100%);
+	color: white;
+	padding: 28rpx;
+	border-radius: 44rpx;
+	text-align: center;
+	font-size: 32rpx;
+	font-weight: bold;
+	box-shadow: 0 8rpx 24rpx rgba(252, 89, 8, 0.3);
+	transition: all 0.3s ease;
+	
+	&:active {
+		transform: translateY(2rpx);
+		box-shadow: 0 4rpx 12rpx rgba(252, 89, 8, 0.3);
+	}
 }
 </style>

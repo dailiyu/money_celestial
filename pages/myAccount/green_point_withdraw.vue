@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="提取积分"></navBar>
 		<view class="content">
 			<view class="a_title flex_between">
 				<view class="flex_center">
@@ -17,9 +16,9 @@
 			<view class="shop_info">
 				<view class="info_item flex_between">
 					<view class="s_title">
-						到账数量
+						提取数量
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入积分数量" placeholder-class="placeholder_class" />
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入提取数量" placeholder-class="placeholder_class" />
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
@@ -31,15 +30,15 @@
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
-						提取数量
+						预计到账
 					</view>
 					<view class="s_num" style="color: #999999;">
-						{{number?(Number(number)/0.97).toFixed(4):''}}
+						{{number?(Number(number) * 0.97).toFixed(2):''}}
 					</view>
 				</view>
 			</view>
 			<view class="radio" @click="changeCheck">
-				<radio value="r1" :checked="isChecked" color="#FC5908" @click="changeCheck" />
+				<radio value="r1" :checked="isChecked" color="#FC5908" @click.stop="changeCheck" />
 				<text class="read">我已阅读并同意</text>
 				<text class="c_title" @click.stop="toAgreement">《提取须知》</text>
 			</view>
@@ -57,8 +56,9 @@ import { onMounted, ref } from 'vue';
 import { getPointBindedAccount, withdrawGreenPoint } from '@/service/point.js'
 import { obscureString } from '@/utils/index.js'
 import {substrateAddressValidator} from '../../utils/index'
-const number = ref()
 
+
+const number = ref()
 const account = ref('')
 const pointBalance = ref('')
 onMounted(async ()=>{
@@ -98,7 +98,7 @@ const validPassword = ()=>{
 		icon:'none',
 		title: '提取数量必须是100的倍数'
 	})
-	if (Number(number.value)/0.97 > pointBalance.value) return uni.showToast({
+	if (Number(number.value) > pointBalance.value) return uni.showToast({
 		icon: 'none',
 		title: '提取数量不可大于积分余额',
 		duration: 3000
@@ -106,29 +106,79 @@ const validPassword = ()=>{
 	
 	passwordPop.value.open()
 }
-const confirm = async()=>{
+const confirm = async(password)=>{
+	if (!password) {
+		uni.showToast({
+			icon: 'none',
+			title: '请输入支付密码'
+		})
+		return
+	}
 	
 	try{
 		uni.showLoading({
 			title: '提取中',
 			mask: true
 		})
-		await withdrawGreenPoint({transaction_amount:Number(number.value)/0.97, point_account:account.value, transaction_type:'decrease', transaction_method: 'green_points', address: account.value})
-		// getPointInfo()
-		uni.hideLoading()
-		uni.showToast({
-			icon: 'none',
-			title: '请等待审核'
+		
+		const response = await withdrawGreenPoint({
+			amount: Number(number.value),
+			pay_password: password,
+			points_account: account.value
 		})
+		
+		uni.hideLoading()
+		
+		// 处理响应结果
+		if (response.order_id) {
+			uni.showToast({
+				icon: 'success',
+				title: response.message || '提取申请已提交'
+			})
+			
+			// 刷新积分信息
+			getPointInfo()
+			
+			// 清空表单
+			number.value = ''
+			
+			// 重置协议勾选状态
+			isChecked.value = false
+			
+			// 可以显示订单信息
+			if (response.fee) {
+				setTimeout(() => {
+					uni.showToast({
+						icon: 'none',
+						title: `手续费: ${response.fee}, 实际到账: ${response.actual_amount}`,
+						duration: 3000
+					})
+				}, 2000)
+			}
+		} else {
+			uni.showToast({
+				icon: 'none',
+				title: '提取申请已提交，请等待审核'
+			})
+			
+			// 即使没有返回order_id，也清空表单
+			number.value = ''
+			isChecked.value = false
+			getPointInfo()
+		}
 	}catch(e){
+		uni.hideLoading()
+		console.error('提取失败:', e)
 		uni.showToast({
 			icon: 'none',
-			title: e.data.error,
+			title: e.data?.error || e.message || '提取失败，请重试',
 			duration: 2000
 		})
 	}
-	
 }
+
+
+
 const toAgreement = ()=>{
 	uni.navigateTo({
 		url: '/pages/myAccount/point_withdraw_agreement'
@@ -175,12 +225,40 @@ const openPop = ()=>{
 </script>
 
 <style lang="scss" scoped>
+// 全局样式类
+.flex_between {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.flex_center {
+	display: flex;
+	align-items: center;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+}
+
+// 页面容器
+.content {
+	padding: 30rpx;
+	background: #f5f5f5;
+	min-height: 100vh;
+}
+
 .a_title {
 	font-size: 27rpx;
 	padding: 22rpx 26rpx;
+	background: #fff;
+	border-radius: 20rpx;
+	margin-bottom: 20rpx;
+	
 	.a_pic {
 		width: 32rpx;
-		height: 1rpx;
+		height: 32rpx;
 		display: block;
 	}
 	.tip_pic {
@@ -193,13 +271,23 @@ const openPop = ()=>{
 	font-size: 24rpx;
 	color: #999999;
 	background-color: #fff;
+	border-radius: 20rpx;
 	margin-bottom: 30rpx;
-	// text-align: center;
+	
+	.uni-input {
+		width: 100%;
+		min-height: 80rpx;
+		line-height: 1.5;
+		color: #333;
+		font-size: 24rpx;
+	}
 }
 .shop_info {
 	padding: 0 26rpx;
 	background-color: #fff;
-	margin-bottom: 23rpx;
+	border-radius: 20rpx;
+	margin-bottom: 30rpx;
+	
 	.info_item {
 		padding: 40rpx 8rpx 40rpx 0;
 		border-bottom: 1px solid #E3E3E3;
@@ -209,47 +297,82 @@ const openPop = ()=>{
 		.s_title {
 			font-size: 27rpx;
 			margin-right: 40rpx;
+			color: #333;
+			font-weight: 500;
 		}
 		.uni-input {
 			flex: 1;
 			margin-right: 10rpx;
 			font-size: 24rpx;
-			color:#333;
+			color: #333;
+			text-align: right;
 		}
 		:deep(.placeholder_class) {
 			font-size: 24rpx;
-			color:#aaaaaa;
+			color: #aaaaaa;
 		}
 		.scan_pic {
 			width: 38rpx;
 		}
 		.s_text {
 			font-size: 27rpx;
-			font-weight: bold;
-			color: #999999;
+			font-weight: 500;
+			color: #333;
 			margin-right: 34rpx;
 		}
 		.s_num {
 			font-size: 24rpx;
 			color: #FC5908;
+			font-weight: 500;
 		}
 	}
-	
 }
 .radio {
-	// text-align: center;
-	padding: 26rpx 0 38rpx;
+	padding: 26rpx 30rpx 38rpx;
+	display: flex;
+	align-items: center;
+	
 	radio {
-		transform:scale(0.6)
+		transform: scale(0.8);
+		margin-right: 10rpx;
 	}
 	.read {
 		font-size: 27rpx;
-		color: #999999;
+		color: #666;
+		margin-right: 8rpx;
 	}
 	.c_title {
 		font-size: 27rpx;
 		color: #FC5908;
-		font-family: HarmonyOS_Sans_SC_Medium;
+		font-weight: 500;
 	}
+}
+
+// 添加按钮样式
+.btn_full {
+	width: 100%;
+	height: 88rpx;
+	background: linear-gradient(90deg, #FC5908 0%, #FF7A3D 100%);
+	border-radius: 44rpx;
+	color: #FFFFFF;
+	font-size: 32rpx;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 40rpx;
+	box-shadow: 0 8rpx 20rpx rgba(252, 89, 8, 0.3);
+	transition: all 0.3s ease;
+	
+	&:active {
+		transform: scale(0.98);
+		box-shadow: 0 4rpx 10rpx rgba(252, 89, 8, 0.4);
+	}
+}
+
+// 添加占位符样式
+.placeholder_class {
+	color: #aaaaaa !important;
+	font-size: 24rpx !important;
 }
 </style>

@@ -1,20 +1,20 @@
 <template>
-<navBar title="密码与安全"></navBar>
-	<view class="list_box">
-				<view class="list_item flex_between" @click="toEditLoginPassword">
-					<view class="">
-						修改登录密码
-					</view>
-					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
-				<view class="list_item flex_between" @click="toEditPayPassword">
-					<view class="">
-						修改支付密码
-					</view>
-					<image src="https://static.maxcang.com/appstatic/arrow-right.png" mode="widthFix" class="arrow_pic"></image>
-				</view>
-
-			</view>
+  <view class="container">
+    <!-- 菜单项列表 -->
+    <view class="menu-list">
+      <!-- 修改登录密码 -->
+      <view class="menu-item" @click="toEditLoginPassword">
+        <text class="menu-text">修改登录密码</text>
+        <image class="arrow-icon" src="/static/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
+      </view>
+      
+      <!-- 修改支付密码 -->
+      <view class="menu-item" @click="toEditPayPassword">
+        <text class="menu-text">修改支付密码</text>
+        <image class="arrow-icon" src="/static/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script setup>
@@ -34,24 +34,42 @@ const toEditPayPassword=()=>{
 	
 </script>
 
-<style lang="scss" scoped>
-.list_box {
-		padding: 0 28rpx;
-		background-color: #fff;
+<style scoped>
+.container {
+  min-height: 100vh;
+  background-color: #F5F5F5;
+  padding-top: 20rpx;
+}
 
-		.list_item {
-			padding: 46rpx 14rpx;
-			font-weight: 500;
-			font-size: 27rpx;
-			border-bottom: 1px solid #ececec;
+.menu-list {
+  width: 692rpx;
+  height: 221rpx;
+  background: #FFFFFF;
+  border-radius: 30rpx;
+  margin: 20rpx auto 0;
+}
 
-			&:last-child {
-				border-bottom: none;
-			}
-			.arrow_pic {
-				width: 12rpx;
-			}
-		}
-	}
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 110rpx;
+  padding: 0 40rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+}
 
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-text {
+  font-size: 27rpx;
+  color: #333333;
+  font-weight: 400;
+}
+
+.arrow-icon {
+  width: 12rpx;
+  height: 21rpx;
+}
 </style>

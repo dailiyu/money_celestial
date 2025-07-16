@@ -1,5 +1,4 @@
 <template>
-<navBar title="帮助中心"></navBar>
 <view class="content">
 <view class="item">
 	<view class="title line_height  left_margin">Q:&nbsp&nbsp商家和代理的保证金可以退还吗？</view>

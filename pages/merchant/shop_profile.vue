@@ -127,8 +127,6 @@
 	const  successProfileImgPaths = ref([])
 	const  successDetailImgPaths = ref([])
 	const  successAuthfileImgPaths = ref([])
-	
-	
 	// const range = ref([
 	//     { value: "篮球", text: "篮球" },
 	//     { value: "足球", text: "足球" },

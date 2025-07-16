@@ -64,8 +64,9 @@ const getRecordList = async()=>{
 	// const params = ref({
 	// 	page: page.value
 	// })
+	
 	status.value = 'loading'
-	const {results} = await getAllRecords({transaction_method:'red_points',transaction_type:'increase'})
+	const {results} = await getAllRecords({transaction_method:'red_points',transaction_type:'increase',page_size:100})
 	// if (total_amount == transactions.length) {
 		status.value = 'no-more'
 	// } else {

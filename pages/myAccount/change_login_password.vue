@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="修改登录密码" ></navBar>
 		<view class="content">
 			
 			<view class="title">

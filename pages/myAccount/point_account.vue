@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="积分账号"></navBar>
 		<view class="content">
 			<view class="list_box">
 				<view class="list_item flex_between" @click="toCode">

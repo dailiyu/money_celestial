@@ -1,526 +1,164 @@
 <template>
-	<scroll-view   :scroll-y="true" class="page">
-		<navBarForIndex :iconShow="false" title="满仓生态" @changeCity="getCity"></navBarForIndex>
+  <view class="container">
+    <!-- 顶部位置和标题 -->
+    <view class="header">
+      <view class="location">
+        <image
+          class="location-icon"
+          src="https://img.icons8.com/material-rounded/96/ffffff/marker.png"
+        ></image>
 		
-		<!-- <view class="search_bar flex_between">
-			<image src="https://static.maxcang.com/appstatic/locate.png" mode="widthFix" class="locate_img"></image>
-			<view class="location">
-				{{city?city:'定位中'}}
-			</view>
-			<uni-search-bar v-model="keyword" placeholder="请输入你搜索的内容" :radius="100" cancel-text="cancel" cancelButton="none" clearButton="always">
-				<template v-slot:clearIcon>
-					<view class="search_btn flex_center" @click.stop="search" >搜索</view>
-				</template>
-			</uni-search-bar>
-		</view> -->
-		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-color="#a4b8ab" indicator-active-color="#fc5908" :circular="true" class="swiper">
-			<swiper-item v-for="item in bannerList" :key="item.id" @click="toCityAgentRank(item)">
-				<image :src="item.image_url" mode="widthFix" class="swipe_img"></image>
-			</swiper-item>
-		</swiper>
-		<!-- <view class="function_list flex_between">
-			<view class="function_item" @click="toMerchant">
-				<view class="img_box flex_center">
-					<image src="https://static.maxcang.com/appstatic/home/cart.png" mode="widthFix" class="img_item"></image>
-				</view>
-				<view class="" >
-					商家
-				</view>
-			</view>
-			<view class="function_item" @click="toRecommend">
-				<view class="img_box flex_center">
-					<image src="https://static.maxcang.com/appstatic/home/star.png" mode="widthFix" class="img_item" style="width: 56rpx;"></image>
-				</view>
-				<view class="">
-					推荐官
-				</view>
-			</view>
-			<view class="function_item" @click="toAgent">
-				<view class="img_box flex_center">
-					<image src="https://static.maxcang.com/appstatic/home/bag.png" mode="widthFix" class="img_item" style="width: 70rpx;"></image>
-				</view>
-				<view class="">
-					代理
-				</view>
-			</view>
-	
-			<view class="function_item" @click="toMyAccount">
-				<view class="img_box flex_center">
-					<image src="https://static.maxcang.com/appstatic/home/profile.png" mode="widthFix" class="img_item" style="width: 58rpx;"></image>
-				</view>
-				<view class="">
-					我的账户
-				</view>
-			</view>
-		</view> -->
-		<view class="content">
-			<view class="cate_list flex_between" v-if="categoryList.length">
-				<view class="cate_item" v-for="item in categoryList" :key="item.id" @click="toAllMerchant(item.id)">
-					<image :src="item.icon" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						{{item?.name}}
-					</view>
-				</view>
-				<view class="cate_item" @click="toAllMerchant(0)">
-					<image src="https://static.maxcang.com/appstatic/home/all.png" mode="widthFix" class="cate_img"></image>
-					<view class="">
-						全部类目
-					</view>
-				</view>
-			</view>
-			<view class="daily_entrance ">
-				<image src="https://static.maxcang.com/appstatic/daily-sign.png" mode="widthFix" class="entrance_item" @click="toSign"  ></image>
-				<image src="https://static.maxcang.com/appstatic/invite-bonus.png" mode="widthFix" class="entrance_item" @click="toTip"></image>
-				<image src="https://static.maxcang.com/appstatic/merchant-list.png" mode="widthFix" class="entrance_item" @click="toRank"></image>
-			</view>
-			<view class="merchant_box" v-if="shopLists.length!==0">
-				<view class="merchant_top flex_between">
-					<view class="flex_between">
-						<text class="nearby">我的附近</text>
-						<view class="hit">
-							热门榜
-						</view>
-					</view>
-					<!-- <view class="settle" @click="toSettle" v-if="!(userStore.storeInfo && Object.keys(userStore.storeInfo).length > 0)" >
-						我要入驻
-					</view> -->
-				</view>
-				<scroll-view   :show-scrollbar="false" @scrolltolower="dealScrolltolower"  :scroll-y="true" class="shop_list">
-					<view class="shop_item flex_between" v-for="(shop,index) in shopLists" :key="index"  @click="toDetail(shop)">
-						<image :src="shop.avatar" mode="aspectFill" class="shop_img"></image>
-						<view class="shop_info">
-							<view class="shop_name">
-								{{shop?.name}}
-							</view>
-							<view class="pic_box flex">
-								<image src="https://static.maxcang.com/appstatic/star.png" mode="widthFix" class="star_pic" v-for="(star, i) in 5" :key="i"></image>
-								<view class="point">
-									5
-								</view>
-							</view>
-							<view class="shop_address flex">
-								<image src="https://static.maxcang.com/appstatic/locate_orange.png" mode="widthFix" class="address_img"></image>
-								<view class="detail" style="flex: 1;" @click.stop="openLocation(shop)">
-									{{shop?.address}}
-								</view>
-							</view>
-						</view>
-						<view :class="['percentage', {'red':!shop.consume2coin_bit||shop.consume2coin_bit>100||shop.consume2coin_bit==100, 'orange':shop.consume2coin_bit&&shop.consume2coin_bit<100}]">
-							<image src="https://static.maxcang.com/appstatic/merchant/hot.png" mode="widthFix" class="hot_pic" v-if="!shop.consume2coin_bit||shop.consume2coin_bit>100||shop.consume2coin_bit==100"></image>
-							<view class="">
-								<text style="font-weight: bold;font-size: 28rpx;">{{shop.consume2coin_bit||'100'}}</text>%赠送
-							</view>
-						</view>
-					</view>
-					
-				</scroll-view >
-				<view style="width: 100%; text-align: center;font-size: 25rpx;padding:10rpx 0;color: #385ed2;" v-if="hasNext" >上拉加载更多</view>
-			</view>
-		</view>
-		<!-- <view class="headline flex_between">
-			<view class="head_title">
-				头条
-			</view>
-			<view class="head_hit">
-				热门
-			</view>
-			<view class="news">
-				新闻内容
-			</view>
-		</view> -->
-		<!-- <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" indicator-color="#a4b8ab" indicator-active-color="#fc5908" :circular="true" class="swiper" style="margin-bottom: 30rpx;">
-			<swiper-item>
-				<image src="" mode="widthFix" class="swipe_img"></image>
-			</swiper-item>
-		</swiper> -->
-		<!-- <view class="content">
-			<image src="https://static.maxcang.com/appstatic/home/shop.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="https://static.maxcang.com/appstatic/home/benefit.jpg" mode="widthFix" class="shop_pic"></image>
-			<image src="https://static.maxcang.com/appstatic/home/earn.jpg" mode="widthFix" class="shop_pic"></image>
-		</view> -->
-	</scroll-view>
-	
-	<!-- <signPop ref="isShowSignPop"></signPop> -->
+        <CityPicker v-if="isPageOnload" @changeCity="bindCityChange"></CityPicker>
+      </view>
+      <image class="app-title" src="https://static.maxcang.com/appstatic/home/maxcang_logo.png" mode="aspectFit"></image>
+      <view class="placeholder"></view>
+      <!-- 用于flex布局平衡 -->
+    </view>
+    <view class="point_box">
+      <div class="bottom_box">
+        <image
+          @click="toRequestPointsInput"
+          class="top-gif"
+          src="https://static.maxcang.com/appstatic/home/click.gif"
+          mode="aspectFit"
+        />
+        <!-- 功能按钮区 - 使用图片 -->
+        <view class="feature-buttons">
+          <image
+            @click="showTips"
+            class="feature-button-img"
+            src="https://static.maxcang.com/appstatic/home/points_strategy.png"
+            mode="widthFix"
+          ></image>
+          <image
+            @click="toHamsterGroup"
+            class="feature-button-img"
+            src="https://static.maxcang.com/appstatic/home/communication_group.png"
+            mode="widthFix"
+          ></image>
+        </view>
+
+        <!-- 每日签到 - 使用图片 -->
+        <image
+		@click="toSign"
+          class="daily-checkin-img"
+          src="https://static.maxcang.com/appstatic/home/sign_in.png"
+          mode="widthFix"
+        ></image>
+
+        <!-- 功能卡片区 - 使用图片 -->
+        <view class="function-cards">
+          <image
+            @click="showTips"
+            class="function-card-img"
+            src="https://static.maxcang.com/appstatic/home/clock_in.png"
+            mode="widthFix"
+          ></image>
+          <image
+            @click="showTips"
+            class="function-card-img"
+            src="https://static.maxcang.com/appstatic/home/invitation_list.png"
+            mode="widthFix"
+          ></image>
+          <image
+		  @click="toMerchantRank"
+            class="function-card-img"
+            src="https://static.maxcang.com/appstatic/home/rank.png"
+            mode="widthFix"
+          ></image>
+        </view>
+      </div>
+    </view>
+
+    <!-- 积分弹窗 -->
+    <!-- <PointsPopup
+      :visible="showPointsPopup"
+      @close="closePointsPopup"
+      @confirm="confirmPointsCollection"
+    /> -->
+  </view>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import {usePublicStore} from "@/store/public.js"
-import { useUserStore } from '../../store/user';
-import { getShopCategories, getShopInfo, getShopList,getCityShopList } from '@/service/shop';
-import { getBannerList } from '@/service/bannner.js'
-import { getRecommendOfficerInfo } from '../../service/recommend';
-import { getUerAccountMessage, getUpdateMessage } from '../../service/uer_profile';
-import { onShow } from '@dcloudio/uni-app'
-import { isToday } from '@/utils/index.js'
-import { sign_data } from '@/service/uer_profile';
+import { ref, onMounted } from "vue";
+import {onLoad} from "@dcloudio/uni-app"
+import CityPicker from "@/components/cityPicker/cityPicker.vue";
+import PointsPopup from "@/components/PointsPopup/PointsPopup.vue";
 
-// #ifdef MP-WEIXIN
-import { onShareAppMessage } from '@dcloudio/uni-app'
-onShareAppMessage(()=>{
-	return {
-	  title: '满仓生态',
-	  path: '/pages/index/index',  // 分享路径
-	}
-})
-// #endif
-// var QQMapWX = require('../../static/qqmap/qqmap-wx-jssdk.min.js');
-
-const isMask=ref(false)
-const keyword = ref('')
-const publicStore=  usePublicStore()
-const userStore = useUserStore()
-const userInfo = ref()
-const shopInfo=ref()
-const curPage = ref(1);
-const hasNext = ref(false);
+// 控制积分弹窗显示
+const showPointsPopup = ref(false);
 let token = uni.getStorageSync('accessToken')
-onShow(async()=>{
-	token = uni.getStorageSync('accessToken')
-	console.log('----------11111')
-	// #ifdef MP-WEIXIN
-	if (!token) return
-	// #endif
+const isPageOnload = ref(false)
+
+// 生命周期钩子
+onLoad(() => {
+  // 页面加载时的逻辑
+  
+  checkUnclaimedPoints();
+  isPageOnload.value = true;
+});
+
+
+
+
+// 检查是否有未领取的积分
+const checkUnclaimedPoints = () => {
+  // 这里可以添加实际的API调用来检查用户是否有未领取的积分
+  // 模拟有未领取积分的情况
+  setTimeout(() => {
+    showPointsPopup.value = true;
 	
-	await userStore.fetchAllDataAction()
-	await publicStore.fetchAllDataAction()
-	userInfo.value=await  uni.getStorageSync('userInfo')
-	shopInfo.value=await uni.getStorageSync('shopInfo')
-	//const res = await sign_data()
-	// 确保 res 存在，并且 list 是数组
-	// const signData = Array.isArray(res?.list) ? res.list : []
-	// if (signData?.length&&isToday(signData[0]?.sign_date)){
-	// 	 isShowSignPop.value.close()
-	// }
+  }, 1500); // 延迟1.5秒显示弹窗，给用户一些时间先看到页面
+};
 
-	// #ifdef APP-PLUS
-	// let versionInfo =  await getUpdateMessage();
-	// console.log(versionInfo);
-	// console.log(uni.getSystemInfoSync().appVersionCode)
-	
-	// if(versionInfo.version>uni.getSystemInfoSync().appVersionCode){
-	// 	uni.showModal({
-	// 		title:"当前有新版本，请点击更新",
-	// 		confirmText:"立即更新",
-	// 		success: (e) => {
-	// 			if(e.confirm){
-	// 				plus.runtime.openURL(versionInfo.url);
-	// 			}
-	// 		}
-	// 	})
-	// }
-	// #endif
-	
-})
+// 关闭积分弹窗
+const closePointsPopup = () => {
+  showPointsPopup.value = false;
+};
 
-const isShowSignPop = ref()
+// 确认领取积分
+const confirmPointsCollection = () => {
+  // 跳转到积分领取页面
+  uni.navigateTo({
+    url: "/pages/points/request_points_input",
+  });
+  showPointsPopup.value = false;
+};
 
-onMounted(async () => {
-	try {
-		// 读取本地存储的数据
-		const userInfo = uni.getStorageSync('userInfo')
-		const localCity = uni.getStorageSync('city')
-		city.value = localCity || (userInfo?.residence?.split(' ')[1] || '')
-		// 获取分类和 Banner 数据
-		getCategory()
-		getBanner()
-		// 获取签到数据
-		//const res = await sign_data()
-		// 确保 res 存在，并且 list 是数组
-		//const signData = Array.isArray(res?.list) ? res.list : []
-	
-		// 判断签到弹窗是否显示
-		// if ((signData.length > 0 && isToday(signData[0]?.sign_date)) || !token) {
-		// 	isShowSignPop.value.close()
-		// } else {
-		// 	isShowSignPop.value.open()
-		// }
-	} catch (error) {
-		console.error('获取签到数据失败:', error)
-	}
-})
+const bindCityChange = (e) => {
+  uni.setStorageSync("city", e.city);
+  console.log(e);
+};
 
-
-const city = ref('')
-const getCity = (e)=>{
-	city.value = e.city
-	uni.setStorageSync('city',city.value)
-	console.log('当前选择的城市',city.value);
-	curPage.value=1
-	shopLists.value=[]
-	getList()
-}
-const shopLists = ref([])
-
-
-const hiddenMask=()=>{
-	isMask.value=false
-}
-
-
-
-// const getShopLists = async()=>{
-	
-// 	const {results} = await getCityShopList({name: city.value})
-// 	shopLists.value = results[0]
-// 	console.log('切换城市获取到对应的商店列表',results );
-// }
-
-const getList = async()=>{
-	const city=uni.getStorageSync('city')
-	const params = ref({
-		category: '',
-		name:city,
-		page:curPage.value
-	})
-	// uni.showLoading({
-	// 	title: '加载中'
-	// })
-	const {results,next} = await getCityShopList(params.value)
-	shopLists.value.push(...results)
-	console.log('111',results)
-	if(!!next){
-		hasNext.value=true
-		curPage.value=curPage.value+1
+const toRequestPointsInput = () => {
+	if(token){
+		uni.scanCode({
+    scanType: ["qrCode", "wxCode"],
+    success: function (res) {
+      console.log("扫描成功：", res);
+      uni.navigateTo({
+        url: "/" + res.path,
+      });
+    },
+    fail: function (err) {
+      console.log("扫描失败：", err);
+    },
+  });
 	}else{
-		hasNext.value=false
+		uni.showToast({
+			icon:'none',
+			title:"请先登录"
+		})
 	}
-	
-	// uni.hideLoading()
-}
-
-const dealScrolltolower = async () => {
-	if (hasNext.value) {
-    await getList();
-  } else {
-    console.log('没有更多数据了');
-  }
+ 
 };
-
-const categoryList = ref([])
-const getCategory = async()=>{
-	const {results} = await getShopCategories()
-	categoryList.value = results
-}
-const bannerList = ref()
-const getBanner = async()=>{
-	bannerList.value = await getBannerList()
-}
-
-const toSettle = ()=>{
-	uni.navigateTo({
-		url: '/pages/merchant/merchant_intro'
-	})
-}
-const toMerchant =async () => {
-	// #ifdef MP-WEIXIN
-	if (!token){
-		uni.showToast({
-			icon:'none',
-			title:'请登录!'
-		})
-		
-	  return  setTimeout(()=>{
-		  uni.navigateTo({
-		  			url:'/pages/login/login'
-		  		})
-	  },700)
-	}
-	// #endif
-	
-	userInfo.value=await  uni.getStorageSync('userInfo')
-	if(!userInfo?.value.name||!userInfo?.value.gender||!userInfo?.value.icon||!userInfo?.value.birthdate||!userInfo?.value.residence){
-		uni.showToast({
-			icon:'none',
-			title:'请先完善个人信息'
-		})
-		return uni.navigateTo({
-			url:'/pages/login/more_info_edit'
-		})
-	}
-
-
-	shopInfo.value=await uni.getStorageSync('shopInfo')
-	const phoneNumber= uni.getStorageSync('phoneNumber')
-	console.log('点击商家前获得的数据',userInfo.value?.is_seller,shopInfo.value.state);
-/*  */
-	console.log('进入商家前的用户信息',userInfo.value);
-	console.log('进入商家前的店铺信息',shopInfo.value);
-	//0 正在审核 1审核通过  -1审核不通过 
-    if (userInfo.value?.is_seller&&shopInfo.value.state>0) {
-        // 店铺已过审核
-	await uni.setStorageSync(
-			"prePageIsHome",true
-		)
-        uni.navigateTo({
-            url: '/pages/merchant/merchant_management'
-        });
-    } else if(!userInfo.value?.is_seller) {
-        //还没成为商家
-        uni.navigateTo({
-            url: '/pages/merchant/merchant_intro'
-        });
-    } else if(userInfo.value?.is_seller&&!userInfo.value?.is_shop){
-		//是商家 首次开通店铺
-		uni.navigateTo({
-			url:'/pages/merchant/before_create_shop'
-		})
-	}else if(userInfo.value?.is_seller&&shopInfo.value.state==-1){
-		//是商家 审核不通过
-		uni.navigateTo({
-			url:'/pages/merchant/fail_create_shop'
-		})
-	}else if(userInfo.value?.is_seller&&shopInfo.value?.state==0){
-		//正在审核
-		uni.navigateTo({
-			url:'/pages/merchant/before_create_merchant'
-		})
-	}
+const showTips = () => {
+  uni.showToast({
+    title: "敬请期待!",
+    icon: "none",
+    duration: 2000,
+  });
 };
-
-
-const toAgent = ()=>{
-	// #ifdef MP-WEIXIN
-	if (!token){
-		uni.showToast({
-			icon:'none',
-			title:'请登录!'
-		})
-		
-	  return  setTimeout(()=>{
-		  uni.navigateTo({
-		  			url:'/pages/login/login'
-		  		})
-	  },700)
-	}
-	// #endif
-	const userInfo = uni.getStorageSync('userInfo')
-	if(!userInfo?.name||!userInfo?.gender||!userInfo?.icon||!userInfo?.birthdate||!userInfo?.residence){
-		uni.showToast({
-			icon:'none',
-			title:'请先完善个人信息'
-		})
-		return uni.navigateTo({
-			url:'/pages/login/more_info_edit'
-		})
-	}
-
-
-	if (userInfo && (userInfo.is_province_agent||userInfo.is_city_agent)) {
-		uni.navigateTo({
-			url: '/pages/agent/agent_management'
-		})
-	} else {
-		uni.navigateTo({
-			url: '/pages/agent/agent_intro'
-		})
-	}
-}
-
-const toRecommend =async ()=>{
-	// #ifdef MP-WEIXIN
-	if (!token){
-		uni.showToast({
-			icon:'none',
-			title:'请登录!'
-		})
-		
-	  return  setTimeout(()=>{
-		  uni.navigateTo({
-		  			url:'/pages/login/login'
-		  		})
-	  },700)
-	}
-	// #endif
-	const userInfo = uni.getStorageSync('userInfo')
-	if(!userInfo?.name||!userInfo?.gender||!userInfo?.icon||!userInfo?.birthdate||!userInfo?.residence){
-		uni.showToast({
-			icon:'none',
-			title:'成为推荐官前先完善个人信息'
-		})
-		return uni.navigateTo({
-			url:'/pages/login/more_info_edit'
-		})
-	}
-	try{
-		const phoneNumber=uni.getStorageSync('phoneNumber')
-		const data=await getRecommendOfficerInfo(phoneNumber)
-		console.log('进入推荐官页面前的推荐官信息',data);
-		if (data?.is_approved&&data?.is_visible) {
-			uni.navigateTo({
-				url: '/pages/recommend/recommend_management'
-			})
-		}else if(!data?.is_approved){
-			uni.navigateTo({
-				url: '/pages/recommend/before_create_recommend'
-			})
-		}
-	}catch(e){
-		if(e.data?.detail){
-			uni.navigateTo({
-				url: '/pages/recommend/recommend_intro'
-			})
-		}
-	}
-}
-const toAllMerchant = (id)=>{
-	uni.navigateTo({
-		url: '/pages/merchant/all_merchant?id='+id
-	})
-}
-
-const toMyAccount = ()=>{
-	// #ifdef MP-WEIXIN
-	if (!token){
-		uni.showToast({
-			icon:'none',
-			title:'请登录!'
-		})
-		
-	  return  setTimeout(()=>{
-		  uni.navigateTo({
-		  			url:'/pages/login/login'
-		  		})
-	  },700)
-	}
-	// #endif
-	uni.navigateTo({
-		url: '/pages/myAccount/myAccount'
-	})
-}
-const toDetail =async (shop)=>{
-
-	// await uni.setStorageSync('selectedShopInfo',shop)
-	// uni.$mc.shopInfo  = shop;
-	uni.navigateTo({
-		url: '/pages/merchant/merchant_detail?phone='+shop.merchant
-	})
-}
-const toCityAgentRank = (item)=>{
-	if (item.title == 'agent-rank') {
-		uni.navigateTo({
-			url: '/pages/agent/city_agent_rank'
-		})
-	}
-	else if (item.title == 'merchant-settle') {
-		uni.navigateTo({
-			url: '/pages/merchant/merchant_settle_process'
-		})
-	} else if (item.title == 'exchange-point') {
-		uni.navigateTo({
-			url: '/pages/myAccount/exchange_point_banner_detail'
-		})
-	}
-}
-const openLocation = (item)=>{
-	// #ifdef MP-WEIXIN
-	if (!item.latitude || !item.longitude) return
-	uni.openLocation({
-		latitude: item.latitude,
-		longitude: item.longitude
-	})
-	// #endif
-}
 
 const toSign = ()=>{
 	if(token){
@@ -535,275 +173,150 @@ const toSign = ()=>{
 	}
 	
 }
-const toTip = ()=>{
-	uni.showToast({
-		icon: 'none',
-		title: '敬请期待'
-	})
-}
-const toRank = ()=>{
+
+const toMerchantRank = ()=>{
 	uni.navigateTo({
-		url: '/pages/merchant/merchant_rank'
+		url: '/pages/merchant/merchant_sale_rank'
 	})
 }
+
+const toHamsterGroup = ()=>{
+	uni.navigateTo({
+		url: '/pages/discovery/hamster_group'
+	})
+}
+
 </script>
 
 <style lang="scss" scoped>
-.page {
-	height: 100vh;
-	background-color: #FC5908;
-	
-}
-.search_bar {
-	padding: 0 26rpx 48rpx;
-	.locate_img {
-		width: 43rpx;
-		margin-right: 18rpx;
-	}
-	.location {  
-		color: #fff;
-		font-size: 24rpx;
-		margin-right: 30rpx;
-	}
-	:deep(.uni-searchbar) {
-		padding: 0;
-		flex: 1;
-	}
-	:deep(.uni-searchbar__box) {
-		height: 60rpx;
-	}
-	:deep(.uni-searchbar__box-search-input){
-		font-size: 21rpx;
-		margin-left: 0;
-	}
-	:deep(.uni-searchbar__text-placeholder) {
-		color: #888888;
-		font-size: 21rpx;
-		margin-left: 0;
-	}
-	:deep(.uni-searchbar__box-icon-clear) {
-		line-height: 0;
-	}
-	.search_btn {
-		width: 85rpx;
-		height: 45rpx;
-		background-color: #f96e00;
-		color: #fff;
-		border-radius: 100px;
-		font-size: 21rpx;
-	}
-}
+.container {
+  width: 100%;
+  height: 100vh;
+  background: url("https://static.maxcang.com/appstatic/home/bg_big.png")
+    no-repeat;
+  background-size: 100% auto; /* 宽度100%，高度自适应 */
+  background-position: top center;
+  background-attachment: fixed; /* 固定背景，滚动时不移动 */
+  position: relative; /* 添加相对定位，使子元素的绝对定位基于此容器 */
+  overflow: hidden; /* 禁用滚动，页面不能滑动 */
 
-.swiper {
-	height: 300rpx;
-	.swipe_img {
-		width: 750rpx;
-		height: 300rpx;
-		// background-color: #ccc;
-	}
-	
-}
-:deep(.uni-swiper-dot) {
-		width: 10rpx;
-		height: 10rpx;
-	}
-.function_list {
-	padding: 36rpx 46rpx;
-	.function_item {
-		text-align: center;
-		font-size: 24rpx;
-		color: #fff;
-		margin-right: 60rpx;
-		&:last-child {
-			margin-right: 0;
-		}
-		.img_box {
-			width: 117rpx;
-			height: 117rpx;
-			border-radius: 38rpx;
-			background-color: #fff;
-			margin-bottom: 20rpx;
-			.img_item {
-				width: 72rpx;
-			}
-		}
-	}
-}
-.content {
-	padding: 0 22rpx 22rpx;
-	margin-top: 15rpx;
-	.cate_list {
-		background-color: #fff;
-		border-radius: 38rpx;
-		padding: 42rpx 46rpx 12rpx;
-		margin-bottom: 34rpx;
-		.cate_item {
-			text-align: center;
-			font-size: 21rpx;
-			margin-right: 46rpx;
-			margin-bottom: 30rpx;
-			&:nth-child(5n) {
-				margin-right: 0;
-			}
-			.cate_img {
-				width: 86rpx;
-			}
-		}
-	}
-	.daily_entrance {
-		display: flex;
-		justify-content: start;
-		margin-bottom: 20rpx;
-		.entrance_item {
-			// flex: 1;
-			// height: 1rpx;
-			width: 235rpx;
-			margin-right: 24rpx;
-			&:last-child {
-				margin-right: 0;
-			}
-		}
-	}
-	.merchant_box {
-		background-color: #fff;
-		border-radius: 38rpx;
-		padding: 50rpx 46rpx 0;
-		margin-bottom: 34rpx;
-		.merchant_top {
-			padding-bottom: 20rpx;
-			border-bottom: 1px solid #e1e1e1;
-			.nearby {
-				font-weight: bold;
-				font-size: 27rpx;
-				margin-right: 24rpx;
-			}
-			.hit {
-				padding: 8rpx 10rpx;
-				border-radius: 100px;
-				font-size: 21rpx;
-				background-image: linear-gradient(to right, #ff9342, #fe676c);
-				color: #fff;
-			}
-			.settle {
-				padding: 10rpx 18rpx;
-				background-color: #fc5908;
-				color: #fff;
-				font-size: 21rpx;
-				border-radius: 100px;
-			}
-		}
-	
-		
-		.shop_list {
-			// $device-width: 750;
-			height: calc(100vh  - 880rpx);
-			overflow-y: scroll;
-			.shop_item {
-				padding: 20rpx 0;
-				border-bottom: 1px solid #e1e1e1;
-				// align-items: flex-start;
-				flex-wrap: nowrap;
-				.shop_img {
-					width: 126rpx;
-					height: 126rpx;
-					margin-right: 22rpx;
-					// background-color: #ccc;
-					border-radius: 5px;
-				}
-				.shop_info {
-					flex: 1;
-					
-					.shop_name {
-						font-size: 24rpx;
-						margin-bottom: 20rpx;
-						font-weight: bold;
-					}
-					.pic_box {
-						margin: 10rpx 0 20rpx;
-						.star_pic {
-							width: 22rpx;
-						}
-						.point {
-							font-size: 20rpx;
-							color: #FC5908;
-							margin-left: 20rpx;
-						}
-					}
-					.shop_address {
-						font-size: 18rpx;
-						color: #385ed2;
-						width: 340rpx;
-						.address_img {
-							width: 20rpx;
-							margin-right: 10rpx;
-						}
-						.detail {
-							overflow: hidden;
-							white-space: nowrap;
-							text-overflow: ellipsis;
-						}
-					}
-				}
-				.percentage {
-					position: relative;
-					color: #fff;
-					font-size: 20rpx;
-					padding: 4rpx 18rpx 4rpx 14rpx;
-					border-radius: 100px;
-					white-space: nowrap;
-					// margin-top: 10rpx;
-					&.red {
-						background: linear-gradient(to bottom, #fd770b, #fb4706);
-					}
-					&.orange {
-						background: linear-gradient(to bottom, #ffbc15, #ff850d);
-					}
-					.hot_pic {
-						position: absolute;
-						left: -16rpx;
-						top: -20rpx;
-						width: 70rpx;
-					}
-				}
-				.distance {
-					font-size: 21rpx;
-					color: #fc6216;
-				}
-			}
-			.more {
-				font-size: 24rpx;
-				color: #ff6a07;
-				text-align: center;
-				padding: 30rpx 0;
-			}
-		}
-	}
-	.shop_pic {
-		width: 100%;
-		margin-bottom: 30rpx;
-	}
-}
-.headline {
-	padding: 30rpx 50rpx;
-	.head_title {
-		font-size: 30rpx;
-		color: #fff;
-		margin-right: 20rpx;
-	}
-	.head_hit {
-		font-size: 24rpx;
-		color: #fff;
-		border: 1px solid #fff;
-		border-radius: 3px;
-		margin-right: 20rpx;
-		padding: 6rpx 12rpx;
-	}
-	.news {
-		font-size: 24rpx;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		flex: 1;
-	}
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100rpx 30rpx 60rpx;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  .location {
+    display: flex;
+    align-items: center;
+  }
+
+  .location-icon {
+    width: 40rpx;
+    height: 40rpx;
+  }
+
+  .location-text {
+    color: #ffffff;
+    font-size: 32rpx;
+    margin-left: 10rpx;
+  }
+
+  .app-title {
+    width: 177rpx;
+    height: 40rpx;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .placeholder {
+    width: 80rpx; /* 与location区域宽度相近，保持平衡 */
+  }
+
+  .point_box {
+    width: 100%;
+    min-height: calc(100vh - 200rpx); /* 减去顶部距离 */
+    background: url("https://static.maxcang.com/appstatic/home/sub_bg_top.png")
+      no-repeat;
+    background-size: 100% auto;
+    background-position: top center;
+    margin-top: 200rpx; /* 与顶部的距离 */
+    position: relative;
+    padding-top: 300rpx; /* 为bottom_box预留空间 */
+    box-sizing: border-box; /* 确保padding不会增加元素总高度 */
+
+    .bottom_box {
+      width: 100%;
+      min-height: calc(100vh - 200rpx); /* 从top: 200rpx开始填满到页面底部 */
+      background: url("https://static.maxcang.com/appstatic/home/sub_bg_bottom_new.png")
+       no-repeat;
+      background-size: 100% auto;
+      background-position: top center;
+      position: absolute;
+      top: 200rpx; /* 与point_box的margin-top对齐 */
+      left: 0;
+      padding-top: 330rpx; /* 从320rpx增加到360rpx，让内容往下移动40rpx */
+
+      .top-gif {
+        width: 400rpx; /* 设置固定宽度，可以根据需要调整 */
+        height: 200rpx; /* 设置固定高度，可以根据需要调整 */
+        display: block;
+        margin: 0 auto; /* 水平居中 */
+        margin-top: -70rpx; /* 移除之前的负边距 */
+        transform: translateX(20rpx);
+      }
+
+      /* 功能按钮区 - 使用图片 */
+      .feature-buttons {
+        width: 90%;
+        margin: 70rpx auto 0 auto;
+        display: flex;
+        justify-content: space-between;
+        gap: 20rpx;
+      }
+
+      .feature-button-img {
+        flex: 1;
+        width: 48%;
+        height: auto;
+        border-radius: 20rpx;
+        box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+      }
+
+      /* 每日签到 - 使用图片 */
+      .daily-checkin-img {
+        width: 90%;
+        height: auto;
+        display: block;
+        margin: 20rpx auto;
+        border-radius: 20rpx;
+        box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+      }
+
+      /* 功能卡片区 - 使用图片 */
+      .function-cards {
+        width: 90%;
+        margin: 30rpx auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10rpx;
+      }
+
+      .function-card-img {
+        width: 32%;
+        height: auto;
+        border-radius: 20rpx;
+        box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
 }
 </style>

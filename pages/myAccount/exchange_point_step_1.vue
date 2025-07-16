@@ -1,10 +1,5 @@
 <template>
 	<view>
-		<navBar title="增加积分" :isShow="true" :isSkip="true">
-			<template class="skip" #right>
-				<image src="https://static.maxcang.com/appstatic/record.png" mode="widthFix" class="record_pic" @click="toRecord"></image>
-			</template>
-		</navBar>
 		<view class="content">
 			<view class="tip">
 				首次增加积分操作，请在推荐人的指导下进行！
@@ -31,6 +26,10 @@
 			</view>
 			<view class="btn_full" @click="toNext">
 				我已充值
+			</view>
+			<view class="record-link" @click="toRecord">
+				<image src="https://static.maxcang.com/appstatic/record.png" mode="widthFix" class="record_pic"></image>
+				<text>查看记录</text>
 			</view>
 		</view>
 	</view>
@@ -70,8 +69,22 @@ const toRecord = ()=>{
 </script>
 
 <style lang="scss" scoped>
-.record_pic {
-	width: 33rpx;
+.record-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 30rpx;
+	padding: 20rpx;
+	
+	.record_pic {
+		width: 33rpx;
+		margin-right: 10rpx;
+	}
+	
+	text {
+		font-size: 24rpx;
+		color: #666;
+	}
 }
 .tip {
 	font-size: 27rpx;

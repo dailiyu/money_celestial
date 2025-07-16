@@ -5,7 +5,7 @@
 			<image class="img" src="https://static.maxcang.com/appstatic/success.jpg" mode="aspectFit"></image>
 		</view>
 		<view class="text-box">
-			<view class="text">店铺信息已提交，请等待审核！</view>
+			<view class="text">已提交，请等待！</view>
 		</view>
 		<view class="buttom-box">
 			
