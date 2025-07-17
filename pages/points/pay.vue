@@ -47,15 +47,15 @@
     </view>
 
     <!-- 确认支付按钮 -->
-    <view v-if="shopInfo?.pay_cert_material === 1" class="confirm-button" @click="wechatpayDo">确认支付</view>
+    <view v-if="shopInfo?.pay_cert_material_state === 1" class="confirm-button" @click="wechatpayDo">确认支付</view>
     
     <!-- 未开通线上支付提示 -->
-    <view v-else-if="shopInfo?.pay_cert_material !== 1" class="disabled-button">
+    <view v-else-if="shopInfo?.pay_cert_material_state !== 1" class="disabled-button">
       当前店铺未开通线上支付
     </view>
     
     <!-- 出示积分码按钮 -->
-    <view v-if="shopInfo?.pay_cert_material !== 1" class="points-code-button" @click="showPointsCode">
+    <view v-if="shopInfo?.pay_cert_material_state !== 1" class="points-code-button" @click="showPointsCode">
       出示积分码
     </view>
   </view>
