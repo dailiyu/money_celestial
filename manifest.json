@@ -2,8 +2,8 @@
     "name" : "满仓",
     "appid" : "__UNI__EFA5E5D",
     "description" : "",
-    "versionName" : "3.0.03",
-    "versionCode" : 3003,
+    "versionName" : "2.0.01",
+    "versionCode" : 2001,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -70,7 +70,8 @@
                         "appid" : "",
                         "UniversalLinks" : ""
                     }
-                }
+                },
+                "maps" : {}
             },
             "icons" : {
                 "android" : {
@@ -102,7 +103,7 @@
             },
             "scope.userFuzzyLocation" : {
                 "desc" : "需要获取您的模糊位置以提供位置相关服务"
-            } 
+            }
         }
     },
     "mp-alipay" : {

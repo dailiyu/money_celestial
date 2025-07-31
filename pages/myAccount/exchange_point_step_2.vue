@@ -111,11 +111,40 @@ const confirm = async()=>{
 		})
 		await addRedPoints(params.value)
 		uni.hideLoading()
-		pop.value.open()
-	}catch(e){
+		
+		// 显示成功提示
 		uni.showToast({
-			icon: 'error',
-			title: '兑换失败'
+			icon: 'success',
+			title: '充值成功',
+			duration: 2000
+		})
+		
+		// 延迟跳转到D9能量页面
+		setTimeout(() => {
+			uni.navigateTo({
+				url: '/pages/myAccount/point_available'
+			})
+		}, 2000)
+	}catch(e){
+		uni.hideLoading()
+		console.log('兑换错误:', e)
+		
+		// 提取错误信息
+		let errorMessage = '兑换失败'
+		if (e.data && e.data.error) {
+			errorMessage = e.data.error
+		} else if (e.error) {
+			errorMessage = e.error
+		} else if (e.message) {
+			errorMessage = e.message
+		} else if (typeof e === 'string') {
+			errorMessage = e
+		}
+		
+		uni.showToast({
+			icon: 'none',
+			title: errorMessage,
+			duration: 3000
 		})
 	}
 	

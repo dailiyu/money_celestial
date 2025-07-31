@@ -13,8 +13,8 @@ export  const postRegister=async (data)=>{
 
 //部分修改用户信息 如果填写trade_psk 交易密码，则必须同时提交verify_code验证码
 export const changeUserInfo=async (data)=>{
-	const userInfo=await uni.getStorageSync('userInfo')
-	return http.put(`/users/profile/${userInfo.phone_number}/`,data)
+	const phone_number=uni.getStorageSync('phoneNumber')
+	return http.put(`/users/profile/${phone_number}/`,data)
 }
 
 

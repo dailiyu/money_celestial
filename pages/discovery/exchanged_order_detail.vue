@@ -23,7 +23,7 @@
             <text class="product-title">{{ orderInfo.productTitle }}</text>
             <view class="points-section flex-row">
               <text class="points-number">{{ orderInfo.unitEnergy }}</text>
-              <image class="points-icon" src="/static/discovery/d9_energy_icon.png" />
+              <image class="points-icon" src="https://static.maxcang.com/appstatic/discovery/d9_energy_icon.png" />
             </view>
           </view>
           
@@ -41,7 +41,7 @@
         <view class="total-amount flex-row">
           <text class="total-label">实付</text>
           <text class="total-number">{{ orderInfo.totalEnergy }}</text>
-          <image class="total-icon" src="/static/discovery/d9_energy_icon.png" />
+          <image class="total-icon" src="https://static.maxcang.com/appstatic/discovery/d9_energy_icon.png" />
         </view>
       </view>
     </view>
@@ -57,10 +57,10 @@
           </view>
           <view class="address-actions flex-row">
             <view class="action-btn navigate-btn" @click="navigateToStore">
-              <image class="action-icon" src="/static/discovery/navigate_icon.png" />
+              <image class="action-icon" src="https://static.maxcang.com/appstatic/discovery/navigate_icon.png" />
             </view>
             <view class="action-btn call-btn" @click="callStore">
-              <image class="action-icon" src="/static/discovery/call_icon.png" />
+              <image class="action-icon" src="https://static.maxcang.com/appstatic/discovery/call_icon.png" />
             </view>
           </view>
         </view>
@@ -122,7 +122,7 @@
         <view class="store-info">
           <view class="store-header">
             <text class="store-name">{{ store.name }}</text>
-            <view class="store-badge">
+            <view class="store-badge" v-if="store.payCertMaterialState === 1">
               <image class="certified-icon" src="https://static.maxcang.com/appstatic/discovery/certified_badge.png" mode="aspectFit" />
             </view>
           </view>
@@ -156,17 +156,42 @@ import { ref, onMounted } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import { getOrderDetail, getCityShopList } from '@/service/shop.js';
 
+// 日期格式化函数
+const formatDateTime = (dateString) => {
+  try {
+    const date = new Date(dateString);
+    
+    // 检查日期是否有效
+    if (isNaN(date.getTime())) {
+      return '时间格式错误';
+    }
+    
+    // 手动格式化日期
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  } catch (error) {
+    console.error('日期格式化失败:', error);
+    return '时间格式错误';
+  }
+};
+
 // 订单信息
 const orderInfo = ref({
   statusTitle: '兑换成功',
   statusSubtitle: '本次兑换由 D9Network 提供区块链技术服务',
-  productImage: '/static/merchant/product_placeholder.png',
+  productImage: 'https://static.maxcang.com/appstatic/merchant/product_placeholder.png',
   productTitle: '东北五常大米',
   productSubtitle: '五常大米 | 一袋',
   quantity: 2,
   unitEnergy: 52,
   totalEnergy: 104,
-  storeName: '佛山智慧新城展示中心',
+  storeName: '展示中心',
   storeTime: '营业中 09:00 - 18:00',
   orderNumber: '123456789012345S',
   paymentMethod: 'D9能量',
@@ -205,8 +230,9 @@ const getRecommendStores = async () => {
       rating: store.rating || '4.9',
       address: store.address,
       cashback: (store.consume2coin_bit || '100') + '%精选',
-      image: store.avatar || '/static/merchant/store_placeholder.png',
-      merchant: store.merchant // 用于跳转
+      image: store.avatar || 'https://static.maxcang.com/appstatic/merchant/store_placeholder.png',
+      merchant: store.merchant, // 用于跳转
+      payCertMaterialState: store.pay_cert_material_state // 认证状态
     }));
     
   } catch (error) {
@@ -229,7 +255,7 @@ const fetchOrderDetail = async (id) => {
     const order = response;
     
     // 获取商品图片 - 优先获取Banner类型图片
-    let productImage = '/static/merchant/product_placeholder.png';
+    let productImage = 'https://static.maxcang.com/appstatic/merchant/product_placeholder.png';
     if (order.product && order.product.images && order.product.images.length > 0) {
       // 查找Banner类型图片
       const bannerImage = order.product.images.find(img => img.image_type_display === 'Banner');
@@ -255,28 +281,17 @@ const fetchOrderDetail = async (id) => {
       unitEnergy: order.product ? Math.round(order.product.price) : 0,
       totalEnergy: parseFloat(order.real_amount), // 转换为数字
       storeName: order.shop ? order.shop.name : '商家信息暂无',
+      storeAddress: order.shop ? order.shop.address : '地址信息暂无',
+      storePhone: order.shop ? order.shop.tel : null, // 商家电话
       storeTime: order.shop ? `营业中 ${order.shop.business_time1 || '09:00'} - ${order.shop.business_time2 || '18:00'}` : '营业中 09:00 - 18:00',
+      // 商家经纬度信息（如果接口提供的话）
+      shopLatitude: order.shop ? order.shop.latitude : null,
+      shopLongitude: order.shop ? order.shop.longitude : null,
       orderNumber: order.order_id,
       paymentMethod: 'D9能量',
       phoneNumber: userInfo.phone || order.user_id || '未绑定',
-      orderTime: new Date(order.created_at).toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      }),
-      exchangeTime: order.finish_time ? new Date(order.finish_time).toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      }) : '兑换时间暂无',
-      // 商家联系方式
-      storePhone: order.shop ? order.shop.tel : null
+      orderTime: formatDateTime(order.created_at),
+      exchangeTime: order.finish_time ? formatDateTime(order.finish_time) : '兑换时间暂无'
     };
     
   } catch (error) {
@@ -292,11 +307,91 @@ const fetchOrderDetail = async (id) => {
 
 // 方法定义
 const navigateToStore = () => {
+  // 如果没有经纬度信息，复制商家地址
+  if (!orderInfo.value.shopLatitude || !orderInfo.value.shopLongitude) {
+    const address = orderInfo.value.storeAddress || orderInfo.value.storeName || '商家地址信息暂无';
+    uni.setClipboardData({
+      data: address,
+      success: () => {
+        uni.showToast({
+          title: '已复制商家地址',
+          icon: 'success'
+        });
+      },
+      fail: () => {
+        uni.showToast({
+          title: '复制失败',
+          icon: 'none'
+        });
+      }
+    });
+    return;
+  }
+  
+  // 微信小程序环境下使用经纬度导航
+  // #ifdef MP-WEIXIN
+  const latitude = orderInfo.value.shopLatitude;
+  const longitude = orderInfo.value.shopLongitude;
+  
+  // 先获取用户位置权限（可选，用于更好的导航体验）
+  wx.getSetting({
+    success: (res) => {
+      if (!res.authSetting['scope.userLocation']) {
+        // 用户未授权位置信息，先申请授权
+        wx.authorize({
+          scope: 'scope.userLocation',
+          success: () => {
+            openLocationNav(latitude, longitude);
+          },
+          fail: () => {
+            // 授权失败，直接打开导航
+            openLocationNav(latitude, longitude);
+          }
+        });
+      } else {
+        // 已授权，直接打开导航
+        openLocationNav(latitude, longitude);
+      }
+    },
+    fail: () => {
+      // 获取设置失败，直接打开导航
+      openLocationNav(latitude, longitude);
+    }
+  });
+  // #endif
+  
+  // 非微信小程序环境的处理
+  // #ifndef MP-WEIXIN
   uni.showToast({
     title: '正在导航',
     icon: 'success'
   });
+  // #endif
 };
+
+// 打开位置导航的辅助方法
+// #ifdef MP-WEIXIN
+const openLocationNav = (latitude, longitude) => {
+  wx.openLocation({
+    latitude: latitude,
+    longitude: longitude,
+    name: orderInfo.value.storeName,
+    address: orderInfo.value.storeAddress || '商家地址',
+    scale: 18,
+    success: () => {
+      console.log('导航成功');
+    },
+    fail: (error) => {
+      console.error('导航失败:', error);
+      uni.showToast({
+        title: '导航失败，请稍后重试',
+        icon: 'none',
+        duration: 2000
+      });
+    }
+  });
+};
+// #endif
 
 const callStore = () => {
   const phoneNumber = orderInfo.value.storePhone || '400-123-4567';
@@ -577,16 +672,16 @@ onLoad(async (options) => {
         gap: 20rpx;
         
         .action-btn {
-          width: 80rpx;
-          height: 80rpx;
-          border-radius: 40rpx;
+          width: 88rpx;
+          height: 88rpx;
+          border-radius: 44rpx;
           display: flex;
           align-items: center;
           justify-content: center;
           
           .action-icon {
-            width: 58rpx;
-            height: 58rpx;
+            width: 68rpx;
+            height: 68rpx;
           }
         }
       }

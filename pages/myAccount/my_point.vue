@@ -16,11 +16,11 @@
 				<view class="point-stats">
 					<view class="stat-item">
 						<text class="stat-label">昨日获得积分</text>
-						<text class="stat-value">+100,000</text>
+						<text class="stat-value">+{{ formatPoints(yesterdayGreenPoints) }}</text>
 					</view>
 					<view class="stat-item">
 						<text class="stat-label">本月获得积分</text>
-						<text class="stat-value">+100,000,000</text>
+						<text class="stat-value">+{{ formatPoints(monthGreenPoints) }}</text>
 					</view>
 				</view>
 				<!-- 提取积分按钮 -->
@@ -108,18 +108,22 @@ onShow(()=>{
 })
 
 const pointsAccount = ref('')
-const greenPoints = ref(10000000000) // 示例数据
+const greenPoints = ref(0)
+const yesterdayGreenPoints = ref(0)
+const monthGreenPoints = ref(0)
 
 const getPoint = async()=>{
-	const { points_account, green_points } = await getAllPoint()
+	const { points_account, green_points, yesterday_green_points, month_green_points } = await getAllPoint()
 	pointsAccount.value = points_account
 	greenPoints.value = green_points
+	yesterdayGreenPoints.value = yesterday_green_points || 0
+	monthGreenPoints.value = month_green_points || 0
 }
 
 // 格式化积分显示
 const formatPoints = (points) => {
 	if (!points) return '0'
-	return points.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+	return Number(points).toFixed(4)
 }
 
 const goBack = () => {

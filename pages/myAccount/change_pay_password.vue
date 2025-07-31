@@ -17,7 +17,7 @@
 				style="color: #BABABA;font-size: 20rpx;font-weight: normal;">{{ maskPhoneNumber(phoneNumber) }}</text>
 		</view>
 		<uni-easyinput v-model="verifyCode" placeholder="请输入验证码" :inputBorder="false" type="number"
-			primaryColor="#1B46CC">
+			primaryColor="#FC5908">
 			<template #right>
 				<view class="send_btn flex_center" @click="toSendVerifyCode" v-if="!isCounting">
 					发送验证码
@@ -183,6 +183,10 @@
 			border-radius: 100px;
 			padding: 10rpx 14rpx;
 		}
+		
+		:deep(.uni-easyinput__content-input) {
+			font-size: 20rpx;
+		}
 	}
 
 
@@ -227,5 +231,7 @@
 	}
 	.btn_full {
 		margin-top: 400rpx;
+		background-color: #FC5908;
+		color: #fff;
 	}
 </style>

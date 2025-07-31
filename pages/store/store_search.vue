@@ -9,7 +9,7 @@
 					<CityPicker @changeCity="bindCityChange"></CityPicker>
 				</view>
 				<view class="title-container">
-					<image class="main-title-img" src="https://static.maxcang.com/appstatic/discovery/maxcang_title.png" mode="aspectFit"></image>
+					<image class="main-title-img" src="https://static.maxcang.com/appstatic/common/title_logo.png" mode="aspectFit"></image>
 				</view>
 				<view class="placeholder"></view>
 			</view>
@@ -90,9 +90,9 @@
 						<view class="store-info">
 							<view class="store-header">
 								<text class="store-name">{{ store.name }}</text>
-								<view class="store-badge">
-									<image class="certified-icon" src="https://static.maxcang.com/appstatic/discovery/certified_badge.png" mode="aspectFit"></image>
-								</view>
+															<view class="store-badge" v-if="store.pay_cert_material_state === 2">
+								<image class="certified-icon" src="https://static.maxcang.com/appstatic/discovery/certified_badge.png" mode="aspectFit"></image>
+							</view>
 							</view>
 							<view class="store-rating-container">
 								<view class="store-rating">
@@ -130,7 +130,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import CityPicker from "@/components/cityPicker/cityPicker.vue"
-import { searchShops } from '@/service/shop'
+import { getCityShopList } from '@/service/shop'
 
 // 响应式数据
 const searchKeyword = ref('')
@@ -139,6 +139,7 @@ const searchHistory = ref([])
 const storeList = ref([])
 const hasSearched = ref(false)
 const isSearching = ref(false)
+const currentCity = ref('') // 当前城市
 
 // 防抖定时器
 let debounceTimer = null
@@ -155,10 +156,12 @@ const showResults = computed(() => {
 // 页面加载
 onMounted(() => {
 	loadSearchHistory()
+	loadCurrentCity()
 })
 
 onShow(() => {
 	// 页面显示时的逻辑
+	loadCurrentCity()
 })
 
 // 方法
@@ -258,7 +261,12 @@ const searchStores = async (keyword) => {
 			q: keyword
 		}
 		
-		const response = await searchShops(params)
+		// 添加城市筛选参数
+		if (currentCity.value) {
+			params.name = currentCity.value
+		}
+		
+		const response = await getCityShopList(params)
 		console.log('搜索API原始响应:', response)
 		
 		// 处理不同的响应格式
@@ -352,9 +360,24 @@ const goToStore = (store) => {
 	})
 }
 
+// 加载当前城市
+const loadCurrentCity = () => {
+	const city = uni.getStorageSync("city")
+	if (city) {
+		currentCity.value = city
+		console.log('当前城市:', currentCity.value)
+	}
+}
+
 const bindCityChange = (e) => {
 	uni.setStorageSync("city", e.city);
-	// 可以在这里添加城市变化后的搜索逻辑
+	currentCity.value = e.city
+	console.log('城市已切换为:', currentCity.value)
+	
+	// 如果当前有搜索关键词，重新搜索
+	if (searchKeyword.value.trim()) {
+		performSearch(searchKeyword.value.trim(), false)
+	}
 }
 </script>
 

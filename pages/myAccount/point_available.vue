@@ -16,11 +16,11 @@
 				<view class="point-stats">
 					<view class="stat-item">
 						<text class="stat-label">昨日获得能量</text>
-						<text class="stat-value">+1.23401</text>
+						<text class="stat-value">+{{ formatPoints(yesterdayRedPoints) }}</text>
 					</view>
 					<view class="stat-item">
 						<text class="stat-label">本月获得能量</text>
-						<text class="stat-value">+1,000.23103</text>
+						<text class="stat-value">+{{ formatPoints(monthRedPoints) }}</text>
 					</view>
 				</view>
 				<!-- 按钮组 -->
@@ -29,7 +29,7 @@
 						充值D9能量
 					</view>
 					<view class="energy-btn withdraw-btn" @click="toWithdrawPoint">
-						提取D9能量
+					提取D9能量
 					</view>
 				
 				</view>
@@ -43,12 +43,12 @@
 				<view class="function-card" @click="toWithdrawRecord">
 					<image src="https://static.maxcang.com/appstatic/my/energy_point/energy_record_icon.png" class="card-icon"></image>
 					<text class="card-text">能量记录</text>
-					<image src="/static/myAccount/right_arrow_gray.png" class="card-arrow"></image>
+					<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="card-arrow"></image>
 				</view>
 				<view class="function-card" @click="toStrategy">
 					<image src="https://static.maxcang.com/appstatic/my/energy_point/energy_strategy_icon.png" class="card-icon"></image>
 					<text class="card-text">D9能量攻略</text>
-					<image src="/static/myAccount/right_arrow_gray.png" class="card-arrow"></image>
+					<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="card-arrow"></image>
 				</view>
 			</view>
 		</view>
@@ -75,19 +75,23 @@ onShow(()=>{
 })
 
 const tipsPop = ref()
-const redPoint = ref(10000.9293) // 示例数据
+const redPoint = ref(0)
 const pointsAccount = ref('')
+const yesterdayRedPoints = ref(0)
+const monthRedPoints = ref(0)
 
 const getPoint = async()=>{
-	const { red_points, points_account } = await getAllPoint()
+	const { red_points, points_account, yesterday_red_points, month_red_points } = await getAllPoint()
 	redPoint.value = red_points
 	pointsAccount.value = points_account
+	yesterdayRedPoints.value = yesterday_red_points || 0
+	monthRedPoints.value = month_red_points || 0
 }
 
 // 格式化积分显示
 const formatPoints = (points) => {
 	if (!points) return '0'
-	return points.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+	return Number(points).toFixed(4)
 }
 
 const goBack = () => {
@@ -109,6 +113,21 @@ const toWithdrawPoint = ()=>{
 }
 
 const toRechargePoint = ()=>{
+	// 检查是否已绑定积分账号
+	if (!pointsAccount.value) {
+		uni.showToast({
+			icon: 'none',
+			title: '请先绑定积分账号',
+			duration: 1000
+		})
+		// 延迟跳转到绑定账号页面
+		setTimeout(() => {
+			uni.navigateTo({
+				url: '/pages/myAccount/bind_account'
+			})
+		}, 1000)
+		return
+	}
 	// 跳转到充值D9能量页面
 	uni.navigateTo({
 		url: '/pages/myAccount/exchange_point_step_1'
@@ -258,13 +277,13 @@ const toStepOne = ()=>{
 		
 		.energy-btn {
 			width: 240rpx;
-			height: 81rpx;
-			border-radius: 40rpx;
-			font-size: 28rpx;
-			font-weight: 500;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+		height: 81rpx;
+		border-radius: 40rpx;
+		font-size: 28rpx;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 			box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.1);
 			transition: all 0.3s ease;
 			

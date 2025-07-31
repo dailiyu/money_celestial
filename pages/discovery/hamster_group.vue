@@ -2,34 +2,13 @@
   <view class="page">
     <!-- 主内容区域 -->
     <view class="content-container">
-      <!-- 返回按钮 -->
-      <view class="back-button" @click="goBack">
-        <text class="back-arrow">‹</text>
-      </view>
-      <!-- 插画区域 -->
-      <view class="illustration-section">
-        <view class="illustration-placeholder">
-          <!-- 多人聊天插画 -->
-          <view class="chat-people">
-            <view class="person person-1">👤</view>
-            <view class="person person-2">👤</view>
-            <view class="person person-3">👤</view>
-            <view class="person person-4">👤</view>
-            <view class="person person-5">👤</view>
-          </view>
-          <view class="phone-mockup">
-            <view class="phone-screen">
-              <view class="chat-bubble">💬</view>
-              <view class="chat-bubble">💬</view>
-              <view class="chat-bubble">💬</view>
-            </view>
-          </view>
-          <view class="floating-icons">
-            <view class="icon">📱</view>
-            <view class="icon">💭</view>
-            <view class="icon">⭐</view>
-          </view>
+      <!-- 上半部分背景区域 -->
+      <view class="top-background-section">
+        <!-- 返回按钮 -->
+        <view class="back-button" @click="goBack">
+          <text class="back-arrow">‹</text>
         </view>
+
       </view>
       
       <!-- 文字内容区域 -->
@@ -73,8 +52,10 @@
         </view>
         
         <!-- 加入群聊按钮 -->
-        <view class="join-button" @click="joinGroup">
-          <text class="button-text">加入仓鼠交流群</text>
+        <view class="join-button" :class="{ 'disabled': !groupAvailable || loading }" @click="joinGroup">
+          <text class="button-text">
+            {{ loading ? '加载中...' : (groupAvailable ? '加入仓鼠交流群' : '当地暂未开通') }}
+          </text>
         </view>
       </view>
     </view>
@@ -83,11 +64,24 @@
 
 <script setup>
 import { ref } from 'vue';
+import { onShow } from '@dcloudio/uni-app';
+import { getCityAgent } from '@/service/agent.js';
 
 // 当前页面索引
 const currentIndex = ref(0);
 
+// 城市代理信息
+const cityAgentInfo = ref(null);
+const wechatGroup = ref('');
+const groupAvailable = ref(false);
+const loading = ref(false);
+
 // 内容列表
+// 页面显示时获取数据
+onShow(() => {
+  getCityAgentInfo();
+});
+
 const contentList = ref([
   {
     highlightTitle: '满仓的第一手消息',
@@ -146,20 +140,108 @@ const goBack = () => {
   uni.navigateBack();
 };
 
+// 获取城市代理信息
+const getCityAgentInfo = async () => {
+  try {
+    loading.value = true;
+    
+    // 获取当前城市
+    const currentCity = uni.getStorageSync('city');
+    
+    // 使用新接口获取指定城市的代理信息
+    const response = await getCityAgent(currentCity);
+    
+    if (response) {
+      cityAgentInfo.value = response;
+      
+      // 检查是否有QQ群且状态为1（审核通过）
+      if (response.contact_wechat_group_state === 1 && response.contact_wechat_group) {
+        groupAvailable.value = true;
+        wechatGroup.value = response.contact_wechat_group;
+      } else {
+        groupAvailable.value = false;
+      }
+    } else {
+      groupAvailable.value = false;
+    }
+  } catch (error) {
+    console.error('获取城市代理信息失败:', error);
+    
+    // 处理404错误
+    if (error.status === 404) {
+      if (error.data && error.data.error) {
+        if (error.data.error === '代理不存在') {
+          uni.showToast({
+            title: '该城市暂无代理',
+            icon: 'none',
+            duration: 2000
+          });
+        } else if (error.data.error === '城市代理未生效') {
+          uni.showToast({
+            title: '该城市代理暂未生效',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      }
+    }
+    
+    groupAvailable.value = false;
+  } finally {
+    loading.value = false;
+  }
+};
+
 // 加入群聊
 const joinGroup = () => {
+  if (loading.value) {
+    return;
+  }
+  
+  if (!groupAvailable.value) {
+    let content = '当地暂未开通仓鼠交流群，敬请期待';
+    
+    // 根据代理状态显示不同的提示信息
+    if (cityAgentInfo.value) {
+      if (cityAgentInfo.value.contact_wechat_group_state === 0) {
+        content = '仓鼠群正在审核中，请稍后再试';
+      } else if (cityAgentInfo.value.contact_wechat_group_state === -1) {
+        content = '仓鼠群审核未通过，请联系客服';
+      } else if (!cityAgentInfo.value.contact_wechat_group) {
+        content = '该城市暂未设置仓鼠群，敬请期待';
+      }
+    }
+    
+    uni.showModal({
+      title: '提示',
+      content: content,
+      showCancel: false,
+      confirmText: '知道了'
+    });
+    return;
+  }
+
   uni.showModal({
     title: '加入群聊',
-    content: '请联系客服获取群聊二维码',
-    confirmText: '联系客服',
+    content: `QQ群：${wechatGroup.value}\r\n\r\n请复制群号到QQ搜索加入`,
+    confirmText: '复制群号',
     cancelText: '取消',
     success: (res) => {
       if (res.confirm) {
-        // 这里可以跳转到客服页面或者显示客服信息
-        uni.showToast({
-          title: '客服QQ: 3833194083',
-          icon: 'none',
-          duration: 3000
+        uni.setClipboardData({
+          data: wechatGroup.value,
+          success: () => {
+                    uni.showToast({
+          title: 'QQ群号已复制',
+          icon: 'success'
+        });
+          },
+          fail: () => {
+            uni.showToast({
+              title: '复制失败',
+              icon: 'none'
+            });
+          }
         });
       }
     }
@@ -171,7 +253,6 @@ const joinGroup = () => {
 .page {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(180deg, #FFF5F0 0%, #FFFFFF 100%);
   display: flex;
   flex-direction: column;
 }
@@ -179,7 +260,7 @@ const joinGroup = () => {
 /* 返回按钮 */
 .back-button {
   position: absolute;
-  top: calc(var(--status-bar-height) + 30rpx);
+  top: calc(var(--status-bar-height) + 50rpx);
   left: 30rpx;
   width: 60rpx;
   height: 60rpx;
@@ -211,177 +292,27 @@ const joinGroup = () => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 0 75rpx;
   box-sizing: border-box;
   position: relative;
+}
+
+/* 上半部分背景区域 */
+.top-background-section {
+  background-image: url('https://static.maxcang.com/appstatic/agent/group_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 750rpx;
+  height: 901rpx;
+  padding: 0 75rpx;
   padding-top: calc(var(--status-bar-height) + 20rpx); /* 为状态栏和返回按钮留出空间 */
-}
-
-/* 插画区域 */
-.illustration-section {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 600rpx;
-  padding-top: 50rpx; /* 减少顶部间距 */
-}
-
-.illustration-placeholder {
-  width: 600rpx;
-  height: 500rpx;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.chat-people {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.person {
-  position: absolute;
-  width: 80rpx;
-  height: 80rpx;
-  background: linear-gradient(135deg, #FFB366 0%, #FF9A5A 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40rpx;
-  box-shadow: 0 8rpx 20rpx rgba(252, 89, 8, 0.2);
-  
-  &.person-1 {
-    top: 50rpx;
-    left: 100rpx;
-  }
-  
-  &.person-2 {
-    top: 60rpx;
-    right: 120rpx;
-    background: linear-gradient(135deg, #FD8F36 0%, #FC5908 100%);
-  }
-  
-  &.person-3 {
-    bottom: 150rpx;
-    left: 50rpx;
-    background: linear-gradient(135deg, #FF7A2E 0%, #FC5908 100%);
-  }
-  
-  &.person-4 {
-    bottom: 120rpx;
-    right: 80rpx;
-    background: linear-gradient(135deg, #FFB366 0%, #FF7A2E 100%);
-  }
-  
-  &.person-5 {
-    top: 200rpx;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #FD8F36 0%, #FF9A5A 100%);
-  }
-}
-
-.phone-mockup {
-  width: 200rpx;
-  height: 350rpx;
-  background: #333;
-  border-radius: 30rpx;
-  padding: 20rpx;
-  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3);
-  z-index: 10;
-}
-
-.phone-screen {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, #FFE5D6 0%, #FFF5F0 100%);
-  border-radius: 20rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20rpx;
-}
-
-.chat-bubble {
-  background: #FC5908;
-  color: white;
-  padding: 10rpx 20rpx;
-  border-radius: 20rpx;
-  font-size: 24rpx;
-  animation: bounce 2s ease-in-out infinite;
-  
-  &:nth-child(2) {
-    animation-delay: 0.3s;
-    align-self: flex-end;
-    background: #2AC2A4;
-  }
-  
-  &:nth-child(3) {
-    animation-delay: 0.6s;
-    background: #FF7A2E;
-  }
-}
-
-.floating-icons {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  
-  .icon {
-    position: absolute;
-    font-size: 36rpx;
-    opacity: 0.7;
-    animation: float 3s ease-in-out infinite;
-    
-    &:nth-child(1) {
-      top: 80rpx;
-      right: 50rpx;
-      animation-delay: 0s;
-    }
-    
-    &:nth-child(2) {
-      bottom: 100rpx;
-      left: 100rpx;
-      animation-delay: 1s;
-    }
-    
-    &:nth-child(3) {
-      top: 150rpx;
-      left: 20rpx;
-      animation-delay: 2s;
-    }
-  }
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10rpx);
-  }
-  60% {
-    transform: translateY(-5rpx);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20rpx);
-  }
 }
 
 /* 文字内容区域 */
 .text-section {
-  padding-bottom: 100rpx;
+  padding: 0 75rpx 100rpx;
+  margin-top: 85rpx;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -402,7 +333,7 @@ const joinGroup = () => {
 
 /* 主标题 */
 .main-title {
-  margin-bottom: 46rpx;
+  margin-bottom: 54rpx;
   line-height: 71rpx;
   width: 100%;
 }
@@ -410,7 +341,7 @@ const joinGroup = () => {
 .title-highlight {
   display: block;
   font-size: 48rpx;
-  font-weight: 700;
+  font-weight: bold;
   color: #333333;
 }
 
@@ -422,7 +353,7 @@ const joinGroup = () => {
 .title-normal {
   display: block;
   font-size: 48rpx;
-  font-weight: 700;
+  font-weight: bold;
   color: #333333;
   position: relative;
 }
@@ -440,6 +371,7 @@ const joinGroup = () => {
 /* 描述文字 */
 .description {
   width: 100%;
+  margin-bottom: 43rpx;
 }
 
 .desc-text {
@@ -487,6 +419,11 @@ const joinGroup = () => {
   &:active {
     opacity: 0.8;
   }
+  
+  &.disabled {
+    background: #CCCCCC;
+    opacity: 0.6;
+  }
 }
 
 .button-text {
@@ -498,17 +435,8 @@ const joinGroup = () => {
 
 /* 适配不同屏幕尺寸 */
 @media screen and (max-width: 750rpx) {
-  .content-container {
-    padding: 0 40rpx;
-  }
-  
   .join-button {
     width: 100%;
-  }
-  
-  .main-illustration {
-    width: 500rpx;
-    height: 400rpx;
   }
 }
 </style> 

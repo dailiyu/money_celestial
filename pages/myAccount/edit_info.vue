@@ -5,19 +5,19 @@
       <!-- 个人资料 -->
       <view class="menu-item" @click="goToPersonalInfo">
         <text class="menu-text">个人资料</text>
-        <image class="arrow-icon" src="/static/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
+        <image class="arrow-icon" src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
       </view>
       
       <!-- 密码与安全 -->
       <view class="menu-item" @click="goToSafety">
         <text class="menu-text">密码与安全</text>
-        <image class="arrow-icon" src="/static/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
+        <image class="arrow-icon" src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
       </view>
       
       <!-- 积分账号 -->
       <view class="menu-item" @click="goToPointAccount">
         <text class="menu-text">积分账号</text>
-        <image class="arrow-icon" src="/static/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
+        <image class="arrow-icon" src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
       </view>
     </view>
     
@@ -66,9 +66,9 @@ export default {
         success: (res) => {
           if (res.confirm) {
             // 清除本地存储的用户信息
-            uni.removeStorageSync('token');
-            uni.removeStorageSync('userInfo');
-            
+            // uni.removeStorageSync('token');
+            // uni.removeStorageSync('userInfo');
+            uni.clearStorageSync();
             // 跳转到登录页面
             uni.reLaunch({
               url: '/pages/login/login'

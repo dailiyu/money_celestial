@@ -5,13 +5,13 @@
       <!-- 修改登录密码 -->
       <view class="menu-item" @click="toEditLoginPassword">
         <text class="menu-text">修改登录密码</text>
-        <image class="arrow-icon" src="/static/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
+        <image class="arrow-icon" src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
       </view>
       
       <!-- 修改支付密码 -->
       <view class="menu-item" @click="toEditPayPassword">
         <text class="menu-text">修改支付密码</text>
-        <image class="arrow-icon" src="/static/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
+        <image class="arrow-icon" src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" mode="aspectFit"></image>
       </view>
     </view>
   </view>

@@ -32,8 +32,11 @@
 					<view class="s_text">
 						预计到账
 					</view>
-					<view class="s_num" style="color: #999999;">
+					<view class="s_num" style="color: #999999; flex: 1;">
 						{{number?(Number(number) * 0.97).toFixed(2):''}}
+					</view>
+					<view class="fee_rate">
+						提现费率 3%
 					</view>
 				</view>
 			</view>
@@ -104,7 +107,7 @@ const confirm = async()=>{
 	
 	const params = ref({
 		point_account: account.value,
-		transaction_amount: Number(number.value),
+		amount: Number(number.value),
 		transaction_type: 'decrease',
 		transaction_method: 'red_points',
 		address: account.value
@@ -265,6 +268,7 @@ const openPop = ()=>{
 			text-align: right;
 		}
 		:deep(.placeholder_class) {
+			margin-right: 0;
 			font-size: 24rpx;
 			color: #aaaaaa;
 		}
@@ -281,6 +285,12 @@ const openPop = ()=>{
 			font-size: 24rpx;
 			color: #FC5908;
 			font-weight: 500;
+		}
+		.fee_rate {
+			font-size: 20rpx;
+			color: #999999;
+			margin-left: 10rpx;
+			flex-shrink: 0;
 		}
 	}
 }

@@ -298,7 +298,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "完善信息",
-				"navigationStyle": "custom"
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#1B46CC"
 			}
 		},
 		{
@@ -385,8 +386,18 @@
 			"path" : "pages/myAccount/unbind_account",
 			"style" : 
 			{
-				"navigationBarTitleText" : "绑定账号",
-				"navigationStyle": "custom"
+				"navigationBarTitleText" : "解除绑定",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
+			}
+		},
+		{
+			"path" : "pages/myAccount/unbind_account_agreement",
+			"style" : 
+			{
+				"navigationBarTitleText" : "解除绑定须知",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
 			}
 		},
 		{
@@ -594,14 +605,6 @@
 			}
 		},
 		{
-			"path" : "pages/myAccount/unbind_account_agreement",
-			"style" : 
-			{
-				"navigationBarTitleText" : "解除绑定须知",
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path" : "pages/myAccount/add_red_point_agreement",
 			"style" : 
 			{
@@ -770,6 +773,15 @@
 			}
 		},
 		{
+			"path" : "pages/points/points_strategy",
+			"style" : 
+			{
+				"navigationBarTitleText" : "积分攻略",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor":"#FC5908"
+			}
+		},
+		{
 			"path": "pages/discovery/discovery",
 			"style": {
 				"navigationBarTitleText": "",
@@ -787,6 +799,14 @@
 			"path": "pages/discovery/exchange_zone",
 			"style": {
 				"navigationBarTitleText": "兑换专区",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
+			}
+		},
+		{
+			"path": "pages/discovery/redemptionRules",
+			"style": {
+				"navigationBarTitleText": "兑换规则",
 				"navigationStyle": "default",
 				"navigationBarBackgroundColor": "#FC5908"
 			}

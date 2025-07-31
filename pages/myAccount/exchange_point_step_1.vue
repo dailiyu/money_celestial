@@ -4,11 +4,24 @@
 			<view class="tip">
 				首次增加积分操作，请在推荐人的指导下进行！
 			</view>
-			<view class="copy_box flex_between">
-				<view class="copy_text">
-					{{obscureString(address)}}
+			
+			<!-- 当前绑定的积分账号 -->
+			<view v-if="pointsAccount" class="info-section">
+				<view class="section-title">当前绑定积分账号</view>
+				<view class="info_box">
+					<view class="info_text">{{ obscureString(pointsAccount) }}</view>
 				</view>
-				<image src="https://static.maxcang.com/appstatic/copy.png" mode="widthFix" class="copy_pic" @click="copy"></image>
+			</view>
+			
+			<!-- 充值地址 -->
+			<view class="info-section">
+				<view class="section-title">充值地址</view>
+				<view class="copy_box flex_between">
+					<view class="copy_text">
+						{{obscureString(address)}}
+					</view>
+					<image src="https://static.maxcang.com/appstatic/copy.png" mode="widthFix" class="copy_pic" @click="copy"></image>
+				</view>
 			</view>
 			<view class="text_box">
 				<view class="">
@@ -27,22 +40,33 @@
 			<view class="btn_full" @click="toNext">
 				我已充值
 			</view>
-			<view class="record-link" @click="toRecord">
+			<!-- <view class="record-link" @click="toRecord">
 				<image src="https://static.maxcang.com/appstatic/record.png" mode="widthFix" class="record_pic"></image>
 				<text>查看记录</text>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { getWalletAddress } from '@/service/point';
+import { getWalletAddress, getAllPoint } from '@/service/point';
 import { obscureString } from '@/utils';
 const address = ref('')
+const pointsAccount = ref('')
+
 onMounted(async()=>{
+	// 获取钱包地址
 	const {results} = await getWalletAddress()
 	address.value = results[0].address
+	
+	// 获取当前绑定的积分账号
+	try {
+		const pointData = await getAllPoint()
+		pointsAccount.value = pointData.points_account || ''
+	} catch (error) {
+		console.error('获取积分账号失败:', error)
+	}
 })
 const copy = ()=>{
 	console.log(address.value)
@@ -76,8 +100,8 @@ const toRecord = ()=>{
 	margin-top: 30rpx;
 	padding: 20rpx;
 	
-	.record_pic {
-		width: 33rpx;
+.record_pic {
+	width: 33rpx;
 		margin-right: 10rpx;
 	}
 	
@@ -92,12 +116,37 @@ const toRecord = ()=>{
 	line-height: 49rpx;
 	padding: 40rpx;
 }
+
+.info-section {
+	margin: 0 40rpx 30rpx;
+	
+	.section-title {
+		font-size: 25rpx;
+		color: #333333;
+		font-weight: 500;
+		margin-bottom: 15rpx;
+		padding-left: 10rpx;
+	}
+}
+
+.info_box {
+	background-color: #EAEAEA;
+	padding: 28rpx 44rpx;
+	font-size: 24rpx;
+	color: #999999;
+	border-radius: 8rpx;
+	
+	.info_text {
+		flex: 1;
+	}
+}
+
 .copy_box {
 	background-color: #EAEAEA;
 	padding: 28rpx 44rpx;
-	margin-bottom: 40rpx;
 	font-size: 24rpx;
 	color: #999999;
+	border-radius: 8rpx;
 	
 	.copy_text {
 		flex: 1;

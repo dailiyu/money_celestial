@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="解除绑定须知"></navBar>
 		<view class="content">
 			<view class="notices">
 				<view class="n_title">

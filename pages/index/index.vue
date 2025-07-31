@@ -10,7 +10,7 @@
 		
         <CityPicker v-if="isPageOnload" @changeCity="bindCityChange"></CityPicker>
       </view>
-      <image class="app-title" src="https://static.maxcang.com/appstatic/home/maxcang_logo.png" mode="aspectFit"></image>
+      <image class="app-title" src="https://static.maxcang.com/appstatic/common/title_logo.png" mode="aspectFit"></image>
       <view class="placeholder"></view>
       <!-- 用于flex布局平衡 -->
     </view>
@@ -25,7 +25,7 @@
         <!-- 功能按钮区 - 使用图片 -->
         <view class="feature-buttons">
           <image
-            @click="showTips"
+            @click="toPointsStrategy"
             class="feature-button-img"
             src="https://static.maxcang.com/appstatic/home/points_strategy.png"
             mode="widthFix"
@@ -40,9 +40,9 @@
 
         <!-- 每日签到 - 使用图片 -->
         <image
-		@click="toSign"
+		@click="showPointCode"
           class="daily-checkin-img"
-          src="https://static.maxcang.com/appstatic/home/sign_in.png"
+          src="https://static.maxcang.com/appstatic/home/show_point_code.png"
           mode="widthFix"
         ></image>
 
@@ -81,13 +81,13 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import {onLoad} from "@dcloudio/uni-app"
+import {onLoad,onShow} from "@dcloudio/uni-app"
 import CityPicker from "@/components/cityPicker/cityPicker.vue";
 import PointsPopup from "@/components/PointsPopup/PointsPopup.vue";
 
 // 控制积分弹窗显示
 const showPointsPopup = ref(false);
-let token = uni.getStorageSync('accessToken')
+let token = ref('')
 const isPageOnload = ref(false)
 
 // 生命周期钩子
@@ -98,6 +98,9 @@ onLoad(() => {
   isPageOnload.value = true;
 });
 
+onShow(() => {
+  token.value = uni.getStorageSync('accessToken')
+})
 
 
 
@@ -131,7 +134,7 @@ const bindCityChange = (e) => {
 };
 
 const toRequestPointsInput = () => {
-	if(token){
+	if(token.value){
 		uni.scanCode({
     scanType: ["qrCode", "wxCode"],
     success: function (res) {
@@ -160,10 +163,12 @@ const showTips = () => {
   });
 };
 
-const toSign = ()=>{
-	if(token){
+
+
+const showPointCode = ()=>{
+  if(token.value){
 		uni.navigateTo({
-			url: '/pages/myAccount/everyday_sign'
+			url: '/pages/myAccount/point_code'
 		})
 	}else{
 		uni.showToast({
@@ -171,12 +176,17 @@ const toSign = ()=>{
 			title:"请先登录"
 		})
 	}
-	
 }
 
 const toMerchantRank = ()=>{
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_sale_rank'
+	})
+}
+
+const toPointsStrategy = () => {
+	uni.navigateTo({
+		url: '/pages/points/points_strategy'
 	})
 }
 

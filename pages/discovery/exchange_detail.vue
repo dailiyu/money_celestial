@@ -8,7 +8,7 @@
       <view class="custom-navbar">
         <view class="navbar-content">
           <view class="navbar-left" @click="goBack">
-            <image class="back-icon" src="/static/discovery/white_left_arrow.png" />
+            <image class="back-icon" src="https://static.maxcang.com/appstatic/discovery/white_left_arrow.png" />
           </view>
           <view class="navbar-title">
             <text class="title-text"></text>
@@ -41,18 +41,19 @@
         </view>
         <!-- 价格信息卡片 -->
         <view class="price-card flex-row">
-          <text class="energy-number">{{ productDetail.energy }}</text>
-          <image
-            class="energy-icon"
-            referrerpolicy="no-referrer"
-            src="/static/discovery/d9_energy_white_icon.png"
-          />
-          <text class="original-price">价值￥{{ productDetail.originalPrice }}</text>
-          <text class="benefit-text">
-            别让积分流走
-            <br />
-            它能变成生活的礼物
-          </text>
+          <view class="price-info flex-row">
+            <text class="energy-number">{{ productDetail.energy }}</text>
+            <image
+              class="energy-icon"
+              referrerpolicy="no-referrer"
+              src="https://static.maxcang.com/appstatic/discovery/d9_energy_white_icon.png"
+            />
+            <text class="original-price">价值￥{{ productDetail.originalPrice }}</text>
+          </view>
+          <view class="benefit-text-container">
+            <text class="benefit-text-line1">别让积分流走</text>
+            <text class="benefit-text-line2">它能变成生活的礼物</text>
+          </view>
         </view>
       </view>
 
@@ -100,6 +101,49 @@
        </view>
      </view>
 
+     <!-- 确认兑换弹窗 -->
+     <view v-if="showConfirmModal" class="confirm-modal-overlay" @click="hideConfirmModal">
+       <view class="confirm-modal-content" @click.stop>
+         <!-- 商品信息 -->
+         <view class="confirm-order-info">
+           <view class="confirm-product-row flex-row">
+             <image class="confirm-product-image" :src="productDetail.images[0]?.image_url || '/static/merchant/product_placeholder.png'" mode="aspectFill" />
+             <view class="confirm-product-info flex-col">
+               <view class="confirm-title-points flex-row">
+                 <text class="confirm-product-title">{{ productDetail.name }}</text>
+                 <view class="confirm-points-section flex-row">
+                   <text class="confirm-points-number">{{ productDetail.energy }}</text>
+                   <image class="confirm-points-icon" src="https://static.maxcang.com/appstatic/discovery/d9_energy_icon.png" />
+                 </view>
+               </view>
+               <view class="confirm-subtitle-quantity flex-row">
+                 <text class="confirm-product-subtitle">{{ selectedSpec }}</text>
+                 <text class="confirm-quantity">x{{ exchangeQuantity }}</text>
+               </view>
+             </view>
+           </view>
+           
+
+           
+                        <view class="confirm-payment-info flex-row">
+               <text class="confirm-payment-label">消耗能量</text>
+               <text class="confirm-payment-amount">{{ totalEnergy }}</text>
+               <image class="confirm-payment-icon" src="https://static.maxcang.com/appstatic/discovery/d9_energy_icon.png" />
+             </view>
+         </view>
+         
+         <!-- 操作按钮 -->
+         <view class="confirm-modal-buttons flex-row">
+           <view class="confirm-modal-btn cancel-btn" @click="hideConfirmModal">
+             <text class="confirm-btn-text">取消</text>
+           </view>
+           <view class="confirm-modal-btn confirm-btn" @click="handleConfirmExchange">
+             <text class="confirm-btn-text">确认兑换</text>
+           </view>
+         </view>
+       </view>
+     </view>
+
      <!-- 兑换确认弹窗 -->
      <view v-if="showExchangeModal" class="modal-overlay" @click="hideExchangeModal">
        <view class="modal-content" @click.stop>
@@ -113,14 +157,14 @@
 
          <!-- 商品信息 -->
          <view class="order-product-row flex-row">
-           <image class="modal-product-image" src="/static/merchant/product_placeholder.png" mode="aspectFill" />
+           <!-- <image class="modal-product-image" src="/static/merchant/product_placeholder.png" mode="aspectFill" /> -->
            <view class="modal-product-info flex-col">
              <text class="modal-product-title">{{ productDetail.name }}</text>
              <text class="modal-product-subtitle">{{ selectedSpec }}</text>
              <view class="modal-points-and-quantity flex-row">
                <view class="modal-points-section flex-row">
                  <text class="modal-points-number">{{ productDetail.energy }}</text>
-                 <image class="modal-points-icon" src="/static/discovery/d9_energy_icon.png" />
+                 <image class="modal-points-icon" src="https://static.maxcang.com/appstatic/discovery/d9_energy_icon.png" />
                </view>
                <view class="quantity-controls flex-row">
                  <view class="quantity-btn" @click="decreaseQuantity">
@@ -157,7 +201,7 @@
              <text class="modal-payment-label">合计支付</text>
              <view class="payment-amount-wrapper flex-row">
                <text class="modal-payment-amount">{{ totalEnergy }}</text>
-               <image class="modal-payment-icon" src="/static/discovery/d9_energy_icon.png" />
+               <image class="modal-payment-icon" src="https://static.maxcang.com/appstatic/discovery/d9_energy_icon.png" />
              </view>
            </view>
            
@@ -203,6 +247,7 @@ const productDetail = ref({
 const selectedSpec = ref('');
 const currentEnergy = ref('0');
 const showExchangeModal = ref(false);
+const showConfirmModal = ref(false);
 const exchangeQuantity = ref(1);
 const loading = ref(false);
 const rateCny = ref(1);
@@ -225,6 +270,17 @@ const handleExchange = () => {
 
 const hideExchangeModal = () => {
   showExchangeModal.value = false;
+};
+
+const hideConfirmModal = () => {
+  showConfirmModal.value = false;
+};
+
+const handleConfirmExchange = () => {
+  // 隐藏确认弹窗
+  hideConfirmModal();
+  // 打开密码验证弹窗
+  passwordPopRef.value.open();
 };
 
 const increaseQuantity = () => {
@@ -265,17 +321,8 @@ const confirmExchange = async () => {
       return;
     }
     
-    // 显示确认弹窗
-    uni.showModal({
-      title: '确认兑换',
-      content: `确定要用${totalEnergy.value}D9能量兑换${exchangeQuantity.value}个${productDetail.value.name}吗？`,
-      success: async (res) => {
-        if (res.confirm) {
-          // 打开密码验证弹窗
-          passwordPopRef.value.open();
-        }
-      }
-    });
+    // 显示自定义确认弹窗
+    showConfirmModal.value = true;
   } catch (error) {
     console.error('兑换确认失败:', error);
     uni.showToast({
@@ -670,9 +717,14 @@ onLoad(async (options) => {
   border-radius: 30rpx;
 }
 
+.price-info {
+  display: flex;
+  align-items: flex-end;
+  height:75rpx;
+   margin-left: 48rpx;
+}
+
 .energy-number {
-  width: 66rpx;
-  height: 46rpx;
   overflow-wrap: break-word;
   color: rgba(255, 255, 255, 1);
   font-size: 60rpx;
@@ -680,19 +732,19 @@ onLoad(async (options) => {
   font-weight: 700;
   text-align: left;
   white-space: nowrap;
-  line-height: 64rpx;
-  margin: 23rpx 0 0 48rpx;
+  line-height: 60rpx;
+  transform: translateY(12rpx);
 }
 
 .energy-icon {
   width: 117rpx;
   height: 41rpx;
-  margin: 27rpx 0 0 14rpx;
+  margin-left: 14rpx;
+  align-self: flex-end;
+  transform: translateY(2rpx);
 }
 
 .original-price {
-  width: 121rpx;
-  height: 25rpx;
   overflow-wrap: break-word;
   color: rgba(255, 255, 255, 1);
   font-size: 25rpx;
@@ -700,21 +752,36 @@ onLoad(async (options) => {
   font-weight: 700;
   text-align: left;
   white-space: nowrap;
-  line-height: 33rpx;
-  margin: 39rpx 0 0 15rpx;
+  line-height: 25rpx;
+  margin-left: 15rpx;
 }
 
-.benefit-text {
+.benefit-text-container {
+  position: absolute;
+  top: 30rpx;
+  right: 30rpx;
   width: 160rpx;
-  height: 39rpx;
-  overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.benefit-text-line1,
+.benefit-text-line2 {
   color: rgba(255, 255, 255, 1);
   font-size: 18rpx;
   font-family: HarmonyOS_Sans_SC_Light;
   font-weight: 300;
   text-align: right;
   line-height: 20rpx;
-  margin: 23rpx 28rpx 0 123rpx;
+}
+
+.benefit-text-line1 {
+  margin-bottom: 4rpx;
+}
+
+.benefit-text-line2 {
+  margin-bottom: 0;
 }
 
 /* 产品详情区域 */
@@ -857,14 +924,13 @@ onLoad(async (options) => {
 }
 
 .spec-row {
-  width: 271rpx;
-  height: 27rpx;
+  width: 598rpx;
   margin: 42rpx 0 0 49rpx;
+  align-items: flex-end;
 }
 
 .spec-label {
   width: 52rpx;
-  height: 25rpx;
   overflow-wrap: break-word;
   color: rgba(51, 51, 51, 1);
   font-size: 27rpx;
@@ -873,20 +939,21 @@ onLoad(async (options) => {
   text-align: left;
   white-space: nowrap;
   line-height: 27rpx;
-  margin-top: 1rpx;
+  flex-shrink: 0;
 }
 
 .spec-value {
-  width: 185rpx;
-  height: 27rpx;
+  flex: 1;
   overflow-wrap: break-word;
   color: rgba(145, 145, 145, 1);
   font-size: 24rpx;
   font-family: HarmonyOS_Sans_SC;
   font-weight: normal;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;
   line-height: 27rpx;
+  word-break: break-all;
+  margin-left: 36rpx;
 }
 
 .divider {
@@ -897,9 +964,9 @@ onLoad(async (options) => {
 }
 
 .address-row {
-  width: 295rpx;
-  height: 26rpx;
+  width: 598rpx;
   margin: 37rpx 0 42rpx 49rpx;
+  align-items: flex-end;
 }
 
 .address-label {
@@ -914,21 +981,22 @@ onLoad(async (options) => {
   white-space: nowrap;
   line-height: 27rpx;
   margin-top: 1rpx;
+  flex-shrink: 0;
 }
 
 .address-value {
-  width: 206rpx;
-  height: 23rpx;
+  flex: 1;
   overflow-wrap: break-word;
   color: rgba(145, 145, 145, 1);
   font-size: 24rpx;
   font-family: HarmonyOS_Sans_SC;
   font-weight: normal;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;
   line-height: 27rpx;
+  word-break: break-all;
+  margin-left: 36rpx;
 }
-
 .product-description-card {
   background-color: rgba(255, 255, 255, 1);
   border-radius: 30px;
@@ -1242,6 +1310,175 @@ onLoad(async (options) => {
    font-size: 30rpx;
    color: #FFFFFF;
    line-height: 30rpx;
+ }
+
+ /* 自定义确认弹窗样式 */
+ .confirm-modal-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   background: rgba(0, 0, 0, 0.5);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 2000;
+   overflow: hidden;
+   touch-action: none;
+ }
+
+ .confirm-modal-content {
+   width: 692rpx;
+   height: 493rpx;
+   background: #FFFFFF;
+   border-radius: 30rpx;
+   padding: 40rpx;
+   max-height: 90vh;
+   overflow-y: auto;
+   overflow-x: hidden;
+   touch-action: pan-y;
+ }
+
+
+
+ .confirm-order-info {
+   margin-top: 50rpx;
+   
+   .confirm-product-row {
+     align-items: flex-start;
+     gap: 16rpx;
+     margin-bottom: 20rpx;
+     
+     .confirm-product-image {
+       width: 80rpx;
+       height: 80rpx;
+       border-radius: 8rpx;
+       background: #F5F5F5;
+       flex-shrink: 0;
+     }
+     
+     .confirm-product-info {
+       flex: 1;
+       gap: 4rpx;
+       
+       .confirm-title-points {
+         justify-content: space-between;
+         align-items: center;
+         
+         .confirm-product-title {
+           font-weight: 500;
+           font-size: 24rpx;
+           color: #333333;
+           line-height: 32rpx;
+           flex: 1;
+         }
+         
+         .confirm-points-section {
+           align-items: center;
+           gap: 6rpx;
+           flex-shrink: 0;
+           
+           .confirm-points-number {
+             font-weight: bold;
+             font-size: 28rpx;
+             color: #FC5908;
+           }
+           
+           .confirm-points-icon {
+             width: 78rpx;
+             height: 27rpx;
+           }
+         }
+       }
+       
+       .confirm-subtitle-quantity {
+         justify-content: space-between;
+         align-items: center;
+         
+         .confirm-product-subtitle {
+           font-weight: 300;
+           font-size: 18rpx;
+           color: #919191;
+           line-height: 26rpx;
+         }
+         
+         .confirm-quantity {
+           font-weight: 300;
+           font-size: 21rpx;
+           color: #919191;
+         }
+       }
+     }
+   }
+   
+
+   
+        .confirm-payment-info {
+       justify-content: flex-end;
+       align-items: center;
+       gap: 8rpx;
+       margin-bottom: 90rpx;
+     
+     .confirm-payment-label {
+       font-weight: 400;
+       font-size: 21rpx;
+       color: #FC5908;
+       transform: translateY(4rpx);
+     }
+     
+     .confirm-payment-amount {
+       font-weight: bold;
+       font-size: 35rpx;
+       color: #FC5908;
+     }
+     
+     .confirm-payment-icon {
+       width: 85rpx;
+       height: 29rpx;
+     }
+   }
+ }
+
+ .confirm-modal-buttons {
+   gap: 20rpx;
+   
+   .confirm-modal-btn {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     
+     &.cancel-btn {
+       width: 283rpx;
+       height: 78rpx;
+       border-radius: 17rpx;
+       border: 1px solid #BCBCBC;
+       background: transparent;
+       
+       .confirm-btn-text {
+         font-weight: 500;
+         font-size: 30rpx;
+         color: #B0B0B0;
+       }
+     }
+     
+     &.confirm-btn {
+       width: 287rpx;
+       height: 77rpx;
+       background: linear-gradient(90deg, #FD8F36, #FC5908);
+       border-radius: 17rpx;
+       
+       .confirm-btn-text {
+         font-weight: 500;
+         font-size: 30rpx;
+         color: #FFFFFF;
+       }
+     }
+     
+     &:active {
+       opacity: 0.8;
+     }
+   }
  }
 
  /* 确保密码验证弹窗在最顶层 */

@@ -75,9 +75,21 @@ const confirm = async ()=>{
 		})
 		uni.navigateBack()
 	}catch(e){
+		uni.hideLoading()
+		console.log('绑定错误:', e)
+		
+		// 直接显示接口返回的数据
+		let errorMessage = ''
+		if (e.data) {
+			errorMessage = JSON.stringify(e.data)
+		} else {
+			errorMessage = JSON.stringify(e)
+		}
+		
 		uni.showToast({
 			icon: 'none',
-			title: '绑定失败'
+			title: errorMessage,
+			duration: 3000
 		})
 	}
 }

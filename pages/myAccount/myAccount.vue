@@ -20,7 +20,7 @@
         </view>
         <view class="user-info">
           <view class="username" v-if="token">
-            {{ user_name || "AAA建材王总" }}
+            {{ user_name || "满小仓" }}
             <image
               class="edit-icon"
               src="https://static.maxcang.com/appstatic/my/myAccount/edit_icon.png"
@@ -34,7 +34,7 @@
               src="https://static.maxcang.com/appstatic/my/myAccount/right_arrow_white.png"
             ></image>
           </view>
-          <view class="user-id" v-if="token">ID: {{ user_id || "3023202" }}</view>
+          <view class="user-id" v-if="token">ID: {{ user_id || "" }}</view>
           <view class="user-id" v-else>登录后查看个人信息</view>
         </view>
       </view>
@@ -59,15 +59,15 @@
               ></image>
             </view>
           </view>
-          <view class="points-amount">{{ token ? formatPointsRaw(green_points) : '--' }}</view>
+          <view class="points-amount">{{ token && dataLoadSuccess ? formatPointsRaw(green_points) : '---' }}</view>
           <view class="points-stats">
             <view class="stat-item">
               <view class="stat-label">昨日获得积分</view>
-              <view class="stat-value">{{ token ? '+' + formatNumber(yesterday_points) : '--' }}</view>
+              <view class="stat-value">{{ token && dataLoadSuccess ? '+' + formatNumber(yesterday_points) : '---' }}</view>
             </view>
             <view class="stat-item">
               <view class="stat-label">本月获得积分</view>
-              <view class="stat-value">{{ token ? '+' + formatNumber(month_points) : '--' }}</view>
+              <view class="stat-value">{{ token && dataLoadSuccess ? '+' + formatNumber(month_points) : '---' }}</view>
             </view>
           </view>
        
@@ -91,15 +91,15 @@
               ></image>
             </view>
           </view>
-          <view class="energy-amount">{{ token ? formatPointsRaw(red_points) : '--' }}</view>
+          <view class="energy-amount">{{ token && dataLoadSuccess ? formatPointsRaw(red_points) : '---' }}</view>
           <view class="energy-stats">
             <view class="stat-item">
-              <view class="stat-label">昨日转化能量</view>
-              <view class="stat-value">{{ token ? '+' + formatNumber(yesterday_energy) : '--' }}</view>
+              <view class="stat-label">昨日获得能量</view>
+              <view class="stat-value">{{ token && dataLoadSuccess ? '+' + formatNumber(yesterday_energy) : '---' }}</view>
             </view>
             <view class="stat-item">
-              <view class="stat-label">本月转化能量</view>
-              <view class="stat-value">{{ token ? '+' + formatNumber(month_energy) : '--' }}</view>
+              <view class="stat-label">本月获得能量</view>
+              <view class="stat-value">{{ token && dataLoadSuccess ? '+' + formatNumber(month_energy) : '---' }}</view>
             </view>
           </view>
         </view>
@@ -170,7 +170,7 @@
 
       <!-- 版本信息 -->
       <view class="version-info">
-        版本号：{{ version || '1.0.0' }}
+        版本号：{{ version || '2.0.0' }}
       </view>
     
     </view>
@@ -201,6 +201,7 @@
 import { onMounted, ref } from "vue";
 import { getAllPoint, getPointBindedAccount } from "@/service/point.js";
 import { getRecommendOfficerInfo } from "@/service/recommend";
+import { getUerAccountMessage } from "@/service/uer_profile.js";
 import { useUserStore } from "../../store/user";
 import { obscureString, obscurePhoneNumber } from "@/utils";
 import { onShow, onLoad } from "@dcloudio/uni-app";
@@ -217,12 +218,13 @@ const token = ref('');
 const showShopPage = ref(false);
 
 // 积分和能量数据
-const green_points = ref(10000000000);
-const red_points = ref(10000);
-const yesterday_points = ref(100000);
-const month_points = ref(100000000);
-const yesterday_energy = ref(0.23);
-const month_energy = ref(10.023);
+const green_points = ref(0);
+const red_points = ref(0);
+const yesterday_points = ref(0);
+const month_points = ref(0);
+const yesterday_energy = ref(0);
+const month_energy = ref(0);
+const dataLoadSuccess = ref(false);
 
 onLoad((e) => {
   if (e.recommand) {
@@ -233,15 +235,10 @@ onLoad((e) => {
 onShow(() => {
   token.value = uni.getStorageSync("accessToken");
   phoneNumber.value = uni.getStorageSync("phoneNumber");
-  const userInfo = uni.getStorageSync("userInfo");
-  ionc_url.value = userInfo?.icon;
-  user_name.value = userInfo?.name;
-  console.log('onShow - userInfo:', userInfo);
-  console.log('onShow - token:', token.value);
-  user_id.value = userInfo?.phone_number || "3023202";
-  api_auth.value = userInfo?.is_api;
   
-  if (token.value) {
+  if (token.value && phoneNumber.value) {
+    dataLoadSuccess.value = false; // 重置状态
+    getUserInfo();
     getPointInfo();
   }
   
@@ -250,64 +247,14 @@ onShow(() => {
     showShopPage.value = true;
   }
 
-  // #ifdef APP-PLUS
-  version.value = plus.runtime.version;
-  // #endif
-  
   // #ifdef MP-WEIXIN
   try {
-    const accountInfo = wx.getAccountInfoSync();
-    version.value = accountInfo.miniProgram.version || '1.0.0';
+    const accountInfo = uni.getSystemInfoSync();
+    console.log('accountInfo', accountInfo);
+    version.value = accountInfo.appVersion || '2.0.0';
   } catch (error) {
-    version.value = '1.0.0';
+    version.value = '2.0.0';
   }
-  // #endif
-  
-  // #ifdef MP-ALIPAY
-  try {
-    my.getSystemInfo({
-      success: (res) => {
-        version.value = res.version || '1.0.0';
-      },
-      fail: () => {
-        version.value = '1.0.0';
-      }
-    });
-  } catch (error) {
-    version.value = '1.0.0';
-  }
-  // #endif
-  
-  // #ifdef MP-BAIDU || MP-TOUTIAO || MP-QQ
-  version.value = '1.0.0'; // 其他小程序平台使用默认版本号
-  // #endif
-  
-  // #ifdef MP-WEIXIN
-  try {
-    const accountInfo = wx.getAccountInfoSync();
-    version.value = accountInfo.miniProgram.version || '1.0.0';
-  } catch (error) {
-    version.value = '1.0.0';
-  }
-  // #endif
-  
-  // #ifdef MP-ALIPAY
-  try {
-    my.getSystemInfo({
-      success: (res) => {
-        version.value = res.version || '1.0.0';
-      },
-      fail: () => {
-        version.value = '1.0.0';
-      }
-    });
-  } catch (error) {
-    version.value = '1.0.0';
-  }
-  // #endif
-  
-  // #ifdef MP-BAIDU || MP-TOUTIAO || MP-QQ
-  version.value = '1.0.0'; // 其他小程序平台使用默认版本号
   // #endif
 });
 
@@ -328,13 +275,43 @@ const formatPointsRaw = (num) => {
   return parseFloat(num).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
+// 获取用户个人信息
+const getUserInfo = async () => {
+  try {
+    const res = await getUerAccountMessage(phoneNumber.value);
+    console.log('用户信息响应:', res);
+    
+    // 更新用户信息
+    ionc_url.value = res.icon || '';
+    user_name.value = res.name || '满小仓';
+    user_id.value = res.phone_number || '';
+    api_auth.value = res.is_api || false;
+    
+    // 更新本地存储的用户信息
+    uni.setStorageSync("userInfo", res);
+  } catch (error) {
+    console.error("获取用户信息失败:", error);
+    // 获取失败时使用默认值
+    ionc_url.value = '';
+    user_name.value = '满小仓';
+    user_id.value = '';
+    api_auth.value = false;
+  }
+};
+
 const getPointInfo = async () => {
   try {
     const res = await getAllPoint();
-    green_points.value = res.green_points || 10000000000;
-    red_points.value = res.red_points || 10000;
+    green_points.value = res.green_points || 0;
+    red_points.value = res.red_points || 0;
+    yesterday_points.value = res.yesterday_green_points || 0;
+    month_points.value = res.month_green_points || 0;
+    yesterday_energy.value = res.yesterday_red_points || 0;
+    month_energy.value = res.month_red_points || 0;
+    dataLoadSuccess.value = true;
   } catch (error) {
     console.error("获取积分信息失败:", error);
+    dataLoadSuccess.value = false;
   }
 };
 
@@ -342,6 +319,11 @@ const handleUserProfileClick = () => {
   console.log('点击用户信息区域, token值:', token.value);
   if (!token.value) {
     toLogin();
+  } else {
+    // 登录状态下直接跳转到编辑信息页面
+    uni.navigateTo({
+      url: '/pages/myAccount/edit_info'
+    });
   }
 };
 
@@ -870,46 +852,46 @@ color: #FFFFFF;
 
 /* 联系客服弹窗 */
 .contact-popup {
-  width: 566rpx;
-  padding: 64rpx;
+  width: 480rpx;
+  padding: 40rpx;
   text-align: center;
   
   .popup-title {
-    font-size: 36rpx;
+    font-size: 32rpx;
     color: #FF7A00;
     font-weight: bold;
-    margin-bottom: 50rpx;
+    margin-bottom: 30rpx;
   }
   
   .popup-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 42rpx;
-    margin-bottom: 58rpx;
+    font-size: 36rpx;
+    margin-bottom: 40rpx;
     
     .copy-icon {
-      width: 27rpx;
-      margin-left: 10rpx;
+      width: 24rpx;
+      margin-left: 8rpx;
     }
   }
   
   .popup-desc {
-    font-size: 28rpx;
+    font-size: 24rpx;
     color: #666666;
-    margin-bottom: 64rpx;
+    margin-bottom: 40rpx;
   }
   
   .popup-btn {
-    width: 340rpx;
-    height: 80rpx;
-    // background: #FF7A00;
+    width: 280rpx;
+    height: 70rpx;
+    background: #FF7A00;
     color: #FFFFFF;
-    border-radius: 40rpx;
+    border-radius: 35rpx;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28rpx;
+    font-size: 26rpx;
     margin: 0 auto;
   }
 }

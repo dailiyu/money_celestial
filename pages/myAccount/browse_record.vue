@@ -61,9 +61,9 @@
 								<view class="store-info">
 									<view class="store-header">
 										<text class="store-name">{{ item.shop_detail.name }}</text>
-										<view class="store-badge">
-											<image class="certified-icon" src="https://static.maxcang.com/appstatic/discovery/certified_badge.png" mode="aspectFit"></image>
-										</view>
+																			<view class="store-badge" v-if="item.shop_detail.pay_cert_material_state === 2">
+										<image class="certified-icon" src="https://static.maxcang.com/appstatic/discovery/certified_badge.png" mode="aspectFit"></image>
+									</view>
 									</view>
 									<view class="store-rating-container">
 										<view class="store-rating">

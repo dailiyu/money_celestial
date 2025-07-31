@@ -21,13 +21,16 @@
     <view class="payment-section">
       <view class="payment-label">金额</view>
       <view class="payment-amount">
-        <input
-          class="amount-input"
-          type="digit"
-          v-model="amount"
-          @input="updatePoints"
-          placeholder="请输入金额"
-        />
+        <view class="amount-input-wrapper">
+          <input
+            class="amount-input"
+            type="digit"
+            v-model="amount"
+            @input="updatePoints"
+            placeholder="请输入金额"
+            :placeholder-style="placeholderStyle"
+          />
+        </view>
         <text class="amount-unit">元</text>
       </view>
     </view>
@@ -47,7 +50,14 @@
     </view>
 
     <!-- 确认支付按钮 -->
-    <view v-if="shopInfo?.pay_cert_material_state === 1" class="confirm-button" @click="wechatpayDo">确认支付</view>
+    <view 
+      v-if="shopInfo?.pay_cert_material_state === 1" 
+      class="confirm-button" 
+      :class="{ 'processing': isProcessing }"
+      @click="wechatpayDo"
+    >
+      {{ isProcessing ? '支付处理中...' : '确认支付' }}
+    </view>
     
     <!-- 未开通线上支付提示 -->
     <view v-else-if="shopInfo?.pay_cert_material_state !== 1" class="disabled-button">
@@ -68,12 +78,20 @@ import { getSessionKey } from "@/service/uer_profile.js";
 import { getMerchantDetail } from '@/service/merchant.js'
 import { onShow, onLoad } from '@dcloudio/uni-app'
 import { getAllPoint } from '@/service/point';
+
+// 防抖节流相关变量
+const isProcessing = ref(false);
+const lastClickTime = ref(0);
+const DEBOUNCE_DELAY = 2000; // 2秒防抖
 const amount = ref('');
 const remark = ref('');
 const points = ref('1,000');
 const shopInfo = ref()
 const phoneNumber = ref('')
 const rateCny = ref()
+
+// 输入框placeholder样式
+const placeholderStyle = "font-size: 34rpx; color: #cccccc;"
 
 
 onLoad(async(options)=>{
@@ -124,6 +142,26 @@ const showPointsCode = () => {
 };
 
 const wechatpayDo = async () => {
+  // 防抖节流检查
+  const now = Date.now();
+  if (isProcessing.value) {
+    uni.showToast({
+      title: '支付处理中，请勿重复点击',
+      icon: 'none',
+      duration: 1500
+    });
+    return;
+  }
+  
+  if (now - lastClickTime.value < DEBOUNCE_DELAY) {
+    uni.showToast({
+      title: '请勿频繁点击',
+      icon: 'none',
+      duration: 1500
+    });
+    return;
+  }
+  
   // 验证金额
   const num = parseFloat(amount.value);
   if (isNaN(num) || num <= 0) {
@@ -134,6 +172,10 @@ const wechatpayDo = async () => {
     });
     return;
   }
+  
+  // 设置防抖状态
+  isProcessing.value = true;
+  lastClickTime.value = now;
 
   uni.login({
     provider: "weixin",
@@ -159,8 +201,9 @@ const wechatpayDo = async () => {
            setTimeout(()=>{
             uni.navigateTo({url: '/pages/myAccount/my_point'})
            },2000)
-           
           }
+          // 重置防抖状态
+          isProcessing.value = false;
         };
         data.fail = (err) => {
           console.log(err);
@@ -169,6 +212,8 @@ const wechatpayDo = async () => {
           } else {
             uni.showToast({ title: "支付失败", icon: "none" });
           }
+          // 重置防抖状态
+          isProcessing.value = false;
         };
         uni.requestPayment(data);
       }
@@ -178,6 +223,8 @@ const wechatpayDo = async () => {
       icon: 'none',
       duration: 2000
     })
+    // 重置防抖状态
+    isProcessing.value = false;
    }
     },
   });
@@ -271,21 +318,34 @@ const wechatpayDo = async () => {
   .payment-amount {
     display: flex;
     align-items: center;
+    
+    .amount-input-wrapper {
+      position: relative;
+      flex: 1;
+      max-width: 300rpx;
+    }
 
     .amount-input {
-      width: 300rpx;
+      width: 100%;
+      height: 56rpx;
       font-size: 56rpx;
       font-weight: bold;
       text-align: right;
-      :deep(.input-placeholder) {
-       font-size: 34rpx;
-       line-height: 34rpx;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: #333333;
+      
+      &:focus {
+        color: #333333;
       }
     }
 
     .amount-unit {
       font-size: 32rpx;
+      color: #333333;
       margin-left: 10rpx;
+      flex-shrink: 0;
     }
   }
 }
@@ -353,6 +413,18 @@ margin-top: 18rpx;
   height: 95rpx;
   background: #F40B28;
   border-radius: 17rpx;
+  transition: all 0.3s ease;
+  
+  &.processing {
+    background: #AAAAAA;
+    opacity: 0.8;
+    pointer-events: none;
+  }
+  
+  &:active:not(.processing) {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
 }
 
 .disabled-button {

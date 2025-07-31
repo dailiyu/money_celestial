@@ -70,7 +70,7 @@
 					>
 						<view class="card-top-row flex-row justify-between">
 							<text class="merchant-or-action-name">{{item.lanhutext0}}</text>
-							<text class="transaction-status">{{item.lanhutext1}}</text>
+							<text class="transaction-status" :style="{color: item.lanhutext1 === '已驳回' ? '#FF0000' : '#a7a7a7'}">{{item.lanhutext1}}</text>
 						</view>
 						<view class="card-middle-row flex-row justify-between">
 							<text class="transaction-type-desc">{{item.lanhutext2}}</text>
@@ -90,7 +90,7 @@
 					<!-- 没有更多数据 -->
 					<view v-else-if="!hasMore && transactionsList.length > 0" class="no-more flex-col">
 						<text class="no-more-text">没有更多数据了</text>
-					</view>
+				</view>
 				</scroll-view>
 			</view>
 		</view>
@@ -187,14 +187,24 @@ const mapTransactionData = (apiData) => {
 			displayAccount = item.point_account
 		}
 		
+		// 根据status字段判断状态
+		let statusText = '处理中'
+		if (item.status === 1) {
+			statusText = isIncrease ? '已到账' : '已完成'
+		} else if (item.status === -1) {
+			statusText = '已驳回'
+		} else if (item.status === 0) {
+			statusText = '审核中'
+		}
+		
 		return {
 			lanhutext0: item.transaction_remark || '能量交易',
-			lanhutext1: item.is_processed ? '已到账' : '处理中',
+			lanhutext1: statusText,
 			lanhutext2: displayAccount, // 脱敏后的账户信息
-			lanhutext3: `${isIncrease ? '+' : '-'}${amount.toFixed(2)}`,
+			lanhutext3: `${isIncrease ? '+' : '-'}${amount.toFixed(4)}`,
 			lanhufontColor3: isIncrease ? 'rgba(255,107,53,1)' : 'rgba(205,78,69,1)', // 能量使用橙色
 			lanhutext4: formatDateTime(item.created_at),
-			lanhutext5: `价值：$${(amount * 0.27).toFixed(2)}`, // 假设1能量=0.27美元
+			lanhutext5: `价值：$${(amount).toFixed(2)}`, // 假设1能量=0.27美元
 			type: isIncrease ? 'add' : 'sub',
 			originalData: item // 保存原始数据
 		}
@@ -304,14 +314,14 @@ onMounted(() => {
 		}
 		.tabs-and-records-container {
 			width: 750rpx;
-			margin-top: 250rpx;
+			margin-top: 220rpx;
 			position: relative;
 			z-index: 4;
 			.filter-tabs-area {
 				min-height: 113rpx;
 				background: #fff;
-				border-radius: 40rpx 40rpx 0 0;
-				margin-top: 50rpx;
+				// border-radius: 40rpx 40rpx 0 0;
+				margin-top: 130rpx;
 				width: 750rpx;
 				.tabs-navigation {
 					width: 650rpx;

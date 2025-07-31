@@ -9,7 +9,7 @@
 			</view>
 			<view class="name"><image
 				class="title_logo"
-				src="../../static/title_logo.png"
+				src="https://static.maxcang.com/appstatic/common/title_logo.png"
 				mode="widthFix"
 			/></view>
 			<view class="select-box" v-if="token">

@@ -42,3 +42,8 @@ export const getAreasList=()=>{
 export const getStreetsList=()=>{
 	return http.get('/divisions/provinces/')
 }
+
+//获取城市兑换专区开放状态
+export const getCityExchangeCenterOpen = () => {
+	return http.get('/divisions/city_exchange_center_open/')
+}

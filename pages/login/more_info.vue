@@ -1,10 +1,5 @@
 <template>
 	<view>
-		<navBar title="完善信息" bgc="#1B46CC"  :isShow="true" @clickRight="skip">
-			<template class="skip" #right>
-				跳过
-			</template>
-		</navBar>
 		<view class="content">
 			<view class="info_item flex_between">
 				<view class="title">
@@ -109,11 +104,7 @@ const onChange = (e) => {
 }
 
 
-const skip = ()=>{
-	uni.switchTab({
-		url: '/pages/index/index'
-	})
-}
+
 
 const name=ref('')
 const imagePath=ref('')
@@ -291,6 +282,45 @@ const getLocation = ()=>{
 		margin-top: 200rpx;
 		font-size: 30rpx;
 	}
+		/* 强制去掉所有可能的边框 */
+		:deep([class*="input-value"]) {
+			border: none !important;
+			border-radius: 0 !important;
+			margin-right: -20rpx;
+		}
+		
+		/* 针对selected-area placeholder类的样式 */
+		:deep(.selected-area.placeholder ) {
+			text-align: right !important;
+			justify-content: flex-end !important;
+			color: #1B46CC !important;
+			display: flex !important;
+			align-items: center !important;
+			margin-right: 15rpx;
+		}
+		
+		:deep(.uni-data-picker .selected-area.placeholder) {
+			text-align: right !important;
+			justify-content: flex-end !important;
+			color: #1B46CC !important;
+		}
+		
+		/* 针对selected-list类的样式 */
+		:deep(.selected-list) {
+			text-align: right !important;
+			justify-content: flex-end !important;
+			color: #1B46CC !important;
+			display: flex !important;
+			align-items: center !important;
+			margin-right: 15rpx;
+		}
+		
+		:deep(.uni-data-picker .selected-list) {
+			text-align: right !important;
+			justify-content: flex-end !important;
+			color: #1B46CC !important;
+		}
+	
 	
 }
 

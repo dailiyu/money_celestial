@@ -22,11 +22,11 @@
 		<view class="shop-info-section" v-if="shopInfo.name">
 			<!-- 商家名称和收藏 -->
 			<view class="shop-header">
-				<text class="shop-name">{{ shopInfo.name }}</text>
+				<text class="shop-name" :class="{ 'is-referral-officer': shopInfo.is_referral_officer }">{{ shopInfo.name }}</text>
 				<image 
 					class="favorite-icon" 
-					:src="shopInfo.favorited ? 'https://static.maxcang.com/appstatic/merchant/favorited.png' : 'https://static.maxcang.com/appstatic/merchant/unfavorited.png'"
-					@click="shopInfo.favorited ? delCollect() : addCollect()"
+					:src="token && shopInfo.favorited ? 'https://static.maxcang.com/appstatic/merchant/favorited.png' : 'https://static.maxcang.com/appstatic/merchant/unfavorited.png'"
+					@click="token && shopInfo.favorited ? delCollect() : addCollect()"
 				></image>
 			</view>
 
@@ -41,7 +41,7 @@
 					></image>
 				</view>
 				<text class="rating-score">{{ shopInfo.rating || '4.9' }}</text>
-				<text class="consumer-count">300人消费</text>
+				<!-- <text class="consumer-count">300人消费</text> -->
 			</view>
 
 			<!-- 营业时间 -->
@@ -57,10 +57,10 @@
 					{{ shopInfo.address }}
 				</text>
 				                <!-- 导航按钮 -->
-                <view class="action-button" @click="openLocation(shopInfo)">
+                <view class="action-button" @click="shopInfo.latitude && shopInfo.longitude ? openLocation(shopInfo) : copy()">
                   <image 
                     class="action-icon" 
-                    src="https://static.maxcang.com/appstatic/merchant/device_coin.png"
+                    :src="shopInfo.latitude && shopInfo.longitude ? 'https://static.maxcang.com/appstatic/merchant/navigation_icon.png' : 'https://static.maxcang.com/appstatic/merchant/device_coin.png'"
                   ></image>
                 </view>
                 <!-- 分隔线 -->
@@ -101,15 +101,15 @@
 								mode="aspectFill"
 							></image>
 							<view v-else class="goods-image-placeholder">
-								<view class="change-badge">
-									<image class="change-icon" src="https://static.maxcang.com/appstatic/merchant/change_icon.png"></image>
-								</view>
-							</view>
+                          <view class="change-badge">
+                            <image class="change-icon" src="https://static.maxcang.com/appstatic/merchant/change_icon.png"></image>
+                          </view>
+                        </view>
 							<!-- 兑换状态图标 -->
 							<view v-if="product.redeem_status === 2" class="redeem-status-badge">
 								<image class="redeem-status-icon" src="https://static.maxcang.com/appstatic/merchant/change_icon.png"></image>
-							</view>
-						</view>
+					</view>
+				</view>
 						<view class="goods-info">
 							<text class="goods-name">{{ product.name }}</text>
 						</view>
@@ -167,9 +167,14 @@ onLoad(async(option) => {
 	console.log('商家详情数据:', res);
 	console.log('商品列表:', res.products);
 	
-	const bannerImages = shopInfo.value.images.filter(image => image.image_type === "banner").map(image => image.image_url);
+	// 展示image_type为'banner'和'other'的图片
+	const bannerImages = (shopInfo.value.images || []).filter(image => image.image_type === 'banner' || image.image_type === 'other').map(image => image.image_url);
 	swiperList.value = bannerImages
-	browserShopAdd({shop: shopInfo.value.merchant})
+	
+	// 只有在登录状态下才发起浏览记录
+	if (token) {
+		browserShopAdd({shop: shopInfo.value.merchant})
+	}
 })
 
 // 拨打电话
@@ -207,32 +212,51 @@ const copy = () => {
 	})
 }
 
+// 检查登录状态并执行操作
+const checkLoginAndExecute = (callback) => {
+	const token = uni.getStorageSync("accessToken");
+	if (!token) {
+		uni.showToast({
+			title: '请先登录',
+			icon: 'none',
+			duration: 2000
+		});
+		setTimeout(() => {
+			uni.navigateTo({
+				url: '/pages/login/login'
+			});
+		}, 2000);
+		return;
+	}
+	
+	// 已登录，执行回调函数
+	if (typeof callback === 'function') {
+		callback();
+	}
+}
+
 // 添加收藏
 const addCollect = async() => {
-	if (!token) {
-		return uni.showToast({
-			icon: 'none',
-			title: '请先登录!'
-		})
-	}
-	try {
-		uni.showLoading({
-			mask: true
-		})
-		const {id} = await favoriteShopsAdd({shop: shopInfo.value.merchant})
-		shopInfo.value.favorited = id
-		uni.hideLoading()
-		uni.showToast({
-			title: '收藏成功',
-			icon: 'none'
-		})
-	} catch (e) {
-		uni.hideLoading()
-		uni.showToast({
-			title: e.data.detail || '收藏失败',
-			icon: 'none'
-		})
-	}
+	checkLoginAndExecute(async () => {
+		try {
+			uni.showLoading({
+				mask: true
+			})
+			const {id} = await favoriteShopsAdd({shop: shopInfo.value.merchant})
+			shopInfo.value.favorited = id
+			uni.hideLoading()
+			uni.showToast({
+				title: '收藏成功',
+				icon: 'none'
+			})
+		} catch (e) {
+			uni.hideLoading()
+			uni.showToast({
+				title: e.data.detail || '收藏失败',
+				icon: 'none'
+			})
+		}
+	})
 }
 
 // 取消收藏
@@ -259,26 +283,29 @@ const delCollect = async() => {
 
 // 处理付款
 const handlePayment = () => {
-	uni.showToast({
-		title: '付款功能开发中',
-		icon: 'none'
+	checkLoginAndExecute(() => {
+		uni.navigateTo({
+			url: `/pages/points/pay?scene=${phone.value}`
+		})
 	})
 }
 
 // 跳转到商品详情页
 const goToExchangeDetail = (product) => {
-	// 根据redeem_status决定跳转到不同页面
-	if (product.redeem_status === 2) {
-		// redeem_status为2时，跳转到兑换详情页
-		uni.navigateTo({
-			url: `/pages/discovery/exchange_detail?id=${product.id}`
-		});
-	} else {
-		// redeem_status不为2时，跳转到商品详情页
-		uni.navigateTo({
-			url: `/pages/discovery/product_detail?id=${product.id}`
-		});
-	}
+	checkLoginAndExecute(() => {
+		// 根据redeem_status决定跳转到不同页面
+		if (product.redeem_status === 2) {
+			// redeem_status为2时，跳转到兑换详情页
+			uni.navigateTo({
+				url: `/pages/discovery/exchange_detail?id=${product.id}`
+			});
+		} else {
+			// redeem_status不为2时，跳转到商品详情页
+			uni.navigateTo({
+				url: `/pages/discovery/product_detail?id=${product.id}`
+			});
+		}
+	})
 }
 
 // #ifdef MP-WEIXIN
@@ -326,7 +353,7 @@ onShareAppMessage(() => {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 19rpx;
+	margin-bottom: 15rpx;
 }
 
 .shop-name {
@@ -335,18 +362,23 @@ onShareAppMessage(() => {
 	color: #000000;
 	line-height: 30rpx;
 	max-width: 500rpx;
+	
+	&.is-referral-officer {
+		color: #FC5908;
+	}
 }
 
 .favorite-icon {
 	width: 38rpx;
 	height: 37rpx;
+	margin-right: 16rpx;
 }
 
 /* 评分区域 */
 .rating-section {
 	display: flex;
 	align-items: center;
-	margin-bottom: 21rpx;
+	margin-bottom: 12rpx;
 }
 
 .stars {
@@ -355,16 +387,16 @@ onShareAppMessage(() => {
 }
 
 .star {
-	width: 16rpx;
-	height: 15rpx;
+	width: 23rpx;
+	height: 22rpx;
 	margin-right: 3rpx;
 }
 
 .rating-score {
-	font-size: 19rpx;
+	font-size: 20rpx;
 	font-weight: 500;
 	color: #FC5908;
-	line-height: 19rpx;
+	line-height: 20rpx;
 	margin-right: 15rpx;
 }
 
@@ -381,7 +413,7 @@ onShareAppMessage(() => {
 	font-size: 21rpx;
 	color: #919191;
 	line-height: 21rpx;
-	margin-bottom: 23rpx;
+	margin-bottom: 15rpx;
 }
 
 /* 地址和功能区域 */
@@ -402,16 +434,17 @@ onShareAppMessage(() => {
 }
 
 .action-button {
-	width: 58rpx;
-	height: 58rpx;
+	width: 68rpx;
+	height: 68rpx;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
 .action-icon {
-	width: 58rpx;
-	height: 58rpx;
+	width: 50rpx;
+	height: 50rpx;
+	object-fit: contain;
 }
 
 .divider {
@@ -431,7 +464,6 @@ onShareAppMessage(() => {
 	height: 108rpx;
 	margin: 0 -34rpx 46rpx;
 	padding: 0 35rpx;
-	box-shadow: 0 2rpx 20rpx rgba(0, 0, 0, 0.05);
 }
 
 .payment-icon {

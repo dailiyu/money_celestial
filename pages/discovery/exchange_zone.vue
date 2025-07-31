@@ -2,76 +2,76 @@
   <view class="page">
     <!-- 顶部背景区域 -->
     <view class="header-section">
-      <image class="header-bg" src="/static/discovery/top_background.png" />
+      <image class="header-bg" src="https://static.maxcang.com/appstatic/discovery/top_background.png" />
     </view>
     
     <!-- 主要内容区域 -->
     <view class="main-content">
       <!-- 积分展示卡片 -->
       <view class="points-card">
-        <image class="d9-logo" src="../../static/discovery/d9_energy_icon.png" mode="aspectFit" />
-        <view class="points-info">
-          <text class="points-number">10,000.92</text>
-          <text class="points-desc">积分来自你每一笔消费，是你的数字权益</text>
-        </view>
-        <view class="action-buttons">
+        <image class="d9-logo" src="https://static.maxcang.com/appstatic/common/d9_energy_icon.png" mode="aspectFit" />
+                  <view class="points-info">
+            <text class="points-number">{{ formatPoints(redPoints) }}</text>
+            <text class="points-desc">积分来自你每一笔消费，是你的数字权益</text>
+          </view>
+          <view class="action-buttons">
           <view class="action-btn orders-btn" @click="goToOrders">
-            <image class="btn-icon" src="/static/discovery/my_orders_icon.png" />
-            <text class="btn-text">我的订单</text>
-            <image class="arrow-icon" src="/static/discovery/white_arrow_right.png" />
-          </view>
-          <view class="action-btn rules-btn" @click="goToRules">
-            <image class="btn-icon" src="/static/discovery/exchange_rules_icon.png" />
-            <text class="btn-text">兑换规则</text>
-            <image class="arrow-icon" src="/static/discovery/white_arrow_right.png" />
+            <image class="btn-icon" src="https://static.maxcang.com/appstatic/discovery/my_orders_icon.png" />
+              <text class="btn-text">我的订单</text>
+            <image class="arrow-icon" src="https://static.maxcang.com/appstatic/discovery/white_arrow_right.png" />
+            </view>
+            <view class="action-btn rules-btn" @click="goToRules">
+            <image class="btn-icon" src="https://static.maxcang.com/appstatic/discovery/exchange_rules_icon.png" />
+              <text class="btn-text">兑换规则</text>
+            <image class="arrow-icon" src="https://static.maxcang.com/appstatic/discovery/white_arrow_right.png" />
+            </view>
           </view>
         </view>
-      </view>
 
       <!-- 商品轮播展示 -->
       <!-- <view class="product-banner">
-        <swiper 
+          <swiper 
           class="banner-swiper" 
-          :indicator-dots="true" 
-          :autoplay="true" 
-          :interval="3000" 
-          :duration="1000"
-          indicator-color="rgba(255, 255, 255, 0.5)"
-          indicator-active-color="#FFFFFF"
-        >
-          <swiper-item>
+            :indicator-dots="true" 
+            :autoplay="true" 
+            :interval="3000" 
+            :duration="1000"
+            indicator-color="rgba(255, 255, 255, 0.5)"
+            indicator-active-color="#FFFFFF"
+          >
+            <swiper-item>
             <view class="banner-slide">
-              <view class="product-info">
-                <text class="product-title">五常稻花香大米</text>
-                <text class="product-desc">香甜软糯，粒粒分明</text>
+                <view class="product-info">
+                  <text class="product-title">五常稻花香大米</text>
+                  <text class="product-desc">香甜软糯，粒粒分明</text>
+                </view>
+                <view class="price-tag">
+                  <text class="energy-points">52</text>
+                  <text class="price-text">能量 / ￥168</text>
+                </view>
               </view>
-              <view class="price-tag">
-                <text class="energy-points">52</text>
-                <text class="price-text">能量 / ￥168</text>
-              </view>
-            </view>
-          </swiper-item>
-          <swiper-item>
+            </swiper-item>
+            <swiper-item>
             <view class="banner-slide">
-              <view class="product-info">
-                <text class="product-title">优质东北大米</text>
-                <text class="product-desc">颗颗饱满，营养丰富</text>
+                <view class="product-info">
+                  <text class="product-title">优质东北大米</text>
+                  <text class="product-desc">颗颗饱满，营养丰富</text>
+                </view>
+                <view class="price-tag">
+                  <text class="energy-points">68</text>
+                  <text class="price-text">能量 / ￥218</text>
+                </view>
               </view>
-              <view class="price-tag">
-                <text class="energy-points">68</text>
-                <text class="price-text">能量 / ￥218</text>
-              </view>
-            </view>
-          </swiper-item>
-        </swiper>
+            </swiper-item>
+          </swiper>
       </view> -->
       
       <!-- 商品标题 -->
       <view class="goods-header">
         <text class="section-title">可兑换商品</text>
-      </view>
-      
-              <!-- 商品列表 -->
+        </view>
+
+        <!-- 商品列表 -->
       <view class="goods-list">
           <view v-if="loading" class="loading-state">
             <text class="loading-text">加载中...</text>
@@ -80,11 +80,11 @@
             <text class="empty-text">暂无兑换商品</text>
           </view>
           <view v-else class="goods-item" v-for="(item, index) in goodsList" :key="item.id" @click="goToExchange(item)">
-          <view class="goods-card">
+            <view class="goods-card">
             <image class="goods-image" :src="item.image" />
             <view class="goods-info">
               <text class="goods-name">{{ item.name }}</text>
-                          <view class="goods-price">
+            <view class="goods-price">
               <text class="energy-number">{{ item.energy }}</text>
               <text class="price-info">能量 / ￥{{ item.cnyPrice }}</text>
             </view>
@@ -107,6 +107,7 @@ const goodsList = ref([]);
 const currentCity = ref('');
 const loading = ref(false);
 const rateCny = ref(1); // D9能量对人民币汇率
+const redPoints = ref(0); // 红色积分数据
 
 // 方法定义
 const goBack = () => {
@@ -121,7 +122,7 @@ const goToOrders = () => {
 
 const goToRules = () => {
   uni.navigateTo({
-    url: '/pages/exchange/exchange_rules'
+    url: '/pages/discovery/redemptionRules'
   });
 };
 
@@ -135,6 +136,14 @@ const goToMoreGoods = () => {
   uni.navigateTo({
     url: '/pages/exchange/goods_list'
   });
+};
+
+// 格式化积分显示
+const formatPoints = (points) => {
+  if (points === null || points === undefined) {
+    return '0.00';
+  }
+  return parseFloat(points).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 // 获取当前城市
@@ -151,17 +160,21 @@ const getCurrentCity = () => {
   }
 };
 
-// 获取汇率信息
+// 获取汇率信息和积分数据
 const getRateInfo = async () => {
   try {
     const walletData = await getAllPoint();
     if (walletData && walletData.rateCny) {
       rateCny.value = walletData.rateCny;
     }
+    if (walletData && walletData.red_points !== undefined) {
+      redPoints.value = walletData.red_points;
+    }
   } catch (error) {
     console.error('获取汇率失败:', error);
     // 使用默认汇率
     rateCny.value = 1;
+    redPoints.value = 0;
   }
 };
 
@@ -215,22 +228,7 @@ const getExchangeProducts = async () => {
     
     // 失败时使用默认数据
     goodsList.value = [
-      {
-        id: 1,
-        name: '壹号土猪肉',
-        energy: 52,
-        price: 168,
-        cnyPrice: (52 * rateCny.value).toFixed(2),
-        image: 'https://static.maxcang.com/appstatic/pork_1.png'
-      },
-      {
-        id: 2,
-        name: '有机蔬菜',
-        energy: 38,
-        price: 88,
-        cnyPrice: (38 * rateCny.value).toFixed(2),
-        image: 'https://static.maxcang.com/appstatic/vegetable_1.png'
-      }
+    
     ];
   } finally {
     loading.value = false;
@@ -547,11 +545,11 @@ onShow(() => {
   align-items: center;
   padding: 100rpx 0;
   text-align: center;
-  
+
   .empty-text {
     font-size: 28rpx;
     color: #999999;
-  }
+}
 }
 
 /* 适配安全区域 */

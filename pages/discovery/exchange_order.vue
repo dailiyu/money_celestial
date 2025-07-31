@@ -44,6 +44,7 @@
         v-for="(order, index) in currentOrderList" 
         :key="order.id"
         class="order-item flex-col"
+        @click="viewOrderDetail(order)"
       >
         <!-- 订单头部信息 -->
         <view class="order-header-info flex-row">
@@ -67,7 +68,7 @@
               
               <view class="points-section flex-row">
                 <text class="points-number">{{ order.points }}</text>
-                <image class="points-icon" src="/static/discovery/d9_energy_icon.png" />
+                <image class="points-icon" src="https://static.maxcang.com/appstatic/discovery/d9_energy_icon.png" />
               </view>
             </view>
             
@@ -80,19 +81,16 @@
         
         <!-- 底部按钮 -->
         <view class="order-footer flex-row">
-          <view class="more-link" @click="showMoreOptions(order)">
-            <text class="more-text">更多</text>
-          </view>
           <view class="footer-buttons flex-row">
-            <view v-if="order.statusType === 'unexchanged'" class="action-btn main-btn" @click="useOrder(order)">
+            <view v-if="order.statusType === 'unexchanged'" class="action-btn main-btn" @click.stop="useOrder(order)">
               <text class="btn-text">立即使用</text>
             </view>
             
-            <view v-if="order.statusType === 'exchanged'" class="action-btn completed-btn" @click="viewOrderDetail(order)">
+            <view v-if="order.statusType === 'exchanged'" class="action-btn completed-btn" @click.stop="viewOrderDetail(order)">
               <text class="btn-text">订单完成</text>
             </view>
             
-            <view v-if="order.statusType === 'refunded'" class="action-btn refunded-btn" @click="viewOrderDetail(order)">
+            <view v-if="order.statusType === 'refunded'" class="action-btn refunded-btn" @click.stop="viewOrderDetail(order)">
               <text class="btn-text">订单完成</text>
             </view>
           </view>
@@ -187,7 +185,7 @@ const fetchOrderList = async (isRefresh = false) => {
       }
       
       // 获取商品图片，优先获取Banner类型
-      let productImage = '/static/merchant/product_placeholder.png';
+      let productImage = 'https://static.maxcang.com/appstatic/merchant/product_placeholder.png';
       if (order.product && order.product.images && order.product.images.length > 0) {
         // 查找Banner类型图片
         const bannerImage = order.product.images.find(img => img.image_type === 'banner');
@@ -208,13 +206,7 @@ const fetchOrderList = async (isRefresh = false) => {
         subtitle: order.product ? order.product.specs || '规格信息' : '',
         points: order.product ? Math.round(order.product.price).toString() : '0',
         quantity: order.product_count,
-        time: new Date(order.created_at).toLocaleString('zh-CN', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit'
-        }),
+        time: formatDateTime(order.created_at),
         image: productImage,
         shopName: order.shop_name,
         realAmount: order.real_amount,
@@ -247,6 +239,30 @@ const fetchOrderList = async (isRefresh = false) => {
   }
 };
 
+// 日期格式化函数
+const formatDateTime = (dateString) => {
+  try {
+    const date = new Date(dateString);
+    
+    // 检查日期是否有效
+    if (isNaN(date.getTime())) {
+      return '时间格式错误';
+    }
+    
+    // 手动格式化日期
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  } catch (error) {
+    console.error('日期格式化失败:', error);
+    return '时间格式错误';
+  }
+};
+
 // 方法定义
 const switchTab = (tab) => {
   activeTab.value = tab;
@@ -254,32 +270,7 @@ const switchTab = (tab) => {
   fetchOrderList(true);
 };
 
-const showMoreOptions = (order) => {
-  // 退款订单和已兑换订单直接跳转详情页面
-  if (order.statusType === 'refunded' || order.statusType === 'exchanged') {
-    viewOrderDetail(order);
-    return;
-  }
-  
-  let itemList = ['查看详情'];
-  
-  if (order.statusType === 'unexchanged') {
-    itemList.push('申请退款');
-  }
-  
-  uni.showActionSheet({
-    itemList: itemList,
-    success: (res) => {
-      if (res.tapIndex === 0) {
-        viewOrderDetail(order);
-      } else if (res.tapIndex === 1) {
-        if (order.statusType === 'unexchanged') {
-          applyRefund(order);
-        }
-      }
-    }
-  });
-};
+
 
 const useOrder = (order) => {
   // 直接跳转到订单详情页面
@@ -451,6 +442,11 @@ onMounted(() => {
   border-radius: 20rpx;
   padding: 24rpx;
   box-sizing: border-box;
+  cursor: pointer;
+  
+  &:active {
+    background: #F8F8F8;
+  }
   
   .order-header-info {
     align-items: center;
@@ -572,20 +568,9 @@ onMounted(() => {
   
   .order-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 24rpx;
-    
-    .more-link {
-      display: flex;
-      align-items: center;
-      
-      .more-text {
-        font-weight: 300;
-        font-size: 21rpx;
-        color: #919191;
-      }
-    }
     
     .footer-buttons {
       align-items: center;

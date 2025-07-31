@@ -47,15 +47,13 @@ export const getShopImages=(data)=>{
 }
 
 
-//获取城市商家列表
+//获取城市商家列表和搜索店铺q关键词
 export const getCityShopList=(data)=>{
 	return http.get('/divisions/city_shops', data)
 }
 
-// 搜索店铺
-export const searchShops = (params) => {
-	return http.get('/search/', params)
-}
+
+
 
 // 获取城市兑换商品列表
 export const getCityExchangeProducts = (params) => {

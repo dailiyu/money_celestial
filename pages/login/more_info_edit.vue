@@ -20,7 +20,7 @@
 						<view class="form-label">昵称</view>
 						<view class="form-content">
 							<text class="form-value">{{ name || '满小仓232203029' }}</text>
-							<image src="@/static/myAccount/right_arrow_gray.png" class="form-arrow"></image>
+							<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="form-arrow"></image>
 						</view>
 					</view>
 
@@ -29,7 +29,7 @@
 						<view class="form-label">生日</view>
 						<view class="form-content">
 							<text class="form-value">{{ birthday || '2005-1-2' }}</text>
-							<image src="@/static/myAccount/right_arrow_gray.png" class="form-arrow"></image>
+							<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="form-arrow"></image>
 						</view>
 					</view>
 
@@ -38,7 +38,7 @@
 						<view class="form-label">性别</view>
 						<view class="form-content">
 							<text class="form-value">{{ genderText || '男' }}</text>
-							<image src="@/static/myAccount/right_arrow_gray.png" class="form-arrow"></image>
+							<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="form-arrow"></image>
 						</view>
 					</view>
 
@@ -47,7 +47,7 @@
 						<view class="form-label">常居地</view>
 						<view class="form-content">
 							<text class="form-value">{{ selectedCity || '佛山市' }}</text>
-							<image src="@/static/myAccount/right_arrow_gray.png" class="form-arrow"></image>
+							<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="form-arrow"></image>
 						</view>
 					</view>
 
@@ -56,7 +56,7 @@
 						<view class="form-label">手机号码</view>
 						<view class="form-content">
 							<text class="form-value">{{ phoneNumber || '18647474774' }}</text>
-							<image src="@/static/myAccount/right_arrow_gray.png" class="form-arrow"></image>
+							<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="form-arrow"></image>
 						</view>
 					</view>
 				</view>
@@ -330,7 +330,7 @@ const saveMessage = async () => {
 		})
 		setTimeout(() => {
 			uni.switchTab({
-				url: '/pages/index/index'
+				url: '/pages/myAccount/myAccount'
 			})
 		}, 1000)
 	}).catch((err) => {

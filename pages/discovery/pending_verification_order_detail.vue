@@ -23,7 +23,7 @@
             <text class="product-title">{{ orderInfo.productTitle }}</text>
             <view class="points-section flex-row">
               <text class="points-number">{{ orderInfo.unitEnergy }}</text>
-              <image class="points-icon" src="/static/discovery/d9_energy_icon.png" />
+              <image class="points-icon" src="https://static.maxcang.com/appstatic/discovery/d9_energy_icon.png" />
             </view>
           </view>
           
@@ -41,7 +41,7 @@
         <view class="total-amount flex-row">
           <text class="total-label">实付</text>
           <text class="total-number">{{ orderInfo.totalEnergy }}</text>
-          <image class="total-icon" src="/static/discovery/d9_energy_icon.png" />
+          <image class="total-icon" src="https://static.maxcang.com/appstatic/discovery/d9_energy_icon.png" />
         </view>
       </view>
     </view>
@@ -55,15 +55,17 @@
             <image v-if="qrCodeUrl" class="qr-code-image" :src="qrCodeUrl" mode="aspectFit" />
             <view v-else class="qr-placeholder"></view>
           </view>
-          <view class="code-number-row flex-row">
-            <text class="code-number">{{ orderInfo.voucherCode }}</text>
-            <view class="copy-btn" @click="copyCode">
-              <image class="copy-icon" src="/static/discovery/copy_icon.png" />
-            </view>
-          </view>
         </view>
         <view class="voucher-info flex-col">
-          <text class="code-label">待使用券码1张</text>
+          <view class="code-label-row flex-row">
+            <text class="code-label">待使用券码</text>
+            <view class="code-number-copy flex-row">
+              <text class="code-number">{{ formatVoucherCode(orderInfo.voucherCode) }}</text>
+              <view class="copy-btn" @click="copyCode">
+                <image class="copy-icon" src="https://static.maxcang.com/appstatic/discovery/copy_icon.png" />
+              </view>
+            </view>
+          </view>
           <text class="expire-text">{{ orderInfo.expireTime }}</text>
         </view>
       </view>
@@ -80,10 +82,10 @@
           </view>
           <view class="address-actions flex-row">
             <view class="action-btn navigate-btn" @click="navigateToStore">
-              <image class="action-icon" src="/static/discovery/navigate_icon.png" />
+              <image class="action-icon" src="https://static.maxcang.com/appstatic/discovery/navigate_icon.png" />
             </view>
             <view class="action-btn call-btn" @click="callStore">
-              <image class="action-icon" src="/static/discovery/call_icon.png" />
+              <image class="action-icon" src="https://static.maxcang.com/appstatic/discovery/call_icon.png" />
             </view>
           </view>
         </view>
@@ -141,7 +143,7 @@
         <view class="store-info">
           <view class="store-header">
             <text class="store-name">{{ store.name }}</text>
-            <view class="store-badge">
+            <view class="store-badge" v-if="store.payCertMaterialState === 1">
               <image class="certified-icon" src="https://static.maxcang.com/appstatic/discovery/certified_badge.png" mode="aspectFit" />
             </view>
           </view>
@@ -178,11 +180,55 @@ import { ref, onMounted } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
 import { getOrderDetail, getCityShopList, applyRefund as applyRefundAPI } from '@/service/shop.js';
 
+// 日期格式化函数
+const formatDateTime = (dateString) => {
+  try {
+    const date = new Date(dateString);
+    
+    // 检查日期是否有效
+    if (isNaN(date.getTime())) {
+      return '时间格式错误';
+    }
+    
+    // 手动格式化日期
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  } catch (error) {
+    console.error('日期格式化失败:', error);
+    return '时间格式错误';
+  }
+};
+
+// 券码格式化函数
+const formatVoucherCode = (code) => {
+  if (!code) return '';
+  
+  // 移除空格
+  const cleanCode = code.replace(/\s/g, '');
+  
+  // 如果券码长度小于等于12位，直接显示
+  if (cleanCode.length <= 12) {
+    return code;
+  }
+  
+  // 如果券码长度大于12位，中间用*****表示
+  const prefix = cleanCode.substring(0, 4);
+  const suffix = cleanCode.substring(cleanCode.length - 8);
+  
+  return `${prefix} ***** ${suffix}`;
+};
+
 // 订单信息
 const orderInfo = ref({
   statusTitle: '待到店核销',
   statusSubtitle: '请在2025-05-31 23:59(含)前到店消费',
-  productImage: '/static/merchant/product_placeholder.png',
+  productImage: 'https://static.maxcang.com/appstatic/merchant/product_placeholder.png',
   productTitle: '东北五常大米',
   productSubtitle: '五常大米 | 一袋',
   quantity: 2,
@@ -230,7 +276,8 @@ const getRecommendStores = async () => {
       address: store.address,
       cashback: (store.consume2coin_bit || '100') + '%精选',
       image: store.avatar || '/static/merchant/store_placeholder.png',
-      merchant: store.merchant // 用于跳转
+      merchant: store.merchant, // 用于跳转
+      payCertMaterialState: store.pay_cert_material_state // 认证状态
     }));
     
   } catch (error) {
@@ -289,13 +336,7 @@ const fetchOrderDetail = async (id) => {
       unitEnergy: order.product ? Math.round(order.product.price) : 0,
       totalEnergy: parseFloat(order.real_amount), // 转换为数字
       voucherCode: order.order_id, // 显示完整的订单编号
-      expireTime: order.deadline_time ? new Date(order.deadline_time).toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-      }) + '到期' : '长期有效',
+      expireTime: order.deadline_time ? formatDateTime(order.deadline_time).slice(0, 16) + '到期' : '长期有效',
       storeName: order.shop ? order.shop.name : '商家信息暂无',
       storeAddress: order.shop ? order.shop.address : '地址信息暂无',
       storePhone: order.shop ? order.shop.tel : null, // 商家电话
@@ -306,14 +347,7 @@ const fetchOrderDetail = async (id) => {
       orderNumber: order.order_id,
       paymentMethod: 'D9能量',
       phoneNumber: userInfo.phone || order.user_id || '未绑定',
-      orderTime: new Date(order.created_at).toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      })
+      orderTime: formatDateTime(order.created_at)
     };
     
     // 生成二维码
@@ -421,8 +455,10 @@ const shareQRCode = () => {
 
 // 方法定义
 const copyCode = () => {
+  // 复制完整的券码（移除空格）
+  const fullCode = orderInfo.value.voucherCode.replace(/\s/g, '');
   uni.setClipboardData({
-    data: orderInfo.value.voucherCode.replace(/\s/g, ''),
+    data: fullCode,
     success: () => {
       uni.showToast({
         title: '复制成功',
@@ -433,17 +469,31 @@ const copyCode = () => {
 };
 
 const navigateToStore = () => {
+  // 如果没有经纬度信息，复制商家地址
+  if (!orderInfo.value.shopLatitude || !orderInfo.value.shopLongitude) {
+    const address = orderInfo.value.storeAddress || orderInfo.value.storeName || '商家地址信息暂无';
+    uni.setClipboardData({
+      data: address,
+      success: () => {
+        uni.showToast({
+          title: '已复制商家地址',
+          icon: 'success'
+        });
+      },
+      fail: () => {
+        uni.showToast({
+          title: '复制失败',
+          icon: 'none'
+        });
+      }
+    });
+    return;
+  }
+  
   // 微信小程序环境下使用经纬度导航
   // #ifdef MP-WEIXIN
-  // 检查是否有商家经纬度信息
-  const latitude = orderInfo.value.shopLatitude || 23.084317; // 示例：佛山智慧新城
-  const longitude = orderInfo.value.shopLongitude || 113.134026;
-  
-  if (!orderInfo.value.shopLatitude || !orderInfo.value.shopLongitude) {
-    console.warn('使用默认坐标，建议从后端获取准确的商家位置信息');
-    // 如果需要通过地址获取坐标，可以使用微信的地理编码API
-    // 但这需要配置地图服务密钥，建议在后端进行地理编码
-  }
+  const latitude = orderInfo.value.shopLatitude;
+  const longitude = orderInfo.value.shopLongitude;
   
   // 先获取用户位置权限（可选，用于更好的导航体验）
   wx.getSetting({
@@ -550,8 +600,8 @@ const applyRefund = () => {
           await applyRefundAPI(orderId.value);
           
           uni.hideLoading();
-          uni.showToast({
-            title: '退款申请已提交',
+        uni.showToast({
+          title: '退款申请已提交',
             icon: 'success',
             duration: 2000
           });
@@ -560,7 +610,7 @@ const applyRefund = () => {
           setTimeout(() => {
             uni.navigateBack();
           }, 2000);
-          
+
         } catch (error) {
           uni.hideLoading();
           console.error('申请退款失败:', error);
@@ -572,7 +622,7 @@ const applyRefund = () => {
             errorMessage = error.message;
           }
           
-          uni.showToast({
+  uni.showToast({
             title: errorMessage,
             icon: 'none',
             duration: 3000
@@ -831,36 +881,44 @@ onLoad(async (options) => {
         border-radius: 12rpx;
       }
       
-      .code-number-row {
-        align-items: center;
-        justify-content: center;
-        gap: 8rpx;
-        
-        .code-number {
-          font-weight: 400;
-          font-size: 24rpx;
-          color: #919191;
-          letter-spacing: 2rpx;
-        }
-        
-        .copy-btn {
-          padding: 4rpx;
-          
-          .copy-icon {
-            width: 24rpx;
-            height: 24rpx;
-          }
-        }
-      }
     }
     
     .voucher-info {
       gap: 12rpx;
       
-      .code-label {
-        font-weight: 400;
-        font-size: 24rpx;
-        color: #919191;
+      .code-label-row {
+        align-items: center;
+        gap: 16rpx;
+        
+        .code-label {
+          font-weight: 400;
+          font-size: 24rpx;
+          color: #919191;
+          flex-shrink: 0;
+        }
+        
+                .code-number-copy {
+          align-items: center;
+          justify-content: space-between;
+          flex: 1;
+          
+          .code-number {
+            font-weight: 400;
+            font-size: 24rpx;
+            color: #919191;
+            letter-spacing: 2rpx;
+          }
+          
+          .copy-btn {
+            padding: 4rpx;
+            flex-shrink: 0;
+            
+            .copy-icon {
+              width: 24rpx;
+              height: 24rpx;
+            }
+          }
+        }
       }
       
       .expire-text {
@@ -919,16 +977,16 @@ onLoad(async (options) => {
         gap: 20rpx;
         
         .action-btn {
-          width: 80rpx;
-          height: 80rpx;
-          border-radius: 40rpx;
+          width: 88rpx;
+          height: 88rpx;
+          border-radius: 44rpx;
           display: flex;
           align-items: center;
           justify-content: center;
           
           .action-icon {
-            width: 58rpx;
-            height: 58rpx;
+            width: 68rpx;
+            height: 68rpx;
           }
         }
       }

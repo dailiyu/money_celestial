@@ -53,9 +53,14 @@ export  const getDepositRecord=async ()=>{
 	return http.get('/agent/margin/records/')
 }
 
-// 获取城市名
+// 获取城市代理信息
 export  const getCity=async ()=>{
 	return http.get('/agent/city/')
+}
+
+// 获取指定城市代理信息 (V2)
+export  const getCityAgent=async (city)=>{
+	return http.get(`/divisions/city_agent/${city}/`)
 }
 
 // 获取城市商家列表

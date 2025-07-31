@@ -11,15 +11,15 @@
 					<CityPicker @changeCity="bindCityChange"></CityPicker>
 				</view>
 				<view class="title-container">
-					<image class="main-title-img" src="https://static.maxcang.com/appstatic/discovery/maxcang_title.png" mode="aspectFit"></image>
+					<image class="main-title-img" src="https://static.maxcang.com/appstatic/common/title_logo.png" mode="aspectFit"></image>
 				</view>
 				<view class="placeholder"></view>
 			</view>
 		</view>
 
 		<!-- 活动海报区域 -->
-		<view class="banner-section">
-			<image 
+		<view class="banner-section" >
+			<image v-if="exchangeCenterOpen === 1"
 				class="banner-image" 
 				src="https://static.maxcang.com/appstatic/discovery/banner_bg.png" 
 				mode="aspectFill"
@@ -102,7 +102,6 @@
 						<view class="loading-spinner"></view>
 						<text class="empty-text">正在加载店铺...</text>
 					</view>
-					
 					<!-- 无数据状态 -->
 					<view class="empty-state" v-else-if="!isLoading && shopLists.length === 0">
 						<text class="empty-text">暂无店铺数据</text>
@@ -114,9 +113,9 @@
 						<view class="store-info">
 							<view class="store-header">
 								<text class="store-name">{{ store.name }}</text>
-								<view class="store-badge">
-									<image class="certified-icon" src="https://static.maxcang.com/appstatic/discovery/certified_badge.png" mode="aspectFit"></image>
-								</view>
+															<view class="store-badge" v-if="store.pay_cert_material_state === 2">
+								<image class="certified-icon" src="https://static.maxcang.com/appstatic/discovery/certified_badge.png" mode="aspectFit"></image>
+							</view>
 							</view>
 							<view class="store-rating-container">
 								<view class="store-rating">
@@ -152,6 +151,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { onShow } from '@dcloudio/uni-app'
 import { getShopCategories, getShopInfo, getShopList, getCityShopList } from '@/service/shop';
+import { getCityExchangeCenterOpen } from '@/service/divisions';
 import CityPicker from "@/components/cityPicker/cityPicker.vue";
 
 // 生命周期钩子
@@ -160,6 +160,7 @@ onMounted(() => {
 });
 
 onShow(() => {
+	getExchangeCenterStatus();
 	resetAndLoadStores()
 })
 
@@ -173,11 +174,24 @@ const selectedCategory = ref(null);
 const searchKeyword = ref('');
 const scrollIntoView = ref(null);
 const isRefreshing = ref(false);
+const exchangeCenterOpen = ref(0); // 兑换专区开放状态：0-关闭，1-开启
 
 // 获取分类数据
 const getCategory = async() => {
 	const {results} = await getShopCategories()
 	categories.value = results
+}
+
+// 获取兑换专区开放状态
+const getExchangeCenterStatus = async() => {
+	try {
+		const { open } = await getCityExchangeCenterOpen();
+		exchangeCenterOpen.value = open;
+		console.log('兑换专区开放状态:', open);
+	} catch (error) {
+		console.error('获取兑换专区开放状态失败:', error);
+		exchangeCenterOpen.value = 0; // 默认关闭
+	}
 }
 
 // 地址选择器变化事件
@@ -264,7 +278,7 @@ const loadMore = () => {
 const toStoreDetail = (store) => {
 	uni.navigateTo({
 		url: '/pages/merchant/merchant_detail?phone='+store.merchant
-	})
+	});
 }
 
 // 跳转到店铺搜索页面
@@ -276,9 +290,20 @@ const goToSearch = () => {
 
 // 跳转到兑换专区
 const goToExchangeZone = () => {
-	uni.navigateTo({
-		url: '/pages/discovery/exchange_zone'
-	})
+	if (exchangeCenterOpen.value === 0) {
+		// uni.showToast({
+		// 	title: '兑换专区暂未开放',
+		// 	icon: 'none',
+		// 	duration: 2000
+		// });
+		return;
+	}
+	
+	checkLoginAndExecute(() => {
+		uni.navigateTo({
+			url: '/pages/discovery/exchange_zone'
+		});
+	});
 }
 
 // 下拉刷新
@@ -517,9 +542,9 @@ text-align: center;
 .store-avatar {
 	width: 127rpx;
 height: 127rpx;
-	border-radius: 12rpx;
-	margin-right: 24rpx;
-	flex-shrink: 0;
+border-radius: 12rpx;
+margin-right: 24rpx;
+flex-shrink: 0;
 }
 
 .store-info {

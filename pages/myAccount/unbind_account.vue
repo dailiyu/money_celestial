@@ -1,6 +1,5 @@
 <template>
 	<view>
-		<navBar title="解除绑定"></navBar>
 		<view class="content">
 			<view class="a_title flex_between">
 				<view class="">
@@ -67,10 +66,30 @@ const confirm = async ()=>{
 			title: '解绑成功'
 		})
 		address.value = ''
+		// 延迟跳转回上一级页面
+		setTimeout(() => {
+			uni.navigateBack()
+		}, 1000)
 	}catch(e){
+		uni.hideLoading()
+		console.log('解绑错误:', e)
+		
+		// 提取错误信息
+		let errorMessage = '解绑失败'
+		if (e.data && e.data.error) {
+			errorMessage = e.data.error
+		} else if (e.error) {
+			errorMessage = e.error
+		} else if (e.message) {
+			errorMessage = e.message
+		} else if (typeof e === 'string') {
+			errorMessage = e
+		}
+		
 		uni.showToast({
 			icon: 'none',
-			title: '解绑失败'
+			title: errorMessage,
+			duration: 3000
 		})
 	}
 }

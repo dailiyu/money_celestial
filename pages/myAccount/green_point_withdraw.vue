@@ -18,7 +18,7 @@
 					<view class="s_title">
 						提取数量
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入提取数量" placeholder-class="placeholder_class" />
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入提取数量" placeholder-class="placeholder_class" @input="onNumberInput" />
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
@@ -32,8 +32,11 @@
 					<view class="s_text">
 						预计到账
 					</view>
-					<view class="s_num" style="color: #999999;">
+					<view class="s_num" style="color: #999999; flex: 1;">
 						{{number?(Number(number) * 0.97).toFixed(2):''}}
+					</view>
+					<view class="fee_rate">
+						提现费率 3%
 					</view>
 				</view>
 			</view>
@@ -156,10 +159,10 @@ const confirm = async(password)=>{
 				}, 2000)
 			}
 		} else {
-			uni.showToast({
-				icon: 'none',
+		uni.showToast({
+			icon: 'none',
 				title: '提取申请已提交，请等待审核'
-			})
+		})
 			
 			// 即使没有返回order_id，也清空表单
 			number.value = ''
@@ -221,6 +224,14 @@ const scanQRCode = () => {
 const stepPop = ref()
 const openPop = ()=>{
 	stepPop.value.open()
+}
+
+// 处理数字输入，只允许输入数字
+const onNumberInput = (e) => {
+	const value = e.detail.value;
+	// 只保留数字
+	const numericValue = value.replace(/[^\d]/g, '');
+	number.value = numericValue;
 }
 </script>
 
@@ -308,6 +319,7 @@ const openPop = ()=>{
 			text-align: right;
 		}
 		:deep(.placeholder_class) {
+			margin-right: 0;
 			font-size: 24rpx;
 			color: #aaaaaa;
 		}
@@ -324,6 +336,12 @@ const openPop = ()=>{
 			font-size: 24rpx;
 			color: #FC5908;
 			font-weight: 500;
+		}
+		.fee_rate {
+			font-size: 20rpx;
+			color: #999999;
+			margin-left: 10rpx;
+			flex-shrink: 0;
 		}
 	}
 }

@@ -20,25 +20,14 @@ const userAddress = uni.getStorageSync('userInfo').residence
 const loaclCity=uni.getStorageSync('city')
 
 onMounted(()=>{
-	
 	cityData.value = [cityDataMp?.data, cityDataMp?.data[0].cityData]
-	
-	// #ifndef MP-WEIXIN
 	if (userAddress||loaclCity) {
 		selectedCity.value = loaclCity||userAddress.split(' ')[1]
 		emit('changeCity', {city: selectedCity.value })
 	}
-	// #endif
-	
-	
-	// #ifdef MP-WEIXIN
-	const curLatitude = ref()
-	const curLongitude = ref()
 	const key = tencentMapKey
-	
 	wx.getFuzzyLocation({
 		success(res){
-			console.log('-------',res.latitude, res.longitude)
 			uni.setStorageSync('currentLocation', {latitude:res.latitude, longitude:res.longitude})
 			const url = `https://apis.map.qq.com/ws/geocoder/v1/?location=${res.latitude},${res.longitude}&key=${key}`
 			uni.request({
@@ -55,7 +44,6 @@ onMounted(()=>{
 			console.log(err)
 		}
 	})
-	// #endif
 })
 
 
@@ -76,8 +64,6 @@ const bindProvinceChange = (e)=>{
 		let cityIndex = e.detail.value[1];
 		cityData.value[1] = cityDataMp?.data[provinceIndex].cityData;
 	}
-	//selectedCity.value = e.detail.value[1]
-	//emit('changeCity', {province: e.detail.value[0],city: e.detail.value[1]})
 }
 </script>
 
