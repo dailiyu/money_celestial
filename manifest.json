@@ -104,6 +104,9 @@
             "scope.userFuzzyLocation" : {
                 "desc" : "需要获取您的模糊位置以提供位置相关服务"
             }
+        },
+        "share" : {
+            "enable" : true
         }
     },
     "mp-alipay" : {

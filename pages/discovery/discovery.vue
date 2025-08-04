@@ -2,8 +2,6 @@
 	<view class="discovery-container">
 		<!-- 顶部橙色渐变区域 -->
 		<view class="header-container">
-		
-			
 			<!-- 地址选择器和标题 -->
 			<view class="header-content">
 				<view class="location-selector">
@@ -19,7 +17,8 @@
 
 		<!-- 活动海报区域 -->
 		<view class="banner-section" >
-			<image v-if="exchangeCenterOpen === 1"
+			<image
+				v-if="exchangeCenterOpen === 1"
 				class="banner-image" 
 				src="https://static.maxcang.com/appstatic/discovery/banner_bg.png" 
 				mode="aspectFill"
@@ -290,20 +289,19 @@ const goToSearch = () => {
 
 // 跳转到兑换专区
 const goToExchangeZone = () => {
-	if (exchangeCenterOpen.value === 0) {
-		// uni.showToast({
-		// 	title: '兑换专区暂未开放',
-		// 	icon: 'none',
-		// 	duration: 2000
-		// });
-		return;
-	}
-	
-	checkLoginAndExecute(() => {
+	const token = uni.getStorageSync("accessToken");
+	if(!token) {
+		uni.showToast({
+			title: '请先登录',
+			icon: 'none',
+			duration: 2000
+		});
+	}else{
 		uni.navigateTo({
 			url: '/pages/discovery/exchange_zone'
 		});
-	});
+	}
+		
 }
 
 // 下拉刷新
@@ -360,6 +358,7 @@ const onRefresh = () => {
 	justify-content: space-between;
 	align-items: center;
 	padding: 40rpx 40rpx 20rpx;
+	margin-top: 15rpx;
 }
 
 .location-selector {

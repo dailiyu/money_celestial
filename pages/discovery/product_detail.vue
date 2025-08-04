@@ -7,7 +7,7 @@
       <view class="custom-navbar">
         <view class="navbar-content">
           <view class="navbar-left" @click="goBack">
-            <image class="back-icon" src="https://static.maxcang.com/appstatic/discovery/white_left_arrow.png" />
+            <uni-icons type="left" size="20" color="#fff" />
           </view>
           <view class="navbar-title">
             <text class="title-text"></text>
@@ -275,28 +275,39 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: calc(88rpx + env(safe-area-inset-top));
+  height: 44px;
   padding: 0 32rpx;
-  padding-top: calc(env(safe-area-inset-top) + 140rpx);
+  margin-top: 44px;
   background: transparent;
+  position: relative;
 }
 
 .navbar-left {
-  width: 88rpx;
-  height: 88rpx;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* 确保uni-icons在小程序中正确显示 */
+  position: relative;
+  z-index: 1001;
+  /* 与原生导航栏返回按钮对齐 */
+  flex-shrink: 0;
+  transform: translateY(10rpx);
 }
 
-.back-icon {
-  width: 18rpx;
-  height: 31rpx;
-}
+
 
 .navbar-title {
   flex: 1;
   text-align: center;
+  /* 确保标题在中间完美居中 */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  max-width: 60%;
 }
 
 .title-text {
@@ -307,9 +318,56 @@ onMounted(() => {
 }
 
 .navbar-right {
-  width: 88rpx;
-  height: 88rpx;
+  width: 44px;
+  height: 44px;
+  /* 与原生导航栏胶囊按钮对齐 */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+/* 小程序导航栏对齐优化 */
+/* #ifdef MP */
+.custom-navbar {
+  top: 0;
+}
+
+.navbar-content {
+  margin-top: 44px;
+  height: 44px;
+  align-items: center;
+  position: relative;
+}
+
+.navbar-left {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.navbar-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  max-width: 60%;
+  text-align: center;
+}
+
+.navbar-right {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* #endif */
 
   /* 毛玻璃背景层 */
   .swiper-background {

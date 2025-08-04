@@ -216,7 +216,7 @@ const toHamsterGroup = ()=>{
     align-items: center;
     padding: 100rpx 30rpx 60rpx;
     position: absolute;
-    top: 0;
+    top: 20rpx;
     left: 0;
     right: 0;
     z-index: 10;
@@ -225,11 +225,12 @@ const toHamsterGroup = ()=>{
   .location {
     display: flex;
     align-items: center;
+    transform: translateY(12rpx);
   }
 
   .location-icon {
-    width: 40rpx;
-    height: 40rpx;
+    width: 32rpx;
+    height: 32rpx;
   }
 
   .location-text {
@@ -243,7 +244,9 @@ const toHamsterGroup = ()=>{
     height: 40rpx;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    top: 54%;
+    transform: translate(-50%, -50%);
+    margin-top: 20rpx;
   }
 
   .placeholder {

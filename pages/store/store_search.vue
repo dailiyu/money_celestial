@@ -396,7 +396,7 @@ const bindCityChange = (e) => {
 	top: 0;
 	left: 0;
 	z-index: 100;
-	padding: 88rpx 40rpx 40rpx;
+	padding: 128rpx 40rpx 40rpx;
 }
 
 .header-content {
@@ -557,6 +557,7 @@ const bindCityChange = (e) => {
 
 /* 搜索结果 */
 .search-results {
+	margin-top: 30rpx;
 	.results-header {
 		margin-bottom: 30rpx;
 		
