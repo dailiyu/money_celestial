@@ -162,7 +162,9 @@ onMounted(() => {
 onShow(() => {
 	getExchangeCenterStatus();
 	resetAndLoadStores()
+	token.value = uni.getStorageSync('accessToken')
 })
+
 
 // 数据定义
 const categories = ref([]);
@@ -175,7 +177,7 @@ const searchKeyword = ref('');
 const scrollIntoView = ref(null);
 const isRefreshing = ref(false);
 const exchangeCenterOpen = ref(0); // 兑换专区开放状态：0-关闭，1-开启
-
+let token = ref('')
 // 获取分类数据
 const getCategory = async() => {
 	const {results} = await getShopCategories()
@@ -290,6 +292,14 @@ const goToSearch = () => {
 
 // 跳转到兑换专区
 const goToExchangeZone = () => {
+	if(!token.value) {
+		uni.showToast({
+			title: '请先登录',
+			icon: 'none',
+			duration: 1000
+		});
+		return;
+	}
 	if (exchangeCenterOpen.value === 0) {
 		// uni.showToast({
 		// 	title: '兑换专区暂未开放',
@@ -298,12 +308,9 @@ const goToExchangeZone = () => {
 		// });
 		return;
 	}
-	
-	checkLoginAndExecute(() => {
 		uni.navigateTo({
 			url: '/pages/discovery/exchange_zone'
 		});
-	});
 }
 
 // 下拉刷新
