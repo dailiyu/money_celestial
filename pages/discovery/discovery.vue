@@ -161,7 +161,9 @@ onMounted(() => {
 onShow(() => {
 	getExchangeCenterStatus();
 	resetAndLoadStores()
+	token.value = uni.getStorageSync('accessToken')
 })
+
 
 // 数据定义
 const categories = ref([]);
@@ -174,7 +176,7 @@ const searchKeyword = ref('');
 const scrollIntoView = ref(null);
 const isRefreshing = ref(false);
 const exchangeCenterOpen = ref(0); // 兑换专区开放状态：0-关闭，1-开启
-
+let token = ref('')
 // 获取分类数据
 const getCategory = async() => {
 	const {results} = await getShopCategories()

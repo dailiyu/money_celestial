@@ -2,8 +2,8 @@
     "name" : "满仓",
     "appid" : "__UNI__EFA5E5D",
     "description" : "",
-    "versionName" : "2.0.01",
-    "versionCode" : 2001,
+    "versionName" : "2.0.04",
+    "versionCode" : 2004,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {

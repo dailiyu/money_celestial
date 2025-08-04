@@ -30,10 +30,10 @@
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
-						预计到账
+						预计扣除
 					</view>
 					<view class="s_num" style="color: #999999; flex: 1;">
-						{{number?(Number(number) * 0.97).toFixed(2):''}}
+						{{number?(Number(number) /0.97).toFixed(4):''}}
 					</view>
 					<view class="fee_rate">
 						提现费率 3%
@@ -107,7 +107,8 @@ const confirm = async()=>{
 	
 	const params = ref({
 		point_account: account.value,
-		amount: Number(number.value),
+		amount: Number(number.value)/0.97,
+		origin_amount: Number(number.value),
 		transaction_type: 'decrease',
 		transaction_method: 'red_points',
 		address: account.value
