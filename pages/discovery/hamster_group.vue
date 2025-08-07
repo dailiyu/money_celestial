@@ -356,6 +356,7 @@ const joinGroup = () => {
   font-weight: bold;
   color: #333333;
   position: relative;
+  z-index: 2;
 }
 
 .underline-block {
@@ -366,6 +367,7 @@ const joinGroup = () => {
   bottom: 8rpx;
   left: 0;
   opacity: 0.8;
+  z-index: 1;
 }
 
 /* 描述文字 */

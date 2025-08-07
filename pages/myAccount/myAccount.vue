@@ -43,7 +43,7 @@
     <!-- 内容区域 -->
     <view class="content">
       <!-- 绿色积分卡片 -->
-      <view class="points-card green-card">
+      <view class="points-card green-card" @click="handlePointDetailClick">
         <image
           class="card-bg"
           src="https://static.maxcang.com/appstatic/my/myAccount/my_points_card_bg.png"
@@ -51,7 +51,7 @@
         <view class="card-content">
           <view class="card-header">
             <view class="card-title">绿色积分</view>
-            <view class="card-detail" @click="handlePointDetailClick">
+            <view class="card-detail">
               积分详情
               <image
                 class="arrow-icon"
@@ -75,7 +75,7 @@
       </view>
 
       <!-- D9能量卡片 -->
-      <view class="energy-card">
+      <view class="energy-card" @click="handleEnergyDetailClick">
         <image
           class="card-bg"
           src="https://static.maxcang.com/appstatic/my/myAccount/d9_energy_card_bg.png"
@@ -83,7 +83,7 @@
         <view class="card-content">
           <view class="card-header">
             <view class="card-title">D9能量</view>
-            <view class="card-detail" @click="handleEnergyDetailClick">
+            <view class="card-detail">
               能量详情
               <image
                 class="arrow-icon"

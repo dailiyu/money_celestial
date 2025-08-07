@@ -50,6 +50,16 @@
 					<text class="card-text">D9能量攻略</text>
 					<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="card-arrow"></image>
 				</view>
+				<view class="function-card" @click="toRechargeGuide">
+					<image src="https://static.maxcang.com/appstatic/my/energy_point/energy_strategy_icon.png" class="card-icon"></image>
+					<text class="card-text">D9能量充值攻略</text>
+					<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="card-arrow"></image>
+				</view>
+				<view class="function-card" @click="toWithdrawGuide">
+					<image src="https://static.maxcang.com/appstatic/point/d9_energy_withdrawal_guide.png" class="card-icon"></image>
+					<text class="card-text">D9能量提取攻略</text>
+					<image src="https://static.maxcang.com/appstatic/myAccount/right_arrow_gray.png" class="card-arrow"></image>
+				</view>
 			</view>
 		</view>
 		
@@ -145,6 +155,21 @@ const toStrategy = () => {
 	uni.showToast({
 		icon: 'none',
 		title: '功能开发中'
+	})
+}
+
+const toRechargeGuide = () => {
+	// 跳转到D9能量充值攻略页面
+	uni.navigateTo({
+		url: '/pages/points/d9_energy_recharge_guide'
+	})
+}
+
+const toWithdrawGuide = () => {
+	// 显示敬请期待提示
+	uni.showToast({
+		icon: 'none',
+		title: '敬请期待'
 	})
 }
 
@@ -322,14 +347,14 @@ const toStepOne = ()=>{
 
 /* 功能卡片 */
 .function-cards {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 	gap: 20rpx;
 	margin-bottom: 60rpx;
 }
 
 .function-card {
-	width: 339rpx;
+	width: 100%;
 	height: 101rpx;
 	background: #FFFFFF;
 	border-radius: 30rpx;

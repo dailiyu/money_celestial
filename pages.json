@@ -796,6 +796,14 @@
 			}
 		},
 		{
+			"path": "pages/points/d9_energy_recharge_guide",
+			"style": {
+				"navigationBarTitleText": "D9能量充值攻略",
+				"navigationStyle": "default",
+				"navigationBarBackgroundColor": "#FC5908"
+			}
+		},
+		{
 			"path": "pages/discovery/exchange_zone",
 			"style": {
 				"navigationBarTitleText": "兑换专区",
