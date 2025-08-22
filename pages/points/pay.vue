@@ -4,7 +4,7 @@
     <view class="merchant-info">
       <view class="merchant-details">
         <view class="merchant-name">{{ shopInfo?.name }}</view>
-        <view class="merchant-id">ID: {{ phoneNumber}}</view>
+        <!-- <view class="merchant-id">ID: {{ phoneNumber}}</view> -->
         <view class="point-ratio">
           <text class="ratio-label">积分赠送比例</text>
           <text class="ratio-value">{{shopInfo?.consume2coin_bit}}%</text>
@@ -42,7 +42,7 @@
     </view>
     <!-- 积分信息 -->
     <view class="points-section">
-      <view class="points-label">满仓数字积分</view>
+      <view class="points-label">满仓D9绿色积分</view>
       <view class="points-info">
         <view class="points-value">{{((amount/rateCny) * shopInfo?.consume2coin_bit).toFixed(2) }}</view>
         <view class="points-equivalent">≈ ¥{{ amount*shopInfo?.consume2coin_bit/100 }}</view>
@@ -61,9 +61,8 @@
     
     <!-- 未开通线上支付提示 -->
     <view v-else-if="shopInfo?.pay_cert_material_state !== 1" class="disabled-button">
-      当前店铺未开通线上支付
+      当前店铺收款码未激活
     </view>
-    
     <!-- 出示积分码按钮 -->
     <view v-if="shopInfo?.pay_cert_material_state !== 1" class="points-code-button" @click="showPointsCode">
       出示积分码

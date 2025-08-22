@@ -222,8 +222,10 @@ const checkLoginAndExecute = (callback) => {
 			duration: 2000
 		});
 		setTimeout(() => {
+			// 构建返回页面的URL，包含当前页面的参数
+			const returnUrl = `/pages/merchant/merchant_detail?phone=${phone.value}`;
 			uni.navigateTo({
-				url: '/pages/login/login'
+				url: `/pages/login/login?returnUrl=${encodeURIComponent(returnUrl)}`
 			});
 		}, 2000);
 		return;

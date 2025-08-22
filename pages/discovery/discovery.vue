@@ -70,7 +70,7 @@
 			<!-- 右侧搜索框 -->
 			<view class="search-container">
 				<view class="search-box" @tap="goToSearch">
-					<image class="search-icon" src="https://img.icons8.com/ios/50/search.png"></image>
+					<image class="search-icon" src="https://static.maxcang.com/appstatic/common/search.png"></image>
 					<input 
 						class="search-input" 
 						placeholder="搜索商家"

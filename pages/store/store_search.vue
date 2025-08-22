@@ -5,7 +5,7 @@
 			<!-- 地址选择器和标题 -->
 			<view class="header-content">
 				<view class="location-selector">
-					<image class="location-icon" src="https://img.icons8.com/material-rounded/96/ffffff/marker.png"></image>
+					<image class="location-icon" src="https://static.maxcang.com/appstatic/common/location_icon.png"></image>
 					<CityPicker @changeCity="bindCityChange"></CityPicker>
 				</view>
 				<view class="title-container">
@@ -17,7 +17,7 @@
 			<!-- 搜索框区域 -->
 			<view class="search-section">
 				<view class="search-input-wrapper">
-					<image src="https://img.icons8.com/ios/50/search.png" class="search-icon"></image>
+					<image src="https://static.maxcang.com/appstatic/common/search.png" class="search-icon"></image>
 					<input 
 						class="search-input" 
 						placeholder="搜索商家" 

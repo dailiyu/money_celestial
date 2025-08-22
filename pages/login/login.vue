@@ -38,14 +38,22 @@
 import { ref } from 'vue';
 import { useUserStore } from '../../store/user';
 import { postProfileLogin, getUerAccountMessage, getSessionKey, wxLogin } from '@/service/uer_profile.js';
-import { onShow } from '@dcloudio/uni-app'; 
+import { onShow, onLoad } from '@dcloudio/uni-app'; 
 
 const userStore=   useUserStore()
 const moblie = ref('')
 const password = ref('')
 const errorTimes=ref(0)
-const version = ref('');
+const version = ref('')
+const returnUrl = ref('')  // 用于存储返回页面的URL
 
+
+// 页面加载时获取返回URL参数
+onLoad((option) => {
+	if (option.returnUrl) {
+		returnUrl.value = decodeURIComponent(option.returnUrl);
+	}
+})
 
 /*  */
 onShow(()=>{
@@ -93,6 +101,12 @@ const toRegister = ()=>{
 		 })
 		 errorTimes.value=0
 		 setTimeout(()=>{
+			// 如果有返回URL，说明是从其他页面跳转过来的，登录成功后直接返回
+			if (returnUrl.value) {
+				uni.navigateBack();
+				return;
+			}
+			
 			let currentPage = getCurrentPages();
 			currentPage = currentPage[0];
 			if(currentPage.route == 'pages/myAccount/myAccount'){
@@ -166,6 +180,12 @@ const getPhoneNumber = (e)=>{
 			currentPage = currentPage[0];
 			
 			setTimeout(()=>{
+				// 如果有返回URL，说明是从其他页面跳转过来的，登录成功后直接返回
+				if (returnUrl.value) {
+					uni.navigateBack();
+					return;
+				}
+				
 				if(currentPage.route == 'pages/myAccount/myAccount'){
 					uni.navigateBack()	
 				}

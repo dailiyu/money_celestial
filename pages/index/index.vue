@@ -5,7 +5,7 @@
       <view class="location">
         <image
           class="location-icon"
-          src="https://img.icons8.com/material-rounded/96/ffffff/marker.png"
+          src="https://static.maxcang.com/appstatic/common/location_icon.png"
         ></image>
 		
         <CityPicker v-if="isPageOnload" @changeCity="bindCityChange"></CityPicker>
@@ -15,6 +15,8 @@
       <!-- 用于flex布局平衡 -->
     </view>
     <view class="point_box">
+      <!-- 绿色占位盒子 -->
+      <!-- <view class="green-placeholder"></view> -->
       <div class="bottom_box">
         <image
           @click="toRequestPointsInput"
@@ -264,6 +266,18 @@ const toHamsterGroup = ()=>{
     position: relative;
     padding-top: 300rpx; /* 为bottom_box预留空间 */
     box-sizing: border-box; /* 确保padding不会增加元素总高度 */
+
+    /* 绿色占位盒子样式 */
+    .green-placeholder {
+      width: 300rpx;
+      height: 70rpx;
+      background-color: green;
+      position: absolute;
+      top: 70rpx;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
 
     .bottom_box {
       width: 100%;
