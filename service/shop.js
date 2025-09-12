@@ -47,7 +47,7 @@ export const getShopImages=(data)=>{
 }
 
 
-//获取城市商家列表和搜索店铺q关键词
+//获取城市商家列表和搜索店铺q关键词 name城市名
 export const getCityShopList=(data)=>{
 	return http.get('/divisions/city_shops', data)
 }

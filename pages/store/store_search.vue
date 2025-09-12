@@ -14,7 +14,7 @@
 				<view class="placeholder"></view>
 			</view>
 			
-			<!-- 搜索框区域 -->
+			<!-- 搜索框区域 -->  
 			<view class="search-section">
 				<view class="search-input-wrapper">
 					<image src="https://static.maxcang.com/appstatic/common/search.png" class="search-icon"></image>
@@ -90,7 +90,7 @@
 						<view class="store-info">
 							<view class="store-header">
 								<text class="store-name">{{ store.name }}</text>
-															<view class="store-badge" v-if="store.pay_cert_material_state === 2">
+															<view class="store-badge" v-if="store.pay_cert_material_state === 1">
 								<image class="certified-icon" src="https://static.maxcang.com/appstatic/discovery/certified_badge.png" mode="aspectFit"></image>
 							</view>
 							</view>
