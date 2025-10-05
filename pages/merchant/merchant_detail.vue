@@ -74,8 +74,8 @@
                 </view>
 			</view>
 
-			<!-- 付款功能 -->
-			<view class="payment-section" @click="handlePayment">
+			<!-- 付款功能 - 只有扫码进入才显示 -->
+			<view v-if="isFromScan" class="payment-section" @click="handlePayment">
 				<image class="payment-icon" src="https://static.maxcang.com/appstatic/merchant/payment_icon.png"></image>
 				<text class="payment-text">付款</text>
 				<image class="arrow-right" src="https://static.maxcang.com/appstatic/merchant/gray_arrow_right.png"></image>
@@ -135,6 +135,7 @@ const phone = ref('')
 const token = uni.getStorageSync('accessToken')
 const shopInfo = ref({})
 const swiperList = ref([])
+const isFromScan = ref(false)  // 是否从扫码进入
 
 // 显示的商品列表（最多显示6个）
 const displayProducts = computed(() => {
@@ -162,10 +163,23 @@ const getProductImage = (product) => {
 
 onLoad(async(option) => {
 	phone.value = option.phone
+	
+	// 检测是否从微信扫码进入
+	const launchOptions = uni.getLaunchOptionsSync();
+	console.log('启动场景信息:', launchOptions);
+	
+	if (launchOptions.scene === 1011 ||launchOptions.scene === 1047 || launchOptions.scene === 1048 || launchOptions.scene === 1049) {
+		isFromScan.value = true;
+		console.log('从微信扫码进入商家详情页，场景值:', launchOptions.scene);
+	} else {
+		console.log('非扫码进入，场景值:', launchOptions.scene);
+	}
+	
 	const res = await getMerchantDetail(phone.value)
 	shopInfo.value = res;
 	console.log('商家详情数据:', res);
 	console.log('商品列表:', res.products);
+	console.log('是否从扫码进入:', isFromScan.value);
 	
 	// 展示image_type为'banner'和'other'的图片
 	const bannerImages = (shopInfo.value.images || []).filter(image => image.image_type === 'banner' || image.image_type === 'other').map(image => image.image_url);

@@ -7,7 +7,6 @@
           class="location-icon"
           src="https://static.maxcang.com/appstatic/common/location_icon.png"
         ></image>
-		
         <CityPicker v-if="isPageOnload" @changeCity="bindCityChange"></CityPicker>
       </view>
       <image class="app-title" src="https://static.maxcang.com/appstatic/common/title_logo.png" mode="aspectFit"></image>
