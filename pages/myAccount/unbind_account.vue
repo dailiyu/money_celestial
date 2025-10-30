@@ -53,13 +53,13 @@ const validPassword = ()=>{
 	
 	passwordPop.value.open()
 }
-const confirm = async ()=>{
+const confirm = async (password)=>{
 	
 	try{
 		uni.showLoading({
 			title: '解绑中'
 		})
-		await unbindPointAccount({confirm:true})
+		await unbindPointAccount({confirm:true, password: password})
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',
@@ -74,21 +74,9 @@ const confirm = async ()=>{
 		uni.hideLoading()
 		console.log('解绑错误:', e)
 		
-		// 提取错误信息
-		let errorMessage = '解绑失败'
-		if (e.data && e.data.error) {
-			errorMessage = e.data.error
-		} else if (e.error) {
-			errorMessage = e.error
-		} else if (e.message) {
-			errorMessage = e.message
-		} else if (typeof e === 'string') {
-			errorMessage = e
-		}
-		
 		uni.showToast({
 			icon: 'none',
-			title: errorMessage,
+			title: e.data?.error || e.error || '解绑失败',
 			duration: 3000
 		})
 	}

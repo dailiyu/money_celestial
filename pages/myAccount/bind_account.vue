@@ -60,13 +60,13 @@ const validPassword = ()=>{
 	
 	passwordPop.value.open()
 }
-const confirm = async ()=>{
+const confirm = async (password)=>{
 	
 	try{
 		uni.showLoading({
 			title: '绑定中'
 		})
-		await bindPointAccount({points_account: number.value})
+		await bindPointAccount({points_account: number.value, password: password})
 		address.value = number.value
 		uni.hideLoading()
 		uni.showToast({
@@ -78,17 +78,9 @@ const confirm = async ()=>{
 		uni.hideLoading()
 		console.log('绑定错误:', e)
 		
-		// 直接显示接口返回的数据
-		let errorMessage = ''
-		if (e.data) {
-			errorMessage = JSON.stringify(e.data)
-		} else {
-			errorMessage = JSON.stringify(e)
-		}
-		
 		uni.showToast({
 			icon: 'none',
-			title: errorMessage,
+			title: e.data?.error || e.error || '绑定失败',
 			duration: 3000
 		})
 	}

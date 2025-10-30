@@ -163,11 +163,13 @@ const getProductImage = (product) => {
 
 onLoad(async(option) => {
 	phone.value = option.phone
-	
+
 	// 检测是否从微信扫码进入
 	const launchOptions = uni.getLaunchOptionsSync();
 	console.log('启动场景信息:', launchOptions);
-	
+	if(option.isFromScan){
+		isFromScan.value = true;
+	}
 	if (launchOptions.scene === 1011 ||launchOptions.scene === 1047 || launchOptions.scene === 1048 || launchOptions.scene === 1049) {
 		isFromScan.value = true;
 		console.log('从微信扫码进入商家详情页，场景值:', launchOptions.scene);
@@ -329,7 +331,7 @@ import { onShareAppMessage } from '@dcloudio/uni-app'
 onShareAppMessage(() => {
 	return {
 		title: shopInfo.value.name,
-		path: '/pages/merchant/merchant_detail',
+		path: `/pages/merchant/merchant_detail?phone=${phone.value}`,
 	}
 })
 // #endif

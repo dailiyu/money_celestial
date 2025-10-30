@@ -21,13 +21,31 @@
 			<view class="title">
 				密码：
 			</view>
-			<uni-easyinput v-model="password" placeholder="密码长度最低8位" :inputBorder="false" primaryColor="#1B46CC"
-				type="password" />
+			<uni-easyinput v-model="password" placeholder="请输入密码（支持数字和字母）" :inputBorder="false" primaryColor="#1B46CC"
+				type="password" @input="validatePassword" :trim="false" />
+			<view class="password-tips">
+				<view class="tip-item" :class="{ 'valid': passwordValidation.hasLength }">
+					<text class="icon">{{ passwordValidation.hasLength ? '✓' : '✕' }}</text>
+					<text>长度至少8位</text>
+				</view>
+				<view class="tip-item" :class="{ 'valid': passwordValidation.hasNumber }">
+					<text class="icon">{{ passwordValidation.hasNumber ? '✓' : '✕' }}</text>
+					<text>包含数字</text>
+				</view>
+				<view class="tip-item" :class="{ 'valid': passwordValidation.hasLowerCase }">
+					<text class="icon">{{ passwordValidation.hasLowerCase ? '✓' : '✕' }}</text>
+					<text>包含小写字母</text>
+				</view>
+				<view class="tip-item" :class="{ 'valid': passwordValidation.hasUpperCase }">
+					<text class="icon">{{ passwordValidation.hasUpperCase ? '✓' : '✕' }}</text>
+					<text>包含大写字母</text>
+				</view>
+			</view>
 			<view class="title">
 				确认密码：
 			</view>
 			<uni-easyinput v-model="ensure_password" placeholder="再次输入密码" :inputBorder="false" primaryColor="#1B46CC"
-				type="password" />
+				type="password" :trim="false" />
 
 			<view class="btn flex_center" @click="enSure">
 				确定
@@ -37,7 +55,7 @@
 </template>m
 
 <script setup>
-	import { ref } from 'vue';
+	import { ref, reactive, onUnmounted } from 'vue';
 import { useUserStore } from '../../store/user';
 import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer_profile';
 	import { onShow } from '@dcloudio/uni-app'
@@ -47,8 +65,33 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
 	const ensure_password=ref()
 	const verifyCode=ref('')
 	let countdown = ref(120); // 初始倒计时秒数
-	let countdownInterval; // 定时器
+	let countdownInterval = null; // 定时器
 	let isCounting = ref(false); // 控制倒计时开关
+	
+	// 密码验证状态
+	const passwordValidation = reactive({
+		hasLength: false,      // 长度至少8位
+		hasNumber: false,      // 包含数字
+		hasLowerCase: false,   // 包含小写字母
+		hasUpperCase: false    // 包含大写字母
+	})
+	
+	// 验证密码
+	const validatePassword = () => {
+		const pwd = password.value || ''
+		passwordValidation.hasLength = pwd.length >= 8
+		passwordValidation.hasNumber = /\d/.test(pwd)
+		passwordValidation.hasLowerCase = /[a-z]/.test(pwd)
+		passwordValidation.hasUpperCase = /[A-Z]/.test(pwd)
+	}
+	
+	// 检查密码是否符合所有要求
+	const isPasswordValid = () => {
+		return passwordValidation.hasLength && 
+		       passwordValidation.hasNumber && 
+		       passwordValidation.hasLowerCase && 
+		       passwordValidation.hasUpperCase
+	}
 	const enSure=async()=>{
 		if(!password.value||!ensure_password.value||!verifyCode.value||!phoneNumber.value){
 			return uni.showToast({
@@ -62,18 +105,18 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
 				title:'请输入11位合法的手机号'
 			})
 		}
+		if (!isPasswordValid()) {
+			return uni.showToast({
+				icon: 'none',
+				title: '密码必须包含数字、大小写字母且长度至少8位'
+			})
+		}
 		if(password.value!==ensure_password.value){
 			return uni.showToast({
 			icon:'none',
 			title:'两次输入密码不一致'
 		  })
 		}
-			if(password.value.length<8){
-					return uni.showToast({
-					icon:'none',
-					title:'密码长度不低于8位'
-				  })
-				}
 		uni.showLoading({
 			title:'正在修改中'
 		})
@@ -107,6 +150,13 @@ import { changeUserInfo, sendVerifyCode,changePassword } from '../../service/uer
    
    })
 	
+	// 清理定时器
+	onUnmounted(() => {
+		if (countdownInterval) {
+			clearInterval(countdownInterval);
+		}
+	})
+	
 	const toSendVerifyCode=async()=>{
 		if(phoneNumber.value.length!==11){
 			return uni.showToast({
@@ -130,6 +180,7 @@ const  startCountdown=()=> {
     
             if (countdown.value <= 0) {
                 clearInterval(countdownInterval);
+                countdownInterval = null;
                 isCounting.value = false;
                 // console.log("倒计时结束");
             }
@@ -184,5 +235,39 @@ const  startCountdown=()=> {
 		color: #fff;
 		margin-top: 172rpx;
 		font-size: 30rpx;
+	}
+	
+	/* 密码验证提示样式 */
+	.password-tips {
+		margin-top: 20rpx;
+		padding: 20rpx;
+		background-color: #f8f8f8;
+		border-radius: 12rpx;
+	}
+
+	.tip-item {
+		display: flex;
+		align-items: center;
+		font-size: 22rpx;
+		color: #999;
+		margin-bottom: 10rpx;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+		
+		.icon {
+			margin-right: 10rpx;
+			font-weight: bold;
+			font-size: 24rpx;
+		}
+		
+		&.valid {
+			color: #52C41A;
+			
+			.icon {
+				color: #52C41A;
+			}
+		}
 	}
 </style>

@@ -141,7 +141,7 @@ const toRequestPointsInput = () => {
     success: function (res) {
       console.log("扫描成功：", res);
       uni.navigateTo({
-        url: "/" + res.path,
+        url: "/" + res.path+"&isFromScan=1",
       });
     },
     fail: function (err) {

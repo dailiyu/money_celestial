@@ -146,7 +146,7 @@ const validPassword = ()=>{
 	
 	passwordPop.value.open()
 }
-const confirm = async(e)=>{
+const confirm = async(password)=>{
 	
 	try{
 		uni.showLoading({
@@ -155,7 +155,7 @@ const confirm = async(e)=>{
 			
 		})
 		// console.log(777)
-		await giftPoint({phone_number:address.value, transaction_amount: ((number.value/rateCny.value)*100).toFixed(4)})
+		await giftPoint({phone_number:address.value, transaction_amount: ((number.value/rateCny.value)*100).toFixed(4), password: password})
 		uni.hideLoading()
 		uni.showToast({
 			icon: 'none',
@@ -167,10 +167,11 @@ const confirm = async(e)=>{
 		}
 		getAllData()
 	}catch(e){
-		console.log(e)
+		uni.hideLoading()
+		console.log('赠送失败:', e)
 		uni.showToast({
 			icon: 'none',
-			title: '赠送失败'
+			title: e.data?.error || e.error || '赠送失败'
 		})
 	}
 }

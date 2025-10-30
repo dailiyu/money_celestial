@@ -19,13 +19,31 @@
 			<view class="title">
 				密码：
 			</view>
-			<uni-easyinput v-model="password" placeholder="密码长度最低8位" :inputBorder="false" primaryColor="#1B46CC"
-				type="password" />
+			<uni-easyinput v-model="password" placeholder="请输入密码（支持数字和字母）" :inputBorder="false" primaryColor="#1B46CC"
+				type="password" @input="validatePassword" :trim="false" />
+			<view class="password-tips">
+				<view class="tip-item" :class="{ 'valid': passwordValidation.hasLength }">
+					<text class="icon">{{ passwordValidation.hasLength ? '✓' : '✕' }}</text>
+					<text>长度至少8位</text>
+				</view>
+				<view class="tip-item" :class="{ 'valid': passwordValidation.hasNumber }">
+					<text class="icon">{{ passwordValidation.hasNumber ? '✓' : '✕' }}</text>
+					<text>包含数字</text>
+				</view>
+				<view class="tip-item" :class="{ 'valid': passwordValidation.hasLowerCase }">
+					<text class="icon">{{ passwordValidation.hasLowerCase ? '✓' : '✕' }}</text>
+					<text>包含小写字母</text>
+				</view>
+				<view class="tip-item" :class="{ 'valid': passwordValidation.hasUpperCase }">
+					<text class="icon">{{ passwordValidation.hasUpperCase ? '✓' : '✕' }}</text>
+					<text>包含大写字母</text>
+				</view>
+			</view>
 			<view class="title">
 				确认密码：
 			</view>
 			<uni-easyinput v-model="password2" placeholder="再次输入密码" :inputBorder="false" primaryColor="#1B46CC"
-				type="password" />
+				type="password" :trim="false" />
 			<view class="btn flex_center" @click="toRegister">
 				立即注册
 			</view>
@@ -37,7 +55,7 @@
 	import { useUserStore } from '@/store/user';
 	 const userStore=   useUserStore()
 	import {
-		ref
+		ref, reactive, onUnmounted
 	} from 'vue';
 import { postRegister, sendVerifyCode,postProfileLogin } from '@/service/uer_profile';
 import { onShow } from '@dcloudio/uni-app'; 
@@ -47,6 +65,31 @@ import { onShow } from '@dcloudio/uni-app';
 	const password = ref('')
 	const password2 = ref('')
 	const version = ref('');
+	
+	// 密码验证状态
+	const passwordValidation = reactive({
+		hasLength: false,      // 长度至少8位
+		hasNumber: false,      // 包含数字
+		hasLowerCase: false,   // 包含小写字母
+		hasUpperCase: false    // 包含大写字母
+	})
+	
+	// 验证密码
+	const validatePassword = () => {
+		const pwd = password.value || ''
+		passwordValidation.hasLength = pwd.length >= 8
+		passwordValidation.hasNumber = /\d/.test(pwd)
+		passwordValidation.hasLowerCase = /[a-z]/.test(pwd)
+		passwordValidation.hasUpperCase = /[A-Z]/.test(pwd)
+	}
+	
+	// 检查密码是否符合所有要求
+	const isPasswordValid = () => {
+		return passwordValidation.hasLength && 
+		       passwordValidation.hasNumber && 
+		       passwordValidation.hasLowerCase && 
+		       passwordValidation.hasUpperCase
+	}
 	
 onShow(()=>{
 	version.value = uni.getSystemInfoSync().appVersionCode
@@ -60,9 +103,9 @@ const toRegister = async() => {
 		title: '请输入11位正确手机号'
 	})
 
-	if (password.value.length < 8 || password2.value.length < 8) return uni.showToast({
+	if (!isPasswordValid()) return uni.showToast({
 		icon:'none',
-		title: '密码长度最低8位'
+		title: '密码必须包含数字、大小写字母且长度至少8位'
 	})
   if(password.value == password2.value){
 	  uni.showLoading({
@@ -121,7 +164,14 @@ const toRegister = async() => {
 	
 let isCounting = ref(false);
 let countdown = ref(120);
-let countdownInterval
+let countdownInterval = null
+
+// 清理定时器
+onUnmounted(() => {
+	if (countdownInterval) {
+		clearInterval(countdownInterval);
+	}
+})
 const  startCountdown=()=> {
     if (!isCounting.value) {
         isCounting.value = true;
@@ -132,6 +182,7 @@ const  startCountdown=()=> {
     
             if (countdown.value <= 0) {
                 clearInterval(countdownInterval);
+                countdownInterval = null;
                 isCounting.value = false;
                 // console.log("倒计时结束");
             }
@@ -193,5 +244,39 @@ const toSendVerifyCode=async()=>{
 		color: #fff;
 		margin-top: 172rpx;
 		font-size: 30rpx;
+	}
+	
+	/* 密码验证提示样式 */
+	.password-tips {
+		margin-top: 20rpx;
+		padding: 20rpx;
+		background-color: #f8f8f8;
+		border-radius: 12rpx;
+	}
+
+	.tip-item {
+		display: flex;
+		align-items: center;
+		font-size: 22rpx;
+		color: #999;
+		margin-bottom: 10rpx;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+		
+		.icon {
+			margin-right: 10rpx;
+			font-weight: bold;
+			font-size: 24rpx;
+		}
+		
+		&.valid {
+			color: #52C41A;
+			
+			.icon {
+				color: #52C41A;
+			}
+		}
 	}
 </style>

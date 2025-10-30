@@ -34,7 +34,7 @@
             v-model="number"
             type="number"
             class="uni-input"
-            placeholder="请输入提取数量"
+            placeholder="请输入提取数量（≥1000，100的倍数）"
             placeholder-class="placeholder_class"
             @input="onNumberInput"
           />
@@ -48,7 +48,7 @@
         <view class="info_item flex">
           <view class="s_text"> 预计扣除 </view>
           <view class="s_num" style="color: #999999; flex: 1">
-            {{ number ? (Number(number) / 0.97).toFixed(4) : "" }}
+            {{ number ? (Number(number)*1.03).toFixed(4) : "" }}
           </view>
           <view class="fee_rate"> 提现费率 3% </view>
         </view>
@@ -68,6 +68,7 @@
     <validatePasswordPop
       @confirm="confirm"
       ref="passwordPop"
+      :needVerifyCode="true"
     ></validatePasswordPop>
     <scanStepPop ref="stepPop"></scanStepPop>
   </view>
@@ -123,6 +124,11 @@ const validPassword = () => {
       icon: "none",
       title: "提取数量必须是100的倍数",
     });
+  if (Number(number.value) < 1000)
+    return uni.showToast({
+      icon: "none",
+      title: "提取数量必须大于等于1000",
+    });
   if (Number(number.value) > pointBalance.value)
     return uni.showToast({
       icon: "none",
@@ -132,15 +138,7 @@ const validPassword = () => {
 
   passwordPop.value.open();
 };
-const confirm = async (password) => {
-  if (!password) {
-    uni.showToast({
-      icon: "none",
-      title: "请输入支付密码",
-    });
-    return;
-  }
-
+const confirm = async (password, verifyCode) => {
   try {
     uni.showLoading({
       title: "提取中",
@@ -148,9 +146,10 @@ const confirm = async (password) => {
     });
 
     const response = await withdrawGreenPoint({
-      amount: Number(number.value)/0.97,
+      amount: Number(number.value)/1.03,
 	  origin_amount: Number(number.value),
-      pay_password: password,
+      password: password,
+      verify_code: verifyCode,
       points_account: account.value,
     });
 
@@ -198,7 +197,7 @@ const confirm = async (password) => {
     console.error("提取失败:", e);
     uni.showToast({
       icon: "none",
-      title: e.data?.error || e.message || "提取失败，请重试",
+      title: e.data?.error || e.error || "提取失败",
       duration: 2000,
     });
   }

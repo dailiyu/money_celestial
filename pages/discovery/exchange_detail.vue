@@ -338,11 +338,11 @@ const onPasswordConfirm = async (password) => {
   hideExchangeModal();
   // 清空密码输入框
   passwordPopRef.value.clearCode();
-  await handleExchangeRequest();
+  await handleExchangeRequest(password);
 };
 
 // 处理兑换请求
-const handleExchangeRequest = async () => {
+const handleExchangeRequest = async (password) => {
   try {
     uni.showLoading({
       title: '兑换中...',
@@ -351,7 +351,8 @@ const handleExchangeRequest = async () => {
     
     const requestData = {
       product_id: Number(productDetail.value.id),
-      product_count: exchangeQuantity.value
+      product_count: exchangeQuantity.value,
+      password: password
     };
     
     const response = await redeemProduct(requestData);
@@ -379,16 +380,8 @@ const handleExchangeRequest = async () => {
     uni.hideLoading();
     console.error('兑换失败:', error);
     
-    // 处理不同的错误类型
-    let errorMessage = '兑换失败';
-    if (error.data && error.data.error) {
-      errorMessage = error.data.error;
-    } else if (error.message) {
-      errorMessage = error.message;
-    }
-    
     uni.showToast({
-      title: errorMessage,
+      title: error.data?.error || error.error || '兑换失败',
       icon: 'none',
       duration: 3000
     });

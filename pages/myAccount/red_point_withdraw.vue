@@ -18,11 +18,11 @@
 					<view class="s_title">
 						提取数量
 					</view>
-					<input v-model="number" type="number" class="uni-input" placeholder="请输入提取数量" placeholder-class="placeholder_class" />
+					<input v-model="number" type="number" class="uni-input" placeholder="请输入提取数量（≥10，整数）" placeholder-class="placeholder_class" />
 				</view>
 				<view class="info_item flex">
 					<view class="s_text">
-						积分余额
+						能量余额
 					</view>
 					<view class="s_num">
 						{{pointBalance||0}}
@@ -33,7 +33,7 @@
 						预计扣除
 					</view>
 					<view class="s_num" style="color: #999999; flex: 1;">
-						{{number?(Number(number) /0.97).toFixed(4):''}}
+						{{number?(Number(number) *1.03).toFixed(4):''}}
 					</view>
 					<view class="fee_rate">
 						提现费率 3%
@@ -49,7 +49,7 @@
 				提取
 			</view>
 		</view>
-		<validatePasswordPop @confirm="confirm" ref="passwordPop"></validatePasswordPop>
+		<validatePasswordPop @confirm="confirm" ref="passwordPop" :needVerifyCode="true"></validatePasswordPop>
 		<scanStepPop ref="stepPop"></scanStepPop>
 	</view>
 </template>
@@ -96,22 +96,32 @@ const validPassword = ()=>{
 		icon: 'none',
 		title: '请输入提取数量'
 	})
+	if (!Number.isInteger(Number(number.value))) return uni.showToast({
+		icon: 'none',
+		title: '提取数量必须为整数'
+	})
+	if (Number(number.value) < 10) return uni.showToast({
+		icon: 'none',
+		title: '提取数量必须大于等于10'
+	})
 	if (Number(number.value) > pointBalance.value) return uni.showToast({
 		icon: 'none',
-		title: '提取数量不可大于积分余额'
+		title: '提取数量不可大于能量余额'
 	})
 	
 	passwordPop.value.open()
 }
-const confirm = async()=>{
+const confirm = async(password, verifyCode)=>{
 	
 	const params = ref({
 		point_account: account.value,
-		amount: Number(number.value)/0.97,
+		amount: Number(number.value)*1.03,
 		origin_amount: Number(number.value),
 		transaction_type: 'decrease',
 		transaction_method: 'red_points',
-		address: account.value
+		address: account.value,
+		password: password,
+		verify_code: verifyCode
 	})
 	try{
 		uni.showLoading({
@@ -132,9 +142,10 @@ const confirm = async()=>{
 		getPointInfo()
 	}catch(e){
 		uni.hideLoading()
+		console.log('提取失败:', e)
 		uni.showToast({
 			icon: 'none',
-			title: e.data?.error || '提取失败，请重试'
+			title: e.data?.error || e.error || '提取失败'
 		})
 	}
 }
