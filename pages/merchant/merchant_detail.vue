@@ -128,7 +128,7 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
 import { favoriteShopsAdd, favoriteShopsDelete, browserShopAdd } from '@/service/uer_profile.js'
-import { onLoad } from '@dcloudio/uni-app'
+import { onLoad ,onShow} from '@dcloudio/uni-app'
 import { getMerchantDetail } from '@/service/merchant.js'
 
 const phone = ref('')
@@ -163,14 +163,13 @@ const getProductImage = (product) => {
 
 onLoad(async(option) => {
 	phone.value = option.phone
-
 	// 检测是否从微信扫码进入
 	const launchOptions = uni.getLaunchOptionsSync();
 	console.log('启动场景信息:', launchOptions);
 	if(option.isFromScan){
 		isFromScan.value = true;
 	}
-	if (launchOptions.scene === 1011 ||launchOptions.scene === 1047 || launchOptions.scene === 1048 || launchOptions.scene === 1049) {
+	if (launchOptions.scene === 1011 ||launchOptions.scene === 1012 ||launchOptions.scene === 1013 ||launchOptions.scene === 1047 || launchOptions.scene === 1048 || launchOptions.scene === 1049) {
 		isFromScan.value = true;
 		console.log('从微信扫码进入商家详情页，场景值:', launchOptions.scene);
 	} else {
@@ -192,6 +191,10 @@ onLoad(async(option) => {
 		browserShopAdd({shop: shopInfo.value.merchant})
 	}
 })
+
+
+
+
 
 // 拨打电话
 const dial = () => {
